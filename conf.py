@@ -2,11 +2,11 @@
 # This is your configuration file.  Please write valid python!
 # See http://posativ.org/acrylamid/conf.py.html
 
-SITENAME = 'A descriptive blog title'
-WWW_ROOT = 'http://example.com/'
+SITENAME = 'blah, blah, blah'
+WWW_ROOT = 'http://www.georgevreilly.com/blog/'
 
-AUTHOR = 'Anonymous'
-EMAIL = 'mail@example.com'
+AUTHOR = 'George V. Reilly'
+EMAIL = 'george@reilly.org'
 
 FILTERS = ['reST', 'hyphenate', 'h1']
 VIEWS = {
@@ -52,3 +52,4 @@ VIEWS = {
 THEME = 'theme'
 ENGINE = 'acrylamid.templates.jinja2.Environment'
 DATE_FORMAT = '%Y-%m-%d %H:%M'
+METASTYLE = 'native'
