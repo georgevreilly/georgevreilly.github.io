@@ -136,6 +136,7 @@ def dump_links(permalink_titles, filename_links):
 
 title_re = re.compile(ur"^.. title:: (?P<title>.*)$")
 vim_re = re.compile(ur"^.. vim:set.*")
+emacs_re = re.compile(ur"^.. -\*- .* -\*-")
 
 
 def migrate_files(args, filename_links):
@@ -153,15 +154,16 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
     target_file = os.path.join(subdirs, os.path.splitext(os.path.split(fname)[1])[0])
     print u"'{0}' -> '{1}.rst' ({2})".format(source_file, target_file, permalink)
 
-    data, title, i = [], None, 0
+    data, title = [], None
     with codecs.open(source_file, "r", encoding="utf8") as fp:
         while True:
-            line = fp.readline(); i += 1
-            if not line: break
+            line = fp.readline()
+            if not line:
+                break
             m = title_re.match(line)
             if m:
                 title = m.group('title').strip()
-            elif vim_re.match(line):
+            elif vim_re.match(line) or emacs_re.match(line):
                 continue
             else:
                 data.append(line)
