@@ -54,3 +54,9 @@ ENGINE = 'acrylamid.templates.jinja2.Environment'
 DATE_FORMAT = '%Y-%m-%d %H:%M'
 METASTYLE = 'native'
 STATIC = ["media"]
+
+GH_PAGES_BRANCH = "master" # User & Organization Pages use 'master', not 'gh-pages'
+
+DEPLOYMENT = {
+    "default": "ghp-import -b {branch} output && git push origin {branch}".format(branch=GH_PAGES_BRANCH)
+}
