@@ -2,8 +2,8 @@
 # This is your configuration file.  Please write valid python!
 # See http://posativ.org/acrylamid/conf.py.html
 
-SITENAME = 'blah, blah, blah'
-WWW_ROOT = 'http://www.georgevreilly.com/blog/'
+SITENAME = 'George V. Reilly'
+WWW_ROOT = 'http://www.georgevreilly.com/'
 
 AUTHOR = 'George V. Reilly'
 EMAIL = 'george@reilly.org'
@@ -53,3 +53,4 @@ THEME = 'theme'
 ENGINE = 'acrylamid.templates.jinja2.Environment'
 DATE_FORMAT = '%Y-%m-%d %H:%M'
 METASTYLE = 'native'
+STATIC = ["media"]

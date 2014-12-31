@@ -18,14 +18,15 @@ def parse_args():
     parser = argparse.ArgumentParser(
         description="Migrate George's blog from DasBlog reStructuredText to Acrylamid")
     parser.set_defaults(
-        blog_dir="~/stuff/Writing/blog/gvr",
+        dasblog_dir="~/stuff/Writing/blog/gvr",
         dry_run=False,
         limit=None,
-        content_dir=os.path.abspath(os.path.join(os.path.dirname(__file__), "content")),
+        base_dir=os.path.abspath(os.path.join(os.path.dirname(__file__), "content")),
+        blog_dir="blog",
         )
 
     parser.add_argument(
-        'blog_dir', nargs="?",
+        'dasblog_dir', nargs="?",
         help="Where the old DasBlog content lives\n(Default: '%(default)s'")
     parser.add_argument(
         '--dry-run', '-n',
@@ -37,7 +38,7 @@ def parse_args():
         help="Process this many entries (default: all).")
 
     args = parser.parse_args()
-    args.blog_dir = os.path.abspath(os.path.expanduser(args.blog_dir))
+    args.dasblog_dir = os.path.abspath(os.path.expanduser(args.dasblog_dir))
     return args
 
 
@@ -136,10 +137,17 @@ title_re = re.compile(r"^.. title:: (?P<title>.*)$")
 vim_re = re.compile(r"^.. vim:set.*")
 
 
-def migrate_file(source_dir, target_dir, fname, permalink):
+def migrate_files(args, filename_links):
+    for permalink, fname in filename_links.iteritems():
+        migrate_file(args.dasblog_dir, args.base_dir, args.blog_dir, fname, permalink)
+
+
+def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
     source_file = os.path.join(source_dir, fname)
     date_parts = permalink.split('/')[1:4]
-    if len(date_parts) < 3: return
+    if len(date_parts) < 3:
+        print "Need to fix", fname
+        return
     subdirs = os.path.join(target_dir, *date_parts)
     target_file = os.path.join(subdirs, os.path.splitext(os.path.split(fname)[1])[0])
     print source_file, "->", target_file + '.rst'
@@ -162,14 +170,15 @@ def migrate_file(source_dir, target_dir, fname, permalink):
         '#' * len(title),
         '',
         ":date: {0}-{1}-{2}".format(*date_parts),
-        ":permalink: /blog/{0}.html".format(target_file),
+        ":permalink: /{0}.html".format(target_file),
         ''
     ])
     epilog = ''
 
-    if not os.path.exists(subdirs):
-        os.makedirs(subdirs)
-    target_file = os.path.join(target_dir, target_file + '.rst')
+    subdir_path = os.path.join(base_dir, subdirs)
+    if not os.path.exists(subdir_path):
+        os.makedirs(subdir_path)
+    target_file = os.path.join(base_dir, target_file + '.rst')
     with codecs.open(target_file, "w", encoding="utf8") as fp:
         fp.write(prolog)
         for line in data:
@@ -178,18 +187,13 @@ def migrate_file(source_dir, target_dir, fname, permalink):
     shutil.copystat(source_file, target_file)
 
 
-def migrate_files(args, filename_links):
-    for permalink, fname in filename_links.iteritems():
-        migrate_file(args.blog_dir, args.content_dir, fname, permalink)
-
-
 if __name__ == '__main__':
     args = parse_args()
     with codecs.open(os.path.join(os.path.dirname(__file__), "permalinks.json"), "r", encoding="utf8") as fp:
         permalink_titles = json.load(fp)
 
     filename_links = {}
-    blog_files = walk_tree(args.blog_dir, includes=('*.txt', '*.rst'), excludes=('*.gif',))
+    blog_files = walk_tree(args.dasblog_dir, includes=('*.txt', '*.rst'), excludes=('*.gif',))
     filenames = list(blog_files)[:args.limit]
 
     for fname in filenames:
