@@ -52,6 +52,7 @@ def read_permalink(filename):
         if i >= 0:
             try:
                 link = data[i + len(PERMALINK):].strip().split()[0]
+                link = link.decode('utf8')
             except:
                 print filename
     return link
@@ -133,8 +134,8 @@ def dump_links(permalink_titles, filename_links):
         print f, filename_links[f]
 
 
-title_re = re.compile(r"^.. title:: (?P<title>.*)$")
-vim_re = re.compile(r"^.. vim:set.*")
+title_re = re.compile(ur"^.. title:: (?P<title>.*)$")
+vim_re = re.compile(ur"^.. vim:set.*")
 
 
 def migrate_files(args, filename_links):
@@ -150,7 +151,7 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
         return
     subdirs = os.path.join(target_dir, *date_parts)
     target_file = os.path.join(subdirs, os.path.splitext(os.path.split(fname)[1])[0])
-    print source_file, "->", target_file + '.rst'
+    print u"'{0}' -> '{1}.rst' ({2})".format(source_file, target_file, permalink)
 
     data, title, i = [], None, 0
     with codecs.open(source_file, "r", encoding="utf8") as fp:
@@ -165,20 +166,20 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
             else:
                 data.append(line)
 
-    prolog = '\n'.join([
+    prolog = u"\n".join([
         title,
-        '#' * len(title),
-        '',
-        ":date: {0}-{1}-{2}".format(*date_parts),
-        ":permalink: /{0}.html".format(target_file),
-        ''
+        u"#" * len(title),
+        u"",
+        u":date: {0}-{1}-{2}".format(*date_parts),
+        u":permalink: /blog{0}".format(permalink.replace(u".aspx", u".html")),
+        u""
     ])
-    epilog = ''
+    epilog = u""
 
     subdir_path = os.path.join(base_dir, subdirs)
     if not os.path.exists(subdir_path):
         os.makedirs(subdir_path)
-    target_file = os.path.join(base_dir, target_file + '.rst')
+    target_file = os.path.join(base_dir, target_file + u".rst")
     with codecs.open(target_file, "w", encoding="utf8") as fp:
         fp.write(prolog)
         for line in data:
