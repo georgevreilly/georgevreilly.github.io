@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Third-Party Cookies</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://cache.gawker.com/assets/images/l..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-10-16">16.10.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/10/16/ThirdPartyCookies.html" rel="bookmark canonical">Third-Party Cookies</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://lifehacker.com/5334984/web-sites-using-flash-instead-of-browser-cookies-to-track-your-activity"><img alt="C is for Cookie" class="right-float" src="http://cache.gawker.com/assets/images/lifehacker/2009/08/C_is_for_Cookie.jpg" style="width: 200px;"/></a>
+<p>Over the last few weeks,
+I built a PHP ap&shy;pli&shy;ca&shy;tion that <a class="reference external" href="http://approvereferendum71.org/create-a-profile-picture">overlays Approve 71 banners on profile pictures</a>.
+The actual ap&shy;pli&shy;ca&shy;tion is hosted in an iframe
+and lives on a server in a different domain, <tt class="docutils literal">eq.dm</tt>,
+than the main server at <tt class="docutils literal">ap&shy;proveref&shy;er&shy;en&shy;dum71.org</tt>.</p>
+<p>This works fine in most browsers.
+Then we started getting reports that it wasn't working in IE8 on Win7 RC1.
+The iframe content was blank.</p>
+<p>Poking around, I found the problem with the <a class="reference external" href="http://www.fiddler2.com/fiddler2/">Fiddler proxy</a>.
+The landing page on <tt class="docutils literal">eq.dm</tt> was supposed to stick some in&shy;for&shy;ma&shy;tion into the PHP session,
+then redirect to a second page at the same site.
+The second page was in an endless loop, redi&shy;rect&shy;ing to itself.
+In Fiddler, I saw a different PHPSESSID cookie on each response,
+and no cookie in the requests.</p>
+<p>After reading <a class="reference external" href="http://stackoverflow.com/questions/1003490/ie-8-only-has-access-to-session-cookies">IE 8 only has access to session cookies</a>,
+I told IE8 to Accept All Cookies and the iframe content appeared.
+That fixed it for me, but we could hardly ask people to lower their security sessions.</p>
+<p>I created a P3P file for the second domain, using the <a class="reference external" href="http://www.alphaworks.ibm.com/tech/p3peditor">IBM P3P Policy Editor</a>.
+(<a class="reference external" href="http://support.microsoft.com/default.aspx/kb/323752/EN-US/">KB 323752</a> has more background on P3P and third-party cookies.)</p>
+<p>IE now worked at its default security level.
+Problem solved!
+Or so I thought.</p>
+<p>A day later, we got reports of similar problems with Safari&nbsp;4 on Mac OS&nbsp;X.</p>
+<p>I sniffed the traffic with <a class="reference external" href="http://www.wireshark.org/">Wireshark</a>.
+Same problem: the “third-party“ cookie wasn't being accepted by Safari.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, <a class="reference external" href="http://stackoverflow.com/questions/408582/setting-cross-domain-cookies-in-safari">Setting cross-domain cookies in Safari</a>
+indicated that there was no reasonable workaround.</p>
+<p>We overcame the issue up playing some DNS games,
+which was only possible because we control both servers.
+The second server is now also acting as a subdomain of the first,
+at <tt class="docutils literal">dev.ap&shy;proveref&shy;er&shy;en&shy;dum71.org</tt>.
+We used <tt class="docutils literal"><span class="pre">ini_set(&quot;session.cook&shy;ie_&shy;do&shy;main&quot;,&quot;.ap&shy;proveref&shy;er&shy;en&shy;dum71.org&quot;)</span></tt>
+to scope the iframe cookies.
+I've tried it in a variety of Windows, Mac, and Linux browsers,
+and it works in all of them.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2009/10/15/GittingAlong.html" class="page floatright">
+        Gitting Along &raquo;
+        </a>
+    
+    
+        <a href="/blog/2009/10/16/ReviewMarchToTheStars.html" class="page floatleft">
+        &laquo; Review: March to the Stars
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

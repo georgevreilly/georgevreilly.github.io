@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>64-bit Windows 7</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://www.georgevreilly.com/blog/conte..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-07-11">11.07.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/07/11/64bitWindows7.html" rel="bookmark canonical">64-bit Windows 7</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.georgevreilly.com/blog/content/binary/win64-clr-jit-leak.png"><img alt="Humongous JIT memory leak" class="right-float" src="http://www.georgevreilly.com/blog/content/binary/win64-clr-jit-leak.png" style="width: 400px;"/></a>
+<p>I mentioned <a class="reference external" href="http://www.georgevreilly.com/blog/2009/06/20/WhenVideoCardsGoBad.aspx">three weeks ago</a> that I had just repaved my work dev box
+and installed the 64-bit version of the Windows&nbsp;7&nbsp;RC.
+Nine or ten years after I first ported parts of IIS to Win64,
+I am finally running my main desktop on 64-bit Windows.
+With one exception, it's been painless.
+Programs have just worked, devices have just worked.
+There are relatively few native x64 ap&shy;pli&shy;ca&shy;tions,
+but for the most part it doesn't matter.
+The cases where it does matter—e.g., shell extensions such as <a class="reference external" href="http://tortoisesvn.net/">Tor&shy;tois&shy;eSVN</a>—are available as 64-bit binaries.</p>
+<p>I briefly flirted with using the 64-bit build of Python,
+but realized that I would have to recompile several eggs as 64-bit binaries.
+That was too painful and the 32-bit binary did everything I needed.</p>
+<p>Building in Visual Studio 2005 is noticeably faster.
+I'm not sure how much of it was due to ac&shy;cu&shy;mu&shy;lat&shy;ed cruft after 18&nbsp;months on Vista,
+but builds there were very slow.</p>
+<p>The one exception was a major problem for the first week and a half.
+Whenever I ran our ASP.NET web ap&shy;pli&shy;ca&shy;tion,
+it would go berserk, eat up all 4GB of my physical RAM,
+push the working set of IIS's w3wp.exe to <em>12GB</em>,
+and max out one of my 4&nbsp;cores!
+The only way to maintain any sanity was to run <tt class="docutils literal">iisreset</tt>
+every 20&nbsp;minutes to gently kill the process.</p>
+<p><a class="reference external" href="http://www.microsoft.com/whdc/devtools/debugging/default.mspx">WinDbg</a> and <a class="reference external" href="http://technet.microsoft.com/en-us/sysinternals/bb896653.aspx">Process Explorer</a> showed that the rogue thread was stuck in a loop in
+<tt class="docutils literal">mscorjit!Life&shy;times&shy;ListIn&shy;te&shy;ri&shy;or&shy;Block&shy;sHelperIt&shy;er&shy;a&shy;tive&lt;GCIn&shy;fo&shy;Liv&shy;eRe&shy;cord&shy;Ma&shy;nip&shy;u&shy;la&shy;tor&gt;</tt>.
+I passed a minidump on to my former colleagues in IIS, who sent it to the CLR team.
+They said:</p>
+<blockquote>
+The only thing I can tell is that it is Regex,
+and some regex expression compiled down to a method with 456KB of IL.
+That is <em>huge</em>, and yes 12GB of RAM consumed for something like that is expected.</blockquote>
+<p>With that clue, I was able to track down the problem,
+a par&shy;tic&shy;u&shy;lar&shy;ly foul regex, built from a 10KB string, with 32&nbsp;al&shy;ter&shy;nat&shy;ing ex&shy;pres&shy;sions,
+each of which contains dozens of alternated subex&shy;pres&shy;sions.
+The string is built from many smaller strings,
+so it's not obvious in the source just how ugly it is.
+I commented out the <tt class="docutils literal">new Regex()</tt> and my problems went away.</p>
+<p>Regardless of how ugly the regex is, this is a major regression in the CLR.
+This code has been working without blatant problems for two years
+on the 32-bit flavors of XP, Server&nbsp;2003, Vista, and Server&nbsp;2008.
+I've been meaning to try this code on 32-bit Windows&nbsp;7,
+but have been too busy.</p>
+<p>(The original, long-gone author was apparently aware that the regex
+is expensive to create because he runs a background thread to <tt class="docutils literal">new</tt> the regex,
+which should have told him something.
+We'll fix the code that uses the regex to do something saner, soon.)</p>
+<p>All that aside, I've been happy with the 64-bit version of Windows&nbsp;7.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2009/07/10/SeattleHealthcareRally.html" class="page floatright">
+        Seattle Healthcare Rally &raquo;
+        </a>
+    
+    
+        <a href="/blog/2009/07/12/LynOnBillyStrayhorn.html" class="page floatleft">
+        &laquo; Lyn on Billy Strayhorn
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>De-partitioning a Mac disk</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://www.georgevreilly.com/blog/conte..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-04-12">12.04.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/04/12/DepartitioningAMacDisk.html" rel="bookmark canonical">De-partitioning a Mac disk</a>
+        </h1>
+    </header>
+    <img alt="Disk Utility after de-partitioning" class="right-float" src="http://www.georgevreilly.com/blog/content/binary/diskutil2.png"/>
+<p>I wrote yesterday about <a class="reference external" href="http://www.georgevreilly.com/blog/2009/04/11/NTFS3GTheUniversalFilesystem.aspx">NTFS-3G</a> because I was backing my MacBook
+to an external NTFS drive.
+I was backing up because I wanted to de-partition my Mac.</p>
+<p>When I <a class="reference external" href="http://www.georgevreilly.com/blog/2008/07/16/MacBookMakeover.aspx">upgraded my MacBook</a> to a bigger drive, more RAM, and OS&nbsp;X 10.5,
+I par&shy;ti&shy;tioned the drive.
+I created two 25GB partitions with the intention of
+putting Windows and Linux on them with BootCamp.
+It turns out that BootCamp doesn't like that.
+It wants the system drive to have only one partition,
+which it would shrink.
+I never bothered to go any further.</p>
+<p>The disk has been filling up recently and I wanted the extra space back,
+to extend my primary HFS+ partition by 50GB.
+I found a guide to <a class="reference external" href="http://www.macgeekery.com/tips/cli/nondestructively_resizing_volumes">non&shy;de&shy;struc&shy;tive&shy;ly resizing volumes</a>
+with the command-line <tt class="docutils literal">diskutil</tt> tool.</p>
+<p>With some trep&shy;i&shy;da&shy;tion, I set out to reclaim the end of my drive.
+Happily, it turned out to be both quick and painless.</p>
+<p>Here's the old disk layout:</p>
+<pre class="literal-block">
+georger&#64;georger-macbook:~$ diskutil list
+/dev/disk0
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *298.1 Gi   disk0
+   1:                        EFI                         200.0 Mi   disk0s1
+   2:                  Apple_HFS GeorgeR Mac             250.0 Gi   disk0s2
+   3:       Microsoft Basic Data WINDOWS                 25.0 Gi    disk0s3
+   4:       Microsoft Basic Data LINUX                   22.8 Gi    disk0s4
+</pre>
+<p>First, I merged the two FAT32 partitions into one HFS+ partition:</p>
+<pre class="literal-block">
+georger&#64;georger-macbook:~$ sudo diskutil mergePartitions \
+    &quot;Journaled HFS+&quot; End disk0s3 disk0s4
+The chosen disk does not support resizing, do you wish to format instead? (y/N) y
+Merging partitions into a new partition
+     Start partition: disk0s3 WINDOWS
+     Finish partition: disk0s4 LINUX
+Started erase after partitioning on disk disk0s3
+Erasing
+Mounting disk
+[ + 0%..10%..20%..30%..40%..50%..60%..70%..80%..90%..100% ]
+Finished erase after partitioning on disk disk0s3 End
+/dev/disk0
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *298.1 Gi   disk0
+   1:                        EFI                         200.0 Mi   disk0s1
+   2:                  Apple_HFS GeorgeR Mac             250.0 Gi   disk0s2
+   3:                  Apple_HFS End                     47.6 Gi    disk0s3
+</pre>
+<p>Then, I merged the two HFS+ partitions:</p>
+<pre class="literal-block">
+georger&#64;georger-macbook:~$ sudo diskutil mergePartitions \
+    &quot;Journaled HFS+&quot; End disk0s2 disk0s3
+Merging partitions into a new partition
+     Start partition: disk0s2 GeorgeR Mac
+     Finish partition: disk0s3 End
+Attempting resize
+Changing filesystem size on disk 'disk0s2'...
+Attempting to change filesystem size from 268435456000 to 319728959488 bytes
+/dev/disk0
+   #:                       TYPE NAME                    SIZE       IDENTIFIER
+   0:      GUID_partition_scheme                        *298.1 Gi   disk0
+   1:                        EFI                         200.0 Mi   disk0s1
+   2:                  Apple_HFS GeorgeR Mac             297.8 Gi   disk0s2
+</pre>
+<p>And everything is good:</p>
+<pre class="literal-block">
+georger&#64;georger-macbook:~$ df
+Filesystem    512-blocks      Used     Avail Capacity  Mounted on
+/dev/disk0s2   624470624 508168048 115790576    81%    /
+</pre>
+<p>Disclaimer: back your disk up and
+read the <tt class="docutils literal">diskutil</tt> man page very carefully before using:
+one misstep could ruin the contents of your disk.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2009/04/11/NTFS3GTheUniversalFilesystem.html" class="page floatright">
+        NTFS-3G: the universal filesystem &raquo;
+        </a>
+    
+    
+        <a href="/blog/2009/04/13/ReviewAnathem.html" class="page floatleft">
+        &laquo; Review: Anathem
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

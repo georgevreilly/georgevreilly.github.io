@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Contrasting Colors for Text and Background</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://www.georgevreilly.com/blog/conte..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-04-02">02.04.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/04/02/ContrastingColorsForTextAndBackground.html" rel="bookmark canonical">Contrasting Colors for Text and Background</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://colorschemedesigner.com/"><img alt="ColorSchemeDesigner.com" class="right-float" src="http://www.georgevreilly.com/blog/content/binary/ColorSchemeDesigner-Wheel.png"/></a>
+<p>About three weeks ago, I answered a question on Stack&shy;Over&shy;flow
+about generating the <a class="reference external" href="http://stackoverflow.com/questions/646068/find-most-readable-colour-of-text-that-is-drawn-on-a-coloured-surface/646328#646328">most readable color</a> of text
+on a colored background.</p>
+<p>I suggested flipping the top bit of each component,
+<tt class="docutils literal">(r ^ 0x80, g ^ 0x80, b ^ 0x80)</tt>.
+This has the same effect as adding 128 if the component is less than 128,
+and sub&shy;tract&shy;ing 128 otherwise.</p>
+<p>Another way to think about it is to imagine the 256x256x256 color cube.
+Inside that cube, erect another cube half as wide.
+One corner is at your original color
+and the diagonally opposite corner is the one computed above.</p>
+<p>The questioner liked my answer the best,
+but I decided to experiment further.
+I wrote some JavaScript to compute that color.
+As you can see in the table of 549 colors below,
+it works well most of the time, but it's not perfect.</p>
+<p>Someone else suggested an earlier SO question on <a class="reference external" href="http://stackoverflow.com/questions/301869/how-to-find-good-looking-font-color-if-background-color-is-known">good-looking font colors</a>.
+Looking at that thread, I decided to try inverting the <a class="reference external" href="http://en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV">HSL</a> value to
+<tt class="docutils literal">(h + 180, s, l + (l &lt; 0.5 ? 0.5 : <span class="pre">-0.5))</span></tt>.
+That works well too.
+Generally, it yields different colors than my first approach.
+It looks like one of the two always contrasts well.</p>
+<p>I found that the most effective approach was to compute
+the gray-level intensity of the original color,
+<tt class="docutils literal">(0.30*r + 0.59*g + 0.11*b)</tt>.
+If it was dark, use white; otherwise, black.</p>
+<p>Really, though, unless you have a re&shy;quire&shy;ment to work with arbitrary colors,
+you should pick your color scheme carefully.
+I found a really nice site this afternoon, <a class="reference external" href="http://colorschemedesigner.com/">Col&shy;orSchemeDesign&shy;er.com</a></p>
+<iframe id="inverse-colors" src="http://www.georgevreilly.com/tests/inverse-colors/inverse-colors.html" width="600" height="250" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="1" scrolling="auto">
+</iframe><p>Here's the <a class="reference external" href="http://www.georgevreilly.com/tests/inverse-colors/inverse-colors.html">source</a> of my colortable.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2009/04/01/Allergies.html" class="page floatright">
+        Allergies &raquo;
+        </a>
+    
+    
+        <a href="/blog/2009/04/04/IowaGayMarriageRuling.html" class="page floatleft">
+        &laquo; Iowa Gay Marriage Ruling
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

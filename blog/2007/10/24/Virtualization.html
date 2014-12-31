@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Virtualization</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://www.georgevreilly.com/blog/conte..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2007-10-24">24.10.2007, 00:00</time>
+        <h1>
+            <a href="/blog/2007/10/24/Virtualization.html" rel="bookmark canonical">Virtualization</a>
+        </h1>
+    </header>
+    <div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;string&gt;</tt>, line 1)</p>
+<p>Error in &quot;image&quot; directive:
+unknown option: &quot;title&quot;.</p>
+<pre class="literal-block">
+.. image:: http://www.georgevreilly.com/blog/content/binary/virtualization.jpg
+    :title: Virtualization
+    :class: right-float
+
+</pre>
+</div>
+<p>Picture this.</p>
+<p>An external USB hard drive plugged in to a machine running Win64.
+The OS has <em>vir&shy;tu&shy;al&shy;ized</em> the underlying transport so that it's
+es&shy;sen&shy;tial&shy;ly in&shy;dis&shy;tin&shy;guish&shy;able from an internal IDE, SCSi, or SATA drive.
+Call the machine, Boss, and the USB drive, L:.</p>
+<p>Boss is running Virtual PC, which is hosting a 32-bit <em>virtual</em> machine
+on top of Boss's 64-bit OS.
+Let's call the 32-bit VM, Sidekick.</p>
+<p>Sidekick is not only a VM, but a <em>virtual</em> network host.
+Boss is bridging con&shy;nec&shy;tions to Sidekick, and
+Sidekick and Boss both appear on the LAN as separate network hosts.</p>
+<p>The USB drive has several ISO images, which Sidekick wants to use.
+Sidekick connects to \MasterL$ over the virtual network,
+and uses a tool like <a class="reference external" href="http://jeranderson.wordpress.com/2006/10/17/installing-windows-vista-with-a-virtual-cddvd-drive/">VcdTool</a> to mount the remote ISO on a
+<em>virtual</em> CD drive.</p>
+<p>Amazingly enough, it all just worked for me last night.</p>
+<p>I'm trying to set up an en&shy;vi&shy;ron&shy;ment where I can build
+Vim with various 32-bit and 64-bit Microsoft compilers and,
+more im&shy;por&shy;tant&shy;ly, run the <a class="reference external" href="http://www.georgevreilly.com/blog/2007/02/20/VimOnWin64Updated.aspx">Win64 binary</a>.
+I have a set of VM images with distinct flavors of MSVC,
+which was necessary to update <a class="reference external" href="http://vim.svn.sourceforge.net/viewvc/vim/vim7/src/INSTALLpc.txt?view=markup">INSTALLpc.txt</a>
+and to keep Make_mvc.mak building.</p>
+<p>In previous iterations, I got Remote Desktop access to
+a col&shy;league's Win64 machine, but that was at Atlas,
+so it's no longer an option.
+I bought a new AMD64 desktop system a few months ago
+and over the weekend set it up to <a class="reference external" href="http://apcmag.com/5485/dualbooting_vista_and_xp">dual boot</a>.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2007/10/16/ReviewAtEndOfDay.html" class="page floatright">
+        Review: At End of Day &raquo;
+        </a>
+    
+    
+        <a href="/blog/2007/11/05/ReviewTheClanCorporate.html" class="page floatleft">
+        &laquo; Review: The Clan Corporate
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

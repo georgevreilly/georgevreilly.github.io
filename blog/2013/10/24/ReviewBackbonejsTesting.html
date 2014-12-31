@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Review: Backbone.js Testing</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://images.amazon.com/images/P/17821..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2013-10-24">24.10.2013, 00:00</time>
+        <h1>
+            <a href="/blog/2013/10/24/ReviewBackbonejsTesting.html" rel="bookmark canonical">Review: Backbone.js Testing</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.packtpub.com/backbonejs-testing/book"><img alt="Backbone.js Testing" class="right-float" src="http://images.amazon.com/images/P/178216524X.01.MZZZZZZZ.jpg"/></a>
+<div class="line-block">
+<div class="line">Title: Backbone.js Testing</div>
+<div class="line">Author: Ryan Roemer</div>
+<div class="line">Rating: $stars(4.5)</div>
+<div class="line">Publisher: Packt</div>
+<div class="line">Copyright: 2013</div>
+<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/178216524X/?tag=georgvreill-20">178216524X</a></div>
+<div class="line">Pages: 168</div>
+<div class="line">Keywords: pro&shy;gram&shy;ming, testing, javascript, backbone, mocha, chai, sinon</div>
+<div class="line">Reading period: October 2013</div>
+</div>
+<p><a class="reference external" href="http://www.packtpub.com/backbonejs-testing/book">Backbone.js Testing</a> is a short, dense in&shy;tro&shy;duc&shy;tion
+to testing JavaScript ap&shy;pli&shy;ca&shy;tions with three testing libraries,
+<a class="reference external" href="http://visionmedia.github.io/mocha/">Mocha</a>, <a class="reference external" href="http://chaijs.com/">Chai</a>, and <a class="reference external" href="http://sinonjs.org/">Sinon.JS</a>.
+Although the author uses a sample ap&shy;pli&shy;ca&shy;tion
+of a personal note manager written with <a class="reference external" href="http://backbonejs.org/">Backbone.js</a>
+throughout the book, much of the material
+would apply to any JavaScript client or server framework.</p>
+<p><a class="reference external" href="http://visionmedia.github.io/mocha/">Mocha</a> is a test framework that can be executed in the browser or by <a class="reference external" href="http://nodejs.org/">Node.js</a>,
+which runs your tests.
+<a class="reference external" href="http://chaijs.com/">Chai</a> is a framework-agnostic <a class="reference external" href="http://en.wikipedia.org/wiki/Test-driven_development">TDD</a>/<a class="reference external" href="http://en.wikipedia.org/wiki/Behavior-driven_development">BDD</a> assertion library.
+<a class="reference external" href="http://sinonjs.org/">Sinon.JS</a> provides standalone test spies, stubs and mocks for JavaScript.
+They complement each other and the author does a good job of explaining
+when and how to use each.</p>
+<p>I've written a lot of tests in Python (<a class="reference external" href="http://docs.python.org/2/library/unittest.html">unittest</a> and <a class="reference external" href="http://www.voidspace.org.uk/python/mock/">mock</a>, primarily)
+and C# (<a class="reference external" href="http://www.nunit.org/">NUnit</a>), but my experience with JavaScript unit testing
+was both limited and years out of date.
+The JavaScript ecosystem continues to evolve rapidly,
+with new browser frameworks and Node packages springing up everywhere.
+JavaScript has some particular challenges in test&shy;ing—no&shy;tably, the DOM, asynchrony, and callbacks.
+Mocha, Chai, and Sinon meet those challenges, though they can't take away all the pain.</p>
+<p>The author describes how to test Backbone models, views, and col&shy;lec&shy;tion&shy;s;
+dealing with asyn&shy;chrony;
+provides useful testing heuristics, including isolating components to reduce de&shy;pen&shy;den&shy;cies;
+when to use stubs and mocks and fake servers;
+and test automation with <a class="reference external" href="http://phantomjs.org/">PhantomJS</a>.
+He does not, however, teach you Backbone.js itself; for that, you'll need another book.</p>
+<p>There are a few areas which I thought were dealt with too lightly.
+There's no real discussion of <a class="reference external" href="http://en.wikipedia.org/wiki/Test-driven_development">Test-dri&shy;ven_de&shy;vel&shy;op&shy;ment</a> or
+<a class="reference external" href="http://en.wikipedia.org/wiki/Behavior-driven_development">Behavior-dri&shy;ven_de&shy;vel&shy;op&shy;ment</a>,
+which provide the in&shy;tel&shy;lec&shy;tu&shy;al foun&shy;da&shy;tions of much of the book.
+Nor does he have much to say about <a class="reference external" href="http://en.wikipedia.org/wiki/Software_testability">testa&shy;bil&shy;i&shy;ty</a> and how to make
+<a class="reference external" href="http://en.wikipedia.org/wiki/Legacy_code">legacy code</a> more testable.
+The sample Notes app has plenty of testing <a class="reference external" href="http://googletesting.blogspot.com/2008/08/by-miko-hevery-so-you-decided-to.html">seams</a>
+(much of this falls naturally out of the ar&shy;chi&shy;tec&shy;ture of Backbone);
+other people's apps are not so lucky.
+The chapter on automation is extremely terse—it could be expanded into a very large book!—but it does provide useful indicators to many areas for ex&shy;plo&shy;ration.</p>
+<p>I learned a lot from this book and I have no hesitation in rec&shy;om&shy;mend&shy;ing it.</p>
+<p>Disclosure: Thanks to <a class="reference external" href="http://backbone-testing.com/">Ryan Roemer</a> and Packt for a review copy of this book.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2013/01/21/AdaptingPenelopePartII.html" class="page floatright">
+        Adapting Penelope, part II &raquo;
+        </a>
+    
+    
+        <a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" class="page floatleft">
+        &laquo; Turn off Windows Defender on your builds
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

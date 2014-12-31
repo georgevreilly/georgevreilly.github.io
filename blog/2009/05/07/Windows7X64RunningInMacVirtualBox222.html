@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Windows 7 x64 running in Mac VirtualBox 2.2.2</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://www.georgevreilly.com/blog/conte..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-05-07">07.05.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/05/07/Windows7X64RunningInMacVirtualBox222.html" rel="bookmark canonical">Windows 7 x64 running in Mac VirtualBox 2.2.2</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.georgevreilly.com/blog/content/binary/win7-x64-vbox.jpg"><img alt="Windows 7 x64 running in Mac VirtualBox 2.2.2" class="right-float" src="http://www.georgevreilly.com/blog/content/binary/win7-x64-vbox.jpg" style="width: 300px;"/></a>
+<p>I ported <a class="reference external" href="http://code.google.com/p/vim-win3264">Vim to Win64</a> but I don't have a convenient Win64 system
+to test it on.</p>
+<p>I decided to install the Win64 build of the Windows 7 RC on <a class="reference external" href="http://www.virtualbox.org/">VirtualBox</a>,
+which has supported 64-bit guest operating systems since version 2.0.</p>
+<p>It worked without problems on my MacBook Pro.
+I used Vir&shy;tu&shy;al&shy;Box's Virtual Media Manager to mount the Windows 7 ISO
+and installed from that.
+See also the <a class="reference external" href="http://www.intowindows.com/how-to-install-windows-7-on-virtualbox/">handy guide</a>.
+(Why does Windows 7 offer a choice of upgrading from a previous
+version of Windows on a virgin disk?)
+After completing the in&shy;stal&shy;la&shy;tion of the operating system,
+I installed the Guest Additions for mouse pointer in&shy;te&shy;gra&shy;tion
+and other goodies.</p>
+<p>As always with VirtualBox VMs on my MacBook,
+I had to fix the Network settings to work over WiFi.
+When the VM is turned off, go to Settings,
+choose the Network tab.
+Change “Attached to” from “NAT” to “Bridged Adapter”
+and “Name” from “en0: Ethernet” to “en1: AirPort”.
+Tip: to get a right-click without a mouse,
+place two fingers on the trackpad and click the trackpad button,
+or Shift+F10.</p>
+<p>I tried installing the Win64 build of Win 7 on
+my Win32 Vista desktop box at work.
+The host system blue&shy;screened within seconds of starting the installer!
+I filed <a class="reference external" href="http://www.virtualbox.org/ticket/3963">ticket 3963</a>.</p>
+<p>I had in&shy;ad&shy;ver&shy;tent&shy;ly installed the Win32 build first on my work system.
+That worked fine.
+It also seemed to have snappy disk I/O.
+When I unzipped the Win64 Vim binaries
+(not having realized yet that I had the Win32 Win 7),
+it was slower than unzipping in the host operating system,
+but not un&shy;rea&shy;son&shy;ably so.
+On my MacBook, the details pane from the Win 7 zip extractor
+said that it was running at a mere 260KB per second,
+which is pitiful.
+It certainly wasn't that slow when installing the OS
+onto the virtual disk.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2009/05/06/ReviewNightingalesLament.html" class="page floatright">
+        Review: Nightingale's Lament &raquo;
+        </a>
+    
+    
+        <a href="/blog/2009/05/07/ProGayMarriageBacklash.html" class="page floatleft">
+        &laquo; Pro-Gay Marriage Backlash
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

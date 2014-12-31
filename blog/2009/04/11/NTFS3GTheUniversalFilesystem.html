@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>NTFS-3G: the universal filesystem</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://www.ntfs-3g.org/logo/ntfs-3g-log..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-04-11">11.04.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/04/11/NTFS3GTheUniversalFilesystem.html" rel="bookmark canonical">NTFS-3G: the universal filesystem</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.ntfs-3g.org/"><img alt="NTFS-3G" class="right-float" src="http://www.ntfs-3g.org/logo/ntfs-3g-logo.png"/></a>
+<p>After I started running Linux and then Mac OS X, in addition to Windows,
+I started on a quest to find the universal filesystem.
+I had multiboot systems and external drives where I wanted to
+to be able to read and write disks under multiple operating systems.</p>
+<p>The obvious choice is <a class="reference external" href="http://en.wikipedia.org/wiki/File_Allocation_Table#FAT32">FAT32</a>,
+the ubiquitous, lowest-common de&shy;nom&shy;i&shy;na&shy;tor filesystem.
+FAT32 is supported out-of-the-box by
+all major operating systems, digital cameras, and PDAs,
+so that's a huge advantage.
+FAT32 also has major short&shy;com&shy;ings:</p>
+<ul class="simple">
+<li>Maximum file size is 4GB. I have ISOs, MPEGs, and other large files exceeding this limit.</li>
+<li>Frag&shy;men&shy;ta&shy;tion happens too easily.</li>
+<li>Timestamps: accurate only to 2-second resolution. No notion of timezones or UTC.</li>
+<li>Journaling: none. Preferred for robustness.</li>
+<li>ACLs or Per&shy;mis&shy;sions. Nothing beyond R/W.</li>
+</ul>
+<p>I ex&shy;per&shy;i&shy;ment&shy;ed with <a class="reference external" href="http://en.wikipedia.org/wiki/Ext3">ext3</a> (and its non-journaling sibling, ext2)
+on Windows and later on the Mac.
+On Windows, <a class="reference external" href="http://www.fs-driver.org/">ext2fs</a> works well and I used it happily for several months
+on a machine du&shy;al&shy;boot&shy;ing XP and Ubuntu.
+It did not work well with Vista initially, though that seems to have been fixed since.</p>
+<p>My ex&shy;pe&shy;ri&shy;ences on the Mac were bad:
+<a class="reference external" href="http://sourceforge.net/projects/ext2fsx/">ext2fsx</a> caused some kernel panics,
+which was enough for me to abandon it.</p>
+<p>There was no free solution for reading and writing Mac HFS+ disks
+under Linux and Windows the last time that I checked.</p>
+<p>Both Linux and Macs natively support mounting NTFS disks read-only.
+The <a class="reference external" href="http://www.ntfs-3g.org/">NTFS-3G</a> project allows Linux to write to NTFS disks,
+and <a class="reference external" href="http://macntfs-3g.blogspot.com/">Mac NTFS-3G</a> does likewise for Macs.
+I've never had a problem with NTFS-3G and it's worked
+flawlessly under Linux and Mac for me.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2009/04/09/IframesThinkingOutsideTheBox.html" class="page floatright">
+        Iframes: thinking outside the box &raquo;
+        </a>
+    
+    
+        <a href="/blog/2009/04/12/DepartitioningAMacDisk.html" class="page floatleft">
+        &laquo; De-partitioning a Mac disk
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

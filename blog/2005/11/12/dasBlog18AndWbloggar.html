@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>dasBlog 1.8 and w.bloggar</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="I finally updated my blog to run on dasBlog 1.8.
+N..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2005-11-12">12.11.2005, 00:00</time>
+        <h1>
+            <a href="/blog/2005/11/12/dasBlog18AndWbloggar.html" rel="bookmark canonical">dasBlog 1.8 and w.bloggar</a>
+        </h1>
+    </header>
+    <p>I finally updated my blog to run on dasBlog 1.8.
+Not too painful.
+I unzipped the binary dis&shy;tri&shy;b&shy;u&shy;tion,
+downloaded the content folder from my server to my local drive,
+ran the provided upgrade utility,
+and used WinMerge to update the con&shy;fig&shy;u&shy;ra&shy;tion files.</p>
+<p>The most obvious change is that I'm using a new theme (skin),
+which gives the site a very different look.
+The previous default theme had problems if your browser window was too narrow,
+due to some hardcoded table sizes (I think).</p>
+<p>I also figured out how to post to dasBlog via w.bloggar.
+I looked for info on con&shy;fig&shy;ur&shy;ing w.bloggar a few weeks ago, and couldn't find it then.</p>
+<p>Followup: the multiword links in this post are mangled when they appear in a browser.
+I think this is an issue in dasBlog's XML transforms.
+Specif&shy;i&shy;cal&shy;ly, it only seems to happen when the multiword link contains &quot;dasBlog&quot;:
+ego-surfing, perhaps.
+Reported as dasBlog bug 1354987.</p>
+<p>Followup #2: the problem turned out to be
+one of the out-of-the box rewriting rules in site.config.
+Commenting out:</p>
+<pre class="literal-block">
+&lt;ContentFilter find=&quot;dasBlog&quot; ...
+</pre>
+<p>fixed it.</p>
+<p>These rules seem to be generally useful.
+The default con&shy;fig&shy;u&shy;ra&shy;tion allows you to convert several varieties of smilies to graphics:</p>
+<div class="line-block">
+<div class="line">:-o   | :-o |</div>
+<div class="line">:-S   | :-S |</div>
+<div class="line">:-D   | :-D |</div>
+<div class="line">:'(   | :'( |</div>
+<div class="line">;-)   | ;-) |</div>
+<div class="line">:-)   | :-) |</div>
+</div>
+<p>as well as Google searches,
+$g(bush sucks) → bush sucks,
+and dictionary.com lookups,
+$d(de&shy;fen&shy;es&shy;tra&shy;tion) → de&shy;fen&shy;es&shy;tra&shy;tion.
+(The preceding examples were escaped by bracketing the first character
+in the pattern with a <tt class="docutils literal">&lt;span&gt;</tt> tag.)</p>
+<p>More details on Con&shy;tent&shy;Fil&shy;ter at the new dasBlog doc&shy;u&shy;men&shy;ta&shy;tion site,
+<a class="reference external" href="http://dasBlog.info">http://dasBlog.info</a>.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2005/09/24/BasementUpdate.html" class="page floatright">
+        Basement update &raquo;
+        </a>
+    
+    
+        <a href="/blog/2005/11/20/AFeastForCrows.html.." class="page floatleft">
+        &laquo; A Feast for Crows
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

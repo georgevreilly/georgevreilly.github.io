@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Ubuntu Netbook Remix 9.04</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://www.jpierre.com/files/2009/04/sc..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-04-25">25.04.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/04/25/UbuntuNetbookRemix904.html" rel="bookmark canonical">Ubuntu Netbook Remix 9.04</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.jpierre.com/2009/04/installing-ubuntu-netbook-remix-904-jaunty-jackelope-on-eee-pc-the-howto-guide/"><img alt="Ubuntu Netbook Remix" src="http://www.jpierre.com/files/2009/04/screenshot.png" style="width: 512px;"/></a>
+<p>I spent much of today playing around with
+the brand-new Jaunty/9.04 release of the <a class="reference external" href="http://www.canonical.com/projects/ubuntu/unr">Ubuntu Netbook Remix</a>
+on my <a class="reference external" href="http://www.georgevreilly.com/blog/2008/11/26/Eee.aspx">Eee 1000H netbook</a>.
+Previously I had run the Hardy/8.04 version of <a class="reference external" href="http://www.ubuntu-eee.com/">Ubuntu Eee</a> on this system.
+I had never bothered to update to Intrepid/8.10,
+but now that UNR is fully supported by Canonical,
+I thought it was time to try it out.</p>
+<p>I <a class="reference external" href="http://www.ubuntu.com/getubuntu/download-netbook">downloaded</a> the UNR image last night onto my Mac,
+and trans&shy;ferred the image to a 1GB USB stick this morning.
+(The <a class="reference external" href="https://help.ubuntu.com/community/Installation/FromImgFiles/#Mac%20OS%20X">Mac in&shy;struc&shy;tions</a> required a little tweaking.)</p>
+<p>I spent some time running the Live Image first, before clean installing.
+Everything worked seamlessly except the <a class="reference external" href="https://bugs.launchpad.net/ubuntu/+source/pulseaudio/+bug/354620">microphone</a>.
+WiFi worked, the webcam worked, sound playback worked,
+the touchpad was configured in a sane way.
+All of these were problems for me when I first installed Ubuntu Eee.
+That they worked now was not too surprising,
+since the Asus Eee 1000 is a <a class="reference external" href="https://wiki.ubuntu.com/HardwareSupport/Machines/Netbooks">Tier 1 supported</a> system,
+but it's nice to get the con&shy;fir&shy;ma&shy;tion.</p>
+<p>One of the first things to strike me about the Live Image
+was how nice the fonts looked.
+I'm <a class="reference external" href="http://www.georgevreilly.com/blog/2009/02/18/DramaturgyLaTeX.aspx">sensitive to typography</a> and
+the default font hinting settings on previous versions of Ubuntu
+have always looked like crap: spindly and awkward.
+I found it hard to take seriously an operating system that looked so un&shy;pro&shy;fes&shy;sion&shy;al.
+The Jaunty font hinting yields thicker letters,
+which look a lot more like the Mac's shape-preserving font rendering,
+though not as good.
+The main exception, oddly enough, is the font
+used in the netbook-launcher, which looks jagged.</p>
+<p>I went ahead and installed Jaunty.
+The installer offered me an option to install Jaunty
+side-by-side with the existing operating systems,
+Ubuntu Eee 8.04 and Windows XP.
+I wanted to overwrite the existing Ubuntu partition
+and I had to jump through several hoops to make that happen.
+The partition editor is pretty and an im&shy;prove&shy;ment over GParted.
+The timezone picker is also very slick,
+with a clickable world map.</p>
+<p>Par&shy;ti&shy;tion&shy;ing aside, the in&shy;stal&shy;la&shy;tion was quick and painless.
+<a class="reference external" href="http://www.jpierre.com/2009/04/installing-ubuntu-netbook-remix-904-jaunty-jackelope-on-eee-pc-the-howto-guide/">JPierre</a> has a useful guide to some issues that he ran into.</p>
+<p>I've spent most of the afternoon and evening
+installing various ap&shy;pli&shy;ca&shy;tions that I care about.
+Sleep and hibernate just work now.
+Sleep worked before but there were always some obnoxious errors when going to sleep.</p>
+<p>As a hardcore Vim user, I use keyboard shortcuts a lot.
+Alt+Tab (or Apple+Tab) is my primary method for switching between ap&shy;pli&shy;ca&shy;tions
+on Windows, Linux, and Mac.
+I had never found a keyboard shortcut for switching back to the netbook-launcher:
+I'd always have to click the Ubuntu logo in the top-left corner of the desktop.
+Buried in the Keyboard Shortcuts Pref&shy;er&shy;ences,
+I finally found Ctrl+Alt+Tab, which shows a popup,
+and Ctrl+Alt+Escape, which switches im&shy;me&shy;di&shy;ate&shy;ly.</p>
+<p>Other random notes:</p>
+<ul class="simple">
+<li>I had to rediscover <a class="reference external" href="http://ubuntuforums.org/showthread.php?t=785263">ntfs-config to automount</a> my NTFS drives.</li>
+<li>Useful apps like Skype can be installed from the <a class="reference external" href="https://help.ubuntu.com/community/Medibuntu">Medibuntu</a> repository.</li>
+<li>It's necessary to run <a class="reference external" href="http://forums.getdropbox.com/topic.php?id=8695">dropbox start -i</a> before Dropbox will download the
+real daemon and actually start running.</li>
+</ul>
+<p>I have a Linux machine at work that runs Kubuntu.
+I kicked off the upgrade from Intrepid to Jaunty yesterday before I left.
+I'll find out on Monday how well that worked.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2009/04/25/Sprints.html" class="page floatright">
+        Sprints &raquo;
+        </a>
+    
+    
+        <a href="/blog/2009/04/26/ReviewTheStarFraction.html" class="page floatleft">
+        &laquo; Review: The Star Fraction
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

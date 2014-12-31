@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>XML Scripts -- For the Theater</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="For the last three years, I&#39;ve been involved with..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2005-06-16">16.06.2005, 00:00</time>
+        <h1>
+            <a href="/blog/2005/06/16/XMLScriptsForTheTheatre.html" rel="bookmark canonical">XML Scripts -- For the Theater</a>
+        </h1>
+    </header>
+    <p>For the last three years, I've been involved with
+<a class="reference external" href="http://www.wildgeeseseattle.org/">The Wild Geese Players of Seattle</a>,
+an amateur group that does readings of Irish literature,
+par&shy;tic&shy;u&shy;lar&shy;ly the works of James Joyce and W.B.&nbsp;Yeats.
+Our big event every year is <a class="reference external" href="http://en.wikipedia.org/wiki/Bloomsday">Bloomsday</a>,
+June 16th, com&shy;mem&shy;o&shy;rat&shy;ing Joyce's Ulysses,
+which takes place on June 16th, 1904.
+It's a tale of a Jewish everyman, Leopold Bloom,
+wandering through Dublin one day,
+and of the young writer (and Joyce's alter ego), Stephen Dedalus.
+We're working our way through the book,
+reading a chapter or two each year.
+In this, our eighth year, we'll be reading Chapter&nbsp;11, <a class="reference external" href="http://www.wildgeeseseattle.org/Joyce/Bloomsday/2005.html">Sirens</a>,
+at the Brechemin Auditorium in the School of Music
+at the University of Washington, on Thursday 16th and Saturday 18th.
+Con&shy;gress&shy;man Jim McDermott will be reading
+the part of Bloom on the Saturday.</p>
+<p>Last year and this year, I have been the assistant dramaturge,
+helping to turn chapters into a script to be read by 15-20 readers.
+In previous years, the director made a photocopy of the book,
+wrote at&shy;tri&shy;bu&shy;tions (&quot;Narrator&nbsp;1&quot;, &quot;Bloom&quot;, &quot;Stephen&quot;, etc)
+on the paper, then pho&shy;to&shy;copied that text and handed it out to the readers.
+Since the script was a moving target,
+everyone ended up with a set of scruffy, tatty,
+in&shy;con&shy;sis&shy;tent&shy;ly hand-annotated sheets.
+It was a mess.</p>
+<p>I knew there had to be a better way.
+Now, we've adapted the <a class="reference external" href="http://www.gutenberg.org/etext/4300">etext</a>
+of the 1922 Paris Edition, prepared by <a class="reference external" href="http://www.gutenberg.org/">Project Gutenberg</a>,
+which saves a lot of typing.
+The script is marked up in XML and styled with XSLT
+to produce an HTML page.
+After a rehearsal or two,
+when it's apparent that the script isn't quite right,
+it's an easy matter to make a few changes,
+render fresh HTML, and print new scripts.</p>
+<p>The XSLT required is fairly straight&shy;for&shy;ward.
+About the only mildly in&shy;ter&shy;est&shy;ing thing is defining
+one template in terms of another;
+e.g., I want all the speakers to share the same styling,
+so I defined a pa&shy;ra&shy;me&shy;ter&shy;ized <tt class="docutils literal">speaker</tt> template:</p>
+<pre class="literal-block">
+&lt;xsl:template name=&quot;speaker&quot;&gt;
+    &lt;xsl:param name=&quot;name&quot; /&gt;
+    &lt;div class=&quot;speaker&quot;&gt;
+        &lt;span class=&quot;speaker&quot;&gt;&lt;xsl:value-of select=&quot;$name&quot;/&gt;: &lt;/span&gt;
+        &lt;xsl:apply-templates /&gt;
+    &lt;/div&gt;
+&lt;/xsl:template&gt;
+</pre>
+<p>which is called thus:</p>
+<pre class="literal-block">
+&lt;xsl:template match=&quot;bloom&quot;&gt;
+    &lt;xsl:call-template name=&quot;speaker&quot;&gt;
+        &lt;xsl:with-param name=&quot;name&quot;&gt;Bloom&lt;/xsl:with-param&gt;
+    &lt;/xsl:call-template&gt;
+&lt;/xsl:template&gt;
+</pre>
+<p>The <em>real</em> challenge in preparing the script is dra&shy;matur&shy;gi&shy;cal.
+<em>Ulysses</em> is a no&shy;to&shy;ri&shy;ous&shy;ly difficult and dense text,
+woven through with Bloom's stream-of-con&shy;scious&shy;ness interior monologue.
+Each chapter is written in a different style.
+Sirens, for example, has musical themes running through it,
+and we'll be ac&shy;com&shy;pa&shy;nied by a piano player this year.</p>
+<p>What would you do with this?</p>
+<blockquote>
+Bloom heard a jing, a little sound. He's off. Light sob of breath Bloom
+sighed on the silent bluehued flowers. Jingling. He's gone. Jingle. Hear.</blockquote>
+<p>Here's what we came up with:</p>
+<b>N1:</b> Bloom heard a jing, a little sound.<br>
+<b>Bloom:</b> He's off.<br>
+<b>N1:</b> Light sob of breath Bloom sighed on the silent bluehued flowers.
+           Jingling.<br>
+<b>Bloom:</b> He's gone.<br>
+<b>N1:</b> Jingle.<br>
+<b>Bloom:</b> Hear.<p>Or with this paragraph?</p>
+<blockquote>
+--Yes, Mr Bloom said, teasing the curling catgut line. It certainly is.
+Few lines will do. My present. All that Italian florid music is. Who is
+this wrote? Know the name you know better. Take out sheet notepaper,
+envelope: un&shy;con&shy;cerned. It's so char&shy;ac&shy;ter&shy;is&shy;tic.</blockquote>
+<p>We chose this:</p>
+<b>Bloom (Aloud):</b> Yes.<br>
+<b>N1:</b> Mr Bloom said, teasing the curling catgut line.<br>
+<b>Bloom (Aloud):</b> It certainly is.<br>
+<b>Bloom:</b> Few lines will do. My present.<br>
+<b>Bloom (Aloud):</b> All that Italian florid music is.<br>
+<b>Bloom:</b> Who is this wrote? Know the name you know better.
+              Take out sheet notepaper, envelope: un&shy;con&shy;cerned.<br>
+<b>Bloom (Aloud):</b> It's so char&shy;ac&shy;ter&shy;is&shy;tic.<p>We ended up with three narrators in this chapter:
+N1 deals with Bloom, primarily;
+N2 is mostly for Miss Douce and Miss Kennedy, the siren barmaids;
+and N3 handles the other characters.</p>
+<p>Lest I scare you off, much of the chapter is quite clear
+and often very funny, even for people who are unfamiliar with the book.</p>
+<p>The <a class="reference external" href="http://www.robotwisdom.com/jaj/portal.html">James Joyce Portal</a>
+is a good starting point for matters Joycean.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2004/02/11/ThingsYouHaveToBelieveToBeARepublicanToday.html" class="page floatright">
+        Things you have to believe to be a Republican today &raquo;
+        </a>
+    
+    
+        <a href="/blog/2005/07/20/SurfaceIsIllusionButSoIsDepth.html" class="page floatleft">
+        &laquo; Surface is Illusion but so is depth
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

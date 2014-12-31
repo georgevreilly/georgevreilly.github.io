@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Launching 32-bit applications from batchfiles on Win64</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://www.georgevreilly.com/blog/conte..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-09-12">12.09.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/09/12/Launching32bitApplicationsFromBatchfilesOnWin64.html" rel="bookmark canonical">Launching 32-bit applications from batchfiles on Win64</a>
+        </h1>
+    </header>
+    <img alt="Win64" class="right-float" src="http://www.georgevreilly.com/blog/content/binary/win64-biticon.gif"/>
+<p>I've been running the <a class="reference external" href="http://www.georgevreilly.com/blog/2009/06/20/WhenVideoCardsGoBad.aspx">64-bit version of Windows 7 RC</a> since June.
+It's been quite painless on the whole.</p>
+<p>One wrinkle that I ran into was with some batchfiles which
+launch ap&shy;pli&shy;ca&shy;tions in <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> (normally <tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files</span></tt>).
+Due to the magic <a class="reference external" href="http://blogs.msdn.com/craigmcmurtry/archive/2004/12/14/301155.aspx">WOW64 redirector</a>, 32-bit ap&shy;pli&shy;ca&shy;tions
+are actually installed into <tt class="docutils literal">%Pro&shy;gram&shy;Files(x86)%</tt>—normally <tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files&nbsp;(x86)</span></tt>—instead of <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt>.
+This is trans&shy;par&shy;ent to the 32-bit ap&shy;pli&shy;ca&shy;tions,
+which think they're running in <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> (<tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files</span></tt>).</p>
+<p>However, the cmd.exe shell is 64-bit
+(unless you make a special effort to run the 32-bit cmd.exe in SysWOW64),
+so batchfiles see the 64-bit <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> which contains 64-bit ap&shy;pli&shy;ca&shy;tions.</p>
+<p>Hence, a batchfile that launches an installed 32-bit ap&shy;pli&shy;ca&shy;tion on Win64
+must use <tt class="docutils literal">%Pro&shy;gram&shy;Files(x86)%</tt>, not <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt>.</p>
+<p>It sounds trivial to have a batchfile detect
+which flavor of <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> it should use,
+but the paren&shy;the&shy;ses in the en&shy;vi&shy;ron&shy;ment variable name make it <a class="reference external" href="http://marsbox.com/blog/howtos/batch-file-programfiles-x86-parenthesis-anomaly/">tricky</a> to parse.
+On earlier versions of Win64, the en&shy;vi&shy;ron&shy;ment variable was called <tt class="docutils literal">%Pro&shy;gram&shy;Filesx86%</tt>.
+Presumably they added the strange paren&shy;the&shy;ses into the variable name
+because the directory name always included them.</p>
+<p>Here's a tiny batchfile that will launch the 32-bit <a class="reference external" href="http://www.sourcegear.com/diffmerge/">DiffMerge</a>
+correctly on both Win64 and Win32 platforms.</p>
+<div class="highlight"><pre><span class="p">@</span><span class="k">setlocal</span>
+<span class="p">@</span><span class="k">set</span> <span class="nv">_pf</span><span class="o">=</span><span class="nv">%ProgramFiles%</span>
+<span class="p">@</span><span class="k">if</span> not <span class="s2">&quot;[%ProgramFiles(x86)%]&quot;</span><span class="o">==</span><span class="s2">&quot;[]&quot;</span> <span class="k">set</span> <span class="nv">_pf</span><span class="o">=</span><span class="nv">%ProgramFiles</span>(x<span class="m">86</span>)%
+<span class="p">@</span>start <span class="s2">&quot;&quot;</span> <span class="n">/b</span> <span class="s2">&quot;%_pf%\SourceGear\DiffMerge\DiffMerge.exe&quot;</span> %*
+</pre></div>
+<p>I long ago found that the safest way to test en&shy;vi&shy;ron&shy;ment variables
+whose values may include spaces, is to surround them with
+both double quotes and square brackets.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2009/09/11/ApproveReferendum71Phonebanking.html" class="page floatright">
+        Approve Referendum 71 Phonebanking &raquo;
+        </a>
+    
+    
+        <a href="/blog/2009/09/13/ScatteringFranksAshes.html" class="page floatleft">
+        &laquo; Scattering Frank's Ashes
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
