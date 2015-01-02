@@ -134,14 +134,22 @@ def dump_links(permalink_titles, filename_links):
         print f, filename_links[f]
 
 
+class ReMatcher(object):
+    def __init__(self, value=None):
+        self.value = value
+
+    def match(self, re, line):
+        self.value = re.match(line)
+        return self.value
+
+    def group(self, key):
+        return self.value.group(key)
+
+
 title_re = re.compile(ur"^.. title:: (?P<title>.*)$")
 vim_re = re.compile(ur"^.. vim:set.*")
 emacs_re = re.compile(ur"^.. -\*- .* -\*-")
-
-
-def migrate_files(args, filename_links):
-    for permalink, fname in filename_links.iteritems():
-        migrate_file(args.dasblog_dir, args.base_dir, args.blog_dir, fname, permalink)
+image_content_binary_re = re.compile(ur"(?P<directive>.. image::) +(?P<path>content/binary/.*)$")
 
 
 def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
@@ -154,19 +162,20 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
     target_file = os.path.join(subdirs, os.path.splitext(os.path.split(fname)[1])[0])
     print u"'{0}' -> '{1}.rst' ({2})".format(source_file, target_file, permalink)
 
-    data, title = [], None
+    data, title, matcher = [], None, ReMatcher()
     with codecs.open(source_file, "r", encoding="utf8") as fp:
         while True:
             line = fp.readline()
             if not line:
                 break
-            m = title_re.match(line)
-            if m:
-                title = m.group('title').strip()
+            if matcher.match(title_re, line):
+                title = matcher.group('title').strip()
+                continue
             elif vim_re.match(line) or emacs_re.match(line):
                 continue
-            else:
-                data.append(line)
+            elif matcher.match(image_content_binary_re, line):
+                line = "{0} /{1}\n".format(matcher.group('directive'), matcher.group('path'))
+            data.append(line)
 
     prolog = u"\n".join([
         title,
@@ -188,6 +197,17 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
             fp.write(line)
         fp.write(epilog)
     shutil.copystat(source_file, target_file)
+
+
+def migrate_files(args, filename_links):
+    for permalink, fname in filename_links.iteritems():
+        migrate_file(args.dasblog_dir, args.base_dir, args.blog_dir, fname, permalink)
+    # Copy content/binary
+    cb_src = os.path.join(args.dasblog_dir, "content")
+    cb_dst = os.path.abspath(os.path.join(args.base_dir, "..", "media", "content"))
+    if os.path.exists(cb_dst):
+        shutil.rmtree(cb_dst)
+    shutil.copytree(cb_src, cb_dst, ignore=lambda src, names: set([".DS_Store"]))
 
 
 if __name__ == '__main__':
