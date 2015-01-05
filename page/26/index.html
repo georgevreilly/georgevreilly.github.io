@@ -28,6 +28,41 @@
     
         <article>
     <header>
+        <time datetime="2009-04-23">23.04.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/04/23/PythonStringFormatting.html" rel="bookmark canonical">Python String Formatting</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://docs.python.org/library/string.html#format-string-syntax"></a>
+<p>Python has long had a string in&shy;ter&shy;po&shy;la&shy;tion operator, <tt class="docutils literal">%</tt>.</p>
+<p>Python 2.6 and 3.0 introduced a new, richer set of <a class="reference external" href="http://docs.python.org/library/string.html#format-string-syntax">string formatting operations</a>.
+See <a class="reference external" href="http://www.python.org/dev/peps/pep-3101/">PEP 3101</a> for the rationale.</p>
+<p>One trick that I liked with the old way of formatting was
+to put the <a class="reference external" href="http://docs.python.org/library/functions.html#locals">locals()</a> dictionary or <tt class="docutils literal">self.__dict__</tt>
+on the right-hand side</p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="o">...</span>  <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
+<span class="o">...</span>  <span class="k">return</span> <span class="s">&quot;</span><span class="si">%(a)s</span><span class="s">, </span><span class="si">%(b)s</span><span class="s">, </span><span class="si">%(c)s</span><span class="s">, </span><span class="si">%(d)s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">stuff</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
+<span class="s">&#39;3, 17, 20, -14&#39;</span>
+</pre></div>
+<p>It took me a few minutes to figure out how to do the equivalent with <tt class="docutils literal">string.format</tt>:
+use the <tt class="docutils literal">**</tt> syntax to unpack the dict into <tt class="docutils literal">kwargs</tt>.</p>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="o">...</span>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+<span class="o">...</span> </pre><span>&#8230;<a href="/blog//Users/georger/website/gvr-blog-acrylamid/content/blog/2009/04/23/python-string-format.html" class="continue">continue</a>.</span></div>
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2009-04-22">22.04.2009, 00:00</time>
         <h1>
             <a href="/blog/2009/04/22/Tulips.html" rel="bookmark canonical">Tulips</a>
@@ -321,47 +356,6 @@ On a winter's day, I might ask people to tell us about
 some favorite food they associate with winter.
 Or I might ask them to tell us about where they're going for their summer vacation.</p>
 <p>At other times, I <span>&#8230;<a href="/blog//Users/georger/website/gvr-blog-acrylamid/content/blog/2009/04/14/table-topics.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2009-04-13">13.04.2009, 00:00</time>
-        <h1>
-            <a href="/blog/2009/04/13/ReviewAnathem.html" rel="bookmark canonical">Review: Anathem</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0061474096"></a>
-<div class="line-block">
-<div class="line">Title: Anathem</div>
-<div class="line">Author: Neal Stephenson</div>
-<div class="line">Rating: $stars(4.5)</div>
-<div class="line">Publisher: William Morrow</div>
-<div class="line">Copyright: 2008</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0061474096">0061474096</a></div>
-<div class="line">Pages: 937</div>
-<div class="line">Keywords: science fiction</div>
-<div class="line">Reading period: 29 March–12 April, 2009</div>
-</div>
-<p>Anathem takes place on Arbre,
-a world where those of an in&shy;tel&shy;lec&shy;tu&shy;al bent
-sequester themselves in monas&shy;ter&shy;ies apart from the Sæcular world.
-When an alien ship is noticed orbiting the planet,
-avout from concents all over Arbre are drawn together for a Convox
-to determine how to respond to the threat of the Geometers.</p>
-<p>Stephen&shy;son's <em>Anathem</em> is an ambitious project,
-pulling together physics, meta&shy;physics, world-building, an&shy;thro&shy;pol&shy;o&shy;gy,
-and an adventure tale.
-It's an alien world as he keeps reminding us
-by the huge vocabulary he's invented.
-Said vocabulary alternates between ex&shy;as&shy;per&shy;at&shy;ing and en&shy;ter&shy;tain&shy;ing,
-but one becomes accustomed <span>&#8230;<a href="/blog//Users/georger/website/gvr-blog-acrylamid/content/blog/2009/04/13/Anathem.html" class="continue">continue</a>.</span></p>
     <footer>
         
         
