@@ -28,6 +28,51 @@
     
         <article>
     <header>
+        <time datetime="2007-03-14">14.03.2007, 00:00</time>
+        <h1>
+            <a href="/blog/2007/03/14/NVelocityLoadingTemplatesFromEmbeddedResources.html" rel="bookmark canonical">NVelocity: loading templates from embedded resources</a>
+        </h1>
+    </header>
+    <div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;string&gt;</tt>, line 1)</p>
+<p>Error in &quot;image&quot; directive:
+unknown option: &quot;title&quot;.</p>
+<pre class="literal-block">
+.. image:: http://www.codegeneration.net/logos/nvelocity.gif
+    :title: NVelocity
+    :target: http://www.castleproject.org/others/nvelocity/index.html
+    :class: right-float
+
+</pre>
+</div>
+<p>In last week's tip on
+using the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/index.html">NVelocity</a> template formatting engine,
+I described what to set to load a template from
+an <a class="reference external" href="http://www.georgevreilly.com/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.aspx">absolute path</a>.</p>
+<p>Here's the magic necessary to get NVelocity to load a template from an
+embedded resource:</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;string&gt;</tt>, line 18)</p>
+<p>Unknown directive type &quot;2html&quot;.</p>
+<pre class="literal-block">
+.. 2html:: cs inkpot
+
+    VelocityEngine engine = new VelocityEngine();
+    ExtendedProperties properties = new ExtendedProperties();
+    properties.AddProperty(&quot;resource.loader&quot;, &quot;assembly&quot;);
+    properties.AddProperty(&quot;assembly.resource.loader.class&quot;,
+    </pre><span>&#8230;<a href="/blog//Users/georger/website/gvr-blog-acrylamid/content/blog/2007/03/14/NVelocity-assembly-resources.html" class="continue">continue</a>.</span></div>
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2007-03-07">07.03.2007, 00:00</time>
         <h1>
             <a href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html" rel="bookmark canonical">NVelocity templates and absolute paths</a>
@@ -409,44 +454,6 @@ C:\&gt; foo.py &lt; input.txt
 <p>A related problem for me was that <tt class="docutils literal">stdin</tt> was opened as a <em>text</em> file,
 not a <em>binary</em> file, so <tt class="docutils literal">\r</tt> bytes were being discarded from binary input
 files. The fix is to run <tt class="docutils literal">python.exe <span class="pre">-u</span></tt> (unbuffered binary <span>&#8230;<a href="/blog//Users/georger/website/gvr-blog-acrylamid/content/blog/2006/12/29/PythonBatchfileWrapper.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2006-12-26">26.12.2006, 00:00</time>
-        <h1>
-            <a href="/blog/2006/12/26/InstallingRainlendarOnKubuntu.html" rel="bookmark canonical">Installing Rainlendar on Kubuntu</a>
-        </h1>
-    </header>
-    <div class="system-message">
-<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;string&gt;</tt>, line 1)</p>
-<p>Error in &quot;image&quot; directive:
-unknown option: &quot;title&quot;.</p>
-<pre class="literal-block">
-.. image:: content/binary/rainlendar.png
-    :title: Rainlendar
-    :target: http://www.rainlendar.net/
-
-</pre>
-</div>
-<p>I've dualbooted my laptop between Linux and Windows since June, spending
-nearly all of my time in Linux. I started out with <a class="reference external" href="http://www.ubuntu.com/">Ubuntu</a> 6.06 (Dapper Drake),
-but soon switched to <a class="reference external" href="http://www.kubuntu.org/">Kubuntu</a> (the KDE variant),
-later upgrading to Kubuntu 6.10 (Edgy Eft).</p>
-<p>To make this useful, certain key ap&shy;pli&shy;ca&shy;tions have to be available in both
-Windows and Linux. <a class="reference external" href="http://www.mozilla.com/en-US/firefox/">Firefox</a> for browsing; <a class="reference external" href="http://www.mozilla.com/en-US/thunderbird/">Thun&shy;der&shy;bird</a> for email;
-<a class="reference external" href="http://www.rainlendar.net/">Rainlendar</a> for calendar; <a class="reference external" href="http://keepass.sourceforge.net/">KeePass</a> and <a class="reference external" href="http://keepassx.sourceforge.net/">KeePassX</a> for password man&shy;age&shy;men&shy;t;
-among others.</p>
-<p>My laptop has four partitions:</p>
-<ul class="simple">
-<li>Primary 1, NTFS - Windows, aka <tt class="docutils literal">/windows</tt> or <span>&#8230;<a href="/blog//Users/georger/website/gvr-blog-acrylamid/content/blog/2006/12/26/installing-rainlendar.html" class="continue">continue</a>.</span></li></ul>
     <footer>
         
         
