@@ -30,6 +30,38 @@
     <header>
         <time datetime="2009-03-25">25.03.2009, 00:00</time>
         <h1>
+            <a href="/blog/2009/03/25/AckBetterThanGrep.html" rel="bookmark canonical">Ack - Better than Grep</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.betterthangrep.com/"></a>
+<p>On a Stack&shy;Over&shy;flow question about <a class="reference external" href="http://stackoverflow.com/questions/21725/favorite-gvim-plugins-scripts">favorite Vim plugins</a>, I learned about <a class="reference external" href="http://www.betterthangrep.com/">Ack</a>,
+a re&shy;place&shy;ment for grep that's smarter about searching source trees.</p>
+<p>Ack is written in Perl.
+The built-in <tt class="docutils literal">:vimgrep</tt> is rather slow.
+It seems to have some Vim-specific overhead,
+such as creating swap files and executing <tt class="docutils literal">BufRead</tt> autocmds.
+Ack is noticeably faster,
+though somewhat slower than GNU grep.</p>
+<p>Which would you rather type to search a tree,
+ignoring the <tt class="docutils literal">.svn</tt> and <tt class="docutils literal">.git</tt> subtrees?</p>
+<div class="highlight"><pre><span class="nv">$ </span>ack -i -l foobar
+<span class="nv">$ </span>grep --exclude<span class="o">=</span><span class="s1">&#39;*.svn*&#39;</span> --exclude<span class="o">=</span><span class="s1">&#39;*.git*&#39;</span> -i -l -r foobar .
+</pre></div>
+<p>The ack takes 6 seconds to search 4500 files, while the grep completes in 2.
+This does not count the time that I spent trying <span>&#8230;<a href="/blog//Users/georger/website/gvr-blog-acrylamid/content/blog/2009/03/25/ack.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2009-03-25">25.03.2009, 00:00</time>
+        <h1>
             <a href="/blog/2009/03/25/Refinancing.html" rel="bookmark canonical">Refinancing</a>
         </h1>
     </header>
@@ -306,44 +338,6 @@ It crashes at startup every time that I attempt to run it.
 For&shy;tu&shy;nate&shy;ly, it comes with an unin&shy;staller so that I could revert to Safari 3.21.</p>
 <p>Back to <a class="reference external" href="http://www.georgevreilly.com/blog/2009/01/22/UsingOpera.aspx">Opera</a> for now.</p>
 
-    <footer>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2009-02-22">22.02.2009, 00:00</time>
-        <h1>
-            <a href="/blog/2009/02/22/ReviewWatchmenBook.html" rel="bookmark canonical">Review: Watchmen (book)</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0930289234"></a>
-<div class="line-block">
-<div class="line">Title: Watchmen (book)</div>
-<div class="line">Author: Alan Moore, Dave Gibbons</div>
-<div class="line">Rating: $stars(4.5)</div>
-<div class="line">Publisher: DC Comics</div>
-<div class="line">Copyright: 1987</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0930289234">0930289234</a></div>
-<div class="line">Pages: 416</div>
-<div class="line">Keywords: graphic novel, su&shy;per&shy;heroes</div>
-<div class="line">Reading period: 14–22 February, 2009</div>
-</div>
-<p>Set in an alternate 1985 where costumed heroes are real—and outlawed—<a class="reference external" href="http://en.wikipedia.org/wiki/Watchmen">Watchmen</a> follows six ad&shy;ven&shy;tur&shy;ers.
-Rorschach, half-mad, continues his vigilante activities.
-Nite Owl is retired and a worrywart.
-The former Ozy&shy;man&shy;di&shy;as—the world's smartest man—is now one of the richest.
-The Comedian is murdered at the very beginning;
-after the Keene Act passed,
-he was allowed to continue operating as a government enforcer.
-Dr. Manhattan was trans&shy;formed into a superbeing in a nuclear accident in 1959;
-he is America's strategic weapon in the arms race with the Soviets.
-And the former Silk <span>&#8230;<a href="/blog//Users/georger/website/gvr-blog-acrylamid/content/blog/2009/02/22/Watchmen.html" class="continue">continue</a>.</span></p>
     <footer>
         
         
