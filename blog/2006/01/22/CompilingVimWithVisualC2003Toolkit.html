@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Compiling Vim with Visual C++ 2003 Toolkit</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="I&#39;ve been trying to make `Vim 7 &lt;http://www.vim.or..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2006-01-22">22.01.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html" rel="bookmark canonical">Compiling Vim with Visual C++ 2003 Toolkit</a>
+        </h1>
+    </header>
+    <p>I've been trying to make <a class="reference external" href="http://www.vim.org/develop.php">Vim 7</a>
+compile with the
+<a class="reference external" href="http://msdn.microsoft.com/visualc/vctoolkit2003/">Microsoft Visual C++ 2003 Toolkit</a>,
+as a favor to Bram Moolenaar, the primary author of Vim.
+He wants to be able to use the free compiler as the
+primary build tool for the Win32 version of Vim.</p>
+<p>Oh. My. God.</p>
+<p>The VC2003 toolkit may include a full optimizing compiler,
+but it's certainly far from a complete system for building
+Windows binaries.</p>
+<p>First, I discovered that it came only with the C library headers,
+but not the Windows headers. That was easily rectified. Download the
+<a class="reference external" href="http://www.microsoft.com/msdownload/platformsdk/sdkupdate/">Platform SDK</a>.
+Just the Windows Core SDK subset. This also got me nmake.</p>
+<p>At this point, I was able to compile Vim, but not to link it.
+The linker required cvtres.exe, to link some resources.
+Some googling showed me that this is included in the <a class="reference external" href="http://www.microsoft.com/downloads/details.aspx?familyid=262d25e3-f589-4842-8157-034d1e7cf3a3">.NET Runtime</a>.</p>
+<p>The main Vim executable now linked, but the shell extension DLL didn't.
+I didn't have msvcrt.lib! It took me more detective work to learn
+that I'd have to install the <a class="reference external" href="http://www.microsoft.com/downloads/details.aspx?familyid=9b3a2ca6-3647-4070-9f41-a333c6b9181d">.NET Framework SDK</a> to get msvcrt.lib. There are several clever hacks out there
+that generate msvcrt.lib from msvcrt.dll, with the help
+of <tt class="docutils literal">link <span class="pre">-dump</span> <span class="pre">-exports</span></tt> and a <a class="reference external" href="http://www.delta3d.org/article.php?story=20050721180227305&amp;topic=tutorials">sed script</a>,
+but these do not include the all-important <tt class="docutils literal">_Dll&shy;Main&shy;CRT&shy;Start&shy;up&#64;12</tt>,
+the <strong>real</strong> entrypoint for DLLs linked with msvcrt.</p>
+<p>All the necessary steps for getting the downloads are summarized on the
+<a class="reference external" href="http://wiki.codeblocks.org/index.php?title=Integrating_Microsoft_Visual_Toolkit_2003_with_Code::Blocks_IDE">Code::Blocks wiki</a>. Code::Blocks is an open-source IDE that can host the
+VC2003 toolkit, GCC, and a number of other compilers.</p>
+<p>So why bother with the VC2003 toolkit, since
+<a class="reference external" href="http://msdn.microsoft.com/vstudio/express/visualC/default.aspx">Visual C++ 2005 Express Edition</a>
+is freely down&shy;load&shy;able?</p>
+<p>The main reason is that it's free only for the first year,
+and Bram wants something that will still be available after
+November 2006, so that anyone can compile it.</p>
+<p>I have also ported Vim 7 to compile with VC2005 Express.
+It was fairly straight&shy;for&shy;ward, after I had added the following</p>
+<div class="highlight"><pre><span class="cp">#if _MSC_VER &gt;= 1400</span>
+<span class="cp"># define _CRT_SECURE_NO_DEPRECATE</span>
+<span class="cp"># define _CRT_NONSTDC_NO_DEPRECATE</span>
+<span class="cp">#endif</span>
+</pre></div>
+<p>to shut up the warnings about <a class="reference external" href="http://msdn.microsoft.com/msdnmag/issues/05/05/SafeCandC/default.aspx">deprecated CRT functions</a>.
+I also had to make it link with libcmt.lib (mul&shy;ti&shy;thread&shy;ed) instead of libc.lib,
+as the single-threaded static library is gone.</p>
+<p>I still need to make sure that everything continues to work with
+the retail compilers, VC6, VC7.1, and VC8, before passing my changes
+back to Bram. Sigh.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2006/01/16/FilibusterAlito.html" class="page floatright">
+        Filibuster Alito &raquo;
+        </a>
+    
+    
+        <a href="/blog/2006/01/23/AsIf.html" class="page floatleft">
+        &laquo; As If!
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

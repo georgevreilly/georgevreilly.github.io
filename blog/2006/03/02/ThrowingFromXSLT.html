@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Throwing from XSLT</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="I needed to add some declarative error checking to..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2006-03-02">02.03.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/03/02/ThrowingFromXSLT.html" rel="bookmark canonical">Throwing from XSLT</a>
+        </h1>
+    </header>
+    <p>I needed to add some de&shy;clar&shy;a&shy;tive error checking to some XSLT templates
+recently. Specif&shy;i&shy;cal&shy;ly, I wanted to throw an error if my selects yielded an
+empty string, indicating that the input XML was wrong.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, there seems to be no easy way of doing this in XSLT, nor in
+<tt class="docutils literal">XslTrans&shy;form</tt>. The approved way is to validate against an XSD schema,
+but for various reasons, I didn't want to go to the hassle of creating one.</p>
+<p>I found a partial solution using <tt class="docutils literal">xsl:message</tt> with the
+<tt class="docutils literal"><span class="pre">terminate=&quot;yes&quot;</span></tt> attribute. Under <tt class="docutils literal">XslTrans&shy;form.Transform()</tt> the
+following code throws an exception if the XPath expression is empty.</p>
+<div class="highlight"><pre><span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:message</span> <span class="na">terminate=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>Missing expression<span class="k">&lt;/xsl:message&gt;</span>
+<span class="k">&lt;/xsl:if&gt;</span>
+<span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;/some/xpath/expression&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+<p>It doesn't do anything, however, in XMLSpy.</p>
+<p>The downside, of course, is that you have to maintain the expression in two places,
+and the template becomes littered with those annoying tests.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2006/02/19/OlympicsRazorthinMargins.html" class="page floatright">
+        Olympics: Razor-thin Margins &raquo;
+        </a>
+    
+    
+        <a href="/blog/2006/03/02/ATalibAtYale.html" class="page floatleft">
+        &laquo; A Talib at Yale
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
