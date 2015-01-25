@@ -11,8 +11,39 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2015-01-23T08:00:00Z</updated>
+    <updated>2015-01-24T08:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.11.dev0">acrylamid</generator>
+        <entry>
+        <title>Craft Distilleries</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/01/24/CraftDistilleries.html" />
+        <id>tag:www.georgevreilly.com,2015-01-24:/blog/2015/01/24/CraftDistilleries.html</id>
+        <updated>2015-01-24T08:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;Washington state is well-known for coffee, wineries, and microbreweries.
+Dozens of small-batch craft distilleries
+have been started in Washington state since 2008
+after a change in the law.
+Most of them are quite good.
+I drink Irish and Scotch whiskies,
+but otherwise neither of us drink spirits often,
+so we&#39;ve barely tried the local distilleries.&lt;/p&gt;
+&lt;p&gt;We drank a really nice gin from Sun Liquor at a New Year&#39;s Eve party,
+and we&#39;ve been meaning to follow up.
+This afternoon, we stopped at the Oola Distillery on Capitol Hill
+and sampled all their wares.
+We left with a half bottle of their
+&lt;a class=&#34;reference external&#34; href=&#34;http://ooladistillery.com/home#products&#34;&gt;Rosemary Vodka&lt;/a&gt;.
+Then we stopped in at Sun Liquor and came out with a bottle of the
+&lt;a class=&#34;reference external&#34; href=&#34;http://sunliquor.com/hedgetrimmergin.php&#34;&gt;Hedge Trimmer Gin&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;At the rate we consume spirits, those should last quite a while.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Removing DRM from Ebooks</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/01/23/RemovingDRMFromEbooks.html" />
@@ -1027,52 +1058,6 @@ kernel driver that was released in Windows Server 2003 (IIS 6).&lt;/p&gt;
 &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/sample-ASP-components.html&#34;&gt;http://www.georgevreilly.com/sample-ASP-components.html&lt;/a&gt;.
 I&#39;m making them available now at
 &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/georgevreilly/sample-ASP-components&#34;&gt;Github&lt;/a&gt;.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Turn off Windows Defender on your builds</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" />
-        <id>tag:www.georgevreilly.com,2013-11-11:/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html</id>
-        <updated>2013-11-11T08:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;I&#39;ve spent some time this evening profiling a Python application on Windows,
-trying to find out why it was so much slower than on Mac or Linux.
-The application is an in-house build tool which reads a number of config files,
-then writes some output files.&lt;/p&gt;
-&lt;p&gt;Using the &lt;a class=&#34;reference external&#34; href=&#34;http://www.vrplumber.com/programming/runsnakerun/&#34;&gt;RunSnakeRun&lt;/a&gt; Python profile viewer on Windows,
-two things immediately leapt out at me:
-we were running &lt;tt class=&#34;docutils literal&#34;&gt;os.stat&lt;/tt&gt; a lot
-and &lt;tt class=&#34;docutils literal&#34;&gt;file.close&lt;/tt&gt; was really expensive.&lt;/p&gt;
-&lt;p&gt;A quick test convinced me that we were &lt;a class=&#34;reference external&#34; href=&#34;http://docs.python.org/2/library/stat.html&#34;&gt;stat-ing&lt;/a&gt; the same files over and over.
-It was a combination of explicit checks and implicit code,
-like &lt;tt class=&#34;docutils literal&#34;&gt;os.walk&lt;/tt&gt; calling &lt;tt class=&#34;docutils literal&#34;&gt;os.path.isdir&lt;/tt&gt;.
-I wrote a little cache that memoizes the results,
-which brought the cost of the &lt;tt class=&#34;docutils literal&#34;&gt;os.stats&lt;/tt&gt; down from 1.5 seconds to 0.6.&lt;/p&gt;
-&lt;p&gt;Figuring out why closing files was so expensive was harder.
-I was writing 77 files, totaling just over 1MB, and it was taking 3.5 seconds.
-It turned out that it wasn&#39;t the UTF-8 codec or newline translation.
-It was simply that &lt;em&gt;closing&lt;/em&gt; those files took far longer than it should have.&lt;/p&gt;
-&lt;p&gt;I decided to try a different profiler, hoping to learn more.
-I downloaded the &lt;a class=&#34;reference external&#34; href=&#34;http://msdn.microsoft.com/en-us/library/windows/hardware/hh448170.aspx&#34;&gt;Windows Performance Toolkit&lt;/a&gt;.
-I recorded a couple of traces of my application running,
-then I looked at them in the Windows Performance Analyzer,
-whereupon I saw that in each case, the CPU spike of my app
-was followed by a CPU spike in MsMpEng.exe.&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://helpdeskgeek.com/windows-vista-tips/what-is-msmpeng-exe/&#34;&gt;What&#39;s MsMpEng.exe&lt;/a&gt;? It&#39;s Microsoft&#39;s antimalware engine,
-at the heart of Windows Defender.
-I added my build tree to the list of excluded locations,
-and my runtime &lt;em&gt;halved&lt;/em&gt;.
-The 3.5 seconds of file closing dropped to 60 milliseconds,
-a 98% reduction.&lt;/p&gt;
-&lt;p&gt;The moral of this story is:
-don&#39;t let your virus checker run on your builds.&lt;/p&gt;
-&lt;img alt=&#34;Windows Defender: Exclude directory for scanning&#34; src=&#34;http://www.georgevreilly.com/blog/content/binary/WindowsDefender-FileExclusion.png&#34;/&gt;
 </content>
     </entry>
     </feed>
