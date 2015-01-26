@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Running PyCharm on Yosemite</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: /content/binary/pycharm4-splash.png..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2015-01-25">25.01.2015, 00:00</time>
+        <h1>
+            <a href="/blog/2015/01/25/PyCharmYosemite.html" rel="bookmark canonical">Running PyCharm on Yosemite</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.jetbrains.com/pycharm/"><img alt="PyCharm" class="right-float" src="/content/binary/pycharm4-splash.png"/></a>
+<p>I did a <a class="reference external" href="http://www.georgevreilly.com/blog/2015/01/17/YosemiteCleanInstall.aspx">clean install of OS X 10.10</a> on my home laptop a week ago.
+I tried to launch <a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a> 4.0.4 on it today.
+It im&shy;me&shy;di&shy;ate&shy;ly failed. Every time.</p>
+<p>When I looked in the System Console, I saw:</p>
+<pre class="literal-block">
+1/25/15 7:46:00.557 PM pycharm[1160]: No matching VM found.
+1/25/15 7:46:00.711 PM com.apple.xpc.launchd[1]: (com.jetbrains.pycharm.58252[1160]) Service exited with abnormal code: 1
+</pre>
+<p>The JetBrains website wasn't very helpful when I looked there.
+In time, I found a <a class="reference external" href="http://stackoverflow.com/questions/26438628/crash-jetbrains-ide-with-yosemite-mac-osx-webstorm-intellij">Stack&shy;Over&shy;flow answer</a> that put me on the right track
+(and reminded me that I had previously solved this problem about a year ago, at work).
+PyCharm and some of the other JetBrains IDEs require JDK 1.6,
+as there are a number of <a class="reference external" href="https://intellij-support.jetbrains.com/entries/27854363-IDE-doesn-t-start-after-updating-to-Mac-OS-Yosemite-or-Mavericks">problems with JDK 1.7 and 1.8</a>.
+After I downloaded and installed <a class="reference external" href="http://support.apple.com/kb/DL1572">Apple's Java 6</a>, PyCharm ran without further problems.</p>
+<p>At work, we all use the PyCharm IDE for Python de&shy;vel&shy;op&shy;ment,
+even those of us who are diehard Vim or Emacs users.
+It does a great job of helping you write and debug Python projects.
+The <a class="reference external" href="https://github.com/JetBrains/ideavim">IdeaVim</a> plugin does an acceptable job of emulating Vim key&shy;bind&shy;ings.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2015/01/24/CraftDistilleries.html" class="page floatright">
+        Craft Distilleries &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
