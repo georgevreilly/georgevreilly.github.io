@@ -11,8 +11,46 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2015-01-27T08:00:00Z</updated>
+    <updated>2015-01-28T08:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.11.dev0">acrylamid</generator>
+        <entry>
+        <title>Python Egg Cache</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/01/28/PythonEggCache.html" />
+        <id>tag:www.georgevreilly.com,2015-01-28:/blog/2015/01/28/PythonEggCache.html</id>
+        <updated>2015-01-28T08:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;Every so often, one of our &lt;a class=&#34;reference external&#34; href=&#34;https://www.atlassian.com/software/bamboo&#34;&gt;Bamboo&lt;/a&gt; builds would break thus:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+pkg_resources.ExtractionError: Can&#39;t extract file(s) to egg cache
+
+The following error occurred while trying to extract file(s) to the Python egg
+cache:
+
+  [Errno 17] File exists: &#39;/home/bamboo/.python-eggs&#39;
+
+The Python egg cache directory is currently set to:
+
+  /home/bamboo/.python-eggs
+
+Perhaps your account does not have write access to this directory?  You can
+change the cache directory by setting the PYTHON_EGG_CACHE environment
+variable to point to an accessible directory.
+&lt;/pre&gt;
+&lt;p&gt;This occurred while trying to make use of &lt;a class=&#34;reference external&#34; href=&#34;http://pycrypto.org&#34;&gt;PyCrypto&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;After a little &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/2192323/what-is-the-python-egg-cache-python-egg-cache&#34;&gt;research&lt;/a&gt;, I decided that instead of installing PyCrypto
+as a zipped egg (as it does by default) into the build&#39;s virtual environment,
+to instead force it to unzip itself: &lt;tt class=&#34;docutils literal&#34;&gt;easy_install &lt;span class=&#34;pre&#34;&gt;--always-unzip&lt;/span&gt; pycrypto&lt;/tt&gt;.
+This seems to have fixed the problem,
+as &lt;a class=&#34;reference external&#34; href=&#34;https://pythonhosted.org/setuptools/pkg_resources.html&#34;&gt;pkg_resources&lt;/a&gt; no longer needs to unpack anything.
+&lt;a class=&#34;reference external&#34; href=&#34;https://pillow.readthedocs.org/&#34;&gt;Pillow&lt;/a&gt; was also in the Egg Cache and probably needs similar treatment.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Utili-Key 6-in-1 Multi-Tool</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/01/27/UtiliKey.html" />
@@ -937,31 +975,6 @@ to avoid being arrested by the police or killed by the spies.
 He spends much of the book hiding out in rural Scotland,
 before returning to London.&lt;/p&gt;
 &lt;p&gt;This proto-thriller—or “shocker” as Buchan called it—is still an entertaining story.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Sic Transit 2014</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2014/12/31/SicTransit2014.html" />
-        <id>tag:www.georgevreilly.com,2014-12-31:/blog/2014/12/31/SicTransit2014.html</id>
-        <updated>2014-12-31T08:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;In most of the world, as I write this, it&#39;s already 2015.
-We in Seattle will enter the New Year in 4½ hours.&lt;/p&gt;
-&lt;p&gt;For me personally, it was a reasonably good year.
-My health remained good,
-I had a new &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2013/12/17/JoiningCookbrite.html&#34;&gt;job&lt;/a&gt;,
-we had a good summer vacation,
-and generally enjoyed ourselves.
-Emma&#39;s health was not so great,
-but she&#39;s set up an &lt;a class=&#34;reference external&#34; href=&#34;https://www.etsy.com/shop/emmasimonesworkshop&#34;&gt;Etsy shop for her knitting&lt;/a&gt;
-and started modeling for artists.&lt;/p&gt;
-&lt;p&gt;I look forward to 2015.&lt;/p&gt;
 </content>
     </entry>
     </feed>
