@@ -11,8 +11,96 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2015-01-28T08:00:00Z</updated>
+    <updated>2015-01-30T08:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.11.dev0">acrylamid</generator>
+        <entry>
+        <title>The TerraServer</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/01/30/TerraServer.html" />
+        <id>tag:www.georgevreilly.com,2015-01-30:/blog/2015/01/30/TerraServer.html</id>
+        <updated>2015-01-30T08:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://manx.classiccmp.org/collections/mds-199909/cd3/storage/smcppuga.pdf&#34;&gt;&lt;img alt=&#34;Unloading ESA 10000 Storage Subsystem Cabinet&#34; class=&#34;right-float&#34; src=&#34;http://www.georgevreilly.com/content/binary/unloading_ESA10000_from_pallet.png&#34; style=&#34;width: 400px;&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;I bought a 2TB external hard disk today.
+It&#39;s about the size of a deck of cards, but thinner,
+and it cost me $95.
+Disk Utility says it has 2,000,397,884,928 bytes.&lt;/p&gt;
+&lt;p&gt;In 1998, I got to see more than three terabytes of disks in one system.
+At the time, a server with a 25GB disk was considered high capacity.
+The 3TB system occupied considerably more volume than a pack of cards.
+I don&#39;t know what it cost
+but clearly it was tens if not hundreds of thousands of dollars.&lt;/p&gt;
+&lt;p&gt;At that time, I was a developer on the &lt;a class=&#34;reference external&#34; href=&#34;http://en.wikipedia.org/wiki/Internet_Information_Services&#34;&gt;IIS&lt;/a&gt; team at Microsoft.
+I was the lead performance engineer for Microsoft&#39;s web server product.
+The &lt;a class=&#34;reference external&#34; href=&#34;http://en.wikipedia.org/wiki/Terraserver.com&#34;&gt;TerraServer&lt;/a&gt; was a project born in Microsoft Research
+intended to demonstrate that SQL Server could scale up to terabyte-sized workloads.
+It stored aerial, satellite, and topographic images of the Earth
+in a SQL database available via the Internet,
+and it was the world’s largest online atlas.&lt;/p&gt;
+&lt;p&gt;They launched the TerraServer on the Internet.
+And the Internet liked the TerraServer.
+And the TerraServer fell over.
+So I got called in.&lt;/p&gt;
+&lt;p&gt;It was June and I was wearing shorts and Birkenstock sandals with no socks.
+The TerraServer was housed in one of Microsoft&#39;s data centers
+and there was cold air blowing up through the floor,
+and quite soon I was wishing that I had worn socks that day.&lt;/p&gt;
+&lt;p&gt;The TerraServer was the biggest microcomputer-based system I had ever seen.
+Quoting the &lt;a class=&#34;reference external&#34; href=&#34;http://research.microsoft.com/pubs/68574/msr_tr_99_29_terraserver.pdf&#34;&gt;TerraServer Tech Report&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The web site has eight Windows NT servers — 6 web servers and 2 database servers.
+The USGS aerial imagery is maintained on a Compaq AlphaServer™ 8400
+containing 8 440 Mhz Alpha processors and 10 GB of RAM.
+The processor is attached to 7 StorageWorks™
+Enterprise Storage Array 10000 (ESA-10000) cabinets.
+The disk arrays are based on UltraSCSI technology.&lt;/p&gt;
+&lt;p&gt;Each ESA-10000 contains 48 9 GB disk drives and
+2 HSZ70 dual-redundant RAID-5 controllers.
+4 sets of 11 disks each are configured into
+a single RAID-5 stripe-set
+and managed as a single logical disk by the HSZ70 controller.
+2 drives per cabinet are available as hot spares.
+Should a disk fail, the HSZ70 controllers automatically
+swap a spare drive into a RAID set.&lt;/p&gt;
+&lt;p&gt;Windows NT Server sees each large (85 GB each) disk
+created by the RAID controllers of each of the seven disk cabinets.
+It stripes these into 4 large (595 GB) volumes
+which are then each formatted and managed
+by the Windows NT file system (NTFS).
+Each 595 GB volume contains about thirty 20GB files.
+SQL Server stores its databases in these large files.
+We chose this 20GB file size since it fits conveniently
+on one DLT magnetic tape cartridge.&lt;/p&gt;
+&lt;p&gt;Connected to the AlphaServer 8400 is a StorageTek 9710 automated tape robot.
+The tape robot contains 10 Quantum DLT7000 tape drives.
+Legato Networker backup software can backup
+the entire 1.5 TB TerraServer SQL database to the StorageTek tape robot
+in 7 hours and 15 minutes — or 17 GB/hour.&lt;/p&gt;
+&lt;p&gt;...&lt;/p&gt;
+&lt;p&gt;Database back-end: 1 8-way 440Mhz Compaq AlphaServer 8400,
+10GB ram, 3.2 TB raid5 324 9GB Ultra SCSI disks&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So, 7 &lt;a class=&#34;reference external&#34; href=&#34;http://manx.classiccmp.org/collections/mds-199909/cd3/storage/smcppuga.pdf&#34;&gt;cabinets&lt;/a&gt; (pictured above)
+measuring 2&#39; wide by 3&#39; deep and 5&#39; tall, housing 324 9GB disks.
+And another cabinet for the servers.
+And one for the tape robot.
+The whole thing must have been about 20 feet wide.&lt;/p&gt;
+&lt;p&gt;By comparison, the 15&amp;quot; mid-2012 MacBook Pro laptop that I&#39;m writing this on
+has 16GB RAM, 2.3 GHz Intel Core i7 (4 hyperthreaded cores),
+750GB internal disk (HDD), and the aforementioned 2TB external disk.
+I&#39;ve been backing up to that external disk
+and I&#39;ve been hitting 90MB/s transfer rates.
+&lt;a class=&#34;reference external&#34; href=&#34;http://en.wikipedia.org/wiki/Moore%27s_law&#34;&gt;Moore&#39;s Law&lt;/a&gt; marches on.&lt;/p&gt;
+&lt;p&gt;At this point, I can&#39;t recall what I actually did to help them out,
+but between me and other people,
+they got it working satisfactorily within a few days.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Python Egg Cache</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/01/28/PythonEggCache.html" />
@@ -938,43 +1026,6 @@ who joined the De La Salle Brothers at a young age.
 Desmond died about 30 years ago, while my grandmother died 15 years ago this month.
 Pat, like my grandmother, is very refined, but also quite determined—as you might expect from someone who moved around the world twice in her nineties.&lt;/p&gt;
 &lt;p&gt;Happy 100th Birthday to Auntie Pat!&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Review: The Thirty-Nine Steps</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/01/01/ReviewThirtyNineSteps.html" />
-        <id>tag:www.georgevreilly.com,2015-01-01:/blog/2015/01/01/ReviewThirtyNineSteps.html</id>
-        <updated>2015-01-01T08:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/B0082Z2904/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;The Thirty-Nine Steps&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/B0082Z2904.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: The Thirty-Nine Steps&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: John Buchan&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: $stars(4)&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 1915&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/B0082Z2904/?tag=georgvreill-20&#34;&gt;1846373727&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 225&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: thriller, &amp;quot;shocker&amp;quot;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 1 January, 2015&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;John Buchan&#39;s classic novel,
-&lt;a class=&#34;reference external&#34; href=&#34;http://en.wikipedia.org/wiki/The_Thirty-Nine_Steps&#34;&gt;The Thirty-Nine Steps&lt;/a&gt;,
-takes place in the summer of 1914,
-weeks before the Great War breaks out.
-Richard Hannay, who made his fortune in South Africa,
-is bored of London.
-When his neighbor is murdered after disclosing a spy plot to him,
-Hannay is forced to go on the run
-to avoid being arrested by the police or killed by the spies.
-He spends much of the book hiding out in rural Scotland,
-before returning to London.&lt;/p&gt;
-&lt;p&gt;This proto-thriller—or “shocker” as Buchan called it—is still an entertaining story.&lt;/p&gt;
 </content>
     </entry>
     </feed>

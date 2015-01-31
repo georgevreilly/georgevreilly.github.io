@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>The TerraServer</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: /content/binary/unloading_ESA10000_from..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/" rel="home start">blog</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2015-01-30">30.01.2015, 00:00</time>
+        <h1>
+            <a href="/blog/2015/01/30/TerraServer.html" rel="bookmark canonical">The TerraServer</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://manx.classiccmp.org/collections/mds-199909/cd3/storage/smcppuga.pdf"><img alt="Unloading ESA 10000 Storage Subsystem Cabinet" class="right-float" src="/content/binary/unloading_ESA10000_from_pallet.png" style="width: 400px;"/></a>
+<p>I bought a 2TB external hard disk today.
+It's about the size of a deck of cards, but thinner,
+and it cost me $95.
+Disk Utility says it has 2,000,397,884,928 bytes.</p>
+<p>In 1998, I got to see more than three terabytes of disks in one system.
+At the time, a server with a 25GB disk was considered high capacity.
+The 3TB system occupied con&shy;sid&shy;er&shy;ably more volume than a pack of cards.
+I don't know what it cost
+but clearly it was tens if not hundreds of thousands of dollars.</p>
+<p>At that time, I was a developer on the <a class="reference external" href="http://en.wikipedia.org/wiki/Internet_Information_Services">IIS</a> team at Microsoft.
+I was the lead per&shy;for&shy;mance engineer for Mi&shy;crosoft&shy;'s web server product.
+The <a class="reference external" href="http://en.wikipedia.org/wiki/Terraserver.com">Ter&shy;raServ&shy;er</a> was a project born in Microsoft Research
+intended to demon&shy;strate that SQL Server could scale up to terabyte-sized workloads.
+It stored aerial, satellite, and topo&shy;graph&shy;ic images of the Earth
+in a SQL database available via the Internet,
+and it was the world’s largest online atlas.</p>
+<p>They launched the Ter&shy;raServ&shy;er on the Internet.
+And the Internet liked the Ter&shy;raServ&shy;er.
+And the Ter&shy;raServ&shy;er fell over.
+So I got called in.</p>
+<p>It was June and I was wearing shorts and Birken&shy;stock sandals with no socks.
+The Ter&shy;raServ&shy;er was housed in one of Mi&shy;crosoft&shy;'s data centers
+and there was cold air blowing up through the floor,
+and quite soon I was wishing that I had worn socks that day.</p>
+<p>The Ter&shy;raServ&shy;er was the biggest mi&shy;cro&shy;com&shy;put&shy;er-based system I had ever seen.
+Quoting the <a class="reference external" href="http://research.microsoft.com/pubs/68574/msr_tr_99_29_terraserver.pdf">Ter&shy;raServ&shy;er Tech Report</a>:</p>
+<blockquote>
+<p>The web site has eight Windows NT servers — 6 web servers and 2 database servers.
+The USGS aerial imagery is maintained on a Compaq Al&shy;phaServer™ 8400
+containing 8 440 Mhz Alpha processors and 10 GB of RAM.
+The processor is attached to 7 Stor&shy;age&shy;Work&shy;s™
+Enterprise Storage Array 10000 (ESA-10000) cabinets.
+The disk arrays are based on UltraSCSI technology.</p>
+<p>Each ESA-10000 contains 48 9 GB disk drives and
+2 HSZ70 dual-redundant RAID-5 con&shy;trollers.
+4 sets of 11 disks each are configured into
+a single RAID-5 stripe-set
+and managed as a single logical disk by the HSZ70 controller.
+2 drives per cabinet are available as hot spares.
+Should a disk fail, the HSZ70 con&shy;trollers au&shy;to&shy;mat&shy;i&shy;cal&shy;ly
+swap a spare drive into a RAID set.</p>
+<p>Windows NT Server sees each large (85 GB each) disk
+created by the RAID con&shy;trollers of each of the seven disk cabinets.
+It stripes these into 4 large (595 GB) volumes
+which are then each formatted and managed
+by the Windows NT file system (NTFS).
+Each 595 GB volume contains about thirty 20GB files.
+SQL Server stores its databases in these large files.
+We chose this 20GB file size since it fits con&shy;ve&shy;nient&shy;ly
+on one DLT magnetic tape cartridge.</p>
+<p>Connected to the Al&shy;phaServ&shy;er 8400 is a StorageTek 9710 automated tape robot.
+The tape robot contains 10 Quantum DLT7000 tape drives.
+Legato Networker backup software can backup
+the entire 1.5 TB Ter&shy;raServ&shy;er SQL database to the StorageTek tape robot
+in 7 hours and 15 minutes — or 17 GB/hour.</p>
+<p>...</p>
+<p>Database back-end: 1 8-way 440Mhz Compaq Al&shy;phaServ&shy;er 8400,
+10GB ram, 3.2 TB raid5 324 9GB Ultra SCSI disks</p>
+</blockquote>
+<p>So, 7 <a class="reference external" href="http://manx.classiccmp.org/collections/mds-199909/cd3/storage/smcppuga.pdf">cabinets</a> (pictured above)
+measuring 2' wide by 3' deep and 5' tall, housing 324 9GB disks.
+And another cabinet for the servers.
+And one for the tape robot.
+The whole thing must have been about 20 feet wide.</p>
+<p>By comparison, the 15&quot; mid-2012 MacBook Pro laptop that I'm writing this on
+has 16GB RAM, 2.3 GHz Intel Core i7 (4 hy&shy;per&shy;thread&shy;ed cores),
+750GB internal disk (HDD), and the afore&shy;men&shy;tioned 2TB external disk.
+I've been backing up to that external disk
+and I've been hitting 90MB/s transfer rates.
+<a class="reference external" href="http://en.wikipedia.org/wiki/Moore%27s_law">Moore's Law</a> marches on.</p>
+<p>At this point, I can't recall what I actually did to help them out,
+but between me and other people,
+they got it working sat&shy;is&shy;fac&shy;to&shy;ri&shy;ly within a few days.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2015/01/28/PythonEggCache.html" class="page floatright">
+        Python Egg Cache &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
