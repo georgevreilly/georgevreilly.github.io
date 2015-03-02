@@ -28,6 +28,58 @@
     
         <article>
     <header>
+        <time datetime="2009-03-31">31.03.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/03/31/AugmentingPythonsStrftime.html" rel="bookmark canonical">Augmenting Python's strftime</a>
+        </h1>
+    </header>
+    
+<p>The Cozi Tech Blog needed some love,
+so I wrote a post on <a class="reference external" href="http://blogs.cozi.com/tech/2009/03/augmenting-pythons-strftime.html">augmenting Python's strftime</a>.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2009-03-25">25.03.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/03/25/AckBetterThanGrep.html" rel="bookmark canonical">Ack - Better than Grep</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.betterthangrep.com/"></a>
+<p>On a Stack&shy;Over&shy;flow question about <a class="reference external" href="http://stackoverflow.com/questions/21725/favorite-gvim-plugins-scripts">favorite Vim plugins</a>, I learned about <a class="reference external" href="http://www.betterthangrep.com/">Ack</a>,
+a re&shy;place&shy;ment for grep that's smarter about searching source trees.</p>
+<p>Ack is written in Perl.
+The built-in <tt class="docutils literal">:vimgrep</tt> is rather slow.
+It seems to have some Vim-specific overhead,
+such as creating swap files and executing <tt class="docutils literal">BufRead</tt> autocmds.
+Ack is noticeably faster,
+though somewhat slower than GNU grep.</p>
+<p>Which would you rather type to search a tree,
+ignoring the <tt class="docutils literal">.svn</tt> and <tt class="docutils literal">.git</tt> subtrees?</p>
+<div class="highlight"><pre><span class="nv">$ </span>ack -i -l foobar
+<span class="nv">$ </span>grep --exclude<span class="o">=</span><span class="s1">&#39;*.svn*&#39;</span> --exclude<span class="o">=</span><span class="s1">&#39;*.git*&#39;</span> -i -l -r foobar .
+</pre></div>
+<p>The ack takes 6 seconds to search 4500 files, while the grep completes in 2.
+This does not count the time that I spent trying <span>&#8230;<a href="/blog/2009/03/25/AckBetterThanGrep.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2009-03-25">25.03.2009, 00:00</time>
         <h1>
             <a href="/blog/2009/03/25/Refinancing.html" rel="bookmark canonical">Refinancing</a>
@@ -275,65 +327,6 @@ but I fixed it by using the <a class="reference external" href="http://www.brown
 The most obvious is that the font size is larger.</p>
 <p>Most RSS readers won't pick up the stylesheet,
 so take a look at the actual <a class="reference external" href="http://www.georgevreilly.com/blog/">blog</a>.</p>
-
-    <footer>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2009-02-26">26.02.2009, 00:00</time>
-        <h1>
-            <a href="/blog/2009/02/26/InterviewingYourNextBoss.html" rel="bookmark canonical">Interviewing your next boss</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.javaworld.com/community/node/2500"></a>
-<p>Esther Schindler has a post about <a class="reference external" href="http://www.javaworld.com/community/node/2500">in&shy;ter&shy;view&shy;ing your next boss</a>:
-should a candidate dev manager meet everyone who'll be reporting to them?</p>
-<p>Yes. Definitely.
-If you want a successful, cohesive team,
-there has to be trust.
-A manager can make or break a team.</p>
-<p>A new manager starts at a dis&shy;ad&shy;van&shy;tage,
-relative to a new individual con&shy;trib&shy;u&shy;tor.
-The new dev is expected to ramp up
-and have time to build re&shy;la&shy;tion&shy;ships with the team.
-The new manager has to build the re&shy;la&shy;tion&shy;ships as soon as possible.</p>
-<p>If the manager gets to interview with the team
-before being offered the job,
-both parties benefit.
-Why would you want to manage a team that you'd never <span>&#8230;<a href="/blog/2009/02/26/InterviewingYourNextBoss.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2009-02-25">25.02.2009, 00:00</time>
-        <h1>
-            <a href="/blog/2009/02/25/Safari4FAIL.html" rel="bookmark canonical">Safari 4: FAIL!</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.sfgate.com/cgi-bin/blogs/sfgate/detail?blogid=19&amp;entry_id=36185"></a>
-<p>Apple launched the public <a class="reference external" href="http://www.sfgate.com/cgi-bin/blogs/sfgate/detail?blogid=19&amp;entry_id=36185">Safari 4 beta</a> today.</p>
-<p>It runs beau&shy;ti&shy;ful&shy;ly on Vista and it's the fastest browser that I've seen,
-noticeably faster than Chrome.
-Everything that I tried worked fairly well;
-I saw only a few minor glitches.</p>
-<p>I installed it on my MacBook at home this evening.
-It crashes at startup every time that I attempt to run it.
-For&shy;tu&shy;nate&shy;ly, it comes with an unin&shy;staller so that I could revert to Safari 3.21.</p>
-<p>Back to <a class="reference external" href="http://www.georgevreilly.com/blog/2009/01/22/UsingOpera.aspx">Opera</a> for now.</p>
 
     <footer>
         
