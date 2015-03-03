@@ -5,9 +5,31 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Sun, 01 Mar 2015 08:00:00 GMT</pubDate>
+        <pubDate>Mon, 02 Mar 2015 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
-        <generator>acrylamid 0.7.11.dev0</generator>
+        <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Nosetests won&#39;t discover tests in executable files</title>
+        <link>http://www.georgevreilly.com/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html</link>
+        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://nose.readthedocs.org/&#34;&gt;&lt;img alt=&#34;Nose is nicer testing for Python&#34; class=&#34;right-float&#34; src=&#34;http://www.georgevreilly.com/content/binary/nose-is-nicer-testing-for-python.jpg&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;We use &lt;a class=&#34;reference external&#34; href=&#34;http://nose.readthedocs.org/&#34;&gt;Nose&lt;/a&gt; to run unit tests.
+I noticed that we had some tests that weren&#39;t being run,
+and it took me some time to work out why.
+Eventually, I found this &lt;a class=&#34;reference external&#34; href=&#34;https://www.hyperink.com/blog/?p=22&#34;&gt;checklist&lt;/a&gt;,
+which told me to &amp;quot;make sure the files in your tests directory are not executable&amp;quot;.&lt;/p&gt;
+&lt;p&gt;A quick &lt;tt class=&#34;docutils literal&#34;&gt;chmod &lt;span class=&#34;pre&#34;&gt;-x&lt;/span&gt; *.py&lt;/tt&gt; later and &lt;tt class=&#34;docutils literal&#34;&gt;nosetests project/tests&lt;/tt&gt; suddenly found all the tests.&lt;/p&gt;
+&lt;p&gt;Now that I know what to look for, I found this in the Nose docs:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;It is important to note that the default behavior of nose
+is to not include tests from files which are executable.&lt;/p&gt;
+&lt;p&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--exe&lt;/span&gt;&lt;/tt&gt;: Look for tests in python modules that are executable.
+Normal behavior is to exclude executable modules, since they may not be import-safe&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+        <pubDate>Mon, 02 Mar 2015 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2015-03-02:/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html</guid>
+    </item>
         
             <item>
         <title>Review: Blood Eye</title>
@@ -761,37 +783,6 @@ I&#39;ll get a pair of &lt;a class=&#34;reference external&#34; href=&#34;http:/
 </description>
         <pubDate>Thu, 08 Jan 2015 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2015-01-08:/blog/2015/01/08/Spectacles.html</guid>
-    </item>
-        
-            <item>
-        <title>Dyshidrotic Eczema</title>
-        <link>http://www.georgevreilly.com/blog/2015/01/07/DyshidroticEczema.html</link>
-        <description>&lt;p&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://en.wikipedia.org/wiki/Dyshidrosis&#34;&gt;Dyshidrosis&lt;/a&gt; (/dɪs.haɪˈdroʊ.sɨs/,
-also known as &amp;quot;acute vesiculobullous hand eczema,&amp;quot;
-&amp;quot;cheiropompholyx,&amp;quot; &amp;quot;dyshidrotic eczema,&amp;quot; &amp;quot;pompholyx,&amp;quot; and &amp;quot;podopompholyx&amp;quot;)
-is a skin condition that is characterized by small blisters on the hands or feet.&lt;/p&gt;
-&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;      — &lt;a class=&#34;reference external&#34; href=&#34;http://en.wikipedia.org/wiki/Dyshidrosis&#34;&gt;Wikipedia&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;I&#39;ve occasionally had little blisters
-appear on my fingers and palms in hot weather in the past.
-These vesicles are filled with clear liquid, annoying and a little bit sore,
-and they sting when my hands are soaked in water.&lt;/p&gt;
-&lt;p&gt;In August, they came back and they were larger and more swollen than ever before.
-My doctor diagnosed a case of dyshidrotic eczema
-and prescribed &lt;a class=&#34;reference external&#34; href=&#34;http://en.wikipedia.org/wiki/Clobetasol_propionate&#34;&gt;clobetasol propionate&lt;/a&gt; ointment.
-The eczema promptly cleared up, but I had peeling skin on my fingertips
-for weeks after I stopped using the ointment.
-Clobetasol apparently thins the skin and prolonged use is not recommended.
-For weeks I rubbed Vaseline into my hands to help the peeling.&lt;/p&gt;
-&lt;p&gt;I had a milder recurrence just after Christmas.
-Again, the ointment cleared up the eczema quickly
-and again the peeling skin persists long after.
-It&#39;s annoying but I can live with it.&lt;/p&gt;
-</description>
-        <pubDate>Wed, 07 Jan 2015 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2015-01-07:/blog/2015/01/07/DyshidroticEczema.html</guid>
     </item>
         </channel>
 </rss>
