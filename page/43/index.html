@@ -28,6 +28,40 @@
     
         <article>
     <header>
+        <time datetime="2006-05-14">14.05.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/05/14/GoogleMapsForIreland.html.." rel="bookmark canonical">Google Maps for Ireland</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://maps.google.co.uk"></a>
+<p>I remember about two years ago, before a trip across the Atlantic, trying
+to find websites that had street maps for London and Dublin -- and coming
+up nearly empty.</p>
+<p>Now, a year after it became available, I notice that Google Maps
+covers <a class="reference external" href="http://maps.google.co.uk">Ireland and the UK</a>.
+Un&shy;for&shy;tu&shy;nate&shy;ly, it does a piss-poor job of finding locations:
+try typing anything more specific than <em>Dublin</em> into the search box.</p>
+<p>Google Maps now provides a basic ability to get directions
+<a class="reference external" href="http://www.spatialireland.com/archives/20060425-google-maps-adds-basic-directions-for-the-republic/">between cities</a>.</p>
+<p>Some other map links:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://maps.frommars.org/ireland/">Irish sight&shy;see&shy;ing</a></li>
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Maps_of_the_UK_and_Ireland">Maps of Ireland and the UK</a></li>
+<li><a class="reference external" href="http://www.viamichelin.com/viamichelin/gbr/tpl/hme/MaHomePage.htm">Via Michelin</a>:
+driving directions</li>
+</ul>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2006-05-11">11.05.2006, 00:00</time>
         <h1>
             <a href="/blog/2006/05/11/Parkour.html.." rel="bookmark canonical">Parkour</a>
@@ -291,35 +325,6 @@ moderate former Talibs than to freeze them out.</p>
 <p>Besides, his B-grades at Yale are better than George Bush's
 &quot;Gen&shy;tle&shy;man's-C&quot;.</p>
 
-    <footer>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2006-03-02">02.03.2006, 00:00</time>
-        <h1>
-            <a href="/blog/2006/03/02/ThrowingFromXSLT.html" rel="bookmark canonical">Throwing from XSLT</a>
-        </h1>
-    </header>
-    <p>I needed to add some de&shy;clar&shy;a&shy;tive error checking to some XSLT templates
-recently. Specif&shy;i&shy;cal&shy;ly, I wanted to throw an error if my selects yielded an
-empty string, indicating that the input XML was wrong.</p>
-<p>Un&shy;for&shy;tu&shy;nate&shy;ly, there seems to be no easy way of doing this in XSLT, nor in
-<tt class="docutils literal">XslTrans&shy;form</tt>. The approved way is to validate against an XSD schema,
-but for various reasons, I didn't want to go to the hassle of creating one.</p>
-<p>I found a partial solution using <tt class="docutils literal">xsl:message</tt> with the
-<tt class="docutils literal"><span class="pre">terminate=&quot;yes&quot;</span></tt> attribute. Under <tt class="docutils literal">XslTrans&shy;form.Transform()</tt> the
-following code throws an exception if the XPath expression is empty.</p>
-<div class="highlight"><pre><span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span>
-    <span class="k">&lt;xsl:message</span> <span class="na">terminate=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>Missing expression<span class="k">&lt;/xsl:message&gt;</span>
-<span class="k">&lt;/xsl:if&gt;</span>
-<span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;/some/xpath/expression&quot;</span> </pre><span>&#8230;<a href="/blog/2006/03/02/ThrowingFromXSLT.html" class="continue">continue</a>.</span></div>
     <footer>
         
         
