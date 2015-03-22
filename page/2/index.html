@@ -28,6 +28,35 @@
     
         <article>
     <header>
+        <time datetime="2015-03-02">02.03.2015, 00:00</time>
+        <h1>
+            <a href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html" rel="bookmark canonical">Nosetests won't discover tests in executable files</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://nose.readthedocs.org/"></a>
+<p>We use <a class="reference external" href="http://nose.readthedocs.org/">Nose</a> to run unit tests.
+I noticed that we had some tests that weren't being run,
+and it took me some time to work out why.
+Eventually, I found this <a class="reference external" href="https://www.hyperink.com/blog/?p=22">checklist</a>,
+which told me to &quot;make sure the files in your tests directory are not executable&quot;.</p>
+<p>A quick <tt class="docutils literal">chmod <span class="pre">-x</span> *.py</tt> later and <tt class="docutils literal">nosetests project/tests</tt> suddenly found all the tests.</p>
+<p>Now that I know what to look for, I found this in the Nose docs:</p>
+<blockquote>
+<p>It is important to note that the default behavior of nose
+is to not include tests from files which are executable.</p>
+<p><tt class="docutils literal"><span class="pre">--exe</span></tt>: Look for tests in python modules that are executable.
+Normal behavior <span>&#8230;<a href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2015-03-01">01.03.2015, 00:00</time>
         <h1>
             <a href="/blog/2015/03/01/ReviewBloodEye.html" rel="bookmark canonical">Review: Blood Eye</a>
@@ -314,36 +343,6 @@ Yesterday, it was 63°F (17°C) in Seattle—<a class="reference external" href=
 The flowers are blooming. I smelled some glorious blossoms yesterday and today.
 One friend dubbed it “sumter”.</p>
 
-    <footer>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2015-01-25">25.01.2015, 00:00</time>
-        <h1>
-            <a href="/blog/2015/01/25/PyCharmYosemite.html" rel="bookmark canonical">Running PyCharm on Yosemite</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.jetbrains.com/pycharm/"></a>
-<p>I did a <a class="reference external" href="http://www.georgevreilly.com/blog/2015/01/17/YosemiteCleanInstall.aspx">clean install of OS X 10.10</a> on my home laptop a week ago.
-I tried to launch <a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a> 4.0.4 on it today.
-It im&shy;me&shy;di&shy;ate&shy;ly failed. Every time.</p>
-<p>When I looked in the System Console, I saw:</p>
-<pre class="literal-block">
-1/25/15 7:46:00.557 PM pycharm[1160]: No matching VM found.
-1/25/15 7:46:00.711 PM com.apple.xpc.launchd[1]: (com.jetbrains.pycharm.58252[1160]) Service exited with abnormal code: 1
-</pre>
-<p>The JetBrains website wasn't very helpful when I looked there.
-In time, I found a <a class="reference external" href="http://stackoverflow.com/questions/26438628/crash-jetbrains-ide-with-yosemite-mac-osx-webstorm-intellij">Stack&shy;Over&shy;flow answer</a> that put me on the right track
-(and reminded me that I had previously solved this problem about a year ago, at work).
-PyCharm and some of the other JetBrains IDEs require JDK 1.6,
-as <span>&#8230;<a href="/blog/2015/01/25/PyCharmYosemite.html" class="continue">continue</a>.</span></p>
     <footer>
         
         

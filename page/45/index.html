@@ -28,6 +28,35 @@
     
         <article>
     <header>
+        <time datetime="2006-03-02">02.03.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/03/02/ThrowingFromXSLT.html" rel="bookmark canonical">Throwing from XSLT</a>
+        </h1>
+    </header>
+    <p>I needed to add some de&shy;clar&shy;a&shy;tive error checking to some XSLT templates
+recently. Specif&shy;i&shy;cal&shy;ly, I wanted to throw an error if my selects yielded an
+empty string, indicating that the input XML was wrong.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, there seems to be no easy way of doing this in XSLT, nor in
+<tt class="docutils literal">XslTrans&shy;form</tt>. The approved way is to validate against an XSD schema,
+but for various reasons, I didn't want to go to the hassle of creating one.</p>
+<p>I found a partial solution using <tt class="docutils literal">xsl:message</tt> with the
+<tt class="docutils literal"><span class="pre">terminate=&quot;yes&quot;</span></tt> attribute. Under <tt class="docutils literal">XslTrans&shy;form.Transform()</tt> the
+following code throws an exception if the XPath expression is empty.</p>
+<div class="highlight"><pre><span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:message</span> <span class="na">terminate=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>Missing expression<span class="k">&lt;/xsl:message&gt;</span>
+<span class="k">&lt;/xsl:if&gt;</span>
+<span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;/some/xpath/expression&quot;</span> </pre><span>&#8230;<a href="/blog/2006/03/02/ThrowingFromXSLT.html" class="continue">continue</a>.</span></div>
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2006-02-19">19.02.2006, 00:00</time>
         <h1>
             <a href="/blog/2006/02/19/OlympicsRazorthinMargins.html" rel="bookmark canonical">Olympics: Razor-thin Margins</a>
@@ -264,34 +293,6 @@ but not the Windows headers. That was easily rectified. Download the
 <a class="reference external" href="http://www.microsoft.com/msdownload/platformsdk/sdkupdate/">Platform SDK</a>.
 Just the Windows Core SDK subset. This also got me nmake.</p>
 <p>At this point, I was able to <span>&#8230;<a href="/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2006-01-16">16.01.2006, 00:00</time>
-        <h1>
-            <a href="/blog/2006/01/16/FilibusterAlito.html" rel="bookmark canonical">Filibuster Alito</a>
-        </h1>
-    </header>
-    <p>This morning, I sent the following letter to the Democratic
-members of the Senate Judiciary Committee:</p>
-<blockquote>
-<p>Senator,</p>
-<p>Your job last week was to show up Samuel Alito as the extremist that he is.</p>
-<p>You failed. You were out&shy;ma&shy;neu&shy;vred by the Re&shy;pub&shy;li&shy;cans and you did not make
-a compelling case when you had the spotlight on you. Instead many of you
-were, rightfully, pilloried as bloviating blowhards.</p>
-<p>Do you really want your legacy to be that you swung the Supreme Court
-to the right for three decades? Do you want to remembered as one who
-lost Roe v. Wade? That you placed someone with a track record of
-priv&shy;i&shy;leg&shy;ing the executive <span>&#8230;<a href="/blog/2006/01/16/FilibusterAlito.html" class="continue">continue</a>.</span></p></blockquote>
     <footer>
         
         
