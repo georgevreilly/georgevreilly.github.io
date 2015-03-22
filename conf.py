@@ -10,8 +10,8 @@ EMAIL = 'george@reilly.org'
 
 FILTERS = ['reST', 'hyphenate', 'h1']
 VIEWS = {
-    '/': {'filters': 'summarize', 'view': 'index',
-          'pagination': '/page/:num/'},
+    '/blog/': {'filters': 'summarize', 'view': 'index',
+          'pagination': '/blog/page/:num/'},
 
     '/:year/:slug/': {'views': ['entry', 'draft']},
 
@@ -31,8 +31,8 @@ VIEWS = {
 
     # # Here are some more examples
 
-    # # '/:slug/' is a slugified url of your static page's title
-    # '/:slug/': {'view': 'page'},
+    # '/:slug/' is a slugified url of your static page's title
+    '/:slug/': {'view': 'page'},
 
     # # '/atom/full/' will give you a _complete_ feed of all your entries
     # '/atom/full/': {'filters': 'h2', 'view': 'atom', 'num_entries': 1000},
