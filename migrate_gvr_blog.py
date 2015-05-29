@@ -5,6 +5,7 @@
 import argparse
 import codecs
 import fnmatch
+import hashlib
 import json
 import os
 import re
@@ -156,11 +157,11 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
     source_file = os.path.join(source_dir, fname)
     date_parts = permalink.split('/')[1:4]
     if len(date_parts) < 3:
-        print "Need to fix", fname
+        print "Need to fix", fname, date_parts
         return
     subdirs = os.path.join(target_dir, *date_parts)
     target_file = os.path.join(subdirs, os.path.splitext(os.path.split(fname)[1])[0])
-    print u"'{0}' -> '{1}.rst' ({2})".format(source_file, target_file, permalink)
+    write = False
 
     data, title, matcher = [], None, ReMatcher()
     with codecs.open(source_file, "r", encoding="utf8") as fp:
@@ -190,13 +191,27 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
     subdir_path = os.path.join(base_dir, subdirs)
     if not os.path.exists(subdir_path):
         os.makedirs(subdir_path)
+        write = True
     target_file = os.path.join(base_dir, target_file + u".rst")
-    with codecs.open(target_file, "w", encoding="utf8") as fp:
-        fp.write(prolog)
-        for line in data:
-            fp.write(line)
-        fp.write(epilog)
-    shutil.copystat(source_file, target_file)
+    target_data = (prolog + ''.join(data) + epilog).encode('utf-8')
+    if not os.path.exists(target_file):
+        write = True
+    else:
+        new_md5 = hashlib.md5(target_data)
+        with open(target_file) as fp:
+            old_data = fp.read()
+            old_md5 = hashlib.md5(old_data)
+            write = (old_md5.hexdigest() != new_md5.hexdigest())
+
+    if write:
+        print u"'{0}' -> '{1}.rst' ({2})".format(source_file, target_file, permalink)
+
+        with codecs.open(target_file, "w", encoding="utf8") as fp:
+            fp.write(prolog)
+            for line in data:
+                fp.write(line)
+            fp.write(epilog)
+        shutil.copystat(source_file, target_file)
 
 
 def migrate_files(args, filename_links):
