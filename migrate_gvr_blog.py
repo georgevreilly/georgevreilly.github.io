@@ -204,7 +204,7 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
             write = (old_md5.hexdigest() != new_md5.hexdigest())
 
     if write:
-        print u"'{0}' -> '{1}.rst' ({2})".format(source_file, target_file, permalink)
+        print u"'{0}' -> '{1}' ({2})".format(source_file, target_file, permalink)
 
         with codecs.open(target_file, "w", encoding="utf8") as fp:
             fp.write(prolog)
