@@ -56,7 +56,7 @@ unsigned hash(const char* s)
 {
     unsigned h = 0;
     while (*s)
-        h = h * 101 + (unsigned char*) *s++;
+        h = h * 101 + (unsigned) *s++;
     return h;
 }
 </pre>
@@ -68,7 +68,7 @@ unsigned hash(const char* s, unsigned salt)
 {
     unsigned h = salt;
     while (*s)
-        h = h * 101 + (unsigned char*) *s++;
+        h = h * 101 + (unsigned) *s++;
     return h;
 }
 </pre>
