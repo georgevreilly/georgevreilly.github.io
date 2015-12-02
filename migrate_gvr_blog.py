@@ -59,21 +59,27 @@ def read_permalink(filename):
     return link
 
 
-def walk_tree(dir, includes=None, excludes=None):
-    # Adapted from http://stackoverflow.com/a/5141829/6364
-    # Transform glob patterns to regular expressions
-    includes = r'|'.join([fnmatch.translate(x) for x in includes])
-    excludes = r'|'.join([fnmatch.translate(x) for x in excludes]) or r'$.'
+def walk_tree(dir, includes, excludes=None):
+    """Walk a directory tree, including and excluding files and dirs by wildcards.
 
-    for root, dirs, files in os.walk(dir):
-        # exclude dirs
-        dirs[:] = [os.path.join(root, d) for d in dirs]
-        dirs[:] = [d for d in dirs if not re.match(excludes, d)]
+    Adapted (and fixed!) from http://stackoverflow.com/a/5141829/6364
+    """
+    # Transform glob patterns to regular expressions
+    includes_re = re.compile('|'.join([fnmatch.translate(x)
+                                       for x in includes]))
+    excludes_re = re.compile('|'.join([fnmatch.translate(x)
+                                       for x in excludes])
+                             if excludes else '$.')
+
+    for top, dirs, files in os.walk(dir, topdown=True):
+        # exclude directories by mutating `dirs`
+        dirs[:] = [d for d in dirs
+                   if not excludes_re.search(os.path.join(top, d))]
 
         # exclude/include files
-        files = [os.path.join(root, f) for f in files]
-        files = [f for f in files if not re.match(excludes, f)]
-        files = [f for f in files if re.match(includes, f)]
+        files = [os.path.join(top, f) for f in files]
+        files = [f for f in files if not excludes_re.search(f)]
+        files = [f for f in files if includes_re.search(f)]
 
         for fname in files:
             yield fname
