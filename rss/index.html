@@ -5,9 +5,72 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Mon, 30 Nov 2015 08:00:00 GMT</pubDate>
+        <pubDate>Tue, 01 Dec 2015 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Explaining the epilog of fnmatch.translate, \Z(?ms)</title>
+        <link>http://www.georgevreilly.com/blog/2015/12/01/ExplainingEpilogFnmatchTranslate.html</link>
+        <description>&lt;p&gt;I was debugging a &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/a/5141829/6364&#34;&gt;filtering directory walker&lt;/a&gt;
+(on which, more to follow)
+and I was trying to figure out
+the mysterious suffix that
+&lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/fnmatch.html#fnmatch.translate&#34;&gt;fnmatch.translate&lt;/a&gt;
+appends to its result,
+&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;\Z(?ms)&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;tt class=&#34;docutils literal&#34;&gt;fnmatch.translate&lt;/tt&gt; takes a Unix-style glob,
+like &lt;tt class=&#34;docutils literal&#34;&gt;*.py&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;test_*.py[cod]&lt;/span&gt;&lt;/tt&gt;,
+and translates it character-by-character into a regular expression.
+It then appends &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;\Z(?ms)&lt;/span&gt;&lt;/tt&gt;.
+Hence the latter glob becomes &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;r&#39;test\_.*\.py[cod]\Z(?ms)&#39;&lt;/span&gt;&lt;/tt&gt;,
+using Python&#39;s raw string notation to avoid the
+&lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/howto/regex.html#the-backslash-plague&#34;&gt;backslash plague&lt;/a&gt;.
+Also, the &lt;tt class=&#34;docutils literal&#34;&gt;?&lt;/tt&gt; wildcard character becomes the &lt;tt class=&#34;docutils literal&#34;&gt;.&lt;/tt&gt; regex special character,
+while the &lt;tt class=&#34;docutils literal&#34;&gt;*&lt;/tt&gt; wildcard becomes the &lt;tt class=&#34;docutils literal&#34;&gt;.*&lt;/tt&gt; greedy regex.&lt;/p&gt;
+&lt;p&gt;A &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/a/11998653/6364&#34;&gt;StackOverflow answer partially explains&lt;/a&gt;,
+which set me on the right track.
+&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;(?ms)&lt;/span&gt;&lt;/tt&gt; is equivalent to compiling the regex with &lt;tt class=&#34;docutils literal&#34;&gt;re.MULTILINE | re.DOTALL&lt;/tt&gt;.
+The &lt;tt class=&#34;docutils literal&#34;&gt;re.DOTALL&lt;/tt&gt; modifier makes the &lt;tt class=&#34;docutils literal&#34;&gt;.&lt;/tt&gt; special character match &lt;em&gt;any&lt;/em&gt; character,
+including newline;
+normally &lt;tt class=&#34;docutils literal&#34;&gt;.&lt;/tt&gt; excludes newlines.
+The &lt;tt class=&#34;docutils literal&#34;&gt;re.MULTILINE&lt;/tt&gt; modifier makes &lt;tt class=&#34;docutils literal&#34;&gt;^&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;$&lt;/tt&gt;
+operate on newline boundaries within the search string;
+otherwise, they anchor to the beginning and end of the string.
+&lt;tt class=&#34;docutils literal&#34;&gt;\A&lt;/tt&gt; always matches the beginning of the string;
+&lt;tt class=&#34;docutils literal&#34;&gt;\Z&lt;/tt&gt; always matches the end of the string.&lt;/p&gt;
+&lt;p&gt;Another way of saying this:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+# No multiline, so ^ and $ anchor beginning and end of string
+&gt;&gt;&gt; re.search(r&#39;^\.git$(?s)&#39;, &#39;.git&#39;)
+&amp;lt;_sre.SRE_Match object at 0x10e73a850&gt;
+
+&gt;&gt;&gt; re.search(r&#39;^\.git$(?s)&#39;, &#39;bar\n.git\nfoo&#39;)
+# Nope
+
+# Multiline =&gt; ^ matches after \n and $ before \n
+&gt;&gt;&gt; re.search(r&#39;^\.git$(?ms)&#39;, &#39;bar\n.git\nfoo&#39;)
+&amp;lt;_sre.SRE_Match object at 0x10e73a988&gt;
+
+# \A and \Z always anchor beginning and end of string
+&gt;&gt;&gt; re.search(r&#39;\A\.git\Z(?ms)&#39;, &#39;.git&#39;)
+&amp;lt;_sre.SRE_Match object at 0x10e73a850&gt;
+
+&gt;&gt;&gt; re.search(r&#39;\A\.git\Z(?ms)&#39;, &#39;foo\n.git&#39;)
+# Nope
+&lt;/pre&gt;
+
+&lt;p&gt;So, &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;\Z(?ms)&lt;/span&gt;&lt;/tt&gt; at the end of the pattern means:&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;\Z&lt;/tt&gt;: the pattern must match all the way to the end of the search string;&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;(?m)&lt;/span&gt;&lt;/tt&gt;: the search string may contain newlines;&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;(?s)&lt;/span&gt;&lt;/tt&gt;: the &lt;tt class=&#34;docutils literal&#34;&gt;?&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;*&lt;/tt&gt; wildcards may match newlines in the search string.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Tue, 01 Dec 2015 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-01:/blog/2015/12/01/ExplainingEpilogFnmatchTranslate.html</guid>
+    </item>
         
             <item>
         <title>On Blogging</title>
@@ -912,34 +975,6 @@ that I found entertaining.&lt;/p&gt;
 </description>
         <pubDate>Sat, 02 May 2015 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2015-05-02:/blog/2015/05/02/ReviewWrittenInRed.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: My Sister&#39;s Grave</title>
-        <link>http://www.georgevreilly.com/blog/2015/04/27/ReviewMySistersGrave.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/1477825576/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;My Sister&#39;s Grave&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/1477825576.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: My Sister&#39;s Grave&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: Robert Dugoni&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: $stars(3.5)&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Thomas &amp;amp; Mercer&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 2014&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/1477825576/?tag=georgvreill-20&#34;&gt;1477825576&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 416&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: mystery, thriller&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 4–5 April, 2015&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;Twenty years after her disappearance, the body of teenager Sarah Crosswhite is found.
-Her older sister Tracy, now a Seattle detective,
-believes that the man convicted of Sarah&#39;s abduction was framed,
-and sets out to overturn his conviction.
-But some people in her hometown are not happy about this.&lt;/p&gt;
-&lt;p&gt;Dugoni is an entertaining storyteller.
-The plot moves along briskly, with enough twists and turns to keep one on the hook.
-However, the story was predictable and not particularly original.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 27 Apr 2015 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2015-04-27:/blog/2015/04/27/ReviewMySistersGrave.html</guid>
     </item>
         </channel>
 </rss>
