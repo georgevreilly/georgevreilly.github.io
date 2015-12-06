@@ -5,9 +5,45 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Fri, 04 Dec 2015 08:00:00 GMT</pubDate>
+        <pubDate>Sat, 05 Dec 2015 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Python Print Formatting</title>
+        <link>http://www.georgevreilly.com/blog/2015/12/05/python-print-formatting.html</link>
+        <description>&lt;p&gt;On StackOverflow, someone wanted to
+&lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/34109838/for-while-loops-to-make-triangles&#34;&gt;print triangles in Python&lt;/a&gt;
+in an M-shape.
+Various clumsy solutions were offered.&lt;/p&gt;
+&lt;p&gt;Here&#39;s mine which uses the left- and right-justification features of
+&lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/string.html#formatstrings&#34;&gt;str.format&lt;/a&gt;.&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;{0}+++{0}&amp;quot;.format(&#39;Hello!&#39;)&lt;/span&gt;&lt;/tt&gt; produces two copies of the zeroth argument to &lt;tt class=&#34;docutils literal&#34;&gt;format&lt;/tt&gt;
+(here &lt;tt class=&#34;docutils literal&#34;&gt;&#39;Hello!&#39;&lt;/tt&gt;), separated by three plusses: &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;Hello!+++Hello!&lt;/span&gt;&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;{:&amp;lt;4}&amp;quot;.format(&#39;x&#39;)&lt;/span&gt;&lt;/tt&gt; left-justifies &lt;tt class=&#34;docutils literal&#34;&gt;&#39;x&#39;&lt;/tt&gt; in a 4-character field; i.e., &lt;tt class=&#34;docutils literal&#34;&gt;&#39;x&amp;nbsp;&amp;nbsp; &#39;&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;{:&amp;gt;4}&amp;quot;.format(&#39;x&#39;)&lt;/span&gt;&lt;/tt&gt; right-justifies &lt;tt class=&#34;docutils literal&#34;&gt;&#39;x&#39;&lt;/tt&gt; in a 4-character field; i.e., &lt;tt class=&#34;docutils literal&#34;&gt;&#39;&amp;nbsp;&amp;nbsp; x&#39;&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;{:&amp;gt;{}}&amp;quot;.format(&#39;x&#39;,&lt;/span&gt; width)&lt;/tt&gt; right-justifies &lt;tt class=&#34;docutils literal&#34;&gt;&#39;x&#39;&lt;/tt&gt; in a &lt;tt class=&#34;docutils literal&#34;&gt;width&lt;/tt&gt;-character field.&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&#39;ab&#39; * 4&lt;/tt&gt; yields 4 copies of &lt;tt class=&#34;docutils literal&#34;&gt;&#39;ab&#39;&lt;/tt&gt;; i.e., &lt;tt class=&#34;docutils literal&#34;&gt;&#39;abababab&#39;&lt;/tt&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Putting them together:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+&amp;gt;&amp;gt;&amp;gt; WIDTH = 4
+&amp;gt;&amp;gt;&amp;gt;
+&amp;gt;&amp;gt;&amp;gt; for a in range(1, WIDTH+1):
+...     print(&amp;quot;{0:&amp;lt;{1}}{0:&amp;gt;{1}}&amp;quot;.format(&#39;*&#39; * a, WIDTH))
+...
+*      *
+**    **
+***  ***
+********
+&lt;/pre&gt;
+&lt;p&gt;Handy references: &lt;a class=&#34;reference external&#34; href=&#34;https://pyformat.info/&#34;&gt;PyFormat&lt;/a&gt; and
+&lt;a class=&#34;reference external&#34; href=&#34;https://mkaz.github.io/2012/10/10/python-string-format/&#34;&gt;Python String Format Cookbook&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 05 Dec 2015 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-05:/blog/2015/12/05/python-print-formatting.html</guid>
+    </item>
         
             <item>
         <title>Review: Star Fall</title>
@@ -975,31 +1011,6 @@ than she is usually portrayed.&lt;/p&gt;
 </description>
         <pubDate>Sat, 02 May 2015 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2015-05-02:/blog/2015/05/02/ReviewMacbethANovel.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: Sullivan&#39;s Sting</title>
-        <link>http://www.georgevreilly.com/blog/2015/05/02/ReviewSullivansSting.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0425128458/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Sullivan&#39;s Sting&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/0425128458.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: Sullivan&#39;s Sting&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: Lawrence Sanders&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: $stars(3)&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Berkeley&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 1990&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/0425128458/?tag=georgvreill-20&#34;&gt;0425128458&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 368&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: crime&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 8–9 April, 2015&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;The charmingly amoral David Rathbone leads a small group of Palm Beach conmen.
-A task force of police and federal agents are trying to take them down,
-and Rita Sullivan goes undercover and flirts her way into David&#39;s bed.
-Sullivan and some of the other undercover cops start losing their perspective
-and get a little too close to their targets.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 02 May 2015 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2015-05-02:/blog/2015/05/02/ReviewSullivansSting.html</guid>
     </item>
         </channel>
 </rss>
