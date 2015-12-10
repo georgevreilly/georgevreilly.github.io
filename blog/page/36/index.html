@@ -31,6 +31,38 @@
     <header>
         <time datetime="2009-03-25">25.03.2009, 00:00</time>
         <h1>
+            <a href="/blog/2009/03/25/AckBetterThanGrep.html" rel="bookmark canonical">Ack - Better than Grep</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.betterthangrep.com/"></a>
+<p>On a Stack&shy;Over&shy;flow question about <a class="reference external" href="http://stackoverflow.com/questions/21725/favorite-gvim-plugins-scripts">favorite Vim plugins</a>, I learned about <a class="reference external" href="http://www.betterthangrep.com/">Ack</a>,
+a re&shy;place&shy;ment for grep that's smarter about searching source trees.</p>
+<p>Ack is written in Perl.
+The built-in <tt class="docutils literal">:vimgrep</tt> is rather slow.
+It seems to have some Vim-specific overhead,
+such as creating swap files and executing <tt class="docutils literal">BufRead</tt> autocmds.
+Ack is noticeably faster,
+though somewhat slower than GNU grep.</p>
+<p>Which would you rather type to search a tree,
+ignoring the <tt class="docutils literal">.svn</tt> and <tt class="docutils literal">.git</tt> subtrees?</p>
+<div class="highlight"><pre><span class="nv">$ </span>ack -i -l foobar
+<span class="nv">$ </span>grep --exclude<span class="o">=</span><span class="s1">&#39;*.svn*&#39;</span> --exclude<span class="o">=</span><span class="s1">&#39;*.git*&#39;</span> -i -l -r foobar .
+</pre></div>
+<p>The ack takes 6 seconds to search 4500 files, while the grep completes in 2.
+This does not count the time that I spent trying <span>&#8230;<a href="/blog/2009/03/25/AckBetterThanGrep.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2009-03-25">25.03.2009, 00:00</time>
+        <h1>
             <a href="/blog/2009/03/25/Refinancing.html" rel="bookmark canonical">Refinancing</a>
         </h1>
     </header>
@@ -316,33 +348,6 @@ unsigned hash(const char* s)
 {
     unsigned h = 0;
     while </pre><span>&#8230;<a href="/blog/2009/03/02/HashTableAttacks.html" class="continue">continue</a>.</span>
-    <footer>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2009-02-27">27.02.2009, 00:00</time>
-        <h1>
-            <a href="/blog/2009/02/27/LucidaHybrid.html" rel="bookmark canonical">Lucida Hybrid</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.brownbatterystudios.com/sixthings/2007/03/14/lucida-hybrid-the-grande-alternative/"></a>
-<p>One thing that's been bugging me since I started using <a class="reference external" href="http://www.georgevreilly.com/blog/2009/01/22/UsingOpera.aspx">Opera</a>
-is that <strong>bold</strong> and <em>italic</em> text was showing as normal text in my <a class="reference external" href="http://www.georgevreilly.com/blog/">personal blog</a>.
-Yet other browsers were correctly displaying bold and italic on my blog.</p>
-<p>I'm still not entirely sure why Mac Opera had a problem with it,
-but I fixed it by using the <a class="reference external" href="http://www.brownbatterystudios.com/sixthings/2007/03/14/lucida-hybrid-the-grande-alternative/">Lucida Hybrid</a> stylesheet tweak.</p>
-<p>I adjusted a few other things while I was at it.
-The most obvious is that the font size is larger.</p>
-<p>Most RSS readers won't pick up the stylesheet,
-so take a look at the actual <a class="reference external" href="http://www.georgevreilly.com/blog/">blog</a>.</p>
-
     <footer>
         
         
