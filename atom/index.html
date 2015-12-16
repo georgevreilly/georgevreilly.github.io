@@ -11,8 +11,55 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2015-12-14T08:00:00Z</updated>
+    <updated>2015-12-15T08:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Python f-strings</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/12/15/PythonFStrings.html" />
+        <id>tag:www.georgevreilly.com,2015-12-15:/blog/2015/12/15/PythonFStrings.html</id>
+        <updated>2015-12-15T08:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;At this month&#39;s &lt;a class=&#34;reference external&#34; href=&#34;http://www.meetup.com/PSPPython/&#34;&gt;PuPPy (Puget Sound Programming Python) Meetup&lt;/a&gt;,
+I heard a brief mention of &lt;a class=&#34;reference external&#34; href=&#34;https://www.python.org/dev/peps/pep-0498/&#34;&gt;Python f-strings&lt;/a&gt;
+as a new feature coming in Python 3.6.&lt;/p&gt;
+&lt;p&gt;In essence, they offer a simpler, more versatile method
+of string formatting and interpolation
+over existing methods.
+F-strings can include not only symbol names
+but Python &lt;em&gt;expressions&lt;/em&gt; within strings.
+With &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/3/library/string.html#formatstrings&#34;&gt;str.format&lt;/a&gt;, you can write
+&lt;tt class=&#34;docutils literal&#34;&gt;&#39;Hello, &lt;span class=&#34;pre&#34;&gt;{name}&#39;.format(name=some_name)&lt;/span&gt;&lt;/tt&gt;.
+You can control various aspects of how &lt;tt class=&#34;docutils literal&#34;&gt;name&lt;/tt&gt; is formatted,
+such as being centered within a field—see &lt;a class=&#34;reference external&#34; href=&#34;https://pyformat.info/&#34;&gt;PyFormat&lt;/a&gt; and &lt;a class=&#34;reference external&#34; href=&#34;https://mkaz.github.io/2012/10/10/python-string-format/&#34;&gt;Python String Format Cookbook&lt;/a&gt;
+for examples—but no more complex expression is allowed between the braces.&lt;/p&gt;
+&lt;p&gt;Herewith some examples of f-string expressions
+drawn from &lt;a class=&#34;reference external&#34; href=&#34;https://www.python.org/dev/peps/pep-0498/&#34;&gt;PEP 0498&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+&gt;&gt;&gt; date = datetime.date(1991, 10, 12)
+&gt;&gt;&gt; f&#39;{date} was on a {date:%A}&#39;
+&#39;1991-10-12 was on a Saturday&#39;
+
+&gt;&gt;&gt; f&#39;Column={col_idx+1}&#39;
+&gt;&gt;&gt; f&#39;number of items: {len(items)}&#39;
+
+&gt;&gt;&gt; f&#39;{extra},waiters:{len(self._waiters)}&#39;
+&gt;&gt;&gt; message.append(f&#34; [line {lineno:2d}]&#34;)
+&lt;/pre&gt;
+
+&lt;p&gt;It looks moderately useful,
+but—as with any new language feature—it can only be used in brand-new code.
+Python 3.6 is scheduled to be released in a year&#39;s time,
+in December 2016.
+Here&#39;s &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/3.6/whatsnew/3.6.html&#34;&gt;What&#39;s New in Python 3.6&lt;/a&gt;.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Dark Chocolate Gelato-Buttermilk Milkshakes</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/12/14/DarkChocolateGelatoButtermilkMilkshakes.html" />
@@ -1067,54 +1114,6 @@ and he goes on the run with Tracy.
 She&#39;s willing at first then realizes that she&#39;s in way over her head with this bad boy.&lt;/p&gt;
 &lt;p&gt;Another good entry in Robinson&#39;s long-running series about
 &lt;a class=&#34;reference external&#34; href=&#34;http://www.inspectorbanks.com/books/bad-boy-2010/&#34;&gt;Inspector Banks&lt;/a&gt;.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Review: In Cold Blood</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/05/28/ReviewInColdBlood.html" />
-        <id>tag:www.georgevreilly.com,2015-05-28:/blog/2015/05/28/ReviewInColdBlood.html</id>
-        <updated>2015-05-28T08:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0679745580/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;In Cold Blood&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/0679745580.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: In Cold Blood&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: Truman Capote&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: $stars(4.5)&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Vintage&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 1965&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/0679745580/?tag=georgvreill-20&#34;&gt;0679745580&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 343&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: true crime&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 3–8 May, 2015&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://en.wikipedia.org/wiki/In_Cold_Blood&#34;&gt;In Cold Blood&lt;/a&gt;,
-Truman Capote&#39;s bestselling non-fiction novel,
-describes the 1959 murder of a wealthy farmer and his family,
-which terrorized Kansas;
-the investigation by the Kansas Bureau of Investigation;
-the arrest six weeks later of two parolees,
-Dick Hickock and Perry Smith;
-and the lives and deaths of Hickock and Smith.
-Smith was a ne&#39;er-do-well, brought up by footloose alcoholic parents,
-with two siblings dead of suicide,
-while Hickock had been brought up in a good home.&lt;/p&gt;
-&lt;p&gt;Capote “recreated” the events of the Clutter murder
-and, incidentally, helped create the genre of &lt;em&gt;true crime&lt;/em&gt;.
-I put &lt;em&gt;recreated&lt;/em&gt; in quotes
-because there&#39;s considerable doubt about the veracity of some events he describes.
-Nevertheless, it&#39;s a cogent and lucid account.
-The Philip Seymour Hoffman movie of &lt;a class=&#34;reference external&#34; href=&#34;http://en.wikipedia.org/wiki/Capote_(film)&#34;&gt;Capote&lt;/a&gt;,
-which prompted me to read &lt;em&gt;In Cold Blood&lt;/em&gt;,
-focuses on Capote and his writing of the book and wooing of Smith.
-In the book itself,
-Capote is a distant authorial voice.&lt;/p&gt;
-&lt;p&gt;Fifty years later, the book seems a little quaint and dated, but it holds up well.&lt;/p&gt;
 </content>
     </entry>
     </feed>
