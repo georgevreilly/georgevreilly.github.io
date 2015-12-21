@@ -29,6 +29,43 @@
     
         <article>
     <header>
+        <time datetime="2006-12-29">29.12.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/12/29/PythonBatchfileWrapper.html" rel="bookmark canonical">Python Batchfile Wrapper</a>
+        </h1>
+    </header>
+    <div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;string&gt;</tt>, line 1)</p>
+<p>Error in &quot;image&quot; directive:
+unknown option: &quot;title&quot;.</p>
+<pre class="literal-block">
+.. image:: /content/binary/PythonBatch.jpg
+    :title: Python Batchfile Wrapper
+
+</pre>
+</div>
+<p>I've been getting into Python lately. One problem that I've en&shy;coun&shy;tered
+under Windows, is that input redi&shy;rec&shy;tion doesn't work if you use
+the <tt class="docutils literal">.py</tt> file as&shy;so&shy;ci&shy;a&shy;tion to run the script; e.g.:</p>
+<pre class="literal-block">
+C:\&gt; foo.py &lt; input.txt
+</pre>
+<p>There's a well-known <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi&shy;rec&shy;tion bug</a>. The fix is to explicitly use
+<tt class="docutils literal">python.exe</tt> to run the script.</p>
+<p>A related problem for me was that <tt class="docutils literal">stdin</tt> was opened as a <em>text</em> file,
+not a <em>binary</em> file, so <tt class="docutils literal">\r</tt> bytes were being discarded from binary input
+files. The fix is to run <tt class="docutils literal">python.exe <span class="pre">-u</span></tt> (unbuffered binary <span>&#8230;<a href="/blog/2006/12/29/PythonBatchfileWrapper.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2006-12-26">26.12.2006, 00:00</time>
         <h1>
             <a href="/blog/2006/12/26/InstallingRainlendarOnKubuntu.html" rel="bookmark canonical">Installing Rainlendar on Kubuntu</a>
@@ -362,34 +399,6 @@ following:</p>
 </li>
 <li><dl class="first docutils">
 <dt><a href="/blog/2006/05/21/NotMuchOnMyMindRightNow.html/#id3"><span class="problematic" id="id4">`</span></a>&quot;I just don't have anything <span>&#8230;<a href="/blog/2006/05/21/NotMuchOnMyMindRightNow.html" class="continue">continue</a>.</span></dt></dl></li></ul>
-    <footer>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2006-05-20">20.05.2006, 00:00</time>
-        <h1>
-            <a href="/blog/2006/05/20/ObjectivelyProPollution.html.." rel="bookmark canonical">Objectively Pro-Pollution</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://thinkprogress.org/2006/05/18/new-ads-funded-by-big-oil-portray-global-warming-science-as-smear-campaign-against-carbon-dioxide/"></a>
-<p>A front group for Big Oil is <a class="reference external" href="http://thinkprogress.org/2006/05/18/new-ads-funded-by-big-oil-portray-global-warming-science-as-smear-campaign-against-carbon-dioxide/">putting out ads</a>
-denying the reality of global warming, in a pre-emptive bid
-to undermine Al Gore's new doc&shy;u&shy;men&shy;tary,
-<a class="reference external" href="http://www.climatecrisis.net/">An In&shy;con&shy;ve&shy;nient Truth</a>.</p>
-<blockquote>
-The first ad portrays global warming science as a vicious smear campaign
-against carbon dioxide. The ad, which despite ap&shy;pear&shy;ances is not an SNL
-parody, helpfully reminds us that carbon dioxide is “essential to life”
-because “we breath[e] it out.”</blockquote>
-<p>&quot;An In&shy;con&shy;ve&shy;nient Truth&quot; opens in Seattle on <a class="reference external" href="http://www.climatecrisis.net/findatheater/">June 2nd, 2006</a>.</p>
-
     <footer>
         
         
