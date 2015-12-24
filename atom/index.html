@@ -11,24 +11,116 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2015-12-22T08:00:00Z</updated>
+    <updated>2015-12-23T08:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
         <entry>
-        <title>Christmas Cake</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/12/22/ChristmasCake.html" />
-        <id>tag:www.georgevreilly.com,2015-12-22:/blog/2015/12/22/ChristmasCake.html</id>
-        <updated>2015-12-22T08:00:00Z</updated>
+        <title>Checking minimum version numbers in Bash</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/12/23/ParseMinVerBash.html" />
+        <id>tag:www.georgevreilly.com,2015-12-23:/blog/2015/12/23/ParseMinVerBash.html</id>
+        <updated>2015-12-23T08:00:00Z</updated>
         
         <author>
             <name>George V. Reilly</name>
             <uri>http://www.georgevreilly.com/</uri>
             <email>george@reilly.org</email>
         </author>
-        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.georgevreilly.com/blog/2007/01/05/ChristmasCake.html&#34;&gt;&lt;img alt=&#34;Marzipan on the Christmas Cake&#34; src=&#34;https://scontent-sea1-1.xx.fbcdn.net/hphotos-xpf1/v/t1.0-9/10406464_10156310167435405_7190191491654924308_n.jpg?oh=406830778238ff2b290ad1005953bf34&amp;amp;oe=56D392CC&#34;/&gt;&lt;/a&gt;
-&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.georgevreilly.com/blog/2007/01/05/ChristmasCake.html&#34;&gt;&lt;img alt=&#34;Royal Icing on the Christmas Cake&#34; src=&#34;https://scontent-sea1-1.xx.fbcdn.net/hphotos-xlf1/v/t1.0-9/12373190_10156310167480405_1864261752356980433_n.jpg?oh=20450337077da46028ab87531dedd12b&amp;amp;oe=572128C1&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;Last week I made my &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2007/01/05/ChristmasCake.html&#34;&gt;Christmas Cake&lt;/a&gt;,
-a week after I made my &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2015/12/06/ChristmasPudding.html&#34;&gt;Christmas Puddings&lt;/a&gt;.
-Tonight I decorated it with marzipan and royal icing.&lt;/p&gt;
+        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://cube-drone.com/comics/c/version-sacrifice&#34;&gt;&lt;img alt=&#34;Version Sacrifice&#34; src=&#34;http://cube-drone.com/media/optimized/161.png&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;I worked on a Bash script today that sets up various prerequisites for our build.
+We need a recent version of Docker
+but our &lt;a class=&#34;reference external&#34; href=&#34;https://www.atlassian.com/software/bamboo/&#34;&gt;Bamboo&lt;/a&gt; build agents are running on Ubuntu 14.04,
+which has a very old version of Docker.
+The script upgrades Docker when it&#39;s first run.
+The script may be run more than once during the lifetime of the agent,
+so the second and subsequent calls should not upgrade Docker.&lt;/p&gt;
+&lt;p&gt;Basically, I wanted&lt;/p&gt;
+
+&lt;pre class=&#34;brush: bash&#34;&gt;
+if $DOCKER_VERSION &amp;lt; 1.9; then upgrade_docker; fi
+&lt;/pre&gt;
+
+&lt;p&gt;Unfortunately, it&#39;s not that easy in Bash.
+Here&#39;s what I came up with.&lt;/p&gt;
+
+&lt;pre class=&#34;brush: bash&#34;&gt;
+install_latest_docker() {
+    if docker --version | python -c &#34;min=[1, 9]; import sys; v=[int(x) for x in sys.stdin.read().split()[2].split(&#39;,&#39;)[0].split(&#39;.&#39;)]; sys.exit(v &amp;lt; min)&#34;;
+    then
+        echo &#34;Docker up to date&#34;
+        return
+    fi
+    # Install Docker ...
+&lt;/pre&gt;
+
+&lt;p&gt;Let&#39;s unpack that ugly &lt;tt class=&#34;docutils literal&#34;&gt;if&lt;/tt&gt; line.&lt;/p&gt;
+
+&lt;pre class=&#34;brush: bash&#34;&gt;
+$ docker --version
+Docker version 1.9.1, build a34a1d5
+&lt;/pre&gt;
+
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+$ ipython
+
+In [1]: dv = &#39;Docker version 1.9.1, build a34a1d5&#39;
+
+In [2]: dv.split()
+Out[2]: [&#39;Docker&#39;, &#39;version&#39;, &#39;1.9.1,&#39;, &#39;build&#39;, &#39;a34a1d5&#39;]
+
+In [3]: dv.split()[2]
+Out[3]: &#39;1.9.1,&#39;
+
+In [4]: # Remove trailing comma
+
+In [5]: dv.split()[2].split(&#39;,&#39;)
+Out[5]: [&#39;1.9.1&#39;, &#39;&#39;]
+
+In [6]: dv.split()[2].split(&#39;,&#39;)[0]
+Out[6]: &#39;1.9.1&#39;
+
+In [7]: # Break apart at dots
+
+In [8]: dv.split()[2].split(&#39;,&#39;)[0].split(&#39;.&#39;)
+Out[8]: [&#39;1&#39;, &#39;9&#39;, &#39;1&#39;]
+
+# String comparisons aren&#39;t good enough for version numbers
+In [9]: [&#39;1&#39;, &#39;10&#39;] &amp;lt; [&#39;1&#39;, &#39;9&#39;]
+Out[9]: True
+
+# We have to convert each token to an integer, then lexicographically compare
+In [10]: [1, 10] &amp;lt; [1, 9]
+Out[10]: False
+
+# Convert to list of integers
+In [11]: version = [int(x) for x in dv.split()[2].split(&#39;,&#39;)[0].split(&#39;.&#39;)]
+
+In [12]: min = [1, 9]
+
+In [13]: version, min
+Out[13]: ([1, 9, 1], [1, 9])
+
+In [14]: version &amp;lt; min
+Out[14]: False
+
+In [15]: [1, 4, 2] &amp;lt; min
+Out[15]: True
+
+In [16]: int(version &amp;lt; min)
+Out[16]: 0
+
+In [17]: int([1, 4, 2] &amp;lt; min)
+Out[17]: 1
+&lt;/pre&gt;
+
+&lt;p&gt;The ugly triple split inside the list comprehension
+produces a list of integers,
+which can be compared lexicographically against
+&lt;tt class=&#34;docutils literal&#34;&gt;min&lt;/tt&gt;, another list.
+&lt;tt class=&#34;docutils literal&#34;&gt;sys.exit&lt;/tt&gt; is called with &lt;tt class=&#34;docutils literal&#34;&gt;1&lt;/tt&gt; when Docker&#39;s version is less than &lt;tt class=&#34;docutils literal&#34;&gt;min&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;When &lt;tt class=&#34;docutils literal&#34;&gt;$?&lt;/tt&gt; is non-zero in Bash, then &lt;tt class=&#34;docutils literal&#34;&gt;if some_command&lt;/tt&gt; fails
+and the &lt;tt class=&#34;docutils literal&#34;&gt;else&lt;/tt&gt; clause (none here) is executed.&lt;/p&gt;
+&lt;p&gt;I came across &lt;a class=&#34;reference external&#34; href=&#34;http://python-oneliner.readthedocs.org/en/latest/&#34;&gt;Python Oneliner&lt;/a&gt;, while debugging my script.
+I might use Oneliner in other circumstances.&lt;/p&gt;
 </content>
     </entry>
     

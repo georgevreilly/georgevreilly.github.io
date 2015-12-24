@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Checking minimum version numbers in Bash</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://cube-drone.com/media/optimized/1..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2015-12-23">23.12.2015, 00:00</time>
+        <h1>
+            <a href="/blog/2015/12/23/ParseMinVerBash.html" rel="bookmark canonical">Checking minimum version numbers in Bash</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://cube-drone.com/comics/c/version-sacrifice"><img alt="Version Sacrifice" src="http://cube-drone.com/media/optimized/161.png"/></a>
+<p>I worked on a Bash script today that sets up various pre&shy;req&shy;ui&shy;sites for our build.
+We need a recent version of Docker
+but our <a class="reference external" href="https://www.atlassian.com/software/bamboo/">Bamboo</a> build agents are running on Ubuntu 14.04,
+which has a very old version of Docker.
+The script upgrades Docker when it's first run.
+The script may be run more than once during the lifetime of the agent,
+so the second and subsequent calls should not upgrade Docker.</p>
+<p>Basically, I wanted</p>
+
+<pre class="brush: bash">
+if $DOCKER_VERSION &lt; 1.9; then upgrade_docker; fi
+</pre>
+
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, it's not that easy in Bash.
+Here's what I came up with.</p>
+
+<pre class="brush: bash">
+install_latest_docker() {
+    if docker --version | python -c "min=[1, 9]; import sys; v=[int(x) for x in sys.stdin.read().split()[2].split(',')[0].split('.')]; sys.exit(v &lt; min)";
+    then
+        echo "Docker up to date"
+        return
+    fi
+    # Install Docker ...
+</pre>
+
+<p>Let's unpack that ugly <tt class="docutils literal">if</tt> line.</p>
+
+<pre class="brush: bash">
+$ docker --version
+Docker version 1.9.1, build a34a1d5
+</pre>
+
+
+<pre class="brush: python">
+$ ipython
+
+In [1]: dv = 'Docker version 1.9.1, build a34a1d5'
+
+In [2]: dv.split()
+Out[2]: ['Docker', 'version', '1.9.1,', 'build', 'a34a1d5']
+
+In [3]: dv.split()[2]
+Out[3]: '1.9.1,'
+
+In [4]: # Remove trailing comma
+
+In [5]: dv.split()[2].split(',')
+Out[5]: ['1.9.1', '']
+
+In [6]: dv.split()[2].split(',')[0]
+Out[6]: '1.9.1'
+
+In [7]: # Break apart at dots
+
+In [8]: dv.split()[2].split(',')[0].split('.')
+Out[8]: ['1', '9', '1']
+
+# String comparisons aren't good enough for version numbers
+In [9]: ['1', '10'] &lt; ['1', '9']
+Out[9]: True
+
+# We have to convert each token to an integer, then lexicographically compare
+In [10]: [1, 10] &lt; [1, 9]
+Out[10]: False
+
+# Convert to list of integers
+In [11]: version = [int(x) for x in dv.split()[2].split(',')[0].split('.')]
+
+In [12]: min = [1, 9]
+
+In [13]: version, min
+Out[13]: ([1, 9, 1], [1, 9])
+
+In [14]: version &lt; min
+Out[14]: False
+
+In [15]: [1, 4, 2] &lt; min
+Out[15]: True
+
+In [16]: int(version &lt; min)
+Out[16]: 0
+
+In [17]: int([1, 4, 2] &lt; min)
+Out[17]: 1
+</pre>
+
+<p>The ugly triple split inside the list com&shy;pre&shy;hen&shy;sion
+produces a list of integers,
+which can be compared lex&shy;i&shy;co&shy;graph&shy;i&shy;cal&shy;ly against
+<tt class="docutils literal">min</tt>, another list.
+<tt class="docutils literal">sys.exit</tt> is called with <tt class="docutils literal">1</tt> when Docker's version is less than <tt class="docutils literal">min</tt>.</p>
+<p>When <tt class="docutils literal">$?</tt> is non-zero in Bash, then <tt class="docutils literal">if some_&shy;com&shy;mand</tt> fails
+and the <tt class="docutils literal">else</tt> clause (none here) is executed.</p>
+<p>I came across <a class="reference external" href="http://python-oneliner.readthedocs.org/en/latest/">Python Oneliner</a>, while debugging my script.
+I might use Oneliner in other cir&shy;cum&shy;stances.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" class="page floatright">
+        Including Data Files in Python Packages &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

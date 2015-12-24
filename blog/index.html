@@ -29,17 +29,31 @@
     
         <article>
     <header>
-        <time datetime="2015-12-22">22.12.2015, 00:00</time>
+        <time datetime="2015-12-23">23.12.2015, 00:00</time>
         <h1>
-            <a href="/blog/2015/12/22/ChristmasCake.html" rel="bookmark canonical">Christmas Cake</a>
+            <a href="/blog/2015/12/23/ParseMinVerBash.html" rel="bookmark canonical">Checking minimum version numbers in Bash</a>
         </h1>
     </header>
-    <a class="reference external image-reference" href="http://www.georgevreilly.com/blog/2007/01/05/ChristmasCake.html"></a>
-<a class="reference external image-reference" href="http://www.georgevreilly.com/blog/2007/01/05/ChristmasCake.html"></a>
-<p>Last week I made my <a class="reference external" href="http://www.georgevreilly.com/blog/2007/01/05/ChristmasCake.html">Christmas Cake</a>,
-a week after I made my <a class="reference external" href="http://www.georgevreilly.com/blog/2015/12/06/ChristmasPudding.html">Christmas Puddings</a>.
-Tonight I decorated it with marzipan and royal icing.</p>
+    <a class="reference external image-reference" href="http://cube-drone.com/comics/c/version-sacrifice"></a>
+<p>I worked on a Bash script today that sets up various pre&shy;req&shy;ui&shy;sites for our build.
+We need a recent version of Docker
+but our <a class="reference external" href="https://www.atlassian.com/software/bamboo/">Bamboo</a> build agents are running on Ubuntu 14.04,
+which has a very old version of Docker.
+The script upgrades Docker when it's first run.
+The script may be run more than once during the lifetime of the agent,
+so the second and subsequent calls should not upgrade Docker.</p>
+<p>Basically, I wanted</p>
 
+<pre class="brush: bash">
+if $DOCKER_VERSION &lt; 1.9; then upgrade_docker; fi
+</pre>
+
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, it's not that easy in Bash.
+Here's what I came up with.</p>
+
+<pre class="brush: bash">
+install_latest_docker() {
+    if docker --version | python -c "min=[1, 9]; import sys; v=[int(x) </pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
     <footer>
         
         
