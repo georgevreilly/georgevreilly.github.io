@@ -31,7 +31,9 @@ Here&#39;s what I came up with.&lt;/p&gt;
 
 &lt;pre class=&#34;brush: bash&#34;&gt;
 install_latest_docker() {
-    if docker --version | python -c &#34;min=[1, 9]; import sys; v=[int(x) for x in sys.stdin.read().split()[2].split(&#39;,&#39;)[0].split(&#39;.&#39;)]; sys.exit(v &amp;lt; min)&#34;;
+    if docker --version | python -c &#34;min=[1, 9]; import sys; ↩
+v=[int(x) for x in sys.stdin.read().split()[2].split(&#39;,&#39;)[0].split(&#39;.&#39;)]; ↩
+sys.exit(v &amp;lt; min)&#34;;
     then
         echo &#34;Docker up to date&#34;
         return
@@ -39,7 +41,8 @@ install_latest_docker() {
     # Install Docker ...
 &lt;/pre&gt;
 
-&lt;p&gt;Let&#39;s unpack that ugly &lt;tt class=&#34;docutils literal&#34;&gt;if&lt;/tt&gt; line.&lt;/p&gt;
+&lt;p&gt;Let&#39;s unpack that ugly &lt;tt class=&#34;docutils literal&#34;&gt;if&lt;/tt&gt; one-liner.
+Note: the &lt;tt class=&#34;docutils literal&#34;&gt;↩&lt;/tt&gt; denotes linebreaks introduced for presentation purposes; it&#39;s all one line.&lt;/p&gt;
 
 &lt;pre class=&#34;brush: bash&#34;&gt;
 $ docker --version
@@ -112,6 +115,19 @@ I might use Oneliner in other circumstances.&lt;/p&gt;
 </description>
         <pubDate>Wed, 23 Dec 2015 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-23:/blog/2015/12/23/ParseMinVerBash.html</guid>
+    </item>
+        
+            <item>
+        <title>Christmas Cake</title>
+        <link>http://www.georgevreilly.com/blog/2015/12/22/ChristmasCake.html</link>
+        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.georgevreilly.com/blog/2007/01/05/ChristmasCake.html&#34;&gt;&lt;img alt=&#34;Marzipan on the Christmas Cake&#34; src=&#34;https://scontent-sea1-1.xx.fbcdn.net/hphotos-xpf1/v/t1.0-9/10406464_10156310167435405_7190191491654924308_n.jpg?oh=406830778238ff2b290ad1005953bf34&amp;amp;oe=56D392CC&#34;/&gt;&lt;/a&gt;
+&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.georgevreilly.com/blog/2007/01/05/ChristmasCake.html&#34;&gt;&lt;img alt=&#34;Royal Icing on the Christmas Cake&#34; src=&#34;https://scontent-sea1-1.xx.fbcdn.net/hphotos-xlf1/v/t1.0-9/12373190_10156310167480405_1864261752356980433_n.jpg?oh=20450337077da46028ab87531dedd12b&amp;amp;oe=572128C1&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;Last week I made my &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2007/01/05/ChristmasCake.html&#34;&gt;Christmas Cake&lt;/a&gt;,
+a week after I made my &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2015/12/06/ChristmasPudding.html&#34;&gt;Christmas Puddings&lt;/a&gt;.
+Tonight I decorated it with marzipan and royal icing.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 22 Dec 2015 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-22:/blog/2015/12/22/ChristmasCake.html</guid>
     </item>
         
             <item>
@@ -1115,28 +1131,6 @@ which allows you to run a wxPython app with the framework Python.&lt;/p&gt;
 </description>
         <pubDate>Sun, 20 Sep 2015 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2015-09-20:/blog/2015/09/20/RunSnakeRun-WxPython-Brew-Virtualenv.html</guid>
-    </item>
-        
-            <item>
-        <title>Off to Berlin: Spring Cleaning</title>
-        <link>http://www.georgevreilly.com/blog/2015/06/07/BerlinSpringCleaning.html</link>
-        <description>&lt;img alt=&#34;Spring Cleaning&#34; class=&#34;right-float&#34; src=&#34;http://www.georgevreilly.com/content/binary/spring-cleaning-saturday-evening-post.jpg&#34;/&gt;
-&lt;p&gt;As I announced
-&lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2015/05/24/ABerlinSummer.html&#34;&gt;a couple of weeks ago&lt;/a&gt;,
-we&#39;re off to Berlin for June and July.
-We leave the house at 4:30am tomorrow to catch a 6:45am flight to Chicago
-and thence via Dublin, arriving in Berlin at 10:30am on Tuesday.&lt;/p&gt;
-&lt;p&gt;There&#39;s nothing like a deadline to focus the mind and make things happen.
-We&#39;ve been spring cleaning furiously for several weeks.
-Frankly, it was long overdue.
-The bedrooms and the offices were all badly in need of being reorganized.
-My office used to scare me, it was such a mess.
-It&#39;s still far from perfect, but it&#39;s much cleaner,
-you can use the desk, and the remaining clutter is stacked into boxes,
-to be dealt with after our return.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 07 Jun 2015 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2015-06-07:/blog/2015/06/07/BerlinSpringCleaning.html</guid>
     </item>
         </channel>
 </rss>

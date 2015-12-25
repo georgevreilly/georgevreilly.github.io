@@ -55,7 +55,9 @@ Here's what I came up with.</p>
 
 <pre class="brush: bash">
 install_latest_docker() {
-    if docker --version | python -c "min=[1, 9]; import sys; v=[int(x) for x in sys.stdin.read().split()[2].split(',')[0].split('.')]; sys.exit(v &lt; min)";
+    if docker --version | python -c "min=[1, 9]; import sys; ↩
+v=[int(x) for x in sys.stdin.read().split()[2].split(',')[0].split('.')]; ↩
+sys.exit(v &lt; min)";
     then
         echo "Docker up to date"
         return
@@ -63,7 +65,8 @@ install_latest_docker() {
     # Install Docker ...
 </pre>
 
-<p>Let's unpack that ugly <tt class="docutils literal">if</tt> line.</p>
+<p>Let's unpack that ugly <tt class="docutils literal">if</tt> one-liner.
+Note: the <tt class="docutils literal">↩</tt> denotes linebreaks introduced for pre&shy;sen&shy;ta&shy;tion purposes; it's all one line.</p>
 
 <pre class="brush: bash">
 $ docker --version
@@ -144,8 +147,8 @@ I might use Oneliner in other cir&shy;cum&shy;stances.</p>
 </article>
     
     
-        <a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" class="page floatright">
-        Including Data Files in Python Packages &raquo;
+        <a href="/blog/2015/12/22/ChristmasCake.html" class="page floatright">
+        Christmas Cake &raquo;
         </a>
     
     
