@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Free ebooks from Springer</title>
+  <title>Python: a use for nested list comprehensions</title>
   <link media="all" href="/style.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
@@ -12,7 +12,8 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content="Via `Hacker News &lt;https://news.ycombinator.com/ite..." />
+    <meta name="description" content="I wanted to turn a list like 
+``[&#39;*.zip&#39;, &#39;*.pyc&#39;,..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,18 +32,31 @@
     
         <article>
     <header>
-        <time datetime="2015-12-29">29.12.2015, 00:00</time>
+        <time datetime="2015-12-30">30.12.2015, 00:00</time>
         <h1>
-            <a href="/blog/2015/12/29/FreeEbooksFromSpringer.html" rel="bookmark canonical">Free ebooks from Springer</a>
+            <a href="/blog/2015/12/30/UseForPythonNestedListComprehensions.html" rel="bookmark canonical">Python: a use for nested list comprehensions</a>
         </h1>
     </header>
-    <p>Via <a class="reference external" href="https://news.ycombinator.com/item?id=10810271">Hacker News</a>,
-&quot;All Springer Textbooks More Than 10 Years Old Available for Free Legal Download&quot;.</p>
-<p>This includes books from Apress
-as well as a ton of those im&shy;pen&shy;e&shy;tra&shy;ble gray-and-red
-Lecture Notes in Computer Science books.</p>
-<p><strong>Update 2015-12-30</strong>: No longer available.
-Springer aren't commenting. Presumably a mistake.</p>
+    <p>I wanted to turn a list like
+<tt class="docutils literal"><span class="pre">['*.zip',</span> <span class="pre">'*.pyc',</span> <span class="pre">'*.log']</span></tt> into
+<tt class="docutils literal"><span class="pre">['--exclude',</span> <span class="pre">'*.zip',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.pyc',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.log']</span></tt>.</p>
+<p>A simple list com&shy;pre&shy;hen&shy;sion doesn't work as desired:</p>
+
+<pre class="brush: python">
+In [1]: excludes = ['*.zip', '*.pyc', '*.log']
+
+In [2]: [('--exclude', e) for e in excludes]
+Out[2]: [('--exclude', '*.zip'), ('--exclude', '*.pyc'), ('--exclude', '*.log')]
+</pre>
+
+<p>The trick is to use a <a class="reference external" href="../../../../2009/03/20/FlatteningListComprehensionsInPython.html">nested com&shy;pre&shy;hen&shy;sion</a>:</p>
+
+<pre class="brush: python">
+In [5]: [inner for outer in excludes
+         for inner in ['--exclude', outer]]
+Out[5]: ['--exclude', '*.zip', '--exclude', '*.pyc', '--exclude', '*.log']
+</pre>
+
 
     <footer>
         
@@ -54,14 +68,11 @@ Springer aren't commenting. Presumably a mistake.</p>
 </article>
     
     
-        <a href="/blog/2015/12/28/ReviewStarWarsTheForceAwakens.html" class="page floatright">
-        Review: Star Wars VII: The Force Awakens &raquo;
+        <a href="/blog/2015/12/29/FreeEbooksFromSpringer.html" class="page floatright">
+        Free ebooks from Springer &raquo;
         </a>
     
     
-        <a href="/blog/2015/12/30/UseForPythonNestedListComprehensions.html" class="page floatleft">
-        &laquo; Python: a use for nested list comprehensions
-        </a>
 <footer>
     
     

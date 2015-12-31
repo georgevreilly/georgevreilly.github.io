@@ -11,8 +11,42 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2015-12-29T08:00:00Z</updated>
+    <updated>2015-12-30T08:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Python: a use for nested list comprehensions</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/12/30/UseForPythonNestedListComprehensions.html" />
+        <id>tag:www.georgevreilly.com,2015-12-30:/blog/2015/12/30/UseForPythonNestedListComprehensions.html</id>
+        <updated>2015-12-30T08:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;I wanted to turn a list like
+&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;[&#39;*.zip&#39;,&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;&#39;*.pyc&#39;,&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;&#39;*.log&#39;]&lt;/span&gt;&lt;/tt&gt; into
+&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;[&#39;--exclude&#39;,&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;&#39;*.zip&#39;,&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;&#39;--exclude&#39;,&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;&#39;*.pyc&#39;,&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;&#39;--exclude&#39;,&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;&#39;*.log&#39;]&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;A simple list comprehension doesn&#39;t work as desired:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+In [1]: excludes = [&#39;*.zip&#39;, &#39;*.pyc&#39;, &#39;*.log&#39;]
+
+In [2]: [(&#39;--exclude&#39;, e) for e in excludes]
+Out[2]: [(&#39;--exclude&#39;, &#39;*.zip&#39;), (&#39;--exclude&#39;, &#39;*.pyc&#39;), (&#39;--exclude&#39;, &#39;*.log&#39;)]
+&lt;/pre&gt;
+
+&lt;p&gt;The trick is to use a &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2009/03/20/FlatteningListComprehensionsInPython.html&#34;&gt;nested comprehension&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+In [5]: [inner for outer in excludes
+         for inner in [&#39;--exclude&#39;, outer]]
+Out[5]: [&#39;--exclude&#39;, &#39;*.zip&#39;, &#39;--exclude&#39;, &#39;*.pyc&#39;, &#39;--exclude&#39;, &#39;*.log&#39;]
+&lt;/pre&gt;
+
+</content>
+    </entry>
+    
         <entry>
         <title>Free ebooks from Springer</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/12/29/FreeEbooksFromSpringer.html" />
@@ -27,7 +61,10 @@
         <content type="html">&lt;p&gt;Via &lt;a class=&#34;reference external&#34; href=&#34;https://news.ycombinator.com/item?id=10810271&#34;&gt;Hacker News&lt;/a&gt;,
 &amp;quot;All Springer Textbooks More Than 10 Years Old Available for Free Legal Download&amp;quot;.&lt;/p&gt;
 &lt;p&gt;This includes books from Apress
-as well as a ton of those impenetrable gray-and-red academic books.&lt;/p&gt;
+as well as a ton of those impenetrable gray-and-red
+Lecture Notes in Computer Science books.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update 2015-12-30&lt;/strong&gt;: No longer available.
+Springer aren&#39;t commenting. Presumably a mistake.&lt;/p&gt;
 </content>
     </entry>
     
@@ -992,48 +1029,6 @@ It&#39;s served with Brandy Butter and cream.&lt;/p&gt;
 &lt;p&gt;There&#39;s enough fruit for a &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2007/01/05/ChristmasCake.html&#34;&gt;Christmas Cake&lt;/a&gt; too,
 which I plan to make on Tuesday evening.&lt;/p&gt;
 &lt;p&gt;I also spent wrote about 30 Christmas cards this evening.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Python Print Formatting</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2015/12/05/python-print-formatting.html" />
-        <id>tag:www.georgevreilly.com,2015-12-05:/blog/2015/12/05/python-print-formatting.html</id>
-        <updated>2015-12-05T08:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;On StackOverflow, someone wanted to
-&lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/34109838/for-while-loops-to-make-triangles&#34;&gt;print triangles in Python&lt;/a&gt;
-in an M-shape.
-Various clumsy solutions were offered.&lt;/p&gt;
-&lt;p&gt;Here&#39;s mine which uses the left- and right-justification features of
-&lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/string.html#formatstrings&#34;&gt;str.format&lt;/a&gt;.&lt;/p&gt;
-&lt;ul class=&#34;simple&#34;&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;{0}+++{0}&amp;quot;.format(&#39;Hello!&#39;)&lt;/span&gt;&lt;/tt&gt; produces two copies of the zeroth argument to &lt;tt class=&#34;docutils literal&#34;&gt;format&lt;/tt&gt;
-(here &lt;tt class=&#34;docutils literal&#34;&gt;&#39;Hello!&#39;&lt;/tt&gt;), separated by three plusses: &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;Hello!+++Hello!&lt;/span&gt;&lt;/tt&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;{:&amp;lt;4}&amp;quot;.format(&#39;x&#39;)&lt;/span&gt;&lt;/tt&gt; left-justifies &lt;tt class=&#34;docutils literal&#34;&gt;&#39;x&#39;&lt;/tt&gt; in a 4-character field; i.e., &lt;tt class=&#34;docutils literal&#34;&gt;&#39;x&amp;nbsp;&amp;nbsp; &#39;&lt;/tt&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;{:&amp;gt;4}&amp;quot;.format(&#39;x&#39;)&lt;/span&gt;&lt;/tt&gt; right-justifies &lt;tt class=&#34;docutils literal&#34;&gt;&#39;x&#39;&lt;/tt&gt; in a 4-character field; i.e., &lt;tt class=&#34;docutils literal&#34;&gt;&#39;&amp;nbsp;&amp;nbsp; x&#39;&lt;/tt&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;{:&amp;gt;{}}&amp;quot;.format(&#39;x&#39;,&lt;/span&gt; width)&lt;/tt&gt; right-justifies &lt;tt class=&#34;docutils literal&#34;&gt;&#39;x&#39;&lt;/tt&gt; in a &lt;tt class=&#34;docutils literal&#34;&gt;width&lt;/tt&gt;-character field.&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&#39;ab&#39; * 4&lt;/tt&gt; yields 4 copies of &lt;tt class=&#34;docutils literal&#34;&gt;&#39;ab&#39;&lt;/tt&gt;; i.e., &lt;tt class=&#34;docutils literal&#34;&gt;&#39;abababab&#39;&lt;/tt&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Putting them together:&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;
-&amp;gt;&amp;gt;&amp;gt; WIDTH = 4
-&amp;gt;&amp;gt;&amp;gt;
-&amp;gt;&amp;gt;&amp;gt; for a in range(1, WIDTH+1):
-...     print(&amp;quot;{0:&amp;lt;{1}}{0:&amp;gt;{1}}&amp;quot;.format(&#39;*&#39; * a, WIDTH))
-...
-*      *
-**    **
-***  ***
-********
-&lt;/pre&gt;
-&lt;p&gt;Handy references: &lt;a class=&#34;reference external&#34; href=&#34;https://pyformat.info/&#34;&gt;PyFormat&lt;/a&gt; and
-&lt;a class=&#34;reference external&#34; href=&#34;https://mkaz.github.io/2012/10/10/python-string-format/&#34;&gt;Python String Format Cookbook&lt;/a&gt;.&lt;/p&gt;
 </content>
     </entry>
     </feed>
