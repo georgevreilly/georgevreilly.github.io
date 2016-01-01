@@ -52,8 +52,8 @@ Out[2]: [('--exclude', '*.zip'), ('--exclude', '*.pyc'), ('--exclude', '*.log')]
 <p>The trick is to use a <a class="reference external" href="../../../../2009/03/20/FlatteningListComprehensionsInPython.html">nested com&shy;pre&shy;hen&shy;sion</a>:</p>
 
 <pre class="brush: python">
-In [5]: [inner for outer in excludes
-         for inner in ['--exclude', outer]]
+In [5]: [arg for pattern in excludes
+             for arg in ['--exclude', pattern]]
 Out[5]: ['--exclude', '*.zip', '--exclude', '*.pyc', '--exclude', '*.log']
 </pre>
 
@@ -73,6 +73,9 @@ Out[5]: ['--exclude', '*.zip', '--exclude', '*.pyc', '--exclude', '*.log']
         </a>
     
     
+        <a href="/blog/2015/12/31/ReviewTheMagiciansLand.html" class="page floatleft">
+        &laquo; Review: The Magician's Land
+        </a>
 <footer>
     
     
