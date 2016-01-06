@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Decrementing Loops</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="The canonical ``for``-loop in C and C++ is written..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-01-05">05.01.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/01/05/DecrementingLoops.html" rel="bookmark canonical">Decrementing Loops</a>
+        </h1>
+    </header>
+    <p>The canonical <tt class="docutils literal">for</tt>-loop in C and C++ is written thus,
+counting up <tt class="docutils literal">i = 0</tt>, <tt class="docutils literal">i = 1</tt>, ..., <tt class="docutils literal">i = <span class="pre">N-1</span></tt>:</p>
+
+<pre class="brush: c++">
+for (int i=0; i &lt; N; i++) {
+    // loop body
+}
+</pre>
+
+<p>(In C, you have to declare <tt class="docutils literal">int i</tt> before the <tt class="docutils literal">for</tt>-loop.)</p>
+<p>Let's unpack that <tt class="docutils literal">for</tt>-loop into an equivalent <tt class="docutils literal">while</tt>-loop:</p>
+
+<pre class="brush: c++">
+int i = 0;
+while (i &lt; N) {
+    // loop body
+    i = i + 1
+}
+</pre>
+
+<p>In other words, we initialize <tt class="docutils literal">i</tt> to zero.
+Then, before every execution of either loop,
+we check <tt class="docutils literal">i &lt; N</tt>.
+If <tt class="docutils literal">i</tt> is still within bounds,
+we execute the loop body.
+Then we postin&shy;cre&shy;ment <tt class="docutils literal">i</tt>.
+Then back to the top of the loop, checking <tt class="docutils literal">i &lt; N</tt> again.
+And so on, executing the loop <tt class="docutils literal">N</tt> times,
+with <tt class="docutils literal">i = 0</tt>, <tt class="docutils literal">i = 1</tt>, ..., <tt class="docutils literal">i = <span class="pre">N-1</span></tt>.</p>
+<p>There's a more efficient way to write that loop—if you don't mind counting <em>down</em>
+from <tt class="docutils literal"><span class="pre">N-1</span></tt> to <tt class="docutils literal">0</tt>:</p>
+
+<pre class="brush: c++">
+for (int i=N; --i >= 0; ) {
+    // loop body
+}
+</pre>
+
+<p>Trans&shy;form&shy;ing it into the equivalent <tt class="docutils literal">while</tt>-loop may make it clearer:</p>
+
+<pre class="brush: c++">
+int i = N;
+while (--i >= 0) {
+    // loop body
+}
+</pre>
+
+<p>We initialize <tt class="docutils literal">i=N</tt>.
+Then, before every execution of either loop,
+we (a) pre&shy;decre&shy;ment <tt class="docutils literal">i</tt>, that is, set <tt class="docutils literal">i = <span class="pre">i-1</span></tt> and use the new value of <tt class="docutils literal">i</tt>;
+then (b) check <tt class="docutils literal">i &gt;= 0</tt>.
+If the new value of <tt class="docutils literal">i</tt> is still non-negative, the loop body is executed.
+This loop is also executed <tt class="docutils literal">N</tt> times,
+with <tt class="docutils literal">i = <span class="pre">N-1</span></tt>, <tt class="docutils literal">i = <span class="pre">N-2</span></tt>, ..., <tt class="docutils literal">i = 1</tt>, <tt class="docutils literal">i = 0</tt>.</p>
+<p>In the count-up loop, the compiler has to emit an explicit comparison against <tt class="docutils literal">N</tt>,
+which must be executed on every iteration of the loop.
+If <tt class="docutils literal">N</tt> is not stored in a register (ia32 doesn't have many),
+it will have to be fetched on each iteration.
+The count-up loop overhead then
+is a possible fetch of <tt class="docutils literal">N</tt>,
+a comparison against <tt class="docutils literal">N</tt>,
+and a postin&shy;cre&shy;ment.</p>
+<p>For the count-down loop however,
+the compiler won't emit an explicit comparison against zero,
+as the pre&shy;decre&shy;ment is enough to condition the CPU's <a class="reference external" href="https://en.wikipedia.org/wiki/Negative_flag">negative flag</a>.
+If the result of the pre&shy;decre&shy;ment is a negative number,
+the <em>sign bit</em> will be set.</p>
+<p>Using a count-down loop, you can shave one in&shy;struc&shy;tion off every iteration.
+Fur&shy;ther&shy;more, <tt class="docutils literal">N</tt> is only read once and won't occupy a register.
+The pre&shy;decre&shy;ment is un&shy;avoid&shy;able.
+For a tight loop, these savings may be important.</p>
+<p>However, I would use this idiom sparingly.</p>
+<ul class="simple">
+<li>It's only ap&shy;pro&shy;pri&shy;ate for loops where it doesn't matter whether you count up or down.</li>
+<li>Make sure that the index is a signed <tt class="docutils literal">int</tt>, not an <tt class="docutils literal">unsigned int</tt>,
+or the count-down loop won't terminate.
+(I've done this a few times.)</li>
+<li>The idiom is not well-known and places a higher cognitive burden on most readers.
+I favor clarity over micro-efficiency,
+so I would only use it for a tight inner loop.
+Everyone recognizes the count-up loop.</li>
+<li>Modern compilers are smart and capable of deep analysis.
+It's possible that some compilers may au&shy;to&shy;mat&shy;i&shy;cal&shy;ly transform count-up loops
+into count-down loops when their analysis indicates that it's safe to do so.</li>
+</ul>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html" class="page floatright">
+        Obfuscating Passwords in URLs in Python &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

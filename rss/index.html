@@ -5,9 +5,102 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Mon, 04 Jan 2016 08:00:00 GMT</pubDate>
+        <pubDate>Tue, 05 Jan 2016 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Decrementing Loops</title>
+        <link>http://www.georgevreilly.com/blog/2016/01/05/DecrementingLoops.html</link>
+        <description>&lt;p&gt;The canonical &lt;tt class=&#34;docutils literal&#34;&gt;for&lt;/tt&gt;-loop in C and C++ is written thus,
+counting up &lt;tt class=&#34;docutils literal&#34;&gt;i = 0&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;i = 1&lt;/tt&gt;, ..., &lt;tt class=&#34;docutils literal&#34;&gt;i = &lt;span class=&#34;pre&#34;&gt;N-1&lt;/span&gt;&lt;/tt&gt;:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: c++&#34;&gt;
+for (int i=0; i &amp;lt; N; i++) {
+    // loop body
+}
+&lt;/pre&gt;
+
+&lt;p&gt;(In C, you have to declare &lt;tt class=&#34;docutils literal&#34;&gt;int i&lt;/tt&gt; before the &lt;tt class=&#34;docutils literal&#34;&gt;for&lt;/tt&gt;-loop.)&lt;/p&gt;
+&lt;p&gt;Let&#39;s unpack that &lt;tt class=&#34;docutils literal&#34;&gt;for&lt;/tt&gt;-loop into an equivalent &lt;tt class=&#34;docutils literal&#34;&gt;while&lt;/tt&gt;-loop:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: c++&#34;&gt;
+int i = 0;
+while (i &amp;lt; N) {
+    // loop body
+    i = i + 1
+}
+&lt;/pre&gt;
+
+&lt;p&gt;In other words, we initialize &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt; to zero.
+Then, before every execution of either loop,
+we check &lt;tt class=&#34;docutils literal&#34;&gt;i &amp;lt; N&lt;/tt&gt;.
+If &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt; is still within bounds,
+we execute the loop body.
+Then we postincrement &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt;.
+Then back to the top of the loop, checking &lt;tt class=&#34;docutils literal&#34;&gt;i &amp;lt; N&lt;/tt&gt; again.
+And so on, executing the loop &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt; times,
+with &lt;tt class=&#34;docutils literal&#34;&gt;i = 0&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;i = 1&lt;/tt&gt;, ..., &lt;tt class=&#34;docutils literal&#34;&gt;i = &lt;span class=&#34;pre&#34;&gt;N-1&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;There&#39;s a more efficient way to write that loop—if you don&#39;t mind counting &lt;em&gt;down&lt;/em&gt;
+from &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;N-1&lt;/span&gt;&lt;/tt&gt; to &lt;tt class=&#34;docutils literal&#34;&gt;0&lt;/tt&gt;:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: c++&#34;&gt;
+for (int i=N; --i &gt;= 0; ) {
+    // loop body
+}
+&lt;/pre&gt;
+
+&lt;p&gt;Transforming it into the equivalent &lt;tt class=&#34;docutils literal&#34;&gt;while&lt;/tt&gt;-loop may make it clearer:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: c++&#34;&gt;
+int i = N;
+while (--i &gt;= 0) {
+    // loop body
+}
+&lt;/pre&gt;
+
+&lt;p&gt;We initialize &lt;tt class=&#34;docutils literal&#34;&gt;i=N&lt;/tt&gt;.
+Then, before every execution of either loop,
+we (a) predecrement &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt;, that is, set &lt;tt class=&#34;docutils literal&#34;&gt;i = &lt;span class=&#34;pre&#34;&gt;i-1&lt;/span&gt;&lt;/tt&gt; and use the new value of &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt;;
+then (b) check &lt;tt class=&#34;docutils literal&#34;&gt;i &amp;gt;= 0&lt;/tt&gt;.
+If the new value of &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt; is still non-negative, the loop body is executed.
+This loop is also executed &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt; times,
+with &lt;tt class=&#34;docutils literal&#34;&gt;i = &lt;span class=&#34;pre&#34;&gt;N-1&lt;/span&gt;&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;i = &lt;span class=&#34;pre&#34;&gt;N-2&lt;/span&gt;&lt;/tt&gt;, ..., &lt;tt class=&#34;docutils literal&#34;&gt;i = 1&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;i = 0&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;In the count-up loop, the compiler has to emit an explicit comparison against &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt;,
+which must be executed on every iteration of the loop.
+If &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt; is not stored in a register (ia32 doesn&#39;t have many),
+it will have to be fetched on each iteration.
+The count-up loop overhead then
+is a possible fetch of &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt;,
+a comparison against &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt;,
+and a postincrement.&lt;/p&gt;
+&lt;p&gt;For the count-down loop however,
+the compiler won&#39;t emit an explicit comparison against zero,
+as the predecrement is enough to condition the CPU&#39;s &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Negative_flag&#34;&gt;negative flag&lt;/a&gt;.
+If the result of the predecrement is a negative number,
+the &lt;em&gt;sign bit&lt;/em&gt; will be set.&lt;/p&gt;
+&lt;p&gt;Using a count-down loop, you can shave one instruction off every iteration.
+Furthermore, &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt; is only read once and won&#39;t occupy a register.
+The predecrement is unavoidable.
+For a tight loop, these savings may be important.&lt;/p&gt;
+&lt;p&gt;However, I would use this idiom sparingly.&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;It&#39;s only appropriate for loops where it doesn&#39;t matter whether you count up or down.&lt;/li&gt;
+&lt;li&gt;Make sure that the index is a signed &lt;tt class=&#34;docutils literal&#34;&gt;int&lt;/tt&gt;, not an &lt;tt class=&#34;docutils literal&#34;&gt;unsigned int&lt;/tt&gt;,
+or the count-down loop won&#39;t terminate.
+(I&#39;ve done this a few times.)&lt;/li&gt;
+&lt;li&gt;The idiom is not well-known and places a higher cognitive burden on most readers.
+I favor clarity over micro-efficiency,
+so I would only use it for a tight inner loop.
+Everyone recognizes the count-up loop.&lt;/li&gt;
+&lt;li&gt;Modern compilers are smart and capable of deep analysis.
+It&#39;s possible that some compilers may automatically transform count-up loops
+into count-down loops when their analysis indicates that it&#39;s safe to do so.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Tue, 05 Jan 2016 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-01-05:/blog/2016/01/05/DecrementingLoops.html</guid>
+    </item>
         
             <item>
         <title>Obfuscating Passwords in URLs in Python</title>
@@ -837,29 +930,6 @@ Fifteen years of cobwebs have been removed from behind the book cases.&lt;/p&gt;
 </description>
         <pubDate>Sat, 12 Dec 2015 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-12:/blog/2015/12/12/PaintingTheBarRoom.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: Legend</title>
-        <link>http://www.georgevreilly.com/blog/2015/12/11/ReviewLegend.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Legend_(2015_film)&#34;&gt;&lt;img alt=&#34;Legend&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/en/a/ad/Legend_2015_poster.jpg&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;Tom Hardy has had a very good year,
-starring in &lt;em&gt;Mad Max: Fury Road&lt;/em&gt; and
-playing both Reggie and Ronnie Kray in
-&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Legend_(2015_film)&#34;&gt;Legend&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Legend&lt;/em&gt; loving recreates London in the Swinging Sixties
-when the Kray twins were not only notorious gangsters but also celebrities,
-mingling with the rich and famous in their nightclubs.
-Reggie is portrayed as the smarter, charming, and stable brother;
-Ronnie as erratic and psychopathic;
-both are capable of great violence.
-The film is narrated from beyond the grave by Reggie&#39;s wife, Frances,
-and concentrates mostly on Reggie.
-Hardy is excellent as Reggie, but hard to understand as Ronnie,
-while Emily Browning does a fine job as the young wife who&#39;s in over her head.&lt;/p&gt;
-</description>
-        <pubDate>Fri, 11 Dec 2015 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-11:/blog/2015/12/11/ReviewLegend.html</guid>
     </item>
         </channel>
 </rss>
