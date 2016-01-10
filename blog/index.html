@@ -29,6 +29,47 @@
     
         <article>
     <header>
+        <time datetime="2016-01-09">09.01.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/01/09/ReviewDollmaker.html" rel="bookmark canonical">Review: Dollmaker</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/1569473463/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: Dollmaker</div>
+<div class="line">Author: J. Robert Janes</div>
+<div class="line">Rating: $stars(3.5)</div>
+<div class="line">Publisher: Soho Crime</div>
+<div class="line">Copyright: 1995</div>
+<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/1569473463/?tag=georgvreill-20">1569473463</a></div>
+<div class="line">Pages: 272</div>
+<div class="line">Keywords: police procedural, WW II</div>
+<div class="line">Reading period: 2–7 January, 2016</div>
+</div>
+<p>Occupied France, January 1943.
+Detectives Jean-Louis St-Cyr and Hermann Kohler are sent
+to the German <a class="reference external" href="https://en.wikipedia.org/wiki/Keroman_Submarine_Base">submarine base</a> at Lorient in Brittany
+to in&shy;ves&shy;ti&shy;gate a murder.
+The Gross-Admiral wants a quick resolution to the case
+since the prime suspect is a U-Boat captain known as the Dollmaker,
+whose crew are de&shy;mor&shy;al&shy;ized after many months of punishing cruises
+and who won't go back to sea without him.</p>
+<p>St-Cyr and Kohler are unlikely partners,
+a Chief Inspector from the Sûreté in Paris
+and a longtime criminal policeman now in the Gestapo.
+Both are astute in&shy;ves&shy;ti&shy;ga&shy;tors
+but overworked <span>&#8230;<a href="/blog/2016/01/09/ReviewDollmaker.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-01-08">08.01.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/01/08/HappyBirthdayRoyBatty.html" rel="bookmark canonical">Happy Birthday, Roy Batty</a>
@@ -318,43 +359,6 @@ and Eliot, Janet, Josh, and Poppy are trying to save it.</p>
 emo&shy;tion&shy;al&shy;ly and as a magician,
 rising to the daunting challenges
 &quot;He was circling back to <span>&#8230;<a href="/blog/2015/12/31/ReviewTheMagiciansLand.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2015-12-30">30.12.2015, 00:00</time>
-        <h1>
-            <a href="/blog/2015/12/30/UseForPythonNestedListComprehensions.html" rel="bookmark canonical">Python: a use for nested list comprehensions</a>
-        </h1>
-    </header>
-    <p>I wanted to turn a list like
-<tt class="docutils literal"><span class="pre">['*.zip',</span> <span class="pre">'*.pyc',</span> <span class="pre">'*.log']</span></tt> into
-<tt class="docutils literal"><span class="pre">['--exclude',</span> <span class="pre">'*.zip',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.pyc',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.log']</span></tt>.</p>
-<p>A simple list com&shy;pre&shy;hen&shy;sion doesn't work as desired:</p>
-
-<pre class="brush: python">
-In [1]: excludes = ['*.zip', '*.pyc', '*.log']
-
-In [2]: [('--exclude', e) for e in excludes]
-Out[2]: [('--exclude', '*.zip'), ('--exclude', '*.pyc'), ('--exclude', '*.log')]
-</pre>
-
-<p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com&shy;pre&shy;hen&shy;sion</a>:</p>
-
-<pre class="brush: python">
-In [5]: [arg for pattern in excludes
-             for arg in ['--exclude', pattern]]
-Out[5]: ['--exclude', '*.zip', '--exclude', '*.pyc', '--exclude', '*.log']
-</pre>
-
-
     <footer>
         
         
