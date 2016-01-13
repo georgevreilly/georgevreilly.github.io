@@ -5,9 +5,54 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Mon, 11 Jan 2016 08:00:00 GMT</pubDate>
+        <pubDate>Tue, 12 Jan 2016 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Bash: Getting and Setting Default Values</title>
+        <link>http://www.georgevreilly.com/blog/2016/01/12/BashGettingAndSettingDefaultValues.html</link>
+        <description>&lt;p&gt;Bash has some handy syntax for getting and setting default values.
+Unfortunately, it&#39;s a collection of punctuation characters,
+which makes it hard to Google when you can&#39;t quite remember the syntax.&lt;/p&gt;
+&lt;p&gt;Getting a default value using &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;${var:-fallback}&lt;/span&gt;&lt;/tt&gt;:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: bash&#34;&gt;
+# set $LOGDIR to $1 if $1 has a value; otherwise set $LOGDIR to &#34;/var/log&#34;
+LOGDIR=&#34;${1:-/var/log}&#34;
+
+# use $VERSION unless it&#39;s empty or unset; fall back to extracting someprog&#39;s version num
+build_version=${VERSION:-$(someprog --version | sed &#39;s/[^0-9.]*\([0-9.]*\).*/\1/&#39;)}
+&lt;/pre&gt;
+
+&lt;p&gt;The colon-dash construction is known as the
+&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)&#34;&gt;dog&#39;s bollocks&lt;/a&gt;
+in typography.&lt;/p&gt;
+&lt;p&gt;Setting a default value, using &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;${var:=fallback}&lt;/span&gt;&lt;/tt&gt;:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: bash&#34;&gt;
+$ echo $HOME
+/Users/georgevreilly
+$ echo ${HOME:=/tmp}
+/Users/georgevreilly
+$ unset HOME
+$ echo ${HOME:=/tmp}
+/tmp
+$ echo $HOME
+/tmp
+$ cd; pwd
+/tmp
+&lt;/pre&gt;
+
+&lt;p&gt;Note: &lt;tt class=&#34;docutils literal&#34;&gt;:=&lt;/tt&gt; uses the new value in two cases.
+First, when the shell variable is not set;
+second, when the variable is set but empty.&lt;/p&gt;
+&lt;p&gt;If you want to assign the variable only when it&#39;s previously unset, omit the colon,
+&lt;tt class=&#34;docutils literal&#34;&gt;${var=fallback}&lt;/tt&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 12 Jan 2016 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-01-12:/blog/2016/01/12/BashGettingAndSettingDefaultValues.html</guid>
+    </item>
         
             <item>
         <title>Review: Blind Justice</title>
@@ -788,40 +833,6 @@ which will have to be dealt with soon.&lt;/p&gt;
 </description>
         <pubDate>Sat, 19 Dec 2015 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-19:/blog/2015/12/19/RestoringTheBarRoom.html</guid>
-    </item>
-        
-            <item>
-        <title>Bar Room Booze</title>
-        <link>http://www.georgevreilly.com/blog/2015/12/18/BarRoomBooze.html</link>
-        <description>&lt;img alt=&#34;Bar Room Booze&#34; src=&#34;http://www.georgevreilly.com/content/binary/bar-room-booze.jpg&#34;/&gt;
-&lt;p&gt;As I mentioned &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2015/12/12/PaintingTheBarRoom.html&#34;&gt;last week&lt;/a&gt;, we started painting our &amp;quot;bar room&amp;quot; blue.
-The picture above shows the new color—and why we call this room
-the bar room.&lt;/p&gt;
-&lt;p&gt;The kitchen stove is just on the other side of the doorway,
-but the extractor fan is about six feet left of the stove,
-over the sink.
-The kitchen was remodeled and expanded in the 1960s;
-I believe the original stove was under the extractor fan.
-One consequence of this is that, over time,
-bottles and glassware in the bar room become greasy.&lt;/p&gt;
-&lt;p&gt;I cleaned all the bottles tonight.
-Some of them needed it quite badly.&lt;/p&gt;
-&lt;p&gt;We have a sizeable collection of liquor and liqueurs,
-but we drink very little of it and we drink it slowly.
-Aside from the whiskies, I drink mostly beer or wine,
-as do most of our guests.
-I found about 10 bottles
-that we were given for our wedding shower—in 2000.
-We&#39;re having a Yule party on Sunday.
-We&#39;ll be urging our guests to drink some of the liquor,
-and to take a bottle home if they really like it.&lt;/p&gt;
-&lt;p&gt;We also have a substantial collection of cookbooks,
-which were stored on bookshelves below the booze.
-Half of these books were hidden by a table and thus rarely used.
-Time to rid ourselves of many of them.&lt;/p&gt;
-</description>
-        <pubDate>Fri, 18 Dec 2015 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-18:/blog/2015/12/18/BarRoomBooze.html</guid>
     </item>
         </channel>
 </rss>
