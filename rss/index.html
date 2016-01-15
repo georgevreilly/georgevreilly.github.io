@@ -5,9 +5,71 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Wed, 13 Jan 2016 08:00:00 GMT</pubDate>
+        <pubDate>Thu, 14 Jan 2016 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Python Base Class Order</title>
+        <link>http://www.georgevreilly.com/blog/2016/01/14/PythonBaseClassOrder.html</link>
+        <description>&lt;p&gt;When I declare a derived class that inherits
+from both a base class and some mixins,
+I am always tempted to write:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+class Derived(Base, Mixin1, Mixin2):
+    &#34;Some class&#34;
+&lt;/pre&gt;
+
+&lt;p&gt;My reasoning is that &lt;tt class=&#34;docutils literal&#34;&gt;Derived&lt;/tt&gt; is a &lt;tt class=&#34;docutils literal&#34;&gt;Base&lt;/tt&gt;
+with some &lt;tt class=&#34;docutils literal&#34;&gt;Mixin1&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;Mixin2&lt;/tt&gt; goodness sprinkled on.
+Generally, that&#39;s fine.
+The exception is when I want one of the mixins to override
+a method or attribute that&#39;s defined in &lt;tt class=&#34;docutils literal&#34;&gt;Base&lt;/tt&gt;.
+Because the &lt;a class=&#34;reference external&#34; href=&#34;http://python-history.blogspot.com/2010/06/method-resolution-order.html&#34;&gt;Method Resolution Order&lt;/a&gt; is left-to-right,
+then &lt;tt class=&#34;docutils literal&#34;&gt;Base&lt;/tt&gt;&#39;s implementation will always be found first.&lt;/p&gt;
+&lt;p&gt;To get the desired behavior of the mixin overriding the base,
+&lt;tt class=&#34;docutils literal&#34;&gt;Base&lt;/tt&gt; should always appear &lt;em&gt;last&lt;/em&gt; in the inheritance list.&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+from __future__ import print_function
+
+class Useful(object):
+    def __init__(self, msg):
+        print(&#34;{0}: {1}&#34;.format(self.__class__.__name__, msg))
+
+    def stuff(self):
+        print(&#34;useful&#34;)
+
+class Mixin(object):
+    def stuff(self):
+        print(&#34;mixin&#34;)
+
+class UsefulThenMixin(Useful, Mixin):
+    pass
+
+class MixinThenUseful(Mixin, Useful):
+    pass
+
+UsefulThenMixin(&#39;base first&#39;).stuff()
+print(&#39;&#39;)
+MixinThenUseful(&#39;base last&#39;).stuff()
+&lt;/pre&gt;
+
+&lt;p&gt;Running yields:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: bash&#34;&gt;
+UsefulThenMixin: base first
+useful
+
+MixinThenUseful: base last
+mixin
+&lt;/pre&gt;
+
+</description>
+        <pubDate>Thu, 14 Jan 2016 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-01-14:/blog/2016/01/14/PythonBaseClassOrder.html</guid>
+    </item>
         
             <item>
         <title>Review: Star Doc</title>
@@ -820,32 +882,6 @@ Tonight I decorated it with marzipan and royal icing.&lt;/p&gt;
 </description>
         <pubDate>Mon, 21 Dec 2015 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-21:/blog/2015/12/21/IncludingDataFilesInPythonPackages.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: Destination: Morgue!</title>
-        <link>http://www.georgevreilly.com/blog/2015/12/20/ReviewDestinationMorgue.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/1400032873/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Destination: Morgue!&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/1400032873.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: Destination: Morgue!&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: James Ellroy&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: $stars(2.5)&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Vintage&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 2004&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/1400032873/?tag=georgvreill-20&#34;&gt;1400032873&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 400&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: true crime, autobiography&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: November 28–December 20, 2015&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;A collection of James Ellroy&#39;s articles on crime
-and his own past.&lt;/p&gt;
-&lt;p&gt;I&#39;ve enjoyed Ellroy in the past but I found this unreadable.
-I tried it twice but abandoned it halfway through.
-Ellroy&#39;s writing is self-indulgent, irritating, grandiose,
-and full of tiresome stylistic tics.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 20 Dec 2015 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-20:/blog/2015/12/20/ReviewDestinationMorgue.html</guid>
     </item>
         </channel>
 </rss>
