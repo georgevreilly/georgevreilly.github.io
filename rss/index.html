@@ -5,9 +5,36 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Fri, 15 Jan 2016 08:00:00 GMT</pubDate>
+        <pubDate>Sat, 16 Jan 2016 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Installing Python 2.7.11 on Ubuntu</title>
+        <link>http://www.georgevreilly.com/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html</link>
+        <description>&lt;p&gt;We deploy on Ubuntu 14.04, the most recent Long Term Support release.
+It comes with Python 2.7.6,
+but we need Python 2.7.9+ to get the some important SSL fixes
+and work with a recent version of the &lt;a class=&#34;reference external&#34; href=&#34;http://docs.python-requests.org/en/latest/&#34;&gt;Requests&lt;/a&gt; library.&lt;/p&gt;
+&lt;p&gt;Felix Krull maintains a Personal Package Archive for &lt;a class=&#34;reference external&#34; href=&#34;https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes-python2.7&#34;&gt;Python 2.7 Updates&lt;/a&gt;,
+which makes it straightforward to upgrade to Python 2.7.11
+on supported versions of Ubuntu.&lt;/p&gt;
+
+&lt;pre class=&#34;brush: bash&#34;&gt;
+sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
+sudo apt-get update
+sudo apt-get install python2.7 python2.7-dev
+&lt;/pre&gt;
+
+&lt;p&gt;Be sure not to use Felix Krull&#39;s &lt;a class=&#34;reference external&#34; href=&#34;https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes&#34;&gt;other Python PPA&lt;/a&gt; by mistake.
+I did that on a colleague&#39;s machine yesterday.
+In our attempts to figure out why we still had Python 2.7.6,
+we managed to mess up the machine sufficiently
+that we had to reinstall Ubuntu.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 16 Jan 2016 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-01-16:/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html</guid>
+    </item>
         
             <item>
         <title>DVI Not Considered Equal</title>
@@ -881,19 +908,6 @@ I might use Oneliner in other circumstances.&lt;/p&gt;
 </description>
         <pubDate>Wed, 23 Dec 2015 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-23:/blog/2015/12/23/ParseMinVerBash.html</guid>
-    </item>
-        
-            <item>
-        <title>Christmas Cake</title>
-        <link>http://www.georgevreilly.com/blog/2015/12/22/ChristmasCake.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.georgevreilly.com/blog/2007/01/05/ChristmasCake.html&#34;&gt;&lt;img alt=&#34;Marzipan on the Christmas Cake&#34; src=&#34;https://scontent-sea1-1.xx.fbcdn.net/hphotos-xpf1/v/t1.0-9/10406464_10156310167435405_7190191491654924308_n.jpg?oh=406830778238ff2b290ad1005953bf34&amp;amp;oe=56D392CC&#34;/&gt;&lt;/a&gt;
-&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.georgevreilly.com/blog/2007/01/05/ChristmasCake.html&#34;&gt;&lt;img alt=&#34;Royal Icing on the Christmas Cake&#34; src=&#34;https://scontent-sea1-1.xx.fbcdn.net/hphotos-xlf1/v/t1.0-9/12373190_10156310167480405_1864261752356980433_n.jpg?oh=20450337077da46028ab87531dedd12b&amp;amp;oe=572128C1&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;Last week I made my &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2007/01/05/ChristmasCake.html&#34;&gt;Christmas Cake&lt;/a&gt;,
-a week after I made my &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2015/12/06/ChristmasPudding.html&#34;&gt;Christmas Puddings&lt;/a&gt;.
-Tonight I decorated it with marzipan and royal icing.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 22 Dec 2015 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-22:/blog/2015/12/22/ChristmasCake.html</guid>
     </item>
         </channel>
 </rss>
