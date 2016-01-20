@@ -5,9 +5,36 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Mon, 18 Jan 2016 08:00:00 GMT</pubDate>
+        <pubDate>Tue, 19 Jan 2016 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>psql: could not connect to server</title>
+        <link>http://www.georgevreilly.com/blog/2016/01/19/PsqlCouldNotConnectToServer.html</link>
+        <description>&lt;p&gt;I wanted to clean out my local PostgreSQL database today
+so that I could restore a database dump taken on another system,
+but every time I ran the &lt;a class=&#34;reference external&#34; href=&#34;http://postgresguide.com/utilities/psql.html&#34;&gt;psql&lt;/a&gt; utility, I got:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+psql: could not connect to server: No such file or directory
+    Is the server running locally and accepting
+    connections on Unix domain socket &amp;quot;/tmp/.s.PGSQL.5432&amp;quot;?
+&lt;/pre&gt;
+&lt;p&gt;I tried various things, including restarting Postgres several times,
+but nothing helped.
+Eventually, I thought to look in &lt;tt class=&#34;docutils literal&#34;&gt;/usr/local/var/postgres/server.log&lt;/tt&gt;,
+where I saw several error messages indicating that Postgres 9.5
+couldn&#39;t read data files created with 9.4.
+At that point, I realized that during my most recent &lt;tt class=&#34;docutils literal&#34;&gt;brew update; brew upgrade&lt;/tt&gt;,
+&lt;a class=&#34;reference external&#34; href=&#34;http://brew.sh/&#34;&gt;Homebrew&lt;/a&gt; had upgraded my installation of
+&lt;a class=&#34;reference external&#34; href=&#34;https://github.com/Homebrew/homebrew/blob/master/Library/Formula/postgresql.rb&#34;&gt;Postgres from 9.4 to 9.5&lt;/a&gt;.
+A little investigation led me to this &lt;a class=&#34;reference external&#34; href=&#34;https://gist.github.com/joho/3735740&#34;&gt;gist&lt;/a&gt;.
+Since I didn&#39;t care about the old database files,
+I created a fresh &lt;tt class=&#34;docutils literal&#34;&gt;/usr/local/var/postgres&lt;/tt&gt; and ran &lt;tt class=&#34;docutils literal&#34;&gt;initdb&lt;/tt&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 19 Jan 2016 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-01-19:/blog/2016/01/19/PsqlCouldNotConnectToServer.html</guid>
+    </item>
         
             <item>
         <title>Federal Holidays Inadequately Observed</title>
@@ -816,20 +843,6 @@ at great cost to himself and his friends.&lt;/p&gt;
 </description>
         <pubDate>Sat, 26 Dec 2015 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-26:/blog/2015/12/26/ReviewTheMagicians.html</guid>
-    </item>
-        
-            <item>
-        <title>Christmas</title>
-        <link>http://www.georgevreilly.com/blog/2015/12/25/Christmas.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.theawl.com/2010/12/krampus-comes-this-weekend-beware-sinister-saint-nick-sidekicks&#34;&gt;&lt;img alt=&#34;Gruß vom Krampus u. Nikolo&#34; class=&#34;right-float&#34; src=&#34;http://cdn.theawl.com/wp-content/uploads/2010/12/Screen-shot-2010-12-03-at-1.25.07-PM.jpg&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;We had a quiet Christmas day.
-We&#39;re hosting two couchsurfing young women from Kazakhstan.
-They and Raven and Iain were our dinner guests.
-We roasted a leg of lamb and an assortment of root vegetables.
-For dessert, we had one of my &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2015/12/06/ChristmasPudding.html&#34;&gt;Christmas Puddings&lt;/a&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Fri, 25 Dec 2015 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-25:/blog/2015/12/25/Christmas.html</guid>
     </item>
         </channel>
 </rss>
