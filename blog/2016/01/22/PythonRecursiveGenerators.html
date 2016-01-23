@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Recursive Generators in Python</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="\ 
+
+    Generators decouple iteration from the cod..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-01-22">22.01.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/01/22/PythonRecursiveGenerators.html" rel="bookmark canonical">Recursive Generators in Python</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+<p>Generators decouple iteration from the code
+that uses the results of the iteration</p>
+<p class="attribution">&mdash;David Beazley, <a class="reference external" href="http://www.dabeaz.com/generators/">Generators</a></p>
+</blockquote>
+<p>Python generators have a <a class="reference external" href="http://www.dabeaz.com/generators/">variety of uses</a>.
+One such is to lazily evaluate sequences.
+Another is for <a class="reference external" href="http://www.dabeaz.com/coroutines/">coroutines</a>.
+Yet another is to re&shy;cur&shy;sive&shy;ly traverse a tree or a graph,
+yielding an iterable sequence.</p>
+<p>Consider this simple tree of nodes:</p>
+
+<pre class="brush: python">
+node_tree = Node(
+    'a', [
+        Node('b', [
+            Node('e', [
+                Node('f')
+            ]),
+        ]),
+        Node('c'),
+        Node('d')
+    ])
+</pre>
+
+<p>where <tt class="docutils literal">Node</tt> is defined as:</p>
+
+<pre class="brush: python">
+class Node(object):
+    def __init__(self, value, children=None):
+        self.value = value
+        self.children = children
+
+    def __repr__(self):
+        return "Node({0})".format(self.value)
+</pre>
+
+<p>This generator re&shy;cur&shy;sive&shy;ly traverses the nodes top-down:</p>
+
+<pre class="brush: python">
+    @classmethod
+    def get_tree(cls, node):
+        yield node
+        for child in node.children or []:
+            for n in cls.get_tree(child):
+                yield n
+
+print([v for v in Node.get_tree(node_tree)])
+
+[Node(a), Node(b), Node(e), Node(f), Node(c), Node(d)]
+</pre>
+
+<p>The first <tt class="docutils literal">yield</tt> produces the current node.
+The <tt class="docutils literal">yield</tt> in the loop is necessary
+to percolate the results of lower levels upwards to the outermost caller.</p>
+<p>Adding some prints may clarify what's going on:</p>
+
+<pre class="brush: python">
+@classmethod
+def get_tree(cls, node, depth=1):
+    print("\n{0}yield 1: node={1} depth={2}".format('\t'*depth, node, depth))
+    yield node
+    for child in node.children or []:
+        for n in cls.get_tree(child, depth+1):
+            print("{0}yield 2: node={1} depth={2}".format('\t'*depth, n, depth))
+            yield n
+</pre>
+
+<p><tt class="docutils literal">yield 1</tt> produces the actual value and occurs first,
+while <tt class="docutils literal">yield 2</tt> denotes the value bubbling up to the original caller.:</p>
+<pre class="literal-block">
+yield 1: node=Node(a) depth=1
+
+    yield 1: node=Node(b) depth=2
+yield 2: node=Node(b) depth=1
+
+        yield 1: node=Node(e) depth=3
+    yield 2: node=Node(e) depth=2
+yield 2: node=Node(e) depth=1
+
+            yield 1: node=Node(f) depth=4
+        yield 2: node=Node(f) depth=3
+    yield 2: node=Node(f) depth=2
+yield 2: node=Node(f) depth=1
+
+    yield 1: node=Node(c) depth=2
+yield 2: node=Node(c) depth=1
+
+    yield 1: node=Node(d) depth=2
+yield 2: node=Node(d) depth=1
+
+[Node(a), Node(b), Node(e), Node(f), Node(c), Node(d)]
+</pre>
+<p>This is somewhat ugly and <a class="reference external" href="https://www.python.org/dev/peps/pep-0380/">PEP 0380</a> introduced <tt class="docutils literal">yield from</tt> in Python 3.3,
+which delegates to sub-generators:</p>
+
+<pre class="brush: python">
+@classmethod
+def get_tree3(cls, node, depth=1):
+    print("\n{0}yield 1: node={1} depth={2}".format('\t'*depth, node, depth))
+    yield node
+    for child in node.children or []:
+        yield from cls.get_tree3(child, depth+1)
+</pre>
+
+<p>Now the output is:</p>
+<pre class="literal-block">
+yield 1: node=Node(a) depth=1
+
+    yield 1: node=Node(b) depth=2
+
+        yield 1: node=Node(e) depth=3
+
+            yield 1: node=Node(f) depth=4
+
+    yield 1: node=Node(c) depth=2
+
+    yield 1: node=Node(d) depth=2
+
+[Node(a), Node(b), Node(e), Node(f), Node(c), Node(d)]
+</pre>
+<p>This is only one of several uses for <tt class="docutils literal">yield from</tt>,
+which functions as a <a class="reference external" href="http://stackoverflow.com/a/26109157/6364">trans&shy;par&shy;ent two-way channel</a>
+between the caller and the sub-generator.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/2016/01/21/ReviewTheBlackEyedBlonde.html" class="page floatright">
+        Review: The Black-Eyed Blonde &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
