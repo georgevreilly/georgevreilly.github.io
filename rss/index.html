@@ -5,138 +5,38 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Fri, 22 Jan 2016 08:00:00 GMT</pubDate>
+        <pubDate>Sat, 23 Jan 2016 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
         
             <item>
+        <title>Review: Sherlock Holmes (2010 film)</title>
+        <link>http://www.georgevreilly.com/blog/2016/01/23/ReviewSherlockHolmes2010Film.html</link>
+        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Sherlock_Holmes_(2010_film)&#34;&gt;&lt;img alt=&#34;Sherlock Holmes (2010 film)&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/en/a/ab/Sherlock_holmes_by_asylum_film_poster.jpg&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;We attended the &lt;a class=&#34;reference external&#34; href=&#34;http://www.sherlock-seattle.org/&#34;&gt;Sherlock Seattle Mini-Convention&lt;/a&gt;
+at the Broadway Performance Hall.
+It was much more lightly attended than previous
+&lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2015/01/10/SherlockSeattle2015.html&#34;&gt;previous Sherlock Seattle conventions&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The final event of the evening was
+a &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Mystery_Science_Theater_3000&#34;&gt;Mystery Science Theater&lt;/a&gt;–style treatment of
+&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Sherlock_Holmes_(2010_film)&#34;&gt;Sherlock Holmes (2010 film)&lt;/a&gt;
+given by some of the con&#39;s organizers.
+We had seen &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Young_Sherlock_Holmes&#34;&gt;Young Sherlock Holmes&lt;/a&gt; get the MST3K treatment at last year&#39;s con
+and the show was quite funny.
+This show was also funny,
+but I was appalled at just how bad &lt;em&gt;Sherlock Holmes&lt;/em&gt; was.
+(I suppose that&#39;s the point of getting the MST3K treatment—the movie stinks and deserves to be heckled.)
+It was totally incoherent and anachronistic and ineptly made.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 23 Jan 2016 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-01-23:/blog/2016/01/23/ReviewSherlockHolmes2010Film.html</guid>
+    </item>
+        
+            <item>
         <title>Recursive Generators in Python 2 and 3</title>
         <link>http://www.georgevreilly.com/blog/2016/01/22/PythonRecursiveGenerators.html</link>
-        <description>&lt;p&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Generators decouple iteration from the code
-that uses the results of the iteration&lt;/p&gt;
-&lt;p class=&#34;attribution&#34;&gt;&amp;mdash;David Beazley, &lt;a class=&#34;reference external&#34; href=&#34;http://www.dabeaz.com/generators/&#34;&gt;Generators&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Python generators have a &lt;a class=&#34;reference external&#34; href=&#34;http://www.dabeaz.com/generators/&#34;&gt;variety of uses&lt;/a&gt;.
-One such is to lazily evaluate sequences.
-Another is for &lt;a class=&#34;reference external&#34; href=&#34;http://www.dabeaz.com/coroutines/&#34;&gt;coroutines&lt;/a&gt;.
-Yet another is to recursively traverse a tree or a graph,
-yielding an iterable sequence.&lt;/p&gt;
-&lt;p&gt;Consider this simple tree of nodes:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-node_tree = Node(
-    &#39;a&#39;, [
-        Node(&#39;b&#39;, [
-            Node(&#39;e&#39;, [
-                Node(&#39;f&#39;)
-            ]),
-        ]),
-        Node(&#39;c&#39;),
-        Node(&#39;d&#39;)
-    ])
-&lt;/pre&gt;
-
-&lt;p&gt;where &lt;tt class=&#34;docutils literal&#34;&gt;Node&lt;/tt&gt; is defined as:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-class Node(object):
-    def __init__(self, value, children=None):
-        self.value = value
-        self.children = children
-
-    def __repr__(self):
-        return &#34;Node({0})&#34;.format(self.value)
-&lt;/pre&gt;
-
-&lt;p&gt;This generator recursively traverses the nodes top-down:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-    @classmethod
-    def get_tree(cls, node):
-        yield node
-        for child in node.children or []:
-            for n in cls.get_tree(child):
-                yield n
-
-print([v for v in Node.get_tree(node_tree)])
-
-[Node(a), Node(b), Node(e), Node(f), Node(c), Node(d)]
-&lt;/pre&gt;
-
-&lt;p&gt;The first &lt;tt class=&#34;docutils literal&#34;&gt;yield&lt;/tt&gt; produces the current node.
-The &lt;tt class=&#34;docutils literal&#34;&gt;yield&lt;/tt&gt; in the loop is necessary
-to percolate the results of lower levels upwards to the outermost caller.&lt;/p&gt;
-&lt;p&gt;Adding some prints may clarify what&#39;s going on:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-@classmethod
-def get_tree(cls, node, depth=1):
-    print(&#34;\n{0}yield 1: node={1} depth={2}&#34;.format(&#39;\t&#39;*depth, node, depth))
-    yield node
-    for child in node.children or []:
-        for n in cls.get_tree(child, depth+1):
-            print(&#34;{0}yield 2: node={1} depth={2}&#34;.format(&#39;\t&#39;*depth, n, depth))
-            yield n
-&lt;/pre&gt;
-
-&lt;p&gt;&lt;tt class=&#34;docutils literal&#34;&gt;yield 1&lt;/tt&gt; produces the actual value and occurs first,
-while &lt;tt class=&#34;docutils literal&#34;&gt;yield 2&lt;/tt&gt; denotes the value bubbling up to the original caller.:&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;
-yield 1: node=Node(a) depth=1
-
-    yield 1: node=Node(b) depth=2
-yield 2: node=Node(b) depth=1
-
-        yield 1: node=Node(e) depth=3
-    yield 2: node=Node(e) depth=2
-yield 2: node=Node(e) depth=1
-
-            yield 1: node=Node(f) depth=4
-        yield 2: node=Node(f) depth=3
-    yield 2: node=Node(f) depth=2
-yield 2: node=Node(f) depth=1
-
-    yield 1: node=Node(c) depth=2
-yield 2: node=Node(c) depth=1
-
-    yield 1: node=Node(d) depth=2
-yield 2: node=Node(d) depth=1
-
-[Node(a), Node(b), Node(e), Node(f), Node(c), Node(d)]
-&lt;/pre&gt;
-&lt;p&gt;This is somewhat ugly and &lt;a class=&#34;reference external&#34; href=&#34;https://www.python.org/dev/peps/pep-0380/&#34;&gt;PEP 0380&lt;/a&gt; introduced &lt;tt class=&#34;docutils literal&#34;&gt;yield from&lt;/tt&gt; in Python 3.3,
-which delegates to sub-generators:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-@classmethod
-def get_tree3(cls, node, depth=1):
-    print(&#34;\n{0}yield 1: node={1} depth={2}&#34;.format(&#39;\t&#39;*depth, node, depth))
-    yield node
-    for child in node.children or []:
-        yield from cls.get_tree3(child, depth+1)
-&lt;/pre&gt;
-
-&lt;p&gt;Now the output is:&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;
-yield 1: node=Node(a) depth=1
-
-    yield 1: node=Node(b) depth=2
-
-        yield 1: node=Node(e) depth=3
-
-            yield 1: node=Node(f) depth=4
-
-    yield 1: node=Node(c) depth=2
-
-    yield 1: node=Node(d) depth=2
-
-[Node(a), Node(b), Node(e), Node(f), Node(c), Node(d)]
-&lt;/pre&gt;
-&lt;p&gt;This is only one of several uses for &lt;tt class=&#34;docutils literal&#34;&gt;yield from&lt;/tt&gt;,
-which functions as a &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/a/26109157/6364&#34;&gt;transparent two-way channel&lt;/a&gt;
-between the caller and the sub-generator.&lt;/p&gt;
+        <description>&lt;p&gt;New &lt;a class=&#34;reference external&#34; href=&#34;http://devblog.metabrite.com/posts/recursive-generators-in-python-2-and-3/&#34;&gt;post&lt;/a&gt;
+at the MetaBrite blog.&lt;/p&gt;
 </description>
         <pubDate>Fri, 22 Jan 2016 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-01-22:/blog/2016/01/22/PythonRecursiveGenerators.html</guid>
@@ -309,7 +209,7 @@ that we had to reinstall Ubuntu.&lt;/p&gt;
         <title>DVI Not Considered Equal</title>
         <link>http://www.georgevreilly.com/blog/2016/01/15/DVINotConsideredEqual.html</link>
         <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Digital_Visual_Interface&#34;&gt;&lt;img alt=&#34;DVI cable&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Dvi-cable.jpg/300px-Dvi-cable.jpg&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;We got a new monitor today for one of our &lt;a class=&#34;reference external&#34; href=&#34;http://devblog.cookbrite.com/posts/pairing-git/&#34;&gt;pairing workstations&lt;/a&gt;.
+&lt;p&gt;We got a new monitor today for one of our &lt;a class=&#34;reference external&#34; href=&#34;http://devblog.metabrite.com/posts/pairing-git/&#34;&gt;pairing workstations&lt;/a&gt;.
 At 2560x1600, it was higher resolution than its predecessor.
 I disconnected the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Digital_Visual_Interface&#34;&gt;DVI&lt;/a&gt; cable from the old monitor,
 leaving it connected to one of the video ports on the computer,
@@ -735,8 +635,8 @@ into count-down loops when their analysis indicates that it&#39;s safe to do so.
             <item>
         <title>Obfuscating Passwords in URLs in Python</title>
         <link>http://www.georgevreilly.com/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html</link>
-        <description>&lt;p&gt;New CookBrite Dev Blog post,
-&lt;a class=&#34;reference external&#34; href=&#34;http://devblog.cookbrite.com/posts/python-obfuscate-url-password/&#34;&gt;Obfuscating Passwords in URLs in Python&lt;/a&gt;.&lt;/p&gt;
+        <description>&lt;p&gt;New MetaBrite Dev Blog post,
+&lt;a class=&#34;reference external&#34; href=&#34;http://devblog.metabrite.com/posts/python-obfuscate-url-password/&#34;&gt;Obfuscating Passwords in URLs in Python&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Mon, 04 Jan 2016 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-01-04:/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html</guid>
@@ -880,21 +780,6 @@ Out[5]: [&#39;--exclude&#39;, &#39;*.zip&#39;, &#39;--exclude&#39;, &#39;*.pyc&#
 </description>
         <pubDate>Wed, 30 Dec 2015 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-30:/blog/2015/12/30/UseForPythonNestedListComprehensions.html</guid>
-    </item>
-        
-            <item>
-        <title>Free ebooks from Springer</title>
-        <link>http://www.georgevreilly.com/blog/2015/12/29/FreeEbooksFromSpringer.html</link>
-        <description>&lt;p&gt;Via &lt;a class=&#34;reference external&#34; href=&#34;https://news.ycombinator.com/item?id=10810271&#34;&gt;Hacker News&lt;/a&gt;,
-&amp;quot;All Springer Textbooks More Than 10 Years Old Available for Free Legal Download&amp;quot;.&lt;/p&gt;
-&lt;p&gt;This includes books from Apress
-as well as a ton of those impenetrable gray-and-red
-Lecture Notes in Computer Science books.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Update 2015-12-30&lt;/strong&gt;: No longer available.
-Springer aren&#39;t commenting. Presumably a mistake.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 29 Dec 2015 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2015-12-29:/blog/2015/12/29/FreeEbooksFromSpringer.html</guid>
     </item>
         </channel>
 </rss>
