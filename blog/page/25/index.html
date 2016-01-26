@@ -29,6 +29,33 @@
     
         <article>
     <header>
+        <time datetime="2009-10-15">15.10.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/10/15/GittingAlong.html" rel="bookmark canonical">Gitting Along</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://git-scm.com/"></a>
+<p>In the last few weeks, I've switched over to <a class="reference external" href="http://git-scm.com/">Git</a> for most of my version-control needs,
+at home and at work, after putting it on the long finger for months.</p>
+<p>We continue to use <a class="reference external" href="http://subversion.tigris.org/">Subversion</a> at work,
+but I've recently followed Pavel and Eric's lead in using <a class="reference external" href="http://andy.delcambre.com/2008/03/04/git-svn-workflow.html">git-svn</a>.
+I work locally on my own private branches and
+<tt class="docutils literal">git svn dcommit</tt> and <tt class="docutils literal">git svn rebase</tt> oc&shy;ca&shy;sion&shy;al&shy;ly.
+I'm primarily on Windows at work, but I have a Linux box and a Mac Mini too,
+while at home, I have a MacBook, a Linux netbook, and a Vista desktop.
+I'm using <a class="reference external" href="http://code.google.com/p/msysgit/">msysGit</a>, oc&shy;ca&shy;sion&shy;al&shy;ly sup&shy;ple&shy;ment&shy;ed by <a class="reference external" href="http://code.google.com/p/tortoisegit/">Tor&shy;toise&shy;Git</a> and <a class="reference external" href="http://sourceforge.net/projects/qgit/files/">QGit</a>.
+Pavel's on a Mac <span>&#8230;<a href="/blog/2009/10/15/GittingAlong.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2009-10-14">14.10.2009, 00:00</time>
         <h1>
             <a href="/blog/2009/10/14/ReviewTheLighthouse.html" rel="bookmark canonical">Review: The Lighthouse</a>
@@ -305,37 +332,6 @@ We sat there for a while and talked and wandered.
 Then, back to Holly and Kim's for cake and coffee.</p>
 <p>I know that Frank would have thoroughly enjoyed the day:
 the fine weather, <span>&#8230;<a href="/blog/2009/09/13/ScatteringFranksAshes.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2009-09-12">12.09.2009, 00:00</time>
-        <h1>
-            <a href="/blog/2009/09/12/Launching32bitApplicationsFromBatchfilesOnWin64.html" rel="bookmark canonical">Launching 32-bit applications from batchfiles on Win64</a>
-        </h1>
-    </header>
-    
-<p>I've been running the <a class="reference external" href="http://www.georgevreilly.com/blog/2009/06/20/WhenVideoCardsGoBad.aspx">64-bit version of Windows 7 RC</a> since June.
-It's been quite painless on the whole.</p>
-<p>One wrinkle that I ran into was with some batchfiles which
-launch ap&shy;pli&shy;ca&shy;tions in <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> (normally <tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files</span></tt>).
-Due to the magic <a class="reference external" href="http://blogs.msdn.com/craigmcmurtry/archive/2004/12/14/301155.aspx">WOW64 redirector</a>, 32-bit ap&shy;pli&shy;ca&shy;tions
-are actually installed into <tt class="docutils literal">%Pro&shy;gram&shy;Files(x86)%</tt>—normally <tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files&nbsp;(x86)</span></tt>—instead of <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt>.
-This is trans&shy;par&shy;ent to the 32-bit ap&shy;pli&shy;ca&shy;tions,
-which think they're running in <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> (<tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files</span></tt>).</p>
-<p>However, the cmd.exe shell is 64-bit
-(unless you make a special effort to run the 32-bit cmd.exe in SysWOW64),
-so batchfiles see the 64-bit <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> which contains 64-bit ap&shy;pli&shy;ca&shy;tions.</p>
-<p>Hence, a batchfile that launches an installed 32-bit ap&shy;pli&shy;ca&shy;tion on Win64
-must use <tt class="docutils literal">%Pro&shy;gram&shy;Files(x86)%</tt>, not <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt>.</p>
-<p>It sounds <span>&#8230;<a href="/blog/2009/09/12/Launching32bitApplicationsFromBatchfilesOnWin64.html" class="continue">continue</a>.</span></p>
     <footer>
         
         
