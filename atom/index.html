@@ -11,8 +11,49 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-01-29T08:00:00Z</updated>
+    <updated>2016-01-30T08:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Review: The Bugles Blowing</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/01/30/ReviewTheBuglesBlowing.html" />
+        <id>tag:www.georgevreilly.com,2016-01-30:/blog/2016/01/30/ReviewTheBuglesBlowing.html</id>
+        <updated>2016-01-30T08:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0394745515/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;The Bugles Blowing&#34; class=&#34;right-float&#34; src=&#34;http://ecx.images-amazon.com/images/I/41ZAtzObskL._SL500_SY373_BO1,204,203,200_.jpg&#34;/&gt;&lt;/a&gt;
+&lt;div class=&#34;line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;Title: The Bugles Blowing&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Author: Nicolas Freeling&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Publisher: Vintage&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Copyright: 1975&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/0394745515/?tag=georgvreill-20&#34;&gt;0394745515&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Pages: 261&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Keywords: crime&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Reading period: 20–28 January, 2016&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;The President of France must decide whether to commute a death sentence.
+A senior civil servant,
+finding both his wife and his daughter &lt;em&gt;in flagrante delicto&lt;/em&gt; with an artist,
+shot them all dead.
+Inspector Henri Castang, the investigating officer, is summoned to the Élysée Palace.
+There is no doubt as to the accused&#39;s guilt.
+He admits it and seems to welcome the death sentence.&lt;/p&gt;
+&lt;p&gt;Freeling&#39;s novel examines the French judicial system.
+We&#39;ve all heard that the Napoleonic Code
+says that a man is presumed guilty until proven innocent,
+but in fact, under the &lt;a class=&#34;reference external&#34; href=&#34;http://message.snopes.com/showthread.php?t=82288&#34;&gt;French criminal code&lt;/a&gt;,
+there&#39;s a strong presumption of innocence.
+For those of us who are more accustomed—from movies, television, and books—
+to the Anglo-American court system,
+it&#39;s an interesting insight into how things were done in France 40 years ago.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Review: The Big Short (film)</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/01/29/ReviewTheBigShortFilm.html" />
@@ -852,105 +893,6 @@ and a horrified repulsion at their own potential damnation.&lt;/p&gt;
 wherein he takes historical events and figures
 and supplies occult and fantastical explanations for what occurred.&lt;/p&gt;
 &lt;p&gt;Moderately recommended.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Decrementing Loops</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/01/05/DecrementingLoops.html" />
-        <id>tag:www.georgevreilly.com,2016-01-05:/blog/2016/01/05/DecrementingLoops.html</id>
-        <updated>2016-01-05T08:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;The canonical &lt;tt class=&#34;docutils literal&#34;&gt;for&lt;/tt&gt;-loop in C and C++ is written thus,
-counting up &lt;tt class=&#34;docutils literal&#34;&gt;i = 0&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;i = 1&lt;/tt&gt;, ..., &lt;tt class=&#34;docutils literal&#34;&gt;i = &lt;span class=&#34;pre&#34;&gt;N-1&lt;/span&gt;&lt;/tt&gt;:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: c++&#34;&gt;
-for (int i=0; i &amp;lt; N; i++) {
-    // loop body
-}
-&lt;/pre&gt;
-
-&lt;p&gt;(In C, you have to declare &lt;tt class=&#34;docutils literal&#34;&gt;int i&lt;/tt&gt; before the &lt;tt class=&#34;docutils literal&#34;&gt;for&lt;/tt&gt;-loop.)&lt;/p&gt;
-&lt;p&gt;Let&#39;s unpack that &lt;tt class=&#34;docutils literal&#34;&gt;for&lt;/tt&gt;-loop into an equivalent &lt;tt class=&#34;docutils literal&#34;&gt;while&lt;/tt&gt;-loop:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: c++&#34;&gt;
-int i = 0;
-while (i &amp;lt; N) {
-    // loop body
-    i = i + 1
-}
-&lt;/pre&gt;
-
-&lt;p&gt;In other words, we initialize &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt; to zero.
-Then, before every execution of either loop,
-we check &lt;tt class=&#34;docutils literal&#34;&gt;i &amp;lt; N&lt;/tt&gt;.
-If &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt; is still within bounds,
-we execute the loop body.
-Then we postincrement &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt;.
-Then back to the top of the loop, checking &lt;tt class=&#34;docutils literal&#34;&gt;i &amp;lt; N&lt;/tt&gt; again.
-And so on, executing the loop &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt; times,
-with &lt;tt class=&#34;docutils literal&#34;&gt;i = 0&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;i = 1&lt;/tt&gt;, ..., &lt;tt class=&#34;docutils literal&#34;&gt;i = &lt;span class=&#34;pre&#34;&gt;N-1&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;There&#39;s a more efficient way to write that loop—if you don&#39;t mind counting &lt;em&gt;down&lt;/em&gt;
-from &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;N-1&lt;/span&gt;&lt;/tt&gt; to &lt;tt class=&#34;docutils literal&#34;&gt;0&lt;/tt&gt;:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: c++&#34;&gt;
-for (int i=N; --i &gt;= 0; ) {
-    // loop body
-}
-&lt;/pre&gt;
-
-&lt;p&gt;Transforming it into the equivalent &lt;tt class=&#34;docutils literal&#34;&gt;while&lt;/tt&gt;-loop may make it clearer:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: c++&#34;&gt;
-int i = N;
-while (--i &gt;= 0) {
-    // loop body
-}
-&lt;/pre&gt;
-
-&lt;p&gt;We initialize &lt;tt class=&#34;docutils literal&#34;&gt;i=N&lt;/tt&gt;.
-Then, before every execution of either loop,
-we (a) predecrement &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt;, that is, set &lt;tt class=&#34;docutils literal&#34;&gt;i = &lt;span class=&#34;pre&#34;&gt;i-1&lt;/span&gt;&lt;/tt&gt; and use the new value of &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt;;
-then (b) check &lt;tt class=&#34;docutils literal&#34;&gt;i &amp;gt;= 0&lt;/tt&gt;.
-If the new value of &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt; is still non-negative, the loop body is executed.
-This loop is also executed &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt; times,
-with &lt;tt class=&#34;docutils literal&#34;&gt;i = &lt;span class=&#34;pre&#34;&gt;N-1&lt;/span&gt;&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;i = &lt;span class=&#34;pre&#34;&gt;N-2&lt;/span&gt;&lt;/tt&gt;, ..., &lt;tt class=&#34;docutils literal&#34;&gt;i = 1&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;i = 0&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;In the count-up loop, the compiler has to emit an explicit comparison against &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt;,
-which must be executed on every iteration of the loop.
-If &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt; is not stored in a register (ia32 doesn&#39;t have many),
-it will have to be fetched on each iteration.
-The count-up loop overhead then
-is a possible fetch of &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt;,
-a comparison against &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt;,
-and a postincrement.&lt;/p&gt;
-&lt;p&gt;For the count-down loop however,
-the compiler won&#39;t emit an explicit comparison against zero,
-as the predecrement is enough to condition the CPU&#39;s &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Negative_flag&#34;&gt;negative flag&lt;/a&gt;.
-If the result of the predecrement is a negative number,
-the &lt;em&gt;sign bit&lt;/em&gt; will be set.&lt;/p&gt;
-&lt;p&gt;Using a count-down loop, you can shave one instruction off every iteration.
-Furthermore, &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt; is only read once and won&#39;t occupy a register.
-The predecrement is unavoidable.
-For a tight loop, these savings may be important.&lt;/p&gt;
-&lt;p&gt;However, I would use this idiom sparingly.&lt;/p&gt;
-&lt;ul class=&#34;simple&#34;&gt;
-&lt;li&gt;It&#39;s only appropriate for loops where it doesn&#39;t matter whether you count up or down.&lt;/li&gt;
-&lt;li&gt;Make sure that the index is a signed &lt;tt class=&#34;docutils literal&#34;&gt;int&lt;/tt&gt;, not an &lt;tt class=&#34;docutils literal&#34;&gt;unsigned int&lt;/tt&gt;,
-or the count-down loop won&#39;t terminate.
-(I&#39;ve done this a few times.)&lt;/li&gt;
-&lt;li&gt;The idiom is not well-known and places a higher cognitive burden on most readers.
-I favor clarity over micro-efficiency,
-so I would only use it for a tight inner loop.
-Everyone recognizes the count-up loop.&lt;/li&gt;
-&lt;li&gt;Modern compilers are smart and capable of deep analysis.
-It&#39;s possible that some compilers may automatically transform count-up loops
-into count-down loops when their analysis indicates that it&#39;s safe to do so.&lt;/li&gt;
-&lt;/ul&gt;
 </content>
     </entry>
     </feed>
