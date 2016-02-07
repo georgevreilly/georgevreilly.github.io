@@ -5,9 +5,36 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Fri, 05 Feb 2016 08:00:00 GMT</pubDate>
+        <pubDate>Sat, 06 Feb 2016 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Story Sticks</title>
+        <link>http://www.georgevreilly.com/blog/2016/02/06/StorySticks.html</link>
+        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.startwoodworking.com/post/using-story-sticks-build-furniture&#34;&gt;&lt;img alt=&#34;Story Stick&#34; class=&#34;right-float&#34; src=&#34;https://lh3.googleusercontent.com/9-_9CixF4oGSVe2QaGMI-3_5tdY-4-x_Hcu1ilcY3KGPc-qLuW3Tjob7lG5uCO_QL6F1Z77LMzFY=w214-h381-no&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;I assembled a couple of adjustable shelving units today.
+Trying to count the same number of indentations on all four legs for each level
+quickly grew tedious, and I realized that I needed to make a story stick.
+I cut a &amp;quot;stick&amp;quot; to the right length
+and then I was able to place the stick along the leg
+and instantly read where the next pair of snap rings should be placed.
+I mentioned this to Emma and she had never heard of story sticks.&lt;/p&gt;
+&lt;p&gt;Woodworkers have used &lt;a class=&#34;reference external&#34; href=&#34;http://www.startwoodworking.com/post/using-story-sticks-build-furniture&#34;&gt;story sticks&lt;/a&gt; for a long time
+to build furniture and to get reproducible results.
+Instead of writing down a measurement on a sheet of paper
+and later using a tape measure to cut something to that length,
+the measurement is instead marked on a stick
+and &lt;em&gt;transferred&lt;/em&gt; to the new piece of wood.
+It&#39;s less error prone, especially if the actual measurement
+is slightly off from the prescribed measurement.
+A story stick often has several marks,
+describing different aspects of the piece being built.&lt;/p&gt;
+&lt;p&gt;More: &lt;a class=&#34;reference external&#34; href=&#34;http://www.startwoodworking.com/post/using-story-sticks-build-furniture&#34;&gt;1&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://www.canadianwoodworking.com/tipstechniques/story-sticks&#34;&gt;2&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;http://www.woodworkingtalk.com/f2/story-sticks-most-essential-layout-tool-49430/&#34;&gt;3&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 06 Feb 2016 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-02-06:/blog/2016/02/06/StorySticks.html</guid>
+    </item>
         
             <item>
         <title>Car2go: Out of Home Area</title>
@@ -719,51 +746,6 @@ and I got caught up in the character and her troubles.&lt;/p&gt;
 </description>
         <pubDate>Wed, 13 Jan 2016 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-01-13:/blog/2016/01/13/ReviewStarDoc.html</guid>
-    </item>
-        
-            <item>
-        <title>Bash: Getting and Setting Default Values</title>
-        <link>http://www.georgevreilly.com/blog/2016/01/12/BashGettingAndSettingDefaultValues.html</link>
-        <description>&lt;p&gt;Bash has some handy syntax for getting and setting default values.
-Unfortunately, it&#39;s a collection of punctuation characters,
-which makes it hard to Google when you can&#39;t quite remember the syntax.&lt;/p&gt;
-&lt;p&gt;Getting a default value using &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;${var:-fallback}&lt;/span&gt;&lt;/tt&gt;:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: bash&#34;&gt;
-# set $LOGDIR to $1 if $1 has a value; otherwise set $LOGDIR to &#34;/var/log&#34;
-LOGDIR=&#34;${1:-/var/log}&#34;
-
-# use $VERSION unless it&#39;s empty or unset; fall back to extracting someprog&#39;s version num
-build_version=${VERSION:-$(someprog --version | sed &#39;s/[^0-9.]*\([0-9.]*\).*/\1/&#39;)}
-&lt;/pre&gt;
-
-&lt;p&gt;The colon-dash construction is known as the
-&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)&#34;&gt;dog&#39;s bollocks&lt;/a&gt;
-in typography.&lt;/p&gt;
-&lt;p&gt;Setting a default value, using &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;${var:=fallback}&lt;/span&gt;&lt;/tt&gt;:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: bash&#34;&gt;
-$ echo $HOME
-/Users/georgevreilly
-$ echo ${HOME:=/tmp}
-/Users/georgevreilly
-$ unset HOME
-$ echo ${HOME:=/tmp}
-/tmp
-$ echo $HOME
-/tmp
-$ cd; pwd
-/tmp
-&lt;/pre&gt;
-
-&lt;p&gt;Note: &lt;tt class=&#34;docutils literal&#34;&gt;:=&lt;/tt&gt; uses the new value in two cases.
-First, when the shell variable is not set;
-second, when the variable is set but empty.&lt;/p&gt;
-&lt;p&gt;If you want to assign the variable only when it&#39;s previously unset, omit the colon,
-&lt;tt class=&#34;docutils literal&#34;&gt;${var=fallback}&lt;/tt&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 12 Jan 2016 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-01-12:/blog/2016/01/12/BashGettingAndSettingDefaultValues.html</guid>
     </item>
         </channel>
 </rss>
