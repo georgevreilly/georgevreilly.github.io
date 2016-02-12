@@ -5,9 +5,25 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Wed, 10 Feb 2016 08:00:00 GMT</pubDate>
+        <pubDate>Thu, 11 Feb 2016 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Unicode Upside-Down Mapping</title>
+        <link>http://www.georgevreilly.com/blog/2016/02/11/UnicodeUpsideDownMapping.html</link>
+        <description>&lt;p&gt;Unicode is so versatile that you can (more or less) invert the Latin alphabet:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+ɐqɔpǝɟƃɥıɾʞʃɯuodbɹsʇnʌʍxʎz ∀𐐒Ↄ◖ƎℲ⅁HIſ⋊⅂WᴎOԀΌᴚS⊥∩ᴧMX⅄Z 012Ɛᔭ59Ɫ86
+abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789
+68Ɫ95ᔭƐ210 Z⅄XMᴧ∩⊥SᴚΌԀOᴎW⅂⋊ſIH⅁ℲƎ◖Ↄ𐐒∀ zʎxʍʌnʇsɹbdouɯʃʞɾıɥƃɟǝpɔqɐ
+&lt;/pre&gt;
+&lt;p&gt;Obtained via the &lt;a class=&#34;reference external&#34; href=&#34;http://www.fileformat.info/convert/text/upside-down.htm&#34;&gt;ɹǝʇɹǝʌuoↃ uʍo◖-ǝpısd∩ ǝpoɔıu∩&lt;/a&gt;.
+More at &lt;a class=&#34;reference external&#34; href=&#34;http://www.fileformat.info/convert/text/upside-down-map.htm&#34;&gt;Unicode Upside-Down Mapping&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 11 Feb 2016 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-02-11:/blog/2016/02/11/UnicodeUpsideDownMapping.html</guid>
+    </item>
         
             <item>
         <title>Emma at Madrona Fiber Arts Festival</title>
@@ -691,41 +707,6 @@ American Exceptionalism—at work.&lt;/p&gt;
 </description>
         <pubDate>Mon, 18 Jan 2016 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-01-18:/blog/2016/01/18/FederalHolidaysInadequatelyObserved.html</guid>
-    </item>
-        
-            <item>
-        <title>Relative Imports in a Python Script</title>
-        <link>http://www.georgevreilly.com/blog/2016/01/17/RelativeImportsInAPythonScript.html</link>
-        <description>&lt;p&gt;Have you ever attempted a &lt;a class=&#34;reference external&#34; href=&#34;https://www.python.org/dev/peps/pep-0328/&#34;&gt;relative import&lt;/a&gt; in a Python script?&lt;/p&gt;
-
-&lt;pre class=&#34;brush: bash&#34;&gt;
-$ ./foo/bar/script.py some parameters
-Traceback (most recent call last):
-  File &#34;foo/bar/script.py&#34;, line 16, in &amp;lt;module&gt;
-    from .quux import find_vcs
-ValueError: Attempted relative import in non-package
-&lt;/pre&gt;
-
-&lt;p&gt;I prefer to use &lt;a class=&#34;reference external&#34; href=&#34;https://www.python.org/dev/peps/pep-0328/&#34;&gt;absolute imports&lt;/a&gt; to minimize ambiguity and confusion,
-and most of my Python modules begin with:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-from __future__ import absolute_import, unicode_literals, print_function
-&lt;/pre&gt;
-
-&lt;p&gt;(Using &lt;a class=&#34;reference external&#34; href=&#34;https://www.python.org/dev/peps/pep-3112/&#34;&gt;unicode_literals&lt;/a&gt; and &lt;a class=&#34;reference external&#34; href=&#34;https://www.python.org/dev/peps/pep-3105/&#34;&gt;print_function&lt;/a&gt; makes porting to Python 3 easier.)&lt;/p&gt;
-&lt;p&gt;I recently read the accepted answer to &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/14132789/python-relative-imports-for-the-billionth-time&#34;&gt;Python relative imports for the billionth time&lt;/a&gt;
-and the solution to the above &lt;tt class=&#34;docutils literal&#34;&gt;ValueError&lt;/tt&gt; occurred to me:
-Use &lt;tt class=&#34;docutils literal&#34;&gt;python &lt;span class=&#34;pre&#34;&gt;-m&lt;/span&gt; package&lt;/tt&gt; instead:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: bash&#34;&gt;
-$ python -m foo.bar.script some parameters
-&lt;/pre&gt;
-
-&lt;p&gt;(Assuming that package &lt;tt class=&#34;docutils literal&#34;&gt;foo&lt;/tt&gt; exists.)&lt;/p&gt;
-</description>
-        <pubDate>Sun, 17 Jan 2016 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-01-17:/blog/2016/01/17/RelativeImportsInAPythonScript.html</guid>
     </item>
         </channel>
 </rss>
