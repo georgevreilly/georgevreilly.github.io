@@ -11,8 +11,51 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-02-12T08:00:00Z</updated>
+    <updated>2016-02-13T08:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Review: Reversible Errors</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/02/13/ReviewReversibleErrors.html" />
+        <id>tag:www.georgevreilly.com,2016-02-13:/blog/2016/02/13/ReviewReversibleErrors.html</id>
+        <updated>2016-02-13T08:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0446612626/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Reversible Errors&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/0446612626.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
+&lt;div class=&#34;line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;Title: Reversible Errors&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Author: Scott Turow&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★ ½&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Publisher: Warner&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Copyright: 2002&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/0446612626/?tag=georgvreill-20&#34;&gt;0446612626&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Pages: 553&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Keywords: crime&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Reading period: 7–13 February, 2016&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Ten years ago, Rommy &amp;quot;Squirrel&amp;quot; Gandolph—generally regarded as a harmless thief not playing with a full deck—confessed to three murders.
+Now he&#39;s about to be executed
+and Arthur Raven, his court-appointed attorney,
+believes his protestations of innocence.
+The book follows Arthur,
+who finds an ally in Gillian Sullivan,
+the disgraced ex-judge who presided over Gandolph&#39;s trial,
+and the prosecutor, Muriel Wynn, and the detective, Larry Starczek.&lt;/p&gt;
+&lt;p&gt;Turow digs deep into the characters of his four protagonists,
+as they struggle with each other and with the revelations of the case.
+They are all flawed, scarred individuals,
+most notably Gillian who still conceals that she had been a heroin addict.
+While Arthur and Gillian have come to believe that Gandolph is innocent,
+Larry and Muriel still believe in his guilt,
+even when a dying convict claims to have framed him.
+Not only are the characters interesting but the plot draws you in too.&lt;/p&gt;
+&lt;p&gt;Recommended.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Unicode Upside-Down Mapping, Part 2</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html" />
@@ -852,39 +895,6 @@ How exasperating!&lt;/p&gt;
 &lt;p&gt;Personally, I always write YYYY-MM-DD whenever I can get away with it,
 as God and &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/ISO_8601&#34;&gt;ISO 8601&lt;/a&gt; intended.
 A bill is before the Canadian parliament aiming at standardizing on year-month-day formats.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>psql: could not connect to server</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/01/19/PsqlCouldNotConnectToServer.html" />
-        <id>tag:www.georgevreilly.com,2016-01-19:/blog/2016/01/19/PsqlCouldNotConnectToServer.html</id>
-        <updated>2016-01-19T08:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;I wanted to clean out my local PostgreSQL database today
-so that I could restore a database dump taken on another system,
-but every time I ran the &lt;a class=&#34;reference external&#34; href=&#34;http://postgresguide.com/utilities/psql.html&#34;&gt;psql&lt;/a&gt; utility, I got:&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;
-psql: could not connect to server: No such file or directory
-    Is the server running locally and accepting
-    connections on Unix domain socket &amp;quot;/tmp/.s.PGSQL.5432&amp;quot;?
-&lt;/pre&gt;
-&lt;p&gt;I tried various things, including restarting Postgres several times,
-but nothing helped.
-Eventually, I thought to look in &lt;tt class=&#34;docutils literal&#34;&gt;/usr/local/var/postgres/server.log&lt;/tt&gt;,
-where I saw several error messages indicating that Postgres 9.5
-couldn&#39;t read data files created with 9.4.
-At that point, I realized that during my most recent &lt;tt class=&#34;docutils literal&#34;&gt;brew update; brew upgrade&lt;/tt&gt;,
-&lt;a class=&#34;reference external&#34; href=&#34;http://brew.sh/&#34;&gt;Homebrew&lt;/a&gt; had upgraded my installation of
-&lt;a class=&#34;reference external&#34; href=&#34;https://github.com/Homebrew/homebrew/blob/master/Library/Formula/postgresql.rb&#34;&gt;Postgres from 9.4 to 9.5&lt;/a&gt;.
-A little investigation led me to this &lt;a class=&#34;reference external&#34; href=&#34;https://gist.github.com/joho/3735740&#34;&gt;gist&lt;/a&gt;.
-Since I didn&#39;t care about the old database files,
-I created a fresh &lt;tt class=&#34;docutils literal&#34;&gt;/usr/local/var/postgres&lt;/tt&gt; and ran &lt;tt class=&#34;docutils literal&#34;&gt;initdb&lt;/tt&gt;.&lt;/p&gt;
 </content>
     </entry>
     </feed>
