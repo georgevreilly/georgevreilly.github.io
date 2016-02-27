@@ -60,3 +60,4 @@ GH_PAGES_BRANCH = "master" # User & Organization Pages use 'master', not 'gh-pag
 DEPLOYMENT = {
     "default": "ghp-import -b {branch} output && git push origin {branch}".format(branch=GH_PAGES_BRANCH)
 }
+DISQUS_SHORTNAME = 'georgevreilly'
