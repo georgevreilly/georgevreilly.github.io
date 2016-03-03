@@ -5,9 +5,56 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Tue, 01 Mar 2016 08:00:00 GMT</pubDate>
+        <pubDate>Wed, 02 Mar 2016 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Python: Import subclass from dynamic path</title>
+        <link>http://www.georgevreilly.com/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html</link>
+        <description>&lt;p&gt;I needed to import some plugin code written in Python
+from a directory whose path isn&#39;t known until runtime.
+Further, I needed a class object that was a subclass of the plugin base class.&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+from somewhere import PluginBase
+
+class SomePlugin(PluginBase):
+    def f1(self): ...
+    def f2(self): ...
+&lt;/pre&gt;
+
+&lt;p&gt;You can use the &lt;a class=&#34;reference external&#34; href=&#34;https://pymotw.com/2/imp/&#34;&gt;imp&lt;/a&gt; module to actually load the module from &lt;tt class=&#34;docutils literal&#34;&gt;impl_dir&lt;/tt&gt;.
+Note that &lt;tt class=&#34;docutils literal&#34;&gt;impl_dir&lt;/tt&gt; needs to be temporarily prepended to &lt;tt class=&#34;docutils literal&#34;&gt;sys.path&lt;/tt&gt;.
+Then you can find the plugin subclass using &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/functions.html#dir&#34;&gt;dir&lt;/a&gt; and &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/functions.html#issubclass&#34;&gt;issubclass&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+import os, imp
+
+def import_class(implementation_filename, base_class):
+    impl_dir, impl_filename = os.path.split(implementation_filename)
+    module_name, _ = os.path.splitext(impl_filename)
+
+    try:
+        sys.path.insert(0, impl_dir)
+        fp, filename, description = imp.find_module(module_name)
+        module = imp.load_module(module_name, fp, filename, description)
+        for name in dir(module):
+            obj = getattr(module, name)
+            if (type(obj) == type(base_class)
+                and issubclass(obj, base_class)
+                and obj != base_class):
+                    return obj
+        raise ValueError(&#34;No subclass of {0} in {1}&#34;.format(
+                base_class.__name__, implementation_filename))
+    finally:
+        sys.path.pop(0)
+&lt;/pre&gt;
+
+</description>
+        <pubDate>Wed, 02 Mar 2016 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-02:/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html</guid>
+    </item>
         
             <item>
         <title>Asking for Help</title>
@@ -750,33 +797,6 @@ they do not stop the clock every 30 seconds.&lt;/p&gt;
 </description>
         <pubDate>Sun, 07 Feb 2016 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-02-07:/blog/2016/02/07/Sportsing.html</guid>
-    </item>
-        
-            <item>
-        <title>Story Sticks</title>
-        <link>http://www.georgevreilly.com/blog/2016/02/06/StorySticks.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.startwoodworking.com/post/using-story-sticks-build-furniture&#34;&gt;&lt;img alt=&#34;Story Stick&#34; class=&#34;right-float&#34; src=&#34;http://www.georgevreilly.com/content/binary/story-sticks.jpg&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;I assembled a couple of adjustable shelving units today.
-Trying to count the same number of indentations on all four legs for each level
-quickly grew tedious, and I realized that I needed to make a story stick.
-I cut a &amp;quot;stick&amp;quot; to the right length
-and then I was able to place the stick along the leg
-and instantly read where the next pair of snap rings should be placed.
-I mentioned this to Emma and she had never heard of story sticks.&lt;/p&gt;
-&lt;p&gt;Woodworkers have used &lt;a class=&#34;reference external&#34; href=&#34;http://www.startwoodworking.com/post/using-story-sticks-build-furniture&#34;&gt;story sticks&lt;/a&gt; for a long time
-to build furniture and to get reproducible results.
-Instead of writing down a measurement on a sheet of paper
-and later using a tape measure to cut something to that length,
-the measurement is instead marked on a stick
-and &lt;em&gt;transferred&lt;/em&gt; to the new piece of wood.
-It&#39;s less error prone, especially if the actual measurement
-is slightly off from the prescribed measurement.
-A story stick often has several marks,
-describing different aspects of the piece being built.&lt;/p&gt;
-&lt;p&gt;More: &lt;a class=&#34;reference external&#34; href=&#34;http://www.startwoodworking.com/post/using-story-sticks-build-furniture&#34;&gt;1&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://www.canadianwoodworking.com/tipstechniques/story-sticks&#34;&gt;2&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;http://www.woodworkingtalk.com/f2/story-sticks-most-essential-layout-tool-49430/&#34;&gt;3&lt;/a&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 06 Feb 2016 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-02-06:/blog/2016/02/06/StorySticks.html</guid>
     </item>
         </channel>
 </rss>
