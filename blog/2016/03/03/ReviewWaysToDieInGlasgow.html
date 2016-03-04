@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Python: Import subclass from dynamic path</title>
+  <title>Review: Ways to Die in Glasgow</title>
   <link media="all" href="/style.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
@@ -12,7 +12,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content="I needed to import some plugin code written in Pyt..." />
+    <meta name="description" content=".. image:: http://images.amazon.com/images/P/B00QK..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,50 +31,30 @@
     
         <article>
     <header>
-        <time datetime="2016-03-02">02.03.2016, 00:00</time>
+        <time datetime="2016-03-03">03.03.2016, 00:00</time>
         <h1>
-            <a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" rel="bookmark canonical">Python: Import subclass from dynamic path</a>
+            <a href="/blog/2016/03/03/ReviewWaysToDieInGlasgow.html" rel="bookmark canonical">Review: Ways to Die in Glasgow</a>
         </h1>
     </header>
-    <p>I needed to import some plugin code written in Python
-from a directory whose path isn't known until runtime.
-Further, I needed a class object that was a subclass of the plugin base class.</p>
-
-<pre class="brush: python">
-from somewhere import PluginBase
-
-class SomePlugin(PluginBase):
-    def f1(self): ...
-    def f2(self): ...
-</pre>
-
-<p>You can use the <a class="reference external" href="https://pymotw.com/2/imp/">imp</a> module to actually load the module from <tt class="docutils literal">impl_dir</tt>.
-Note that <tt class="docutils literal">impl_dir</tt> needs to be tem&shy;porar&shy;i&shy;ly prepended to <tt class="docutils literal">sys.path</tt>.
-Then you can find the plugin subclass using <a class="reference external" href="https://docs.python.org/2/library/functions.html#dir">dir</a> and <a class="reference external" href="https://docs.python.org/2/library/functions.html#issubclass">issubclass</a>.</p>
-
-<pre class="brush: python">
-import os, imp
-
-def import_class(implementation_filename, base_class):
-    impl_dir, impl_filename = os.path.split(implementation_filename)
-    module_name, _ = os.path.splitext(impl_filename)
-
-    try:
-        sys.path.insert(0, impl_dir)
-        fp, filename, description = imp.find_module(module_name)
-        module = imp.load_module(module_name, fp, filename, description)
-        for name in dir(module):
-            obj = getattr(module, name)
-            if (type(obj) == type(base_class)
-                and issubclass(obj, base_class)
-                and obj != base_class):
-                    return obj
-        raise ValueError("No subclass of {0} in {1}".format(
-                base_class.__name__, implementation_filename))
-    finally:
-        sys.path.pop(0)
-</pre>
-
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/B00QKUW8TU/?tag=georgvreill-20"><img alt="Ways to Die in Glasgow" class="right-float" src="http://images.amazon.com/images/P/B00QKUW8TU.01.MZZZZZZZ.jpg"/></a>
+<div class="line-block">
+<div class="line">Title: Ways to Die in Glasgow</div>
+<div class="line">Author: Jay Stringer</div>
+<div class="line">Rating: ★ ★ ★ ½</div>
+<div class="line">Publisher: Thomas &amp; Mercer</div>
+<div class="line">Copyright: 2015</div>
+<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/B00QKUW8TU/?tag=georgvreill-20">B00QKUW8TU</a></div>
+<div class="line">Pages: 289</div>
+<div class="line">Keywords: crime, tartan noir, black comedy</div>
+<div class="line">Reading period: 7 December 2015—25 February 2016</div>
+</div>
+<p>New private in&shy;ves&shy;ti&shy;ga&shy;tor Sam Ireland
+is hired to track down a gangster-turned-memoirist.
+She can't find him, but she's not the only one looking.
+His lethal nephew also wants to find him, after dealing with two hit men.
+All of this searching is drawing unwelcome attention to long-held secrets,
+and more blood will be shed.</p>
+<p>A darkly amusing, frenetic tour through Glasgow's underbelly.</p>
 
     <footer>
         
@@ -88,8 +68,8 @@ def import_class(implementation_filename, base_class):
             var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
 
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html";
-            var disqus_url = "http://www.georgevreilly.com/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html";
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/03/03/ReviewWaysToDieInGlasgow.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/03/03/ReviewWaysToDieInGlasgow.html";
 
             if (window.location.hostname != "localhost") {
                 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -110,14 +90,11 @@ def import_class(implementation_filename, base_class):
 </article>
     
     
-        <a href="/blog/2016/03/01/AskingForHelp.html" class="page floatright">
-        Asking for Help &raquo;
+        <a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" class="page floatright">
+        Python: Import subclass from dynamic path &raquo;
         </a>
     
     
-        <a href="/blog/2016/03/03/ReviewWaysToDieInGlasgow.html" class="page floatleft">
-        &laquo; Review: Ways to Die in Glasgow
-        </a>
 <footer>
     
     
