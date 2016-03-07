@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Review: Deadpool</title>
+  <title>psutil kill</title>
   <link media="all" href="/style.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
@@ -12,7 +12,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content=".. image:: https://upload.wikimedia.org/wikipedia/..." />
+    <meta name="description" content="From Python, I needed to find a process that was p..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,27 +31,36 @@
     
         <article>
     <header>
-        <time datetime="2016-03-05">05.03.2016, 00:00</time>
+        <time datetime="2016-03-06">06.03.2016, 00:00</time>
         <h1>
-            <a href="/blog/2016/03/05/ReviewDeadpool.html" rel="bookmark canonical">Review: Deadpool</a>
+            <a href="/blog/2016/03/06/psutil-kill.html" rel="bookmark canonical">psutil kill</a>
         </h1>
     </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Deadpool_(film)"><img alt="Deadpool" class="right-float" src="https://upload.wikimedia.org/wikipedia/en/4/46/Deadpool_poster.jpg"/></a>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Deadpool_(film)">Deadpool</a> is the role that Ryan Reynolds was born to play,
-the &quot;Merc with a Mouth&quot; anti-hero
-who breaks the fourth wall and breaks heads with equal facility.
-It's very funny, very twisted, and very violent,
-and it fully deserves its R rating.</p>
-<p>Wade Wilson, a former mercenary, has terminal cancer.
-He undergoes a treatment that
-not only cures his cancer and renders him capable of re&shy;gen&shy;er&shy;at&shy;ing quickly from any wound,
-but leaves him horribly scarred.
-The treatment was actually intended to turn him into a super slave.
-Wanting both revenge and a cure for his dis&shy;fig&shy;ure&shy;ment,
-he suits up and tracks down his former captors,
-leaving dozens of dead henchmen in his wake.</p>
-<p>As violent action comedies go,
-it's one of the better ones.</p>
+    <p>From Python, I needed to find a process that was performing SSH tunneling on port 8080
+and kill it.</p>
+<p>The following works in Bash:</p>
+
+<pre class="brush: bash">
+ps aux | grep [s]sh.*:8080 | awk '{print $2}' | xargs kill -9
+</pre>
+
+<p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
+won't make it through to <tt class="docutils literal">awk</tt>.</p>
+<p>Here's what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
+
+<pre class="brush: python">
+def kill_port_forwarding(host_port):
+    ssh_args = ["-f", "-N", "-L", "{0}:localhost:{0}".format(host_port)]
+    for process in psutil.process_iter():
+        try:
+            if process.name().endswith('ssh'):
+                if process.cmdline()[-len(ssh_args):] == ssh_args:
+                    process.kill()
+        except psutil.NoSuchProcess:
+            pass
+</pre>
+
+<p>Obviously, the process filtering is more rigorous in the Python version.</p>
 
     <footer>
         
@@ -65,8 +74,8 @@ it's one of the better ones.</p>
             var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
 
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/03/05/ReviewDeadpool.html";
-            var disqus_url = "http://www.georgevreilly.com/blog/2016/03/05/ReviewDeadpool.html";
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/03/06/psutil-kill.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/03/06/psutil-kill.html";
 
             if (window.location.hostname != "localhost") {
                 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -87,14 +96,11 @@ it's one of the better ones.</p>
 </article>
     
     
-        <a href="/blog/2016/03/04/ReviewCrackdPotTrail.html" class="page floatright">
-        Review: Crack'd Pot Trail &raquo;
+        <a href="/blog/2016/03/05/ReviewDeadpool.html" class="page floatright">
+        Review: Deadpool &raquo;
         </a>
     
     
-        <a href="/blog/2016/03/06/psutil-kill.html" class="page floatleft">
-        &laquo; psutil kill
-        </a>
 <footer>
     
     

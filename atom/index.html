@@ -11,8 +11,47 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-03-05T08:00:00Z</updated>
+    <updated>2016-03-06T08:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>psutil kill</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/03/06/psutil-kill.html" />
+        <id>tag:www.georgevreilly.com,2016-03-06:/blog/2016/03/06/psutil-kill.html</id>
+        <updated>2016-03-06T08:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;From Python, I needed to find a process that was performing SSH tunneling on port 8080
+and kill it.&lt;/p&gt;
+&lt;p&gt;The following works in Bash:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: bash&#34;&gt;
+ps aux | grep [s]sh.*:8080 | awk &#39;{print $2}&#39; | xargs kill -9
+&lt;/pre&gt;
+
+&lt;p&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;grep [s]sh&lt;/tt&gt; trick ensures that the &lt;tt class=&#34;docutils literal&#34;&gt;grep&lt;/tt&gt; command itself
+won&#39;t make it through to &lt;tt class=&#34;docutils literal&#34;&gt;awk&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Here&#39;s what I came up with in Python using &lt;a class=&#34;reference external&#34; href=&#34;http://pythonhosted.org/psutil/&#34;&gt;psutil&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+def kill_port_forwarding(host_port):
+    ssh_args = [&#34;-f&#34;, &#34;-N&#34;, &#34;-L&#34;, &#34;{0}:localhost:{0}&#34;.format(host_port)]
+    for process in psutil.process_iter():
+        try:
+            if process.name().endswith(&#39;ssh&#39;):
+                if process.cmdline()[-len(ssh_args):] == ssh_args:
+                    process.kill()
+        except psutil.NoSuchProcess:
+            pass
+&lt;/pre&gt;
+
+&lt;p&gt;Obviously, the process filtering is more rigorous in the Python version.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Review: Deadpool</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/03/05/ReviewDeadpool.html" />
@@ -902,27 +941,6 @@ abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789
 &lt;p&gt;Obtained via the &lt;a class=&#34;reference external&#34; href=&#34;http://www.fileformat.info/convert/text/upside-down.htm&#34;&gt;ɹǝʇɹǝʌuoↃ uʍo◖-ǝpısd∩ ǝpoɔıu∩&lt;/a&gt;.
 More at &lt;a class=&#34;reference external&#34; href=&#34;http://www.fileformat.info/convert/text/upside-down-map.htm&#34;&gt;Unicode Upside-Down Mapping&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: more &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html&#34;&gt;tomorrow&lt;/a&gt;.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Emma at Madrona Fiber Arts Festival</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/02/10/EmmaAtMadronaFiberArtsFestival.html" />
-        <id>tag:www.georgevreilly.com,2016-02-10:/blog/2016/02/10/EmmaAtMadronaFiberArtsFestival.html</id>
-        <updated>2016-02-10T08:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;Emma is once again at the &lt;a class=&#34;reference external&#34; href=&#34;http://madronafiberarts.com/&#34;&gt;Madrona Fiber Arts Festival&lt;/a&gt; in Tacoma.
-It&#39;s a convention of knitters, crocheters,
-and practitioners of other fiber arts,
-and Emma goes every year.
-She takes classes and hangs out with her fellow knitters.
-It&#39;s always held over Valentine&#39;s Day Weekend,
-so I tease her about preferring knitting to romantic dinners with me.&lt;/p&gt;
 </content>
     </entry>
     </feed>
