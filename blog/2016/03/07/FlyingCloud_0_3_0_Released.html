@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>psutil kill</title>
+  <title>FlyingCloud 0.3.0 released</title>
   <link media="all" href="/style.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
@@ -12,7 +12,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content="From Python, I needed to find a process that was p..." />
+    <meta name="description" content="I just announced_ the release of FlyingCloud 0.3.0..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,36 +31,17 @@
     
         <article>
     <header>
-        <time datetime="2016-03-06">06.03.2016, 00:00</time>
+        <time datetime="2016-03-07">07.03.2016, 00:00</time>
         <h1>
-            <a href="/blog/2016/03/06/psutil-kill.html" rel="bookmark canonical">psutil kill</a>
+            <a href="/blog/2016/03/07/FlyingCloud_0_3_0_Released.html" rel="bookmark canonical">FlyingCloud 0.3.0 released</a>
         </h1>
     </header>
-    <p>From Python, I needed to find a process that was performing SSH tunneling on port 8080
-and kill it.</p>
-<p>The following works in Bash:</p>
-
-<pre class="brush: bash">
-ps aux | grep [s]sh.*:8080 | awk '{print $2}' | xargs kill -9
-</pre>
-
-<p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
-won't make it through to <tt class="docutils literal">awk</tt>.</p>
-<p>Here's what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
-
-<pre class="brush: python">
-def kill_port_forwarding(host_port):
-    ssh_args = ["-f", "-N", "-L", "{0}:localhost:{0}".format(host_port)]
-    for process in psutil.process_iter():
-        try:
-            if process.name().endswith('ssh'):
-                if process.cmdline()[-len(ssh_args):] == ssh_args:
-                    process.kill()
-        except psutil.NoSuchProcess:
-            pass
-</pre>
-
-<p>Obviously, the process filtering is more rigorous in the Python version.</p>
+    <p>I just <a class="reference external" href="https://groups.google.com/forum/#!topic/flyingcloud-users/eqc9LrNbcXA">announced</a> the release of Fly&shy;ing&shy;Cloud 0.3.0
+on the <tt class="docutils literal"><span class="pre">fly&shy;ing&shy;cloud-users</span></tt> mailing list.
+I'll have more to say about Fly&shy;ing&shy;Cloud in future.
+For now, let's just say it's a tool that we use to build
+<a class="reference external" href="http://docker.com">Docker</a> images using masterless <a class="reference external" href="http://saltstack.com/">SaltStack</a>.</p>
+<p>I'll be speaking about Fly&shy;ing&shy;Cloud at <a class="reference external" href="http://www.meetup.com/PSPPython/events/228878102/">Wednes&shy;day's PuPPy meetup</a>.</p>
 
     <footer>
         
@@ -74,8 +55,8 @@ def kill_port_forwarding(host_port):
             var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
 
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/03/06/psutil-kill.html";
-            var disqus_url = "http://www.georgevreilly.com/blog/2016/03/06/psutil-kill.html";
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/03/07/FlyingCloud_0_3_0_Released.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/03/07/FlyingCloud_0_3_0_Released.html";
 
             if (window.location.hostname != "localhost") {
                 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -96,14 +77,11 @@ def kill_port_forwarding(host_port):
 </article>
     
     
-        <a href="/blog/2016/03/05/ReviewDeadpool.html" class="page floatright">
-        Review: Deadpool &raquo;
+        <a href="/blog/2016/03/06/psutil-kill.html" class="page floatright">
+        psutil kill &raquo;
         </a>
     
     
-        <a href="/blog/2016/03/07/FlyingCloud_0_3_0_Released.html" class="page floatleft">
-        &laquo; FlyingCloud 0.3.0 released
-        </a>
 <footer>
     
     
