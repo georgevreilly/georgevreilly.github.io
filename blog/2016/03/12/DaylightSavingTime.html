@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Daylight Saving Time</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: /content/binary/what-is-daylight-saving..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-03-12">12.03.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/03/12/DaylightSavingTime.html" rel="bookmark canonical">Daylight Saving Time</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.theverge.com/2016/3/12/11186842/daylight-saving-time-car-crashes-work-accidents-fatigue"><img alt="What is Daylight Saving Time" class="right-float" src="/content/binary/what-is-daylight-saving-time.jpg"/></a>
+<p><a class="reference external" href="http://www.theverge.com/2016/3/12/11186842/daylight-saving-time-car-crashes-work-accidents-fatigue">Daylight Saving Time is hot garbage</a>
+is a typical article you can expect to read this weekend
+condemning DST.</p>
+<p>My own dislike of DST was boosted when I worked on calendar software at Cozi.
+We learned the hard way that we needed to test our latest software
+ahead of both the start and end of DST each year.
+That's trickier than you might think.
+Setting the computer's clock forward a couple of weeks,
+past the change of DST, is one thing;
+getting the changed time to last for more than a few minutes is another.
+Most computers ag&shy;gres&shy;sive&shy;ly sync their clocks to a network time server,
+which can be tricky to disable.</p>
+<p>I no longer remember the details of the bugs.
+I think one was due to an all-day ap&shy;point&shy;ment not lasting 24 hours.
+Depending on whether the clock has moved forward or back,
+a day is 23 or 25 hours long,
+and you either in&shy;stan&shy;ta&shy;neous&shy;ly jump from 2am to 3am,
+or you experience that hour twice.
+You can't just add 24*60*60 seconds to a timestamp and move to the same time the next day.</p>
+<p><a class="reference external" href="http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time">Falsehoods pro&shy;gram&shy;mers believe about time</a> and
+<a class="reference external" href="http://infiniteundo.com/post/25509354022/more-falsehoods-programmers-believe-about-time">More falsehoods pro&shy;gram&shy;mers believe about time</a>
+have lots more examples of invalid time-based beliefs.</p>
+<p>Timezones were another pain as there are several changes a year.
+We had to update our copy of the <a class="reference external" href="https://en.wikipedia.org/wiki/Tz_database">Olson timezone database</a> a few times.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/03/12/DaylightSavingTime.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/03/12/DaylightSavingTime.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2016/03/11/HillaryClintonMisspeaksAboutNancyReaganAndAIDS.html" class="page floatright">
+        Hillary Clinton "Misspeaks" about Nancy Reagan and AIDS &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

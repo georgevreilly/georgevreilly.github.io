@@ -29,6 +29,27 @@
     
         <article>
     <header>
+        <time datetime="2016-01-22">22.01.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/01/22/PythonRecursiveGenerators.html" rel="bookmark canonical">Recursive Generators in Python 2 and 3</a>
+        </h1>
+    </header>
+    <p>New <a class="reference external" href="http://www.metabrite.com/devblog/posts/recursive-generators-in-python-2-and-3/">post</a>
+at the MetaBrite blog.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/22/PythonRecursiveGenerators.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-01-21">21.01.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/01/21/ReviewTheBlackEyedBlonde.html" rel="bookmark canonical">Review: The Black-Eyed Blonde</a>
@@ -351,58 +372,6 @@ and I got caught up in the <span>&#8230;<a href="/blog/2016/01/13/ReviewStarDoc.
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/13/ReviewStarDoc.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-01-12">12.01.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" rel="bookmark canonical">Bash: Getting and Setting Default Values</a>
-        </h1>
-    </header>
-    <p>Bash has some handy syntax for getting and setting default values.
-Un&shy;for&shy;tu&shy;nate&shy;ly, it's a collection of punc&shy;tu&shy;a&shy;tion characters,
-which makes it hard to Google when you can't quite remember the syntax.</p>
-<p>Getting a default value using <tt class="docutils literal"><span class="pre">${var:-fallback}</span></tt>:</p>
-
-<pre class="brush: bash">
-# set $LOGDIR to $1 if $1 has a value; otherwise set $LOGDIR to "/var/log"
-LOGDIR="${1:-/var/log}"
-
-# use $VERSION unless it's empty or unset; fall back to extracting someprog's version num
-build_version=${VERSION:-$(someprog --version | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')}
-</pre>
-
-<p>The colon-dash con&shy;struc&shy;tion is known as the
-<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog's bollocks</a>
-in typography.</p>
-<p>Setting a default value, using <tt class="docutils literal"><span class="pre">${var:=fallback}</span></tt>:</p>
-
-<pre class="brush: bash">
-$ echo $HOME
-/Users/georgevreilly
-$ echo ${HOME:=/tmp}
-/Users/georgevreilly
-$ unset HOME
-$ echo ${HOME:=/tmp}
-/tmp
-$ echo $HOME
-/tmp
-$ cd; pwd
-/tmp
-</pre>
-
-<p>Note: <tt class="docutils literal">:=</tt> uses the new value in two cases.
-First, when <span>&#8230;<a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/12/BashGettingAndSettingDefaultValues.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

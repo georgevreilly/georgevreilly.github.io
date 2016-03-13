@@ -11,8 +11,47 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-03-11T08:00:00Z</updated>
+    <updated>2016-03-12T08:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Daylight Saving Time</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/03/12/DaylightSavingTime.html" />
+        <id>tag:www.georgevreilly.com,2016-03-12:/blog/2016/03/12/DaylightSavingTime.html</id>
+        <updated>2016-03-12T08:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.theverge.com/2016/3/12/11186842/daylight-saving-time-car-crashes-work-accidents-fatigue&#34;&gt;&lt;img alt=&#34;What is Daylight Saving Time&#34; class=&#34;right-float&#34; src=&#34;http://www.georgevreilly.com/content/binary/what-is-daylight-saving-time.jpg&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://www.theverge.com/2016/3/12/11186842/daylight-saving-time-car-crashes-work-accidents-fatigue&#34;&gt;Daylight Saving Time is hot garbage&lt;/a&gt;
+is a typical article you can expect to read this weekend
+condemning DST.&lt;/p&gt;
+&lt;p&gt;My own dislike of DST was boosted when I worked on calendar software at Cozi.
+We learned the hard way that we needed to test our latest software
+ahead of both the start and end of DST each year.
+That&#39;s trickier than you might think.
+Setting the computer&#39;s clock forward a couple of weeks,
+past the change of DST, is one thing;
+getting the changed time to last for more than a few minutes is another.
+Most computers aggressively sync their clocks to a network time server,
+which can be tricky to disable.&lt;/p&gt;
+&lt;p&gt;I no longer remember the details of the bugs.
+I think one was due to an all-day appointment not lasting 24 hours.
+Depending on whether the clock has moved forward or back,
+a day is 23 or 25 hours long,
+and you either instantaneously jump from 2am to 3am,
+or you experience that hour twice.
+You can&#39;t just add 24*60*60 seconds to a timestamp and move to the same time the next day.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://infiniteundo.com/post/25326999628/falsehoods-programmers-believe-about-time&#34;&gt;Falsehoods programmers believe about time&lt;/a&gt; and
+&lt;a class=&#34;reference external&#34; href=&#34;http://infiniteundo.com/post/25509354022/more-falsehoods-programmers-believe-about-time&#34;&gt;More falsehoods programmers believe about time&lt;/a&gt;
+have lots more examples of invalid time-based beliefs.&lt;/p&gt;
+&lt;p&gt;Timezones were another pain as there are several changes a year.
+We had to update our copy of the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Tz_database&#34;&gt;Olson timezone database&lt;/a&gt; a few times.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Hillary Clinton &#34;Misspeaks&#34; about Nancy Reagan and AIDS</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/03/11/HillaryClintonMisspeaksAboutNancyReaganAndAIDS.html" />
@@ -56,6 +95,11 @@ both in the interview and in the walk-back.
 She&#39;s clearly a well-informed, intelligent woman,
 who&#39;s led in the past over AIDS issues.
 I expect better.&lt;/p&gt;
+&lt;p&gt;Update 2016-03-12:
+Clinton has issued a &lt;a class=&#34;reference external&#34; href=&#34;https://medium.com/@HillaryClinton/on-the-fight-against-hiv-and-aids-and-on-the-people-who-really-started-the-conversation-7b9fc00e6ed8&#34;&gt;much better apology&lt;/a&gt;.
+It doesn&#39;t take the Reagans to task for their inaction
+but it is otherwise much better informed
+and acknowledges the devestation past and present of AIDS and HIV.&lt;/p&gt;
 </content>
     </entry>
     
@@ -893,22 +937,6 @@ I spent ages 7–18 at &lt;a class=&#34;reference external&#34; href=&#34;https:
 which is run by the Holy Ghost Fathers.)&lt;/p&gt;
 &lt;p&gt;A &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Four-leaf_clover&#34;&gt;four-leaf clover&lt;/a&gt; is considered lucky because it is rare.
 It may be lucky but it is not a shamrock.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Sorting Python Dictionaries by Value</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/02/16/SortingPythonDictionariesByValue.html" />
-        <id>tag:www.georgevreilly.com,2016-02-16:/blog/2016/02/16/SortingPythonDictionariesByValue.html</id>
-        <updated>2016-02-16T08:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;New &lt;a class=&#34;reference external&#34; href=&#34;http://www.metabrite.com/devblog/posts/sorting-python-dictionaries-by-value/&#34;&gt;post&lt;/a&gt;
-at the MetaBrite Dev Blog.&lt;/p&gt;
 </content>
     </entry>
     </feed>
