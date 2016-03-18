@@ -29,6 +29,60 @@
     
         <article>
     <header>
+        <time datetime="2016-03-17">17.03.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/03/17/QuotingInBash.html" rel="bookmark canonical">Quoting in Bash</a>
+        </h1>
+    </header>
+    <p>Various Bash guides recommend putting quotes around just about everything.
+I had a script that contained this line:</p>
+
+<pre class="brush: bash">
+sudo apt-get install --yes $(cat "$BUILD/install_on_aws_ubuntu.txt")
+</pre>
+
+<p>While refac&shy;tor&shy;ing, I put another set of quotes around the <tt class="docutils literal">$(cat <span class="pre">...)</span></tt>
+out of an abundance of caution:</p>
+
+<pre class="brush: bash">
+sudo apt-get install --yes "$(cat "$BUILD/install_on_aws_ubuntu.txt")"
+</pre>
+
+<p>Several other changes later, I couldn't figure out why my script had stopped working.</p>
+<p>Here's what happened:</p>
+
+<pre class="brush: bash">
+$ cat $HOME/tmp/demo.txt
+foo
+bar
+quux
+
+$ echo $(cat "$HOME/tmp/demo.txt")
+foo bar quux
+
+$ echo "$(cat $HOME/tmp/demo.txt)"
+foo
+bar
+quux
+</pre>
+
+<p>The new outer quotes retained the newlines;
+the original replaced newlines with spaces.</p>
+<p>The <a class="reference external" href="http://mywiki.wooledge.org/BashFAQ">Bash FAQ</a> has more, specif&shy;i&shy;cal&shy;ly <a class="reference external" href="http://mywiki.wooledge.org/CommandSubstitution">Command Substition</a> and <a class="reference external" href="http://mywiki.wooledge.org/WordSplitting">Word Splitting</a>.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/17/QuotingInBash.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-03-16">16.03.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/03/16/ReviewTheFourthSecret.html" rel="bookmark canonical">Review: The Fourth Secret</a>
@@ -323,31 +377,6 @@ and the aftermath continues to affect their de&shy;scen&shy;dants even now.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/08/IrishSlaveMythsDebunked.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-03-07">07.03.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/03/07/FlyingCloud_0_3_0_Released.html" rel="bookmark canonical">FlyingCloud 0.3.0 released</a>
-        </h1>
-    </header>
-    <p>I just <a class="reference external" href="https://groups.google.com/forum/#!topic/flyingcloud-users/eqc9LrNbcXA">announced</a> the release of Fly&shy;ing&shy;Cloud 0.3.0
-on the <tt class="docutils literal"><span class="pre">fly&shy;ing&shy;cloud-users</span></tt> mailing list.
-I'll have more to say about Fly&shy;ing&shy;Cloud in future.
-For now, let's just say it's a tool that we use to build
-<a class="reference external" href="http://docker.com">Docker</a> images using masterless <a class="reference external" href="http://saltstack.com/">SaltStack</a>.</p>
-<p>I'll be speaking about Fly&shy;ing&shy;Cloud at <a class="reference external" href="http://www.meetup.com/PSPPython/events/228878102/">Wednes&shy;day's PuPPy meetup</a>.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/07/FlyingCloud_0_3_0_Released.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

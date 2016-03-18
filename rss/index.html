@@ -5,9 +5,52 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Wed, 16 Mar 2016 07:00:00 GMT</pubDate>
+        <pubDate>Thu, 17 Mar 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Quoting in Bash</title>
+        <link>http://www.georgevreilly.com/blog/2016/03/17/QuotingInBash.html</link>
+        <description>&lt;p&gt;Various Bash guides recommend putting quotes around just about everything.
+I had a script that contained this line:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: bash&#34;&gt;
+sudo apt-get install --yes $(cat &#34;$BUILD/install_on_aws_ubuntu.txt&#34;)
+&lt;/pre&gt;
+
+&lt;p&gt;While refactoring, I put another set of quotes around the &lt;tt class=&#34;docutils literal&#34;&gt;$(cat &lt;span class=&#34;pre&#34;&gt;...)&lt;/span&gt;&lt;/tt&gt;
+out of an abundance of caution:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: bash&#34;&gt;
+sudo apt-get install --yes &#34;$(cat &#34;$BUILD/install_on_aws_ubuntu.txt&#34;)&#34;
+&lt;/pre&gt;
+
+&lt;p&gt;Several other changes later, I couldn&#39;t figure out why my script had stopped working.&lt;/p&gt;
+&lt;p&gt;Here&#39;s what happened:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: bash&#34;&gt;
+$ cat $HOME/tmp/demo.txt
+foo
+bar
+quux
+
+$ echo $(cat &#34;$HOME/tmp/demo.txt&#34;)
+foo bar quux
+
+$ echo &#34;$(cat $HOME/tmp/demo.txt)&#34;
+foo
+bar
+quux
+&lt;/pre&gt;
+
+&lt;p&gt;The new outer quotes retained the newlines;
+the original replaced newlines with spaces.&lt;/p&gt;
+&lt;p&gt;The &lt;a class=&#34;reference external&#34; href=&#34;http://mywiki.wooledge.org/BashFAQ&#34;&gt;Bash FAQ&lt;/a&gt; has more, specifically &lt;a class=&#34;reference external&#34; href=&#34;http://mywiki.wooledge.org/CommandSubstitution&#34;&gt;Command Substition&lt;/a&gt; and &lt;a class=&#34;reference external&#34; href=&#34;http://mywiki.wooledge.org/WordSplitting&#34;&gt;Word Splitting&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 17 Mar 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-17:/blog/2016/03/17/QuotingInBash.html</guid>
+    </item>
         
             <item>
         <title>Review: The Fourth Secret</title>
@@ -70,6 +113,8 @@ in both the straight and the gay communities
 mean that many bi people remain closeted about their bisexuality.&lt;/p&gt;
 &lt;p&gt;Being out hasn&#39;t always been easy for me,
 but it was important to me then and it&#39;s important to me now.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Update&lt;/strong&gt;: HRC released
+&lt;a class=&#34;reference external&#34; href=&#34;http://www.hrc.org/resources/resource-guide-to-coming-out-as-bisexual&#34;&gt;A Resource Guide to Coming Out as Bisexual&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Tue, 15 Mar 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-15:/blog/2016/03/15/25YearsOutAsBisexual.html</guid>
@@ -755,35 +800,6 @@ and unhealthy mother–son relationships.&lt;/p&gt;
 </description>
         <pubDate>Mon, 22 Feb 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-02-22:/blog/2016/02/22/ReviewGraveyardDust.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: Death In A Strange Country</title>
-        <link>http://www.georgevreilly.com/blog/2016/02/21/ReviewDeathInAStrangeCountry.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0099469375/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Death In A Strange Country&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/0099469375.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: Death In A Strange Country&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: Donna Leon&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Arrow Books&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 1993&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/0099469375/?tag=georgvreill-20&#34;&gt;0099469375&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 373&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: mystery&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 19–21 February, 2016&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;A body has washed up in the canals of Venice,
-that of an American soldier from the nearby US base at Vicenza.
-Commissario Guido Brunetti doesn&#39;t believe that it&#39;s a mugging gone wrong,
-especially when he sees the fear in the eyes
-of the female army doctor who&#39;s sent to identify the body.
-He digs and finds corruption among the rich and powerful, in a toxic coverup.&lt;/p&gt;
-&lt;p&gt;Brunetti is a decent and honorable family man,
-whose sense of justice is undiminished by working for
-an incompetent functionary in a broken system.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 21 Feb 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-02-21:/blog/2016/02/21/ReviewDeathInAStrangeCountry.html</guid>
     </item>
         </channel>
 </rss>
