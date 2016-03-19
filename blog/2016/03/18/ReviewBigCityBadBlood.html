@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Quoting in Bash</title>
+  <title>Review: Big City, Bad Blood</title>
   <link media="all" href="/style.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
@@ -12,7 +12,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content="Various Bash guides recommend putting quotes aroun..." />
+    <meta name="description" content=".. image:: http://images.amazon.com/images/P/B000O..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,46 +31,28 @@
     
         <article>
     <header>
-        <time datetime="2016-03-17">17.03.2016, 00:00</time>
+        <time datetime="2016-03-18">18.03.2016, 00:00</time>
         <h1>
-            <a href="/blog/2016/03/17/QuotingInBash.html" rel="bookmark canonical">Quoting in Bash</a>
+            <a href="/blog/2016/03/18/ReviewBigCityBadBlood.html" rel="bookmark canonical">Review: Big City, Bad Blood</a>
         </h1>
     </header>
-    <p>Various Bash guides recommend putting quotes around just about everything.
-I had a script that contained this line:</p>
-
-<pre class="brush: bash">
-sudo apt-get install --yes $(cat "$BUILD/install_on_aws_ubuntu.txt")
-</pre>
-
-<p>While refac&shy;tor&shy;ing, I put another set of quotes around the <tt class="docutils literal">$(cat <span class="pre">...)</span></tt>
-out of an abundance of caution:</p>
-
-<pre class="brush: bash">
-sudo apt-get install --yes "$(cat "$BUILD/install_on_aws_ubuntu.txt")"
-</pre>
-
-<p>Several other changes later, I couldn't figure out why my script had stopped working.</p>
-<p>Here's what happened:</p>
-
-<pre class="brush: bash">
-$ cat $HOME/tmp/demo.txt
-foo
-bar
-quux
-
-$ echo $(cat "$HOME/tmp/demo.txt")
-foo bar quux
-
-$ echo "$(cat $HOME/tmp/demo.txt)"
-foo
-bar
-quux
-</pre>
-
-<p>The new outer quotes retained the newlines;
-the original replaced newlines with spaces.</p>
-<p>The <a class="reference external" href="http://mywiki.wooledge.org/BashFAQ">Bash FAQ</a> has more, specif&shy;i&shy;cal&shy;ly <a class="reference external" href="http://mywiki.wooledge.org/CommandSubstitution">Command Substition</a> and <a class="reference external" href="http://mywiki.wooledge.org/WordSplitting">Word Splitting</a>.</p>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/B000OI0E1S/?tag=georgvreill-20"><img alt="Big City, Bad Blood" class="right-float" src="http://images.amazon.com/images/P/B000OI0E1S.01.MZZZZZZZ.jpg"/></a>
+<div class="line-block">
+<div class="line">Title: Big City, Bad Blood</div>
+<div class="line">Author: Sean Chercover</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Publisher: Harper&shy;Collins</div>
+<div class="line">Copyright: 2007</div>
+<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/B000OI0E1S/?tag=georgvreill-20">B000OI0E1S</a></div>
+<div class="line">Pages: 304</div>
+<div class="line">Keywords: crime</div>
+<div class="line">Reading period: 2–3 March, 2016</div>
+</div>
+<p>Ray Dudgeon is a Chicago PI hired to guard a Hollywood location manager
+who witnessed the Outfit at work.
+The client is murdered, Ray gets caught up in a Mafia power struggle,
+and the body count rises.</p>
+<p>A well-written, fast-paced story that I gobbled up.</p>
 
     <footer>
         
@@ -84,8 +66,8 @@ the original replaced newlines with spaces.</p>
             var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
 
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/03/17/QuotingInBash.html";
-            var disqus_url = "http://www.georgevreilly.com/blog/2016/03/17/QuotingInBash.html";
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/03/18/ReviewBigCityBadBlood.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/03/18/ReviewBigCityBadBlood.html";
 
             if (window.location.hostname != "localhost") {
                 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -106,14 +88,11 @@ the original replaced newlines with spaces.</p>
 </article>
     
     
-        <a href="/blog/2016/03/16/ReviewTheFourthSecret.html" class="page floatright">
-        Review: The Fourth Secret &raquo;
+        <a href="/blog/2016/03/17/QuotingInBash.html" class="page floatright">
+        Quoting in Bash &raquo;
         </a>
     
     
-        <a href="/blog/2016/03/18/ReviewBigCityBadBlood.html" class="page floatleft">
-        &laquo; Review: Big City, Bad Blood
-        </a>
 <footer>
     
     
