@@ -5,9 +5,58 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Wed, 23 Mar 2016 07:00:00 GMT</pubDate>
+        <pubDate>Thu, 24 Mar 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Raising IOError for &#39;file not found&#39;</title>
+        <link>http://www.georgevreilly.com/blog/2016/03/24/RaisingIOErrorForFileNotFound.html</link>
+        <description>&lt;p&gt;I wanted to raise Python&#39;s &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/exceptions.html#exceptions.IOError&#34;&gt;IOError&lt;/a&gt; for a file-not-found condition,
+but it wasn&#39;t obvious what the parameters to the exception should be.&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+from errno import ENOENT
+
+if not os.path.isfile(source_file):
+    raise IOError(ENOENT, &#39;Not a file&#39;, source_file)
+with open(source_file) as fp:
+    return fp.read()
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;tt class=&#34;docutils literal&#34;&gt;IOError&lt;/tt&gt; can be instantiated with 1, 2, or 3 arguments:&lt;/p&gt;
+&lt;dl class=&#34;docutils&#34;&gt;
+&lt;dt&gt;&lt;tt class=&#34;docutils literal&#34;&gt;IOError(errno, strerror, filename)&lt;/tt&gt;&lt;/dt&gt;
+&lt;dd&gt;These arguments are available
+on the &lt;tt class=&#34;docutils literal&#34;&gt;errno&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;strerror&lt;/tt&gt;, and &lt;tt class=&#34;docutils literal&#34;&gt;filename&lt;/tt&gt; attributes of the exception object,
+respectively, in both Python 2 and 3.
+The &lt;tt class=&#34;docutils literal&#34;&gt;args&lt;/tt&gt; attribute contains the verbatim constructor arguments as a tuple.&lt;/dd&gt;
+&lt;dt&gt;&lt;tt class=&#34;docutils literal&#34;&gt;IOError(errno, strerror)&lt;/tt&gt;&lt;/dt&gt;
+&lt;dd&gt;These are available on the &lt;tt class=&#34;docutils literal&#34;&gt;errno&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;strerror&lt;/tt&gt; attributes of the exception,
+respectively, in both Python 2 and 3,
+while the &lt;tt class=&#34;docutils literal&#34;&gt;filename&lt;/tt&gt; attribute is &lt;tt class=&#34;docutils literal&#34;&gt;None&lt;/tt&gt;.&lt;/dd&gt;
+&lt;dt&gt;&lt;tt class=&#34;docutils literal&#34;&gt;IOError(errmsg)&lt;/tt&gt;&lt;/dt&gt;
+&lt;dd&gt;In Python 2, &lt;tt class=&#34;docutils literal&#34;&gt;errmsg&lt;/tt&gt; is available
+on the deprecated &lt;tt class=&#34;docutils literal&#34;&gt;message&lt;/tt&gt; attribute of the exception.
+There is no &lt;tt class=&#34;docutils literal&#34;&gt;message&lt;/tt&gt; attribute on the exception object in Python 3;
+you must obtain &lt;tt class=&#34;docutils literal&#34;&gt;errmsg&lt;/tt&gt; from the &lt;tt class=&#34;docutils literal&#34;&gt;args&lt;/tt&gt; attribute.
+The &lt;tt class=&#34;docutils literal&#34;&gt;errno&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;strerror&lt;/tt&gt;, and &lt;tt class=&#34;docutils literal&#34;&gt;filename&lt;/tt&gt; attributes are all &lt;tt class=&#34;docutils literal&#34;&gt;None&lt;/tt&gt;.&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;I used &lt;tt class=&#34;docutils literal&#34;&gt;errno.ENOENT&lt;/tt&gt; above.
+You can obtain all the &lt;tt class=&#34;docutils literal&#34;&gt;errno&lt;/tt&gt; error codes and descriptions with
+&lt;tt class=&#34;docutils literal&#34;&gt;[(k,v, os.strerror(k)) for k,v in &lt;span class=&#34;pre&#34;&gt;os.errno.errorcode.items()]&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;You may object that opening a file only after checking for its existence
+is fragile because there&#39;s a small window between checking and opening
+where the file could be removed by another process.
+You&#39;d be right.
+In such a case, &lt;tt class=&#34;docutils literal&#34;&gt;open(filename)&lt;/tt&gt; will raise
+&lt;tt class=&#34;docutils literal&#34;&gt;IOError(ENOENT, &amp;quot;No such file or directory&amp;quot;, filename)&lt;/tt&gt;.
+Still, there are other cases where it&#39;s useful to raise the 2- or 3-argument
+form of &lt;tt class=&#34;docutils literal&#34;&gt;IOError&lt;/tt&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 24 Mar 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-24:/blog/2016/03/24/RaisingIOErrorForFileNotFound.html</guid>
+    </item>
         
             <item>
         <title>Mole Removal</title>
@@ -756,85 +805,6 @@ measurably improving their speech.&lt;/p&gt;
 </description>
         <pubDate>Mon, 29 Feb 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-02-29:/blog/2016/02/29</guid>
-    </item>
-        
-            <item>
-        <title>Adapting Books for Film and TV</title>
-        <link>http://www.georgevreilly.com/blog/2016/02/28/AdaptingBooksForFilmAndTV.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://www.pinterest.com/pin/16747829840591346/&#34;&gt;&lt;img alt=&#34;Turning a Book into a Movie&#34; src=&#34;https://s-media-cache-ak0.pinimg.com/564x/1a/92/10/1a921046a3cc406d145e0aa43625d2f9.jpg&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;I came across this cartoon today;
-it reminded me that I&#39;ve been meaning to write
-about the hit-or-miss nature of adapting books for the screen.&lt;/p&gt;
-&lt;p&gt;Books and video/film are different media,
-with different conventions and needs.
-Often the most-loved elements of a book are lost
-when it&#39;s adapted for television or film,
-upsetting fans.&lt;/p&gt;
-&lt;p&gt;As J.K. Rowling wrote about one of the Harry Potter movies:&lt;/p&gt;
-&lt;blockquote&gt;
-&amp;quot;It is simply impossible to incorporate every one of my storylines
-into a film that has to be kept under four hours long.
-Obviously films have restrictions
-– novels do not have constraints of time and budget;
-I can create dazzling effects relying on nothing but
-the interaction of my own and my readers&#39; imaginations&amp;quot;.&lt;/blockquote&gt;
-&lt;p&gt;I loved Lev Grossman&#39;s &lt;em&gt;Magicians&lt;/em&gt; novels—&lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2015/12/26/ReviewTheMagicians.html&#34;&gt;The Magicians&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2015/12/27/ReviewTheMagicianKing.html&#34;&gt;The Magician King&lt;/a&gt;, and &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2015/12/31/ReviewTheMagiciansLand.html&#34;&gt;The Magician&#39;s Land&lt;/a&gt;—but &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/The_Magicians_(U.S._TV_series)&#34;&gt;The Magicians TV series&lt;/a&gt; has been a major disappointment to me.
-They&#39;ve butchered the flow of the first book,
-turning it into an American college movie with magic elements,
-removing most of the Fillory connection
-and adding a gratuitous subplot about hedge witches.
-I&#39;ve watched the first four episodes
-and I don&#39;t think I&#39;ll watch any more.
-If it hadn&#39;t been an adaptation of a book that I loved,
-I would not have watched more than the first episode.&lt;/p&gt;
-&lt;p&gt;I also saw &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Watchmen_(film)&#34;&gt;The Watchmen film&lt;/a&gt; recently,
-which suffers from being an obsessive,
-panel-for-panel recreation of &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Watchmen&#34;&gt;The Watchmen graphic novel&lt;/a&gt;.
-Aside from one significant change at the end,
-the director apparently had no independent vision of his movie.&lt;/p&gt;
-&lt;p&gt;I&#39;ve read several of the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/John_Dortmunder&#34;&gt;Dortmunder books&lt;/a&gt; by Donald E. Westlake
-or listened to their audiobooks,
-and I love the deadpan humor of all of them.
-I&#39;ve seen three movie adaptations.
-&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/The_Hot_Rock_(film)&#34;&gt;The Hot Rock&lt;/a&gt; with Robert Redford is bearable, if uninspired,
-and fairly faithful to the source.
-&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/What%27s_the_Worst_That_Could_Happen%3F&#34;&gt;What&#39;s the Worst that Could Happen?&lt;/a&gt;
-with Martin Lawrence and Danny De Vito
-is loosely based on the book of the same name;
-it&#39;s not particularly funny.
-But &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Bank_Shot&#34;&gt;Bank Shot&lt;/a&gt; with George C. Scott is truly horrible;
-they attempted to turn it into some kind of zany madcap Seventies romp
-and failed badly.&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Game_of_Thrones&#34;&gt;Game of Thrones&lt;/a&gt; has it about right.
-The early seasons hewed closely to George R.R. Martin&#39;s books,
-but felt free to drop subplots and thin out characters
-without losing the essence of the source material.
-As the seasons went on, the divergence widened.
-We have now reached the point where the show has caught up with the books
-and they&#39;re starting to strike out in new directions.
-Each is its own thing; both are done well.&lt;/p&gt;
-&lt;p&gt;The &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Harry_Potter_(film_series)&#34;&gt;Harry Potter movies&lt;/a&gt; are also fairly well received
-by the rabid fan base,
-and are generally considered successful works in their own right.&lt;/p&gt;
-&lt;p&gt;I find &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/True_Blood&#34;&gt;True Blood&lt;/a&gt; to be better than Charlaine Harris&#39;s books.
-A fair amount of plot was taken from the books,
-but it quickly grew into its own over-the-top thing,
-moving in different directions.
-The books suffer from the limitations of being told
-from the first-person perspective of Sookie Stackhouse,
-the telepathic waitress who falls in love with several vampires.
-&lt;em&gt;True Blood&lt;/em&gt; can tell multiple storylines and moves around more freely.&lt;/p&gt;
-&lt;p&gt;I feel that &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/The_Commitments_(film)&#34;&gt;The Commitments&lt;/a&gt; film is superior to its source,
-Roddy Doyle&#39;s first novel,
-a slender little book.
-The film develops the characters more fully.
-The book&#39;s two sequels were also adapted into films,
-&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/The_Snapper_(film)&#34;&gt;The Snapper&lt;/a&gt; and &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/The_Van_(1996_film)&#34;&gt;The Van&lt;/a&gt;,
-which I think are about equal to their source novels.&lt;/p&gt;
-&lt;p&gt;Adaptations are hard.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 28 Feb 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-02-28:/blog/2016/02/28/AdaptingBooksForFilmAndTV.html</guid>
     </item>
         </channel>
 </rss>
