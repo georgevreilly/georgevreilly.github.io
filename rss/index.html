@@ -5,9 +5,40 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Thu, 24 Mar 2016 07:00:00 GMT</pubDate>
+        <pubDate>Fri, 25 Mar 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Profiling</title>
+        <link>http://www.georgevreilly.com/blog/2016/03/25/Profiling.html</link>
+        <description>&lt;p&gt;Despite being a &lt;em&gt;bona fide&lt;/em&gt; performance expert—I spent a couple of years as the Performance Lead
+for Microsoft&#39;s IIS web server product about 15 years ago—I still forget to measure rather than assume.&lt;/p&gt;
+&lt;p&gt;I wrote some code today that imported nearly 300,000 nodes into a graph
+from a 500MB XML file.
+The code was not particularly fast and I assumed that it was the XML parser.
+I had been using the built-in streaming parser, &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/xml.etree.elementtree.html#xml.etree.ElementTree.iterparse&#34;&gt;cElementTree iterparse&lt;/a&gt;.
+I assumed that using the &lt;a class=&#34;reference external&#34; href=&#34;http://lxml.de/api/lxml.etree.iterparse-class.html&#34;&gt;lmxl iterparse&lt;/a&gt; would make the code faster.
+It didn&#39;t.&lt;/p&gt;
+&lt;p&gt;Then I had the bright idea of temporarily disabling the per-node processing,
+which left only the XML parsing.
+Instead of handling 200 nodes per second, I was now parsing more than 10,000 nodes per second.
+Clearly it was the processing, not the parsing, despite my assumptions.&lt;/p&gt;
+&lt;p&gt;Time to profile.&lt;/p&gt;
+&lt;p&gt;I used &lt;a class=&#34;reference external&#34; href=&#34;https://pymotw.com/2/profile/&#34;&gt;cProfile&lt;/a&gt; to gather some actual data on where time was being spent.
+The first thing that leaped out at me was
+that I was spending nearly all the time in &lt;tt class=&#34;docutils literal&#34;&gt;str.lower&lt;/tt&gt;.
+I cached the result of &lt;tt class=&#34;docutils literal&#34;&gt;lower&lt;/tt&gt; for each node;
+instead of making 20 million calls, I was now making only 32,000.&lt;/p&gt;
+&lt;p&gt;The hot spot then moved to a function where I was doing a linear search
+through an unordered list.
+I introduced a dictionary and the cumulative time spent in that function
+dropped from 1,500 seconds to 0.56 seconds.&lt;/p&gt;
+&lt;p&gt;So much for my intuition.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 25 Mar 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-25:/blog/2016/03/25/Profiling.html</guid>
+    </item>
         
             <item>
         <title>Raising IOError for &#39;file not found&#39;</title>
@@ -767,44 +798,6 @@ and to unblock themselves quickly.&lt;/p&gt;
 </description>
         <pubDate>Tue, 01 Mar 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-01:/blog/2016/03/01/AskingForHelp.html</guid>
-    </item>
-        
-            <item>
-        <title>Toastmasters Speech Contest</title>
-        <link>http://www.georgevreilly.com/blog/2016/02/29/</link>
-        <description>&lt;p&gt;I &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/02/01/ToastmastersContestChair.html&#34;&gt;mentioned&lt;/a&gt; a few weeks ago that I was going to be the Contest Chair
-for the International Speech and Evaluation Contests
-at &lt;a class=&#34;reference external&#34; href=&#34;http://freelyspeaking.org/&#34;&gt;Freely Speaking Toastmasters&lt;/a&gt;.
-Those contests were tonight,
-and I was both Contest Chair and Toastmaster.
-The contest chair sets up everything beforehand;
-the toastmaster runs the contest itself;
-frequently but not necessarily the contest chair is also the toastmaster.&lt;/p&gt;
-&lt;p&gt;I&#39;m happy with how it came off.
-I managed to recruit two speakers for the Speech contest
-and three evaluators for the Evaluation contest,
-all of whom acquitted themselves well.
-I also recruited three judges, two ballot counters, one timer,
-a sergeant at arms, and a test speaker
-to make the contest run.
-The winner of each contest will go on to the Area 31 contest on March 16th.&lt;/p&gt;
-&lt;p&gt;One point that I forgot to make at the contest
-is that a weakness of the Toastmasters&#39; system
-is that most speeches are given to an audience exactly once.
-Professional speakers often deliver the same speech again and again to different audiences,
-burnishing it to a high luster.
-For most Toastmasters&#39; speeches,
-the speaker has only one opportunity to receive feedback from an audience of evaluators
-and no chance to hone and improve a speech through multiple deliveries.
-A club contest winner, however, will deliver the same speech again to the area contest.
-If they win that, they&#39;ll repeat it at the division contest.
-And if they&#39;re successful there, they&#39;ll deliver it at the district contest.
-Each time, the competition is tougher
-and the contestant receives feedback from their supporters,
-measurably improving their speech.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 29 Feb 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-02-29:/blog/2016/02/29</guid>
     </item>
         </channel>
 </rss>
