@@ -5,9 +5,53 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Sat, 26 Mar 2016 07:00:00 GMT</pubDate>
+        <pubDate>Sun, 27 Mar 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Preparing Bloomsday Scripts</title>
+        <link>http://www.georgevreilly.com/blog/2016/03/27/PreparingBloomsdayScripts.html</link>
+        <description>&lt;p&gt;Bloomsday is less than three months away
+and the &lt;a class=&#34;reference external&#34; href=&#34;http://www.wildgeeseseattle.org/&#34;&gt;Wild Geese Players&lt;/a&gt; need to start rehearsing soon.
+I made a start on the script at the end of January,
+but didn&#39;t pick it up again until today.&lt;/p&gt;
+&lt;p&gt;Three years ago, we completed &lt;em&gt;Ulysses&lt;/em&gt;, having started in 1998.
+Two years ago, we started over,
+reading chapters 1 and 4 interleaved.
+In Chapter 1 (Telemachus), Stephen Dedalus arises in the Martello Tower at Sandymount
+and feuds with Buck Mulligan.
+Chapter 4 (Calypso) takes place at the same time as Chapter 1,
+wherein Leopold Bloom breaks his fast.&lt;/p&gt;
+&lt;p&gt;Last year, we intertwined chapters 2 and 5.
+Chapter 2 (Nestor) takes place at the school where Stephen teaches;
+he locks horns with Deasy, the headmaster.
+Chapter 5 (The Lotus Eaters) sees Bloom ambling through Dublin,
+picking up the illicit letter from his would-be mistress, Martha.&lt;/p&gt;
+&lt;p&gt;This year, we&#39;re going to intertwine chapters 3 and 6.
+Stephen wanders along Sandymount strand in Chapter 3 (Proteus),
+lost in his thoughts.
+While in Chapter 6 (Hades),
+Bloom travels in a carriage with Simon Dedalus, Martin Cunningham, and Mr Power
+to Paddy Dignam&#39;s funeral at Glasnevin cemetery.&lt;/p&gt;
+&lt;p&gt;I dislike Chapter 3, as I find it nearly unreadable.
+Stephen disappears up his own arsehole with his philosphical musings.
+I&#39;m bitter because that&#39;s where I gave up the first time that I read &lt;em&gt;Ulysses&lt;/em&gt;,
+back in 1982 during the Joyce centenary.
+If I had known to skip the rest of that chapter
+and start reading Calypso,
+I might have finished the book twenty years sooner than I did.&lt;/p&gt;
+&lt;p&gt;I have yet to figure out how to carve up chapters 3 and 6 for interleaving.
+Otherwise, I&#39;ve mostly prepared the first draft.
+I took the source from &lt;a class=&#34;reference external&#34; href=&#34;http://www.gutenberg.org/ebooks/4300&#34;&gt;Project Gutenberg&lt;/a&gt;,
+converted it into LaTeX,
+added attributions for the speakers, narrators, and internal monologues,
+added the Gabler edition line numbers,
+and otherwise cleaned it up.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 27 Mar 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-27:/blog/2016/03/27/PreparingBloomsdayScripts.html</guid>
+    </item>
         
             <item>
         <title>Caucus 2016</title>
@@ -747,53 +791,6 @@ and more blood will be shed.&lt;/p&gt;
 </description>
         <pubDate>Thu, 03 Mar 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-03:/blog/2016/03/03/ReviewWaysToDieInGlasgow.html</guid>
-    </item>
-        
-            <item>
-        <title>Python: Import subclass from dynamic path</title>
-        <link>http://www.georgevreilly.com/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html</link>
-        <description>&lt;p&gt;I needed to import some plugin code written in Python
-from a directory whose path isn&#39;t known until runtime.
-Further, I needed a class object that was a subclass of the plugin base class.&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-from somewhere import PluginBase
-
-class SomePlugin(PluginBase):
-    def f1(self): ...
-    def f2(self): ...
-&lt;/pre&gt;
-
-&lt;p&gt;You can use the &lt;a class=&#34;reference external&#34; href=&#34;https://pymotw.com/2/imp/&#34;&gt;imp&lt;/a&gt; module to actually load the module from &lt;tt class=&#34;docutils literal&#34;&gt;impl_dir&lt;/tt&gt;.
-Note that &lt;tt class=&#34;docutils literal&#34;&gt;impl_dir&lt;/tt&gt; needs to be temporarily prepended to &lt;tt class=&#34;docutils literal&#34;&gt;sys.path&lt;/tt&gt;.
-Then you can find the plugin subclass using &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/functions.html#dir&#34;&gt;dir&lt;/a&gt; and &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/functions.html#issubclass&#34;&gt;issubclass&lt;/a&gt;.&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-import os, imp
-
-def import_class(implementation_filename, base_class):
-    impl_dir, impl_filename = os.path.split(implementation_filename)
-    module_name, _ = os.path.splitext(impl_filename)
-
-    try:
-        sys.path.insert(0, impl_dir)
-        fp, filename, description = imp.find_module(module_name)
-        module = imp.load_module(module_name, fp, filename, description)
-        for name in dir(module):
-            obj = getattr(module, name)
-            if (type(obj) == type(base_class)
-                and issubclass(obj, base_class)
-                and obj != base_class):
-                    return obj
-        raise ValueError(&#34;No subclass of {0} in {1}&#34;.format(
-                base_class.__name__, implementation_filename))
-    finally:
-        sys.path.pop(0)
-&lt;/pre&gt;
-
-</description>
-        <pubDate>Wed, 02 Mar 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-02:/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html</guid>
     </item>
         </channel>
 </rss>
