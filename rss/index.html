@@ -5,9 +5,28 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Wed, 30 Mar 2016 07:00:00 GMT</pubDate>
+        <pubDate>Thu, 31 Mar 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Acne</title>
+        <link>http://www.georgevreilly.com/blog/2016/03/31/Acne.html</link>
+        <description>&lt;p&gt;Advertising would make you think that acne is a problem only for teenagers.
+Not true.
+It&#39;s never entirely gone away for me.
+I often find spots on my nose.
+Less often, on my chin or forehead.
+I&#39;ve even had a few spots inside my ears.&lt;/p&gt;
+&lt;p&gt;For some reason, I woke up with three spots this morning:
+on the side of my nose;
+under my jawline, hidden by my beard;
+and on the back of my neck, near the hairline.
+Go figure.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 31 Mar 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-31:/blog/2016/03/31/Acne.html</guid>
+    </item>
         
             <item>
         <title>Migrating to a New Mac</title>
@@ -764,39 +783,6 @@ For now, let&#39;s just say it&#39;s a tool that we use to build
 </description>
         <pubDate>Mon, 07 Mar 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-07:/blog/2016/03/07/FlyingCloud_0_3_0_Released.html</guid>
-    </item>
-        
-            <item>
-        <title>psutil kill</title>
-        <link>http://www.georgevreilly.com/blog/2016/03/06/psutil-kill.html</link>
-        <description>&lt;p&gt;From Python, I needed to find a process that was performing SSH tunneling on port 8080
-and kill it.&lt;/p&gt;
-&lt;p&gt;The following works in Bash:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: bash&#34;&gt;
-ps aux | grep [s]sh.*:8080 | awk &#39;{print $2}&#39; | xargs kill -9
-&lt;/pre&gt;
-
-&lt;p&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;grep [s]sh&lt;/tt&gt; trick ensures that the &lt;tt class=&#34;docutils literal&#34;&gt;grep&lt;/tt&gt; command itself
-won&#39;t make it through to &lt;tt class=&#34;docutils literal&#34;&gt;awk&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;Here&#39;s what I came up with in Python using &lt;a class=&#34;reference external&#34; href=&#34;http://pythonhosted.org/psutil/&#34;&gt;psutil&lt;/a&gt;:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-def kill_port_forwarding(host_port):
-    ssh_args = [&#34;-f&#34;, &#34;-N&#34;, &#34;-L&#34;, &#34;{0}:localhost:{0}&#34;.format(host_port)]
-    for process in psutil.process_iter():
-        try:
-            if process.name().endswith(&#39;ssh&#39;):
-                if process.cmdline()[-len(ssh_args):] == ssh_args:
-                    process.kill()
-        except psutil.NoSuchProcess:
-            pass
-&lt;/pre&gt;
-
-&lt;p&gt;Obviously, the process filtering is more rigorous in the Python version.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 06 Mar 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-06:/blog/2016/03/06/psutil-kill.html</guid>
     </item>
         </channel>
 </rss>
