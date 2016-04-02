@@ -29,6 +29,37 @@
     
         <article>
     <header>
+        <time datetime="2016-03-12">12.03.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/03/12/DaylightSavingTime.html" rel="bookmark canonical">Daylight Saving Time</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.theverge.com/2016/3/12/11186842/daylight-saving-time-car-crashes-work-accidents-fatigue"></a>
+<p><a class="reference external" href="http://www.theverge.com/2016/3/12/11186842/daylight-saving-time-car-crashes-work-accidents-fatigue">Daylight Saving Time is hot garbage</a>
+is a typical article you can expect to read this weekend
+condemning DST.</p>
+<p>My own dislike of DST was boosted when I worked on calendar software at Cozi.
+We learned the hard way that we needed to test our latest software
+ahead of both the start and end of DST each year.
+That's trickier than you might think.
+Setting the computer's clock forward a couple of weeks,
+past the change of DST, is one thing;
+getting the changed time to last for more than a few minutes is another.
+Most computers ag&shy;gres&shy;sive&shy;ly sync their clocks to a network time server,
+which can be tricky to <span>&#8230;<a href="/blog/2016/03/12/DaylightSavingTime.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/12/DaylightSavingTime.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-03-11">11.03.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/03/11/HillaryClintonMisspeaksAboutNancyReaganAndAIDS.html" rel="bookmark canonical">Hillary Clinton "Misspeaks" about Nancy Reagan and AIDS</a>
@@ -325,48 +356,6 @@ and more blood will be shed.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/03/ReviewWaysToDieInGlasgow.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-03-02">02.03.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" rel="bookmark canonical">Python: Import subclass from dynamic path</a>
-        </h1>
-    </header>
-    <p>I needed to import some plugin code written in Python
-from a directory whose path isn't known until runtime.
-Further, I needed a class object that was a subclass of the plugin base class.</p>
-
-<pre class="brush: python">
-from somewhere import PluginBase
-
-class SomePlugin(PluginBase):
-    def f1(self): ...
-    def f2(self): ...
-</pre>
-
-<p>You can use the <a class="reference external" href="https://pymotw.com/2/imp/">imp</a> module to actually load the module from <tt class="docutils literal">impl_dir</tt>.
-Note that <tt class="docutils literal">impl_dir</tt> needs to be tem&shy;porar&shy;i&shy;ly prepended to <tt class="docutils literal">sys.path</tt>.
-Then you can find the plugin subclass using <a class="reference external" href="https://docs.python.org/2/library/functions.html#dir">dir</a> and <a class="reference external" href="https://docs.python.org/2/library/functions.html#issubclass">issubclass</a>.</p>
-
-<pre class="brush: python">
-import os, imp
-
-def import_class(implementation_filename, base_class):
-    impl_dir, impl_filename = os.path.split(implementation_filename)
-    module_name, _ = os.path.splitext(impl_filename)
-
-    </pre><span>&#8230;<a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
