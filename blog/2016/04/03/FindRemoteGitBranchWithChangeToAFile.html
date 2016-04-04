@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Review: The Mercy of the Night</title>
+  <title>Find remote Git branch with change to a file</title>
   <link media="all" href="/style.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
@@ -12,7 +12,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content=".. image:: http://images.amazon.com/images/P/B00NV..." />
+    <meta name="description" content="I needed to track down a remote branch created a c..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,38 +31,34 @@
     
         <article>
     <header>
-        <time datetime="2016-04-02">02.04.2016, 00:00</time>
+        <time datetime="2016-04-03">03.04.2016, 00:00</time>
         <h1>
-            <a href="/blog/2016/04/02/ReviewTheMercyOfTheNight.html" rel="bookmark canonical">Review: The Mercy of the Night</a>
+            <a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" rel="bookmark canonical">Find remote Git branch with change to a file</a>
         </h1>
     </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/B00NVOJY36/?tag=georgvreill-20"><img alt="The Mercy of the Night" class="right-float" src="http://images.amazon.com/images/P/B00NVOJY36.01.MZZZZZZZ.jpg"/></a>
-<div class="line-block">
-<div class="line">Title: The Mercy of the Night</div>
-<div class="line">Author: David Corbett</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Thomas &amp; Mercer</div>
-<div class="line">Copyright: 2015</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/B00NVOJY36/?tag=georgvreill-20">B00NVOJY36</a></div>
-<div class="line">Pages: 431</div>
-<div class="line">Keywords: thriller</div>
-<div class="line">Reading period: 5 March–2 April, 2016</div>
-</div>
-<p>Jacqi Garza was abducted when she was eight.
-She got away but her life has gone far off course in decade since.
-Now she's the prime witness to a murder.
-Phelan Tierney, a former lawyer, has taken her under his wing,
-but she's not easy to help.</p>
-<p>This is dark and disturbing, if ultimately hopeful.
-It's a portrait of a town in distress
-and of some of its citizens.
-Some are still trying to make a difference,
-while others are too lost in their own pain and woes to care anymore.
-Jacqi seems lost in a hell due to her awful family and her trauma
-compounded by her own self-de&shy;struc&shy;tive&shy;ness,
-but Phelan sees a spark in her.
-His girlfriend, Cass, is troubled by his whiteknight&shy;ing.
-And Skellenger, the cop, feels guilty about mis&shy;han&shy;dling her abduction case.</p>
+    <p>I needed to track down a remote branch created a couple of months ago
+on another machine.
+I knew which file had been changed,
+but none of the far-too-many remote branches' names rang a bell.</p>
+<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch --contains</a> in the right way finds all the relevant branches.</p>
+
+<pre class="brush: bash">
+git log --all --format=%H FILENAME \
+    | while read f; do git branch --remotes --contains $f; done \
+    | sort -u
+</pre>
+
+<p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> FILENAME</tt>,
+lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal">FILENAME</tt>.
+The second finds all the branches that contain those hashes
+(I added <tt class="docutils literal"><span class="pre">--remotes</span></tt>).
+The third uniquifies the results.</p>
+<p>The <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">original answer</a> goes on to suggest using
+<tt class="docutils literal">gitk <span class="pre">--all</span> <span class="pre">--date-order</span> <span class="pre">--</span> FILENAME</tt>
+to manually inspect all branches.
+However, gitk complains <tt class="docutils literal">unknown color name &quot;lime&quot;</tt> on my new Mac.
+I must have hit this before, on an earlier in&shy;stal&shy;la&shy;tion of Git,
+because the <a class="reference external" href="http://stackoverflow.com/questions/34637896/gitk-will-not-start-on-mac-unknown-color-name-lime">Stack&shy;Over&shy;flow answer</a> contains an edit from me.</p>
 
     <footer>
         
@@ -76,8 +72,8 @@ And Skellenger, the cop, feels guilty about mis&shy;han&shy;dling her abduction 
             var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
 
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/04/02/ReviewTheMercyOfTheNight.html";
-            var disqus_url = "http://www.georgevreilly.com/blog/2016/04/02/ReviewTheMercyOfTheNight.html";
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html";
 
             if (window.location.hostname != "localhost") {
                 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -98,14 +94,11 @@ And Skellenger, the cop, feels guilty about mis&shy;han&shy;dling her abduction 
 </article>
     
     
-        <a href="/blog/2016/04/01/New520FloatingBridge.html" class="page floatright">
-        New 520 Floating Bridge &raquo;
+        <a href="/blog/2016/04/02/ReviewTheMercyOfTheNight.html" class="page floatright">
+        Review: The Mercy of the Night &raquo;
         </a>
     
     
-        <a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" class="page floatleft">
-        &laquo; Find remote Git branch with change to a file
-        </a>
 <footer>
     
     

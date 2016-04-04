@@ -11,8 +11,45 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-04-02T07:00:00Z</updated>
+    <updated>2016-04-03T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Find remote Git branch with change to a file</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" />
+        <id>tag:www.georgevreilly.com,2016-04-03:/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html</id>
+        <updated>2016-04-03T07:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;I needed to track down a remote branch created a couple of months ago
+on another machine.
+I knew which file had been changed,
+but none of the far-too-many remote branches&#39; names rang a bell.&lt;/p&gt;
+&lt;p&gt;Turns out that using &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file&#34;&gt;git branch --contains&lt;/a&gt; in the right way finds all the relevant branches.&lt;/p&gt;
+
+&lt;pre class=&#34;brush: bash&#34;&gt;
+git log --all --format=%H FILENAME \
+    | while read f; do git branch --remotes --contains $f; done \
+    | sort -u
+&lt;/pre&gt;
+
+&lt;p&gt;The first line, &lt;tt class=&#34;docutils literal&#34;&gt;git log &lt;span class=&#34;pre&#34;&gt;--all&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;--format=%H&lt;/span&gt; FILENAME&lt;/tt&gt;,
+lists all the &lt;em&gt;hashes&lt;/em&gt; for commits that contained changes to &lt;tt class=&#34;docutils literal&#34;&gt;FILENAME&lt;/tt&gt;.
+The second finds all the branches that contain those hashes
+(I added &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--remotes&lt;/span&gt;&lt;/tt&gt;).
+The third uniquifies the results.&lt;/p&gt;
+&lt;p&gt;The &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file&#34;&gt;original answer&lt;/a&gt; goes on to suggest using
+&lt;tt class=&#34;docutils literal&#34;&gt;gitk &lt;span class=&#34;pre&#34;&gt;--all&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;--date-order&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;--&lt;/span&gt; FILENAME&lt;/tt&gt;
+to manually inspect all branches.
+However, gitk complains &lt;tt class=&#34;docutils literal&#34;&gt;unknown color name &amp;quot;lime&amp;quot;&lt;/tt&gt; on my new Mac.
+I must have hit this before, on an earlier installation of Git,
+because the &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/34637896/gitk-will-not-start-on-mac-unknown-color-name-lime&#34;&gt;StackOverflow answer&lt;/a&gt; contains an edit from me.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Review: The Mercy of the Night</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/04/02/ReviewTheMercyOfTheNight.html" />
@@ -33,7 +70,7 @@
 &lt;div class=&#34;line&#34;&gt;Copyright: 2015&lt;/div&gt;
 &lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/B00NVOJY36/?tag=georgvreill-20&#34;&gt;B00NVOJY36&lt;/a&gt;&lt;/div&gt;
 &lt;div class=&#34;line&#34;&gt;Pages: 431&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: KEYWORDs&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Keywords: thriller&lt;/div&gt;
 &lt;div class=&#34;line&#34;&gt;Reading period: 5 March–2 April, 2016&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;Jacqi Garza was abducted when she was eight.
@@ -950,40 +987,6 @@ All three seem to be psychically sensitive to the thoughts of others.
 The narrative hopscotches back and forth across the decades
 London itself is the fourth character,
 lovingly described in many guises.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Fear of Public Speaking</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/03/09/FearOfPublicSpeaking.html" />
-        <id>tag:www.georgevreilly.com,2016-03-09:/blog/2016/03/09/FearOfPublicSpeaking.html</id>
-        <updated>2016-03-09T07:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;img alt=&#34;Fear of Public Speaking&#34; class=&#34;right-float&#34; src=&#34;http://www.georgevreilly.com/content/binary/Public-Speaking-Fear.jpg&#34;/&gt;
-&lt;p&gt;It is often said that people fear public speaking more than they fear death.
-I certainly used to fear getting up in front of a crowd,
-though not to the point of death.
-Tonight I spoke about &lt;a class=&#34;reference external&#34; href=&#34;http://flyingcloud.readthedocs.org/&#34;&gt;FlyingCloud&lt;/a&gt;
-in front of more than 100 people for half an hour
-at the &lt;a class=&#34;reference external&#34; href=&#34;http://www.meetup.com/PSPPython/events/228878102/&#34;&gt;PuPPy Meetup&lt;/a&gt;.
-I wasn&#39;t nervous beforehand and I wasn&#39;t nervous talking to the crowd.&lt;/p&gt;
-&lt;p&gt;I&#39;ve been an active Toastmaster for nearly 15 years
-and I&#39;ve spoken at Toastmasters hundreds of times.
-I&#39;m used to a room of 15–25 people but not to a larger audience.
-Adam and I put our slides together late last week.
-We ran through it together once on Friday afternoon sitting at his desk,
-and once more yesterday afternoon with an audience of four colleagues.
-We got useful feedback from both exercises.
-I had worked through various points I wanted to make in my head over the last few days,
-but I made no attempt to write out a speech or to memorize my words,
-as I once would have.
-And the talk worked out well, as I expected.
-I knew roughly what I wanted to say and the words flowed.&lt;/p&gt;
 </content>
     </entry>
     </feed>
