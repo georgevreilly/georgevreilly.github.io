@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Find remote Git branch with change to a file</title>
+  <title>Lugging CRT Monitors to Montréal</title>
   <link media="all" href="/style.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
@@ -12,7 +12,8 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content="I needed to track down a remote branch created a c..." />
+    <meta name="description" content=".. image:: /content/binary/monitor-crt.jpg
+    :al..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,34 +32,31 @@
     
         <article>
     <header>
-        <time datetime="2016-04-03">03.04.2016, 00:00</time>
+        <time datetime="2016-04-04">04.04.2016, 00:00</time>
         <h1>
-            <a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" rel="bookmark canonical">Find remote Git branch with change to a file</a>
+            <a href="/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html" rel="bookmark canonical">Lugging CRT Monitors to Montréal</a>
         </h1>
     </header>
-    <p>I needed to track down a remote branch created a couple of months ago
-on another machine.
-I knew which file had been changed,
-but none of the far-too-many remote branches' names rang a bell.</p>
-<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch --contains</a> in the right way finds all the relevant branches.</p>
-
-<pre class="brush: bash">
-git log --all --format=%H FILENAME \
-    | while read f; do git branch --remotes --contains $f; done \
-    | sort -u
-</pre>
-
-<p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> FILENAME</tt>,
-lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal">FILENAME</tt>.
-The second finds all the branches that contain those hashes
-(I added <tt class="docutils literal"><span class="pre">--remotes</span></tt>).
-The third uniquifies the results.</p>
-<p>The <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">original answer</a> goes on to suggest using
-<tt class="docutils literal">gitk <span class="pre">--all</span> <span class="pre">--date-order</span> <span class="pre">--</span> FILENAME</tt>
-to manually inspect all branches.
-However, gitk complains <tt class="docutils literal">unknown color name &quot;lime&quot;</tt> on my new Mac.
-I must have hit this before, on an earlier in&shy;stal&shy;la&shy;tion of Git,
-because the <a class="reference external" href="http://stackoverflow.com/questions/34637896/gitk-will-not-start-on-mac-unknown-color-name-lime">Stack&shy;Over&shy;flow answer</a> contains an edit from me.</p>
+    <img alt="CRT Monitor" class="right-float" src="/content/binary/monitor-crt.jpg"/>
+<p>My first trip to Montréal was a very long business trip in 1995.
+Four colleagues and I spent five or six weeks there,
+just before the <a class="reference external" href="https://en.wikipedia.org/wiki/Quebec_referendum,_1995">Quebec in&shy;de&shy;pen&shy;dence referendum</a>,
+working onsite for our client,
+in&shy;te&shy;grat&shy;ing the UI we had written into the rest of their software.</p>
+<p>We had to bring our own computers, as they declined to provide us with any equipment.
+In 1995, this meant shipping our desktop systems <em>and</em> our heavy CRT monitors.
+Through Canadian Customs.
+And back through US Cusoms when we returned.
+I don't remember how big the monitors were or how much they weighed—27&quot; and 60 lbs?—but they were certainly both bulky and heavy.
+The desktop computers were also large and heavy,
+but less so than the monitors.
+We had to find suitable packaging,
+fly to Vancouver and clear customs,
+and then fly on to Montréal.</p>
+<p>It's far easier now: just bring a laptop.
+Even if you were to bring a monitor too,
+LCD monitors are so much lighter and less bulky
+that it wouldn't be nearly as in&shy;con&shy;ve&shy;nient.</p>
 
     <footer>
         
@@ -72,8 +70,8 @@ because the <a class="reference external" href="http://stackoverflow.com/questio
             var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
 
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html";
-            var disqus_url = "http://www.georgevreilly.com/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html";
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html";
 
             if (window.location.hostname != "localhost") {
                 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -94,14 +92,11 @@ because the <a class="reference external" href="http://stackoverflow.com/questio
 </article>
     
     
-        <a href="/blog/2016/04/02/ReviewTheMercyOfTheNight.html" class="page floatright">
-        Review: The Mercy of the Night &raquo;
+        <a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" class="page floatright">
+        Find remote Git branch with change to a file &raquo;
         </a>
     
     
-        <a href="/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html" class="page floatleft">
-        &laquo; Lugging CRT Monitors to Montréal
-        </a>
 <footer>
     
     
