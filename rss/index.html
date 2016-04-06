@@ -5,9 +5,81 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Mon, 04 Apr 2016 07:00:00 GMT</pubDate>
+        <pubDate>Tue, 05 Apr 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Doctests, Unicode Literals, and Python 2/3 Compatibility</title>
+        <link>http://www.georgevreilly.com/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html</link>
+        <description>&lt;p&gt;I rarely use &lt;a class=&#34;reference external&#34; href=&#34;https://pymotw.com/2/doctest/&#34;&gt;doctests&lt;/a&gt;, but I do have &lt;a class=&#34;reference external&#34; href=&#34;https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/&#34;&gt;some code&lt;/a&gt; that uses them.&lt;/p&gt;
+&lt;p&gt;Although I still mostly write Python 2,
+I usually import several features of Python 3:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+from __future__ import unicode_literals, print_function, absolute_import
+&lt;/pre&gt;
+
+&lt;p&gt;Unfortunately &lt;a class=&#34;reference external&#34; href=&#34;http://python-future.org/unicode_literals.html&#34;&gt;unicode_literals&lt;/a&gt; doesn&#39;t play well with doctests.&lt;/p&gt;
+&lt;p&gt;The following code will pass with &lt;tt class=&#34;docutils literal&#34;&gt;python2 &lt;span class=&#34;pre&#34;&gt;-m&lt;/span&gt; doctest demo.py&lt;/tt&gt;,
+but not with &lt;tt class=&#34;docutils literal&#34;&gt;python3&lt;/tt&gt;:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+from __future__ import unicode_literals, print_function, absolute_import
+
+def upper(s):
+    &#34;&#34;&#34;
+    Convert `s` to upper case.
+
+    &gt;&gt;&gt; upper(&#39;Hello!&#39;)
+    u&#39;HELLO!&#39;
+    &#34;&#34;&#34;
+    return s.upper()
+&lt;/pre&gt;
+
+&lt;p&gt;Python 3 complains:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+Failed example:
+    upper(&#39;Hello!&#39;)
+Expected:
+    u&#39;HELLO!&#39;
+Got:
+    &#39;HELLO!&#39;
+&lt;/pre&gt;
+&lt;p&gt;The problem is that Python 2&#39;s &lt;tt class=&#34;docutils literal&#34;&gt;repr&lt;/tt&gt; for a Unicode string
+prefixes the string with &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt;,
+while Python 3&#39;s repr does not
+(all strings are Unicode).&lt;/p&gt;
+&lt;p&gt;The test can be made to pass by removing &lt;tt class=&#34;docutils literal&#34;&gt;unicode_literals&lt;/tt&gt;
+from the &lt;tt class=&#34;docutils literal&#34;&gt;from __future__ import&lt;/tt&gt;,
+but this also removes the benefit of implicitly forcing all string literals to be Unicode.&lt;/p&gt;
+&lt;p&gt;Another workaround is to use &lt;a class=&#34;reference external&#34; href=&#34;https://pythonhosted.org/six/&#34;&gt;six&lt;/a&gt; thus:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+from __future__ import unicode_literals, print_function, absolute_import
+
+import six
+
+def upper(s):
+    &#34;&#34;&#34;
+    Convert `s` to upper case.
+
+    &gt;&gt;&gt; upper(&#39;Hello!&#39;) == six.text_type(u&#39;HELLO!&#39;)
+    True
+    &#34;&#34;&#34;
+    return s.upper()
+&lt;/pre&gt;
+
+&lt;p&gt;This works, but is less clear.
+If the assertion fails,
+complaining about &lt;tt class=&#34;docutils literal&#34;&gt;True&lt;/tt&gt; instead of &lt;tt class=&#34;docutils literal&#34;&gt;HELLO!&lt;/tt&gt; is far less clear.&lt;/p&gt;
+&lt;p&gt;Lennart Regebro has a good discussion of other &lt;a class=&#34;reference external&#34; href=&#34;http://python3porting.com/problems.html#running-doctests&#34;&gt;doctest migration problems&lt;/a&gt;.
+If you&#39;re willing to use a more sophisticated method of running doctests,
+you can try a &lt;a class=&#34;reference external&#34; href=&#34;https://dirkjan.ochtman.nl/writing/2014/07/06/single-source-python-23-doctests.html&#34;&gt;doctest output checker&lt;/a&gt; or a &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/gnublade/doctest-ignore-unicode&#34;&gt;nose plugin&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 05 Apr 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-04-05:/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html</guid>
+    </item>
         
             <item>
         <title>Lugging CRT Monitors to Montréal</title>
@@ -785,51 +857,6 @@ We had to update our copy of the &lt;a class=&#34;reference external&#34; href=&
 </description>
         <pubDate>Sat, 12 Mar 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-12:/blog/2016/03/12/DaylightSavingTime.html</guid>
-    </item>
-        
-            <item>
-        <title>Hillary Clinton &#34;Misspeaks&#34; about Nancy Reagan and AIDS</title>
-        <link>http://www.georgevreilly.com/blog/2016/03/11/HillaryClintonMisspeaksAboutNancyReaganAndAIDS.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://mic.com/articles/137718/ronald-and-nancy-reagan-ignored-the-aids-crisis-and-you-know-it-hillary-clinton&#34;&gt;&lt;img alt=&#34;https://external-sea1-1.xx.fbcdn.net/safe_image.php?d=AQAhiIzEsHcZPQSz&amp;amp;w=487&amp;amp;h=255&amp;amp;url=http%3A%2F%2Fthumbs.mic.com%2FZjllMzg4ZjY2OSMvdjlwbEZxMzJ4ZnBIclJZU1RWTmx6dTkyNzVjPS8weDA6OTc5eDUxMi8xMjAweDYzMC9maWx0ZXJzOnF1YWxpdHkoNzApL2h0dHA6Ly9zMy5hbWF6b25hd3MuY29tL3BvbGljeW1pYy1pbWFnZXMvcXN6dTF2bDNkOGNmYTJneTYwam5rZ2x6czBncDBwbGVrbHNldHFlcDZwbTliOHFid2EzbW44eHBuYnZybWhpei5qcGc.jpg&amp;amp;cfs=1&amp;amp;upscale=1&amp;amp;sx=0&amp;amp;sy=1&amp;amp;sw=1200&amp;amp;sh=628&amp;amp;ext=png2jpg&#34; class=&#34;right-float&#34; src=&#34;https://external-sea1-1.xx.fbcdn.net/safe_image.php?d=AQAhiIzEsHcZPQSz&amp;amp;w=487&amp;amp;h=255&amp;amp;url=http%3A%2F%2Fthumbs.mic.com%2FZjllMzg4ZjY2OSMvdjlwbEZxMzJ4ZnBIclJZU1RWTmx6dTkyNzVjPS8weDA6OTc5eDUxMi8xMjAweDYzMC9maWx0ZXJzOnF1YWxpdHkoNzApL2h0dHA6Ly9zMy5hbWF6b25hd3MuY29tL3BvbGljeW1pYy1pbWFnZXMvcXN6dTF2bDNkOGNmYTJneTYwam5rZ2x6czBncDBwbGVrbHNldHFlcDZwbTliOHFid2EzbW44eHBuYnZybWhpei5qcGc.jpg&amp;amp;cfs=1&amp;amp;upscale=1&amp;amp;sx=0&amp;amp;sy=1&amp;amp;sw=1200&amp;amp;sh=628&amp;amp;ext=png2jpg&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;In an interview with MSNBC Friday,
-2016 Democratic presidential candidate Hillary Clinton said
-that Ronald and Nancy Reagan helped start a national conversation about HIV/AIDS.
-This is not exactly a bald-faced lie,
-but it is a gross misunderstanding of history
-and a misrepresentation of the true governmental neglect
-during the AIDS epidemic that killed millions worldwide.&lt;/p&gt;
-&lt;p class=&#34;attribution&#34;&gt;&amp;mdash;Mathew Rodriguez, &lt;a class=&#34;reference external&#34; href=&#34;http://mic.com/articles/137718/ronald-and-nancy-reagan-ignored-the-aids-crisis-and-you-know-it-hillary-clinton&#34;&gt;mic.com&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;As I wrote on Facebook earlier today:&lt;/p&gt;
-&lt;blockquote&gt;
-I&#39;m really surprised by this.
-I expected Hillary Clinton to know better.
-It&#39;s one thing not to speak ill of the dead at their funeral.
-It&#39;s quite another to make such a profoundly wrong assertion.
-The Reagan White House&#39;s negligence and homophobia
-was directly responsible for the growth of the AIDS pandemic in the early years.&lt;/blockquote&gt;
-&lt;p&gt;Clinton later made a weak apology saying that she &amp;quot;misspoke.&amp;quot;&lt;/p&gt;
-&lt;p&gt;Ronald Reagan stood by for six years,
-waiting until 1987 to give a major speech about AIDS.
-By that point, 20,000 were dead of AIDS in the US alone.
-But most of the dead were gays or minorities or intravenous drug users,
-despised by the Republicans.
-Nancy Reagan was complicit in that.&lt;/p&gt;
-&lt;p&gt;I&#39;m amazed and disappointed that Clinton got it so wrong,
-both in the interview and in the walk-back.
-She&#39;s clearly a well-informed, intelligent woman,
-who&#39;s led in the past over AIDS issues.
-I expect better.&lt;/p&gt;
-&lt;p&gt;Update 2016-03-12:
-Clinton has issued a &lt;a class=&#34;reference external&#34; href=&#34;https://medium.com/@HillaryClinton/on-the-fight-against-hiv-and-aids-and-on-the-people-who-really-started-the-conversation-7b9fc00e6ed8&#34;&gt;much better apology&lt;/a&gt;.
-It doesn&#39;t take the Reagans to task for their inaction
-but it is otherwise much better informed
-and acknowledges the devestation past and present of AIDS and HIV.&lt;/p&gt;
-</description>
-        <pubDate>Fri, 11 Mar 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-11:/blog/2016/03/11/HillaryClintonMisspeaksAboutNancyReaganAndAIDS.html</guid>
     </item>
         </channel>
 </rss>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Doctests, Unicode Literals, and Python 2/3 Compatibility</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="I rarely use `doctests`_, but I do have `some code..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-04-05">05.04.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" rel="bookmark canonical">Doctests, Unicode Literals, and Python 2/3 Compatibility</a>
+        </h1>
+    </header>
+    <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses them.</p>
+<p>Although I still mostly write Python 2,
+I usually import several features of Python 3:</p>
+
+<pre class="brush: python">
+from __future__ import unicode_literals, print_function, absolute_import
+</pre>
+
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni&shy;code_lit&shy;er&shy;als</a> doesn't play well with doctests.</p>
+<p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
+but not with <tt class="docutils literal">python3</tt>:</p>
+
+<pre class="brush: python">
+from __future__ import unicode_literals, print_function, absolute_import
+
+def upper(s):
+    """
+    Convert `s` to upper case.
+
+    >>> upper('Hello!')
+    u'HELLO!'
+    """
+    return s.upper()
+</pre>
+
+<p>Python 3 complains:</p>
+<pre class="literal-block">
+Failed example:
+    upper('Hello!')
+Expected:
+    u'HELLO!'
+Got:
+    'HELLO!'
+</pre>
+<p>The problem is that Python 2's <tt class="docutils literal">repr</tt> for a Unicode string
+prefixes the string with <tt class="docutils literal">u</tt>,
+while Python 3's repr does not
+(all strings are Unicode).</p>
+<p>The test can be made to pass by removing <tt class="docutils literal">uni&shy;code_lit&shy;er&shy;als</tt>
+from the <tt class="docutils literal">from __future__ import</tt>,
+but this also removes the benefit of implicitly forcing all string literals to be Unicode.</p>
+<p>Another workaround is to use <a class="reference external" href="https://pythonhosted.org/six/">six</a> thus:</p>
+
+<pre class="brush: python">
+from __future__ import unicode_literals, print_function, absolute_import
+
+import six
+
+def upper(s):
+    """
+    Convert `s` to upper case.
+
+    >>> upper('Hello!') == six.text_type(u'HELLO!')
+    True
+    """
+    return s.upper()
+</pre>
+
+<p>This works, but is less clear.
+If the assertion fails,
+com&shy;plain&shy;ing about <tt class="docutils literal">True</tt> instead of <tt class="docutils literal">HELLO!</tt> is far less clear.</p>
+<p>Lennart Regebro has a good discussion of other <a class="reference external" href="http://python3porting.com/problems.html#running-doctests">doctest migration problems</a>.
+If you're willing to use a more so&shy;phis&shy;ti&shy;cat&shy;ed method of running doctests,
+you can try a <a class="reference external" href="https://dirkjan.ochtman.nl/writing/2014/07/06/single-source-python-23-doctests.html">doctest output checker</a> or a <a class="reference external" href="https://github.com/gnublade/doctest-ignore-unicode">nose plugin</a>.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html" class="page floatright">
+        Lugging CRT Monitors to Montréal &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
