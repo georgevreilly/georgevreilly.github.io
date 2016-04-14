@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>io.StringIO and UnicodeCSV DictWriter</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="I like to use `io.StringIO`_ rather than the older..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-04-13">13.04.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" rel="bookmark canonical">io.StringIO and UnicodeCSV DictWriter</a>
+        </h1>
+    </header>
+    <p>I like to use <a class="reference external" href="https://docs.python.org/2/library/io.html#io.StringIO">io.StringIO</a> rather than the older <a class="reference external" href="https://docs.python.org/2/library/stringio.html#cStringIO.StringIO">cStringIO.StringIO</a>,
+as it's Python 3–ready
+<tt class="docutils literal">io.StringIO</tt> is also a <a class="reference external" href="https://docs.python.org/2/reference/datamodel.html#context-managers">context manager</a>:
+if you use it in a <tt class="docutils literal">with</tt> statement,
+the string buffer is au&shy;to&shy;mat&shy;i&shy;cal&shy;ly <tt class="docutils literal">close</tt>d as you go out of scope.</p>
+<p>I tried using <tt class="docutils literal">io.StringIO</tt> with <a class="reference external" href="https://github.com/jdunck/python-unicodecsv">unicodecsv</a>,
+as I wanted to capture the CSV output into a string buffer
+for use with unit tests.
+<tt class="docutils literal">unicodecsv</tt> is a drop-in re&shy;place&shy;ment for Python's built-in <tt class="docutils literal">csv</tt> module,
+which supports Unicode strings.</p>
+
+<pre class="brush: python">
+with io.StringIO() as csv_file:
+    write_csv_rows(csv_file)
+    lines = csv_file.getvalue().split('\r\n')
+    return lines[:-1]  # drop empty line after trailing \r\n
+</pre>
+
+<p>It failed horribly with
+<tt class="docutils literal">TypeError: unicode argument expected, got 'str'</tt>.</p>
+<p>I managed to fix it by using <tt class="docutils literal">cStringIO.StringIO</tt> and <a class="reference external" href="https://docs.python.org/2/library/contextlib.html#contextlib.closing">contextlib.closing</a></p>
+
+<pre class="brush: python">
+with contextlib.closing(cStringIO.StringIO()) as csv_file:
+    ...
+</pre>
+
+<p>Writing this post, however,
+I realized how to fix it properly.
+Use <a class="reference external" href="https://docs.python.org/2/library/io.html#io.BytesIO">io.BytesIO</a>:</p>
+
+<pre class="brush: python">
+with io.BytesIO() as csv_file:
+    ...
+</pre>
+
+<p>I now realize that <tt class="docutils literal">io.StringIO</tt> is expecting a Unicode string,
+while the classic <tt class="docutils literal">cStringIO.StringIO</tt> is expecting a byte string.
+UnicodeCSV implicitly takes care of the character encoding,
+so we have a byte stream that's being written.</p>
+<p>There are examples with the old <tt class="docutils literal">StringIO</tt> in the <tt class="docutils literal">unicodecsv</tt> code,
+but somehow I missed that <tt class="docutils literal">io.BytesIO</tt> is used in <tt class="docutils literal">unicodecsv</tt>'s GitHub README.</p>
+<p>cStringIO: “Unlike the StringIO module, this module is not able to accept Unicode strings
+that cannot be encoded as plain ASCII strings.”</p>
+<p>UnicodeCSV: “Note that unicodecsv expects a bytestream, not unicode.”</p>
+<p>io: “Since this module has been designed primarily for Python 3.x,
+you have to be aware that all uses of “bytes” in this document
+refer to the <tt class="docutils literal">str</tt> type (of which bytes is an alias),
+and all uses of “text” refer to the <tt class="docutils literal">unicode</tt> type.
+Fur&shy;ther&shy;more, those two types are not in&shy;ter&shy;change&shy;able in the io APIs.”</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2016/04/12/ReviewVenetianMask.html" class="page floatright">
+        Review: Venetian Mask &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

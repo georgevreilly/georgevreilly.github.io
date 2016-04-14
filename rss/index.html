@@ -5,9 +5,67 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Tue, 12 Apr 2016 07:00:00 GMT</pubDate>
+        <pubDate>Wed, 13 Apr 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>io.StringIO and UnicodeCSV DictWriter</title>
+        <link>http://www.georgevreilly.com/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html</link>
+        <description>&lt;p&gt;I like to use &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/io.html#io.StringIO&#34;&gt;io.StringIO&lt;/a&gt; rather than the older &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/stringio.html#cStringIO.StringIO&#34;&gt;cStringIO.StringIO&lt;/a&gt;,
+as it&#39;s Python 3–ready
+&lt;tt class=&#34;docutils literal&#34;&gt;io.StringIO&lt;/tt&gt; is also a &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/reference/datamodel.html#context-managers&#34;&gt;context manager&lt;/a&gt;:
+if you use it in a &lt;tt class=&#34;docutils literal&#34;&gt;with&lt;/tt&gt; statement,
+the string buffer is automatically &lt;tt class=&#34;docutils literal&#34;&gt;close&lt;/tt&gt;d as you go out of scope.&lt;/p&gt;
+&lt;p&gt;I tried using &lt;tt class=&#34;docutils literal&#34;&gt;io.StringIO&lt;/tt&gt; with &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/jdunck/python-unicodecsv&#34;&gt;unicodecsv&lt;/a&gt;,
+as I wanted to capture the CSV output into a string buffer
+for use with unit tests.
+&lt;tt class=&#34;docutils literal&#34;&gt;unicodecsv&lt;/tt&gt; is a drop-in replacement for Python&#39;s built-in &lt;tt class=&#34;docutils literal&#34;&gt;csv&lt;/tt&gt; module,
+which supports Unicode strings.&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+with io.StringIO() as csv_file:
+    write_csv_rows(csv_file)
+    lines = csv_file.getvalue().split(&#39;\r\n&#39;)
+    return lines[:-1]  # drop empty line after trailing \r\n
+&lt;/pre&gt;
+
+&lt;p&gt;It failed horribly with
+&lt;tt class=&#34;docutils literal&#34;&gt;TypeError: unicode argument expected, got &#39;str&#39;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;I managed to fix it by using &lt;tt class=&#34;docutils literal&#34;&gt;cStringIO.StringIO&lt;/tt&gt; and &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/contextlib.html#contextlib.closing&#34;&gt;contextlib.closing&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+with contextlib.closing(cStringIO.StringIO()) as csv_file:
+    ...
+&lt;/pre&gt;
+
+&lt;p&gt;Writing this post, however,
+I realized how to fix it properly.
+Use &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/io.html#io.BytesIO&#34;&gt;io.BytesIO&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+with io.BytesIO() as csv_file:
+    ...
+&lt;/pre&gt;
+
+&lt;p&gt;I now realize that &lt;tt class=&#34;docutils literal&#34;&gt;io.StringIO&lt;/tt&gt; is expecting a Unicode string,
+while the classic &lt;tt class=&#34;docutils literal&#34;&gt;cStringIO.StringIO&lt;/tt&gt; is expecting a byte string.
+UnicodeCSV implicitly takes care of the character encoding,
+so we have a byte stream that&#39;s being written.&lt;/p&gt;
+&lt;p&gt;There are examples with the old &lt;tt class=&#34;docutils literal&#34;&gt;StringIO&lt;/tt&gt; in the &lt;tt class=&#34;docutils literal&#34;&gt;unicodecsv&lt;/tt&gt; code,
+but somehow I missed that &lt;tt class=&#34;docutils literal&#34;&gt;io.BytesIO&lt;/tt&gt; is used in &lt;tt class=&#34;docutils literal&#34;&gt;unicodecsv&lt;/tt&gt;&#39;s GitHub README.&lt;/p&gt;
+&lt;p&gt;cStringIO: “Unlike the StringIO module, this module is not able to accept Unicode strings
+that cannot be encoded as plain ASCII strings.”&lt;/p&gt;
+&lt;p&gt;UnicodeCSV: “Note that unicodecsv expects a bytestream, not unicode.”&lt;/p&gt;
+&lt;p&gt;io: “Since this module has been designed primarily for Python 3.x,
+you have to be aware that all uses of “bytes” in this document
+refer to the &lt;tt class=&#34;docutils literal&#34;&gt;str&lt;/tt&gt; type (of which bytes is an alias),
+and all uses of “text” refer to the &lt;tt class=&#34;docutils literal&#34;&gt;unicode&lt;/tt&gt; type.
+Furthermore, those two types are not interchangeable in the io APIs.”&lt;/p&gt;
+</description>
+        <pubDate>Wed, 13 Apr 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-04-13:/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html</guid>
+    </item>
         
             <item>
         <title>Review: Venetian Mask</title>
@@ -788,41 +846,6 @@ I didn&#39;t enjoy it very much.&lt;/p&gt;
 </description>
         <pubDate>Sun, 20 Mar 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-20:/blog/2016/03/20/ReviewTheAnnunciate.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: The God&#39;s Eye View</title>
-        <link>http://www.georgevreilly.com/blog/2016/03/19/ReviewTheGodsEyeView.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/B00XT47SOK/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;The God&#39;s Eye View&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/B00XT47SOK.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: The God&#39;s Eye View&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: Barry Eisler&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Thomas &amp;amp; Mercer&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 2016&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/B00XT47SOK/?tag=georgvreill-20&#34;&gt;B00XT47SOK&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 417&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: thriller&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 3–10 March, 2016&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;An NSA analyst spots a suspicious correlation between the NSA station chief in Ankara
-and a crusading journalist, and she reports it to the director of the NSA.
-The station chief promptly dies in a car crash
-and the journalist is abducted by Syrian terrorists,
-and she starts to worry.
-As the ever-more authoritarian director goes further off the deep end,
-her worry grows—with good reason.
-And the director&#39;s hatchet man who is assigned to monitor her
-unexpectedly turns out to have human feelings.&lt;/p&gt;
-&lt;p&gt;This is a classic paranoid spy thriller, rooted in reality
-(there are dozens of endnotes to assure you of this).
-The director&#39;s paranoia and hubris is over the top,
-but most of the other characters seem plausible,
-as does much of the surveillance technology.
-Eisler clearly intends this to be a wake-up call for the post-Snowden world.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 19 Mar 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-19:/blog/2016/03/19/ReviewTheGodsEyeView.html</guid>
     </item>
         </channel>
 </rss>
