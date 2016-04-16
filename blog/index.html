@@ -29,6 +29,47 @@
     
         <article>
     <header>
+        <time datetime="2016-04-15">15.04.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/04/15/ReviewTheLockedRoom.html" rel="bookmark canonical">Review: The Locked Room</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/0394742745/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: The Locked Room</div>
+<div class="line">Author: Maj Sjöwall &amp; Per Wahlöö</div>
+<div class="line">Rating: ★ ★ ★ ½</div>
+<div class="line">Publisher: Vintage</div>
+<div class="line">Copyright: 1973</div>
+<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/0394742745/?tag=georgvreill-20">0394742745</a></div>
+<div class="line">Pages: 279</div>
+<div class="line">Keywords: mystery</div>
+<div class="line">Reading period: 8–12 April, 2016</div>
+</div>
+<p>In <a class="reference external" href="https://en.wikipedia.org/wiki/The_Locked_Room">The Locked Room</a>,
+Martin Beck, recovering from being shot,
+in&shy;ves&shy;ti&shy;gates the death of a man,
+who has been found shot in a locked room with no gun.
+Meanwhile, some of his former colleagues,
+now serving on a special task force,
+are trying to deal with an epidemic of bank robberies.
+The latter is a comedy of errors, with the police con&shy;sis&shy;tent&shy;ly messing up.</p>
+<p>The authors are severely critical of the growth of Swedish police powers
+in the decade before this book was written.
+They also write harshly of <span>&#8230;<a href="/blog/2016/04/15/ReviewTheLockedRoom.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/15/ReviewTheLockedRoom.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-04-14">14.04.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/04/14/ReviewAStoneOfTheHeart.html" rel="bookmark canonical">Review: A Stone of the Heart</a>
@@ -344,59 +385,6 @@ and joins the Nazi party early, rising <span>&#8230;<a href="/blog/2016/04/06/Re
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/06/ReviewWinter.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-04-05">05.04.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" rel="bookmark canonical">Doctests, Unicode Literals, and Python 2/3 Compatibility</a>
-        </h1>
-    </header>
-    <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses them.</p>
-<p>Although I still mostly write Python 2,
-I usually import several features of Python 3:</p>
-
-<pre class="brush: python">
-from __future__ import unicode_literals, print_function, absolute_import
-</pre>
-
-<p>Un&shy;for&shy;tu&shy;nate&shy;ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni&shy;code_lit&shy;er&shy;als</a> doesn't play well with doctests.</p>
-<p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
-but not with <tt class="docutils literal">python3</tt>:</p>
-
-<pre class="brush: python">
-from __future__ import unicode_literals, print_function, absolute_import
-
-def upper(s):
-    """
-    Convert `s` to upper case.
-
-    >>> upper('Hello!')
-    u'HELLO!'
-    """
-    return s.upper()
-</pre>
-
-<p>Python 3 complains:</p>
-<pre class="literal-block">
-Failed example:
-    upper('Hello!')
-Expected:
-    u'HELLO!'
-Got:
-    'HELLO!'
-</pre>
-<p>The <span>&#8230;<a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
