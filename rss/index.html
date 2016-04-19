@@ -5,14 +5,52 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Sun, 17 Apr 2016 07:00:00 GMT</pubDate>
+        <pubDate>Mon, 18 Apr 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
         
             <item>
+        <title>Review: Valor of the Healer</title>
+        <link>http://www.georgevreilly.com/blog/2016/04/18/ReviewValorOfTheHealer.html</link>
+        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/B00APEXMJC/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Valor of the Healer&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/B00APEXMJC.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
+&lt;div class=&#34;line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;Title: Valor of the Healer&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Author: Angela Highland&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Publisher: Carina Press&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Copyright: 2013&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/B00APEXMJC/?tag=georgvreill-20&#34;&gt;B00APEXMJC&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Pages: 266&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Keywords: fantasy&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Reading period: 17 March–14 April, 2016&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Fleeing from his botched attempt to assassinate the Duke of Shalridan,
+Julian discovers the Duke&#39;s greatest secret:
+Faanshi, a half-elven slave girl with extraordinary powers of healing.
+She heals his wounds in an instant and he makes his escape.
+Meanwhile, Kestar, a knight of the Order of the Hawk,
+who are sworn to extirpate elven magic,
+also discovers her existence.
+When Julian rescues her and Kestar is gravely wounded,
+she heals him too,
+forming a strong mental bond with him,
+which endangers them all.&lt;/p&gt;
+&lt;p&gt;This is a well-told high fantasy,
+with believable characters, a solid plot, and good worldbuilding.
+The three protagonists struggle with the fates that entwine them.
+Faanshi progresses from cowed slave to valiant heroine;
+Julian overcomes his bitter cynicism;
+while Kestar&#39;s beliefs and values are ripped apart.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 18 Apr 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-04-18:/blog/2016/04/18/ReviewValorOfTheHealer.html</guid>
+    </item>
+        
+            <item>
         <title>Running after Stitches</title>
         <link>http://www.georgevreilly.com/blog/2016/04/17/RunningAfterStitches.html</link>
-        <description>&lt;p&gt;I had a &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/03/23/MoleRemoval.html&#34;&gt;mole excised&lt;/a&gt; from my lower calf three weeks ago,
+        <description>&lt;img alt=&#34;Mole Scar&#34; class=&#34;right-float&#34; src=&#34;http://www.georgevreilly.com/content/binary/mole-scar.jpg&#34;/&gt;
+&lt;p&gt;I had a &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/03/23/MoleRemoval.html&#34;&gt;mole excised&lt;/a&gt; from my lower calf three weeks ago,
 after a biopsy found that it was “abnormal”.
 The biopsy on the excised remainder came back clean.
 I went back to the surgeon&#39;s office during the week to have the stitches removed.
@@ -782,55 +820,6 @@ dropped from 1,500 seconds to 0.56 seconds.&lt;/p&gt;
 </description>
         <pubDate>Fri, 25 Mar 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-25:/blog/2016/03/25/Profiling.html</guid>
-    </item>
-        
-            <item>
-        <title>Raising IOError for &#39;file not found&#39;</title>
-        <link>http://www.georgevreilly.com/blog/2016/03/24/RaisingIOErrorForFileNotFound.html</link>
-        <description>&lt;p&gt;I wanted to raise Python&#39;s &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/exceptions.html#exceptions.IOError&#34;&gt;IOError&lt;/a&gt; for a file-not-found condition,
-but it wasn&#39;t obvious what the parameters to the exception should be.&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-from errno import ENOENT
-
-if not os.path.isfile(source_file):
-    raise IOError(ENOENT, &#39;Not a file&#39;, source_file)
-with open(source_file) as fp:
-    return fp.read()
-&lt;/pre&gt;
-
-&lt;p&gt;&lt;tt class=&#34;docutils literal&#34;&gt;IOError&lt;/tt&gt; can be instantiated with 1, 2, or 3 arguments:&lt;/p&gt;
-&lt;dl class=&#34;docutils&#34;&gt;
-&lt;dt&gt;&lt;tt class=&#34;docutils literal&#34;&gt;IOError(errno, strerror, filename)&lt;/tt&gt;&lt;/dt&gt;
-&lt;dd&gt;These arguments are available
-on the &lt;tt class=&#34;docutils literal&#34;&gt;errno&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;strerror&lt;/tt&gt;, and &lt;tt class=&#34;docutils literal&#34;&gt;filename&lt;/tt&gt; attributes of the exception object,
-respectively, in both Python 2 and 3.
-The &lt;tt class=&#34;docutils literal&#34;&gt;args&lt;/tt&gt; attribute contains the verbatim constructor arguments as a tuple.&lt;/dd&gt;
-&lt;dt&gt;&lt;tt class=&#34;docutils literal&#34;&gt;IOError(errno, strerror)&lt;/tt&gt;&lt;/dt&gt;
-&lt;dd&gt;These are available on the &lt;tt class=&#34;docutils literal&#34;&gt;errno&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;strerror&lt;/tt&gt; attributes of the exception,
-respectively, in both Python 2 and 3,
-while the &lt;tt class=&#34;docutils literal&#34;&gt;filename&lt;/tt&gt; attribute is &lt;tt class=&#34;docutils literal&#34;&gt;None&lt;/tt&gt;.&lt;/dd&gt;
-&lt;dt&gt;&lt;tt class=&#34;docutils literal&#34;&gt;IOError(errmsg)&lt;/tt&gt;&lt;/dt&gt;
-&lt;dd&gt;In Python 2, &lt;tt class=&#34;docutils literal&#34;&gt;errmsg&lt;/tt&gt; is available
-on the deprecated &lt;tt class=&#34;docutils literal&#34;&gt;message&lt;/tt&gt; attribute of the exception.
-There is no &lt;tt class=&#34;docutils literal&#34;&gt;message&lt;/tt&gt; attribute on the exception object in Python 3;
-you must obtain &lt;tt class=&#34;docutils literal&#34;&gt;errmsg&lt;/tt&gt; from the &lt;tt class=&#34;docutils literal&#34;&gt;args&lt;/tt&gt; attribute.
-The &lt;tt class=&#34;docutils literal&#34;&gt;errno&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;strerror&lt;/tt&gt;, and &lt;tt class=&#34;docutils literal&#34;&gt;filename&lt;/tt&gt; attributes are all &lt;tt class=&#34;docutils literal&#34;&gt;None&lt;/tt&gt;.&lt;/dd&gt;
-&lt;/dl&gt;
-&lt;p&gt;I used &lt;tt class=&#34;docutils literal&#34;&gt;errno.ENOENT&lt;/tt&gt; above.
-You can obtain all the &lt;tt class=&#34;docutils literal&#34;&gt;errno&lt;/tt&gt; error codes and descriptions with
-&lt;tt class=&#34;docutils literal&#34;&gt;[(k,v, os.strerror(k)) for k,v in &lt;span class=&#34;pre&#34;&gt;os.errno.errorcode.items()]&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;You may object that opening a file only after checking for its existence
-is fragile because there&#39;s a small window between checking and opening
-where the file could be removed by another process.
-You&#39;d be right.
-In such a case, &lt;tt class=&#34;docutils literal&#34;&gt;open(filename)&lt;/tt&gt; will raise
-&lt;tt class=&#34;docutils literal&#34;&gt;IOError(ENOENT, &amp;quot;No such file or directory&amp;quot;, filename)&lt;/tt&gt;.
-Still, there are other cases where it&#39;s useful to raise the 2- or 3-argument
-form of &lt;tt class=&#34;docutils literal&#34;&gt;IOError&lt;/tt&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Thu, 24 Mar 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-03-24:/blog/2016/03/24/RaisingIOErrorForFileNotFound.html</guid>
     </item>
         </channel>
 </rss>
