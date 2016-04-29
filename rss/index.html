@@ -5,9 +5,40 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Wed, 27 Apr 2016 07:00:00 GMT</pubDate>
+        <pubDate>Thu, 28 Apr 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Review: Spy Line</title>
+        <link>http://www.georgevreilly.com/blog/2016/04/28/ReviewSpyLine.html</link>
+        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0586068988/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Spy Line&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/0586068988.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
+&lt;div class=&#34;line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;Title: Spy Line&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Author: Len Deighton&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Publisher: Ballantine&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Copyright: 1989&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/0586068988/?tag=georgvreill-20&#34;&gt;0586068988&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Pages: 316&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Keywords: spy&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Reading period: 22–23 April, 2016&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Spy_Line&#34;&gt;Spy Line&lt;/a&gt; is the sequel to &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/04/21/ReviewSpyHook.html&#34;&gt;Spy Hook&lt;/a&gt;.
+Bernard Samson is on the run from MI6 in East Berlin
+after asking unwelcome questions about a slush fund.
+Eventually they settle their differences
+and MI6 sends him on a mission to Vienna,
+where he learns that his wife Fiona,
+widely believed to be a traitor who had defected to the KGB,
+was in fact a double agent.
+Samson is world-weary but shocked to learn that the truth of his wife&#39;s supposed defection
+had been hidden from him by Fiona and by the handful of superiors who knew the truth.&lt;/p&gt;
+&lt;p&gt;A satisfying middle book in this trilogy.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 28 Apr 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-04-28:/blog/2016/04/28/ReviewSpyLine.html</guid>
+    </item>
         
             <item>
         <title>Railroad Diagrams (Syntax Diagrams)</title>
@@ -768,37 +799,6 @@ that it wouldn&#39;t be nearly as inconvenient.&lt;/p&gt;
 </description>
         <pubDate>Mon, 04 Apr 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-04-04:/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html</guid>
-    </item>
-        
-            <item>
-        <title>Find remote Git branch with change to a file</title>
-        <link>http://www.georgevreilly.com/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html</link>
-        <description>&lt;p&gt;I needed to track down a remote branch created a couple of months ago
-on another machine.
-I knew which file had been changed,
-but none of the far-too-many remote branches&#39; names rang a bell.&lt;/p&gt;
-&lt;p&gt;Turns out that using &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file&#34;&gt;git branch --contains&lt;/a&gt; in the right way finds all the relevant branches.&lt;/p&gt;
-
-&lt;pre class=&#34;brush: bash&#34;&gt;
-git log --all --format=%H FILENAME \
-    | while read f; do git branch --remotes --contains $f; done \
-    | sort -u
-&lt;/pre&gt;
-
-&lt;p&gt;The first line, &lt;tt class=&#34;docutils literal&#34;&gt;git log &lt;span class=&#34;pre&#34;&gt;--all&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;--format=%H&lt;/span&gt; FILENAME&lt;/tt&gt;,
-lists all the &lt;em&gt;hashes&lt;/em&gt; for commits that contained changes to &lt;tt class=&#34;docutils literal&#34;&gt;FILENAME&lt;/tt&gt;.
-The second finds all the branches that contain those hashes
-(I added &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--remotes&lt;/span&gt;&lt;/tt&gt;).
-The third uniquifies the results.&lt;/p&gt;
-&lt;p&gt;The &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file&#34;&gt;original answer&lt;/a&gt; goes on to suggest using
-&lt;tt class=&#34;docutils literal&#34;&gt;gitk &lt;span class=&#34;pre&#34;&gt;--all&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;--date-order&lt;/span&gt; &lt;span class=&#34;pre&#34;&gt;--&lt;/span&gt; FILENAME&lt;/tt&gt;
-to manually inspect all branches.
-However, gitk complains &lt;tt class=&#34;docutils literal&#34;&gt;unknown color name &amp;quot;lime&amp;quot;&lt;/tt&gt; on my new Mac.
-I must have hit this before, on an earlier installation of Git,
-because the &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/34637896/gitk-will-not-start-on-mac-unknown-color-name-lime&#34;&gt;StackOverflow answer&lt;/a&gt; contains an edit from me.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 03 Apr 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-04-03:/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html</guid>
     </item>
         </channel>
 </rss>
