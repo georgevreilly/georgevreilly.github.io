@@ -29,6 +29,44 @@
     
         <article>
     <header>
+        <time datetime="2009-03-02">02.03.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/03/02/HashTableAttacks.html" rel="bookmark canonical">Hash Table Attacks</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf"></a>
+<p>At lunch today, I told Eric about <a class="reference external" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf">Hash Attacks</a>:
+for many hash functions,
+it's possible to construct a large set of keys that collide.
+This can be used to cause a Denial of Service
+as hashtable operations can be induced
+to take <em>O(n)</em> time instead of <em>O(1)</em>.</p>
+<p>Crosby and Wallach suc&shy;cess&shy;ful&shy;ly <a class="reference external" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf">demon&shy;strat&shy;ed</a> this
+against a number of ap&shy;pli&shy;ca&shy;tions.</p>
+<p>Andrew has a good writeup of <a class="reference external" href="http://web.archive.org/web/20120318203841/http://www.team5150.com/~andrew/blog/2007/03/hash_algorithm_attacks.html">Hash Algorithm Attacks</a>.</p>
+<p>There are various mit&shy;i&shy;ga&shy;tions suggested.
+The one that I used when I first became aware of this problem
+is to use a salt to the hash function.</p>
+<p>In other words, change:</p>
+
+<pre class="brush: C">
+unsigned hash(const char* s)
+{
+    unsigned h = 0;
+    while </pre><span>&#8230;<a href="/blog/2009/03/02/HashTableAttacks.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2009/03/02/HashTableAttacks.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2009-02-27">27.02.2009, 00:00</time>
         <h1>
             <a href="/blog/2009/02/27/LucidaHybrid.html" rel="bookmark canonical">Lucida Hybrid</a>
@@ -313,46 +351,6 @@ Feh.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2009/02/04/TwitterAndFacebook.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2009-02-03">03.02.2009, 00:00</time>
-        <h1>
-            <a href="/blog/2009/02/03/ReviewTheOutlawDemonWails.html" rel="bookmark canonical">Review: The Outlaw Demon Wails</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0061149829"></a>
-<div class="line-block">
-<div class="line">Title: The Outlaw Demon Wails</div>
-<div class="line">Author: Kim Harrison</div>
-<div class="line">Rating: $stars(3.5)</div>
-<div class="line">Publisher: Eos Books</div>
-<div class="line">Copyright: 2008</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0061149829">0061149829</a></div>
-<div class="line">Pages: 496</div>
-<div class="line">Keywords: urban fantasy</div>
-<div class="line">Reading period: 28 January–3 February, 2009</div>
-</div>
-<p>Sequel to <a class="reference external" href="http://www.georgevreilly.com/blog/2008/01/14/ReviewForAFewDemonsMore.aspx">For a Few Demons More</a>.
-Best read in sequence.</p>
-<p>Rachel Morgan: witch and private in&shy;ves&shy;ti&shy;ga&shy;tor.
-An unknown enemy is summoning a demon every night to kill her.
-She learns some surprising things about her past
-and her place in the world.</p>
-<p>Previous books were heavy on the action;
-here it kicks in very late and the book is very talky.</p>
-<p>Moderately en&shy;ter&shy;tain&shy;ing but weaker than earlier books in the series.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2009/02/03/ReviewTheOutlawDemonWails.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
