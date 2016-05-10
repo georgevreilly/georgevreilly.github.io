@@ -5,9 +5,38 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Sun, 08 May 2016 07:00:00 GMT</pubDate>
+        <pubDate>Mon, 09 May 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Review: Ant-Man</title>
+        <link>http://www.georgevreilly.com/blog/2016/05/09/ReviewAnt-Man.html</link>
+        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Ant-Man_(film)&#34;&gt;&lt;img alt=&#34;Ant-Man&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/en/7/75/Ant-Man_poster.jpg&#34;/&gt;&lt;/a&gt;
+&lt;div class=&#34;line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;Title: Ant-Man&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Director: Peyton Reed&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ½&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Released: 2015&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Keywords: Marvel, superhero&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Watched: 9 May, 2016&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Ant-Man_(film)&#34;&gt;Ant-Man&lt;/a&gt; is a lightweight but appealing entry in the Marvel Cinematic Universe.
+Decades ago, Hank Pym discovered the Pym Particle and invented the Ant-Man suit,
+which allowed him to shrink to the size of an ant.
+He buries the technology, believing it&#39;s too dangerous.
+Now his former protégé Darren Cross is close
+to perfecting the Yellowjacket shrinking suit and selling it to Hydra.
+Pym and his daughter Hope recruit Scott Lang,
+a former burglar, to don the Ant-Man suit to stop Cross.&lt;/p&gt;
+&lt;p&gt;Much of the movie is played for laughs.
+Unlike &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/03/05/ReviewDeadpool.html&#34;&gt;Deadpool&lt;/a&gt;, these are PG-13 laughs.
+Paul Rudd is charming and amusing in the lead role.
+The plot is serviceable, but hardly original.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 09 May 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-05-09:/blog/2016/05/09/ReviewAnt-Man.html</guid>
+    </item>
         
             <item>
         <title>Sixteenth Wedding Anniversary</title>
@@ -682,64 +711,6 @@ but rather a happily married father with a nose for the truth.&lt;/p&gt;
 </description>
         <pubDate>Thu, 14 Apr 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-04-14:/blog/2016/04/14/ReviewAStoneOfTheHeart.html</guid>
-    </item>
-        
-            <item>
-        <title>io.StringIO and UnicodeCSV DictWriter</title>
-        <link>http://www.georgevreilly.com/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html</link>
-        <description>&lt;p&gt;I like to use &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/io.html#io.StringIO&#34;&gt;io.StringIO&lt;/a&gt; rather than the older &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/stringio.html#cStringIO.StringIO&#34;&gt;cStringIO.StringIO&lt;/a&gt;,
-as it&#39;s Python 3–ready
-&lt;tt class=&#34;docutils literal&#34;&gt;io.StringIO&lt;/tt&gt; is also a &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/reference/datamodel.html#context-managers&#34;&gt;context manager&lt;/a&gt;:
-if you use it in a &lt;tt class=&#34;docutils literal&#34;&gt;with&lt;/tt&gt; statement,
-the string buffer is automatically &lt;tt class=&#34;docutils literal&#34;&gt;close&lt;/tt&gt;d as you go out of scope.&lt;/p&gt;
-&lt;p&gt;I tried using &lt;tt class=&#34;docutils literal&#34;&gt;io.StringIO&lt;/tt&gt; with &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/jdunck/python-unicodecsv&#34;&gt;unicodecsv&lt;/a&gt;,
-as I wanted to capture the CSV output into a string buffer
-for use with unit tests.
-&lt;tt class=&#34;docutils literal&#34;&gt;unicodecsv&lt;/tt&gt; is a drop-in replacement for Python&#39;s built-in &lt;tt class=&#34;docutils literal&#34;&gt;csv&lt;/tt&gt; module,
-which supports Unicode strings.&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-with io.StringIO() as csv_file:
-    write_csv_rows(csv_file)
-    lines = csv_file.getvalue().split(&#39;\r\n&#39;)
-    return lines[:-1]  # drop empty line after trailing \r\n
-&lt;/pre&gt;
-
-&lt;p&gt;It failed horribly with
-&lt;tt class=&#34;docutils literal&#34;&gt;TypeError: unicode argument expected, got &#39;str&#39;&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;I managed to fix it by using &lt;tt class=&#34;docutils literal&#34;&gt;cStringIO.StringIO&lt;/tt&gt; and &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/contextlib.html#contextlib.closing&#34;&gt;contextlib.closing&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-with contextlib.closing(cStringIO.StringIO()) as csv_file:
-    ...
-&lt;/pre&gt;
-
-&lt;p&gt;Writing this post, however,
-I realized how to fix it properly.
-Use &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/io.html#io.BytesIO&#34;&gt;io.BytesIO&lt;/a&gt;:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-with io.BytesIO() as csv_file:
-    ...
-&lt;/pre&gt;
-
-&lt;p&gt;I now realize that &lt;tt class=&#34;docutils literal&#34;&gt;io.StringIO&lt;/tt&gt; is expecting a Unicode string,
-while the classic &lt;tt class=&#34;docutils literal&#34;&gt;cStringIO.StringIO&lt;/tt&gt; is expecting a byte string.
-UnicodeCSV implicitly takes care of the character encoding,
-so we have a byte stream that&#39;s being written.&lt;/p&gt;
-&lt;p&gt;There are examples with the old &lt;tt class=&#34;docutils literal&#34;&gt;StringIO&lt;/tt&gt; in the &lt;tt class=&#34;docutils literal&#34;&gt;unicodecsv&lt;/tt&gt; code,
-but somehow I missed that &lt;tt class=&#34;docutils literal&#34;&gt;io.BytesIO&lt;/tt&gt; is used in &lt;tt class=&#34;docutils literal&#34;&gt;unicodecsv&lt;/tt&gt;&#39;s GitHub README.&lt;/p&gt;
-&lt;p&gt;cStringIO: “Unlike the StringIO module, this module is not able to accept Unicode strings
-that cannot be encoded as plain ASCII strings.”&lt;/p&gt;
-&lt;p&gt;UnicodeCSV: “Note that unicodecsv expects a bytestream, not unicode.”&lt;/p&gt;
-&lt;p&gt;io: “Since this module has been designed primarily for Python 3.x,
-you have to be aware that all uses of “bytes” in this document
-refer to the &lt;tt class=&#34;docutils literal&#34;&gt;str&lt;/tt&gt; type (of which bytes is an alias),
-and all uses of “text” refer to the &lt;tt class=&#34;docutils literal&#34;&gt;unicode&lt;/tt&gt; type.
-Furthermore, those two types are not interchangeable in the io APIs.”&lt;/p&gt;
-</description>
-        <pubDate>Wed, 13 Apr 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-04-13:/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html</guid>
     </item>
         </channel>
 </rss>
