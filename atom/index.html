@@ -11,8 +11,53 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-05-16T07:00:00Z</updated>
+    <updated>2016-05-17T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Subtracting Compound Objects</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/05/17/SubtractingCompoundObjects.html" />
+        <id>tag:www.georgevreilly.com,2016-05-17:/blog/2016/05/17/SubtractingCompoundObjects.html</id>
+        <updated>2016-05-17T07:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;Quick!
+How many days between 2014-11-29 and 2016-05-17?
+What&#39;s the angle between the hour hand and the minute hand on an analog clock
+when the time reads 11:37?&lt;/p&gt;
+&lt;p&gt;The hard way to compute the difference between the two dates
+is to start counting back months and days until you reach the earlier date,
+or equivalently to count forward from the beginning.
+(Don&#39;t forget that Feb 2016 has 29 days but Feb 2015 has 28.)
+Similarly with the angle between the hands.&lt;/p&gt;
+&lt;p&gt;The easier way is to compute the number of units between the first point
+and some reference (or base) point,
+to do the same for the second point,
+and to subtract the two numbers.&lt;/p&gt;
+&lt;p&gt;Say the base date is 2000-01-01.
+The first date, 2014-11-29 is 14 years since the base date,
+and 2000, 2004, 2008, and 2012 are leap years,
+so 365*14 + 4 + 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 29 = 5,447 days.
+The second date, 2016-05-17, is
+365*16 + 4 + 31 + 29 + 31 + 30 + 17 = 5,982 days since 2000-01-01.
+(Four not five leap years, since 2016 is incomplete and Feb 29 is counted.)
+The difference is 535 days.&lt;/p&gt;
+&lt;p&gt;All modern date libraries have some notion of an epoch;
+typically 1970-01-01T00:00:00Z is zero seconds.
+Compute the number of seconds since the epoch for both dates, then subtract,
+and divide the remainder by 24*60*60.
+Note: this does not take daylight savings into account,
+when certain days are 23 or 25 hours long.
+However, a decent date library will handle all of this.&lt;/p&gt;
+&lt;p&gt;I learned this trick from Charles Bryant circa 1984 on Vax Pascal.
+I don&#39;t believe there was a date library;
+we just stored the year/month/day in a custom Pascal record.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Toastmasters Transitions</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/05/16/ToastmastersTransitions.html" />
@@ -827,45 +872,6 @@ in those halcyon days between the wars.
 Jeeves himself makes only brief appearances,
 as Bertie fends for himself with middling success.&lt;/p&gt;
 &lt;p&gt;Good stuff, what!&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Review: Spy Hook</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/04/21/ReviewSpyHook.html" />
-        <id>tag:www.georgevreilly.com,2016-04-21:/blog/2016/04/21/ReviewSpyHook.html</id>
-        <updated>2016-04-21T07:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0586068961/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Spy Hook&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/0586068961.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: Spy Hook&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: Len Deighton&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Ballantine&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 1988&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/0586068961/?tag=georgvreill-20&#34;&gt;0586068961&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 320&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: spy&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 16–17 April, 2016&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;Three years ago, in the events that preceded &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Spy_Hook&#34;&gt;Spy Hook&lt;/a&gt;,
-Bernard Samson&#39;s wife Fiona defected from MI6 to the KGB.
-His position at MI6 barely survived.
-He&#39;s picked up the pieces
-and moved out to the suburbs
-with his much younger girlfriend,
-who&#39;s barely older than his children.
-Now he&#39;s investigating a slush fund that&#39;s gone missing
-and it seems that his questions are unwelcome—so unwelcome that by the end of the book,
-he&#39;s on the run in Berlin from the British.&lt;/p&gt;
-&lt;p&gt;I preferred this book to &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/04/06/ReviewWinter.html&#34;&gt;Winter&lt;/a&gt;,
-which served as a distant prequel for three Bernard Samson trilogies by Deighton.
-The linear story of &lt;em&gt;Spy Hook&lt;/em&gt; worked better than the series of vignettes in &lt;em&gt;Winter&lt;/em&gt;.&lt;/p&gt;
 </content>
     </entry>
     </feed>
