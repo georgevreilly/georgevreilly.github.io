@@ -11,8 +11,44 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-05-23T07:00:00Z</updated>
+    <updated>2016-05-24T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Deploying a Docker Container on AWS</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/05/24/DeployingADockerContainerOnAWS.html" />
+        <id>tag:www.georgevreilly.com,2016-05-24:/blog/2016/05/24/DeployingADockerContainerOnAWS.html</id>
+        <updated>2016-05-24T07:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.ybrikman.com/writing/2015/11/11/running-docker-aws-ground-up/&#34;&gt;&lt;img alt=&#34;Docker + AWS&#34; class=&#34;right-float&#34; src=&#34;http://www.ybrikman.com/assets/img/blog/aws-docker/docker-on-aws.png&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;I spent a couple of frustrating hours this evening
+trying to figure out an easy way to deploy a Docker container on AWS.
+I tried out the &lt;a class=&#34;reference external&#34; href=&#34;https://aws.amazon.com/ecs/&#34;&gt;EC2 Container Service&lt;/a&gt; and got lost
+in a sea of Clusters, Tasks, and Services.
+I couldn&#39;t connect to the EC2 instance where my container supposedly lived.&lt;/p&gt;
+&lt;p&gt;I tried &lt;a class=&#34;reference external&#34; href=&#34;https://aws.amazon.com/elasticbeanstalk/&#34;&gt;Elastic Beanstalk&lt;/a&gt; and gave up in exasperation.
+When you create a new Docker environment,
+there&#39;s no way to pull an existing image from an external repo
+that I could see.
+We have some tools for deploying a Docker image to Elastic Beanstalk,
+but they were so cryptic that I didn&#39;t want to pursue that.&lt;/p&gt;
+&lt;p&gt;Eventually I went old school.
+I created a new EC2 instance,
+SSHed in,
+installed Docker,
+logged into the Docker repository,
+pulled the image,
+and started the container.
+Admittedly, redeployment will be a pain
+and I don&#39;t get autoscaling or other AWS goodness,
+but I got the container working in 10 minutes.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Toastmasters&#39; Evaluations</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/05/23/ToastmastersEvaluations.html" />
@@ -857,43 +893,6 @@ Some hosts don&#39;t like that.&lt;/p&gt;
 If you run &lt;tt class=&#34;docutils literal&#34;&gt;file some.iso&lt;/tt&gt;, it will display the label embedded in the disk image.
 More generally, you can run &lt;tt class=&#34;docutils literal&#34;&gt;file&lt;/tt&gt; on many different kinds of files
 and it will do a decent job of identifying the type of data.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Review: Spy Line</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/04/28/ReviewSpyLine.html" />
-        <id>tag:www.georgevreilly.com,2016-04-28:/blog/2016/04/28/ReviewSpyLine.html</id>
-        <updated>2016-04-28T07:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0586068988/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Spy Line&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/0586068988.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: Spy Line&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: Len Deighton&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Ballantine&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 1989&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/0586068988/?tag=georgvreill-20&#34;&gt;0586068988&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 316&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: spy&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 22–23 April, 2016&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Spy_Line&#34;&gt;Spy Line&lt;/a&gt; is the sequel to &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/04/21/ReviewSpyHook.html&#34;&gt;Spy Hook&lt;/a&gt;.
-Bernard Samson is on the run from MI6 in East Berlin
-after asking unwelcome questions about a slush fund.
-Eventually they settle their differences
-and MI6 sends him on a mission to Vienna,
-where he learns that his wife Fiona,
-widely believed to be a traitor who had defected to the KGB,
-was in fact a double agent.
-Samson is world-weary but shocked to learn that the truth of his wife&#39;s supposed defection
-had been hidden from him by Fiona and by the handful of superiors who knew the truth.&lt;/p&gt;
-&lt;p&gt;A satisfying middle book in this trilogy.&lt;/p&gt;
 </content>
     </entry>
     </feed>
