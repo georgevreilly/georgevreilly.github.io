@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Deploying a Docker Container on AWS</title>
+  <title>Seattle Power Outage</title>
   <link media="all" href="/style.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
@@ -12,7 +12,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content=".. image:: http://www.ybrikman.com/assets/img/blog..." />
+    <meta name="description" content=".. image:: https://scontent.cdninstagram.com/t51.2..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,33 +31,34 @@
     
         <article>
     <header>
-        <time datetime="2016-05-24">24.05.2016, 00:00</time>
+        <time datetime="2016-05-25">25.05.2016, 00:00</time>
         <h1>
-            <a href="/blog/2016/05/24/DeployingADockerContainerOnAWS.html" rel="bookmark canonical">Deploying a Docker Container on AWS</a>
+            <a href="/blog/2016/05/25/SeattlePowerOutage.html" rel="bookmark canonical">Seattle Power Outage</a>
         </h1>
     </header>
-    <a class="reference external image-reference" href="http://www.ybrikman.com/writing/2015/11/11/running-docker-aws-ground-up/"><img alt="Docker + AWS" class="right-float" src="http://www.ybrikman.com/assets/img/blog/aws-docker/docker-on-aws.png"/></a>
-<p>I spent a couple of frus&shy;trat&shy;ing hours this evening
-trying to figure out an easy way to deploy a Docker container on AWS.
-I tried out the <a class="reference external" href="https://aws.amazon.com/ecs/">EC2 Container Service</a> and got lost
-in a sea of Clusters, Tasks, and Services.
-I couldn't connect to the EC2 instance where my container supposedly lived.</p>
-<p>I tried <a class="reference external" href="https://aws.amazon.com/elasticbeanstalk/">Elastic Beanstalk</a> and gave up in ex&shy;as&shy;per&shy;a&shy;tion.
-When you create a new Docker en&shy;vi&shy;ron&shy;ment,
-there's no way to pull an existing image from an external repo
-that I could see.
-We have some tools for deploying a Docker image to Elastic Beanstalk,
-but they were so cryptic that I didn't want to pursue that.</p>
-<p>Eventually I went old school.
-I created a new EC2 instance,
-SSHed in,
-installed Docker,
-logged into the Docker repository,
-pulled the image,
-and started the container.
-Admittedly, re&shy;de&shy;ploy&shy;ment will be a pain
-and I don't get au&shy;toscal&shy;ing or other AWS goodness,
-but I got the container working in 10 minutes.</p>
+    <a class="reference external image-reference" href="http://komonews.com/news/local/downtown-seattle-hit-by-major-power-outage"><img alt="The City of #Seattle has lost power... And I'm stuck on the 11th floor." class="right-float" src="https://scontent.cdninstagram.com/t51.2885-15/s320x320/e35/13249716_1560636147564215_1107763522_n.jpg?ig_cache_key=MTI1ODE0OTg5MTQ0NDM4ODgxMg%3D%3D.2" style="width: 200px;"/></a>
+<p>The <a class="reference external" href="http://komonews.com/news/local/downtown-seattle-hit-by-major-power-outage">power suddenly went out</a> at work today about 11:30am.
+There was a technician who was running wires,
+standing on a ladder next to us,
+who disclaimed all re&shy;spon&shy;si&shy;bil&shy;i&shy;ty.
+Since the wires were Ethernet cables, we believed him.
+It quickly became apparent that it was not just our office or even our building,
+but many blocks of downtown Seattle that had lost power.
+One person was trapped in the elevator in our old Pioneer Square building.
+Within half an hour, everyone had left the office.
+Although most of us have laptops,
+no elec&shy;tric&shy;i&shy;ty meant no Internet.
+I drifted up to Capitol Hill and spent the afternoon
+working with two colleagues in a coffee shop.</p>
+<p>The power came back after an hour.
+Meanwhile, it had become very apparent how fragile our in&shy;fra&shy;struc&shy;ture is,
+as tens of thousands of people lost power in downtown Seattle.
+Everything ground to a halt, including traffic,
+as the stop lights stopped working.
+Lots of people had to walk down many flights of stairs in tall buildings.
+Although it was lunchtime,
+restau&shy;rants and coffee shops were unable to serve customers.</p>
+<p>What a mess.</p>
 
     <footer>
         
@@ -71,8 +72,8 @@ but I got the container working in 10 minutes.</p>
             var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
 
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/05/24/DeployingADockerContainerOnAWS.html";
-            var disqus_url = "http://www.georgevreilly.com/blog/2016/05/24/DeployingADockerContainerOnAWS.html";
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/05/25/SeattlePowerOutage.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/05/25/SeattlePowerOutage.html";
 
             if (window.location.hostname != "localhost") {
                 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -93,14 +94,11 @@ but I got the container working in 10 minutes.</p>
 </article>
     
     
-        <a href="/blog/2016/05/23/ToastmastersEvaluations.html" class="page floatright">
-        Toastmasters' Evaluations &raquo;
+        <a href="/blog/2016/05/24/DeployingADockerContainerOnAWS.html" class="page floatright">
+        Deploying a Docker Container on AWS &raquo;
         </a>
     
     
-        <a href="/blog/2016/05/25/SeattlePowerOutage.html" class="page floatleft">
-        &laquo; Seattle Power Outage
-        </a>
 <footer>
     
     
