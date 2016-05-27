@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Seattle Power Outage</title>
+  <title>Shrinking PDF File Size</title>
   <link media="all" href="/style.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
@@ -12,7 +12,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content=".. image:: https://scontent.cdninstagram.com/t51.2..." />
+    <meta name="description" content="Our poster designer sent me a PDF of this year&#39;s `..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,34 +31,39 @@
     
         <article>
     <header>
-        <time datetime="2016-05-25">25.05.2016, 00:00</time>
+        <time datetime="2016-05-26">26.05.2016, 00:00</time>
         <h1>
-            <a href="/blog/2016/05/25/SeattlePowerOutage.html" rel="bookmark canonical">Seattle Power Outage</a>
+            <a href="/blog/2016/05/26/ShrinkingPDFFileSize.html" rel="bookmark canonical">Shrinking PDF File Size</a>
         </h1>
     </header>
-    <a class="reference external image-reference" href="http://komonews.com/news/local/downtown-seattle-hit-by-major-power-outage"><img alt="The City of #Seattle has lost power... And I'm stuck on the 11th floor." class="right-float" src="https://scontent.cdninstagram.com/t51.2885-15/s320x320/e35/13249716_1560636147564215_1107763522_n.jpg?ig_cache_key=MTI1ODE0OTg5MTQ0NDM4ODgxMg%3D%3D.2" style="width: 200px;"/></a>
-<p>The <a class="reference external" href="http://komonews.com/news/local/downtown-seattle-hit-by-major-power-outage">power suddenly went out</a> at work today about 11:30am.
-There was a technician who was running wires,
-standing on a ladder next to us,
-who disclaimed all re&shy;spon&shy;si&shy;bil&shy;i&shy;ty.
-Since the wires were Ethernet cables, we believed him.
-It quickly became apparent that it was not just our office or even our building,
-but many blocks of downtown Seattle that had lost power.
-One person was trapped in the elevator in our old Pioneer Square building.
-Within half an hour, everyone had left the office.
-Although most of us have laptops,
-no elec&shy;tric&shy;i&shy;ty meant no Internet.
-I drifted up to Capitol Hill and spent the afternoon
-working with two colleagues in a coffee shop.</p>
-<p>The power came back after an hour.
-Meanwhile, it had become very apparent how fragile our in&shy;fra&shy;struc&shy;ture is,
-as tens of thousands of people lost power in downtown Seattle.
-Everything ground to a halt, including traffic,
-as the stop lights stopped working.
-Lots of people had to walk down many flights of stairs in tall buildings.
-Although it was lunchtime,
-restau&shy;rants and coffee shops were unable to serve customers.</p>
-<p>What a mess.</p>
+    <p>Our poster designer sent me a PDF of this year's <a class="reference external" href="http://www.wildgeeseseattle.org/Joyce/Bloomsday/2016.html">Bloomsday poster</a>.
+I thought the file was too large at 7.2MB and I wanted to reduce the file size
+without sig&shy;nif&shy;i&shy;cant loss of image quality.
+I was unable to achieve this in Preview or Acrobat Reader,
+but Ghost&shy;script did the trick,
+thanks to an answer on <a class="reference external" href="http://askubuntu.com/a/256449/956">AskUbuntu</a>:</p>
+<pre class="literal-block">
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 \
+    -dPDFSETTINGS=/prepress -dNOPAUSE -dQUIET -dBATCH \
+    -sOutputFile=output.pdf input.pdf
+</pre>
+<p>The results speak for themselves.</p>
+<div class="figure">
+<img alt="Original" src="/content/binary/proteus-hades-01.png"/>
+<p class="caption">Crop of the Original PDF, size 7.2MB.</p>
+</div>
+<div class="figure">
+<img alt=""/screen"" src="/content/binary/proteus-hades-02.png"/>
+<p class="caption">Crop of <tt class="docutils literal"><span class="pre">-dPDF&shy;SET&shy;TINGS=/screen</span></tt>. PDF size: 78KB</p>
+</div>
+<div class="figure">
+<img alt=""/ebook"" src="/content/binary/proteus-hades-03.png"/>
+<p class="caption">Crop of <tt class="docutils literal"><span class="pre">-dPDF&shy;SET&shy;TINGS=/ebook</span></tt>. PDF size: 234KB</p>
+</div>
+<div class="figure">
+<img alt=""/prepress"" src="/content/binary/proteus-hades-04.png"/>
+<p class="caption">Crop of <tt class="docutils literal"><span class="pre">-dPDF&shy;SET&shy;TINGS=/prepress</span></tt>. PDF size: 1.75MB</p>
+</div>
 
     <footer>
         
@@ -72,8 +77,8 @@ restau&shy;rants and coffee shops were unable to serve customers.</p>
             var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
 
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/05/25/SeattlePowerOutage.html";
-            var disqus_url = "http://www.georgevreilly.com/blog/2016/05/25/SeattlePowerOutage.html";
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/05/26/ShrinkingPDFFileSize.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/05/26/ShrinkingPDFFileSize.html";
 
             if (window.location.hostname != "localhost") {
                 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -94,14 +99,11 @@ restau&shy;rants and coffee shops were unable to serve customers.</p>
 </article>
     
     
-        <a href="/blog/2016/05/24/DeployingADockerContainerOnAWS.html" class="page floatright">
-        Deploying a Docker Container on AWS &raquo;
+        <a href="/blog/2016/05/25/SeattlePowerOutage.html" class="page floatright">
+        Seattle Power Outage &raquo;
         </a>
     
     
-        <a href="/blog/2016/05/26/ShrinkingPDFFileSize.html" class="page floatleft">
-        &laquo; Shrinking PDF File Size
-        </a>
 <footer>
     
     

@@ -5,9 +5,45 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Wed, 25 May 2016 07:00:00 GMT</pubDate>
+        <pubDate>Thu, 26 May 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Shrinking PDF File Size</title>
+        <link>http://www.georgevreilly.com/blog/2016/05/26/ShrinkingPDFFileSize.html</link>
+        <description>&lt;p&gt;Our poster designer sent me a PDF of this year&#39;s &lt;a class=&#34;reference external&#34; href=&#34;http://www.wildgeeseseattle.org/Joyce/Bloomsday/2016.html&#34;&gt;Bloomsday poster&lt;/a&gt;.
+I thought the file was too large at 7.2MB and I wanted to reduce the file size
+without significant loss of image quality.
+I was unable to achieve this in Preview or Acrobat Reader,
+but Ghostscript did the trick,
+thanks to an answer on &lt;a class=&#34;reference external&#34; href=&#34;http://askubuntu.com/a/256449/956&#34;&gt;AskUbuntu&lt;/a&gt;:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 \
+    -dPDFSETTINGS=/prepress -dNOPAUSE -dQUIET -dBATCH \
+    -sOutputFile=output.pdf input.pdf
+&lt;/pre&gt;
+&lt;p&gt;The results speak for themselves.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img alt=&#34;Original&#34; src=&#34;http://www.georgevreilly.com/content/binary/proteus-hades-01.png&#34;/&gt;
+&lt;p class=&#34;caption&#34;&gt;Crop of the Original PDF, size 7.2MB.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img alt=&#34;&#34;/screen&#34;&#34; src=&#34;http://www.georgevreilly.com/content/binary/proteus-hades-02.png&#34;/&gt;
+&lt;p class=&#34;caption&#34;&gt;Crop of &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;-dPDFSETTINGS=/screen&lt;/span&gt;&lt;/tt&gt;. PDF size: 78KB&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img alt=&#34;&#34;/ebook&#34;&#34; src=&#34;http://www.georgevreilly.com/content/binary/proteus-hades-03.png&#34;/&gt;
+&lt;p class=&#34;caption&#34;&gt;Crop of &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;-dPDFSETTINGS=/ebook&lt;/span&gt;&lt;/tt&gt;. PDF size: 234KB&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img alt=&#34;&#34;/prepress&#34;&#34; src=&#34;http://www.georgevreilly.com/content/binary/proteus-hades-04.png&#34;/&gt;
+&lt;p class=&#34;caption&#34;&gt;Crop of &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;-dPDFSETTINGS=/prepress&lt;/span&gt;&lt;/tt&gt;. PDF size: 1.75MB&lt;/p&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Thu, 26 May 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-05-26:/blog/2016/05/26/ShrinkingPDFFileSize.html</guid>
+    </item>
         
             <item>
         <title>Seattle Power Outage</title>
@@ -747,18 +783,6 @@ so that I can &lt;a class=&#34;reference external&#34; href=&#34;http://www.this
 </description>
         <pubDate>Sun, 01 May 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-05-01:/blog/2016/05/01/ChangingElectricalPlugs.html</guid>
-    </item>
-        
-            <item>
-        <title>ssh IdentitiesOnly</title>
-        <link>http://www.georgevreilly.com/blog/2016/04/30/SSHIdentitiesOnly.html</link>
-        <description>&lt;p&gt;If you get &amp;quot;Too many authentication failures for username&amp;quot; when using SSH,
-try using &lt;tt class=&#34;docutils literal&#34;&gt;ssh &lt;span class=&#34;pre&#34;&gt;-o&lt;/span&gt; &#39;IdentitiesOnly yes&#39;&lt;/tt&gt; instead.
-By default, ssh-agent will promiscuously offer many identities.
-Some hosts don&#39;t like that.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 30 Apr 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-04-30:/blog/2016/04/30/SSHIdentitiesOnly.html</guid>
     </item>
         </channel>
 </rss>

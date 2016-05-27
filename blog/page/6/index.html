@@ -29,6 +29,59 @@
     
         <article>
     <header>
+        <time datetime="2016-04-05">05.04.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" rel="bookmark canonical">Doctests, Unicode Literals, and Python 2/3 Compatibility</a>
+        </h1>
+    </header>
+    <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses them.</p>
+<p>Although I still mostly write Python 2,
+I usually import several features of Python 3:</p>
+
+<pre class="brush: python">
+from __future__ import unicode_literals, print_function, absolute_import
+</pre>
+
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni&shy;code_lit&shy;er&shy;als</a> doesn't play well with doctests.</p>
+<p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
+but not with <tt class="docutils literal">python3</tt>:</p>
+
+<pre class="brush: python">
+from __future__ import unicode_literals, print_function, absolute_import
+
+def upper(s):
+    """
+    Convert `s` to upper case.
+
+    >>> upper('Hello!')
+    u'HELLO!'
+    """
+    return s.upper()
+</pre>
+
+<p>Python 3 complains:</p>
+<pre class="literal-block">
+Failed example:
+    upper('Hello!')
+Expected:
+    u'HELLO!'
+Got:
+    'HELLO!'
+</pre>
+<p>The <span>&#8230;<a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-04-04">04.04.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html" rel="bookmark canonical">Lugging CRT Monitors to Montréal</a>
@@ -325,38 +378,6 @@ Chapter 2 (Nestor) takes place at the school where <span>&#8230;<a href="/blog/2
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/27/PreparingBloomsdayScripts.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-03-26">26.03.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/03/26/Caucus2016.html" rel="bookmark canonical">Caucus 2016</a>
-        </h1>
-    </header>
-    
-<p>The Washington state Democratic Caucus was held today.
-The final totals aren't in yet but Bernie Sanders beat Hillary Clinton
-by a nearly 3:1 margin around the state.
-Our own precinct, SEA 11-1945, had Sanders 41, Clinton 26, Undecided 2.
-That translates to 4 Sanders delegates and 2 Clinton delegates
-in the next level of caucusing.</p>
-<p>Emma and I both voted for Sanders.
-We believe that Sanders represents much-needed change
-in the party and in the nation.
-Clinton is un&shy;doubt&shy;ed&shy;ly one of the most qualified candidates ever,
-with an ex&shy;tra&shy;or&shy;di&shy;nary résumé and a high degree of competence.
-She's also too tied to the status quo for my liking.</p>
-<p>However, unlike some Sanders <span>&#8230;<a href="/blog/2016/03/26/Caucus2016.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/26/Caucus2016.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
