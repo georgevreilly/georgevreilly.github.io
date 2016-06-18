@@ -5,9 +5,47 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Thu, 16 Jun 2016 07:00:00 GMT</pubDate>
+        <pubDate>Fri, 17 Jun 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Deploying Docker Containers on AWS, part 2</title>
+        <link>http://www.georgevreilly.com/blog/2016/06/17/DeployingDockerContainersOnAWSPart2.html</link>
+        <description>&lt;p&gt;I complained &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/05/24/DeployingADockerContainerOnAWS.html&#34;&gt;a few weeks ago&lt;/a&gt; about how hard it was to deploy Docker containers on AWS.&lt;/p&gt;
+&lt;p&gt;This week has been nothing but container-related frustration.
+We have two apps running in Kubernetes clusters on top of AWS.
+This is not a well-supported scenario and we have a fragile script
+that spends a lot of time sitting in polling loops,
+waiting for various things to happen like DNS updates taking effect,
+the new cluster being available, and so on.
+One of the apps has decided to stop deploying.
+I do not know why.&lt;/p&gt;
+&lt;p&gt;I&#39;ve been trying to get a new app deployed on ECS, the EC2 Container Service.
+The way to deploy an updated app is to take an existing Task Definition,
+update the tag on the image name, and create a new revision.
+I have not figured out the right incantation to get the cluster service
+to start running the new task consistently,
+much less how to do this without any downtime.
+It&#39;s insanely difficult to bring up a new cluster,
+or, more specifically, to configure an EC2 instance for the new cluster.
+There&#39;s a huge list of non-obvious pieces that need to be configured.
+I discovered that you could append &lt;tt class=&#34;docutils literal&#34;&gt;#/firstRun&lt;/tt&gt; to the URL
+to get the first-run wizard to reappear.
+That causes no less than 15 pieces of AWS infrastructure to start up,
+which is significantly more than you get when you create an ECS cluster the other way.
+However, the ELB Load Balancer is not configured correctly.&lt;/p&gt;
+&lt;p&gt;I tried going back to ElasticBeanstalk,
+since we&#39;ve successfully deployed a Docker container on EB for the last two years.
+I realized that the way to bootstrap a new environment is to upload &lt;tt class=&#34;docutils literal&#34;&gt;Dockerrun.aws.json&lt;/tt&gt;.
+However, I have yet to get the new environment to start up correctly.
+I SSHed into the EC2 instance and found that the Docker daemon wasn&#39;t running
+and refuses to start.&lt;/p&gt;
+&lt;p&gt;I am very, very unhappy with AWS this week.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 17 Jun 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-06-17:/blog/2016/06/17/DeployingDockerContainersOnAWSPart2.html</guid>
+    </item>
         
             <item>
         <title>Review: Death on Ibiza</title>
@@ -857,47 +895,6 @@ but I got the container working in 10 minutes.&lt;/p&gt;
 </description>
         <pubDate>Tue, 24 May 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-05-24:/blog/2016/05/24/DeployingADockerContainerOnAWS.html</guid>
-    </item>
-        
-            <item>
-        <title>Toastmasters&#39; Evaluations</title>
-        <link>http://www.georgevreilly.com/blog/2016/05/23/ToastmastersEvaluations.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://www.linkedin.com/pulse/toastmasters-evaluations-shelley-horwitz&#34;&gt;&lt;img alt=&#34;Why Evaluate?&#34; src=&#34;https://media.licdn.com/mpr/mpr/shrinknp_800_800/AAEAAQAAAAAAAAXNAAAAJGViZWI5MWYxLTBhMjMtNDJhMS1iN2RjLTcxN2Q1MzQ2YzFkNA.jpg&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;Toastmasters teaches three skillsets.
-By far the best known is public speaking,
-but evaluation and leadership are also valuable.
-Learning to evaluate a speech teaches you to listen carefully
-and to give useful feedback.
-The &lt;a class=&#34;reference external&#34; href=&#34;http://sixminutes.dlugan.com/speech-evaluation-3-modified-sandwich-technique/&#34;&gt;Toastmasters&#39; Sandwich&lt;/a&gt; is the best-known approach:
-point out several things the speaker did well,
-suggest some areas of improvement,
-and conclude with more praise.&lt;/p&gt;
-&lt;p&gt;The evaluator benefits too from the evaluation,
-as they hone their listening and critical skills
-and as they learn to give helpful feedback.
-The audience also benefits,
-as they hear both the speech
-and a measured response to the speech.&lt;/p&gt;
-&lt;p&gt;Outside of Toastmasters,
-feedback is often negative and critical (&amp;quot;Here&#39;s how you&#39;re fucking up&amp;quot;),
-which leads to demotivation (&amp;quot;I&#39;m just a fuckup!&amp;quot;).
-For beginning speakers,
-who are often horribly afraid of speaking in public,
-receiving some positive reinforcement
-helps them realize that they already have some skills,
-while specific suggestions can help them improve rapidly.
-More advanced speakers who already know their own strengths and weaknesses
-often prefer the evaluator to skip a few minutes of praise
-and instead provide several very specific suggestions.
-The audience may benefit, however, from hearing the praise,
-when the evaluator points out things the speaker did particularly well.&lt;/p&gt;
-&lt;p&gt;A few clubs also provide a few minutes of open evaluation
-where members of the audience speak up and augment the original evaluation.
-Freely Speaking Toastmasters does this
-and I always find the broader set of perspectives valuable.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 23 May 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-05-23:/blog/2016/05/23/ToastmastersEvaluations.html</guid>
     </item>
         </channel>
 </rss>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Deploying Docker Containers on AWS, part 2</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="I complained `a few weeks ago`_ about how hard it..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-06-17">17.06.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/06/17/DeployingDockerContainersOnAWSPart2.html" rel="bookmark canonical">Deploying Docker Containers on AWS, part 2</a>
+        </h1>
+    </header>
+    <p>I complained <a class="reference external" href="http://www.georgevreilly.com/blog/2016/05/24/DeployingADockerContainerOnAWS.html">a few weeks ago</a> about how hard it was to deploy Docker containers on AWS.</p>
+<p>This week has been nothing but container-related frus&shy;tra&shy;tion.
+We have two apps running in Kubernetes clusters on top of AWS.
+This is not a well-supported scenario and we have a fragile script
+that spends a lot of time sitting in polling loops,
+waiting for various things to happen like DNS updates taking effect,
+the new cluster being available, and so on.
+One of the apps has decided to stop deploying.
+I do not know why.</p>
+<p>I've been trying to get a new app deployed on ECS, the EC2 Container Service.
+The way to deploy an updated app is to take an existing Task Definition,
+update the tag on the image name, and create a new revision.
+I have not figured out the right in&shy;can&shy;ta&shy;tion to get the cluster service
+to start running the new task con&shy;sis&shy;tent&shy;ly,
+much less how to do this without any downtime.
+It's insanely difficult to bring up a new cluster,
+or, more specif&shy;i&shy;cal&shy;ly, to configure an EC2 instance for the new cluster.
+There's a huge list of non-obvious pieces that need to be configured.
+I discovered that you could append <tt class="docutils literal">#/firstRun</tt> to the URL
+to get the first-run wizard to reappear.
+That causes no less than 15 pieces of AWS in&shy;fra&shy;struc&shy;ture to start up,
+which is sig&shy;nif&shy;i&shy;cant&shy;ly more than you get when you create an ECS cluster the other way.
+However, the ELB Load Balancer is not configured correctly.</p>
+<p>I tried going back to Elas&shy;ticBeanstalk,
+since we've suc&shy;cess&shy;ful&shy;ly deployed a Docker container on EB for the last two years.
+I realized that the way to bootstrap a new en&shy;vi&shy;ron&shy;ment is to upload <tt class="docutils literal">Dockerrun.aws.json</tt>.
+However, I have yet to get the new en&shy;vi&shy;ron&shy;ment to start up correctly.
+I SSHed into the EC2 instance and found that the Docker daemon wasn't running
+and refuses to start.</p>
+<p>I am very, very unhappy with AWS this week.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/06/17/DeployingDockerContainersOnAWSPart2.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/06/17/DeployingDockerContainersOnAWSPart2.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2016/06/16/ReviewDeathOnIbiza.html" class="page floatright">
+        Review: Death on Ibiza &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
