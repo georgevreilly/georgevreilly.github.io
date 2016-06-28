@@ -29,6 +29,44 @@
     
         <article>
     <header>
+        <time datetime="2016-03-16">16.03.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/03/16/ReviewTheFourthSecret.html" rel="bookmark canonical">Review: The Fourth Secret</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/B00NOC5JFW/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: The Fourth Secret</div>
+<div class="line">Author: Andrea Camilleri</div>
+<div class="line">Rating: ★ ★ ★</div>
+<div class="line">Publisher: Mondadori</div>
+<div class="line">Copyright: 2002</div>
+<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/B00NOC5JFW/?tag=georgvreill-20">B00NOC5JFW</a></div>
+<div class="line">Pages: 77</div>
+<div class="line">Keywords: mystery</div>
+<div class="line">Reading period: February 28–March 2, 2016</div>
+</div>
+<p>A quirky novella about <a class="reference external" href="https://en.wikipedia.org/wiki/Salvo_Montalbano">Com&shy;mis&shy;sario Montalbano</a> of the Italian Polizia.
+A series of “ac&shy;ci&shy;dents” have been happening at con&shy;struc&shy;tion sites.
+Montalbano receives an anonymous letter warning that another “accident” will happen,
+too late to prevent it.
+He attempts to cover it up, while still in&shy;ves&shy;ti&shy;gat&shy;ing,
+and realizes that he's infringing on the <a class="reference external" href="http://www.bbc.com/news/magazine-28254297">carib&shy;inieri</a>'s ju&shy;ris&shy;dic&shy;tion, a no-no.</p>
+<p>Moderately en&shy;ter&shy;tain&shy;ing.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/16/ReviewTheFourthSecret.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-03-15">15.03.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/03/15/25YearsOutAsBisexual.html" rel="bookmark canonical">25 Years Out as Bisexual</a>
@@ -312,43 +350,6 @@ For now, let's just say it's a tool that we use to build
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/07/FlyingCloud_0_3_0_Released.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-03-06">06.03.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/03/06/psutil-kill.html" rel="bookmark canonical">psutil kill</a>
-        </h1>
-    </header>
-    <p>From Python, I needed to find a process that was performing SSH tunneling on port 8080
-and kill it.</p>
-<p>The following works in Bash:</p>
-
-<pre class="brush: bash">
-ps aux | grep [s]sh.*:8080 | awk '{print $2}' | xargs kill -9
-</pre>
-
-<p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
-won't make it through to <tt class="docutils literal">awk</tt>.</p>
-<p>Here's what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
-
-<pre class="brush: python">
-def kill_port_forwarding(host_port):
-    ssh_args = ["-f", "-N", "-L", "{0}:localhost:{0}".format(host_port)]
-    for process in psutil.process_iter():
-        try:
-            if process.name().endswith('ssh'):
-      </pre><span>&#8230;<a href="/blog/2016/03/06/psutil-kill.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/06/psutil-kill.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
