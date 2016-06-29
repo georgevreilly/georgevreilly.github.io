@@ -29,6 +29,39 @@
     
         <article>
     <header>
+        <time datetime="2016-06-28">28.06.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html" rel="bookmark canonical">Creating a New PostgreSQL Database at RDS</a>
+        </h1>
+    </header>
+    <p>Many of us are guilty of saying “database” when we mean a database server or a DBMS.
+A database is a collection of tables storing related data,
+schemas, stored procs, and per&shy;mis&shy;sions.
+Most database servers are capable of managing many databases si&shy;mul&shy;ta&shy;ne&shy;ous&shy;ly.</p>
+<p>I needed to create a new PostgreSQL database at Amazon's RDS last week.
+I already had an RDS instance; I needed a new database on that instance.
+My Google searches turned up various recipes for creating a new RDS instance.</p>
+<p>The following worked for me:</p>
+<ul>
+<li><p class="first">SSH to an EC2 instance inside our VPC,
+so that I could connect to the RDS instance using <a class="reference external" href="http://postgresguide.com/utilities/psql.html">psql</a>.</p>
+</li>
+<li><p class="first">Then run:</p>
+<pre class="literal-block">
+psql --host=SOME-DBMS-HOST --dbname </pre><span>&#8230;<a href="/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html" class="continue">continue</a>.</span></li></ul>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-06-27">27.06.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/06/27/ReviewThePrisonerOfZenda.html" rel="bookmark canonical">Review: The Prisoner of Zenda</a>
@@ -326,45 +359,6 @@ The way to <span>&#8230;<a href="/blog/2016/06/17/DeployingDockerContainersOnAWS
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/06/17/DeployingDockerContainersOnAWSPart2.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-06-16">16.06.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/06/16/ReviewDeathOnIbiza.html" rel="bookmark canonical">Review: Death on Ibiza</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/1503947238/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Death on Ibiza</div>
-<div class="line">Author: Katja Piel</div>
-<div class="line">Rating: ★ ★ ½</div>
-<div class="line">Publisher: Amazon Publishing</div>
-<div class="line">Copyright: 2015</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/1503947238/?tag=georgvreill-20">1503947238</a></div>
-<div class="line">Pages: 195</div>
-<div class="line">Keywords: crime</div>
-<div class="line">Reading period: 11 June, 2016</div>
-</div>
-<p>Nick Behrends wakes up after a party at a drug dealer's house on Ibiza
-with a gun in his hand,
-no memory of the last few hours,
-and a roomful of dead people.
-He goes on the run,
-and soon encounters a Russian hitman
-who's looking for his abducted 12-year-old daughter.</p>
-<p>Pre&shy;dictable plot, cardboard characters.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/06/16/ReviewDeathOnIbiza.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
