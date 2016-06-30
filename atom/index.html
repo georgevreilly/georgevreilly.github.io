@@ -11,8 +11,37 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-06-28T07:00:00Z</updated>
+    <updated>2016-06-29T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>reStructuredText Nested Markup</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/06/29/reStructuredTextNestedMarkup.html" />
+        <id>tag:www.georgevreilly.com,2016-06-29:/blog/2016/06/29/reStructuredTextNestedMarkup.html</id>
+        <updated>2016-06-29T07:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;I use &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/ReStructuredText&#34;&gt;reStructuredText&lt;/a&gt; for both this blog and the &lt;a class=&#34;reference external&#34; href=&#34;http://www.metabrite.com/devblog/&#34;&gt;MetaBrite DevBlog&lt;/a&gt;.
+This blog is built with &lt;a class=&#34;reference external&#34; href=&#34;https://posativ.org/acrylamid/&#34;&gt;Acrylamid&lt;/a&gt;, while the MetaBrite blog is built with &lt;a class=&#34;reference external&#34; href=&#34;https://getnikola.com/&#34;&gt;Nikola&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html&#34;&gt;Yesterday&lt;/a&gt; I used a link (&lt;a class=&#34;reference external&#34; href=&#34;https://blog.sleeplessbeastie.eu/2014/03/23/how-to-non-interactively-provide-password-for-the-postgresql-interactive-terminal/&#34;&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;~/.pgpass&lt;/span&gt;&lt;/tt&gt;&lt;/a&gt;) that styled the link as an &lt;em&gt;inline literal&lt;/em&gt;;
+i.e., in the &lt;tt class=&#34;docutils literal&#34;&gt;code&lt;/tt&gt; font.
+ReStructuredText doesn&#39;t support nested markup,
+but you can &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/a/4836544/6364&#34;&gt;pull it together&lt;/a&gt; with a two-step &lt;a class=&#34;reference external&#34; href=&#34;http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#substitution-references&#34;&gt;substitution reference&lt;/a&gt;:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+Here you have |optparse.OptionParser|_.
+
+.. |optparse.OptionParser| replace:: ``optparse.OptionParser`` documentation
+.. _optparse.OptionParser: http://docs.python.org/library/optparse.html
+&lt;/pre&gt;
+&lt;p&gt;This is tedious as you have to create a pair of directives
+for every such link that you wish to style.&lt;/p&gt;
+&lt;p&gt;Nested inline markup has been on the todo list for 15 years—it ain&#39;t happening.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Creating a New PostgreSQL Database at RDS</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html" />
@@ -1083,64 +1112,6 @@ being the unconsidered defaults for many readers and writers.
 These stories amply demonstrate that good, interesting fantasy and SF stories
 can be written with strong female characters and subtle plots.
 (I already knew this; some in SF fandom still don&#39;t.)&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Review: The Queen of Ireland</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/06/02/ReviewTheQueenOfIreland.html" />
-        <id>tag:www.georgevreilly.com,2016-06-02:/blog/2016/06/02/ReviewTheQueenOfIreland.html</id>
-        <updated>2016-06-02T07:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;img alt=&#34;George and Emma with Panti Bliss&#34; src=&#34;https://scontent-sea1-1.xx.fbcdn.net/t31.0-8/13305077_10156948124385405_5137016169054981557_o.jpg&#34; style=&#34;width: 800px;&#34;/&gt;
-&lt;p&gt;In the last few years in Seattle, I&#39;ve met
-the Prime Minister (Taoiseach) of Ireland,
-the President of Ireland,
-and now the Queen of Ireland.&lt;/p&gt;
-&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/The_Queen_of_Ireland&#34;&gt;&lt;img alt=&#34;The Queen of Ireland&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/PantiBliss.jpg/440px-PantiBliss.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: The Queen of Ireland&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Director: Conor Horgan&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★ ½&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Released: 2015&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: documentary, ireland, lgbt&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Watched: 2 June, 2016&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/The_Queen_of_Ireland&#34;&gt;The Queen of Ireland&lt;/a&gt; is a documentary about Ireland&#39;s best-known drag queen,
-&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Panti&#34;&gt;Panti Bliss&lt;/a&gt; (Rory O&#39;Neill), who became an accidental activist
-and the face of marriage equality in Ireland.&lt;/p&gt;
-&lt;p&gt;Filming started in 2010.
-In early 2014, O&#39;Neill appeared on an RTÉ chat show
-and alleged that some individuals in Irish journalism are homophobic.
-They threatened to sue and RTÉ backed down, apologizing and paying them €85,000.
-This became known as &lt;a class=&#34;reference external&#34; href=&#34;https://medium.com/chrissy-curtin/pantigate-an-illustrated-timeline-dafef882b0be&#34;&gt;Pantigate&lt;/a&gt;.
-Panti gave a “&lt;a class=&#34;reference external&#34; href=&#34;https://www.youtube.com/watch?v=WXayhUzWnl0&#34;&gt;Noble Call&lt;/a&gt;” speech about homophobia at the Abbey Theatre,
-which went viral on Youtube,
-becoming internationally known.&lt;/p&gt;
-&lt;p&gt;The following year,
-Ireland held a &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2015/05/23/ireland-yes-on-marriage-equality.html&#34;&gt;referendum&lt;/a&gt; on Marriage Equality
-and became the first country to grant full rights to LGBT citizens by popular vote.
-Panti was one of the most high-profile campaigners.&lt;/p&gt;
-&lt;p&gt;The documentary covers Panti&#39;s life,
-from a childhood in Ballinrobe, Co. Mayo;
-the blatant homophobia of Ireland during Rory&#39;s youth in the seventies and eighties;
-to becoming a fledgling drag queen in Tokyo in the late eighties and early nineties;
-to moving back to Ireland and becoming a fixture in Dublin&#39;s gay scene,
-shepherding the Alternative Miss Ireland contest for many years;
-to Pantigate, the Noble Call speech, and the Marriage campaign;
-to finally a homecoming at a sold-out show in Ballinrobe.
-It presents Panti, who describes herself as a “giant cartoon woman”,
-as a larger-than-life figure,
-and interviews her thoughtful alter ego, Rory,
-who says that being Panti has made him a better person.&lt;/p&gt;
-&lt;p&gt;As an LGBT expatriate who grew up in Ireland at the same time as Rory,
-I found it especially personal and moving,
-but I think &lt;em&gt;The Queen of Ireland&lt;/em&gt; is of much wider interest.&lt;/p&gt;
 </content>
     </entry>
     </feed>
