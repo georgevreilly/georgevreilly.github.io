@@ -11,8 +11,61 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-06-29T07:00:00Z</updated>
+    <updated>2016-06-30T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>reStructuredText Anonymous Hyperlinks</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html" />
+        <id>tag:www.georgevreilly.com,2016-06-30:/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html</id>
+        <updated>2016-06-30T07:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;While researching &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/06/29/reStructuredTextNestedMarkup.html&#34;&gt;yesterday&#39;s post&lt;/a&gt; about nested markup in ReStructuredText,
+I finally learned how to use &lt;a class=&#34;reference external&#34; href=&#34;http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#anonymous-hyperlinks&#34;&gt;anonymous hyperlinks&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Hitherto, I used one of these three forms for hyperlinks:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+1. The central conceit of the fictional `Flashman Papers`_ is that Flashy
+2. besieging Breda_ in 1625.
+3. my club, `Freely Speaking Toastmasters &amp;lt;http://freelyspeaking.org/&amp;gt;`_.
+
+.. _Flashman Papers:
+    https://en.wikipedia.org/wiki/The_Flashman_Papers
+.. _Breda: http://en.wikipedia.org/wiki/Siege_of_Breda
+&lt;/pre&gt;
+&lt;p&gt;The first, &lt;tt class=&#34;docutils literal&#34;&gt;`Flashman Papers`_&lt;/tt&gt;, is a &lt;em&gt;named hyperlink reference&lt;/em&gt;,
+which refers to an &lt;em&gt;external hyperlink target&lt;/em&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;.. _Flashman Papers: URI&lt;/tt&gt;.
+Note that the reference name starts with a backquote, &lt;tt class=&#34;docutils literal&#34;&gt;`&lt;/tt&gt;,
+and ends with backquote-underscore, &lt;tt class=&#34;docutils literal&#34;&gt;`_&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;The second, &lt;tt class=&#34;docutils literal&#34;&gt;Breda_&lt;/tt&gt;, is a &lt;em&gt;simple reference name&lt;/em&gt;—the backquotes are optional.&lt;/p&gt;
+&lt;p&gt;&lt;tt class=&#34;docutils literal&#34;&gt;`Freely Speaking Toastmasters &lt;span class=&#34;pre&#34;&gt;&amp;lt;http://freelyspeaking.org/&amp;gt;`_&lt;/span&gt;&lt;/tt&gt;,
+is an &lt;em&gt;embedded URI&lt;/em&gt;.
+The syntax is &lt;tt class=&#34;docutils literal&#34;&gt;`&lt;/tt&gt;, reference-name, &lt;tt class=&#34;docutils literal&#34;&gt;&amp;lt;&lt;/tt&gt;, URI, &lt;tt class=&#34;docutils literal&#34;&gt;&amp;gt;`&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;With anonymous hyperlinks,
+the reference name does not need to be repeated in the hyperlink target.
+Instead, the reference name ends with a double-underscore, &lt;tt class=&#34;docutils literal&#34;&gt;__&lt;/tt&gt;,
+and the target looks like either &lt;tt class=&#34;docutils literal&#34;&gt;.. __: URI&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;__ URI&lt;/tt&gt;.
+The targets must appear in the order they are referenced.
+It&#39;s best if they&#39;re close to the references in the text, for maintainability.&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+researching `yesterday&#39;s post`__ about ...,
+I learned how to use `anonymous hyperlinks`__.
+
+.. __: /blog/2016/06/29/reStructuredTextNestedMarkup.html
+__ http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#anonymous-hyperlinks
+&lt;/pre&gt;
+&lt;p&gt;To handle escaping backquotes inside code literals for this post,
+I used the &lt;a class=&#34;reference external&#34; href=&#34;http://docutils.sourceforge.net/docs/ref/rst/roles.html#literal&#34;&gt;literal role&lt;/a&gt; instead of double backquotes:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+The first, :literal:`\`Flashman Papers\`_`, is a *named hyperlink reference*
+Normally, I use double-backquotes to bracket code: ``a += b &amp;amp; c[i]``.
+&lt;/pre&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>reStructuredText Nested Markup</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/06/29/reStructuredTextNestedMarkup.html" />
@@ -377,7 +430,7 @@ because he was an unabashed rogue and a poltroon who was never caught.&lt;/p&gt;
 Later novels were not published in chronological order.
 Fraser, having set down the mileposts of Flashman&#39;s life in the first book,
 filled them in as the mood took him.&lt;/p&gt;
-&lt;p&gt;Young Flashman is expelled from Rugby School for beastly drunkeness,
+&lt;p&gt;Young Flashman is expelled from Rugby School for beastly drunkenness,
 an episode taken from &lt;em&gt;Tom Brown&#39;s School Days&lt;/em&gt;.
 His father buys him a commission in a regiment of dragoons,
 but he disgraces himself and is sent to India and thence to Afghanistan,
@@ -1077,41 +1130,6 @@ in the last 20 years.
 But the struggle is not over yet.
 A transphobic backlash is underway around the US,
 and LGBT rights are still weak in much of the world.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Review: The Very Best of Kate Elliott</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/06/03/ReviewTheVeryBestOfKateElliott.html" />
-        <id>tag:www.georgevreilly.com,2016-06-03:/blog/2016/06/03/ReviewTheVeryBestOfKateElliott.html</id>
-        <updated>2016-06-03T07:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/B00TGBNUM4/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;The Very Best of Kate Elliott&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/B00TGBNUM4.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: The Very Best of Kate Elliott&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: Kate Elliott&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Tachyon Publications&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 2015&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/B00TGBNUM4/?tag=georgvreill-20&#34;&gt;B00TGBNUM4&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 386&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: sf, fantasy&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 19 May–3 June, 2016&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;A collection of short stories and essays from Kate Elliott,
-some of which are drawn from her various story universes.
-In the foreword and the essays,
-she discusses the cultural biases that
-lead to the “male gaze” and male characters
-being the unconsidered defaults for many readers and writers.
-These stories amply demonstrate that good, interesting fantasy and SF stories
-can be written with strong female characters and subtle plots.
-(I already knew this; some in SF fandom still don&#39;t.)&lt;/p&gt;
 </content>
     </entry>
     </feed>
