@@ -11,8 +11,39 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-07-05T07:00:00Z</updated>
+    <updated>2016-07-06T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Bash: Bulk Renaming</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/07/06/BashBulkRenaming.html" />
+        <id>tag:www.georgevreilly.com,2016-07-06:/blog/2016/07/06/BashBulkRenaming.html</id>
+        <updated>2016-07-06T07:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;I had to rename several hundred thousand files today.
+Thanks to a botched invocation of ImageMagick,
+they all looked like &lt;tt class=&#34;docutils literal&#34;&gt;unique_prefix.png.jpg&lt;/tt&gt;,
+whereas we simply wanted &lt;tt class=&#34;docutils literal&#34;&gt;unique_prefix.jpg&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;I found a &lt;a class=&#34;reference external&#34; href=&#34;http://unix.stackexchange.com/a/102653/4060&#34;&gt;suitable answer at the Unix StackExchange&lt;/a&gt;.
+As one of the many variants of &lt;a class=&#34;reference external&#34; href=&#34;http://tldp.org/LDP/abs/html/parameter-substitution.html&#34;&gt;parameter substitution&lt;/a&gt;,
+Bash supports &lt;tt class=&#34;docutils literal&#34;&gt;${var/Pattern/Replacement}&lt;/tt&gt;:
+“first match of &lt;tt class=&#34;docutils literal&#34;&gt;Pattern&lt;/tt&gt; within &lt;tt class=&#34;docutils literal&#34;&gt;var&lt;/tt&gt; replaced with &lt;tt class=&#34;docutils literal&#34;&gt;Replacement&lt;/tt&gt;.”&lt;/p&gt;
+
+&lt;pre class=&#34;brush: bash&#34;&gt;
+for f in *.png.jpg;
+do
+    mv $f &#34;${f/.png}&#34;
+done
+&lt;/pre&gt;
+
+&lt;p&gt;The target expression could also have been written as &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;${f/.png.jpg/.jpg}&amp;quot;&lt;/span&gt;&lt;/tt&gt;&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Review: Flashman&#39;s Lady</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/07/05/ReviewFlashmansLady.html" />
@@ -1048,40 +1079,6 @@ to form an easy-to-remember but hard-to-crack password.&lt;/p&gt;
 W3w is actually available in multiple languages,
 though many of them use a 25,000-word vocabulary,
 which omits the seas.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Hillary Clinton, presumptive nominee</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/06/09/HillaryClintonPresumptiveNominee.html" />
-        <id>tag:www.georgevreilly.com,2016-06-09:/blog/2016/06/09/HillaryClintonPresumptiveNominee.html</id>
-        <updated>2016-06-09T07:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;Hillary Clinton will be the Democratic nominee for the 2016 Presidential race.
-Although Sanders has not yet ended his campaign, he can&#39;t win.
-I voted for Sanders in the Washington state caucus
-and I still have his yard sign sitting in my front yard.&lt;/p&gt;
-&lt;p&gt;Unlike some diehard Sanders&#39; supporters,
-I have absolutely no qualms getting behind Clinton.
-She&#39;s one of the most qualified candidates ever to run.
-If elected, she will be on the right side of many of the issues I care about
-and she will make good appointments to the Supreme Court.
-She&#39;s competent and capable and gets things done.
-Clinton has survived more scrutiny and more attacks than just about anyone else.
-She&#39;s not perfect:
-for example, she&#39;s closer to Wall Street than I like.&lt;/p&gt;
-&lt;p&gt;When I compare her to Donald Trump,
-to his utter unfitness for office,
-to his dangerous bellicosity,
-to the appointments he&#39;d make,
-to his denial of climate change,
-it&#39;s a very, very easy decision for me to support Clinton.&lt;/p&gt;
-&lt;p&gt;Hillary for President!&lt;/p&gt;
 </content>
     </entry>
     </feed>

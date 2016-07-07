@@ -5,9 +5,34 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Tue, 05 Jul 2016 07:00:00 GMT</pubDate>
+        <pubDate>Wed, 06 Jul 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Bash: Bulk Renaming</title>
+        <link>http://www.georgevreilly.com/blog/2016/07/06/BashBulkRenaming.html</link>
+        <description>&lt;p&gt;I had to rename several hundred thousand files today.
+Thanks to a botched invocation of ImageMagick,
+they all looked like &lt;tt class=&#34;docutils literal&#34;&gt;unique_prefix.png.jpg&lt;/tt&gt;,
+whereas we simply wanted &lt;tt class=&#34;docutils literal&#34;&gt;unique_prefix.jpg&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;I found a &lt;a class=&#34;reference external&#34; href=&#34;http://unix.stackexchange.com/a/102653/4060&#34;&gt;suitable answer at the Unix StackExchange&lt;/a&gt;.
+As one of the many variants of &lt;a class=&#34;reference external&#34; href=&#34;http://tldp.org/LDP/abs/html/parameter-substitution.html&#34;&gt;parameter substitution&lt;/a&gt;,
+Bash supports &lt;tt class=&#34;docutils literal&#34;&gt;${var/Pattern/Replacement}&lt;/tt&gt;:
+“first match of &lt;tt class=&#34;docutils literal&#34;&gt;Pattern&lt;/tt&gt; within &lt;tt class=&#34;docutils literal&#34;&gt;var&lt;/tt&gt; replaced with &lt;tt class=&#34;docutils literal&#34;&gt;Replacement&lt;/tt&gt;.”&lt;/p&gt;
+
+&lt;pre class=&#34;brush: bash&#34;&gt;
+for f in *.png.jpg;
+do
+    mv $f &#34;${f/.png}&#34;
+done
+&lt;/pre&gt;
+
+&lt;p&gt;The target expression could also have been written as &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;${f/.png.jpg/.jpg}&amp;quot;&lt;/span&gt;&lt;/tt&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 06 Jul 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-07-06:/blog/2016/07/06/BashBulkRenaming.html</guid>
+    </item>
         
             <item>
         <title>Review: Flashman&#39;s Lady</title>
@@ -901,34 +926,6 @@ which omits the seas.&lt;/p&gt;
 </description>
         <pubDate>Fri, 10 Jun 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-06-10:/blog/2016/06/10/What3Words.html</guid>
-    </item>
-        
-            <item>
-        <title>Hillary Clinton, presumptive nominee</title>
-        <link>http://www.georgevreilly.com/blog/2016/06/09/HillaryClintonPresumptiveNominee.html</link>
-        <description>&lt;p&gt;Hillary Clinton will be the Democratic nominee for the 2016 Presidential race.
-Although Sanders has not yet ended his campaign, he can&#39;t win.
-I voted for Sanders in the Washington state caucus
-and I still have his yard sign sitting in my front yard.&lt;/p&gt;
-&lt;p&gt;Unlike some diehard Sanders&#39; supporters,
-I have absolutely no qualms getting behind Clinton.
-She&#39;s one of the most qualified candidates ever to run.
-If elected, she will be on the right side of many of the issues I care about
-and she will make good appointments to the Supreme Court.
-She&#39;s competent and capable and gets things done.
-Clinton has survived more scrutiny and more attacks than just about anyone else.
-She&#39;s not perfect:
-for example, she&#39;s closer to Wall Street than I like.&lt;/p&gt;
-&lt;p&gt;When I compare her to Donald Trump,
-to his utter unfitness for office,
-to his dangerous bellicosity,
-to the appointments he&#39;d make,
-to his denial of climate change,
-it&#39;s a very, very easy decision for me to support Clinton.&lt;/p&gt;
-&lt;p&gt;Hillary for President!&lt;/p&gt;
-</description>
-        <pubDate>Thu, 09 Jun 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-06-09:/blog/2016/06/09/HillaryClintonPresumptiveNominee.html</guid>
     </item>
         </channel>
 </rss>

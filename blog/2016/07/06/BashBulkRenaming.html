@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Bash: Bulk Renaming</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="I had to rename several hundred thousand files tod..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-07-06">06.07.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/07/06/BashBulkRenaming.html" rel="bookmark canonical">Bash: Bulk Renaming</a>
+        </h1>
+    </header>
+    <p>I had to rename several hundred thousand files today.
+Thanks to a botched invocation of Im&shy;ageMag&shy;ick,
+they all looked like <tt class="docutils literal">unique_pre&shy;fix.png.jpg</tt>,
+whereas we simply wanted <tt class="docutils literal">unique_pre&shy;fix.jpg</tt>.</p>
+<p>I found a <a class="reference external" href="http://unix.stackexchange.com/a/102653/4060">suitable answer at the Unix Stack&shy;Ex&shy;change</a>.
+As one of the many variants of <a class="reference external" href="http://tldp.org/LDP/abs/html/parameter-substitution.html">parameter sub&shy;sti&shy;tu&shy;tion</a>,
+Bash supports <tt class="docutils literal">${var/Pattern/Re&shy;place&shy;men&shy;t}</tt>:
+“first match of <tt class="docutils literal">Pattern</tt> within <tt class="docutils literal">var</tt> replaced with <tt class="docutils literal">Re&shy;place&shy;ment</tt>.”</p>
+
+<pre class="brush: bash">
+for f in *.png.jpg;
+do
+    mv $f "${f/.png}"
+done
+</pre>
+
+<p>The target expression could also have been written as <tt class="docutils literal"><span class="pre">&quot;${f/.png.jpg/.jpg}&quot;</span></tt></p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/07/06/BashBulkRenaming.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/07/06/BashBulkRenaming.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2016/07/05/ReviewFlashmansLady.html" class="page floatright">
+        Review: Flashman's Lady &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
