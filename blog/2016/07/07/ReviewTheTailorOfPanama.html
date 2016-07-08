@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Bash: Bulk Renaming</title>
+  <title>Review: The Tailor of Panama</title>
   <link media="all" href="/style.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
@@ -12,7 +12,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content="I had to rename several hundred thousand files tod..." />
+    <meta name="description" content=".. image:: https://upload.wikimedia.org/wikipedia/..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,28 +31,33 @@
     
         <article>
     <header>
-        <time datetime="2016-07-06">06.07.2016, 00:00</time>
+        <time datetime="2016-07-07">07.07.2016, 00:00</time>
         <h1>
-            <a href="/blog/2016/07/06/BashBulkRenaming.html" rel="bookmark canonical">Bash: Bulk Renaming</a>
+            <a href="/blog/2016/07/07/ReviewTheTailorOfPanama.html" rel="bookmark canonical">Review: The Tailor of Panama</a>
         </h1>
     </header>
-    <p>I had to rename several hundred thousand files today.
-Thanks to a botched invocation of Im&shy;ageMag&shy;ick,
-they all looked like <tt class="docutils literal">unique_pre&shy;fix.png.jpg</tt>,
-whereas we simply wanted <tt class="docutils literal">unique_pre&shy;fix.jpg</tt>.</p>
-<p>I found a <a class="reference external" href="http://unix.stackexchange.com/a/102653/4060">suitable answer at the Unix Stack&shy;Ex&shy;change</a>.
-As one of the many variants of <a class="reference external" href="http://tldp.org/LDP/abs/html/parameter-substitution.html">parameter sub&shy;sti&shy;tu&shy;tion</a>,
-Bash supports <tt class="docutils literal">${var/Pattern/Re&shy;place&shy;men&shy;t}</tt>:
-“first match of <tt class="docutils literal">Pattern</tt> within <tt class="docutils literal">var</tt> replaced with <tt class="docutils literal">Re&shy;place&shy;ment</tt>.”</p>
-
-<pre class="brush: bash">
-for f in *.png.jpg;
-do
-    mv $f "${f/.png}"
-done
-</pre>
-
-<p>The target expression could also have been written as <tt class="docutils literal"><span class="pre">&quot;${f/.png.jpg/.jpg}&quot;</span></tt></p>
+    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/The_Tailor_of_Panama_(film)"><img alt="The Tailor of Panama" class="right-float" src="https://upload.wikimedia.org/wikipedia/en/b/b0/The_Tailor_of_Panama.jpg"/></a>
+<div class="line-block">
+<div class="line">Title: The Tailor of Panama</div>
+<div class="line">Director: John Boorman</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Released: 2001</div>
+<div class="line">Keywords: spy thriller, satire</div>
+<div class="line">Watched: 7 July, 2016</div>
+</div>
+<p>Andy Osnard (Pierce Brosnan) is a disgraced MI6 officer, packed off to Panama,
+where he recruits Harry Pendel (Geoffrey Rush), the eponymous tailor.
+Osnard is an un&shy;scrupu&shy;lous dirtbag;
+Pendel is a fabulist in need of money;
+they're made for each other.
+Panama is “Casablan&shy;ca without the heroes”
+and Pendel spins tall tales that make their way back to London.
+Eventually, he outdoes himself, claiming that the Canal is to be sold to the Chinese.
+Osnard manages to procure $15 million to fund a revolution,
+which he plans to abscond with.</p>
+<p>Brosnan plays against type as a crooked bully,
+as Rush steals our sympathy as a decent sort out of his depth.
+An amusing satire adapted from John Le Carré's novel.</p>
 
     <footer>
         
@@ -66,8 +71,8 @@ done
             var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
 
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/07/06/BashBulkRenaming.html";
-            var disqus_url = "http://www.georgevreilly.com/blog/2016/07/06/BashBulkRenaming.html";
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/07/07/ReviewTheTailorOfPanama.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/07/07/ReviewTheTailorOfPanama.html";
 
             if (window.location.hostname != "localhost") {
                 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -88,14 +93,11 @@ done
 </article>
     
     
-        <a href="/blog/2016/07/05/ReviewFlashmansLady.html" class="page floatright">
-        Review: Flashman's Lady &raquo;
+        <a href="/blog/2016/07/06/BashBulkRenaming.html" class="page floatright">
+        Bash: Bulk Renaming &raquo;
         </a>
     
     
-        <a href="/blog/2016/07/07/ReviewTheTailorOfPanama.html" class="page floatleft">
-        &laquo; Review: The Tailor of Panama
-        </a>
 <footer>
     
     
