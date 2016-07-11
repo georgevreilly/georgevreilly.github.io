@@ -29,6 +29,43 @@
     
         <article>
     <header>
+        <time datetime="2016-06-30">30.06.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html" rel="bookmark canonical">reStructuredText Anonymous Hyperlinks</a>
+        </h1>
+    </header>
+    <p>While re&shy;search&shy;ing <a class="reference external" href="/blog/2016/06/29/reStructuredTextNestedMarkup.html">yes&shy;ter&shy;day's post</a> about nested markup in Re&shy;Struc&shy;tured&shy;Text,
+I finally learned how to use <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#anonymous-hyperlinks">anonymous hyperlinks</a>.</p>
+<p>Hitherto, I used one of these three forms for hyperlinks:</p>
+<pre class="literal-block">
+1. The central conceit of the fictional `Flashman Papers`_ is that Flashy
+2. besieging Breda_ in 1625.
+3. my club, `Freely Speaking Toastmasters &lt;http://freelyspeaking.org/&gt;`_.
+
+.. _Flashman Papers:
+    https://en.wikipedia.org/wiki/The_Flashman_Papers
+.. _Breda: http://en.wikipedia.org/wiki/Siege_of_Breda
+</pre>
+<p>The first, <tt class="docutils literal">`Flashman Papers`_</tt>, is a <em>named hyperlink reference</em>,
+which refers to an <em>external hyperlink target</em>, <tt class="docutils literal">.. _Flashman Papers: URI</tt>.
+Note that the reference name starts with a backquote, <tt class="docutils literal">`</tt>,
+and ends with backquote-underscore, <tt class="docutils literal">`_</tt>.</p>
+<p>The second, <tt class="docutils literal">Breda_</tt>, is a <em>simple reference name</em>—the backquotes are optional.</p>
+<p><tt class="docutils literal">`Freely Speaking Toast&shy;mas&shy;ters <span class="pre">&lt;http://freelyspeak&shy;ing.org/&gt;`_</span></tt>,
+is an <em>embedded </em><span>&#8230;<a href="/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-06-29">29.06.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/06/29/reStructuredTextNestedMarkup.html" rel="bookmark canonical">reStructuredText Nested Markup</a>
@@ -296,7 +333,7 @@ and it would have been the <span>&#8230;<a href="/blog/2016/06/23/BadSpeakersAtM
 <div class="line">Reading period: 13–18 June, 2016</div>
 <div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> I: 1839–42</div>
 </div>
-<p>Brigadier-General Sir Harry Flashman,
+<p>Brigadier-General Sir Harry <a class="reference external" href="https://en.wikipedia.org/wiki/Flashman_(novel)">Flashman</a>,
 celebrated Victorian soldier,
 winner of the Victoria Cross,
 survivor of the charge of the Light Brigade,
@@ -332,40 +369,6 @@ over the last two days.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/06/21/DockerCon2016.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-06-18">18.06.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/06/18/DeployingDockerContainersOnAWSPart3.html" rel="bookmark canonical">Deploying Docker Containers on AWS, part 3</a>
-        </h1>
-    </header>
-    <p>I complained <a class="reference external" href="/blog/2016/06/18/17/DeployingDockerContainersOnAWSPart2.html">yesterday</a> about my dif&shy;fi&shy;cul&shy;ties in deploying Docker containers on AWS.
-I have since succeeded in getting my app to deploy on Elas&shy;ticBeanstalk,
-though I have not quite ironed out all the problems.</p>
-<p>I found several problems:</p>
-<blockquote>
-<ul class="simple">
-<li>I had to revert from a Multi-Container Docker en&shy;vi&shy;ron&shy;ment
-to a Single-Container Docker en&shy;vi&shy;ron&shy;ment
-because ECS wasn't starting in the multi-container en&shy;vi&shy;ron&shy;ment.
-That meant I had to revert to a v1 <tt class="docutils literal">Dockerrun.aws.json</tt>.</li>
-<li>I had to ensure that the Instance Profile had the
-Ama&shy;zonEC2&shy;Con&shy;tain&shy;erReg&shy;istryRead&shy;On&shy;ly policy attached,
-so that I could pull from the EC2 Container Repository.</li>
-</ul>
-</blockquote>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/06/18/DeployingDockerContainersOnAWSPart3.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
