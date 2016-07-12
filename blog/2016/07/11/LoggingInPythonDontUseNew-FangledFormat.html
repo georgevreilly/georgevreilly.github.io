@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Logging in Python: Don't use new-fangled format</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="Python 2.6 introduced the `format method`__ to str..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-07-11">11.07.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" rel="bookmark canonical">Logging in Python: Don't use new-fangled format</a>
+        </h1>
+    </header>
+    <p>Python 2.6 introduced the <a class="reference external" href="https://pyformat.info/">format method</a> to strings.
+In general, <tt class="docutils literal">format</tt> is now the preferred way to build strings
+instead of the old <tt class="docutils literal">%</tt> formatting operator.</p>
+<p>One exception is with the <tt class="docutils literal">logging</tt> module,
+where the best practice is to use <tt class="docutils literal">%s</tt> and <tt class="docutils literal">%d</tt>.
+Why?
+First, <tt class="docutils literal">%s</tt> is the idiomatic way to use <tt class="docutils literal">logging</tt>,
+which was built years before <tt class="docutils literal">format</tt> was introduced.
+Second, if there's a literal <tt class="docutils literal">%</tt> in the in&shy;ter&shy;po&shy;lat&shy;ed values,
+<tt class="docutils literal">logging</tt> will be unhappy,
+since there won't be cor&shy;re&shy;spond&shy;ing arguments in the call.
+It won't fall over, since
+“The logging package is designed to swallow exceptions which occur while logging in production.
+This is so that errors which occur while handling logging events
+- such as logging mis&shy;con&shy;fig&shy;u&shy;ra&shy;tion, network or other similar errors -
+do not cause the ap&shy;pli&shy;ca&shy;tion using logging to terminate pre&shy;ma&shy;ture&shy;ly.”</p>
+<p>In other systems, an <a class="reference external" href="https://en.wikipedia.org/wiki/Uncontrolled_format_string">un&shy;con&shy;trolled format string</a> can lead to serious vul&shy;ner&shy;a&shy;bil&shy;i&shy;ties.</p>
+<p>TL;DR, write:</p>
+
+<pre class="brush: python">
+logging.info("Report: Processing %d annotations for id %s",
+            len(annotations), report_id)
+</pre>
+
+<p>not:</p>
+
+<pre class="brush: python">
+logging.info("Report: Processing {} annotations for id {}".format(
+            len(annotations), report_id))
+</pre>
+
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2016/07/10/ReviewFlashmanAndTheMountainOfLight.html" class="page floatright">
+        Review: Flashman and the Mountain of Light &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
