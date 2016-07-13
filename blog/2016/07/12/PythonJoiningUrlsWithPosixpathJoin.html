@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Python: Joining URLs with posixpath.join</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="On Mac/Linux, `os.path.join`__ is an alias for ``p..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-07-12">12.07.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" rel="bookmark canonical">Python: Joining URLs with posixpath.join</a>
+        </h1>
+    </header>
+    <p>On Mac/Linux, <a class="reference external" href="https://docs.python.org/2/library/os.path.html#os.path.join">os.path.join</a> is an alias for <tt class="docutils literal">posixpath.join</tt>,
+which always joins path segments with <tt class="docutils literal">/</tt>.
+On Windows, <tt class="docutils literal">os.path.join</tt> is an alias for <tt class="docutils literal">ntpath.join</tt>,
+which always uses <tt class="docutils literal">\</tt>.
+When dealing with URLs, we always want forward slashes,
+regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build URL paths.</p>
+<p>Running:</p>
+
+<pre class="brush: python">
+from __future__ import print_function
+
+from six.moves.urllib_parse import urljoin as abs_urljoin
+from posixpath import join as path_urljoin
+
+def urljoin(site, path):
+    return abs_urljoin(site, path)
+
+def test_join(site, path):
+    result = urljoin(site, path)
+    print("'{0}' + '{1}'\n\t-> '{2}'".format(site, path, result))
+    return result
+
+local_path = path_urljoin('2016', '07', '12', 'release', 'index.html')
+
+test_join('https://www.example.com', 'foo/bar/quux.js')
+test_join('https://www.example.com', local_path)
+test_join('https://www.example.com/', local_path)
+test_join('https://www.example.com/prefix', local_path)
+</pre>
+
+<p>Yields:</p>
+<pre class="literal-block">
+'https://www.example.com' + 'foo/bar/quux.js'
+        -&gt; 'https://www.example.com/foo/bar/quux.js'
+'https://www.example.com' + '2016/07/12/release/index.html'
+        -&gt; 'https://www.example.com/2016/07/12/release/index.html'
+'https://www.example.com/' + '2016/07/12/release/index.html'
+        -&gt; 'https://www.example.com/2016/07/12/release/index.html'
+'https://www.example.com/pre/fix' + '2016/07/12/release/index.html'
+        -&gt; 'https://www.example.com/2016/07/12/release/index.html'
+</pre>
+<p>The last one is a problem,
+as the path after the hostname, <tt class="docutils literal">/pre/fix</tt>, is lost.</p>
+<p>We can fix it using <a class="reference external" href="https://docs.python.org/2/library/urlparse.html#urlparse.urlparse">urlparse</a> to separate that path from the hostname:</p>
+
+<pre class="brush: python">
+from six.moves.urllib_parse import urljoin as abs_urljoin, urlparse
+
+def urljoin(site, path):
+    return abs_urljoin(site, path_urljoin(urlparse(site).path, path))
+</pre>
+
+<p>which yields:</p>
+<pre class="literal-block">
+'https://www.example.com' + 'foo/bar/quux.js'
+        -&gt; 'https://www.example.com/foo/bar/quux.js'
+'https://www.example.com' + '2016/07/12/release/index.html'
+        -&gt; 'https://www.example.com/2016/07/12/release/index.html'
+'https://www.example.com/' + '2016/07/12/release/index.html'
+        -&gt; 'https://www.example.com/2016/07/12/release/index.html'
+'https://www.example.com/pre/fix' + '2016/07/12/release/index.html'
+        -&gt; 'https://www.example.com/pre/fix/2016/07/12/release/index.html'
+</pre>
+<p>Note that if the <tt class="docutils literal">path</tt> argument to my <tt class="docutils literal">urljoin</tt> function is absolute,
+any path suffix to <tt class="docutils literal">site</tt> is discarded:</p>
+<pre class="literal-block">
+'https://www.example.com/pre/fix' + '/abs/path'
+        -&gt; 'https://www.example.com/abs/path'
+</pre>
+<p>That in turn can be fixed by using <tt class="docutils literal"><span class="pre">str.split('/')</span></tt>
+and discarding any empty segments.</p>
+
+<pre class="brush: python">
+def urljoin(site, path):
+    if isinstance(path, six.string_types):
+        segments = [s for s in path.split('/') if s]
+    else:
+        segments = path  # assume list or tuple
+    return abs_urljoin(site, path_urljoin(urlparse(site).path, *segments))
+</pre>
+
+<p>Thus:</p>
+<pre class="literal-block">
+'https://www.example.com/pre/fix' + '/abs/path'
+    -&gt; 'https://www.example.com/pre/fix/abs/path'
+'https://www.example.com/pre/fix' + '('one', 'two', 'three')'
+    -&gt; 'https://www.example.com/pre/fix/one/two/three'
+</pre>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" class="page floatright">
+        Logging in Python: Don't use new-fangled format &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

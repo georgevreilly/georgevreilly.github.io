@@ -11,8 +11,110 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-07-11T07:00:00Z</updated>
+    <updated>2016-07-12T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Python: Joining URLs with posixpath.join</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" />
+        <id>tag:www.georgevreilly.com,2016-07-12:/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html</id>
+        <updated>2016-07-12T07:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;On Mac/Linux, &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/os.path.html#os.path.join&#34;&gt;os.path.join&lt;/a&gt; is an alias for &lt;tt class=&#34;docutils literal&#34;&gt;posixpath.join&lt;/tt&gt;,
+which always joins path segments with &lt;tt class=&#34;docutils literal&#34;&gt;/&lt;/tt&gt;.
+On Windows, &lt;tt class=&#34;docutils literal&#34;&gt;os.path.join&lt;/tt&gt; is an alias for &lt;tt class=&#34;docutils literal&#34;&gt;ntpath.join&lt;/tt&gt;,
+which always uses &lt;tt class=&#34;docutils literal&#34;&gt;\&lt;/tt&gt;.
+When dealing with URLs, we always want forward slashes,
+regardless of platform, so &lt;tt class=&#34;docutils literal&#34;&gt;posixpath.join&lt;/tt&gt; should be used to build URL paths.&lt;/p&gt;
+&lt;p&gt;Running:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+from __future__ import print_function
+
+from six.moves.urllib_parse import urljoin as abs_urljoin
+from posixpath import join as path_urljoin
+
+def urljoin(site, path):
+    return abs_urljoin(site, path)
+
+def test_join(site, path):
+    result = urljoin(site, path)
+    print(&#34;&#39;{0}&#39; + &#39;{1}&#39;\n\t-&gt; &#39;{2}&#39;&#34;.format(site, path, result))
+    return result
+
+local_path = path_urljoin(&#39;2016&#39;, &#39;07&#39;, &#39;12&#39;, &#39;release&#39;, &#39;index.html&#39;)
+
+test_join(&#39;https://www.example.com&#39;, &#39;foo/bar/quux.js&#39;)
+test_join(&#39;https://www.example.com&#39;, local_path)
+test_join(&#39;https://www.example.com/&#39;, local_path)
+test_join(&#39;https://www.example.com/prefix&#39;, local_path)
+&lt;/pre&gt;
+
+&lt;p&gt;Yields:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+&#39;https://www.example.com&#39; + &#39;foo/bar/quux.js&#39;
+        -&amp;gt; &#39;https://www.example.com/foo/bar/quux.js&#39;
+&#39;https://www.example.com&#39; + &#39;2016/07/12/release/index.html&#39;
+        -&amp;gt; &#39;https://www.example.com/2016/07/12/release/index.html&#39;
+&#39;https://www.example.com/&#39; + &#39;2016/07/12/release/index.html&#39;
+        -&amp;gt; &#39;https://www.example.com/2016/07/12/release/index.html&#39;
+&#39;https://www.example.com/pre/fix&#39; + &#39;2016/07/12/release/index.html&#39;
+        -&amp;gt; &#39;https://www.example.com/2016/07/12/release/index.html&#39;
+&lt;/pre&gt;
+&lt;p&gt;The last one is a problem,
+as the path after the hostname, &lt;tt class=&#34;docutils literal&#34;&gt;/pre/fix&lt;/tt&gt;, is lost.&lt;/p&gt;
+&lt;p&gt;We can fix it using &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/urlparse.html#urlparse.urlparse&#34;&gt;urlparse&lt;/a&gt; to separate that path from the hostname:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+from six.moves.urllib_parse import urljoin as abs_urljoin, urlparse
+
+def urljoin(site, path):
+    return abs_urljoin(site, path_urljoin(urlparse(site).path, path))
+&lt;/pre&gt;
+
+&lt;p&gt;which yields:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+&#39;https://www.example.com&#39; + &#39;foo/bar/quux.js&#39;
+        -&amp;gt; &#39;https://www.example.com/foo/bar/quux.js&#39;
+&#39;https://www.example.com&#39; + &#39;2016/07/12/release/index.html&#39;
+        -&amp;gt; &#39;https://www.example.com/2016/07/12/release/index.html&#39;
+&#39;https://www.example.com/&#39; + &#39;2016/07/12/release/index.html&#39;
+        -&amp;gt; &#39;https://www.example.com/2016/07/12/release/index.html&#39;
+&#39;https://www.example.com/pre/fix&#39; + &#39;2016/07/12/release/index.html&#39;
+        -&amp;gt; &#39;https://www.example.com/pre/fix/2016/07/12/release/index.html&#39;
+&lt;/pre&gt;
+&lt;p&gt;Note that if the &lt;tt class=&#34;docutils literal&#34;&gt;path&lt;/tt&gt; argument to my &lt;tt class=&#34;docutils literal&#34;&gt;urljoin&lt;/tt&gt; function is absolute,
+any path suffix to &lt;tt class=&#34;docutils literal&#34;&gt;site&lt;/tt&gt; is discarded:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+&#39;https://www.example.com/pre/fix&#39; + &#39;/abs/path&#39;
+        -&amp;gt; &#39;https://www.example.com/abs/path&#39;
+&lt;/pre&gt;
+&lt;p&gt;That in turn can be fixed by using &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;str.split(&#39;/&#39;)&lt;/span&gt;&lt;/tt&gt;
+and discarding any empty segments.&lt;/p&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+def urljoin(site, path):
+    if isinstance(path, six.string_types):
+        segments = [s for s in path.split(&#39;/&#39;) if s]
+    else:
+        segments = path  # assume list or tuple
+    return abs_urljoin(site, path_urljoin(urlparse(site).path, *segments))
+&lt;/pre&gt;
+
+&lt;p&gt;Thus:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+&#39;https://www.example.com/pre/fix&#39; + &#39;/abs/path&#39;
+    -&amp;gt; &#39;https://www.example.com/pre/fix/abs/path&#39;
+&#39;https://www.example.com/pre/fix&#39; + &#39;(&#39;one&#39;, &#39;two&#39;, &#39;three&#39;)&#39;
+    -&amp;gt; &#39;https://www.example.com/pre/fix/one/two/three&#39;
+&lt;/pre&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Logging in Python: Don&#39;t use new-fangled format</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" />
@@ -999,30 +1101,6 @@ He goes on the run,
 and soon encounters a Russian hitman
 who&#39;s looking for his abducted 12-year-old daughter.&lt;/p&gt;
 &lt;p&gt;Predictable plot, cardboard characters.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Final Bloomsday Rehearsal</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/06/15/FinalBloomsdayRehearsal.html" />
-        <id>tag:www.georgevreilly.com,2016-06-15:/blog/2016/06/15/FinalBloomsdayRehearsal.html</id>
-        <updated>2016-06-15T07:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.wildgeeseseattle.org/Joyce/Bloomsday/2016.html&#34;&gt;&lt;img alt=&#34;Final Bloomsday Rehearsal&#34; src=&#34;https://scontent-sea1-1.xx.fbcdn.net/v/t1.0-9/13450259_10157001739560405_1540987436437299546_n.jpg?oh=15b1ad8b742cc0f00dd62eab37c22d03&amp;amp;oe=57C9294A&#34; style=&#34;width: 800px;&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;As I wrote &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/06/08/BloomsdayApproaches.html&#34;&gt;last week&lt;/a&gt;,
-we had one more rehearsal to go before
-our &lt;a class=&#34;reference external&#34; href=&#34;http://www.wildgeeseseattle.org/Joyce/Bloomsday/2016.html&#34;&gt;2016 Reading&lt;/a&gt; of &lt;em&gt;Ulysses&lt;/em&gt; for Bloomsday.
-That was tonight.
-Mostly we worked out seating and other logistics.
-We are intercutting two different chapters,
-with the readers playing different roles in each chapter,
-so it&#39;s a small but satisfying accomplishment
-to have a seating arrangement that works for both chapters.&lt;/p&gt;
 </content>
     </entry>
     </feed>
