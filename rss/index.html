@@ -5,9 +5,32 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Wed, 13 Jul 2016 07:00:00 GMT</pubDate>
+        <pubDate>Thu, 14 Jul 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>SQLAlchemy got me Killed</title>
+        <link>http://www.georgevreilly.com/blog/2016/07/14/SQLAlchemyGotMeKilled.html</link>
+        <description>&lt;p&gt;I ran a script this afternoon that died mysteriously without any output.
+It was using &lt;a class=&#34;reference external&#34; href=&#34;http://www.sqlalchemy.org/&#34;&gt;SQLAlchemy&lt;/a&gt; to query all the rows from a large table
+so that they could be transformed into &lt;a class=&#34;reference external&#34; href=&#34;http://jsonlines.org/&#34;&gt;JSON Lines&lt;/a&gt; to be loaded into Elasticsearch.
+When I reran my script,
+I noticed this time that something had printed &lt;tt class=&#34;docutils literal&#34;&gt;Killed&lt;/tt&gt; at the very end.&lt;/p&gt;
+&lt;p&gt;A little research convinced me that the &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/726690/who-killed-my-process-and-why&#34;&gt;OOM Killer&lt;/a&gt; was the likely assassin.
+I looked in &lt;tt class=&#34;docutils literal&#34;&gt;/var/log/kern.log&lt;/tt&gt;
+and I found that my process had used up almost all of the 8GB on this system
+before being killed.&lt;/p&gt;
+&lt;p&gt;The query had to be the problem.
+A little more research led me to augment my query with &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/1145905/sqlalchemy-scan-huge-tables-using-orm&#34;&gt;yield_per&lt;/a&gt;,
+which batched the results,
+instead of fetching everything into memory at once.
+There are various caveats to using &lt;tt class=&#34;docutils literal&#34;&gt;yield_per&lt;/tt&gt;;
+none applied here.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 14 Jul 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-07-14:/blog/2016/07/14/SQLAlchemyGotMeKilled.html</guid>
+    </item>
         
             <item>
         <title>Disabling Vibrating Notifications in the Facebook Android App</title>
@@ -903,45 +926,6 @@ so that I could pull from the EC2 Container Repository.&lt;/li&gt;
 </description>
         <pubDate>Sat, 18 Jun 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-06-18:/blog/2016/06/18/DeployingDockerContainersOnAWSPart3.html</guid>
-    </item>
-        
-            <item>
-        <title>Deploying Docker Containers on AWS, part 2</title>
-        <link>http://www.georgevreilly.com/blog/2016/06/17/DeployingDockerContainersOnAWSPart2.html</link>
-        <description>&lt;p&gt;I complained &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/05/24/DeployingADockerContainerOnAWS.html&#34;&gt;a few weeks ago&lt;/a&gt; about how hard it was to deploy Docker containers on AWS.&lt;/p&gt;
-&lt;p&gt;This week has been nothing but container-related frustration.
-We have two apps running in Kubernetes clusters on top of AWS.
-This is not a well-supported scenario and we have a fragile script
-that spends a lot of time sitting in polling loops,
-waiting for various things to happen like DNS updates taking effect,
-the new cluster being available, and so on.
-One of the apps has decided to stop deploying.
-I do not know why.&lt;/p&gt;
-&lt;p&gt;I&#39;ve been trying to get a new app deployed on ECS, the EC2 Container Service.
-The way to deploy an updated app is to take an existing Task Definition,
-update the tag on the image name, and create a new revision.
-I have not figured out the right incantation to get the cluster service
-to start running the new task consistently,
-much less how to do this without any downtime.
-It&#39;s insanely difficult to bring up a new cluster,
-or, more specifically, to configure an EC2 instance for the new cluster.
-There&#39;s a huge list of non-obvious pieces that need to be configured.
-I discovered that you could append &lt;tt class=&#34;docutils literal&#34;&gt;#/firstRun&lt;/tt&gt; to the URL
-to get the first-run wizard to reappear.
-That causes no less than 15 pieces of AWS infrastructure to start up,
-which is significantly more than you get when you create an ECS cluster the other way.
-However, the ELB Load Balancer is not configured correctly.&lt;/p&gt;
-&lt;p&gt;I tried going back to ElasticBeanstalk,
-since we&#39;ve successfully deployed a Docker container on EB for the last two years.
-I realized that the way to bootstrap a new environment is to upload &lt;tt class=&#34;docutils literal&#34;&gt;Dockerrun.aws.json&lt;/tt&gt;.
-However, I have yet to get the new environment to start up correctly.
-I SSHed into the EC2 instance and found that the Docker daemon wasn&#39;t running
-and refuses to start.&lt;/p&gt;
-&lt;p&gt;UPDATE: &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/06/17/18/DeployingDockerContainersOnAWSPart3.html&#34;&gt;fixed some problems with ElasticBeanstalk&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;I am very, very unhappy with AWS this week.&lt;/p&gt;
-</description>
-        <pubDate>Fri, 17 Jun 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-06-17:/blog/2016/06/17/DeployingDockerContainersOnAWSPart2.html</guid>
     </item>
         </channel>
 </rss>

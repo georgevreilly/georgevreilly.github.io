@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Disabling Vibrating Notifications in the Facebook Android App</title>
+  <title>SQLAlchemy got me Killed</title>
   <link media="all" href="/style.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
@@ -12,7 +12,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content="I&#39;ve had to figure this out twice in recent months..." />
+    <meta name="description" content="I ran a script this afternoon that died mysterious..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,25 +31,26 @@
     
         <article>
     <header>
-        <time datetime="2016-07-13">13.07.2016, 00:00</time>
+        <time datetime="2016-07-14">14.07.2016, 00:00</time>
         <h1>
-            <a href="/blog/2016/07/13/DisablingVibratingNotificationsInFacebookAndroidApp.html" rel="bookmark canonical">Disabling Vibrating Notifications in the Facebook Android App</a>
+            <a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" rel="bookmark canonical">SQLAlchemy got me Killed</a>
         </h1>
     </header>
-    <p>I've had to figure this out twice in recent months,
-and it was no easier the second time than the first.</p>
-<p>If you reinstall the Facebook app on Android,
-you will be plagued by the phone buzzing every few minutes
-to notify you that someone posted something.</p>
-<p>The relevant setting is buried deeply.</p>
-<ul class="simple">
-<li>Open the Facebook app</li>
-<li>Click the gray-on-white hamburger icon. Top right, second row.</li>
-<li>Scroll all the way down to App Settings. Click.</li>
-<li>Click No&shy;ti&shy;fi&shy;ca&shy;tions. It's <em>not</em> obvious that it's clickable.</li>
-<li>Change the Vibrate setting to OFF</li>
-<li>Curse Facebook.</li>
-</ul>
+    <p>I ran a script this afternoon that died mys&shy;te&shy;ri&shy;ous&shy;ly without any output.
+It was using <a class="reference external" href="http://www.sqlalchemy.org/">SQLAlchemy</a> to query all the rows from a large table
+so that they could be trans&shy;formed into <a class="reference external" href="http://jsonlines.org/">JSON Lines</a> to be loaded into Elas&shy;tic&shy;search.
+When I reran my script,
+I noticed this time that something had printed <tt class="docutils literal">Killed</tt> at the very end.</p>
+<p>A little research convinced me that the <a class="reference external" href="http://stackoverflow.com/questions/726690/who-killed-my-process-and-why">OOM Killer</a> was the likely assassin.
+I looked in <tt class="docutils literal">/var/log/kern.log</tt>
+and I found that my process had used up almost all of the 8GB on this system
+before being killed.</p>
+<p>The query had to be the problem.
+A little more research led me to augment my query with <a class="reference external" href="http://stackoverflow.com/questions/1145905/sqlalchemy-scan-huge-tables-using-orm">yield_per</a>,
+which batched the results,
+instead of fetching everything into memory at once.
+There are various caveats to using <tt class="docutils literal">yield_per</tt>;
+none applied here.</p>
 
     <footer>
         
@@ -63,8 +64,8 @@ to notify you that someone posted something.</p>
             var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
 
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/07/13/DisablingVibratingNotificationsInFacebookAndroidApp.html";
-            var disqus_url = "http://www.georgevreilly.com/blog/2016/07/13/DisablingVibratingNotificationsInFacebookAndroidApp.html";
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/07/14/SQLAlchemyGotMeKilled.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/07/14/SQLAlchemyGotMeKilled.html";
 
             if (window.location.hostname != "localhost") {
                 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -85,14 +86,11 @@ to notify you that someone posted something.</p>
 </article>
     
     
-        <a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" class="page floatright">
-        Python: Joining URLs with posixpath.join &raquo;
+        <a href="/blog/2016/07/13/DisablingVibratingNotificationsInFacebookAndroidApp.html" class="page floatright">
+        Disabling Vibrating Notifications in the Facebook Android App &raquo;
         </a>
     
     
-        <a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" class="page floatleft">
-        &laquo; SQLAlchemy got me Killed
-        </a>
 <footer>
     
     
