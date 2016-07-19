@@ -29,6 +29,42 @@
     
         <article>
     <header>
+        <time datetime="2016-01-16">16.01.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html" rel="bookmark canonical">Installing Python 2.7.11 on Ubuntu</a>
+        </h1>
+    </header>
+    <p>We deploy on Ubuntu 14.04, the most recent Long Term Support release.
+It comes with Python 2.7.6,
+but we need Python 2.7.9+ to get the some important SSL fixes
+and work with a recent version of the <a class="reference external" href="http://docs.python-requests.org/en/latest/">Requests</a> library.</p>
+<p>Felix Krull maintains a Personal Package Archive for <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes-python2.7">Python 2.7 Updates</a>,
+which makes it straight&shy;for&shy;ward to upgrade to Python 2.7.11
+on supported versions of Ubuntu.</p>
+
+<pre class="brush: bash">
+sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
+sudo apt-get update
+sudo apt-get install python2.7 python2.7-dev
+</pre>
+
+<p>Be sure not to use Felix Krull's <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes">other Python PPA</a> by mistake.
+I did that on a col&shy;league's machine yesterday.
+In our attempts to figure out why we still had Python 2.7.6,
+we managed to mess up the <span>&#8230;<a href="/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-01-15">15.01.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/01/15/DVINotConsideredEqual.html" rel="bookmark canonical">DVI Not Considered Equal</a>
@@ -374,47 +410,6 @@ and GPG passphras&shy;es.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/07/DicewareAndLastpass.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-01-06">06.01.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/01/06/ReviewHideMeAmongTheGraves.html" rel="bookmark canonical">Review: Hide Me Among The Graves</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0062210807/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Hide Me Among The Graves</div>
-<div class="line">Author: Tim Powers</div>
-<div class="line">Rating: $stars(4)</div>
-<div class="line">Publisher: William Morrow</div>
-<div class="line">Copyright: 2012</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/0062210807/?tag=georgvreill-20">0062210807</a></div>
-<div class="line">Pages: 544</div>
-<div class="line">Keywords: fantasy, secret history</div>
-<div class="line">Reading period: 2 December, 2015–6 January, 2016</div>
-</div>
-<p>The Rosetti siblings, <a class="reference external" href="https://en.wikipedia.org/wiki/Christina_Rossetti">Christina</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Dante_Gabriel_Rossetti">Dante (Gabriel)</a>, Maria, and William,
-are haunted by the vampire who was once their uncle, <a class="reference external" href="https://en.wikipedia.org/wiki/John_William_Polidori">John Polidori</a>.
-The vampires pos&shy;ses&shy;sive&shy;ly love certain humans
-and grant those humans great powers of creativity.
-Christina both loves her uncle and yearns to be free of him.
-The other humans who receive the attentions of the vampires
-likewise feel both a forbidden attraction
-and a horrified repulsion at their own potential damnation.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Tim_Powers">Tim Powers</a> is known for his “<a class="reference external" href="https://en.wikipedia.org/wiki/Secret_history">secret histories</a>”,
-wherein he takes historical events and figures
-and <span>&#8230;<a href="/blog/2016/01/06/ReviewHideMeAmongTheGraves.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/06/ReviewHideMeAmongTheGraves.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
