@@ -11,8 +11,57 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-07-27T07:00:00Z</updated>
+    <updated>2016-07-28T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>I&#39;m With Her</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/07/28/ImWithHer.html" />
+        <id>tag:www.georgevreilly.com,2016-07-28:/blog/2016/07/28/ImWithHer.html</id>
+        <updated>2016-07-28T07:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;History was made tonight as Hillary Clinton became the first woman
+nominated by a major party to run for President of the US.
+It&#39;s a watershed moment for women&#39;s equality and it was long overdue.&lt;/p&gt;
+&lt;p&gt;I was a Bernie Sanders supporter in the earlier stages of the campaign,
+as his message resonated more with me.
+But I was always ready and willing to support Clinton.
+I can&#39;t think of a nominee with a more impressive résumé who&#39;s run for President:
+first lady of Arkansas for more than a decade,
+First Lady of the US for two terms,
+US Senator for New York state for eight years,
+and Secretary of State for four years.
+Moreover, she has a lifelong track record of effective public service
+and working with both Republicans and Democrats.
+While she&#39;s been more centrist and corporatist than I care for,
+she&#39;s also been a progressive champion,
+especially on health and children issues.
+She has survived decades of baseless attacks from the Republicans
+and they&#39;ve never been able to take her down,
+though they&#39;ve certainly led a large number of Americans to distrust her.&lt;/p&gt;
+&lt;p&gt;I can&#39;t imagine myself voting for a Republican president,
+as we differ widely on so many issues.
+Even so, I&#39;m astounded at how the Republican party has lost its way.
+The rest of the world thinks America has gone quite mad.
+It&#39;s incredible that Donald Trump is the Republican nominee.
+His low character, his deplorable temperament,
+his vile speeches and demagoguery,
+his bigotry and misogyny and racism,
+his lack of thought or self-control or any knowledge—any of these should have disqualified him.
+That they didn&#39;t is an indictment of the Republican party.
+He truly is unfit for the office.
+While I vigorously disagreed with Romney, McCain, and Bush,
+I never thought they were unfit to be President.&lt;/p&gt;
+&lt;p&gt;Clinton can do the job and do it well.
+She has the temperament and the experience.
+I&#39;m with her.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Review: The King&#39;s Hounds</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/07/27/ReviewTheKingsHounds.html" />
@@ -944,49 +993,6 @@ Here you have |optparse.OptionParser|_.
 &lt;p&gt;This is tedious as you have to create a pair of directives
 for every such link that you wish to style.&lt;/p&gt;
 &lt;p&gt;Nested inline markup has been on the todo list for 15 years—it ain&#39;t happening.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Creating a New PostgreSQL Database at RDS</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html" />
-        <id>tag:www.georgevreilly.com,2016-06-28:/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html</id>
-        <updated>2016-06-28T07:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;Many of us are guilty of saying “database” when we mean a database server or a DBMS.
-A database is a collection of tables storing related data,
-schemas, stored procs, and permissions.
-Most database servers are capable of managing many databases simultaneously.&lt;/p&gt;
-&lt;p&gt;I needed to create a new PostgreSQL database at Amazon&#39;s RDS last week.
-I already had an RDS instance; I needed a new database on that instance.
-My Google searches turned up various recipes for creating a new RDS instance.&lt;/p&gt;
-&lt;p&gt;The following worked for me:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p class=&#34;first&#34;&gt;SSH to an EC2 instance inside our VPC,
-so that I could connect to the RDS instance using &lt;a class=&#34;reference external&#34; href=&#34;http://postgresguide.com/utilities/psql.html&#34;&gt;psql&lt;/a&gt;.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p class=&#34;first&#34;&gt;Then run:&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;
-psql --host=SOME-DBMS-HOST --dbname EXISTING_DB \
-     --username=YOUR-USERNAME --password \
-     --command=&amp;quot;CREATE DATABASE new_database WITH OWNER some_owner&amp;quot;
-&lt;/pre&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p class=&#34;first&#34;&gt;Using &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--password&lt;/span&gt;&lt;/tt&gt; will prompt you for a password.
-If you&#39;ve set up &lt;a class=&#34;reference external&#34; href=&#34;https://blog.sleeplessbeastie.eu/2014/03/23/how-to-non-interactively-provide-password-for-the-postgresql-interactive-terminal/&#34;&gt;&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;~/.pgpass&lt;/span&gt;&lt;/tt&gt;&lt;/a&gt;, you can specify &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--no-password&lt;/span&gt;&lt;/tt&gt; instead.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p class=&#34;first&#34;&gt;The critical part that was hard to figure out is that I had to specify
-&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--dbname&lt;/span&gt; EXISTING_DB&lt;/tt&gt;.
-Otherwise, psql kept trying to connect to a database called YOUR-USERNAME.&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;p class=&#34;first&#34;&gt;This should work for any PostgreSQL server, not just one hosted at RDS.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
 </content>
     </entry>
     </feed>
