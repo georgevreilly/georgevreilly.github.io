@@ -5,9 +5,61 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Sun, 31 Jul 2016 07:00:00 GMT</pubDate>
+        <pubDate>Mon, 01 Aug 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Creating External SSL Certificates for CloudFront</title>
+        <link>http://www.georgevreilly.com/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html</link>
+        <description>&lt;p&gt;I needed to create a wildcard SSL certificate and upload it to &lt;a class=&#34;reference external&#34; href=&#34;https://aws.amazon.com/cloudfront/&#34;&gt;AWS CloudFront&lt;/a&gt; today.&lt;/p&gt;
+&lt;p&gt;First, generate a 2048-bit private key. This will prompt you for a passphrase:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+$ openssl genrsa -des3 -out example.key 2048
+&lt;/pre&gt;
+&lt;p&gt;Check which signature algorithm was used (SHA-256 is recommended):&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+$ openssl req -in example.csr -noout -text
+&lt;/pre&gt;
+&lt;p&gt;Transform the private key to PEM format:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+$ openssl rsa -outform PEM -in example.key -out example.pem
+&lt;/pre&gt;
+&lt;p&gt;Generate a Certificate Signing Request. Note the &lt;tt class=&#34;docutils literal&#34;&gt;*&lt;/tt&gt; in the server FQDN:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+$ openssl req -new -key example.key -out example.csr
+
+Country Name (2 letter code) [AU]:US
+State or Province Name (full name) [Some-State]:Washington
+Locality Name (eg, city) []:Seattle
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:Example GmbH
+Organizational Unit Name (eg, section) []:
+Common Name (e.g. server FQDN or YOUR name) []:*.example.com
+Email Address []:
+
+Please enter the following &#39;extra&#39; attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+&lt;/pre&gt;
+&lt;p&gt;Upload the CSR to your Certificate Authority and generate a signed certificate.
+We used &lt;a class=&#34;reference external&#34; href=&#34;https://www.ssl.com/&#34;&gt;SSL.com&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Be sure to save the keys and certificates in a secure place.
+The private key is a &lt;em&gt;secret&lt;/em&gt;: treat it as such.&lt;/p&gt;
+&lt;p&gt;Finally, &lt;a class=&#34;reference external&#34; href=&#34;http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs_manage.html#UploadSignedCert&#34;&gt;upload the certificate to IAM (AWS Identity and Access Management)&lt;/a&gt;:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+$ aws iam upload-server-certificate \
+    --server-certificate-name &#39;Example_Wildcard_Cert&#39; \
+    --certificate-body file://STAR_example_com.crt \
+    --private-key file://example.pem \
+    --certificate-chain file://ca-chain-amazon.crt \
+    --path /cloudfront/production/
+&lt;/pre&gt;
+&lt;p&gt;Note the &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--path&lt;/span&gt;&lt;/tt&gt; argument, which is required for CloudFront distributions.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 01 Aug 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-01:/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html</guid>
+    </item>
         
             <item>
         <title>Review: Cymbeline</title>
@@ -801,35 +853,6 @@ but the laptop does seem much more responsive than before.&lt;/p&gt;
 </description>
         <pubDate>Sun, 03 Jul 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-07-03:/blog/2016/07/03/SSDUpgradeFor2012MacBook.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: Tomorrowland</title>
-        <link>http://www.georgevreilly.com/blog/2016/07/02/ReviewTomorrowland.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Tomorrowland_(film)&#34;&gt;&lt;img alt=&#34;Tomorrowland&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/en/8/80/Tomorrowland_poster.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: Tomorrowland&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Director: Brad Bird&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ½&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Released: 2015&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: sf&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Watched: 2 July, 2016&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Tomorrowland_(film)&#34;&gt;Tomorrowland&lt;/a&gt; is a story of dashed dreams and recovered optimism.&lt;/p&gt;
-&lt;p&gt;In 1964, eleven-year-old Frank Walker meets a girl called Athena
-who takes him from the World&#39;s Fair into a futuristic city called Tomorrowland.
-In the present day, where doom and gloom reign,
-a teenager called Casey hasn&#39;t given up hope of a better future.
-She is recruited by Athena—somehow no older—to save the world.
-Casey finds Frank, who is embittered at having been cast out of paradise decades ago.
-They find their way back into the now-desolate Tomorrowland
-and destroy the machine that&#39;s casting a pall of despair across our world.&lt;/p&gt;
-&lt;p&gt;If that sounds incoherent, that&#39;s because the film is an expensive mess,
-and far from Brad Bird&#39;s best work.
-Casey and Frank and Athena run around a lot, but it&#39;s hard to care.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 02 Jul 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-07-02:/blog/2016/07/02/ReviewTomorrowland.html</guid>
     </item>
         </channel>
 </rss>

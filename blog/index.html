@@ -29,6 +29,45 @@
     
         <article>
     <header>
+        <time datetime="2016-08-01">01.08.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" rel="bookmark canonical">Creating External SSL Certificates for CloudFront</a>
+        </h1>
+    </header>
+    <p>I needed to create a wildcard SSL cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/">AWS CloudFront</a> today.</p>
+<p>First, generate a 2048-bit private key. This will prompt you for a passphrase:</p>
+<pre class="literal-block">
+$ openssl genrsa -des3 -out example.key 2048
+</pre>
+<p>Check which signature algorithm was used (SHA-256 is rec&shy;om&shy;mend&shy;ed):</p>
+<pre class="literal-block">
+$ openssl req -in example.csr -noout -text
+</pre>
+<p>Transform the private key to PEM format:</p>
+<pre class="literal-block">
+$ openssl rsa -outform PEM -in example.key -out example.pem
+</pre>
+<p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server FQDN:</p>
+<pre class="literal-block">
+$ openssl req -new -key example.key -out example.csr
+
+Country Name (2 letter code) [AU]:US
+State or Province Name (full name) [Some-State]:Washington
+Locality Name (eg, city) []:Seattle
+Organization Name (eg, company) [Internet Widgits Pty </pre><span>&#8230;<a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-07-31">31.07.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/07/31/ReviewCymbeline.html" rel="bookmark canonical">Review: Cymbeline</a>
@@ -327,46 +366,6 @@ I had to resort to the <a class="reference external" href="https://help.evernote
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/19/UndeletingNotesInEvernote.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-07-18">18.07.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/07/18/ReviewTheSilentTwin.html" rel="bookmark canonical">Review: The Silent Twin</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/B01BLU0U6G/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Silent Twin</div>
-<div class="line">Author: Caroline Mitchell</div>
-<div class="line">Rating: ★ ★ ★ ½</div>
-<div class="line">Publisher: Bookouture</div>
-<div class="line">Copyright: 2016</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/B01BLU0U6G/?tag=georgvreill-20">B01BLU0U6G</a></div>
-<div class="line">Pages: 344</div>
-<div class="line">Keywords: police, paranormal</div>
-<div class="line">Reading period: 3 June–10 July, 2016</div>
-</div>
-<p>Abigail has gone missing from creepy Blackwater Farm days before her tenth birthday.
-Her twin Olivia has been mute ever since.
-Their strange mother is not helping matters and the father is acting oddly too.
-DC Jennifer Knight, who belongs to a secret psychic police task force,
-is the family liaison officer.
-She must convince Olivia to break her silence and reveal what she knows
-before time runs out for Abigail.</p>
-<p>This was a reasonably good thriller that I think would have been better
-without the su&shy;per&shy;nat&shy;ur&shy;al elements.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/18/ReviewTheSilentTwin.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
