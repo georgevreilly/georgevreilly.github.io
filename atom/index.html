@@ -11,8 +11,32 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-08-04T07:00:00Z</updated>
+    <updated>2016-08-05T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Useful Mental Models</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/08/05/UsefulMentalModels.html" />
+        <id>tag:www.georgevreilly.com,2016-08-05:/blog/2016/08/05/UsefulMentalModels.html</id>
+        <updated>2016-08-05T07:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://medium.com/@yegg/mental-models-i-find-repeatedly-useful-936f1cc405d#.5ejg13weq&#34;&gt;&lt;img alt=&#34;Mental Models I Find Repeatedly Useful&#34; src=&#34;https://cdn-images-1.medium.com/max/1600/1*C1DE6dVyfkEdFIvmFZC_4Q.jpeg&#34; style=&#34;width: 700px;&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;Gabriel Weinberg has a great Medium post about &lt;a class=&#34;reference external&#34; href=&#34;https://medium.com/@yegg/mental-models-i-find-repeatedly-useful-936f1cc405d#.5ejg13weq&#34;&gt;Useful Mental Models&lt;/a&gt;.
+‘There is a much smaller set of concepts, however, that come up repeatedly
+in day-to-day decision making, problem solving, and truth seeking.
+As [Charlie] Munger says,
+“80 or 90 important models will carry about 90% of the freight
+in making you a worldly‑wise person.”’
+He notes ‘my definition of mental model differs from some others,
+with mine being more broadly defined as any concept
+that helps explain, analyze, or navigate the world.’&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Review: Above Suspicion</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/08/04/ReviewAboveSuspicion.html" />
@@ -959,37 +983,6 @@ which he plans to abscond with.&lt;/p&gt;
 &lt;p&gt;Brosnan plays against type as a crooked bully,
 as Rush steals our sympathy as a decent sort out of his depth.
 An amusing satire adapted from John Le Carré&#39;s novel.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Bash: Bulk Renaming</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/07/06/BashBulkRenaming.html" />
-        <id>tag:www.georgevreilly.com,2016-07-06:/blog/2016/07/06/BashBulkRenaming.html</id>
-        <updated>2016-07-06T07:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;I had to rename several hundred thousand files today.
-Thanks to a botched invocation of ImageMagick,
-they all looked like &lt;tt class=&#34;docutils literal&#34;&gt;unique_prefix.png.jpg&lt;/tt&gt;,
-whereas we simply wanted &lt;tt class=&#34;docutils literal&#34;&gt;unique_prefix.jpg&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;I found a &lt;a class=&#34;reference external&#34; href=&#34;http://unix.stackexchange.com/a/102653/4060&#34;&gt;suitable answer at the Unix StackExchange&lt;/a&gt;.
-As one of the many variants of &lt;a class=&#34;reference external&#34; href=&#34;http://tldp.org/LDP/abs/html/parameter-substitution.html&#34;&gt;parameter substitution&lt;/a&gt;,
-Bash supports &lt;tt class=&#34;docutils literal&#34;&gt;${var/Pattern/Replacement}&lt;/tt&gt;:
-“first match of &lt;tt class=&#34;docutils literal&#34;&gt;Pattern&lt;/tt&gt; within &lt;tt class=&#34;docutils literal&#34;&gt;var&lt;/tt&gt; replaced with &lt;tt class=&#34;docutils literal&#34;&gt;Replacement&lt;/tt&gt;.”&lt;/p&gt;
-
-&lt;pre class=&#34;brush: bash&#34;&gt;
-for f in *.png.jpg;
-do
-    mv $f &#34;${f/.png}&#34;
-done
-&lt;/pre&gt;
-
-&lt;p&gt;The target expression could also have been written as &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;${f/.png.jpg/.jpg}&amp;quot;&lt;/span&gt;&lt;/tt&gt;&lt;/p&gt;
 </content>
     </entry>
     </feed>
