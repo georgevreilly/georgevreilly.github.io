@@ -5,9 +5,78 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Fri, 05 Aug 2016 07:00:00 GMT</pubDate>
+        <pubDate>Sat, 06 Aug 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Rounding</title>
+        <link>http://www.georgevreilly.com/blog/2016/08/06/Rounding.html</link>
+        <description>&lt;p&gt;I recently learned from a &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/10825926/python-3-x-rounding-behavior&#34;&gt;StackOverflow question&lt;/a&gt;
+that the rounding behavior in Python 3.x is different from Python 2.x:&lt;/p&gt;
+&lt;blockquote&gt;
+The round() function rounding strategy and return type have changed.
+Exact halfway cases are now rounded to the nearest even result
+instead of away from zero.
+(For example, round(2.5) now returns 2 rather than 3.)&lt;/blockquote&gt;
+&lt;p&gt;The “away from zero” rounding strategy is the one that most of us learned at school.
+The “nearest even” strategy is also known as “banker’s rounding”.&lt;/p&gt;
+&lt;p&gt;There are actually &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/IEEE_floating_point#Rounding_rules&#34;&gt;five rounding strategies defined in IEEE 754&lt;/a&gt;:&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;docutils&#34;&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;58%&#34;/&gt;
+&lt;col width=&#34;11%&#34;/&gt;
+&lt;col width=&#34;11%&#34;/&gt;
+&lt;col width=&#34;11%&#34;/&gt;
+&lt;col width=&#34;11%&#34;/&gt;
+&lt;/colgroup&gt;
+&lt;thead valign=&#34;bottom&#34;&gt;
+&lt;tr&gt;&lt;th class=&#34;head&#34;&gt;Mode / Example Value&lt;/th&gt;
+&lt;th class=&#34;head&#34;&gt;+11.5&lt;/th&gt;
+&lt;th class=&#34;head&#34;&gt;+12.5&lt;/th&gt;
+&lt;th class=&#34;head&#34;&gt;−11.5&lt;/th&gt;
+&lt;th class=&#34;head&#34;&gt;−12.5&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign=&#34;top&#34;&gt;
+&lt;tr&gt;&lt;td&gt;to nearest, ties to even&lt;/td&gt;
+&lt;td&gt;+12.0&lt;/td&gt;
+&lt;td&gt;+12.0&lt;/td&gt;
+&lt;td&gt;−12.0&lt;/td&gt;
+&lt;td&gt;−12.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;to nearest, ties away from zero&lt;/td&gt;
+&lt;td&gt;+12.0&lt;/td&gt;
+&lt;td&gt;+13.0&lt;/td&gt;
+&lt;td&gt;−12.0&lt;/td&gt;
+&lt;td&gt;−13.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;toward 0 (truncation)&lt;/td&gt;
+&lt;td&gt;+11.0&lt;/td&gt;
+&lt;td&gt;+12.0&lt;/td&gt;
+&lt;td&gt;−11.0&lt;/td&gt;
+&lt;td&gt;−12.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;toward +∞ (ceiling)&lt;/td&gt;
+&lt;td&gt;+12.0&lt;/td&gt;
+&lt;td&gt;+13.0&lt;/td&gt;
+&lt;td&gt;−11.0&lt;/td&gt;
+&lt;td&gt;−12.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;toward −∞ (floor)&lt;/td&gt;
+&lt;td&gt;+11.0&lt;/td&gt;
+&lt;td&gt;+12.0&lt;/td&gt;
+&lt;td&gt;−12.0&lt;/td&gt;
+&lt;td&gt;−13.0&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Further reading on IEEE 754, David Goldberg&#39;s classic
+&lt;a class=&#34;reference external&#34; href=&#34;http://perso.ens-lyon.fr/jean-michel.muller/goldberg.pdf&#34;&gt;What Every Computer Scientist Should Know About Floating-Point Arithmetic&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 06 Aug 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-06:/blog/2016/08/06/Rounding.html</guid>
+    </item>
         
             <item>
         <title>Useful Mental Models</title>
@@ -800,36 +869,6 @@ as the sound never let up.&lt;/p&gt;
 </description>
         <pubDate>Fri, 08 Jul 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-07-08:/blog/2016/07/08/TeatroZinzanni.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: The Tailor of Panama</title>
-        <link>http://www.georgevreilly.com/blog/2016/07/07/ReviewTheTailorOfPanama.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/The_Tailor_of_Panama_(film)&#34;&gt;&lt;img alt=&#34;The Tailor of Panama&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/en/b/b0/The_Tailor_of_Panama.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: The Tailor of Panama&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Director: John Boorman&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Released: 2001&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: spy thriller, satire&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Watched: 7 July, 2016&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;Andy Osnard (Pierce Brosnan) is a disgraced MI6 officer, packed off to Panama,
-where he recruits Harry Pendel (Geoffrey Rush), the eponymous tailor.
-Osnard is an unscrupulous dirtbag;
-Pendel is a fabulist in need of money;
-they&#39;re made for each other.
-Panama is “Casablanca without the heroes”
-and Pendel spins tall tales that make their way back to London.
-Eventually, he outdoes himself, claiming that the Canal is to be sold to the Chinese.
-Osnard manages to procure $15 million to fund a revolution,
-which he plans to abscond with.&lt;/p&gt;
-&lt;p&gt;Brosnan plays against type as a crooked bully,
-as Rush steals our sympathy as a decent sort out of his depth.
-An amusing satire adapted from John Le Carré&#39;s novel.&lt;/p&gt;
-</description>
-        <pubDate>Thu, 07 Jul 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-07-07:/blog/2016/07/07/ReviewTheTailorOfPanama.html</guid>
     </item>
         </channel>
 </rss>

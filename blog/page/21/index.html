@@ -29,6 +29,98 @@
     
         <article>
     <header>
+        <time datetime="2016-01-12">12.01.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" rel="bookmark canonical">Bash: Getting and Setting Default Values</a>
+        </h1>
+    </header>
+    <p>Bash has some handy syntax for getting and setting default values.
+Un&shy;for&shy;tu&shy;nate&shy;ly, it's a collection of punc&shy;tu&shy;a&shy;tion characters,
+which makes it hard to Google when you can't quite remember the syntax.</p>
+<p>Getting a default value using <tt class="docutils literal"><span class="pre">${var:-fallback}</span></tt>:</p>
+
+<pre class="brush: bash">
+# set $LOGDIR to $1 if $1 has a value; otherwise set $LOGDIR to "/var/log"
+LOGDIR="${1:-/var/log}"
+
+# use $VERSION unless it's empty or unset; fall back to extracting someprog's version num
+build_version=${VERSION:-$(someprog --version | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')}
+</pre>
+
+<p>The colon-dash con&shy;struc&shy;tion is known as the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog's bollocks</a>
+in typography.</p>
+<p>Setting a default value, using <tt class="docutils literal"><span class="pre">${var:=fallback}</span></tt>:</p>
+
+<pre class="brush: bash">
+$ echo $HOME
+/Users/georgevreilly
+$ echo ${HOME:=/tmp}
+/Users/georgevreilly
+$ unset HOME
+$ echo ${HOME:=/tmp}
+/tmp
+$ echo $HOME
+/tmp
+$ cd; pwd
+/tmp
+</pre>
+
+<p>Note: <tt class="docutils literal">:=</tt> uses the new value in two cases.
+First, when <span>&#8230;<a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/12/BashGettingAndSettingDefaultValues.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2016-01-11">11.01.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/01/11/ReviewBlindJustice.html" rel="bookmark canonical">Review: Blind Justice</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/0425150070/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: Blind Justice</div>
+<div class="line">Author: Bruce Alexander</div>
+<div class="line">Rating: $stars(4)</div>
+<div class="line">Publisher: Berkeley</div>
+<div class="line">Copyright: 1994</div>
+<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/0425150070/?tag=georgvreill-20">0425150070</a></div>
+<div class="line">Pages: 336</div>
+<div class="line">Keywords: historical mystery</div>
+<div class="line">Reading period: 10 January, 2016</div>
+</div>
+<p>The first in a series about <a class="reference external" href="https://en.wikipedia.org/wiki/John_Fielding">Sir John Fielding</a>,
+the blind magistrate who founded the Bow Street Runners,
+London's first pro&shy;fes&shy;sion&shy;al police force in 1749.
+Jeremy Proctor, a newly orphaned 13-year-old, is taken under Sir John's wing
+and assists him in dis&shy;cov&shy;er&shy;ing how the rakish Lord Goodhope
+was murdered in a locked room.</p>
+<p>Although I figured out the murderer halfway through,
+I still enjoyed both the plot and the characters.
+Alexander vividly brings Georgian London to life.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/11/ReviewBlindJustice.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-01-10">10.01.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/01/10/ReviewADedicatedMan.html" rel="bookmark canonical">Review: A Dedicated Man</a>
@@ -310,73 +402,6 @@ and January 2nd:</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/03/2015-Q4-books.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-01-02">02.01.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/01/02/ReviewTheRedRoad.html" rel="bookmark canonical">Review: The Red Road</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0316188506/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Red Road</div>
-<div class="line">Author: Denise Mina</div>
-<div class="line">Rating: $stars(4)</div>
-<div class="line">Publisher: Back Bay Books</div>
-<div class="line">Copyright: 2014</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/0316188506/?tag=georgvreill-20">0316188506</a></div>
-<div class="line">Pages: 320</div>
-<div class="line">Keywords: police procedural, tartan noir</div>
-<div class="line">Reading period: 31 December, 2015–2 January, 2016</div>
-</div>
-<p>Glasgow DI Alex Morrow is trying to put a dangerous criminal back in prison,
-but she can't explain how his prints were found at the scene of a recent murder
-when he was already in custody.
-Fifteen years ago, when Rose Wilson was a sexually abused 14 year old,
-she was re&shy;spon&shy;si&shy;ble for two deaths in one night,
-but only did time for one culpable homicide.
-Now the lawyer who saved her is dead and coverups are unraveling.</p>
-<p>In other hands, this tale of crime <span>&#8230;<a href="/blog/2016/01/02/ReviewTheRedRoad.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/02/ReviewTheRedRoad.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-01-01">01.01.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/01/01/ThanksForMakingAMess.html" rel="bookmark canonical">Thanks for Making a Mess</a>
-        </h1>
-    </header>
-    <p>Emma and I have a bargain.
-If one of us cooks a nice dinner, the other cleans up.
-While I can and do cook, Emma does most of the cooking.
-Therefore, I do most of the cleaning.</p>
-<p>I always thank Emma during dinner for the meal,
-and Emma invariably thanks me for cleaning when I'm washing pots and pans.
-I—a lifelong smar&shy;tass—usu&shy;al&shy;ly respond,
-&quot;Thank you for making a mess.&quot;</p>
-<p>So far, she's taken this with good grace—prob&shy;a&shy;bly better than I deserve.
-In truth, the cleanup is usually far quicker than the cooking.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/01/ThanksForMakingAMess.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
