@@ -29,6 +29,70 @@
     
         <article>
     <header>
+        <time datetime="2016-04-04">04.04.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html" rel="bookmark canonical">Lugging CRT Monitors to Montréal</a>
+        </h1>
+    </header>
+    
+<p>My most recent trip to Montréal was a year ago this week for PyCon 2015,
+following another trip there two years ago this week for PyCon 2014.</p>
+<p>My first trip to Montréal was a very long business trip in 1995.
+Four colleagues and I spent five or six weeks in Montréal,
+just before the <a class="reference external" href="https://en.wikipedia.org/wiki/Quebec_referendum,_1995">Quebec in&shy;de&shy;pen&shy;dence referendum</a>,
+working onsite for our client,
+in&shy;te&shy;grat&shy;ing the UI we had written into the rest of their software.</p>
+<p>We had to bring our own computers, as they declined to provide us with any equipment.
+In 1995, this meant shipping our desktop systems <em>and</em> our heavy CRT monitors.
+Through Canadian Customs.
+And back through US <span>&#8230;<a href="/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2016-04-03">03.04.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" rel="bookmark canonical">Find remote Git branch with change to a file</a>
+        </h1>
+    </header>
+    <p>I needed to track down a remote branch created a couple of months ago
+on another machine.
+I knew which file had been changed,
+but none of the far-too-many remote branches' names rang a bell.</p>
+<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch --contains</a> in the right way finds all the relevant branches.</p>
+
+<pre class="brush: bash">
+git log --all --format=%H FILENAME \
+    | while read f; do git branch --remotes --contains $f; done \
+    | sort -u
+</pre>
+
+<p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> FILENAME</tt>,
+lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal">FILENAME</tt>.
+The second finds all the branches that contain those hashes
+(I added <span>&#8230;<a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-04-02">02.04.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/04/02/ReviewTheMercyOfTheNight.html" rel="bookmark canonical">Review: The Mercy of the Night</a>
@@ -293,75 +357,6 @@ She's also too tied to the status quo for my liking.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/26/Caucus2016.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-03-25">25.03.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/03/25/Profiling.html" rel="bookmark canonical">Profiling</a>
-        </h1>
-    </header>
-    <p>Despite being a <em>bona fide</em> per&shy;for&shy;mance expert—I spent a couple of years as the Per&shy;for&shy;mance Lead
-for Mi&shy;crosoft&shy;'s IIS web server product about 15 years ago—I still forget to measure rather than assume.</p>
-<p>I wrote some code today that imported nearly 300,000 nodes into a graph
-from a 500MB XML file.
-The code was not par&shy;tic&shy;u&shy;lar&shy;ly fast and I assumed that it was the XML parser.
-I had been using the built-in streaming parser, <a class="reference external" href="https://docs.python.org/2/library/xml.etree.elementtree.html#xml.etree.ElementTree.iterparse">cEle&shy;ment&shy;Tree iterparse</a>.
-I assumed that using the <a class="reference external" href="http://lxml.de/api/lxml.etree.iterparse-class.html">lmxl iterparse</a> would make the code faster.
-It didn't.</p>
-<p>Then I had the bright idea of tem&shy;porar&shy;i&shy;ly disabling the per-node processing,
-which left only the XML parsing.
-Instead of <span>&#8230;<a href="/blog/2016/03/25/Profiling.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/25/Profiling.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-03-24">24.03.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" rel="bookmark canonical">Raising IOError for 'file not found'</a>
-        </h1>
-    </header>
-    <p>I wanted to raise Python's <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.IOError">IOError</a> for a file-not-found condition,
-but it wasn't obvious what the parameters to the exception should be.</p>
-
-<pre class="brush: python">
-from errno import ENOENT
-
-if not os.path.isfile(source_file):
-    raise IOError(ENOENT, 'Not a file', source_file)
-with open(source_file) as fp:
-    return fp.read()
-</pre>
-
-<p><tt class="docutils literal">IOError</tt> can be in&shy;stan&shy;ti&shy;at&shy;ed with 1, 2, or 3 arguments:</p>
-<dl class="docutils">
-<dt><tt class="docutils literal">IOError(errno, strerror, filename)</tt></dt>
-<dd>These arguments are available
-on the <tt class="docutils literal">errno</tt>, <tt class="docutils literal">strerror</tt>, and <tt class="docutils literal">filename</tt> attributes of the exception object,
-re&shy;spec&shy;tive&shy;ly, in both Python 2 and 3.
-The <tt class="docutils literal">args</tt> attribute contains the verbatim con&shy;struc&shy;tor arguments as a tuple.</dd>
-<dt><tt class="docutils literal">IOError(errno, strerror)</tt></dt>
-<dd>These are available on the <tt class="docutils literal">errno</tt> and <tt class="docutils literal">strerror</tt> attributes of the exception,
-re&shy;spec&shy;tive&shy;ly, in both Python 2 and <span>&#8230;<a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" class="continue">continue</a>.</span></dd></dl>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/24/RaisingIOErrorForFileNotFound.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
