@@ -29,47 +29,6 @@
     
         <article>
     <header>
-        <time datetime="2016-02-03">03.02.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/02/03/ReviewAPresumptionOfDeath.html" rel="bookmark canonical">Review: A Presumption of Death</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/031299138X/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: A Pre&shy;sump&shy;tion of Death</div>
-<div class="line">Author: Jill Paton Walsh &amp; Dorothy L. Sayers</div>
-<div class="line">Rating: ★ ★ ★ ★ ½</div>
-<div class="line">Publisher: St. Martin's Paperbacks</div>
-<div class="line">Copyright: 2003</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/031299138X/?tag=georgvreill-20">031299138X</a></div>
-<div class="line">Pages: 384</div>
-<div class="line">Keywords: mystery</div>
-<div class="line">Reading period: January 30–Feb&shy;ru&shy;ary 1 2016</div>
-</div>
-<p>England, Spring 1940.
-The <a class="reference external" href="https://en.wikipedia.org/wiki/Phoney_War">Phoney War</a> is ending,
-millions have been evacuated from the cities to the coun&shy;try&shy;side,
-military bases have sprung up everywhere,
-and everything is topsy turvy.
-<a class="reference external" href="https://en.wikipedia.org/wiki/Lord_Peter_Wimsey">Lord Peter Wimsey</a> and Bunter are abroad somewhere on a secret mission,
-while Lady Peter—the former Harriet Vane—minds a brood of children
-at their country house in Hert&shy;ford&shy;shire.
-A <a class="reference external" href="https://en.wikipedia.org/wiki/Land_Girl">Land Girl</a> is murdered in the village of Paggleham,
-and the local police su&shy;per&shy;in&shy;ten&shy;dent enlists Harriet's aid in solving the murder.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/A_Presumption_of_Death">A Pre&shy;sump&shy;tion of </a><span>&#8230;<a href="/blog/2016/02/03/ReviewAPresumptionOfDeath.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/02/03/ReviewAPresumptionOfDeath.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
         <time datetime="2016-02-02">02.02.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/02/02/ReviewTheDeadOfWinter.html" rel="bookmark canonical">Review: The Dead of Winter</a>
@@ -369,6 +328,45 @@ Rec&shy;om&shy;mend&shy;ed.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/25/ReviewTheFullerMemorandum.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2016-01-24">24.01.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/01/24/NoseTestDiscovery.html" rel="bookmark canonical">Nose Test Discovery</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://nose.readthedocs.org/"></a>
+<p>I figured out why I saw the following error every time I ran <a class="reference external" href="http://www.georgevreilly.com/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html">Nose</a>:</p>
+
+<pre class="brush: python">
+======================================================================
+ERROR: Failure: TypeError (type() takes 1 or 3 arguments)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File ".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py", line 523, in makeTest
+    return self._makeTest(obj, parent)
+  File ".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py", line 582, in _makeTest
+    return MethodTestCase(obj)
+  File ".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/case.py", line 345, in __init__
+    self.inst = self.cls()
+TypeError: type() takes 1 or 3 arguments
+</pre>
+
+<p>It turns out that one module was importing a class called <tt class="docutils literal">TestApi</tt>
+which had a <tt class="docutils literal">class&shy;method</tt> called <tt class="docutils literal">run_in&shy;te&shy;gra&shy;tion_tests</tt>.
+The module itself had no tests; it just declared a class called <tt class="docutils literal">TestO&shy;b&shy;fus&shy;cat&shy;ed&shy;Mix&shy;in</tt>,
+which used some <span>&#8230;<a href="/blog/2016/01/24/NoseTestDiscovery.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/24/NoseTestDiscovery.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

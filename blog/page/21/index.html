@@ -29,48 +29,6 @@
     
         <article>
     <header>
-        <time datetime="2016-01-14">14.01.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/01/14/PythonBaseClassOrder.html" rel="bookmark canonical">Python Base Class Order</a>
-        </h1>
-    </header>
-    <p>When I declare a derived class that inherits
-from both a base class and some mixins,
-I am always tempted to write:</p>
-
-<pre class="brush: python">
-class Derived(Base, Mixin1, Mixin2):
-    "Some class"
-</pre>
-
-<p>My reasoning is that <tt class="docutils literal">Derived</tt> is a <tt class="docutils literal">Base</tt>
-with some <tt class="docutils literal">Mixin1</tt> and <tt class="docutils literal">Mixin2</tt> goodness sprinkled on.
-Generally, that's fine.
-The exception is when I want one of the mixins to override
-a method or attribute that's defined in <tt class="docutils literal">Base</tt>.
-Because the <a class="reference external" href="http://python-history.blogspot.com/2010/06/method-resolution-order.html">Method Resolution Order</a> is left-to-right,
-then <tt class="docutils literal">Base</tt>'s im&shy;ple&shy;men&shy;ta&shy;tion will always be found first.</p>
-<p>To get the desired behavior of the mixin overriding the base,
-<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance list.</p>
-
-<pre class="brush: python">
-from __future__ import print_function
-
-class Useful(object):
-    </pre><span>&#8230;<a href="/blog/2016/01/14/PythonBaseClassOrder.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/14/PythonBaseClassOrder.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
         <time datetime="2016-01-13">13.01.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/01/13/ReviewStarDoc.html" rel="bookmark canonical">Review: Star Doc</a>
@@ -427,6 +385,27 @@ Then we postin&shy;cre&shy;ment <span>&#8230;<a href="/blog/2016/01/05/Decrement
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/05/DecrementingLoops.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2016-01-04">04.01.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html" rel="bookmark canonical">Obfuscating Passwords in URLs in Python</a>
+        </h1>
+    </header>
+    <p>New MetaBrite Dev Blog post,
+<a class="reference external" href="http://www.metabrite.com/devblog/posts/python-obfuscate-url-password/">Ob&shy;fus&shy;cat&shy;ing Passwords in URLs in Python</a>.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
