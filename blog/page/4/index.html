@@ -31,6 +31,42 @@
     <header>
         <time datetime="2016-07-06">06.07.2016, 00:00</time>
         <h1>
+            <a href="/blog/2016/07/06/BashBulkRenaming.html" rel="bookmark canonical">Bash: Bulk Renaming</a>
+        </h1>
+    </header>
+    <p>I had to rename several hundred thousand files today.
+Thanks to a botched invocation of Im&shy;ageMag&shy;ick,
+they all looked like <tt class="docutils literal">unique_pre&shy;fix.png.jpg</tt>,
+whereas we simply wanted <tt class="docutils literal">unique_pre&shy;fix.jpg</tt>.</p>
+<p>I found a <a class="reference external" href="http://unix.stackexchange.com/a/102653/4060">suitable answer at the Unix Stack&shy;Ex&shy;change</a>.
+As one of the many variants of <a class="reference external" href="http://tldp.org/LDP/abs/html/parameter-substitution.html">parameter sub&shy;sti&shy;tu&shy;tion</a>,
+Bash supports <tt class="docutils literal">${var/Pattern/Re&shy;place&shy;men&shy;t}</tt>:
+“first match of <tt class="docutils literal">Pattern</tt> within <tt class="docutils literal">var</tt> replaced with <tt class="docutils literal">Re&shy;place&shy;ment</tt>.”</p>
+
+<pre class="brush: bash">
+for f in *.png.jpg;
+do
+    mv $f "${f/.png}"
+done
+</pre>
+
+<p>The target expression could also have been written as <tt class="docutils literal"><span class="pre">&quot;${f/.png.jpg/.jpg}&quot;</span></tt></p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/06/BashBulkRenaming.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2016-07-06">06.07.2016, 00:00</time>
+        <h1>
             <a href="/blog/2016/07/06/Rounding.html" rel="bookmark canonical">Rounding</a>
         </h1>
     </header>
@@ -373,48 +409,6 @@ psql --host=SOME-DBMS-HOST --dbname </pre><span>&#8230;<a href="/blog/2016/06/28
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-06-27">27.06.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/06/27/ReviewThePrisonerOfZenda.html" rel="bookmark canonical">Review: The Prisoner of Zenda</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/1533583595/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Prisoner of Zenda</div>
-<div class="line">Author: Anthony Hope</div>
-<div class="line">Rating: ★ ★ ★ ½</div>
-<div class="line">Copyright: 1894</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/1533583595/?tag=georgvreill-20">1533583595</a></div>
-<div class="line">Pages: 156</div>
-<div class="line">Keywords: adventure</div>
-<div class="line">Reading period: 23–24 June, 2016</div>
-</div>
-<p>Having read <a class="reference external" href="/blog/2016/06/26/ReviewRoyalFlash.html">Royal Flash</a>,
-I also read its in&shy;spi&shy;ra&shy;tion, <a class="reference external" href="https://en.wikipedia.org/wiki/The_Prisoner_of_Zenda">The Prisoner of Zenda</a>,
-Anthony Hope's classic adventure novel.
-Rudolf Rassendyll, a young British aristocrat,
-decides to visit Ruritania,
-where his distant cousin and dop&shy;pel&shy;gänger, the dissipated Rudolf Elphberg,
-is about to be crowned king.
-The future king has a half brother, “Black” Michael,
-who begrudges him the throne and also covets his fiancée, Princess Flavia.
-Michael kidnaps the king and the king's friends,
-in a desperate attempt to preserve political peace,
-persuade Rassendyll to im&shy;per&shy;son&shy;ate the king.
-The imposture is successful and a stalemate <span>&#8230;<a href="/blog/2016/06/27/ReviewThePrisonerOfZenda.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/06/27/ReviewThePrisonerOfZenda.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
