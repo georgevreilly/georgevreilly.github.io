@@ -11,8 +11,60 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-08-15T07:00:00Z</updated>
+    <updated>2016-08-16T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>On Washers</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/08/16/OnWashers.html" />
+        <id>tag:www.georgevreilly.com,2016-08-16:/blog/2016/08/16/OnWashers.html</id>
+        <updated>2016-08-16T07:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Washer_(hardware)&#34;&gt;&lt;img alt=&#34;Assorted washers (Wikipedia)&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Washers.agr.jpg/440px-Washers.agr.jpg&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;I assembled an outdoor dining table on Sunday,
+and belatedly realized that I had used only half the washers.
+The unclear directions had said to place one washer next to the bolt head
+and the other washer at the far end, just inside the nut.
+I had overlooked the latter.
+I don&#39;t feel like undoing twelve bolts and starting over,
+so it will stay that way.&lt;/p&gt;
+&lt;p&gt;It occurred to me to wonder what purpose the washer serves.
+I had a notion that, since it increases the apparent area of the bolt head or the nut,
+it must reduce the pressure on whatever is being tightened by the bolt
+in the immediate vicinity of the bolt&#39;s ends.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Washer_(hardware)&#34;&gt;Wikipedia&lt;/a&gt; says:&lt;/p&gt;
+&lt;blockquote&gt;
+A washer is a thin plate (typically disk-shaped) with a hole (typically in the middle)
+that is normally used to distribute the load of a threaded fastener, such as a screw or nut.
+Other uses are as a spacer, spring (belleville washer, wave washer),
+wear pad, preload indicating device, locking device,
+and to reduce vibration (rubber washer).
+Washers usually have an outer diameter (OD)
+about twice larger than their inner diameter (ID).&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://www.straightdope.com/columns/read/1713/whats-the-purpose-of-washers-the-round-metal-things&#34;&gt;The Straight Dope&lt;/a&gt; says:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Nuts and bolts work work by placing a threaded shaft under tension.
+This tension, or preloading, is essential to strengthen the joint
+and reduce bolt fatigue due to fluctuating (variable) loads,
+as in the case of a machine part subject to vibration.
+If any of the parts involved deform under load--for example, if the contact area in the threads has any creep (or &amp;quot;plastic&amp;quot; flow),
+or any high spots on the contact surfaces between the threads flatten out,
+or the bolt or shaft lengthens microscopically, or the fastened parts compress--the joint will lose some of its tension.
+That&#39;s why metal car parts separated by a gasket need periodic re-tightening--as the gasket shrinks, the tension on the bolt decreases,
+and the parts aren&#39;t held together as tightly.&lt;/p&gt;
+&lt;p&gt;Lock washers can help with this situation
+by applying a spring force against the nut or bolt head.
+Any stretching or flattening of parts is likely to be
+much less than the compression of the spring washer,
+so the fastener won&#39;t loosen much.&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Review: Flashman And The Redskins</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/08/15/ReviewFlashmanAndTheRedskins.html" />
@@ -923,108 +975,6 @@ to notify you that someone posted something.&lt;/p&gt;
 &lt;li&gt;Change the Vibrate setting to OFF&lt;/li&gt;
 &lt;li&gt;Curse Facebook.&lt;/li&gt;
 &lt;/ul&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Python: Joining URLs with posixpath.join</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" />
-        <id>tag:www.georgevreilly.com,2016-07-12:/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html</id>
-        <updated>2016-07-12T07:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;On Mac/Linux, &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/os.path.html#os.path.join&#34;&gt;os.path.join&lt;/a&gt; is an alias for &lt;tt class=&#34;docutils literal&#34;&gt;posixpath.join&lt;/tt&gt;,
-which always joins path segments with &lt;tt class=&#34;docutils literal&#34;&gt;/&lt;/tt&gt;.
-On Windows, &lt;tt class=&#34;docutils literal&#34;&gt;os.path.join&lt;/tt&gt; is an alias for &lt;tt class=&#34;docutils literal&#34;&gt;ntpath.join&lt;/tt&gt;,
-which always uses &lt;tt class=&#34;docutils literal&#34;&gt;\&lt;/tt&gt;.
-When dealing with URLs, we always want forward slashes,
-regardless of platform, so &lt;tt class=&#34;docutils literal&#34;&gt;posixpath.join&lt;/tt&gt; should be used to build URL paths.&lt;/p&gt;
-&lt;p&gt;Running:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-from __future__ import print_function
-
-from six.moves.urllib_parse import urljoin as abs_urljoin
-from posixpath import join as path_urljoin
-
-def urljoin(site, path):
-    return abs_urljoin(site, path)
-
-def test_join(site, path):
-    result = urljoin(site, path)
-    print(&#34;&#39;{0}&#39; + &#39;{1}&#39;\n\t-&gt; &#39;{2}&#39;&#34;.format(site, path, result))
-    return result
-
-local_path = path_urljoin(&#39;2016&#39;, &#39;07&#39;, &#39;12&#39;, &#39;release&#39;, &#39;index.html&#39;)
-
-test_join(&#39;https://www.example.com&#39;, &#39;foo/bar/quux.js&#39;)
-test_join(&#39;https://www.example.com&#39;, local_path)
-test_join(&#39;https://www.example.com/&#39;, local_path)
-test_join(&#39;https://www.example.com/prefix&#39;, local_path)
-&lt;/pre&gt;
-
-&lt;p&gt;Yields:&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;
-&#39;https://www.example.com&#39; + &#39;foo/bar/quux.js&#39;
-        -&amp;gt; &#39;https://www.example.com/foo/bar/quux.js&#39;
-&#39;https://www.example.com&#39; + &#39;2016/07/12/release/index.html&#39;
-        -&amp;gt; &#39;https://www.example.com/2016/07/12/release/index.html&#39;
-&#39;https://www.example.com/&#39; + &#39;2016/07/12/release/index.html&#39;
-        -&amp;gt; &#39;https://www.example.com/2016/07/12/release/index.html&#39;
-&#39;https://www.example.com/pre/fix&#39; + &#39;2016/07/12/release/index.html&#39;
-        -&amp;gt; &#39;https://www.example.com/2016/07/12/release/index.html&#39;
-&lt;/pre&gt;
-&lt;p&gt;The last one is a problem,
-as the path after the hostname, &lt;tt class=&#34;docutils literal&#34;&gt;/pre/fix&lt;/tt&gt;, is lost.&lt;/p&gt;
-&lt;p&gt;We can fix it using &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/urlparse.html#urlparse.urlparse&#34;&gt;urlparse&lt;/a&gt; to separate that path from the hostname:&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-from six.moves.urllib_parse import urljoin as abs_urljoin, urlparse
-
-def urljoin(site, path):
-    return abs_urljoin(site, path_urljoin(urlparse(site).path, path))
-&lt;/pre&gt;
-
-&lt;p&gt;which yields:&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;
-&#39;https://www.example.com&#39; + &#39;foo/bar/quux.js&#39;
-        -&amp;gt; &#39;https://www.example.com/foo/bar/quux.js&#39;
-&#39;https://www.example.com&#39; + &#39;2016/07/12/release/index.html&#39;
-        -&amp;gt; &#39;https://www.example.com/2016/07/12/release/index.html&#39;
-&#39;https://www.example.com/&#39; + &#39;2016/07/12/release/index.html&#39;
-        -&amp;gt; &#39;https://www.example.com/2016/07/12/release/index.html&#39;
-&#39;https://www.example.com/pre/fix&#39; + &#39;2016/07/12/release/index.html&#39;
-        -&amp;gt; &#39;https://www.example.com/pre/fix/2016/07/12/release/index.html&#39;
-&lt;/pre&gt;
-&lt;p&gt;Note that if the &lt;tt class=&#34;docutils literal&#34;&gt;path&lt;/tt&gt; argument to my &lt;tt class=&#34;docutils literal&#34;&gt;urljoin&lt;/tt&gt; function is absolute,
-any path suffix to &lt;tt class=&#34;docutils literal&#34;&gt;site&lt;/tt&gt; is discarded:&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;
-&#39;https://www.example.com/pre/fix&#39; + &#39;/abs/path&#39;
-        -&amp;gt; &#39;https://www.example.com/abs/path&#39;
-&lt;/pre&gt;
-&lt;p&gt;That in turn can be fixed by using &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;str.split(&#39;/&#39;)&lt;/span&gt;&lt;/tt&gt;
-and discarding any empty segments.&lt;/p&gt;
-
-&lt;pre class=&#34;brush: python&#34;&gt;
-def urljoin(site, path):
-    if isinstance(path, six.string_types):
-        segments = [s for s in path.split(&#39;/&#39;) if s]
-    else:
-        segments = path  # assume list or tuple
-    return abs_urljoin(site, path_urljoin(urlparse(site).path, *segments))
-&lt;/pre&gt;
-
-&lt;p&gt;Thus:&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;
-&#39;https://www.example.com/pre/fix&#39; + &#39;/abs/path&#39;
-    -&amp;gt; &#39;https://www.example.com/pre/fix/abs/path&#39;
-&#39;https://www.example.com/pre/fix&#39; + &#39;(&#39;one&#39;, &#39;two&#39;, &#39;three&#39;)&#39;
-    -&amp;gt; &#39;https://www.example.com/pre/fix/one/two/three&#39;
-&lt;/pre&gt;
 </content>
     </entry>
     </feed>

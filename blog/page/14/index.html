@@ -29,6 +29,37 @@
     
         <article>
     <header>
+        <time datetime="2016-03-27">27.03.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/03/27/PreparingBloomsdayScripts.html" rel="bookmark canonical">Preparing Bloomsday Scripts</a>
+        </h1>
+    </header>
+    <p>Bloomsday is less than three months away
+and the <a class="reference external" href="http://www.wildgeeseseattle.org/">Wild Geese Players</a> need to start rehearsing soon.
+I made a start on the script at the end of January,
+but didn't pick it up again until today.</p>
+<p>Three years ago, we completed <em>Ulysses</em>, having started in 1998.
+Two years ago, we started over,
+reading chapters 1 and 4 in&shy;ter&shy;leaved.
+In Chapter 1 (Telemachus), Stephen Dedalus arises in the Martello Tower at Sandymount
+and feuds with Buck Mulligan.
+Chapter 4 (Calypso) takes place at the same time as Chapter 1,
+wherein Leopold Bloom breaks his fast.</p>
+<p>Last year, we in&shy;ter&shy;twined chapters 2 and 5.
+Chapter 2 (Nestor) takes place at the school where <span>&#8230;<a href="/blog/2016/03/27/PreparingBloomsdayScripts.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/27/PreparingBloomsdayScripts.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-03-26">26.03.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/03/26/Caucus2016.html" rel="bookmark canonical">Caucus 2016</a>
@@ -344,60 +375,6 @@ and the body count rises.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/18/ReviewBigCityBadBlood.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-03-17">17.03.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/03/17/QuotingInBash.html" rel="bookmark canonical">Quoting in Bash</a>
-        </h1>
-    </header>
-    <p>Various Bash guides recommend putting quotes around just about everything.
-I had a script that contained this line:</p>
-
-<pre class="brush: bash">
-sudo apt-get install --yes $(cat "$BUILD/install_on_aws_ubuntu.txt")
-</pre>
-
-<p>While refac&shy;tor&shy;ing, I put another set of quotes around the <tt class="docutils literal">$(cat <span class="pre">...)</span></tt>
-out of an abundance of caution:</p>
-
-<pre class="brush: bash">
-sudo apt-get install --yes "$(cat "$BUILD/install_on_aws_ubuntu.txt")"
-</pre>
-
-<p>Several other changes later, I couldn't figure out why my script had stopped working.</p>
-<p>Here's what happened:</p>
-
-<pre class="brush: bash">
-$ cat $HOME/tmp/demo.txt
-foo
-bar
-quux
-
-$ echo $(cat "$HOME/tmp/demo.txt")
-foo bar quux
-
-$ echo "$(cat $HOME/tmp/demo.txt)"
-foo
-bar
-quux
-</pre>
-
-<p>The new outer quotes retained the newlines;
-the original replaced newlines with spaces.</p>
-<p>The <a class="reference external" href="http://mywiki.wooledge.org/BashFAQ">Bash FAQ</a> has more, specif&shy;i&shy;cal&shy;ly <a class="reference external" href="http://mywiki.wooledge.org/CommandSubstitution">Command Substition</a> and <a class="reference external" href="http://mywiki.wooledge.org/WordSplitting">Word Splitting</a>.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/17/QuotingInBash.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
