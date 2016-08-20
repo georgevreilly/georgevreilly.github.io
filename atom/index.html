@@ -11,8 +11,35 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2016-08-18T07:00:00Z</updated>
+    <updated>2016-08-19T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Opening Vim at the right place</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/08/19/OpeningVimAtTheRightPlace.html" />
+        <id>tag:www.georgevreilly.com,2016-08-19:/blog/2016/08/19/OpeningVimAtTheRightPlace.html</id>
+        <updated>2016-08-19T07:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;If you know exactly which line you want to go
+or which pattern you want to search for,
+Vim provides a couple of command-line options that can help:
+&lt;tt class=&#34;docutils literal&#34;&gt;+NUM&lt;/tt&gt; goes to line number &lt;tt class=&#34;docutils literal&#34;&gt;NUM&lt;/tt&gt;,
+while &lt;tt class=&#34;docutils literal&#34;&gt;+/PAT&lt;/tt&gt; searches for the first occurrence of &lt;tt class=&#34;docutils literal&#34;&gt;PAT&lt;/tt&gt;.
+It&#39;s also possible to execute an Ex command with &lt;tt class=&#34;docutils literal&#34;&gt;+CMD&lt;/tt&gt;,
+such as &lt;tt class=&#34;docutils literal&#34;&gt;&amp;quot;+set fenc=latin1&amp;quot;&lt;/tt&gt;.
+You can supply up to ten &lt;tt class=&#34;docutils literal&#34;&gt;+&lt;/tt&gt; options.&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+vim +23 ~/.bashrc
+vim &#39;+/ASIN\|ISBN&#39; template.rst
+vim &amp;quot;+set fenc=latin1&amp;quot; some.csv
+&lt;/pre&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Review: The Murder Road</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/08/18/ReviewTheMurderRoad.html" />
@@ -950,35 +977,6 @@ Somehow, the reluctant hero Max in his exoskeleton suit
 defies the odds and tears open the gates of paradise.
 Damon make it almost credible,
 while Jodie Foster and Sharlto Copley are suitably ruthless as the villains.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>SQLAlchemy got me Killed</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/07/14/SQLAlchemyGotMeKilled.html" />
-        <id>tag:www.georgevreilly.com,2016-07-14:/blog/2016/07/14/SQLAlchemyGotMeKilled.html</id>
-        <updated>2016-07-14T07:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;I ran a script this afternoon that died mysteriously without any output.
-It was using &lt;a class=&#34;reference external&#34; href=&#34;http://www.sqlalchemy.org/&#34;&gt;SQLAlchemy&lt;/a&gt; to query all the rows from a large table
-so that they could be transformed into &lt;a class=&#34;reference external&#34; href=&#34;http://jsonlines.org/&#34;&gt;JSON Lines&lt;/a&gt; to be loaded into Elasticsearch.
-When I reran my script,
-I noticed this time that something had printed &lt;tt class=&#34;docutils literal&#34;&gt;Killed&lt;/tt&gt; at the very end.&lt;/p&gt;
-&lt;p&gt;A little research convinced me that the &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/726690/who-killed-my-process-and-why&#34;&gt;OOM Killer&lt;/a&gt; was the likely assassin.
-I looked in &lt;tt class=&#34;docutils literal&#34;&gt;/var/log/kern.log&lt;/tt&gt;
-and I found that my process had used up almost all of the 8GB on this system
-before being killed.&lt;/p&gt;
-&lt;p&gt;The query had to be the problem.
-A little more research led me to augment my query with &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/questions/1145905/sqlalchemy-scan-huge-tables-using-orm&#34;&gt;yield_per&lt;/a&gt;,
-which batched the results,
-instead of fetching everything into memory at once.
-There are various caveats to using &lt;tt class=&#34;docutils literal&#34;&gt;yield_per&lt;/tt&gt;;
-none applied here.&lt;/p&gt;
 </content>
     </entry>
     </feed>

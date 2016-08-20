@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Review: The Murder Road</title>
+  <title>Opening Vim at the right place</title>
   <link media="all" href="/style.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
@@ -12,7 +12,8 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content=".. image:: http://images.amazon.com/images/P/B00XH..." />
+    <meta name="description" content="If you know exactly which line you want to go
+or w..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,29 +32,24 @@
     
         <article>
     <header>
-        <time datetime="2016-08-18">18.08.2016, 00:00</time>
+        <time datetime="2016-08-19">19.08.2016, 00:00</time>
         <h1>
-            <a href="/blog/2016/08/18/ReviewTheMurderRoad.html" rel="bookmark canonical">Review: The Murder Road</a>
+            <a href="/blog/2016/08/19/OpeningVimAtTheRightPlace.html" rel="bookmark canonical">Opening Vim at the right place</a>
         </h1>
     </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/B00XHRVXKE/?tag=georgvreill-20"><img alt="The Murder Road" class="right-float" src="http://images.amazon.com/images/P/B00XHRVXKE.01.MZZZZZZZ.jpg"/></a>
-<div class="line-block">
-<div class="line">Title: The Murder Road</div>
-<div class="line">Author: Stephen Booth</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Witness Impulse</div>
-<div class="line">Copyright: 2015</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/B00XHRVXKE/?tag=georgvreill-20">B00XHRVXKE</a></div>
-<div class="line">Pages: 403</div>
-<div class="line">Keywords: police procedural</div>
-<div class="line">Reading period: 24–31 July, 2016</div>
-</div>
-<p>Detective Inspector Ben Cooper, newly promoted, is leading the team
-that's in&shy;ves&shy;ti&shy;gat&shy;ing the murder of a lorry driver outside a remote Peak District village.
-It seems to be connected to a suicide that took place the same day, but how?
-Cooper and his team manage to peel back the layers sur&shy;round&shy;ing the dual mysteries.</p>
-<p>Booth writes solidly plotted, solidly char&shy;ac&shy;ter&shy;ized novels,
-and this is another good entry in his long-running Cooper &amp; Fry series.</p>
+    <p>If you know exactly which line you want to go
+or which pattern you want to search for,
+Vim provides a couple of command-line options that can help:
+<tt class="docutils literal">+NUM</tt> goes to line number <tt class="docutils literal">NUM</tt>,
+while <tt class="docutils literal">+/PAT</tt> searches for the first occurrence of <tt class="docutils literal">PAT</tt>.
+It's also possible to execute an Ex command with <tt class="docutils literal">+CMD</tt>,
+such as <tt class="docutils literal">&quot;+set fenc=latin1&quot;</tt>.
+You can supply up to ten <tt class="docutils literal">+</tt> options.</p>
+<pre class="literal-block">
+vim +23 ~/.bashrc
+vim '+/ASIN\|ISBN' template.rst
+vim &quot;+set fenc=latin1&quot; some.csv
+</pre>
 
     <footer>
         
@@ -67,8 +63,8 @@ and this is another good entry in his long-running Cooper &amp; Fry series.</p>
             var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
 
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/08/18/ReviewTheMurderRoad.html";
-            var disqus_url = "http://www.georgevreilly.com/blog/2016/08/18/ReviewTheMurderRoad.html";
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/08/19/OpeningVimAtTheRightPlace.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/08/19/OpeningVimAtTheRightPlace.html";
 
             if (window.location.hostname != "localhost") {
                 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -89,14 +85,11 @@ and this is another good entry in his long-running Cooper &amp; Fry series.</p>
 </article>
     
     
-        <a href="/blog/2016/08/16/OnWashers.html" class="page floatright">
-        On Washers &raquo;
+        <a href="/blog/2016/08/18/ReviewTheMurderRoad.html" class="page floatright">
+        Review: The Murder Road &raquo;
         </a>
     
     
-        <a href="/blog/2016/08/19/OpeningVimAtTheRightPlace.html" class="page floatleft">
-        &laquo; Opening Vim at the right place
-        </a>
 <footer>
     
     
