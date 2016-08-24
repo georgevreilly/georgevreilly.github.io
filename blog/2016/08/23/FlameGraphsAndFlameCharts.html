@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Flame Graphs and Flame Charts</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://deliveryimages.acm.org/10.1145/2..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-08-23">23.08.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/08/23/FlameGraphsAndFlameCharts.html" rel="bookmark canonical">Flame Graphs and Flame Charts</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://queue.acm.org/detail.cfm?id=2927301"><img alt="Flame Graph" class="right-float" src="http://deliveryimages.acm.org/10.1145/2930000/2927301/gregg4.png" style="width: 700px;"/></a>
+<p>I was in&shy;ves&shy;ti&shy;gat&shy;ing the per&shy;for&shy;mance of a web app today,
+and I spent some time looking at the <a class="reference external" href="https://addyosmani.com/blog/devtools-flame-charts/">Flame Chart</a> vi&shy;su&shy;al&shy;iza&shy;tion
+in Chrome's profiling tools, which helped identify some problems.</p>
+<p>Flame Charts are like Brendan Gregg's <a class="reference external" href="http://www.brendangregg.com/flamegraphs.html">Flame Graphs</a>,
+except that the charts are sorted by time,
+while the graphs are sorted al&shy;pha&shy;bet&shy;i&shy;cal&shy;ly.</p>
+<p>Quoting from Gregg's recent <a class="reference external" href="http://queue.acm.org/detail.cfm?id=2927301">ACM Queue article</a>:</p>
+<blockquote>
+<p>A flame graph has the following char&shy;ac&shy;ter&shy;is&shy;tics:</p>
+<ul class="simple">
+<li>A stack trace is rep&shy;re&shy;sent&shy;ed as a column of boxes,
+where each box represents a function (a stack frame).</li>
+<li>The y-axis shows the stack depth,
+ordered from root at the bottom to leaf at the top.
+The top box shows the function
+that was on-CPU when the stack trace was collected,
+and everything beneath that is its ancestry.
+The function beneath a function is its parent.</li>
+<li>The x-axis spans the stack trace collection.
+It does not show the passage of time,
+so the left-to-right ordering has no special meaning.
+The left-to-right ordering of stack traces
+is performed al&shy;pha&shy;bet&shy;i&shy;cal&shy;ly on the function names,
+from the root to the leaf of each stack.
+This maximizes box merging:
+when identical function boxes are hor&shy;i&shy;zon&shy;tal&shy;ly adjacent,
+they are merged.</li>
+<li>The width of each function box shows the frequency
+at which that function was present in the stack traces,
+or part of a stack trace ancestry.
+Functions with wide boxes were more present in the stack traces
+than those with narrow boxes,
+in proportion to their widths.</li>
+</ul>
+</blockquote>
+<p>Flame graphs are a clever, in&shy;for&shy;ma&shy;tion-dense way to present computer per&shy;for&shy;mance.
+I suspect Edward Tufte would approve.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/08/23/FlameGraphsAndFlameCharts.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/08/23/FlameGraphsAndFlameCharts.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2016/08/21/ReviewFlashmanAtTheCharge.html" class="page floatright">
+        Review: Flashman At The Charge &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
