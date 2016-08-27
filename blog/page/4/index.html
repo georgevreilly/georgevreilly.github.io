@@ -29,6 +29,39 @@
     
         <article>
     <header>
+        <time datetime="2016-07-13">13.07.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/07/13/DisablingVibratingNotificationsInFacebookAndroidApp.html" rel="bookmark canonical">Disabling Vibrating Notifications in the Facebook Android App</a>
+        </h1>
+    </header>
+    <p>I've had to figure this out twice in recent months,
+and it was no easier the second time than the first.</p>
+<p>If you reinstall the Facebook app on Android,
+you will be plagued by the phone buzzing every few minutes
+to notify you that someone posted something.</p>
+<p>The relevant setting is buried deeply.</p>
+<ul class="simple">
+<li>Open the Facebook app</li>
+<li>Click the gray-on-white hamburger icon. Top right, second row.</li>
+<li>Scroll all the way down to App Settings. Click.</li>
+<li>Click No&shy;ti&shy;fi&shy;ca&shy;tions. It's <em>not</em> obvious that it's clickable.</li>
+<li>Change the Vibrate setting to OFF</li>
+<li>Curse Facebook.</li>
+</ul>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/13/DisablingVibratingNotificationsInFacebookAndroidApp.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-07-12">12.07.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" rel="bookmark canonical">Python: Joining URLs with posixpath.join</a>
@@ -279,84 +312,6 @@ done
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/06/BashBulkRenaming.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-07-06">06.07.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/07/06/Rounding.html" rel="bookmark canonical">Rounding</a>
-        </h1>
-    </header>
-    <p>I recently learned from a <a class="reference external" href="http://stackoverflow.com/questions/10825926/python-3-x-rounding-behavior">Stack&shy;Over&shy;flow question</a>
-that the rounding behavior in Python 3.x is different from Python 2.x:</p>
-<blockquote>
-The round() function rounding strategy and return type have changed.
-Exact halfway cases are now rounded to the nearest even result
-instead of away from zero.
-(For example, round(2.5) now returns 2 rather than 3.)</blockquote>
-<p>The “away from zero” rounding strategy is the one that most of us learned at school.
-The “nearest even” strategy is also known as “banker’s rounding”.</p>
-<p>There are actually <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_floating_point#Rounding_rules">five rounding strategies defined in IEEE 754</a>:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="58%"/>
-<col width="11%"/>
-<col width="11%"/>
-<col width="11%"/>
-<col width="11%"/>
-</colgroup>
-<thead valign="bottom">
-<tr><th class="head">Mode / Example Value</th>
-<th class="head">+11.5</th>
-<th class="head">+12.5</th>
-<th class="head">−11.5</th>
-<th class="head">−12.5</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr><td>to nearest, ties to even</td>
-<td>+12.0</td>
-<td>+12.0</td>
-<td>−12.0</td>
-<td>−12.0</td>
-</tr>
-<tr><td>to nearest, ties away from zero</td>
-<td>+12.0</td>
-<td>+13.0</td>
-<td>−12.0</td>
-<td>−13.0</td>
-</tr>
-<tr><td>toward 0 (truncation)</td>
-<td>+11.0</td>
-<td>+12.0</td>
-<td>−11.0</td>
-<td>−12.0</td>
-</tr>
-<tr><td>toward +∞ (ceiling)</td>
-<td>+12.0</td>
-<td>+13.0</td>
-<td>−11.0</td>
-<td>−12.0</td>
-</tr>
-<tr><td>toward −∞ (floor)</td>
-<td>+11.0</td>
-<td>+12.0</td>
-<td>−12.0</td>
-<td>−13.0</td>
-</tr>
-</tbody>
-</table>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/06/Rounding.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Homograph Attacks</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="During an internal training exercise today,
+as a s..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-08-26">26.08.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/08/26/HomographAttacks.html" rel="bookmark canonical">Homograph Attacks</a>
+        </h1>
+    </header>
+    <p>During an internal training exercise today,
+as a sort of one-man <a class="reference external" href="https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey">Chaos Monkey</a>,
+I de&shy;lib&shy;er&shy;ate&shy;ly broke a test system by changing a config setting to read:</p>
+<pre class="literal-block">
+itemfinder.url = http://test-іtemfinder.example.com/
+</pre>
+<p>The correct value should have been:</p>
+<pre class="literal-block">
+itemfinder.url = http://test-itemfinder.example.com/
+</pre>
+<p>What's that, you say? There's no difference, you say?</p>
+<p>There <em>is</em> a difference, but it's subtle.
+The first <tt class="docutils literal">i</tt> in the URL is
+<a class="reference external" href="http://www.fileformat.info/info/unicode/char/0456/index.htm">'CYRILLIC SMALL LETTER BYELORUSS&shy;IAN-UKRAINIAN I' (U+0456)</a>,
+not <a class="reference external" href="http://www.fileformat.info/info/unicode/char/0069/index.htm">'LATIN SMALL LETTER I' (U+0069)</a>.
+Depending upon the font, the two <tt class="docutils literal">i</tt>s may be visually in&shy;dis&shy;tin&shy;guish&shy;able,
+very similar looking, or the Cyrillic <tt class="docutils literal">i</tt> may not render.</p>
+<p>This is an example of an <a class="reference external" href="https://en.wikipedia.org/wiki/IDN_homograph_attack">In&shy;ter&shy;na&shy;tion&shy;al Domain Name Homograph Attack</a>.
+There are Greek letters and Cyrillic letters that look very similar to Latin letters,
+but which have distinct meanings, histories, and code points.
+In&shy;ter&shy;na&shy;tion&shy;al Domain Names permit the con&shy;struc&shy;tion of non-Latin domain names.</p>
+<p>Since domain name labels may only contain Latin letters, digits, and hyphens,
+an encoding scheme known as <a class="reference external" href="https://www.punycoder.com/">Punycode</a> transforms Unicode domain names into ASCII domain names.
+For example, <tt class="docutils literal"><span class="pre">test-іtemfinder.example.com</span></tt> (Cyrillic <tt class="docutils literal">i</tt>)
+becomes <tt class="docutils literal"><span class="pre">xn--test-temfinder-99l.example.com</span></tt> in Punycode.</p>
+<p>Obviously, homographs can be used to spoof URLs.
+Browsers generally present the Punycode form of an IDN
+if it looks like suspicious homographs might be present in the address bar,
+while presenting valid IDNs in Unicode; e.g., <tt class="docutils literal"><span class="pre">http://ουτοπία.δπθ.gr/</span></tt>.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/08/26/HomographAttacks.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/08/26/HomographAttacks.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2016/08/23/FlameGraphsAndFlameCharts.html" class="page floatright">
+        Flame Graphs and Flame Charts &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
