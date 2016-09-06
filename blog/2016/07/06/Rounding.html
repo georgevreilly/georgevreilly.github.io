@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>New Compression Formats</title>
+  <title>Rounding</title>
   <link media="all" href="/style.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
@@ -12,7 +12,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content="You might think that data compression is a solved..." />
+    <meta name="description" content="I recently learned from a `StackOverflow question`..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,28 +31,70 @@
     
         <article>
     <header>
-        <time datetime="2016-08-31">31.08.2016, 00:00</time>
+        <time datetime="2016-07-06">06.07.2016, 00:00</time>
         <h1>
-            <a href="/blog/2016/08/31/NewCompressionFormats.html" rel="bookmark canonical">New Compression Formats</a>
+            <a href="/blog/2016/07/06/Rounding.html" rel="bookmark canonical">Rounding</a>
         </h1>
     </header>
-    <p>You might think that data com&shy;pres&shy;sion is a solved problem, lossless or lossy.
-But, no.
-Gzip and related formats like zlib, Zip, and PNG that use the <a class="reference external" href="https://en.wikipedia.org/wiki/DEFLATE">DEFLATE</a> algorithm
-were great 25 years ago, still do a decent job, and are completely ubiquitous and in&shy;dis&shy;pens&shy;able,
-but there are better, smarter algorithms now.</p>
-<p>Google has announced two new com&shy;pres&shy;sion formats in the last couple of years,
-Zopfli and Brotli.
-<a class="reference external" href="https://en.wikipedia.org/wiki/Zopfli">Zopfli</a> does a better job of generating Deflate-compatible data,
-although it's very slow.
-<a class="reference external" href="https://en.wikipedia.org/wiki/Brotli">Brotli</a> gives ~20% better com&shy;pres&shy;sion than Deflate, but at about the same speed.
-Then there's <a class="reference external" href="https://en.wikipedia.org/wiki/Xz">xz</a>, which grew out of 7-zip, and also works well.</p>
-<p>And <a class="reference external" href="https://code.facebook.com/posts/1658392934479273/smaller-and-faster-data-compression-with-zstandard/">Zstandard</a> has just been announced by Facebook
-and it sounds like it does a great all-round job
-of achieving high com&shy;pres&shy;sion ratios at high speed.
-The an&shy;nounce&shy;ment article is worth reading.</p>
-<p>There are also several new lossless image com&shy;pres&shy;sion algorithms:
-<a class="reference external" href="http://flif.info/">FLIF</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Better_Portable_Graphics">BPG</a>, and <a class="reference external" href="https://en.wikipedia.org/wiki/WebP">WebP</a>, all of which <a class="reference external" href="http://cloudinary.com/blog/flif_the_new_lossless_image_format_that_outperforms_png_webp_and_bpg">outperform</a> the venerable PNG.</p>
+    <p>I recently learned from a <a class="reference external" href="http://stackoverflow.com/questions/10825926/python-3-x-rounding-behavior">Stack&shy;Over&shy;flow question</a>
+that the rounding behavior in Python 3.x is different from Python 2.x:</p>
+<blockquote>
+The round() function rounding strategy and return type have changed.
+Exact halfway cases are now rounded to the nearest even result
+instead of away from zero.
+(For example, round(2.5) now returns 2 rather than 3.)</blockquote>
+<p>The “away from zero” rounding strategy is the one that most of us learned at school.
+The “nearest even” strategy is also known as “banker’s rounding”.</p>
+<p>There are actually <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_floating_point#Rounding_rules">five rounding strategies defined in IEEE 754</a>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="58%"/>
+<col width="11%"/>
+<col width="11%"/>
+<col width="11%"/>
+<col width="11%"/>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Mode / Example Value</th>
+<th class="head">+11.5</th>
+<th class="head">+12.5</th>
+<th class="head">−11.5</th>
+<th class="head">−12.5</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>to nearest, ties to even</td>
+<td>+12.0</td>
+<td>+12.0</td>
+<td>−12.0</td>
+<td>−12.0</td>
+</tr>
+<tr><td>to nearest, ties away from zero</td>
+<td>+12.0</td>
+<td>+13.0</td>
+<td>−12.0</td>
+<td>−13.0</td>
+</tr>
+<tr><td>toward 0 (truncation)</td>
+<td>+11.0</td>
+<td>+12.0</td>
+<td>−11.0</td>
+<td>−12.0</td>
+</tr>
+<tr><td>toward +∞ (ceiling)</td>
+<td>+12.0</td>
+<td>+13.0</td>
+<td>−11.0</td>
+<td>−12.0</td>
+</tr>
+<tr><td>toward −∞ (floor)</td>
+<td>+11.0</td>
+<td>+12.0</td>
+<td>−12.0</td>
+<td>−13.0</td>
+</tr>
+</tbody>
+</table>
 
     <footer>
         
@@ -66,8 +108,8 @@ The an&shy;nounce&shy;ment article is worth reading.</p>
             var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
 
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/08/31/NewCompressionFormats.html";
-            var disqus_url = "http://www.georgevreilly.com/blog/2016/08/31/NewCompressionFormats.html";
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/07/06/Rounding.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/07/06/Rounding.html";
 
             if (window.location.hostname != "localhost") {
                 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -88,13 +130,13 @@ The an&shy;nounce&shy;ment article is worth reading.</p>
 </article>
     
     
-        <a href="/blog/2016/08/30/USBChargeOnlyCablesAndCondoms.html" class="page floatright">
-        USB Charge-Only Cables and Condoms &raquo;
+        <a href="/blog/2016/07/05/ReviewFlashmansLady.html" class="page floatright">
+        Review: Flashman's Lady &raquo;
         </a>
     
     
-        <a href="/blog/2016/09/01/KindleMonthlyDeals.html" class="page floatleft">
-        &laquo; Kindle Monthly Deals: $3.99 or Less
+        <a href="/blog/2016/07/06/BashBulkRenaming.html" class="page floatleft">
+        &laquo; Bash: Bulk Renaming
         </a>
 <footer>
     
