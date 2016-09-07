@@ -29,6 +29,36 @@
     
         <article>
     <header>
+        <time datetime="2016-09-06">06.09.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/09/06/AlembicDataMigrations.html" rel="bookmark canonical">Alembic: Data Migrations</a>
+        </h1>
+    </header>
+    <p>We use <a class="reference external" href="http://alembic.zzzcomputing.com/en/latest/">Alembic</a> to perform schema migrations whenever we add (or drop) tables or columns
+from our databases.
+It's less well known that Alembic can also perform data migrations,
+updating existing data in tables.</p>
+<p>Here's an example adapted from a migration I put together this afternoon.
+I added a non-NULL Boolean <tt class="docutils literal">stooge</tt> column to the <tt class="docutils literal">old_timers</tt> table,
+with a default value of <tt class="docutils literal">FALSE</tt>.
+I wanted to update certain rows to have <tt class="docutils literal">stooge=TRUE</tt> as part of the migration.
+The following works with PostgreSQL.</p>
+<p>Note the <tt class="docutils literal">server_de&shy;fault=sa.false()</tt> in the de&shy;c&shy;la&shy;ra&shy;tion of the <tt class="docutils literal">stooge</tt> column,
+which is needed to initially set all instances of <tt class="docutils literal">stooge=FALSE</tt>.
+I then declare a <tt class="docutils literal">table</tt> which has only the <span>&#8230;<a href="/blog/2016/09/06/AlembicDataMigrations.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/09/06/AlembicDataMigrations.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-09-05">05.09.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/09/05/ReviewFlashmanAndTheAngelOfTheLord.html" rel="bookmark canonical">Review: Flashman and the Angel of the Lord</a>
@@ -319,43 +349,6 @@ and imprisoned at Gwalior before being almost <span>&#8230;<a href="/blog/2016/0
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/08/27/ReviewFlashmanInTheGreatGame.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-08-26">26.08.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/08/26/HomographAttacks.html" rel="bookmark canonical">Homograph Attacks</a>
-        </h1>
-    </header>
-    <p>During an internal training exercise today,
-as a sort of one-man <a class="reference external" href="https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey">Chaos Monkey</a>,
-I de&shy;lib&shy;er&shy;ate&shy;ly broke a test system by changing a config setting to read:</p>
-<pre class="literal-block">
-itemfinder.url = http://test-іtemfinder.example.com/
-</pre>
-<p>The correct value should have been:</p>
-<pre class="literal-block">
-itemfinder.url = http://test-itemfinder.example.com/
-</pre>
-<p>What's that, you say? There's no difference, you say?</p>
-<p>There <em>is</em> a difference, but it's subtle.
-The first <tt class="docutils literal">i</tt> in the URL is
-<a class="reference external" href="http://www.fileformat.info/info/unicode/char/0456/index.htm">'CYRILLIC SMALL LETTER BYELORUSS&shy;IAN-UKRAINIAN I' (U+0456)</a>,
-not <a class="reference external" href="http://www.fileformat.info/info/unicode/char/0069/index.htm">'LATIN SMALL LETTER I' (U+0069)</a>.
-Depending upon the font, the two <tt class="docutils literal">i</tt>s may be visually in&shy;dis&shy;tin&shy;guish&shy;able,
-very similar looking, or the Cyrillic <tt class="docutils literal">i</tt> may not render.</p>
-<p>This is an example of an <a class="reference external" href="https://en.wikipedia.org/wiki/IDN_homograph_attack">In&shy;ter&shy;na&shy;tion&shy;al Domain Name Homograph Attack</a>.
-There are Greek letters and Cyrillic letters that look <span>&#8230;<a href="/blog/2016/08/26/HomographAttacks.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/08/26/HomographAttacks.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

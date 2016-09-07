@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Alembic: Data Migrations</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="We use Alembic__ to perform schema migrations when..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-09-06">06.09.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/09/06/AlembicDataMigrations.html" rel="bookmark canonical">Alembic: Data Migrations</a>
+        </h1>
+    </header>
+    <p>We use <a class="reference external" href="http://alembic.zzzcomputing.com/en/latest/">Alembic</a> to perform schema migrations whenever we add (or drop) tables or columns
+from our databases.
+It's less well known that Alembic can also perform data migrations,
+updating existing data in tables.</p>
+<p>Here's an example adapted from a migration I put together this afternoon.
+I added a non-NULL Boolean <tt class="docutils literal">stooge</tt> column to the <tt class="docutils literal">old_timers</tt> table,
+with a default value of <tt class="docutils literal">FALSE</tt>.
+I wanted to update certain rows to have <tt class="docutils literal">stooge=TRUE</tt> as part of the migration.
+The following works with PostgreSQL.</p>
+<p>Note the <tt class="docutils literal">server_de&shy;fault=sa.false()</tt> in the de&shy;c&shy;la&shy;ra&shy;tion of the <tt class="docutils literal">stooge</tt> column,
+which is needed to initially set all instances of <tt class="docutils literal">stooge=FALSE</tt>.
+I then declare a <tt class="docutils literal">table</tt> which has only the two columns needed for the migration.
+Finally, I execute an <tt class="docutils literal">update</tt> on the table.</p>
+<div class="highlight"><pre><span class="kn">from</span> <span class="nn">alembic</span> <span class="kn">import</span> <span class="n">op</span>
+<span class="kn">import</span> <span class="nn">sqlalchemy</span> <span class="kn">as</span> <span class="nn">sa</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.sql</span> <span class="kn">import</span> <span class="n">table</span>
+
+<span class="n">StoogeNames</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s">&quot;Larry - Production&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Moe - Production&quot;</span><span class="p">,</span>
+    <span class="s">&quot;Curly - Production&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">upgrade</span><span class="p">():</span>
+    <span class="n">op</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span>
+        <span class="s">&#39;old_timers&#39;</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s">&#39;stooge&#39;</span><span class="p">,</span>
+                  <span class="n">sa</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(),</span>
+                  <span class="n">nullable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                  <span class="n">server_default</span><span class="o">=</span><span class="n">sa</span><span class="o">.</span><span class="n">false</span><span class="p">()))</span>
+
+    <span class="n">old_timers</span> <span class="o">=</span> <span class="n">table</span><span class="p">(</span>
+        <span class="s">&#39;old_timers&#39;</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">VARCHAR</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">40</span><span class="p">)),</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s">&#39;stooge&#39;</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">Boolean</span><span class="p">())</span>
+        <span class="c"># Other columns not needed for the data migration</span>
+    <span class="p">)</span>
+
+    <span class="n">op</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="n">old_timers</span>
+            <span class="o">.</span><span class="n">update</span><span class="p">()</span>
+            <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">old_timers</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">in_</span><span class="p">(</span><span class="n">StoogeNames</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">values</span><span class="p">({</span><span class="s">&#39;stooge&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">})</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">downgrade</span><span class="p">():</span>
+    <span class="n">op</span><span class="o">.</span><span class="n">drop_column</span><span class="p">(</span><span class="s">&#39;old_timers&#39;</span><span class="p">,</span> <span class="s">&#39;stooge&#39;</span><span class="p">)</span>
+</pre></div>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2016/09/06/AlembicDataMigrations.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2016/09/06/AlembicDataMigrations.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2016/09/05/ReviewFlashmanAndTheAngelOfTheLord.html" class="page floatright">
+        Review: Flashman and the Angel of the Lord &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

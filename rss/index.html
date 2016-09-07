@@ -5,9 +5,65 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Mon, 05 Sep 2016 07:00:00 GMT</pubDate>
+        <pubDate>Tue, 06 Sep 2016 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Alembic: Data Migrations</title>
+        <link>http://www.georgevreilly.com/blog/2016/09/06/AlembicDataMigrations.html</link>
+        <description>&lt;p&gt;We use &lt;a class=&#34;reference external&#34; href=&#34;http://alembic.zzzcomputing.com/en/latest/&#34;&gt;Alembic&lt;/a&gt; to perform schema migrations whenever we add (or drop) tables or columns
+from our databases.
+It&#39;s less well known that Alembic can also perform data migrations,
+updating existing data in tables.&lt;/p&gt;
+&lt;p&gt;Here&#39;s an example adapted from a migration I put together this afternoon.
+I added a non-NULL Boolean &lt;tt class=&#34;docutils literal&#34;&gt;stooge&lt;/tt&gt; column to the &lt;tt class=&#34;docutils literal&#34;&gt;old_timers&lt;/tt&gt; table,
+with a default value of &lt;tt class=&#34;docutils literal&#34;&gt;FALSE&lt;/tt&gt;.
+I wanted to update certain rows to have &lt;tt class=&#34;docutils literal&#34;&gt;stooge=TRUE&lt;/tt&gt; as part of the migration.
+The following works with PostgreSQL.&lt;/p&gt;
+&lt;p&gt;Note the &lt;tt class=&#34;docutils literal&#34;&gt;server_default=sa.false()&lt;/tt&gt; in the declaration of the &lt;tt class=&#34;docutils literal&#34;&gt;stooge&lt;/tt&gt; column,
+which is needed to initially set all instances of &lt;tt class=&#34;docutils literal&#34;&gt;stooge=FALSE&lt;/tt&gt;.
+I then declare a &lt;tt class=&#34;docutils literal&#34;&gt;table&lt;/tt&gt; which has only the two columns needed for the migration.
+Finally, I execute an &lt;tt class=&#34;docutils literal&#34;&gt;update&lt;/tt&gt; on the table.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;alembic&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;op&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;sqlalchemy&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;sa&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;sqlalchemy.sql&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;table&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;StoogeNames&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+    &lt;span class=&#34;s&#34;&gt;&amp;quot;Larry - Production&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s&#34;&gt;&amp;quot;Moe - Production&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s&#34;&gt;&amp;quot;Curly - Production&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;upgrade&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;():&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;op&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;add_column&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+        &lt;span class=&#34;s&#34;&gt;&amp;#39;old_timers&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sa&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Column&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;stooge&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                  &lt;span class=&#34;n&#34;&gt;sa&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Boolean&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt;
+                  &lt;span class=&#34;n&#34;&gt;nullable&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;False&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                  &lt;span class=&#34;n&#34;&gt;server_default&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sa&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;false&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()))&lt;/span&gt;
+
+    &lt;span class=&#34;n&#34;&gt;old_timers&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+        &lt;span class=&#34;s&#34;&gt;&amp;#39;old_timers&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sa&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Column&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;name&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sa&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;VARCHAR&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;length&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;40&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)),&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;sa&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Column&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;stooge&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sa&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Boolean&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+        &lt;span class=&#34;c&#34;&gt;# Other columns not needed for the data migration&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+    &lt;span class=&#34;n&#34;&gt;op&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;execute&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+        &lt;span class=&#34;n&#34;&gt;old_timers&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;update&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;where&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;old_timers&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;in_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;StoogeNames&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+            &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;values&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;stooge&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;True&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;downgrade&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;():&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;op&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;drop_column&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#39;old_timers&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;&amp;#39;stooge&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+</description>
+        <pubDate>Tue, 06 Sep 2016 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-09-06:/blog/2016/09/06/AlembicDataMigrations.html</guid>
+    </item>
         
             <item>
         <title>Review: Flashman and the Angel of the Lord</title>
@@ -798,40 +854,6 @@ More on &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.
 </description>
         <pubDate>Wed, 03 Aug 2016 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-03:/blog/2016/08/03/GitCommitVerbose.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: De Reünie (Murdered Memory)</title>
-        <link>http://www.georgevreilly.com/blog/2016/08/02/ReviewDeReunieMurderedMemory.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.imdb.com/title/tt4179040/&#34;&gt;&lt;img alt=&#34;De Reünie&#34; class=&#34;right-float&#34; src=&#34;http://ia.media-imdb.com/images/M/MV5BYWQxNTAyOWQtMDYyOS00NjcyLWFjN2MtZDFmODgzOTcyYTUzXkEyXkFqcGdeQXVyMTAwNDgwMDY@._V1_UY268_CR4,0,182,268_AL_.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: De Reünie (Murdered Memory)&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Director: Menno Meyjes&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ½&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Released: 2015&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: psychological thriller&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Watched: 24 July, 2016&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://www.imdb.com/title/tt4179040/&#34;&gt;De Reünie&lt;/a&gt; is a Dutch film starring Thekla Reuten as Sabine,
-a woman who is disturbed by her half memories
-of her final year of secondary school some twenty years ago,
-when her girlfriend Isabel disappeared without trace.
-The arrival of Olaf—once a classmate, still a jerk—at her workplace triggers more memories
-as they are drawn together.
-Slowly, very slowly, through extended flashbacks,
-we learn more about that fateful spring in a small coastal town
-as Sabine and Isabel fell out of love.
-In the present day, both Sabine and Olaf grow more erratic
-as the time for their 20th school reunion approaches.&lt;/p&gt;
-&lt;p&gt;How trustworthy are Sabine&#39;s memories?
-Not very.
-Could this movie have trimmed 30 minutes with little loss?
-Yes, it drags in places.
-Is it worth seeing?
-Just about.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 02 Aug 2016 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-02:/blog/2016/08/02/ReviewDeReunieMurderedMemory.html</guid>
     </item>
         </channel>
 </rss>
