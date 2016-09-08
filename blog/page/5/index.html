@@ -29,6 +29,35 @@
     
         <article>
     <header>
+        <time datetime="2016-07-14">14.07.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" rel="bookmark canonical">SQLAlchemy got me Killed</a>
+        </h1>
+    </header>
+    <p>I ran a script this afternoon that died mys&shy;te&shy;ri&shy;ous&shy;ly without any output.
+It was using <a class="reference external" href="http://www.sqlalchemy.org/">SQLAlchemy</a> to query all the rows from a large table
+so that they could be trans&shy;formed into <a class="reference external" href="http://jsonlines.org/">JSON Lines</a> to be loaded into Elas&shy;tic&shy;search.
+When I reran my script,
+I noticed this time that something had printed <tt class="docutils literal">Killed</tt> at the very end.</p>
+<p>A little research convinced me that the <a class="reference external" href="http://stackoverflow.com/questions/726690/who-killed-my-process-and-why">OOM Killer</a> was the likely assassin.
+I looked in <tt class="docutils literal">/var/log/kern.log</tt>
+and I found that my process had used up almost all of the 8GB on this system
+before being killed.</p>
+<p>The query had to be the problem.
+A little more research led me to augment my <span>&#8230;<a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/14/SQLAlchemyGotMeKilled.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-07-13">13.07.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/07/13/DisablingVibratingNotificationsInFacebookAndroidApp.html" rel="bookmark canonical">Disabling Vibrating Notifications in the Facebook Android App</a>
@@ -390,46 +419,6 @@ The “nearest even” strategy is also known as “banker’s rounding”.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/06/Rounding.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-07-05">05.07.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/07/05/ReviewFlashmansLady.html" rel="bookmark canonical">Review: Flashman's Lady</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0452264898/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Flashman's Lady</div>
-<div class="line">Author: George MacDonald Fraser</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Plume</div>
-<div class="line">Copyright: 1977</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/0452264898/?tag=georgvreill-20">0452264898</a></div>
-<div class="line">Pages: 330</div>
-<div class="line">Keywords: historical fiction, humor</div>
-<div class="line">Reading period: 24–29 June, 2016</div>
-<div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> VI: 1842–45</div>
-</div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman%27s_Lady">Flashman's Lady</a> takes place between the two parts of <a class="reference external" href="/blog/2016/06/26/ReviewRoyalFlash.html">Royal Flash</a>,
-making it the third book chrono&shy;log&shy;i&shy;cal&shy;ly of the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>
-and the sixth book published.</p>
-<p>Flashman and his wife, Elspeth, become friendly with Don Solomon Haslam,
-a rich merchant from the East Indies.
-Losing a wager to Haslam, who is smitten with Elspeth,
-Flashy has to let Haslam take Elspeth and her father on a trip to Singapore.
-As things have become hot for him in England, he sails east with them.
-Haslam's feelings <span>&#8230;<a href="/blog/2016/07/05/ReviewFlashmansLady.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/05/ReviewFlashmansLady.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
