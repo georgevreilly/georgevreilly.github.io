@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>0xFF...FF / 10 == 0x19...99</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: /content/binary/hex-editor.jpeg
+
+A few..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2006-05-16">16.05.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/05/16/0xFFFF100x1999.html" rel="bookmark canonical">0xFF...FF / 10 == 0x19...99</a>
+        </h1>
+    </header>
+    <img alt="/content/binary/hex-editor.jpeg" src="/content/binary/hex-editor.jpeg"/>
+<p>A few weeks ago, I wrote a C++ routine to parse decimal numbers using the
+overflow detection principles of
+<a class="reference external" href="http://msdn.microsoft.com/library/en-us/dncode/html/secure01142004.asp">SafeInt</a>.
+I couldn't find anything in the libraries that actually did a good job of checking
+for overflow.</p>
+<p>Briefly, to see if <tt class="docutils literal">unsigned</tt> values <tt class="docutils literal">A+B</tt> overflow, check
+<tt class="docutils literal">if (A &gt; MAX_UINT - B)</tt>. Similarly, <tt class="docutils literal">A*B</tt> will overflow
+<tt class="docutils literal">if (A &gt; MAX_UINT / B)</tt>.</p>
+
+<pre class="brush: cpp">
+// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
+bool
+StringToUnsigned(
+    const string& str,
+    unsigned&     rUint)
+{
+    rUint = 0;
+
+    if (str.empty())
+        return false;
+
+    for (unsigned i = 0;  i &lt; str.length();  ++i)
+    {
+        if (!isdigit(str[i]))
+            return false;
+
+        // Check for numeric overflow.
+        if (rUint > numeric_limits&lt;unsigned>::max() / 10)
+            return false;
+        rUint *= 10;
+
+        unsigned d = str[i] - '0';
+        if (rUint > numeric_limits&lt;unsigned>::max() - d)
+            return false;
+        rUint += d;
+    }
+
+    return true;
+}
+</pre>
+
+<p>While debugging this code, I noticed something in&shy;ter&shy;est&shy;ing. 0xFFFFFFFF
+divided by ten (0xA) is 0x19999999. This pattern holds for smaller and
+larger sequences of 0xFF...FF too: 0xFF/10 = 0x19; 0xFFFF/10 = 0x1999; and
+so on.</p>
+<p>I'm not sure how to prove this, but I can prove the closely related result:
+0x19...99 * 10 = 0xFF...FA:</p>
+<pre class="literal-block">
+10 * N         = 8 * N  +  2 * N
+10 * 0x19...99 = 8 * 0x19...99  +  2 * 0x19...99
+
+0x199...99     =   %0001 1001 1001 ... 1001 1001
+
+10 * 0x19...99 =   %1100 1100 1100 ... 1100 1000
+                 + %0011 0011 0011 ... 0011 0010
+               =   %1111 1111 1111 ... 1111 1010
+</pre>
+<p>A mildly curious result of no value, but it amused me.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2006/05/16/0xFFFF100x1999.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2006/05/16/0xFFFF100x1999.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2006/05/16/NotAsLameAsYouThink.html" class="page floatright">
+        Not as Lame as You Think &raquo;
+        </a>
+    
+    
+        <a href="/blog/2006/05/18/TheScottishOpera.html" class="page floatleft">
+        &laquo; The Scottish ... Opera
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

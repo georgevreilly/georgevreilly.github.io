@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Er, er</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://www.georgevreilly.com/blog/conte..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2007-10-25">25.10.2007, 00:00</time>
+        <h1>
+            <a href="/blog/2007/10/25/ErEr.html" rel="bookmark canonical">Er, er</a>
+        </h1>
+    </header>
+    <img alt="Er, er" src="http://www.georgevreilly.com/blog/content/binary/ErEr.png"/>
+<p>I've grown fond of the JavaScript <tt class="docutils literal">||</tt> idiom:</p>
+<pre class="literal-block">
+function FrobImage(img) {
+    var width  = img.width  || 400;
+    var height = img.height || 300;
+    // ...
+}
+
+FrobImage({height: 100, name: &quot;example.png&quot;});
+</pre>
+<p>If <tt class="docutils literal">img.width</tt> exists and it's <a class="reference external" href="http://mattsnider.com/wp-content/uploads/2007/04/FalseTest.html">truthy</a>,
+then <tt class="docutils literal">width = img.width</tt>; otherwise, <tt class="docutils literal">width = 400</tt>.
+Here, it will be <tt class="docutils literal">400</tt> since the <tt class="docutils literal">img</tt> hash
+has no <tt class="docutils literal">width</tt> property.
+More than two al&shy;ter&shy;na&shy;tives may be used:
+<tt class="docutils literal">x = a || b || c || ... || q;</tt></p>
+<p>A few weeks ago, while cleaning up the error handling in some batch files,
+I came across a <a class="reference external" href="http://www.ss64.com/ntsyntax/conditional.html">similar idiom</a>:</p>
+<pre class="literal-block">
+foo.exe bar 123 &quot;some stuff&quot;  || goto :Error
+</pre>
+<p>Only if <tt class="docutils literal">foo.exe</tt> fails (<tt class="docutils literal">exit()</tt> returns a non-zero value),
+is the second clause executed.</p>
+<p><a class="reference external" href="http://perldoc.perl.org/functions/die.html">Perl's die</a> is typically used in a very similar idom:</p>
+<pre class="literal-block">
+chdir '/usr/spool/news' || die &quot;Can't cd to spool: $!\n&quot;
+</pre>
+<p>though the <tt class="docutils literal">or</tt> keyword seems to be preferred nowadays to <tt class="docutils literal">||</tt>.</p>
+<p>This morning, I came across the <a class="reference external" href="http://blog.devstone.com/Aaron/archive/2006/01/02/1404.aspx">?? operator in C# 2.0</a>,
+aka the null coalescing operator:</p>
+<pre class="literal-block">
+Customer cust = getCustomer(id) ?? new Customer();
+</pre>
+<p>If <tt class="docutils literal">get&shy;Cus&shy;tomer(id)</tt> is not <tt class="docutils literal">null</tt>, then that's the value that <tt class="docutils literal">cust</tt> gets;
+otherwise it's set to <tt class="docutils literal">new Customer()</tt>.</p>
+<p>All of these idioms are <a class="reference external" href="http://en.wikipedia.org/wiki/Syntactic_sugar">syntactic sugar</a> and all of them are in my toolbox.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2007/10/25/ErEr.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2007/10/25/ErEr.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2007/10/24/Virtualization.html" class="page floatright">
+        Virtualization &raquo;
+        </a>
+    
+    
+        <a href="/blog/2007/11/05/ReviewTheMonsterOfFlorence.html" class="page floatleft">
+        &laquo; Review: The Monster of Florence
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

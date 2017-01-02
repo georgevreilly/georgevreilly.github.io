@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Fog is my Copilot</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: https://www.copilot.com/blog/Images/log..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2006-05-20">20.05.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/05/20/FogIsMyCopilot.html" rel="bookmark canonical">Fog is my Copilot</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.copilot.com/"><img alt="Fog Creek's Copilot" class="right-float" src="https://www.copilot.com/blog/Images/logo.jpg"/></a>
+<p>I mentioned last week that <a class="reference external" href="http://www.georgevreilly.com/blog/2006/05/15/WritingClearly.html">my parents have no aptitude for computers</a>.</p>
+<p>My father emailed me with a list of computer woes; notably, he was getting
+messages about no firewall. There was no way I was going to get to the
+bottom of the issue just by email or talking to him on the phone. It's
+5,000 miles from Seattle to Dublin, so I can't drop by to take a look at
+the computer in person--much as my parents would like to have me visit.</p>
+<p>I had tried using the built-in Windows Remote Assistance to trou&shy;bleshoot
+issues on their laptop a couple of years ago, while they were on a
+protracted stay in Cape Town. I had solved the problem, but that had been
+fairly painful for me. The primary problem was the horrible slug&shy;gish&shy;ness of
+the connection: they were on a slow dialup connection and the latency is
+something fierce. Another problem was the fragility of my control: if I
+dismissed a dialog by hitting Escape, I stopped con&shy;trol&shy;ling the remote
+desktop, and as a <a class="reference external" href="http://www.georgevreilly.com/blog/2005/12/30/20YearsOfVi.html">longtime vi user</a>, I have certain
+deeply ingrained reflexes that are hard to overcome.</p>
+<p>I decided to try out <a class="reference external" href="http://www.joelonsoftware.com/articles/AardvarkMidtermReport.html">Joel Spolsky's Copilot</a>.
+The Copilot service <a class="reference external" href="https://www.copilot.com/tech/">builds on TightVNC</a>.
+The helper and the person being helped both make outbound con&shy;nec&shy;tions to a
+Copilot server, which proxies the virtual session, neatly avoiding all
+kinds of NAT issues that can arise when you try to make a direct connection
+through a firewall. It's also supposedly easy to configure, requiring only
+a visit to the <a class="reference external" href="https://www.copilot.com/">Copilot website</a> and typing in
+an email address or a 12-digit number, before down&shy;load&shy;ing a half-megabyte
+executable.
+It wasn't too painful to talk my father through making the connection,
+though the first time that he did it, he &quot;lost&quot; the binary and had to
+download it again. We initially tried the two-minute trial version, but
+that wasn't nearly enough time to do anything, so I shelled out the $10 for
+a day pass.</p>
+<p>In Dublin, as in Cape Town, he dials up to the Internet on a 56K modem, and
+that once again proved to be the primary source of pain for me. It seemed a
+little less sluggish than I remembered Remote Assistance being, but I
+wasn't about to subject myself to trying that out too. The experience
+varied between tolerable and in&shy;fu&shy;ri&shy;at&shy;ing, but there's only so much that can
+be done at a little over 3Kbps.</p>
+<p>The second reason the experience was so painful was that I ended up needing
+to repair the eTrust in&shy;stal&shy;la&shy;tion, and to download a full set of antivirus
+signatures, and I simply couldn't do it. The eTrust FTP site kept dropping
+the connection, and the full signature package takes over 20 minutes to
+download. I blame the FTP server, as I was VPN'd in to his laptop the
+whole time, so his Internet connection was obviously working. I eventually
+gave up at 4AM PDT, in utter frus&shy;tra&shy;tion.</p>
+<p><em>Verdict</em>. Copilot works fairly well, although it can be painful over a
+dialup connection. I would have killed for a file-transfer facility so that
+I could send files directly between his computer and mine. $10 for a day
+pass isn't cheap, but he gets to pay it in future! I use Terminal Server
+and Virtual PC regularly: both of them provide ways to press all of the
+Windows keys
+(<a class="reference external" href="http://www.microsoft.com/resources/documentation/windows/xp/all/proddocs/en-us/mstsc_use_shortcut_keys.mspx">Terminal Server</a>,
+<a class="reference external" href="http://www.techgalaxy.net/Docs/VirtualPC/Keyboard_shortcuts.htm">Virtual PC</a>);
+Copilot doesn't.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2006/05/20/FogIsMyCopilot.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2006/05/20/FogIsMyCopilot.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2006/05/20/TheColorOfLove.html" class="page floatright">
+        The Color of Love &raquo;
+        </a>
+    
+    
+        <a href="/blog/2006/05/20/ObjectivelyProPollution.html.." class="page floatleft">
+        &laquo; Objectively Pro-Pollution
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

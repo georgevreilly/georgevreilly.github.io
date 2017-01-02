@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>ViEmu: a vi and Vim emulator for Visual Studio</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="Vim vs. Visual Studio
+---------------------
+
+I&#39;ve..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2006-04-09">09.04.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/04/09/ViEmuAViAndVimEmulatorForVisualStudio.html" rel="bookmark canonical">ViEmu: a vi and Vim emulator for Visual Studio</a>
+        </h1>
+    </header>
+    <div class="section" id="vim-vs-visual-studio">
+<h2>Vim vs. Visual Studio</h2>
+<p>I've been an <a class="reference external" href="http://www.georgevreilly.com/blog/2005/12/30/20YearsOfVi.html">obsessive vi user</a>
+for more than 20 years. Vi keystrokes are indelibly burned into my
+<a class="reference external" href="http://www.oreilly.com/news/zenclavier_1299.html">muscle memory</a>.
+When I have to use Notepad or Word or Visual Studio, I feel crippled.
+I have to work harder to do simple things; I have to type too many chords
+with Alt and Ctrl; I have to take my hands off the home keys to use the
+cursor keys and the mouse.</p>
+<p>In the mid-90s, I adopted <a class="reference external" href="http://www.vim.org">Vim</a> (Vi IMproved)
+to the point where I became a sig&shy;nif&shy;i&shy;cant con&shy;trib&shy;u&shy;tor, writing a big chunk of the
+<a class="reference external" href="http://www.georgevreilly.com/blog/2005/12/30/20YearsOfVi.html">Win32 code</a>.</p>
+<p>While I was at Microsoft, I hardly ever used Visual Studio.
+I edited my C/C++ code with Vim,
+I compiled and linked it with the
+<a class="reference external" href="http://www.osronline.com/article.cfm?id=54">NT Build En&shy;vi&shy;ron&shy;ment</a>
+and I debugged it with
+<a class="reference external" href="http://www.microsoft.com/whdc/devtools/debugging/default.mspx">WinDbg/ntsd/kd</a>.
+I was hardly alone in this. In the Windows division, your code has to
+build with the NT build en&shy;vi&shy;ron&shy;ment, and the Windows debuggers are much
+better supported than the Visual Studio debugger for developing the OS.</p>
+<p>Now that I'm pro&shy;gram&shy;ming in C#, using the Visual Studio IDE makes a lot
+more sense. VS's In&shy;tel&shy;liSense for C# is much richer than
+<a class="reference external" href="http://cvs.sourceforge.net/viewcvs.py/vim/vim7/runtime/doc/version7.txt?view=markup">Vim7's Omni completion</a>,
+especially when coupled with <a class="reference external" href="http://www.jetbrains.com/resharper/">ReSharper</a>,
+and VS is the debugger of choice for managed code.
+I've been spending a fair amount of time in the VS IDE, especially when
+pair pro&shy;gram&shy;ming, but I've also been switching back to Vim a lot.
+When I'm struggling with unfamiliar code, VS's In&shy;tel&shy;liSense is a great comfort;
+when I'm moving a lot of text around, Vim suits me far better.</p>
+</div>
+<div class="section" id="viemu">
+<h2>ViEmu</h2>
+<p>Earlier this week, by way of its <a class="reference external" href="http://viemu.com/a_vi_vim_graphical_cheat_sheet_tutorial.html">graphical Vim cheat sheet</a>,
+I found an in&shy;ter&shy;est&shy;ing compromise.
+<a class="reference external" href="http://viemu.com/">ViEmu</a> is a vi/Vim emulator for VS-2003 and
+VS-2005.</p>
+<p>ViEmu implements most of the vi keystrokes and many of the Vim extended
+keystrokes, right inside the Visual Studio IDE.
+It uses the native VS In&shy;tel&shy;liSense in place of Vim's completion
+functions. ViEmu even implements some of the more common Ex command line,
+including most of the <tt class="docutils literal">:%s</tt> regular expression sub&shy;sti&shy;tu&shy;tions.
+The author, who seems to be known only as JNG, is responsive.
+Within 24-hours of my reporting some missing keystrokes, he had
+im&shy;ple&shy;ment&shy;ed them in a new minor release.</p>
+<p>It does not, however, support VimL, the Vim extension language,
+so if you have an extensive suite of Vim plugins, as I do, they're not
+going to work in ViEmu.</p>
+<p>All in all, I'm favorably impressed with ViEmu.
+It provides much of the muscle memory experience of Vim
+inside of Visual Studio. Tech&shy;ni&shy;cal&shy;ly, it can't have been easy to
+impose such a radically different input model on VS or
+to emulate Vim and Ex fairly faithfully.</p>
+<p>Vim has always been free (actually <a class="reference external" href="http://vimdoc.sourceforge.net/htmldoc/uganda.html">char&shy;i&shy;ty&shy;ware</a>),
+but JNG <a class="reference external" href="http://viemu.com/purchase.html">charges</a> for ViEmu.
+Right now, I'm in the 30-day trial period, but I fully expect
+that I'll pay for a license before the trial is up.</p>
+</div>
+<div class="section" id="visvim">
+<h2>VisVim</h2>
+<p>Vim comes with a Visual Studio add-in called VisVim, which is based on
+another add-in called VisEmacs. It allows VS5 and VS6 to use Vim
+as the default editor, albeit externally to the IDE: Vim continues to run
+in its own window.</p>
+<p>A few weeks ago, Bram asked me if I could get VisVim to compile with
+VS-2003. I tried, but I was unable. Necessary headers are no longer
+included with VS-2003 or VS-2005. No doubt this is because the Add-In
+ar&shy;chi&shy;tec&shy;ture changed radically with the in&shy;tro&shy;duc&shy;tion of Visual
+Studio-.NET.</p>
+<p>Work is underway, albeit very slowly, to create
+<a class="reference external" href="http://blogs.snowmoonsoftware.com/">VisEmacs.NET</a>.
+At some point, it may be worth creating a merger of VisVim and
+VisEmacs.NET.</p>
+</div>
+<div class="section" id="end-notes">
+<h2>End Notes</h2>
+<p><a class="reference external" href="http://www.dready.org/blog/section/viword/">viWord</a> allows you to use vi
+key&shy;bind&shy;ings in Microsoft Word. It's not nearly as full featured as ViEmu
+and I found that I didn't like it enough to keep it around.</p>
+<p>This post was, of course, composed in Vim. I wrote it in lightly marked-up
+plain text and converted it to HTML with VST,
+<a class="reference external" href="http://skawina.eu.org/mikolaj/vst.html">Vim re&shy;Struc&shy;tured Text</a>.
+Blogging with VST will be the topic of a future post.</p>
+<p>To fully take advantage of Vim7's Omni completion, you need a
+patched version of <a class="reference external" href="http://ctags.sourceforge.net/">Exuberant Ctags</a>.
+I've made a <a class="reference external" href="http://georgevreilly.com/vim/ctags.html">Win32 binary available</a>.</p>
+</div>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2006/04/09/ViEmuAViAndVimEmulatorForVisualStudio.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2006/04/09/ViEmuAViAndVimEmulatorForVisualStudio.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2006/04/08/2upmanship.html" class="page floatright">
+        Two-upmanship &raquo;
+        </a>
+    
+    
+        <a href="/blog/2006/04/16/RubeGoldbergSan.html.." class="page floatleft">
+        &laquo; Rube Goldberg San
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

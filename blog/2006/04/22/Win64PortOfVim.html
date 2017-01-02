@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Win64 port of Vim</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="I&#39;ve ported Vim to Win64. Native binaries for AMD6..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2006-04-22">22.04.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/04/22/Win64PortOfVim.html" rel="bookmark canonical">Win64 port of Vim</a>
+        </h1>
+    </header>
+    <p>I've ported Vim to Win64. Native binaries for AMD64 can be found on my
+<a class="reference external" href="http://www.georgevreilly.com/vim/">Vim page</a>.</p>
+<p>In the end, it wasn't all that hard. Last weekend, I fixed ap&shy;prox&shy;i&shy;mate&shy;ly
+400 warnings that were thrown up by the x86_amd64 cross compiler.
+Most of them were due to the widening of <tt class="docutils literal">size_t</tt> (especially the value
+returned from <tt class="docutils literal">strlen()</tt>) and <tt class="docutils literal">ptrdiff_t</tt> to 64-bits.
+Several years ago, I went through a similar exercise in fixing these
+warnings for Vim6, but I never finished the port.</p>
+<p>This week, I scrounged access to an AMD64 box at work. Today, I turned on
+the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/yt4xw8fh(VS.80).aspx">/Wp64 flag</a>,
+which found several new, subtler problems, where pointers where being
+truncated to <tt class="docutils literal">__int32</tt>s or conversely
+<tt class="docutils literal">__int32</tt>s were being widened to
+pointers. Judicious in&shy;tro&shy;duc&shy;tion of (the equivalent of) <tt class="docutils literal">(INT_PTR)</tt> casts
+fixed most of those.</p>
+<p>At that point, I tried running the binary. It refused to start!
+After a few detours, I had <a class="reference external" href="http://www.microsoft.com/whdc/devtools/debugging/default.mspx">WinDbg</a>
+installed, and ran gvim under WinDbg. That showed that the error was 14001
+(ER&shy;ROR_SXS_&shy;CAN&shy;T_&shy;GEN_ACTC&shy;TX, &quot;The ap&shy;pli&shy;ca&shy;tion has failed to start because its
+side-by-side con&shy;fig&shy;u&shy;ra&shy;tion is incorrect. Please see the ap&shy;pli&shy;ca&shy;tion event
+log for more detail.&quot;) The event log showed nothing.</p>
+<p>After more in&shy;ves&shy;ti&shy;ga&shy;tion, I found a WinSxS manifest for the Windows Common
+Controls:</p>
+<pre class="literal-block">
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;assembly xmlns=&quot;urn:schemas-microsoft-com:asm.v1&quot; manifestVersion=&quot;1.0&quot;&gt;
+  &lt;assemblyIdentity
+    processorArchitecture=&quot;X86&quot;
+    version=&quot;6.2.0.0&quot;
+    type=&quot;win32&quot;
+    name=&quot;Vim&quot;
+  /&gt;
+  &lt;description&gt;Vi Improved - A Text Editor&lt;/description&gt;
+  &lt;dependency&gt;
+    &lt;dependentAssembly&gt;
+      &lt;assemblyIdentity
+        type=&quot;win32&quot;
+        name=&quot;Microsoft.Windows.Common-Controls&quot;
+        version=&quot;6.0.0.0&quot;
+        publicKeyToken=&quot;6595b64144ccf1df&quot;
+        language=&quot;*&quot;
+        processorArchitecture=&quot;X86&quot;
+      /&gt;
+    &lt;/dependentAssembly&gt;
+  &lt;/dependency&gt;
+&lt;/assembly&gt;
+</pre>
+<p>Once the two instances of <tt class="docutils literal"><span class="pre">proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture=&quot;X86&quot;</span></tt> were set to
+<tt class="docutils literal"><span class="pre">proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture=&quot;AMD64&quot;</span></tt>, Vim started working without a hitch.
+Despite my naïve ex&shy;pec&shy;ta&shy;tions, none of the other fields in the comctl32
+assembly needed to be changed.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2006/04/22/Win64PortOfVim.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2006/04/22/Win64PortOfVim.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2006/04/19/BarbecueUniversity.html" class="page floatright">
+        Barbecue University &raquo;
+        </a>
+    
+    
+        <a href="/blog/2006/04/29/GoogleSketchUp.html.." class="page floatleft">
+        &laquo; Google SketchUp
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

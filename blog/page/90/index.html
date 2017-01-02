@@ -29,27 +29,29 @@
     
         <article>
     <header>
-        <time datetime="2006-01-01">01.01.2006, 00:00</time>
+        <time datetime="2006-12-30">30.12.2006, 00:00</time>
         <h1>
-            <a href="/blog/2006/01/01/CuringHiccups.html" rel="bookmark canonical">Curing Hiccups</a>
+            <a href="/blog/2006/12/30/RatingWithStars.html" rel="bookmark canonical">Rating with Stars</a>
         </h1>
     </header>
-    <p>At our Sixth Day of Christmas party yesterday, Delf started talking
-about burns from hot peppers, which reminded me of a crazy thread
-that I read a while back, <a class="reference external" href="http://nielsenhayden.com/makinglight/archives/006812.html">Listening to habeneros</a>,
-and of a sure-fire cure for hiccups from
-<a class="reference external" href="http://www.owlsprings.com/">Diane Duane</a>.</p>
-<p>Me, when I get hiccups,
-I just take a very deep breath and hold it for as long as I can.
-If it doesn't work the first time, it does on the second attempt.</p>
-<p>Cure #1, letting a large spoonful of sugar dissolve in the mouth,
-is the only cure that's ever worked for Emma.</p>
-<p>Here's Diane Duane on <a class="reference external" href="http://nielsenhayden.com/makinglight/archives/006812.html#95991">curing hiccups</a>:</p>
-<blockquote>
-<p>Hiccups are the result of a blood serum <span>&#8230;<a href="/blog/2006/01/01/CuringHiccups.html" class="continue">continue</a>.</span></p></blockquote>
+    
+
+
+<p>I want to be able to write some reviews and graph&shy;i&shy;cal&shy;ly rate them with stars.
+I put together some trans&shy;par&shy;ent stars in Gimp and added a macro to dasBlog.</p>
+<p>I'm going to rate this effort:</p>
+<p>$stars(4.5)</p>
+<p>To get this effect, I simply wrote <tt class="docutils literal">$</tt><tt class="docutils literal">stars(4.5)</tt>.</p>
+<p>(And I had to carefully construct the previous sentence so
+that dasBlog wouldn't invoke the <tt class="docutils literal">stars</tt> macro.)</p>
+<p>I'm hardnosed. I rarely give 5/5 to anything. I don't really expect to need
+the half stars, but I may want that fine control at some point.</p>
+<p>To use this in your own blog, download the <a class="reference external" href="/content/binary/5stars.zip">zipfile</a> of star images.</p>
+<p>Copy <tt class="docutils literal"><span class="pre">5star*.gif</span></tt> to your blog's <tt class="docutils literal">images</tt> directory.
+The <tt class="docutils literal">*.xcf</tt> files <span>&#8230;<a href="/blog/2006/12/30/RatingWithStars.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/01/01/CuringHiccups.html#disqus_thread">Comment</a>
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/12/30/RatingWithStars.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -60,31 +62,35 @@ is the only cure that's ever worked for Emma.</p>
     
         <article>
     <header>
-        <time datetime="2005-12-30">30.12.2005, 00:00</time>
+        <time datetime="2006-12-29">29.12.2006, 00:00</time>
         <h1>
-            <a href="/blog/2005/12/30/20YearsOfVi.html" rel="bookmark canonical">20 Years of Vi</a>
+            <a href="/blog/2006/12/29/PythonBatchfileWrapper.html" rel="bookmark canonical">Python Batchfile Wrapper</a>
         </h1>
     </header>
-    <p><a class="reference external" href="http://en.wikipedia.org/wiki/Vi">vi</a>.
-Vee-eye. My text editor of choice for 20 years. Half my life.</p>
-<p>Why? Because I
-<a class="reference external" href="http://en.wikipedia.org/wiki/Filial_imprinting">imprinted</a>
-on vi, like a duckling on its mother.
-Vi's keystrokes are bound into my
-<a class="reference external" href="http://en.wikipedia.org/wiki/Muscle_memory">muscle memory</a>.
-My fingers re&shy;flex&shy;ive&shy;ly use vi keystrokes to move around,
-to delete text, to move blocks, to find patterns.
-I don't have to think about using <tt class="docutils literal">dw</tt> to delete a word,
-or <tt class="docutils literal">n</tt> to find the next match of a pattern,
-or <tt class="docutils literal">yG</tt> to yank the rest of a file,
-or <tt class="docutils literal">j</tt> to move down a line,
-or <tt class="docutils literal">.</tt> to repeat the last mod&shy;i&shy;fi&shy;ca&shy;tion.
-My sub&shy;con&shy;cious does it for me.</p>
-<p>I don't even have to think much about more complex commands,
-like <tt class="docutils literal">ct)</tt> to <span>&#8230;<a href="/blog/2005/12/30/20YearsOfVi.html" class="continue">continue</a>.</span></p>
+    <div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;string&gt;</tt>, line 1)</p>
+<p>Error in &quot;image&quot; directive:
+unknown option: &quot;title&quot;.</p>
+<pre class="literal-block">
+.. image:: /content/binary/PythonBatch.jpg
+    :title: Python Batchfile Wrapper
+
+</pre>
+</div>
+<p>I've been getting into Python lately. One problem that I've en&shy;coun&shy;tered
+under Windows, is that input redi&shy;rec&shy;tion doesn't work if you use
+the <tt class="docutils literal">.py</tt> file as&shy;so&shy;ci&shy;a&shy;tion to run the script; e.g.:</p>
+<pre class="literal-block">
+C:\&gt; foo.py &lt; input.txt
+</pre>
+<p>There's a well-known <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi&shy;rec&shy;tion bug</a>. The fix is to explicitly use
+<tt class="docutils literal">python.exe</tt> to run the script.</p>
+<p>A related problem for me was that <tt class="docutils literal">stdin</tt> was opened as a <em>text</em> file,
+not a <em>binary</em> file, so <tt class="docutils literal">\r</tt> bytes were being discarded from binary input
+files. The fix is to run <tt class="docutils literal">python.exe <span class="pre">-u</span></tt> (unbuffered binary <span>&#8230;<a href="/blog/2006/12/29/PythonBatchfileWrapper.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2005/12/30/20YearsOfVi.html#disqus_thread">Comment</a>
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/12/29/PythonBatchfileWrapper.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -95,29 +101,36 @@ like <tt class="docutils literal">ct)</tt> to <span>&#8230;<a href="/blog/2005/1
     
         <article>
     <header>
-        <time datetime="2005-12-12">12.12.2005, 00:00</time>
+        <time datetime="2006-12-26">26.12.2006, 00:00</time>
         <h1>
-            <a href="/blog/2005/12/12/12DaysOfChristmas.html" rel="bookmark canonical">12 Days of Christmas</a>
+            <a href="/blog/2006/12/26/InstallingRainlendarOnKubuntu.html" rel="bookmark canonical">Installing Rainlendar on Kubuntu</a>
         </h1>
     </header>
-    <a class="reference external image-reference" href="http://www.irishrecords.com/comcoun.html"></a>
-<p>As the Twelve Days of Christmas approach,
-it's time once again to make fun of them.
-Strictly speaking, we can't start until
-December 25th, the first day of Christmas,
-but the Xmas season starts earlier every year.</p>
-<p>My favorite has long been Frank Kelly's <em>Christmas Countdown</em>,
-which was a big hit in Ireland and Britain in the early 1980s.
-It's couched as twelve in&shy;creas&shy;ing&shy;ly ex&shy;as&shy;per&shy;at&shy;ed letters from
-Gobnait O'Lughnasa to his friend Nuala. Here's Day Six:</p>
-<blockquote>
-<p>Nuala,</p>
-<p>What are you trying to do to us ? It isn’t that we don’t appreciate
-your generosity but the six geese have not alone nearly murdered the
-calling birds but they laid their eggs on <span>&#8230;<a href="/blog/2005/12/12/12DaysOfChristmas.html" class="continue">continue</a>.</span></p></blockquote>
+    <div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;string&gt;</tt>, line 1)</p>
+<p>Error in &quot;image&quot; directive:
+unknown option: &quot;title&quot;.</p>
+<pre class="literal-block">
+.. image:: /content/binary/rainlendar.png
+    :title: Rainlendar
+    :target: http://www.rainlendar.net/
+
+</pre>
+</div>
+<p>I've dualbooted my laptop between Linux and Windows since June, spending
+nearly all of my time in Linux. I started out with <a class="reference external" href="http://www.ubuntu.com/">Ubuntu</a> 6.06 (Dapper Drake),
+but soon switched to <a class="reference external" href="http://www.kubuntu.org/">Kubuntu</a> (the KDE variant),
+later upgrading to Kubuntu 6.10 (Edgy Eft).</p>
+<p>To make this useful, certain key ap&shy;pli&shy;ca&shy;tions have to be available in both
+Windows and Linux. <a class="reference external" href="http://www.mozilla.com/en-US/firefox/">Firefox</a> for browsing; <a class="reference external" href="http://www.mozilla.com/en-US/thunderbird/">Thun&shy;der&shy;bird</a> for email;
+<a class="reference external" href="http://www.rainlendar.net/">Rainlendar</a> for calendar; <a class="reference external" href="http://keepass.sourceforge.net/">KeePass</a> and <a class="reference external" href="http://keepassx.sourceforge.net/">KeePassX</a> for password man&shy;age&shy;men&shy;t;
+among others.</p>
+<p>My laptop has four partitions:</p>
+<ul class="simple">
+<li>Primary 1, NTFS - Windows, aka <tt class="docutils literal">/windows</tt> or <span>&#8230;<a href="/blog/2006/12/26/InstallingRainlendarOnKubuntu.html" class="continue">continue</a>.</span></li></ul>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2005/12/12/12DaysOfChristmas.html#disqus_thread">Comment</a>
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/12/26/InstallingRainlendarOnKubuntu.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -128,54 +141,34 @@ calling birds but they laid their eggs on <span>&#8230;<a href="/blog/2005/12/12
     
         <article>
     <header>
-        <time datetime="2005-12-10">10.12.2005, 00:00</time>
+        <time datetime="2006-11-02">02.11.2006, 00:00</time>
         <h1>
-            <a href="/blog/2005/12/10/HaroldPinterOnArtTruthPolitics.html" rel="bookmark canonical">Harold Pinter on Art, Truth, & Politics</a>
+            <a href="/blog/2006/11/02/GoogleImages.html" rel="bookmark canonical">Google Images</a>
         </h1>
     </header>
-    <p>Harold Pinter's <a class="reference external" href="http://www.nobelprize.org/nobel_prizes/literature/laureates/2005/pinter-lecture-e.html">speech</a>
-on accepting the 2005 Nobel Prize for Literature.</p>
-<blockquote>
-<p>I put to you that the United States is without doubt the greatest show on the road.
-Brutal, in&shy;dif&shy;fer&shy;ent, scornful and ruthless it may be
-but it is also very clever.
-As a salesman it is out on its own
-and its most saleable commodity is self love.
-It's a winner.
-Listen to all American presidents on television say the words,
-'the American people', as in the sentence,
-'I say to the American people it is time to pray
-and to defend the rights of the American people
-and I ask the American people to trust their president
-in the action he <span>&#8230;<a href="/blog/2005/12/10/HaroldPinterOnArtTruthPolitics.html" class="continue">continue</a>.</span></p></blockquote>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2005/12/10/HaroldPinterOnArtTruthPolitics.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2005-12-05">05.12.2005, 00:00</time>
-        <h1>
-            <a href="/blog/2005/12/05/MovedToGeorgeVReillycomblog.html" rel="bookmark canonical">Moved to GeorgeVReilly.com/blog</a>
-        </h1>
-    </header>
-    
-<p>(Originally posted to Home at
-<a class="reference external" href="http://erablog.net/blogs/george_v_reilly/">EraBlog</a> on
-<a class="reference external" href="http://EraBlog.NET/filters/27178.post">Mon, 05 Dec 2005 05:23:26 GMT</a>)</p>
-<p>I've moved my blog again; this time to my own website. The new link is
-<a class="reference external" href="http://www.georgevreilly.com/blog/">http://www.georgevreil&shy;ly.com/blog/</a>.</p>
+    <div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;string&gt;</tt>, line 1)</p>
+<p>Error in &quot;image&quot; directive:
+unknown option: &quot;title&quot;.</p>
+<pre class="literal-block">
+.. image:: http://images.google.com/intl/en_ALL/images/images_res.gif
+    :title: Google Images
+    :target: http://images.google.com/
+    :class: right-float
+
+</pre>
+</div>
+<p>For the last few months, every blog post that I've made has been
+ac&shy;com&shy;pa&shy;nied by at least one image. Sometimes I already have an ap&shy;pro&shy;pri&shy;ate
+image. The rest of the time, I use whatever I could find after searching
+<a class="reference external" href="http://images.google.com/">Google Images</a>.</p>
+<p>Earlier today, I came across <a class="reference external" href="http://googlesystem.blogspot.com/2006/10/10-tips-for-google-image-search.html">10 Tips for Google Image Search</a>.
+I par&shy;tic&shy;u&shy;lar&shy;ly like the <a class="reference external" href="http://googlesystem.blogspot.com/2006/05/google-images-way-it-should-be.html">Grease&shy;mon&shy;key script</a> which allows you to
+view the original image by clicking on the thumbnail.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2005/12/05/MovedToGeorgeVReillycomblog.html#disqus_thread">Comment</a>
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/11/02/GoogleImages.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -186,18 +179,33 @@ in the action he <span>&#8230;<a href="/blog/2005/12/10/HaroldPinterOnArtTruthPo
     
         <article>
     <header>
-        <time datetime="2005-12-02">02.12.2005, 00:00</time>
+        <time datetime="2006-11-02">02.11.2006, 00:00</time>
         <h1>
-            <a href="/blog/2005/12/02/EarthToAmerica.html" rel="bookmark canonical">Earth to America</a>
+            <a href="/blog/2006/11/02/AndrewSullivanNotAnElectionButAnIntervention.html" rel="bookmark canonical">Andrew Sullivan: not an election, but an intervention</a>
         </h1>
     </header>
-    <p>Via <a class="reference external" href="http://www.dailykos.com/">DailyKos</a>,
-Will Ferrell as Dubya making a Special An&shy;nounce&shy;ment on
-<a class="reference external" href="http://devilducky.com/link/38792">Global Warming</a>.</p>
+    <p>&quot;This isn't an election anymore, it's an in&shy;ter&shy;ven&shy;tion.&quot;</p>
+<blockquote>
+-- Andrew Sullivan on CNN.</blockquote>
+<div align="center">
+<object width="425" height="350">
+    <param name="movie" value="http://www.youtube.com/v/kB48J_0re2g"></param>
+    <param name="wmode" value="transparent"></param>
+    <embed src="http://www.youtube.com/v/kB48J_0re2g" type="application/x-shockwave-flash" wmode="transparent" width="425" height="350"></embed>
+</object><br />
+Andrew Sullivan and Christo&shy;pher Hitchens on CNN
+</div><p>I don't have much time for either Andrew Sullivan or Christo&shy;pher Hitchens.
+Both of them bear a lot of blame for getting us into Iraq in the first
+place.</p>
+<p>But here they are on <a class="reference external" href="http://www.youtube.com/watch?v=kB48J_0re2g&amp;eurl=">CNN</a>
+yesterday, ripping into Bush for saying that Rumsfeld
+is doing a fabulous job and that he and Cheney must stay until the end of
+his presidency.</p>
+<p>(Via <a class="reference external" href="http://americablog.blogspot.com/2006/11/andrew-sullivan-on-cnn.html">Amer&shy;i&shy;ca&shy;Blog</a>)</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2005/12/02/EarthToAmerica.html#disqus_thread">Comment</a>
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/11/02/AndrewSullivanNotAnElectionButAnIntervention.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -208,69 +216,29 @@ Will Ferrell as Dubya making a Special An&shy;nounce&shy;ment on
     
         <article>
     <header>
-        <time datetime="2005-11-20">20.11.2005, 00:00</time>
+        <time datetime="2006-10-27">27.10.2006, 00:00</time>
         <h1>
-            <a href="/blog/2005/11/20/AFeastForCrows.html" rel="bookmark canonical">A Feast for Crows</a>
+            <a href="/blog/2006/10/27/NoSecurityUpdatesToday.html" rel="bookmark canonical">No security updates today</a>
         </h1>
     </header>
-    <p>I'm in&shy;dif&shy;fer&shy;ent to most fantasy books, but I've been a fan of
-George R.R. Martin's <em>A Song of Ice and Fire</em> series,
-since I read the first book,
-<a class="reference external" href="http://www.amazon.com/exec/obidos/ASIN/0553573403/georgvreill-20">A Game of Thrones</a>,
-in 1997.
-I read the second book
-<a class="reference external" href="http://www.amazon.com/exec/obidos/ASIN/0553108034/georgvreill-20">A Clash of Kings</a>,
-in 1999.
-The third book
-<a class="reference external" href="http://www.amazon.com/exec/obidos/ASIN/055357342X/georgvreill-20">A Storm of Swords</a>
-came out five years ago, and I've been awaiting
-the fourth book,
-<a class="reference external" href="http://www.amazon.com/exec/obidos/ASIN/0553801503/georgvreill-20">A Feast for Crows</a>,
-ever since.
-After several post&shy;pone&shy;ments, it's finally out.</p>
-<p>It's an epic tale of love, war, and intrigue.
-Five Kings are fighting for control,
-by sword, by guile, and sometimes by magic.
-Strange creatures are rising in the frozen North, beyond the Wall.
-Dragons are reap&shy;pear&shy;ing in the South.
-The young Starks, separated <span>&#8230;<a href="/blog/2005/11/20/AFeastForCrows.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2005/11/20/AFeastForCrows.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2005-11-16">16.11.2005, 00:00</time>
-        <h1>
-            <a href="/blog/2005/11/16/RSVPIsNotFrenchForRepliesOptional.html" rel="bookmark canonical">RSVP is *not* French for "Replies Optional"</a>
-        </h1>
-    </header>
-    <p>Last Wednesday night, Emma emailed a dozen of our friends,
-inviting them to join us for Thanks&shy;giv&shy;ing dinner.
-One reply arrived the next morning. Then nothing.</p>
-<p>By Sunday evening, I had grown ex&shy;as&shy;per&shy;at&shy;ed enough
-to send out a snarky followup:</p>
+    <a class="reference external image-reference" href="http://lwn.net/Articles/206045/"></a>
+<p>Windows deservedly gets a lot of bad press about the unending stream of
+security updates. But Linux, despite all of the propaganda about it being
+more secure than Windows, has its own security problems.</p>
+<p>Take this post from <a class="reference external" href="http://lwn.net/">LWN.net</a> yesterday:</p>
 <blockquote>
-The courtesy of a belated reply would be ap&shy;pre&shy;ci&shy;at&shy;ed.
-So far, we've got exactly one RSVP.</blockquote>
-<p>It served its purpose. Replies cascaded in. Most, alas, said &quot;no&quot;;
-they had other plans.</p>
-<p>Would that this were an isolated incident.
-Time and again, I've issued in&shy;vi&shy;ta&shy;tions that were not responded to.
-A simple &quot;yes&quot; or &quot;no&quot; is ideal.
-A &quot;maybe&quot; is acceptable too,
-especially if you follow up with a &quot;yes&quot; or a &quot;no&quot;.</p>
-<p>RSVP is <span>&#8230;<a href="/blog/2005/11/16/RSVPIsNotFrenchForRepliesOptional.html" class="continue">continue</a>.</span></p>
+<div class="line-block">
+<div class="line"><a class="reference external" href="http://lwn.net/Articles/206045/">No security updates today</a></div>
+<div class="line">[Posted October 25, 2006 by corbet]</div>
+</div>
+<p>It is sad that this is worthy of note, but it is: on this day, Wednesday,
+October 25, we have not received a single security update for any Linux dis&shy;tri&shy;b&shy;u&shy;tion.</p>
+</blockquote>
+<p>(This post was composed on a laptop running Kubuntu 6.06.)</p>
+
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2005/11/16/RSVPIsNotFrenchForRepliesOptional.html#disqus_thread">Comment</a>
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/10/27/NoSecurityUpdatesToday.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -281,27 +249,42 @@ especially if you follow up with a &quot;yes&quot; or a &quot;no&quot;.</p>
     
         <article>
     <header>
-        <time datetime="2005-11-12">12.11.2005, 00:00</time>
+        <time datetime="2006-10-24">24.10.2006, 00:00</time>
         <h1>
-            <a href="/blog/2005/11/12/dasBlog18AndWbloggar.html" rel="bookmark canonical">dasBlog 1.8 and w.bloggar</a>
+            <a href="/blog/2006/10/24/LittleDetails.html" rel="bookmark canonical">Little Details</a>
         </h1>
     </header>
-    <p>I finally updated my blog to run on dasBlog 1.8.
-Not too painful.
-I unzipped the binary dis&shy;tri&shy;b&shy;u&shy;tion,
-downloaded the content folder from my server to my local drive,
-ran the provided upgrade utility,
-and used WinMerge to update the con&shy;fig&shy;u&shy;ra&shy;tion files.</p>
-<p>The most obvious change is that I'm using a new theme (skin),
-which gives the site a very different look.
-The previous default theme had problems if your browser window was too narrow,
-due to some hardcoded table sizes (I think).</p>
-<p>I also figured out how to post to dasBlog via w.bloggar.
-I looked for info on con&shy;fig&shy;ur&shy;ing w.bloggar a few weeks ago, and couldn't find it then.</p>
-<p>Followup: the <span>&#8230;<a href="/blog/2005/11/12/dasBlog18AndWbloggar.html" class="continue">continue</a>.</span></p>
+    <p>In my wanderings, I recently came across two sites where you can ask all
+kinds of strange questions, with a reasonable ex&shy;pec&shy;ta&shy;tion of getting an
+answer.</p>
+<div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;string&gt;</tt>, line 5)</p>
+<p>Error in &quot;image&quot; directive:
+unknown option: &quot;title&quot;.</p>
+<pre class="literal-block">
+.. image:: /content/binary/questions.gif
+    :title: Questions
+    :class: right-float
+
+</pre>
+</div>
+<p><a class="reference external" href="http://community.livejournal.com/little_details/">Little Details</a>:
+&quot;writers have questions, other writers have answers&quot;.
+A Live&shy;Jour&shy;nal community for writers seeking all kinds of background
+in&shy;for&shy;ma&shy;tion for their plots. Some samples:</p>
+<ul class="simple">
+<li>1920's cold remedies</li>
+<li>Danish drinking songs</li>
+<li>Control parents have over their children testifying.</li>
+</ul>
+<p><a class="reference external" href="http://ask.metafilter.com/">Ask MetaFilter</a> is more general purpose.
+It's a good place to go when your question can't be reduced to a keyword
+search on Google. Sample questions:</p>
+<ul>
+<li><p class="first">What's <span>&#8230;<a href="/blog/2006/10/24/LittleDetails.html" class="continue">continue</a>.</span></p></li></ul>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2005/11/12/dasBlog18AndWbloggar.html#disqus_thread">Comment</a>
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/10/24/LittleDetails.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -312,26 +295,120 @@ I looked for info on con&shy;fig&shy;ur&shy;ing w.bloggar a few weeks ago, and c
     
         <article>
     <header>
-        <time datetime="2005-10-16">16.10.2005, 00:00</time>
+        <time datetime="2006-09-28">28.09.2006, 00:00</time>
         <h1>
-            <a href="/blog/2005/10/16/DecisionAboutEvacueeHousing.html" rel="bookmark canonical">Decision about evacuee housing</a>
+            <a href="/blog/2006/09/28/GoogleTransit.html" rel="bookmark canonical">Google Transit</a>
         </h1>
     </header>
-    <p>On Tuesday night, Emma sent this out to our list of friends.</p>
+    <div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;string&gt;</tt>, line 1)</p>
+<p>Error in &quot;image&quot; directive:
+unknown option: &quot;title&quot;.</p>
+<pre class="literal-block">
+.. image:: http://www.georgevreilly.com/blog/content/binary/google-transit.jpg
+    :title: Google Transit
+
+</pre>
+</div>
+<p>I ex&shy;per&shy;i&shy;ment&shy;ed with Google's new service,
+<a class="reference external" href="http://www.google.com/transit">Google Transit</a>.</p>
+<p>It suggested this route for traveling from
+my home to my work:</p>
+<pre class="literal-block">
+Begin by walking
+1   Start at 4XXX 13th Ave S
+2   Go to Airport Way S &amp; S Industrial Way (takes about 7 mins)
+
+Take the King County Metro 131 (Direction: NORTH)
+3   7:17pm leave from Airport Way S &amp; S Industrial Way
+4   7:24pm arrive at 4th Ave S &amp; S Jackson St
+
+End by walking
+5   Go to 315 5th Ave </pre><span>&#8230;<a href="/blog/2006/09/28/GoogleTransit.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/09/28/GoogleTransit.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2006-09-27">27.09.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/09/27/TortureYourSenators.html" rel="bookmark canonical">Torture your senators</a>
+        </h1>
+    </header>
+    <div class="system-message">
+<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;string&gt;</tt>, line 1)</p>
+<p>Error in &quot;image&quot; directive:
+unknown option: &quot;title&quot;.</p>
+<pre class="literal-block">
+.. image:: /content/binary/iraq-torture-dogs-thumb-tm.jpg
+    :title: Torture
+    :class: right-float
+
+</pre>
+</div>
+<p>I just sent the following letter to my senators,
+<a class="reference external" href="http://murray.senate.gov/contact/contact.cfm">Patty Murray</a> and
+<a class="reference external" href="http://cantwell.senate.gov/contact/">Maria Cantwell</a>,
+as well as to the
+<a class="reference external" href="http://seattlepi.nwsource.com/opinion/letters.asp">Seattle Post-In&shy;tel&shy;li&shy;gencer's Letter Page</a>:</p>
 <blockquote>
-<p>Subject:    Decision about evacuee housing
-Date:   Wed, 12 Oct 2005 00:22:32 -0700
-From:   Emma Bartholomew &lt;<a class="reference external" href="/blog/2005/10/16/DecisionAboutEvacueeHousing.html/mailto:emma@bartholomew.com">emma&#64;bartholomew.com</a>&gt;</p>
-<p>Hello all,</p>
-<p>Thank you to everyone who has assisted George &amp; me in our attempt to
-ready our home for hurricane evacuees.</p>
-<p>Re&shy;gret&shy;tably, I have come to realize that I'm not emo&shy;tion&shy;al&shy;ly able to
-make this commitment after all.  I thought I could open my home to
-others, but I have sunk into a depression over the past few weeks that
-has finally convinced me that I tried to bite off more than I <span>&#8230;<a href="/blog/2005/10/16/DecisionAboutEvacueeHousing.html" class="continue">continue</a>.</span></p></blockquote>
+<p>How has America come to this? Is the United States of America truly
+about to repudiate the Geneva Convention? Is the Senate about to let
+the President decide when and whom to torture?</p>
+<p>This is foul. This is wholly un-American. This is deeply immoral.
+Every civilized society abhors torture.</p>
+<p>How can we claim to be spreading Democracy in the Middle East at the
+same time that <span>&#8230;<a href="/blog/2006/09/27/TortureYourSenators.html" class="continue">continue</a>.</span></p></blockquote>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2005/10/16/DecisionAboutEvacueeHousing.html#disqus_thread">Comment</a>
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/09/27/TortureYourSenators.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2006-09-14">14.09.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" rel="bookmark canonical">Never Sleep(0) in an Infinite Loop</a>
+        </h1>
+    </header>
+    
+<p>I ran into a problem installing some COM+ components today. The installer
+was using <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/04za0hca.aspx">Regsvcs.exe</a>
+to register each COM+ component. I noticed after a while that the installer
+wasn't making any progress and that my dual-proc system was stuck at 50%
+CPU uti&shy;liza&shy;tion. I attached a debugger to the offending process, regsvcs,
+and found that it was stuck in the following infinite loop
+(dis&shy;as&shy;sem&shy;bly courtesy of <a class="reference external" href="http://www.aisto.com/roeder/dotnet/">Reflector</a>):</p>
+
+
+<pre class="brush: csharp">
+internal void System.EnterpriseServices.CatalogSync.Wait()
+{
+  if (this._set)
+  {
+    RegistryKey key1
+      = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\CLSID");
+    while (true)
+    {
+      int num1 = (int) key1.GetValue("CLBVersion", 0);
+ </pre><span>&#8230;<a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
