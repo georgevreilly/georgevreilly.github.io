@@ -29,6 +29,75 @@
     
         <article>
     <header>
+        <time datetime="2016-03-16">16.03.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/03/16/ReviewTheFourthSecret.html" rel="bookmark canonical">Review: The Fourth Secret</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/B00NOC5JFW/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: The Fourth Secret</div>
+<div class="line">Author: Andrea Camilleri</div>
+<div class="line">Rating: ★ ★ ★</div>
+<div class="line">Publisher: Mondadori</div>
+<div class="line">Copyright: 2002</div>
+<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/B00NOC5JFW/?tag=georgvreill-20">B00NOC5JFW</a></div>
+<div class="line">Pages: 77</div>
+<div class="line">Keywords: mystery</div>
+<div class="line">Reading period: February 28–March 2, 2016</div>
+</div>
+<p>A quirky novella about <a class="reference external" href="https://en.wikipedia.org/wiki/Salvo_Montalbano">Com&shy;mis&shy;sario Montalbano</a> of the Italian Polizia.
+A series of “ac&shy;ci&shy;dents” have been happening at con&shy;struc&shy;tion sites.
+Montalbano receives an anonymous letter warning that another “accident” will happen,
+too late to prevent it.
+He attempts to cover it up, while still in&shy;ves&shy;ti&shy;gat&shy;ing,
+and realizes that he's infringing on the <a class="reference external" href="http://www.bbc.com/news/magazine-28254297">carib&shy;inieri</a>'s ju&shy;ris&shy;dic&shy;tion, a no-no.</p>
+<p>Moderately en&shy;ter&shy;tain&shy;ing.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/16/ReviewTheFourthSecret.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2016-03-15">15.03.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/03/15/25YearsOutAsBisexual.html" rel="bookmark canonical">25 Years Out as Bisexual</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://twitter.com/chicagobi"></a>
+<p>My birthday today marks the 25th an&shy;niver&shy;sary of <a class="reference external" href="http://groups.google.com/group/soc.motss/browse_thread/thread/baf274ae585ab622/330d866060d756d8">my coming out as bisexual</a>,
+a major milestone in my life.</p>
+<p>I hid my bi&shy;sex&shy;u&shy;al&shy;i&shy;ty for a decade before coming out in 1991.
+Ireland was not a welcoming place for LGBT youth in the 1980s.
+Nor were most other places.</p>
+<p>I discovered <a class="reference external" href="http://www.slate.com/articles/technology/bitwise/2014/08/online_gay_culture_and_soc_motss_how_a_usenet_group_anticipated_how_we_use.html">soc.motss</a>, the gay newsgroup on Usenet,
+in the late 1980s
+and I lurked there for a couple of years,
+half-intending to come out but never quite finding the courage.
+Then my old friend Éamonn came out to me—to my utter sur&shy;prise—and I im&shy;me&shy;di&shy;ate&shy;ly came out to him.
+Then I sat on everything for a few months.
+Eventually, late on the night <span>&#8230;<a href="/blog/2016/03/15/25YearsOutAsBisexual.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/15/25YearsOutAsBisexual.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-03-14">14.03.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/03/14/HappyPiDay.html" rel="bookmark canonical">Happy Pi Day</a>
@@ -281,75 +350,6 @@ For now, let's just say it's a tool that we use to build
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/07/FlyingCloud_0_3_0_Released.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-03-06">06.03.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/03/06/psutil-kill.html" rel="bookmark canonical">psutil kill</a>
-        </h1>
-    </header>
-    <p>From Python, I needed to find a process that was performing SSH tunneling on port 8080
-and kill it.</p>
-<p>The following works in Bash:</p>
-
-<pre class="brush: bash">
-ps aux | grep [s]sh.*:8080 | awk '{print $2}' | xargs kill -9
-</pre>
-
-<p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
-won't make it through to <tt class="docutils literal">awk</tt>.</p>
-<p>Here's what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
-
-<pre class="brush: python">
-def kill_port_forwarding(host_port):
-    ssh_args = ["-f", "-N", "-L", "{0}:localhost:{0}".format(host_port)]
-    for process in psutil.process_iter():
-        try:
-            if process.name().endswith('ssh'):
-      </pre><span>&#8230;<a href="/blog/2016/03/06/psutil-kill.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/06/psutil-kill.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-03-05">05.03.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/03/05/ReviewDeadpool.html" rel="bookmark canonical">Review: Deadpool</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Deadpool_(film)"></a>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Deadpool_(film)">Deadpool</a> is the role that Ryan Reynolds was born to play,
-the &quot;Merc with a Mouth&quot; anti-hero
-who breaks the fourth wall and breaks heads with equal facility.
-It's very funny, very twisted, and very violent,
-and it fully deserves its R rating.</p>
-<p>Wade Wilson, a former mercenary, has terminal cancer.
-He undergoes a treatment that
-not only cures his cancer and renders him capable of re&shy;gen&shy;er&shy;at&shy;ing quickly from any wound,
-but leaves him horribly scarred.
-The treatment was actually intended to turn him into a super slave.
-Wanting both revenge and a cure for his dis&shy;fig&shy;ure&shy;ment,
-he suits up and tracks down his former captors,
-leaving dozens of dead henchmen in <span>&#8230;<a href="/blog/2016/03/05/ReviewDeadpool.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/05/ReviewDeadpool.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

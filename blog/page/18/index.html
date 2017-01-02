@@ -29,6 +29,75 @@
     
         <article>
     <header>
+        <time datetime="2016-03-06">06.03.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/03/06/psutil-kill.html" rel="bookmark canonical">psutil kill</a>
+        </h1>
+    </header>
+    <p>From Python, I needed to find a process that was performing SSH tunneling on port 8080
+and kill it.</p>
+<p>The following works in Bash:</p>
+
+<pre class="brush: bash">
+ps aux | grep [s]sh.*:8080 | awk '{print $2}' | xargs kill -9
+</pre>
+
+<p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
+won't make it through to <tt class="docutils literal">awk</tt>.</p>
+<p>Here's what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
+
+<pre class="brush: python">
+def kill_port_forwarding(host_port):
+    ssh_args = ["-f", "-N", "-L", "{0}:localhost:{0}".format(host_port)]
+    for process in psutil.process_iter():
+        try:
+            if process.name().endswith('ssh'):
+      </pre><span>&#8230;<a href="/blog/2016/03/06/psutil-kill.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/06/psutil-kill.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2016-03-05">05.03.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/03/05/ReviewDeadpool.html" rel="bookmark canonical">Review: Deadpool</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Deadpool_(film)"></a>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Deadpool_(film)">Deadpool</a> is the role that Ryan Reynolds was born to play,
+the &quot;Merc with a Mouth&quot; anti-hero
+who breaks the fourth wall and breaks heads with equal facility.
+It's very funny, very twisted, and very violent,
+and it fully deserves its R rating.</p>
+<p>Wade Wilson, a former mercenary, has terminal cancer.
+He undergoes a treatment that
+not only cures his cancer and renders him capable of re&shy;gen&shy;er&shy;at&shy;ing quickly from any wound,
+but leaves him horribly scarred.
+The treatment was actually intended to turn him into a super slave.
+Wanting both revenge and a cure for his dis&shy;fig&shy;ure&shy;ment,
+he suits up and tracks down his former captors,
+leaving dozens of dead henchmen in <span>&#8230;<a href="/blog/2016/03/05/ReviewDeadpool.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/05/ReviewDeadpool.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-03-04">04.03.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/03/04/ReviewCrackdPotTrail.html" rel="bookmark canonical">Review: Crack'd Pot Trail</a>
@@ -305,74 +374,6 @@ and <span>&#8230;<a href="/blog/2016/02/26/ReviewRunFatboyRun.html" class="conti
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/02/26/ReviewRunFatboyRun.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-02-25">25.02.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/02/25/ReviewHailCaesar.html" rel="bookmark canonical">Review: Hail, Caesar!</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Hail,_Caesar!"></a>
-<p>The Coen Brothers' latest movie, <a class="reference external" href="https://en.wikipedia.org/wiki/Hail,_Caesar!">Hail, Caesar!</a>, is a lot of fun.
-I've been looking forward to it since the trailers showed up a few months ago.
-It's a homage to the Golden Age of Hollywood,
-an age where quirky talents like the Coens
-could not have made Coen Brothers' movies.
-We see song and dance numbers, syn&shy;chro&shy;nized swimming,
-singing cowboys, and ballroom dramas.
-Most of all, we see a big-budget swords-and-sandals epic,
-whose star, Baird Whitlock, has been kidnapped by The Future,
-a group of Communist screen&shy;writ&shy;ers,
-and is being held for $100,000 ransom.
-Eddie Mannix is the studio fixer who has to wrangle
-the studio's stars and keep them out <span>&#8230;<a href="/blog/2016/02/25/ReviewHailCaesar.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/02/25/ReviewHailCaesar.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-02-24">24.02.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/02/24/TaibbiOnTrump.html" rel="bookmark canonical">Taibbi on Trump</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.rollingstone.com/politics/news/how-america-made-donald-trump-unstoppable-20160224"></a>
-<p>In a new article for Rolling Stone, <a class="reference external" href="http://www.rollingstone.com/politics/news/how-america-made-donald-trump-unstoppable-20160224">Matt Taibbi excoriates Trump</a>:</p>
-<blockquote>
-<p>It turns out we let our electoral process
-devolve into something so fake and dys&shy;func&shy;tion&shy;al
-that any half-bright con man
-with the stones to try it
-could walk right through the front door
-and tear it to shreds on the first go.</p>
-<p>And Trump is no half-bright con man, either.
-He's way better than average.</p>
-</blockquote>
-<p>Both Trump and Cruz scare me, for very different reasons.
-Trump is impulsive, all id, doesn't give a fuck,
-riling up the worst impulses of the American electorate for short-term gain.
-Who knows what this loose cannon will do?
-Cruz is a nasty piece of work,
-cold and <span>&#8230;<a href="/blog/2016/02/24/TaibbiOnTrump.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/02/24/TaibbiOnTrump.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

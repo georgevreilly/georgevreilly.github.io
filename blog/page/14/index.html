@@ -29,6 +29,86 @@
     
         <article>
     <header>
+        <time datetime="2016-04-15">15.04.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/04/15/ReviewTheLockedRoom.html" rel="bookmark canonical">Review: The Locked Room</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/0394742745/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: The Locked Room</div>
+<div class="line">Author: Maj Sjöwall &amp; Per Wahlöö</div>
+<div class="line">Rating: ★ ★ ★ ½</div>
+<div class="line">Publisher: Vintage</div>
+<div class="line">Copyright: 1973</div>
+<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/0394742745/?tag=georgvreill-20">0394742745</a></div>
+<div class="line">Pages: 279</div>
+<div class="line">Keywords: mystery</div>
+<div class="line">Reading period: 8–12 April, 2016</div>
+</div>
+<p>In <a class="reference external" href="https://en.wikipedia.org/wiki/The_Locked_Room">The Locked Room</a>,
+Martin Beck, recovering from being shot,
+in&shy;ves&shy;ti&shy;gates the death of a man,
+who has been found shot in a locked room with no gun.
+Meanwhile, some of his former colleagues,
+now serving on a special task force,
+are trying to deal with an epidemic of bank robberies.
+The latter is a comedy of errors, with the police con&shy;sis&shy;tent&shy;ly messing up.</p>
+<p>The authors are severely critical of the growth of Swedish police powers
+in the decade before this book was written.
+They also write harshly of <span>&#8230;<a href="/blog/2016/04/15/ReviewTheLockedRoom.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/15/ReviewTheLockedRoom.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2016-04-14">14.04.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/04/14/ReviewAStoneOfTheHeart.html" rel="bookmark canonical">Review: A Stone of the Heart</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/1586420291/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: A Stone of the Heart</div>
+<div class="line">Author: John Brady</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Publisher: Steerforth Press</div>
+<div class="line">Copyright: 1988</div>
+<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/1586420291/?tag=georgvreill-20">1586420291</a></div>
+<div class="line">Pages: 256</div>
+<div class="line">Keywords: mystery</div>
+<div class="line">Reading period: 2–8 April, 2016</div>
+</div>
+<p>A student is found murdered on the grounds of Trinity College Dublin.
+Sergeant Matt Minogue, newly back on duty after serious injuries,
+in&shy;ves&shy;ti&shy;gates and eventually finds links to the violence
+then roiling Northern Ireland.</p>
+<p>A slow-moving but thoughtful police procedural.
+Minogue may be trau&shy;ma&shy;tized by earlier injuries,
+but he is not the cynical, hard-drinking policeman so typical of fiction,
+but rather a happily married father with a nose for the truth.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/14/ReviewAStoneOfTheHeart.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-04-13">13.04.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" rel="bookmark canonical">io.StringIO and UnicodeCSV DictWriter</a>
@@ -305,89 +385,6 @@ and joins the Nazi party early, rising <span>&#8230;<a href="/blog/2016/04/06/Re
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/06/ReviewWinter.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-04-05">05.04.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" rel="bookmark canonical">Doctests, Unicode Literals, and Python 2/3 Compatibility</a>
-        </h1>
-    </header>
-    <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses them.</p>
-<p>Although I still mostly write Python 2,
-I usually import several features of Python 3:</p>
-
-<pre class="brush: python">
-from __future__ import unicode_literals, print_function, absolute_import
-</pre>
-
-<p>Un&shy;for&shy;tu&shy;nate&shy;ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni&shy;code_lit&shy;er&shy;als</a> doesn't play well with doctests.</p>
-<p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
-but not with <tt class="docutils literal">python3</tt>:</p>
-
-<pre class="brush: python">
-from __future__ import unicode_literals, print_function, absolute_import
-
-def upper(s):
-    """
-    Convert `s` to upper case.
-
-    >>> upper('Hello!')
-    u'HELLO!'
-    """
-    return s.upper()
-</pre>
-
-<p>Python 3 complains:</p>
-<pre class="literal-block">
-Failed example:
-    upper('Hello!')
-Expected:
-    u'HELLO!'
-Got:
-    'HELLO!'
-</pre>
-<p>The <span>&#8230;<a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-04-04">04.04.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html" rel="bookmark canonical">Lugging CRT Monitors to Montréal</a>
-        </h1>
-    </header>
-    
-<p>My most recent trip to Montréal was a year ago this week for PyCon 2015,
-following another trip there two years ago this week for PyCon 2014.</p>
-<p>My first trip to Montréal was a very long business trip in 1995.
-Four colleagues and I spent five or six weeks in Montréal,
-just before the <a class="reference external" href="https://en.wikipedia.org/wiki/Quebec_referendum,_1995">Quebec in&shy;de&shy;pen&shy;dence referendum</a>,
-working onsite for our client,
-in&shy;te&shy;grat&shy;ing the UI we had written into the rest of their software.</p>
-<p>We had to bring our own computers, as they declined to provide us with any equipment.
-In 1995, this meant shipping our desktop systems <em>and</em> our heavy CRT monitors.
-Through Canadian Customs.
-And back through US <span>&#8230;<a href="/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

@@ -29,6 +29,85 @@
     
         <article>
     <header>
+        <time datetime="2016-05-26">26.05.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/05/26/ShrinkingPDFFileSize.html" rel="bookmark canonical">Shrinking PDF File Size</a>
+        </h1>
+    </header>
+    <p>Our poster designer sent me a PDF of this year's <a class="reference external" href="http://www.wildgeeseseattle.org/Joyce/Bloomsday/2016.html">Bloomsday poster</a>.
+I thought the file was too large at 7.2MB and I wanted to reduce the file size
+without sig&shy;nif&shy;i&shy;cant loss of image quality.
+I was unable to achieve this in Preview or Acrobat Reader,
+but Ghost&shy;script did the trick,
+thanks to an answer on <a class="reference external" href="http://askubuntu.com/a/256449/956">AskUbuntu</a>:</p>
+<pre class="literal-block">
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 \
+    -dPDFSETTINGS=/prepress -dNOPAUSE -dQUIET -dBATCH \
+    -sOutputFile=output.pdf input.pdf
+</pre>
+<p>The results speak for themselves.</p>
+<div class="figure">
+
+<p class="caption">Crop of the Original PDF, size 7.2MB.</p>
+</div>
+<div class="figure">
+
+<p class="caption">Crop of <tt class="docutils literal"><span class="pre">-dPDF&shy;SET&shy;TINGS=/screen</span></tt>. PDF size: 78KB</p>
+</div>
+<div class="figure">
+
+<p class="caption">Crop of <tt class="docutils literal"><span class="pre">-dPDF&shy;SET&shy;TINGS=/ebook</span></tt>. PDF size: 234KB</p>
+</div>
+<div class="figure">
+
+<p class="caption">Crop of <tt class="docutils literal"><span class="pre">-dPDF&shy;SET&shy;TINGS=/prepress</span></tt>. PDF size: 1.75MB</p>
+</div>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/05/26/ShrinkingPDFFileSize.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2016-05-25">25.05.2016, 00:00</time>
+        <h1>
+            <a href="/blog/2016/05/25/SeattlePowerOutage.html" rel="bookmark canonical">Seattle Power Outage</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://komonews.com/news/local/downtown-seattle-hit-by-major-power-outage"></a>
+<p>The <a class="reference external" href="http://komonews.com/news/local/downtown-seattle-hit-by-major-power-outage">power suddenly went out</a> at work today about 11:30am.
+There was a technician who was running wires,
+standing on a ladder next to us,
+who disclaimed all re&shy;spon&shy;si&shy;bil&shy;i&shy;ty.
+Since the wires were Ethernet cables, we believed him.
+It quickly became apparent that it was not just our office or even our building,
+but many blocks of downtown Seattle that had lost power.
+One person was trapped in the elevator in our old Pioneer Square building.
+Within half an hour, everyone had left the office.
+Although most of us have laptops,
+no elec&shy;tric&shy;i&shy;ty meant no Internet.
+I drifted up to Capitol Hill and spent the afternoon
+working with two colleagues in a <span>&#8230;<a href="/blog/2016/05/25/SeattlePowerOutage.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/05/25/SeattlePowerOutage.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2016-05-24">24.05.2016, 00:00</time>
         <h1>
             <a href="/blog/2016/05/24/DeployingADockerContainerOnAWS.html" rel="bookmark canonical">Deploying a Docker Container on AWS</a>
@@ -315,75 +394,6 @@ and to subtract <span>&#8230;<a href="/blog/2016/05/17/SubtractingCompoundObject
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/05/17/SubtractingCompoundObjects.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-05-16">16.05.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/05/16/ToastmastersTransitions.html" rel="bookmark canonical">Toastmasters Transitions</a>
-        </h1>
-    </header>
-    <p>Two tran&shy;si&shy;tions at Freely Speaking Toast&shy;mas&shy;ters tonight:
-Kim gave her last speech before moving to California
-and Shasti gave her tenth speech,
-which earned her her <a class="reference external" href="http://sixminutes.dlugan.com/toastmasters-speech-0-competent-communicator/">Competent Com&shy;mu&shy;ni&shy;ca&shy;tor</a> award.</p>
-<p>It's always exciting to see people proceed through a series of speeches
-and achieve milestones like the CC.
-You see them get better with each speech.
-The awkward fumbling hesitation of the early speeches
-is supplanted by growing fluidity and confidence,
-as the practice and the eval&shy;u&shy;a&shy;tions help them improve.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/05/16/ToastmastersTransitions.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2016-05-15">15.05.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/05/15/ReviewTheWomanWhoKnewTooMuch.html" rel="bookmark canonical">Review: The Woman Who Knew Too Much</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/1573440450/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Woman Who Knew Too Much</div>
-<div class="line">Author: B. Reece Johnson</div>
-<div class="line">Rating: ★ ★ ★</div>
-<div class="line">Publisher: Cleis Press</div>
-<div class="line">Copyright: 1998</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/1573440450/?tag=georgvreill-20">1573440450</a></div>
-<div class="line">Pages: 252</div>
-<div class="line">Keywords: mystery</div>
-<div class="line">Reading period: 5–14 May, 2016</div>
-</div>
-<p>Jet Butler lives on an isolated mesa in New Mexico.
-One of her few friends is a suspect in a murder.
-Cordelia Morgan, an outsider,
-who turns out to be far more than she seems,
-is also interested in the murder,
-which seems to be somehow tied up in the sale of water rights.</p>
-<p>This never quite gelled for me.
-Despite the author's flair for de&shy;scrip&shy;tion,
-I found the plot confusing and I was not engaged with the two pro&shy;tag&shy;o&shy;nists.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/05/15/ReviewTheWomanWhoKnewTooMuch.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
