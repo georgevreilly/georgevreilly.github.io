@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Sharing Dotfiles between Windows and \*nix</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: /content/binary/shared-dotfiles.png..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2008-05-14">14.05.2008, 00:00</time>
+        <h1>
+            <a href="/blog/2008/05/14/SharingDotfilesBetweenWindowsAndNix.html" rel="bookmark canonical">Sharing Dotfiles between Windows and \*nix</a>
+        </h1>
+    </header>
+    <img alt="Sharing Dotfiles between Windows and \*nix" class="right-float" src="/content/binary/shared-dotfiles.png"/>
+<p>Tomas Restrepo wrote a post about
+<a class="reference external" href="http://www.winterdom.com/weblog/2008/05/09/SharingDotfilesBetweenWindowsAndUbuntu.aspx">sharing dotfiles between Windows and Ubuntu</a>,
+specif&shy;i&shy;cal&shy;ly about sharing <tt class="docutils literal">.vimrc</tt> (Linux) and <tt class="docutils literal">_vimrc</tt> (Windows)
+and the <tt class="docutils literal">.vim</tt> (Linux) and <tt class="docutils literal">vimfiles</tt> (Windows) di&shy;rec&shy;to&shy;ries.</p>
+<p>I have a different solution.
+On Windows, my <tt class="docutils literal"><span class="pre">C:\AutoExec.bat</span></tt> includes:</p>
+<pre class="literal-block">
+set HOME=C:\gvr
+set VIM=C:\Vim
+set VIMDIR=%VIM%\vim71
+set EDITOR=%VIMDIR%\gvim.exe
+set PATH=%PATH%;C:\Win32app;C:\GnuWin32\bin;C:\UnxUtils;C:\SysInternals;C:\Python25\Scripts
+</pre>
+<p><tt class="docutils literal">%HOME%</tt> (<tt class="docutils literal"><span class="pre">C:\gvr</span></tt>) contains <tt class="docutils literal">_vimrc</tt>, <tt class="docutils literal">vimfiles</tt>,
+and other stuff ac&shy;cu&shy;mu&shy;lat&shy;ed over many years.
+This directory is stored in a personal Subversion repository at <a class="reference external" href="http://www.devjavu.com/">DevjaVu</a>.
+All my Vim files are stored with Unix LF endings, not Windows CR-LFs,
+so that they'll work on my Mac OS X and Linux boxen.
+I play some games with <tt class="docutils literal">if <span class="pre">has(&quot;win32&quot;)</span></tt> and
+<tt class="docutils literal">if <span class="pre">has('gui_&shy;macvim')</span></tt> to ensure that my <tt class="docutils literal">_vimrc</tt>
+works cross-platform.</p>
+<p>On my *nix boxes, the <tt class="docutils literal">gvr</tt> folder lives under my home directory at <tt class="docutils literal">~/gvr</tt>,
+and <tt class="docutils literal"><span class="pre">~/.vimrc</span></tt> and <tt class="docutils literal"><span class="pre">~/.vim</span></tt> are symlinks:</p>
+<pre class="literal-block">
+$ ln -s ~/gvr/_vimrc ~/.vimrc
+$ ln -s ~/gvr/vimfiles/ ~/.vim
+</pre>
+<p>In addition, the dotfiles that I keep in SVN are stored locally in
+<tt class="docutils literal">~/gvr/dotfiles</tt> without a leading period in their names,
+which makes them easy to see:</p>
+<pre class="literal-block">
+$ ln -s ~/gvr/dotfiles/bashrc ~/.bashrc
+</pre>
+<p>This arrange&shy;ment works well for me.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2008/05/14/SharingDotfilesBetweenWindowsAndNix.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2008/05/14/SharingDotfilesBetweenWindowsAndNix.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2008/05/10/ReviewWhatTheDeadKnow.html" class="page floatright">
+        Review: What the Dead Know &raquo;
+        </a>
+    
+    
+        <a href="/blog/2008/05/14/ReviewGarnethill.html" class="page floatleft">
+        &laquo; Review: Garnethill
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

@@ -36,40 +36,24 @@
             <a href="/blog/2007/03/14/NVelocityLoadingTemplatesFromEmbeddedResources.html" rel="bookmark canonical">NVelocity: loading templates from embedded resources</a>
         </h1>
     </header>
-    <div class="system-message">
-<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;string&gt;</tt>, line 1)</p>
-<p>Error in &quot;image&quot; directive:
-unknown option: &quot;title&quot;.</p>
-<pre class="literal-block">
-.. image:: http://www.codegeneration.net/logos/nvelocity.gif
-    :title: NVelocity
-    :target: http://www.castleproject.org/others/nvelocity/index.html
-    :class: right-float
-
-</pre>
-</div>
+    <a class="reference external image-reference" href="http://www.castleproject.org/others/nvelocity/index.html"><img alt="NVelocity" class="right-float" src="http://www.codegeneration.net/logos/nvelocity.gif"/></a>
 <p>In last week's tip on
 using the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/index.html">NVelocity</a> template formatting engine,
 I described what to set to load a template from
 an <a class="reference external" href="http://www.georgevreilly.com/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.aspx">absolute path</a>.</p>
 <p>Here's the magic necessary to get NVelocity to load a template from an
 embedded resource:</p>
-<div class="system-message">
-<p class="system-message-title">System Message: ERROR/3 (<tt class="docutils">&lt;string&gt;</tt>, line 18)</p>
-<p>Unknown directive type &quot;2html&quot;.</p>
-<pre class="literal-block">
-.. 2html:: cs inkpot
 
-    VelocityEngine engine = new VelocityEngine();
-    ExtendedProperties properties = new ExtendedProperties();
-    properties.AddProperty(&quot;resource.loader&quot;, &quot;assembly&quot;);
-    properties.AddProperty(&quot;assembly.resource.loader.class&quot;,
-        &quot;NVelocity.Runtime.Resource.Loader.AssemblyResourceLoader, NVelocity&quot;);
-    properties.AddProperty(&quot;assembly.resource.loader.assembly&quot;, &quot;StencilFormatter&quot;);
-    engine.Init(properties);
-
+<pre class="brush: csharp">
+VelocityEngine engine = new VelocityEngine();
+ExtendedProperties properties = new ExtendedProperties();
+properties.AddProperty("resource.loader", "assembly");
+properties.AddProperty("assembly.resource.loader.class",
+    "NVelocity.Runtime.Resource.Loader.AssemblyResourceLoader, NVelocity");
+properties.AddProperty("assembly.resource.loader.assembly", "StencilFormatter");
+engine.Init(properties);
 </pre>
-</div>
+
 
     <footer>
         

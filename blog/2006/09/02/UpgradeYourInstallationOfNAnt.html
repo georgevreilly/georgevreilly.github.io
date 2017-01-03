@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Upgrade your installation of NAnt</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://nant.sourceforge.net/logo.gif..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2006-09-02">02.09.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/09/02/UpgradeYourInstallationOfNAnt.html" rel="bookmark canonical">Upgrade your installation of NAnt</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://nant.sourceforge.net/release/0.85-rc4/releasenotes.html"><img alt="NAnt" class="right-float" src="http://nant.sourceforge.net/logo.gif"/></a>
+<p>My colleague, Greg, and I spent all day debugging a build break in
+some unit tests that exercise a webservice interface in legacy .NET 1.1 code.
+Last night, the tests stopped working on our
+<a class="reference external" href="http://ccnet.thoughtworks.com">CruiseC&shy;on&shy;trol.NET</a>
+build server. We couldn't understand it. The tests had been working for
+months. Now we were getting timeouts in SOAP. The tests es&shy;sen&shy;tial&shy;ly
+<a class="reference external" href="http://en.wikipedia.org/wiki/Mock_object">mock</a>
+a SOAP service using the <tt class="docutils literal">soap.inproc</tt> transport and a stub
+im&shy;ple&shy;men&shy;ta&shy;tion that signaled an event to ac&shy;knowl&shy;edge a method being called.</p>
+<p>The only thing that had changed in the code tree was that another
+colleague, Pavel, had discovered that two of our <tt class="docutils literal">.csproj</tt> files somehow
+shared the same GUID, and had repaired that. But that could hardly have any
+effect on the WSE2 runtime. Could it?</p>
+<p>Turns out that it was the cause of the break.
+NAnt 0.85 rc2 and rc3 silently failed to build the
+NUnit assembly because of the duplicated GUIDs. The assembly was not
+getting propagated to the directory where all the other NUnit assemblies
+are placed. The CC.NET task that ran the tests never noticed the missing
+assembly because the test was couched in terms of <tt class="docutils literal">*.NUnit.dll</tt>. And we
+never noticed that the test hadn't been run in months because we have ~20
+such NUnit assemblies, and the NUnit summary output goes on for several
+screens in CC.NET.</p>
+<p><strong>Morals of the story</strong></p>
+<ol class="arabic simple">
+<li>Use <a class="reference external" href="http://nant.sourceforge.net/release/0.85-rc4/releasenotes.html">NAnt 0.85 rc4</a>, which
+detects the GUID collision and treats it as a fatal error.</li>
+<li>Create <tt class="docutils literal">.csproj</tt> files through the IDE, not by taking an existing file
+and hacking on it. (At least, that's we assume happened.)</li>
+<li>As&shy;sump&shy;tions can bite you. We assumed that the code was being run all
+along, so it took us several hours to draw the connection between
+Pavel's checkin and the failing NUnit assembly.</li>
+<li>Don't mock a webservice by im&shy;ple&shy;ment&shy;ing a dummy <tt class="docutils literal">SoapRe&shy;ceiv&shy;er</tt>,
+hauling in the WSE runtime and a boatload of non-de&shy;ter&shy;min&shy;ism.
+(Instead, make fun of its dress sense.)
+For our newer code, we've been taking an approach
+<a class="reference external" href="http://blogs.msdn.com/davidwaddleton/archive/2006/08/03/687841.aspx">like this</a>,
+using <tt class="docutils literal">partial</tt> classes and <a class="reference external" href="http://www.ayende.com/projects/rhino-mocks.aspx">Rhino Mocks</a>.</li>
+<li>We have also taken to including our test fixtures in the same
+assemblies as the code they test. I have mixed feelings about this:
+it offends my sen&shy;si&shy;bil&shy;i&shy;ties to have all this test code compiled into
+production code. But it would certainly have been hard to miss the
+build break in production code.</li>
+</ol>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2006/09/02/UpgradeYourInstallationOfNAnt.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2006/09/02/UpgradeYourInstallationOfNAnt.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2006/08/30/MovingOffices.html" class="page floatright">
+        Moving Offices &raquo;
+        </a>
+    
+    
+        <a href="/blog/2006/09/06/AtlasOnDemandPilot.html" class="page floatleft">
+        &laquo; Atlas On Demand - Pilot
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

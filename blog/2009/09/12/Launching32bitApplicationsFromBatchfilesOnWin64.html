@@ -58,10 +58,10 @@ Presumably they added the strange paren&shy;the&shy;ses into the variable name
 because the directory name always included them.</p>
 <p>Here's a tiny batchfile that will launch the 32-bit <a class="reference external" href="http://www.sourcegear.com/diffmerge/">DiffMerge</a>
 correctly on both Win64 and Win32 platforms.</p>
-<div class="highlight"><pre><span class="p">@</span><span class="k">setlocal</span>
-<span class="p">@</span><span class="k">set</span> <span class="nv">_pf</span><span class="o">=</span><span class="nv">%ProgramFiles%</span>
-<span class="p">@</span><span class="k">if</span> not <span class="s2">&quot;[%ProgramFiles(x86)%]&quot;</span><span class="o">==</span><span class="s2">&quot;[]&quot;</span> <span class="k">set</span> <span class="nv">_pf</span><span class="o">=</span><span class="nv">%ProgramFiles</span>(x<span class="m">86</span>)%
-<span class="p">@</span>start <span class="s2">&quot;&quot;</span> <span class="n">/b</span> <span class="s2">&quot;%_pf%\SourceGear\DiffMerge\DiffMerge.exe&quot;</span> %*
+<div class="highlight"><pre><span></span><span class="p">@</span><span class="k">setlocal</span>
+<span class="p">@</span><span class="k">set</span> <span class="nv">_pf</span><span class="p">=</span><span class="nv">%ProgramFiles%</span>
+<span class="p">@</span><span class="k">if</span> <span class="k">not</span> <span class="s2">&quot;[</span><span class="nv">%ProgramFiles(x86)%</span><span class="s2">]&quot;</span><span class="o">==</span><span class="s2">&quot;[]&quot;</span> <span class="k">set</span> <span class="nv">_pf</span><span class="p">=</span><span class="nv">%ProgramFiles(x86)%</span>
+<span class="p">@</span><span class="k">start</span> <span class="s2">&quot;&quot;</span> /b <span class="s2">&quot;</span><span class="nv">%_pf%</span><span class="s2">\SourceGear\DiffMerge\DiffMerge.exe&quot;</span> <span class="nv">%*</span>
 </pre></div>
 <p>I long ago found that the safest way to test en&shy;vi&shy;ron&shy;ment variables
 whose values may include spaces, is to surround them with

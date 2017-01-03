@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Serializing a NameValueCollection</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://www.georgevreilly.com/blog/conte..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2007-07-20">20.07.2007, 00:00</time>
+        <h1>
+            <a href="/blog/2007/07/20/SerializingANameValueCollection.html" rel="bookmark canonical">Serializing a NameValueCollection</a>
+        </h1>
+    </header>
+    <img alt="Serializing a NameValueCollection" src="http://www.georgevreilly.com/blog/content/binary/serialize-nvc.jpg"/>
+<p>I had a NameVal&shy;ueCol&shy;lec&shy;tion embedded inside a larger object.
+I needed to serialize the larger object into XML and back.
+Un&shy;for&shy;tu&shy;nate&shy;ly, NameVal&shy;ueCol&shy;lec&shy;tion is not XML se&shy;ri&shy;al&shy;iz&shy;able.
+Why I do not know.</p>
+<p>A blog comment from <a class="reference external" href="http://nayyeri.net/archive/2006/08/11/Serialize-NameValueCollection.aspx#72442">Tim Erwin</a> got me started in the right direction.
+Implement <tt class="docutils literal">IXmlSe&shy;ri&shy;al&shy;iz&shy;able</tt> and do the work by hand in
+<tt class="docutils literal">ReadXml</tt> and <tt class="docutils literal">WriteXml</tt>.</p>
+<p>Tim's im&shy;ple&shy;men&shy;ta&shy;tion turned out to be overly simple.
+It didn't handle an empty collection well,
+nor did it leave the <tt class="docutils literal">XmlReader</tt> in a good state.</p>
+<p>I used <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/bk3w6240(vs.80).aspx">SGen</a> to examine the de&shy;se&shy;ri&shy;al&shy;iza&shy;tion of a
+<tt class="docutils literal">List&lt;String&gt;</tt> to figure out what else needed to be done.</p>
+<p>The following <tt class="docutils literal">ReadXml</tt> seems to work.
+If I expected to receive XML from untrusted sources,
+I would make this more robust.</p>
+
+<pre class="brush: csharp">
+public void ReadXml(XmlReader reader)
+{
+    if (reader.IsEmptyElement)
+        return;
+
+    while (reader.Read()
+        && reader.NodeType != XmlNodeType.EndElement
+        && reader.NodeType != XmlNodeType.None)
+    {
+        if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "Header")
+        {
+            reader.MoveToAttribute("name");
+            string name = reader.Value;
+            reader.MoveToAttribute("value");
+            string value = reader.Value;
+            Add(name, value);
+        }
+    }
+    reader.ReadEndElement();
+}
+
+public void WriteXml(XmlWriter writer)
+{
+   foreach (string name in nvc.Keys)
+   {
+       writer.WriteStartElement("Header");
+       string value = nvc[name];
+       writer.WriteAttributeString("name",  name);
+       writer.WriteAttributeString("value", value);
+       writer.WriteEndElement();
+   }
+}
+
+public XmlSchema GetSchema( )
+{
+   return null;
+}
+</pre>
+
+<p>I also found that I needed to implement custom <tt class="docutils literal">Equals</tt>
+and <tt class="docutils literal">GetH&shy;ash&shy;Code</tt>, as the <tt class="docutils literal">NameVal&shy;ueCol&shy;lec&shy;tion</tt>
+im&shy;ple&shy;men&shy;ta&shy;tions didn't seem to do what I wanted.</p>
+
+<pre class="brush: csharp">
+// Have to override GetHashCode() as two apparently identical NameValueCollections
+// will have different hash codes.
+public override int GetHashCode()
+{
+    int hash = nvc.Count;
+
+    foreach (string name in nvc)
+    {
+        hash = 757 * hash  +  101 * nvc[name].GetHashCode()  +  name.GetHashCode();
+    }
+
+    return hash;
+}
+
+public bool Equals(HeadersCollection that)
+{
+    if (ReferenceEquals(that, null))
+        return false;
+
+    if (ReferenceEquals(this, that))
+        return true;
+
+    // Have to explicitly compare the contents of the collections
+    // as NameValueCollection.Equals doesn't seem to do what we want.
+    // Note: this is independent of order.
+    if (nvc.Count != that.nvc.Count)
+        return false;
+
+    foreach (string name in nvc)
+    {
+        if (nvc[name] != that.nvc.Get(name))
+            return false;
+    }
+
+    return true;
+}
+
+public static bool Equals(HeadersCollection headersA, HeadersCollection headersB)
+{
+    if (headersA == null)
+        return (headersB == null);
+
+    if (ReferenceEquals(headersA, headersB))
+        return true;
+
+    return headersA.Equals(headersB);
+}
+
+public override bool Equals(object obj)
+{
+    if (obj is HeadersCollection)
+        return Equals((HeadersCollection) obj);
+
+    return false;
+}
+</pre>
+
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2007/07/20/SerializingANameValueCollection.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2007/07/20/SerializingANameValueCollection.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2007/07/16/ReviewHarryPotterAndTheOrderOfThePhoenix.html" class="page floatright">
+        Review: The Order of the Phoenix &raquo;
+        </a>
+    
+    
+        <a href="/blog/2007/08/04/ReviewBelisariusSeries.html" class="page floatleft">
+        &laquo; Review: The Belisarius Series
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

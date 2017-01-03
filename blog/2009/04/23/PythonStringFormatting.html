@@ -43,33 +43,33 @@ See <a class="reference external" href="http://www.python.org/dev/peps/pep-3101/
 <p>One trick that I liked with the old way of formatting was
 to put the <a class="reference external" href="http://docs.python.org/library/functions.html#locals">locals()</a> dictionary or <tt class="docutils literal">self.__dict__</tt>
 on the right-hand side</p>
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="o">...</span>  <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
-<span class="o">...</span>  <span class="k">return</span> <span class="s">&quot;</span><span class="si">%(a)s</span><span class="s">, </span><span class="si">%(b)s</span><span class="s">, </span><span class="si">%(c)s</span><span class="s">, </span><span class="si">%(d)s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span>
+<span class="o">...</span>  <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%(a)s</span><span class="s2">, </span><span class="si">%(b)s</span><span class="s2">, </span><span class="si">%(c)s</span><span class="s2">, </span><span class="si">%(d)s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span>
 <span class="o">...</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">stuff</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
-<span class="s">&#39;3, 17, 20, -14&#39;</span>
+<span class="s1">&#39;3, 17, 20, -14&#39;</span>
 </pre></div>
 <p>It took me a few minutes to figure out how to do the equivalent with <tt class="docutils literal">string.format</tt>:
 use the <tt class="docutils literal">**</tt> syntax to unpack the dict into <tt class="docutils literal">kwargs</tt>.</p>
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="o">...</span>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
 <span class="o">...</span>   <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
 <span class="o">...</span>   <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
 <span class="o">...</span>  <span class="k">def</span> <span class="nf">old</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="o">...</span>   <span class="k">return</span> <span class="s">&quot;name=</span><span class="si">%(name)s</span><span class="s">, age=</span><span class="si">%(age)d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span>
+<span class="o">...</span>   <span class="k">return</span> <span class="s2">&quot;name=</span><span class="si">%(name)s</span><span class="s2">, age=</span><span class="si">%(age)d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span>
 <span class="o">...</span>  <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="o">...</span>   <span class="k">return</span> <span class="s">&quot;name={name}, age={age}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+<span class="o">...</span>   <span class="k">return</span> <span class="s2">&quot;name={name}, age={age}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
 <span class="o">...</span>  <span class="k">def</span> <span class="nf">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="o">...</span>   <span class="k">return</span> <span class="s">&quot;name={0[name]}, age={0[age]}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
+<span class="o">...</span>   <span class="k">return</span> <span class="s2">&quot;name={0[name]}, age={0[age]}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">)</span>
 <span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">gb</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&#39;George Burns&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">gb</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s1">&#39;George Burns&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">gb</span><span class="o">.</span><span class="n">old</span><span class="p">()</span>
-<span class="s">&#39;name=George Burns, age=100&#39;</span>
+<span class="s1">&#39;name=George Burns, age=100&#39;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">gb</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
-<span class="s">&#39;name=George Burns, age=100&#39;</span>
+<span class="s1">&#39;name=George Burns, age=100&#39;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">gb</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
-<span class="s">&#39;name=George Burns, age=100&#39;</span>
+<span class="s1">&#39;name=George Burns, age=100&#39;</span>
 </pre></div>
 <p>The <tt class="docutils literal">getitem</tt> variant (<tt class="docutils literal">{0[name]}</tt>) might be slightly more efficient,
 since the dict does not need to be flattened,

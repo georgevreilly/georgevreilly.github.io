@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Exuberant Ctags and JavaScript</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://ctags.sourceforge.net/ctags.png..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-03-23">23.03.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" rel="bookmark canonical">Exuberant Ctags and JavaScript</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://ctags.sourceforge.net/"><img alt="Exuberant Ctags" class="right-float" src="http://ctags.sourceforge.net/ctags.png"/></a>
+<p><a class="reference external" href="http://ctags.sourceforge.net/">Exuberant Ctags</a> is an essential complement to Vim:
+it generates an index of symbol names (tags) for a set of source files.
+In Vim, just place the cursor on a function name
+and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its definition.</p>
+<p>Ctags works well for most of the languages that I deal with,
+but falls down badly on modern JavaScript.
+Its built-in parser simply doesn't handle de&shy;c&shy;la&shy;ra&shy;tions like these:</p>
+<div class="highlight"><pre><span></span><span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// ...</span>
+<span class="nx">ajaxSetup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">settings</span> <span class="p">)</span> <span class="p">{</span>
+</pre></div>
+<p>I came across <a class="reference external" href="http://www.unbad.net/blog/ctags-and-relevant-support-for-javascript">Unbad</a>'s workaround earlier tonight.
+His code didn't work for me, so I hacked on it until it did:</p>
+<pre class="literal-block">
+--langdef=js
+--langmap=js:.js
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
+--regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
+--regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\(([^)])\)/\1/,function/
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
+--regex-js=/([^= ]+)[ \t]*=[ \t]*[^&quot;]'[^']*/\1/,string/
+--regex-js=/([^= ]+)[ \t]*=[ \t]*[^']&quot;[^&quot;]*/\1/,string/
+</pre>
+<p>Simply add the above to <tt class="docutils literal"><span class="pre">~/.ctags</span></tt> or <tt class="docutils literal">$HOME/ctags.cnf</tt>.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2009/03/23/ExuberantCtagsAndJavaScript.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2009/03/23/ExuberantCtagsAndJavaScript.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2009/03/23/ReviewNoCountryForOldMen.html" class="page floatright">
+        Review: No Country for Old Men &raquo;
+        </a>
+    
+    
+        <a href="/blog/2009/03/25/Refinancing.html" class="page floatleft">
+        &laquo; Refinancing
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

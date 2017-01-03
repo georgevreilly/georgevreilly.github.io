@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2006-03-07">07.03.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/03/07/Photoblogging.html" rel="bookmark canonical">Photoblogging</a>
+        </h1>
+    </header>
+    <p>Awww! Ain't he cute!</p>
+
+<p>Via Emma, from <a class="reference external" href="http://www.cuteoverload.com/">Cu&shy;teOver&shy;load.com</a>,
+a cornucopia of terminally cute animal photos.</p>
+<p>A couple of months ago, the Science Times section of the New York Times
+had an article on <a class="reference external" href="http://www.nytimes.com/2006/01/03/science/03cute.html?ex=1293944400&amp;en=652bf63611f1211e&amp;ei=5088&amp;partner=rssnyt&amp;emc=rss">the Cute Factor</a>.</p>
+<blockquote>
+<p>Scientists who study the evolution of visual signaling have identified a
+wide and still expanding assortment of features and behaviors that make
+something look cute: bright forward-facing eyes set low on a big round
+face, a pair of big round ears, floppy limbs and a side-to-side,
+teeter-totter gait, among many others.</p>
+<p>Cute cues are those that indicate extreme youth, vul&shy;ner&shy;a&shy;bil&shy;i&shy;ty,
+harm&shy;less&shy;ness and need, scientists say, and attending to them closely makes
+good Darwinian sense. As a <span>&#8230;<a href="/blog/2006/03/07/Photoblogging.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/03/07/Photoblogging.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2006-03-02">02.03.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/03/02/ATalibAtYale.html" rel="bookmark canonical">A Talib at Yale</a>
+        </h1>
+    </header>
+    <p>A very in&shy;ter&shy;est&shy;ing piece in last Sunday's New York Times magazine:
+<a class="reference external" href="http://www.nytimes.com/2006/02/26/magazine/26taliban.html?ex=1298610000&amp;amp;en=952caa29139c6927&amp;amp;ei=5090&amp;amp;partner=rssuserland&amp;amp;emc=rss">A Talib at Yale</a>.
+Sayed Rah&shy;mat&shy;ul&shy;lah Hashemi is the former &quot;roving ambassador&quot; for the
+Taliban, now studying at Yale.
+An in&shy;ter&shy;est&shy;ing and improbable life story.</p>
+<p>The right-wing bl&shy;o&shy;gos&shy;phere is furious about it. I say it's better to co-opt
+moderate former Talibs than to freeze them out.</p>
+<p>Besides, his B-grades at Yale are better than George Bush's
+&quot;Gen&shy;tle&shy;man's-C&quot;.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/03/02/ATalibAtYale.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2006-03-02">02.03.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/03/02/ThrowingFromXSLT.html" rel="bookmark canonical">Throwing from XSLT</a>
+        </h1>
+    </header>
+    <p>I needed to add some de&shy;clar&shy;a&shy;tive error checking to some XSLT templates
+recently. Specif&shy;i&shy;cal&shy;ly, I wanted to throw an error if my selects yielded an
+empty string, indicating that the input XML was wrong.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, there seems to be no easy way of doing this in XSLT, nor in
+<tt class="docutils literal">XslTrans&shy;form</tt>. The approved way is to validate against an XSD schema,
+but for various reasons, I didn't want to go to the hassle of creating one.</p>
+<p>I found a partial solution using <tt class="docutils literal">xsl:message</tt> with the
+<tt class="docutils literal"><span class="pre">terminate=&quot;yes&quot;</span></tt> attribute. Under <tt class="docutils literal">XslTrans&shy;form.Transform()</tt> the
+following code throws an exception if the XPath expression is empty.</p>
+<div class="highlight"><pre><span></span><span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:message</span> <span class="na">terminate=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>Missing expression<span class="k">&lt;/xsl:message&gt;</span>
+<span class="k">&lt;/xsl:if&gt;</span>
+<span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;/some/xpath/expression&quot;</span> </pre><span>&#8230;<a href="/blog/2006/03/02/ThrowingFromXSLT.html" class="continue">continue</a>.</span></div>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/03/02/ThrowingFromXSLT.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2006-02-19">19.02.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/02/19/OlympicsRazorthinMargins.html" rel="bookmark canonical">Olympics: Razor-thin Margins</a>
+        </h1>
+    </header>
+    <p>Anyone who knows me, knows that I have no use for organized sports.
+Watching baseball or basketball bores me. I seem to be con&shy;sti&shy;tu&shy;tion&shy;al&shy;ly
+incapable of being a sports fan. I'm too much of a watchful outsider to
+want to throw myself into rooting for a team.</p>
+<p>I actively despise American football. It reminds me far too much of the
+rugby of my youth. I spent 11 years at an <a class="reference external" href="http://www.stmaryscollegecssp.ie/">Irish rugger-bugger school</a>, so I come by it honestly.
+The ugly jock culture that permeates football repels me. The veneration of
+football in small-town America annoys me. The fans are obnoxious; the
+players, thugs.</p>
+<p>I exaggerate, of course. There <span>&#8230;<a href="/blog/2006/02/19/OlympicsRazorthinMargins.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/02/19/OlympicsRazorthinMargins.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2006-02-19">19.02.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/02/19/AreYouReadyGov.html" rel="bookmark canonical">Are you Ready.Gov?</a>
+        </h1>
+    </header>
+    <p>A friend sent me a Word document with a parody of the Department of
+Homeland Security's <a class="reference external" href="http://www.ready.gov">Ready.Gov</a> website.
+I googled and found an HTML copy of the parody
+<a class="reference external" href="http://www.msxnet.org/humour/terror_alert">here</a>.</p>
+
+<p>Seriously, there is some useful in&shy;for&shy;ma&shy;tion on <a class="reference external" href="http://www.ready.gov">Ready.Gov</a>.
+Which reminds me that Emma and I are long overdue in putting together some
+disaster planning.</p>
+<p>Here are some links that I put together a while back:</p>
+<blockquote>
+<ul class="simple">
+<li>Al&shy;phaGeek's <a class="reference external" href="http://www.dailykos.com/story/2005/9/9/161748/9747">5-part series on disaster pre&shy;pared&shy;ness at DailyKos</a></li>
+<li><a class="reference external" href="http://www.3days3ways.org">3 days, 3 ways</a></li>
+<li><a class="reference external" href="http://www.cityofseattle.net/html/citizen/emergency_resources.htm">City of Seattle Emergency Resources</a></li>
+<li><a class="reference external" href="http://www.hanselman.com/blog/2006ResolutionPrepare.aspx">Scott Hansel&shy;man's 2006 resolution</a></li>
+<li><a class="reference external" href="http://www.snopes.com/crime/prevent/icephone.asp">ICE (In Case of Emergency) entries in your cellphone address book</a></li>
+</ul>
+</blockquote>
+<p>If there's any lesson that should be learned from Katrina, it's that
+you need to have your own <span>&#8230;<a href="/blog/2006/02/19/AreYouReadyGov.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/02/19/AreYouReadyGov.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2006-02-16">16.02.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/02/16/WindowsDefenderBeta2IsOut.html" rel="bookmark canonical">Windows Defender beta 2 is out</a>
+        </h1>
+    </header>
+    <p>I've been using Beta-1 of Mi&shy;crosoft&shy;'s An&shy;ti&shy;Spy&shy;ware for the last year.
+Beta-2 is finally out, and it's now known as Defender.</p>
+<p>Paul Thurrot has a favorable <a class="reference external" href="http://www.winsupersite.com/reviews/windefender_beta2.asp">review</a>.</p>
+<p>Download <a class="reference external" href="http://www.microsoft.com/athome/security/spyware/software/default.mspx">Defender</a>.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/02/16/WindowsDefenderBeta2IsOut.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2006-02-10">10.02.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/02/10/UsabilityTestingDasBlogInstallation.html" rel="bookmark canonical">Usability testing dasBlog installation</a>
+        </h1>
+    </header>
+    <p>I've been hanging out on the dasBlog de&shy;vel&shy;op&shy;er&shy;s' mailing list for the last
+couple of months, and I've made some minor con&shy;tri&shy;bu&shy;tions to the code.</p>
+<p>I sent the following email to the de&shy;vel&shy;op&shy;er&shy;s' list last night.</p>
+<hr class="docutils"/>
+<p>My wife has decided to start a blog for
+<a class="reference external" href="http://thewheel.biz/TeamIreland">Team Ireland</a> in the
+<a class="reference external" href="http://www.yarnharlot.ca/blog/olympics2006.html">2006 Knitting Olympics</a>,
+and she asked me to install <a class="reference external" href="http://dasblog.info">dasBlog</a> on her site.
+I decided that this was an excellent op&shy;por&shy;tu&shy;ni&shy;ty to do some usability testing
+on the in&shy;stal&shy;la&shy;tion in&shy;struc&shy;tions for dasBlog. I asked her to try installing
+dasBlog, while I watched. I promised that I would bail her out if she got
+mired too deeply.</p>
+<p>Emma has worked as a black-box <span>&#8230;<a href="/blog/2006/02/10/UsabilityTestingDasBlogInstallation.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/02/10/UsabilityTestingDasBlogInstallation.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2006-02-09">09.02.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/02/09/FavIconCreation.html" rel="bookmark canonical">FavIcon Creation</a>
+        </h1>
+    </header>
+    <p>I installed <a class="reference external" href="http://dasblog.info">dasBlog</a> at Emma's
+<a class="reference external" href="http://thewheel.biz">The Wheel</a> site, so that she and the other
+knitters in <a class="reference external" href="http://thewheel.biz/TeamIreland">Team Ireland</a> can
+blog during the <a class="reference external" href="http://www.yarnharlot.ca/blog/olympics2006.html">2006 Knitting Olympics</a>.
+What an ordeal that was! But that's a post for another time.
+(It's not working yet, due to per&shy;mis&shy;sions issues that require
+the in&shy;ter&shy;ven&shy;tion of support at our
+<a class="reference external" href="http://www.ihostsites.net">hosting site</a>.)</p>
+<p>I decided today to create a favicon for The Wheel, based on the logo
+that I drew last year with <a class="reference external" href="http://www.inkscape.org">Inkscape</a>.</p>
+
+<p>A favicon is a 16x16 icon which shows up in the tab in a tabbed browser,
+such as FireFox or IE with MSN Search. For example, the little <cite>gvr</cite>
+icon that shows up if you're reading <span>&#8230;<a href="/blog/2006/02/09/FavIconCreation.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/02/09/FavIconCreation.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2006-02-05">05.02.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/02/05/BrokebackToTheFuture.html" rel="bookmark canonical">Brokeback to the Future</a>
+        </h1>
+    </header>
+    <p>Via Amer&shy;i&shy;ca&shy;Blog, it's `
+Brokeback to the Future &lt;<a class="reference external" href="https://www.youtube.com/watch?v=zfODSPIYwpQ">https://www.youtube.com/watch?v=zfOD&shy;SPIY&shy;w&shy;pQ</a>&gt;`_.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/02/05/BrokebackToTheFuture.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2006-02-03">03.02.2006, 00:00</time>
+        <h1>
+            <a href="/blog/2006/02/03/AtlasPartnerSummit.html" rel="bookmark canonical">Atlas Partner Summit</a>
+        </h1>
+    </header>
+    <p>Back in October, I joined Atlas Solutions as a senior software engineer.
+The company just held its first &quot;partner summit&quot;,
+to educate some of our key partners
+on the kind of work we're doing and new de&shy;vel&shy;op&shy;ments.
+An attendee <a class="reference external" href="http://lindaburlison.blogspot.com/2006/02/atlas-partner-summit.html">blogged</a> it.
+I'm working on video on demand, the stuff that Scott Ferris talked about.</p>
+<p>I saw some of the pre&shy;sen&shy;ta&shy;tions being rehearsed last week,
+but a lot of this is stuff that I've never seen before.
+I come from a software background, after all, not an ad&shy;ver&shy;tis&shy;ing background.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/02/03/AtlasPartnerSummit.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+    
+        <a href="/blog/page/111/" class="page floatright">
+        Previous &raquo;
+        </a>
+    
+    
+        <a href="/blog/page/109/" class="page floatleft">
+        &laquo; Next
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+            if (window.location.hostname != 'localhost') {
+                 /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function () {
+                    var s = document.createElement('script'); s.async = true;
+                    s.type = 'text/javascript';
+                    s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+                    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());
+            }
+        </script>
+        
+
+  </footer>
+</body>
+</html>

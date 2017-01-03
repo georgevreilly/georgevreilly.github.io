@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SOLID Development Priniciples – in Motivational Posters</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content=".. image:: http://www.lostechies.com/cfs-filesyste..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-03-01">01.03.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/03/01/SOLIDDevPriniciples–MotivationalPosters.html" rel="bookmark canonical">SOLID Development Priniciples – in Motivational Posters</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.lostechies.com/blogs/derickbailey/archive/2009/02/11/solid-development-principles-in-motivational-pictures.aspx"><img alt="SOLID Development Priniciples – in Motivational Posters" class="right-float" src="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/SOLID_5F00_6EC97F9C.jpg" style="width: 300px;"/></a>
+<p>Derick Bailey put together a set of <a class="reference external" href="http://www.lostechies.com/blogs/derickbailey/archive/2009/02/11/solid-development-principles-in-motivational-pictures.aspx">Mo&shy;ti&shy;va&shy;tion&shy;al Posters</a>
+to illustrate the <a class="reference external" href="http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod">SOLID principles</a>.
+SOLID is a set of principles that help guide OO code
+towards greater <a class="reference external" href="http://blog.scottbellware.com/2009/01/good-design-is-easily-learned.html">testa&shy;bil&shy;i&shy;ty</a>.
+They increase <a class="reference external" href="http://en.wikipedia.org/wiki/Cohesion_(computer_science)http://www.appistry.com/blogs/michael/openclose-principle-and-dependency-inversion-principle-ndash-two-sides-same-coin">cohesion</a> and reduce de&shy;pen&shy;den&shy;cies, hence, coupling.</p>
+<br style="clear: both"/><a class="reference external image-reference" href="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/SingleResponsibilityPrinciple2_5F00_71060858.jpg"><img alt="Single Responsibility Principle — A class should have one, and only one, reason to change" class="left-float" src="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/SingleResponsibilityPrinciple2_5F00_71060858.jpg" style="width: 300px;"/></a>
+<p><strong>Single Re&shy;spon&shy;si&shy;bil&shy;i&shy;ty Principle</strong> — A class should have one, and only one, reason to change</p>
+<p>Ideally, a class or a function will do only one thing and do it well,
+in only a few lines.</p>
+<p>Recently, I refactored two large functions.
+One function proxied an HTTP request: it had to
+se&shy;lec&shy;tive&shy;ly copy request headers, construct other headers,
+copy the request body, make the request, handle exceptions,
+se&shy;lec&shy;tive&shy;ly copy response headers, construct other headers,
+and copy the request body.
+The preceding sentence tells you what the resulting functions looked like.</p>
+<p>The other function made a series of related database queries,
+con&shy;struct&shy;ed some in&shy;ter&shy;me&shy;di&shy;ate data structures,
+then performed some joins,
+to build an object graph.
+Each query got its own function
+as did each builder of an in&shy;ter&shy;me&shy;di&shy;ate data structure.
+The top-level function became eight simple lines
+and is now com&shy;pre&shy;hen&shy;si&shy;ble.</p>
+<br style="clear: both"/><a class="reference external image-reference" href="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/OpenClosedPrinciple2_5F00_2C596E17.jpg"><img alt="Open-Closed Principle — You should be able to extend a class's behavior, without modifying it" class="right-float" src="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/OpenClosedPrinciple2_5F00_2C596E17.jpg" style="width: 300px;"/></a>
+<p><strong>Open-Closed Principle</strong> — You should be able to extend a class's behavior, without modifying it</p>
+<p>The classic for&shy;mu&shy;la&shy;tion of the Open-Closed Principle is:</p>
+<blockquote>
+Software Entities (classes, modules, functions, etc.)
+should be Open for Extension, but Closed for Mod&shy;i&shy;fi&shy;ca&shy;tion.</blockquote>
+<p>That's pithy—and confusing.
+Let me try restating it:
+don't change existing code when you want to add new code.</p>
+<p>If you've designed your system with abstract base classes and interfaces,
+then it's generally possible to achieve this.
+If you have to add new if-clauses or adjust <tt class="docutils literal">switch</tt> statements
+in existing code,
+your code is not closed for mod&shy;i&shy;fi&shy;ca&shy;tion.</p>
+<p>Think “plug&shy;gable” or the <a class="reference external" href="http://en.wikipedia.org/wiki/Template_method_pattern">Template Method</a> and <a class="reference external" href="http://en.wikipedia.org/wiki/Strategy_pattern">Strategy</a> patterns.</p>
+<br style="clear: both"/><a class="reference external image-reference" href="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/LiskovSubtitutionPrinciple_5F00_52BB5162.jpg"><img alt="Liskov Substitution Principle — Derived classes must be substitutable for their base classes" class="left-float" src="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/LiskovSubtitutionPrinciple_5F00_52BB5162.jpg" style="width: 300px;"/></a>
+<p><strong>Liskov Sub&shy;sti&shy;tu&shy;tion Principle</strong> — Derived classes must be sub&shy;sti&shy;tutable for their base classes</p>
+<br style="clear: both"/><a class="reference external image-reference" href="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/InterfaceSegregationPrinciple_5F00_60216468.jpg"><img alt="Interface Segregation Principle — Make fine grained interfaces that are client specific" class="clear-both right-float" src="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/InterfaceSegregationPrinciple_5F00_60216468.jpg" style="width: 300px;"/></a>
+<p><strong>Interface Seg&shy;re&shy;ga&shy;tion Principle</strong> — Make fine grained interfaces that are client specific</p>
+<p><em>italic</em></p>
+<br style="clear: both"/><a class="reference external image-reference" href="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/DependencyInversionPrinciple_5F00_0278F9E2.jpg"><img alt="Dependency Inversion Principle — Depend on abstractions, not on concretions" class="left-float" src="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/DependencyInversionPrinciple_5F00_0278F9E2.jpg" style="width: 300px;"/></a>
+<p><strong>Dependency Inversion Principle</strong> — Depend on ab&shy;strac&shy;tions, not on con&shy;cre&shy;tions</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2009/03/01/SOLIDDevPriniciples–MotivationalPosters.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2009/03/01/SOLIDDevPriniciples–MotivationalPosters.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2009/02/27/LucidaHybrid.html" class="page floatright">
+        Lucida Hybrid &raquo;
+        </a>
+    
+    
+        <a href="/blog/2009/03/01/PBwiki20.html" class="page floatleft">
+        &laquo; PBwiki 2.0
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

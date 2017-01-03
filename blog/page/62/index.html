@@ -29,6 +29,63 @@
     
         <article>
     <header>
+        <time datetime="2009-03-28">28.03.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/03/28/ToastmastersCompetition.html" rel="bookmark canonical">Toastmasters Competition</a>
+        </h1>
+    </header>
+    
+<p>I've been to a few Toast&shy;mas&shy;ters com&shy;pe&shy;ti&shy;tions in the past.
+Tonight was the first time that I helped out at one,
+as one of the timers.
+It was the combined Area 35 and 36 com&shy;pe&shy;ti&shy;tion.</p>
+<p>A typical Toast&shy;mas&shy;ters com&shy;pe&shy;ti&shy;tion has two parts,
+a speech com&shy;pe&shy;ti&shy;tion and an evaluation com&shy;pe&shy;ti&shy;tion.
+In the speech com&shy;pe&shy;ti&shy;tion, the com&shy;peti&shy;tors give a prepared speech
+on a topic of their own choosing.
+Some speech com&shy;pe&shy;ti&shy;tions are humorous; tonight's wasn't.
+In the evaluation com&shy;pe&shy;ti&shy;tion,
+the invited speaker gives a speech heard by all the com&shy;peti&shy;tors.
+They are taken out of the room,
+then one at a time, they come back in and evaluate that speech.</p>
+<p>The speech com&shy;pe&shy;ti&shy;tion is always <span>&#8230;<a href="/blog/2009/03/28/ToastmastersCompetition.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2009/03/28/ToastmastersCompetition.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2009-03-27">27.03.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/03/27/RidingHomeInDaylight.html" rel="bookmark canonical">Riding Home in Daylight</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.flickr.com/photos/andyrs/2192913560/"></a>
+<p>For various reasons, I hadn't cycled to work in about three weeks,
+just before the clock went forward.</p>
+<p>It was very pleasant to cycle home in broad daylight for a change.
+Very pleasant.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2009/03/27/RidingHomeInDaylight.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2009-03-25">25.03.2009, 00:00</time>
         <h1>
             <a href="/blog/2009/03/25/AckBetterThanGrep.html" rel="bookmark canonical">Ack - Better than Grep</a>
@@ -45,8 +102,8 @@ Ack is noticeably faster,
 though somewhat slower than GNU grep.</p>
 <p>Which would you rather type to search a tree,
 ignoring the <tt class="docutils literal">.svn</tt> and <tt class="docutils literal">.git</tt> subtrees?</p>
-<div class="highlight"><pre><span class="nv">$ </span>ack -i -l foobar
-<span class="nv">$ </span>grep --exclude<span class="o">=</span><span class="s1">&#39;*.svn*&#39;</span> --exclude<span class="o">=</span><span class="s1">&#39;*.git*&#39;</span> -i -l -r foobar .
+<div class="highlight"><pre><span></span>$ ack -i -l foobar
+$ grep --exclude<span class="o">=</span><span class="s1">&#39;*.svn*&#39;</span> --exclude<span class="o">=</span><span class="s1">&#39;*.git*&#39;</span> -i -l -r foobar .
 </pre></div>
 <p>The ack takes 6 seconds to search 4500 files, while the grep completes in 2.
 This does not count the time that I spent trying <span>&#8230;<a href="/blog/2009/03/25/AckBetterThanGrep.html" class="continue">continue</a>.</span></p>
@@ -86,6 +143,45 @@ Sanjay Pitroda of <span>&#8230;<a href="/blog/2009/03/25/Refinancing.html" class
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2009/03/25/Refinancing.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
+        <time datetime="2009-03-23">23.03.2009, 00:00</time>
+        <h1>
+            <a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" rel="bookmark canonical">Exuberant Ctags and JavaScript</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://ctags.sourceforge.net/"></a>
+<p><a class="reference external" href="http://ctags.sourceforge.net/">Exuberant Ctags</a> is an essential complement to Vim:
+it generates an index of symbol names (tags) for a set of source files.
+In Vim, just place the cursor on a function name
+and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its definition.</p>
+<p>Ctags works well for most of the languages that I deal with,
+but falls down badly on modern JavaScript.
+Its built-in parser simply doesn't handle de&shy;c&shy;la&shy;ra&shy;tions like these:</p>
+<div class="highlight"><pre><span></span><span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// ...</span>
+<span class="nx">ajaxSetup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">settings</span> <span class="p">)</span> <span class="p">{</span>
+</pre></div>
+<p>I came across <a class="reference external" href="http://www.unbad.net/blog/ctags-and-relevant-support-for-javascript">Unbad</a>'s workaround earlier tonight.
+His code didn't work for me, so I hacked on it until it did:</p>
+<pre class="literal-block">
+--langdef=js
+--langmap=js:.js
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
+--regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
+--regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\(([^)])\)/\1/,function/
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
+--regex-js=/([^= ]+)[ </pre><span>&#8230;<a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2009/03/23/ExuberantCtagsAndJavaScript.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -256,142 +352,24 @@ but it's less elegant than the com&shy;pre&shy;hen&shy;sion.</p>
     
         <article>
     <header>
-        <time datetime="2009-03-17">17.03.2009, 00:00</time>
+        <time datetime="2009-03-18">18.03.2009, 00:00</time>
         <h1>
-            <a href="/blog/2009/03/17/ReviewFleshmarketClose.html" rel="bookmark canonical">Review: Fleshmarket Close</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0752865633"></a>
-<div class="line-block">
-<div class="line">Title: Flesh&shy;mar&shy;ket Close</div>
-<div class="line">Author: Ian Rankin</div>
-<div class="line">Rating: $stars(4)</div>
-<div class="line">Publisher: Orion</div>
-<div class="line">Copyright: 2004</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0752865633">0752865633</a></div>
-<div class="line">Pages: 484</div>
-<div class="line">Keywords: crime, fiction</div>
-<div class="line">Reading period: 14–16 March, 2009</div>
-</div>
-<p>DI John Rebus in&shy;ves&shy;ti&shy;gates the murder of an illegal immigrant,
-who had ties to asylum seekers in Edinburgh.
-DS Siobhan Clarke looks into the dis&shy;ap&shy;pear&shy;ance of a teenaged girl;
-soon, the rapist of the girl's sister is murdered.</p>
-<p>Rebus and Siobhan struggle with the uglier side of life in Edinburgh,
-notably, racism, latter-day slavery, and the increasing numbers of asylum seekers.
-As usual, their personal lives are in a mess:
-Rebus drinks too much;
-Siobhan falls asleep with a tub of ice cream.</p>
-<p>As in other <a class="reference external" href="http://www.georgevreilly.com/blog/2008/12/24/ReviewResurrectionMen.aspx">Rebus books</a>, the two in&shy;ves&shy;ti&shy;ga&shy;tions end up
-being linked <span>&#8230;<a href="/blog/2009/03/17/ReviewFleshmarketClose.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2009/03/17/ReviewFleshmarketClose.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2009-03-16">16.03.2009, 00:00</time>
-        <h1>
-            <a href="/blog/2009/03/16/BistrotBistro.html" rel="bookmark canonical">Bistrot Bistro</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.bistrotbistro.com/"></a>
-<p>We discovered <a class="reference external" href="http://www.bistrotbistro.com/">Bistrot Bistro</a> in Kitsilano on a previous visit to Vancouver.
-It's an agreeable little French restaurant just south of downtown.
-Emma suggested that we eat there again for my birthday,
-and it was a fine choice.</p>
-<p>We ate from the <em>prix fixe</em> menu for $26 apiece.
-She had the carrot soup, roast chicken, and raspberry sorbet;
-I had the <em>pate de campagne</em>, a peppercorn steak, and a chocolate mousse.
-The <em>prix fixe</em> included a sizeable quantity of <em>pommes frites</em>.
-We added Brussel sprouts, a baguette with olive tapenade,
-and a half-litre of Pinot Gris,
-and walked away two hours later, pleasantly sated.</p>
-<p>The last time we were there, it <span>&#8230;<a href="/blog/2009/03/16/BistrotBistro.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2009/03/16/BistrotBistro.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2009-03-15">15.03.2009, 00:00</time>
-        <h1>
-            <a href="/blog/2009/03/15/Vancouver.html" rel="bookmark canonical">Vancouver</a>
+            <a href="/blog/2009/03/18/CircePart1.html" rel="bookmark canonical">Circe, part 1</a>
         </h1>
     </header>
     
-<p>We drove up to Vancouver today.
-We'll be here until Tuesday.
-It's my birthday tomorrow and
-I have two days of vacation that I have to use by the end of March or lose them,
-so why not.</p>
-<p>I always like Vancouver.
-It's un&shy;equiv&shy;o&shy;cal&shy;ly a major city.
-Vancouver feels more urban than Seattle,
-where people have only been moving into high-density
-downtown condos and apartments for a few years.</p>
-<p>We're staying at the <a class="reference external" href="http://www.sunsetinn.com/">Sunset Inn and Suites</a> in the West End.
-We stayed here before.
-It's relatively cheap, clean, and centrally located.
-No particular charm either.</p>
-<p>Tomorrow, we see my great-uncle Dick and his wife Margaret.
-They're both 92 and about to move into a <span>&#8230;<a href="/blog/2009/03/15/Vancouver.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2009/03/15/Vancouver.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2009-03-11">11.03.2009, 00:00</time>
-        <h1>
-            <a href="/blog/2009/03/11/ReviewPerditionHouse.html" rel="bookmark canonical">Review: Perdition House</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0312998244"></a>
-<div class="line-block">
-<div class="line">Title: Perdition House</div>
-<div class="line">Author: Kathryn R. Wall</div>
-<div class="line">Rating: $stars(3)</div>
-<div class="line">Publisher: St. Martin's Minotaur</div>
-<div class="line">Copyright: 2003</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0312998244">0312998244</a></div>
-<div class="line">Pages: 295</div>
-<div class="line">Keywords: mystery</div>
-<div class="line">Reading period: 8–9 March, 2009</div>
-</div>
-<p>Bay Tanner is a young widow and aspiring private in&shy;ves&shy;ti&shy;ga&shy;tor
-from wealthy South Carolina stock.
-When a hitherto unknown <a class="reference external" href="http://www.worldwidewords.org/qa/qa-shi5.htm">shirt-tail</a> cousin (fifth half cousin, specif&shy;i&shy;cal&shy;ly)
-bursts into Bay's life, she brings havoc in her train.</p>
-<p>As one of the characters says,
-the plot sounds like a made-for-TV movie.
-Still, Bay is a feisty heroine and
-the background is not one that has been mined deeply.</p>
+<p>I am co-directing this year's reading of <em>Ulysses</em> with Helen.
+We have decided to do the first half of the chapter with some light cuts.
+The Circe character, Bella Cohen, will not be seen until next year,
+as we'll be stopping shortly before she makes her entrance.</p>
+<p>We had a readthrough-cum-planning meeting ten days ago at Helen's
+and a rehearsal tonight at my house.
+We'll need several more rehearsals, but it's starting to come together.</p>
+<p>We'll be reading at the University Bookstore on Saturday, June 13th.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2009/03/11/ReviewPerditionHouse.html#disqus_thread">Comment</a>
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2009/03/18/CircePart1.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

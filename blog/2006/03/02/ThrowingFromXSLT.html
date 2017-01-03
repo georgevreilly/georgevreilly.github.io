@@ -45,7 +45,7 @@ but for various reasons, I didn't want to go to the hassle of creating one.</p>
 <p>I found a partial solution using <tt class="docutils literal">xsl:message</tt> with the
 <tt class="docutils literal"><span class="pre">terminate=&quot;yes&quot;</span></tt> attribute. Under <tt class="docutils literal">XslTrans&shy;form.Transform()</tt> the
 following code throws an exception if the XPath expression is empty.</p>
-<div class="highlight"><pre><span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><span></span><span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span>
     <span class="k">&lt;xsl:message</span> <span class="na">terminate=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>Missing expression<span class="k">&lt;/xsl:message&gt;</span>
 <span class="k">&lt;/xsl:if&gt;</span>
 <span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;/some/xpath/expression&quot;</span> <span class="nt">/&gt;</span>
