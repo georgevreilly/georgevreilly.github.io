@@ -12,7 +12,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content="It&#39;s very useful when creating Markdown_ to be abl..." />
+    <meta name="description" content="It&#39;s very useful when creating Markdown__ to be ab..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -43,17 +43,26 @@ Just type <tt class="docutils literal">⌃⇧M</tt> (aka <tt class="docutils lit
 I use <a class="reference external" href="https://atom.io/packages/vim-mode-plus">vim-mode-plus</a> to edit in Atom,
 which provides an acceptable emulation of Vim.</p>
 <p>I recently discovered <a class="reference external" href="https://code.visualstudio.com/Docs/languages/markdown">VS Code Markdown Preview</a> in <a class="reference external" href="https://code.visualstudio.com/">Visual Studio Code</a>.
-Type <tt class="docutils literal">⌘K&nbsp;V</tt> (aka <tt class="docutils literal">Ctrl+K&nbsp;V</tt> on Windows or Linxu)
+Type <tt class="docutils literal">⌘K&nbsp;V</tt> (aka <tt class="docutils literal">Ctrl+K&nbsp;V</tt> on Windows or Linux)
 to invoke the side-by-side live preview.
 I use <a class="reference external" href="https://github.com/VSCodeVim/Vim">VSCodeVim</a> to meet my Vim needs.</p>
 <p>Un&shy;for&shy;tu&shy;nate&shy;ly, neither previewer gives identical results to GitHub's Markdown renderer.
-GitHub itself seems to use different renderers for pull requests
-than it does for READMEs.</p>
-<p>For example, in the following nested list, the <em>blank</em> lines
-before and after the indented fenced code blocks
-(aka triple backticks, <tt class="docutils literal">```</tt>,  a GitHub-Flavored Markdown extension)
-are necessary for the indented code blocks to render properly everywhere:</p>
-<div class="highlight"><pre><span></span>* The following has been tested with RabbitMQ 3.6.0 on macOS
+GitHub itself seems to use different renderers for Pull Requests
+than it does for <tt class="docutils literal">README.md</tt>s.</p>
+<p>As an example of markdown that behaves dif&shy;fer&shy;ent&shy;ly in GitHub's <tt class="docutils literal">README.md</tt>
+but looks fine in Atom, VSCode, and GitHub's own Pull Requests previewer for Markdown,
+consider this nested list.
+The <em>blank</em> lines before and after the indented “fenced code blocks”
+(denoted by triple backticks, <tt class="docutils literal">```</tt>,  a GitHub-Flavored Markdown extension)
+are necessary for the indented code blocks to render properly everywhere.
+The blank lines may be omitted in all but the GitHub <tt class="docutils literal">README.md</tt>,
+without affecting the rendering.
+However, without the blank lines,
+the code block will collapse onto one line in the GitHub <tt class="docutils literal">README.md</tt>.</p>
+<!-- // code-block: markdown -->
+
+<pre class="brush: markdown">
+* The following has been tested with RabbitMQ 3.6.0 on macOS
   (`brew install rabbitmq`):
         - `/usr/local/etc/rabbitmq/rabbitmq-env.conf`
           should *not* have a localhost entry for `NODE_IP_ADDRESS`;
@@ -72,10 +81,13 @@ are necessary for the indented code blocks to render properly everywhere:</p>
                 ```
 
                 (Yes, the trailing period is deliberate.)
-</pre></div>
+</pre>
+
 <p>Both Atom and VSCode are built on top of <a class="reference external" href="http://electron.atom.io/">Electron</a>,
-which seems to be a good way to built powerful, cross-platform desktop apps
-using HTML, CSS, and JavaScript on top of Chromium and Node.js.</p>
+which seems to be an excellent way to built powerful cross-platform desktop apps
+using HTML, CSS, and JavaScript on top of Chromium and Node.js.
+Other <a class="reference external" href="http://electron.atom.io/apps/">Electron-based apps</a> that I use include
+<a class="reference external" href="https://brave.com/">Brave</a>, <a class="reference external" href="https://www.gitkraken.com/">GitKraken</a>, <a class="reference external" href="https://www.cycligent.com/git-tool">Cycligent Git Tool</a>, <a class="reference external" href="https://www.getpostman.com/">Postman</a>, <a class="reference external" href="https://slack.com/">Slack</a>, and <a class="reference external" href="https://kitematic.com/">Kitematic</a>.</p>
 
     <footer>
         

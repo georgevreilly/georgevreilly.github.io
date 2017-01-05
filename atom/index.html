@@ -31,17 +31,26 @@ Just type &lt;tt class=&#34;docutils literal&#34;&gt;⌃⇧M&lt;/tt&gt; (aka &lt
 I use &lt;a class=&#34;reference external&#34; href=&#34;https://atom.io/packages/vim-mode-plus&#34;&gt;vim-mode-plus&lt;/a&gt; to edit in Atom,
 which provides an acceptable emulation of Vim.&lt;/p&gt;
 &lt;p&gt;I recently discovered &lt;a class=&#34;reference external&#34; href=&#34;https://code.visualstudio.com/Docs/languages/markdown&#34;&gt;VS Code Markdown Preview&lt;/a&gt; in &lt;a class=&#34;reference external&#34; href=&#34;https://code.visualstudio.com/&#34;&gt;Visual Studio Code&lt;/a&gt;.
-Type &lt;tt class=&#34;docutils literal&#34;&gt;⌘K&amp;nbsp;V&lt;/tt&gt; (aka &lt;tt class=&#34;docutils literal&#34;&gt;Ctrl+K&amp;nbsp;V&lt;/tt&gt; on Windows or Linxu)
+Type &lt;tt class=&#34;docutils literal&#34;&gt;⌘K&amp;nbsp;V&lt;/tt&gt; (aka &lt;tt class=&#34;docutils literal&#34;&gt;Ctrl+K&amp;nbsp;V&lt;/tt&gt; on Windows or Linux)
 to invoke the side-by-side live preview.
 I use &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/VSCodeVim/Vim&#34;&gt;VSCodeVim&lt;/a&gt; to meet my Vim needs.&lt;/p&gt;
 &lt;p&gt;Unfortunately, neither previewer gives identical results to GitHub&#39;s Markdown renderer.
-GitHub itself seems to use different renderers for pull requests
-than it does for READMEs.&lt;/p&gt;
-&lt;p&gt;For example, in the following nested list, the &lt;em&gt;blank&lt;/em&gt; lines
-before and after the indented fenced code blocks
-(aka triple backticks, &lt;tt class=&#34;docutils literal&#34;&gt;```&lt;/tt&gt;,  a GitHub-Flavored Markdown extension)
-are necessary for the indented code blocks to render properly everywhere:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;* The following has been tested with RabbitMQ 3.6.0 on macOS
+GitHub itself seems to use different renderers for Pull Requests
+than it does for &lt;tt class=&#34;docutils literal&#34;&gt;README.md&lt;/tt&gt;s.&lt;/p&gt;
+&lt;p&gt;As an example of markdown that behaves differently in GitHub&#39;s &lt;tt class=&#34;docutils literal&#34;&gt;README.md&lt;/tt&gt;
+but looks fine in Atom, VSCode, and GitHub&#39;s own Pull Requests previewer for Markdown,
+consider this nested list.
+The &lt;em&gt;blank&lt;/em&gt; lines before and after the indented “fenced code blocks”
+(denoted by triple backticks, &lt;tt class=&#34;docutils literal&#34;&gt;```&lt;/tt&gt;,  a GitHub-Flavored Markdown extension)
+are necessary for the indented code blocks to render properly everywhere.
+The blank lines may be omitted in all but the GitHub &lt;tt class=&#34;docutils literal&#34;&gt;README.md&lt;/tt&gt;,
+without affecting the rendering.
+However, without the blank lines,
+the code block will collapse onto one line in the GitHub &lt;tt class=&#34;docutils literal&#34;&gt;README.md&lt;/tt&gt;.&lt;/p&gt;
+&lt;!-- // code-block: markdown --&gt;
+
+&lt;pre class=&#34;brush: markdown&#34;&gt;
+* The following has been tested with RabbitMQ 3.6.0 on macOS
   (`brew install rabbitmq`):
         - `/usr/local/etc/rabbitmq/rabbitmq-env.conf`
           should *not* have a localhost entry for `NODE_IP_ADDRESS`;
@@ -60,10 +69,13 @@ are necessary for the indented code blocks to render properly everywhere:&lt;/p&
                 ```
 
                 (Yes, the trailing period is deliberate.)
-&lt;/pre&gt;&lt;/div&gt;
+&lt;/pre&gt;
+
 &lt;p&gt;Both Atom and VSCode are built on top of &lt;a class=&#34;reference external&#34; href=&#34;http://electron.atom.io/&#34;&gt;Electron&lt;/a&gt;,
-which seems to be a good way to built powerful, cross-platform desktop apps
-using HTML, CSS, and JavaScript on top of Chromium and Node.js.&lt;/p&gt;
+which seems to be an excellent way to built powerful cross-platform desktop apps
+using HTML, CSS, and JavaScript on top of Chromium and Node.js.
+Other &lt;a class=&#34;reference external&#34; href=&#34;http://electron.atom.io/apps/&#34;&gt;Electron-based apps&lt;/a&gt; that I use include
+&lt;a class=&#34;reference external&#34; href=&#34;https://brave.com/&#34;&gt;Brave&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://www.gitkraken.com/&#34;&gt;GitKraken&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://www.cycligent.com/git-tool&#34;&gt;Cycligent Git Tool&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://www.getpostman.com/&#34;&gt;Postman&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://slack.com/&#34;&gt;Slack&lt;/a&gt;, and &lt;a class=&#34;reference external&#34; href=&#34;https://kitematic.com/&#34;&gt;Kitematic&lt;/a&gt;.&lt;/p&gt;
 </content>
     </entry>
     
