@@ -29,6 +29,45 @@
     
         <article>
     <header>
+        <time datetime="2015-12-30">30.12.2015, 00:00</time>
+        <h1>
+            <a href="/blog/2015/12/30/UseForPythonNestedListComprehensions.html" rel="bookmark canonical">Python: a use for nested list comprehensions</a>
+        </h1>
+    </header>
+    <p>I wanted to turn a list like
+<tt class="docutils literal"><span class="pre">['*.zip',</span> <span class="pre">'*.pyc',</span> <span class="pre">'*.log']</span></tt> into
+<tt class="docutils literal"><span class="pre">['--exclude',</span> <span class="pre">'*.zip',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.pyc',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.log']</span></tt>.</p>
+<p>A simple list com&shy;pre&shy;hen&shy;sion doesn't work as desired:</p>
+
+<pre class="brush: python">
+In [1]: excludes = ['*.zip', '*.pyc', '*.log']
+
+In [2]: [('--exclude', e) for e in excludes]
+Out[2]: [('--exclude', '*.zip'), ('--exclude', '*.pyc'), ('--exclude', '*.log')]
+</pre>
+
+<p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com&shy;pre&shy;hen&shy;sion</a>:</p>
+
+<pre class="brush: python">
+In [5]: [arg for pattern in excludes
+             for arg in ['--exclude', pattern]]
+Out[5]: ['--exclude', '*.zip', '--exclude', '*.pyc', '--exclude', '*.log']
+</pre>
+
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/30/UseForPythonNestedListComprehensions.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+    
+        <article>
+    <header>
         <time datetime="2015-12-29">29.12.2015, 00:00</time>
         <h1>
             <a href="/blog/2015/12/29/FreeEbooksFromSpringer.html" rel="bookmark canonical">Free ebooks from Springer</a>
@@ -296,43 +335,6 @@ Tonight I decorated it with marzipan and royal icing.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/21/IncludingDataFilesInPythonPackages.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2015-12-20">20.12.2015, 00:00</time>
-        <h1>
-            <a href="/blog/2015/12/20/ReviewDestinationMorgue.html" rel="bookmark canonical">Review: Destination: Morgue!</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/1400032873/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Des&shy;ti&shy;na&shy;tion: Morgue!</div>
-<div class="line">Author: James Ellroy</div>
-<div class="line">Rating: ★ ★ ½</div>
-<div class="line">Publisher: Vintage</div>
-<div class="line">Copyright: 2004</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/1400032873/?tag=georgvreill-20">1400032873</a></div>
-<div class="line">Pages: 400</div>
-<div class="line">Keywords: true crime, au&shy;to&shy;bi&shy;og&shy;ra&shy;phy</div>
-<div class="line">Reading period: November 28–De&shy;cem&shy;ber 20, 2015</div>
-</div>
-<p>A collection of James Ellroy's articles on crime
-and his own past.</p>
-<p>I've enjoyed Ellroy in the past but I found this unreadable.
-I tried it twice but abandoned it halfway through.
-Ellroy's writing is self-indulgent, irritating, grandiose,
-and full of tiresome stylistic tics.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/20/ReviewDestinationMorgue.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

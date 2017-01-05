@@ -5,9 +5,56 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Tue, 03 Jan 2017 08:00:00 GMT</pubDate>
+        <pubDate>Wed, 04 Jan 2017 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Markdown Live Preview</title>
+        <link>http://www.georgevreilly.com/blog/2017/01/04/MarkdownLivePreview.html</link>
+        <description>&lt;p&gt;It&#39;s very useful when creating &lt;a class=&#34;reference external&#34; href=&#34;https://guides.github.com/features/mastering-markdown/&#34;&gt;Markdown&lt;/a&gt; to be able to preview it live.
+For example, creating a complex pull request or a &lt;tt class=&#34;docutils literal&#34;&gt;README.md&lt;/tt&gt;.
+I usually use the built-in &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/atom/markdown-preview&#34;&gt;Atom Markdown Preview&lt;/a&gt; package in &lt;a class=&#34;reference external&#34; href=&#34;https://atom.io/&#34;&gt;Atom&lt;/a&gt;.
+Just type &lt;tt class=&#34;docutils literal&#34;&gt;⌃⇧M&lt;/tt&gt; (aka &lt;tt class=&#34;docutils literal&#34;&gt;Ctrl+Shift+M&lt;/tt&gt;) to see a live preview in an adjacent pane.
+I use &lt;a class=&#34;reference external&#34; href=&#34;https://atom.io/packages/vim-mode-plus&#34;&gt;vim-mode-plus&lt;/a&gt; to edit in Atom,
+which provides an acceptable emulation of Vim.&lt;/p&gt;
+&lt;p&gt;I recently discovered &lt;a class=&#34;reference external&#34; href=&#34;https://code.visualstudio.com/Docs/languages/markdown&#34;&gt;VS Code Markdown Preview&lt;/a&gt; in &lt;a class=&#34;reference external&#34; href=&#34;https://code.visualstudio.com/&#34;&gt;Visual Studio Code&lt;/a&gt;.
+Type &lt;tt class=&#34;docutils literal&#34;&gt;⌘K&amp;nbsp;V&lt;/tt&gt; (aka &lt;tt class=&#34;docutils literal&#34;&gt;Ctrl+K&amp;nbsp;V&lt;/tt&gt; to invoke the side-by-side live preview.
+I use &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/VSCodeVim/Vim&#34;&gt;VSCodeVim&lt;/a&gt; to meet my Vim needs.&lt;/p&gt;
+&lt;p&gt;Unfortunately, neither previewer gives identical results to GitHub&#39;s Markdown renderer.
+GitHub itself seems to use different renderers for pull requests
+than it does for READMEs.&lt;/p&gt;
+&lt;p&gt;For example, in the following nested list, the &lt;em&gt;blank&lt;/em&gt; lines
+before and after the indented fenced code blocks
+(aka triple backticks, &lt;tt class=&#34;docutils literal&#34;&gt;```&lt;/tt&gt;,  a GitHub-Flavored Markdown extension)
+are necessary for the indented code blocks to render properly everywhere:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;* The following has been tested with RabbitMQ 3.6.0 on macOS
+  (`brew install rabbitmq`):
+        - `/usr/local/etc/rabbitmq/rabbitmq-env.conf`
+          should *not* have a localhost entry for `NODE_IP_ADDRESS`;
+          e.g.:
+
+                ```
+                CONFIG_FILE=/usr/local/etc/rabbitmq/rabbitmq
+                #NODE_IP_ADDRESS=127.0.0.1
+                NODENAME=rabbit@localhost
+                ```
+
+        - `/usr/local/etc/rabbitmq/rabbitmq.config`:
+
+                ```
+                [{rabbit, [{loopback_users, []}]}].
+                ```
+
+                (Yes, the trailing period is deliberate.)
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Both Atom and VSCode are built on top of &lt;a class=&#34;reference external&#34; href=&#34;http://electron.atom.io/&#34;&gt;Electron&lt;/a&gt;,
+which seems to be a good way to built powerful, cross-platform desktop apps
+using HTML, CSS, and JavaScript on top of Chromium and Node.js.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 04 Jan 2017 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-04:/blog/2017/01/04/MarkdownLivePreview.html</guid>
+    </item>
         
             <item>
         <title>Review: Basket Case</title>
@@ -857,30 +904,6 @@ It&#39;s a fun read, with an entertaining if exasperating lead character.&lt;/p&
 </description>
         <pubDate>Fri, 12 Aug 2016 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-12:/blog/2016/08/12/ReviewFuzzyNation.html</guid>
-    </item>
-        
-            <item>
-        <title>AIDS Walk 2016</title>
-        <link>http://www.georgevreilly.com/blog/2016/08/09/AIDSWalk2016.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://give.lifelong.org/georgevreilly&#34;&gt;&lt;img alt=&#34;AIDS Walk 2015&#34; src=&#34;http://www.georgevreilly.com/content/binary/george-barb-aidswalk-2015.jpg&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;AIDS decimated the gay community in the 1980s and early 1990s
-before effective treatments were developed,
-and AIDS and HIV continue to affect the LGBT community disproportionately.
-I personally have walked in the Seattle AIDS Walk every year since 1992.&lt;/p&gt;
-&lt;p&gt;Please sponsor me at &lt;a class=&#34;reference external&#34; href=&#34;https://give.lifelong.org/georgevreilly&#34;&gt;https://give.lifelong.org/georgevreilly&lt;/a&gt;
-I am also the captain of the &lt;a class=&#34;reference external&#34; href=&#34;http://bit.ly/fstm-walk-2016&#34;&gt;Freely Speaking Toastmasters team&lt;/a&gt;
-and we&#39;d love to have you join us.&lt;/p&gt;
-&lt;p&gt;Any money you donate or raise will &lt;a class=&#34;reference external&#34; href=&#34;http://lifelongaidsalliance.org/donate/why-give&#34;&gt;support people in King County&lt;/a&gt;
-who are living with HIV or AIDS.
-It will help feed them, pay for medicine, and prevent further infections.&lt;/p&gt;
-&lt;p&gt;I&#39;ve walked for 25 years to honor the living and the dead.
-I&#39;ve known people who died of AIDS and I know people who are living with it.
-I have friends who lost lovers and I have friends who lost dozens of people.&lt;/p&gt;
-&lt;p&gt;The AIDS Walk takes place on Saturday, September 24th, 2016 at Volunteer Park.&lt;/p&gt;
-&lt;p&gt;I thank you, the Lifelong AIDS Alliance thanks you, and the people you&#39;ll be helping thank you.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 09 Aug 2016 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-09:/blog/2016/08/09/AIDSWalk2016.html</guid>
     </item>
         </channel>
 </rss>

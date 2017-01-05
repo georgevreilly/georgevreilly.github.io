@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Markdown Live Preview</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="It&#39;s very useful when creating Markdown_ to be abl..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2017-01-04">04.01.2017, 00:00</time>
+        <h1>
+            <a href="/blog/2017/01/04/MarkdownLivePreview.html" rel="bookmark canonical">Markdown Live Preview</a>
+        </h1>
+    </header>
+    <p>It's very useful when creating <a class="reference external" href="https://guides.github.com/features/mastering-markdown/">Markdown</a> to be able to preview it live.
+For example, creating a complex pull request or a <tt class="docutils literal">README.md</tt>.
+I usually use the built-in <a class="reference external" href="https://github.com/atom/markdown-preview">Atom Markdown Preview</a> package in <a class="reference external" href="https://atom.io/">Atom</a>.
+Just type <tt class="docutils literal">⌃⇧M</tt> (aka <tt class="docutils literal">Ctrl+Shift+M</tt>) to see a live preview in an adjacent pane.
+I use <a class="reference external" href="https://atom.io/packages/vim-mode-plus">vim-mode-plus</a> to edit in Atom,
+which provides an acceptable emulation of Vim.</p>
+<p>I recently discovered <a class="reference external" href="https://code.visualstudio.com/Docs/languages/markdown">VS Code Markdown Preview</a> in <a class="reference external" href="https://code.visualstudio.com/">Visual Studio Code</a>.
+Type <tt class="docutils literal">⌘K&nbsp;V</tt> (aka <tt class="docutils literal">Ctrl+K&nbsp;V</tt> to invoke the side-by-side live preview.
+I use <a class="reference external" href="https://github.com/VSCodeVim/Vim">VSCodeVim</a> to meet my Vim needs.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, neither previewer gives identical results to GitHub's Markdown renderer.
+GitHub itself seems to use different renderers for pull requests
+than it does for READMEs.</p>
+<p>For example, in the following nested list, the <em>blank</em> lines
+before and after the indented fenced code blocks
+(aka triple backticks, <tt class="docutils literal">```</tt>,  a GitHub-Flavored Markdown extension)
+are necessary for the indented code blocks to render properly everywhere:</p>
+<div class="highlight"><pre><span></span>* The following has been tested with RabbitMQ 3.6.0 on macOS
+  (`brew install rabbitmq`):
+        - `/usr/local/etc/rabbitmq/rabbitmq-env.conf`
+          should *not* have a localhost entry for `NODE_IP_ADDRESS`;
+          e.g.:
+
+                ```
+                CONFIG_FILE=/usr/local/etc/rabbitmq/rabbitmq
+                #NODE_IP_ADDRESS=127.0.0.1
+                NODENAME=rabbit@localhost
+                ```
+
+        - `/usr/local/etc/rabbitmq/rabbitmq.config`:
+
+                ```
+                [{rabbit, [{loopback_users, []}]}].
+                ```
+
+                (Yes, the trailing period is deliberate.)
+</pre></div>
+<p>Both Atom and VSCode are built on top of <a class="reference external" href="http://electron.atom.io/">Electron</a>,
+which seems to be a good way to built powerful, cross-platform desktop apps
+using HTML, CSS, and JavaScript on top of Chromium and Node.js.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2017/01/04/MarkdownLivePreview.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2017/01/04/MarkdownLivePreview.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2017/01/03/ReviewBasketCase.html" class="page floatright">
+        Review: Basket Case &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
