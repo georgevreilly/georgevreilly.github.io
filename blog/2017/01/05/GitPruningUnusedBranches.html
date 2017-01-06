@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Git: pruning unused branches</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="Ever had a Git repository where there&#39;s an overwhe..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2017-01-05">05.01.2017, 00:00</time>
+        <h1>
+            <a href="/blog/2017/01/05/GitPruningUnusedBranches.html" rel="bookmark canonical">Git: pruning unused branches</a>
+        </h1>
+    </header>
+    <p>Ever had a Git repository where there's an over&shy;whelm&shy;ing number of branches,
+most of which are surely abandoned?
+You run <tt class="docutils literal">git branch <span class="pre">--remote</span></tt> and you see dozens of unfamiliar branches.
+Where to begin?</p>
+<ul class="simple">
+<li>Use <a class="reference external" href="http://stackoverflow.com/a/11144311/6364">git for-each-ref --sort</a> to sort the branches
+so that you can identify the oldest branches.</li>
+<li>Use <a class="reference external" href="http://stackoverflow.com/a/227026/6364">git branch --remote --merged master</a>
+to detect which branches have already been merged into <tt class="docutils literal">master</tt>.
+It's likely that these are branches that weren't deleted
+after a pull request was merged;
+it's usually safe to delete these.</li>
+<li><tt class="docutils literal"><span class="pre">--no-merged</span></tt> shows unmerged branches;
+these require further in&shy;ves&shy;ti&shy;ga&shy;tion.</li>
+</ul>
+<p>Here's an example for <a class="reference external" href="https://github.com/cookbrite/flyingcloud">fly&shy;ing&shy;cloud</a>:</p>
+<pre class="literal-block">
+$ git for-each-ref --sort=-committerdate \
+    --format='%(committerdate:short) %(refname)' refs/heads refs/remotes
+2016-12-29 refs/remotes/origin/master
+2016-12-29 refs/remotes/origin/HEAD
+2016-12-29 refs/heads/master
+2016-12-11 refs/remotes/origin/0.1.x
+2016-06-09 refs/remotes/origin/fix/salt-pip-version-problem-in-demo
+2016-05-25 refs/remotes/origin/updates
+2016-05-09 refs/remotes/origin/feature/documentation-improvements-3
+2016-04-19 refs/remotes/origin/feature/developer-setup-example
+2016-04-17 refs/remotes/origin/feature/travis-build
+2016-03-16 refs/remotes/origin/feature/documentation-improvements-2
+2016-03-06 refs/remotes/origin/feature/documentation-improvements-1
+2016-03-06 refs/remotes/origin/feature/documentation-and-examples
+2016-02-26 refs/remotes/origin/rtfd
+2016-02-21 refs/remotes/origin/feature/metakube
+2016-01-17 refs/remotes/origin/walk_tree
+
+$ git branch --remote --merged master
+  origin/HEAD -&gt; origin/master
+  origin/feature/documentation-improvements-1
+  origin/feature/documentation-improvements-2
+  origin/feature/travis-build
+  origin/fix/salt-pip-version-problem-in-demo
+  origin/master
+  origin/rtfd
+  origin/updates
+</pre>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2017/01/05/GitPruningUnusedBranches.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2017/01/05/GitPruningUnusedBranches.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+    
+    
+        <a href="/blog/2017/01/04/MarkdownLivePreview.html" class="page floatright">
+        Markdown Live Preview &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
