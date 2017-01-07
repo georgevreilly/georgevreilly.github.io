@@ -10,16 +10,31 @@ EMAIL = 'george@reilly.org'
 
 FILTERS = ['reST', 'hyphenate', 'h1']
 VIEWS = {
-    '/blog/': {'filters': 'summarize', 'view': 'index',
-          'pagination': '/blog/page/:num/'},
+    '/blog/': {
+        'filters': ['summarize', 'typography'],
+        'view': 'index',
+        'pagination': '/blog/page/:num/',
+    },
 
-    '/:year/:slug/': {'views': ['entry', 'draft']},
+    '/:year/:slug/': {
+        'filters': ['typography'],
+        'views': ['entry', 'draft'],
+    },
 
-    '/tag/:name/': {'filters': 'summarize', 'view':'tag',
-                    'pagination': '/tag/:name/:num/'},
+    '/tag/:name/': {
+        'filters': ['summarize'],
+        'view':'tag',
+        'pagination': '/tag/:name/:num/',
+    },
 
-    '/atom/': {'filters': ['h2', 'nohyphenate'], 'view': 'atom'},
-    '/rss/': {'filters': ['h2', 'nohyphenate'], 'view': 'rss'},
+    '/atom/': {
+        'filters': ['h2', 'nohyphenate'],
+        'view': 'atom',
+    },
+    '/rss/': {
+        'filters': ['h2', 'nohyphenate'],
+        'view': 'rss',
+    },
 
     # # per tag Atom or RSS feed. Just uncomment to generate them.
     # '/tag/:name/atom/': {'filters': ['h2', 'nohyphenate'], 'view': 'atompertag'},
