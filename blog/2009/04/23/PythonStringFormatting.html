@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Python String Formatting</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -12,7 +13,8 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content=".. image:: http://www.georgevreilly.com/blog/conte..." />
+    <meta name="description" content=".. image:: /content/binary/py-str-format.png
+    :..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,18 +33,18 @@
     
         <article>
     <header>
-        <time datetime="2009-04-23">23.04.2009, 00:00</time>
+        <time datetime="2009-04-23">2009-04-23</time>
         <h1>
             <a href="/blog/2009/04/23/PythonStringFormatting.html" rel="bookmark canonical">Python String Formatting</a>
         </h1>
     </header>
-    <a class="reference external image-reference" href="http://docs.python.org/library/string.html#format-string-syntax"><img alt="string formatting" class="right-float" src="http://www.georgevreilly.com/blog/content/binary/py-str-format.png"/></a>
+    <a class="reference external image-reference" href="http://docs.python.org/library/string.html#format-string-syntax"><img alt="string formatting" class="right-float" src="/content/binary/py-str-format.png"/></a>
 <p>Python has long had a string in&shy;ter&shy;po&shy;la&shy;tion operator, <tt class="docutils literal">%</tt>.</p>
 <p>Python 2.6 and 3.0 introduced a new, richer set of <a class="reference external" href="http://docs.python.org/library/string.html#format-string-syntax">string formatting operations</a>.
-See <a class="reference external" href="http://www.python.org/dev/peps/pep-3101/">PEP 3101</a> for the rationale.</p>
+See <a class="reference external" href="http://www.python.org/dev/peps/pep-3101/"><span class="caps">PEP</span> 3101</a> for the&nbsp;rationale.</p>
 <p>One trick that I liked with the old way of formatting was
 to put the <a class="reference external" href="http://docs.python.org/library/functions.html#locals">locals()</a> dictionary or <tt class="docutils literal">self.__dict__</tt>
-on the right-hand side</p>
+on the right-hand&nbsp;side</p>
 <div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="o">...</span>  <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
 <span class="o">...</span>  <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%(a)s</span><span class="s2">, </span><span class="si">%(b)s</span><span class="s2">, </span><span class="si">%(c)s</span><span class="s2">, </span><span class="si">%(d)s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span>
@@ -73,7 +75,7 @@ use the <tt class="docutils literal">**</tt> syntax to unpack the dict into <tt 
 </pre></div>
 <p>The <tt class="docutils literal">getitem</tt> variant (<tt class="docutils literal">{0[name]}</tt>) might be slightly more efficient,
 since the dict does not need to be flattened,
-but I doubt it makes a per&shy;cep&shy;ti&shy;ble difference in practice.</p>
+but I doubt it makes a per&shy;cep&shy;ti&shy;ble difference in&nbsp;practice.</p>
 
     <footer>
         
@@ -107,6 +109,8 @@ but I doubt it makes a per&shy;cep&shy;ti&shy;ble difference in practice.</p>
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2009/04/22/Tulips.html" class="page floatright">

@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>George V. Reilly</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -29,7 +30,42 @@
     
         <article>
     <header>
-        <time datetime="2016-07-10">10.07.2016, 00:00</time>
+        <time datetime="2016-07-11">2016-07-11</time>
+        <h1>
+            <a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" rel="bookmark canonical">Logging in Python: Don't use new-fangled format</a>
+        </h1>
+    </header>
+    <p>Python 2.6 introduced the <a class="reference external" href="https://pyformat.info/">format method</a> to strings.
+In general, <tt class="docutils literal">format</tt> is now the preferred way to build strings
+instead of the old <tt class="docutils literal">%</tt> formatting&nbsp;operator.</p>
+<p>One exception is with the <tt class="docutils literal">logging</tt> module,
+where the best practice is to use <tt class="docutils literal">%s</tt> and <tt class="docutils literal">%d</tt>.
+Why?
+First, <tt class="docutils literal">%s</tt> is the idiomatic way to use <tt class="docutils literal">logging</tt>,
+which was built years before <tt class="docutils literal">format</tt> was introduced.
+Second, if there&#8217;s a literal <tt class="docutils literal">%</tt> in the in&shy;ter&shy;po&shy;lat&shy;ed values,
+<tt class="docutils literal">logging</tt> will be unhappy,
+since there won&#8217;t be cor&shy;re&shy;spond&shy;ing arguments in the call.
+It won&#8217;t fall over, since
+“The logging package is designed to swallow exceptions which occur while logging in production.
+This is so that errors which occur while handling logging events
+- <span>&#8230;<a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-07-10">2016-07-10</time>
         <h1>
             <a href="/blog/2016/07/10/ReviewFlashmanAndTheMountainOfLight.html" rel="bookmark canonical">Review: Flashman and the Mountain of Light</a>
         </h1>
@@ -41,22 +77,22 @@
 <div class="line">Rating: ★ ★ ★ ★</div>
 <div class="line">Publisher: Plume</div>
 <div class="line">Copyright: 1990</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/0452267854/?tag=georgvreill-20">0452267854</a></div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0452267854/?tag=georgvreill-20">0452267854</a></div>
 <div class="line">Pages: 368</div>
 <div class="line">Keywords: historical fiction, humor</div>
 <div class="line">Reading period: 29 June–10 July, 2016</div>
-<div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> IX: 1845–46</div>
+<div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> <span class="caps">IX</span>: 1845–46</div>
 </div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman_and_the_Mountain_of_Light">Flashman and the Mountain of Light</a> takes place just after <a class="reference external" href="/blog/2016/07/05/ReviewFlashmansLady.html">Flashman's Lady</a>,
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman_and_the_Mountain_of_Light">Flashman and the Mountain of Light</a> takes place just after <a class="reference external" href="/blog/2016/07/05/ReviewFlashmansLady.html">Flashman&#8217;s Lady</a>,
 and it also falls between the two parts of <a class="reference external" href="/blog/2016/06/26/ReviewRoyalFlash.html">Royal Flash</a>,
 making it the fourth book chrono&shy;log&shy;i&shy;cal&shy;ly of the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>
-and the ninth book published.</p>
+and the ninth book&nbsp;published.</p>
 <p>In the prologue,
 our hero finds himself telling Queen Victoria
 a much-edited version of how he came to acquire the <a class="reference external" href="https://en.wikipedia.org/wiki/Koh-i-Noor">Koh-i-Noor</a> diamond
-on the crown's behalf forty years earlier during the
+on the crown&#8217;s behalf forty years earlier during the
 <a class="reference external" href="https://en.wikipedia.org/wiki/First_Anglo-Sikh_War">First Anglo-Sikh War</a>.
-The <em>actual</em> story—at least according to Flashman and Fraser—is <span>&#8230;<a href="/blog/2016/07/10/ReviewFlashmanAndTheMountainOfLight.html" class="continue">continue</a>.</span></p>
+The <em>actual</em> story—at least according to Flashman and Fraser—is that <span>&#8230;<a href="/blog/2016/07/10/ReviewFlashmanAndTheMountainOfLight.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/10/ReviewFlashmanAndTheMountainOfLight.html#disqus_thread">Comment</a>
@@ -67,10 +103,12 @@ The <em>actual</em> story—at least according to Flashman and Fraser—is <span
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2016-07-09">09.07.2016, 00:00</time>
+        <time datetime="2016-07-09">2016-07-09</time>
         <h1>
             <a href="/blog/2016/07/09/BlackLivesMatterAltonPhilandoAndDallas.html" rel="bookmark canonical">Black Lives Matter: Alton, Philando, and Dallas</a>
         </h1>
@@ -83,8 +121,8 @@ Both shootings were caught on video, which inflamed passions.
 On Thursday night at a peaceful rally in Dallas protesting police violence,
 two snipers killed five police officers and wounded seven others.
 Micah Johnson was later killed by police in a standoff;
-three others were arrested.</p>
-<p>The police should not have killed Alton Sterling or Philando Castile—or Tamir Rice or Freddie Gray <span>&#8230;<a href="/blog/2016/07/09/BlackLivesMatterAltonPhilandoAndDallas.html" class="continue">continue</a>.</span></p>
+three others were&nbsp;arrested.</p>
+<p>The police should not have killed Alton Sterling or Philando Castile—or Tamir Rice or Freddie Gray or <span>&#8230;<a href="/blog/2016/07/09/BlackLivesMatterAltonPhilandoAndDallas.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/09/BlackLivesMatterAltonPhilandoAndDallas.html#disqus_thread">Comment</a>
@@ -95,10 +133,12 @@ three others were arrested.</p>
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2016-07-08">08.07.2016, 00:00</time>
+        <time datetime="2016-07-08">2016-07-08</time>
         <h1>
             <a href="/blog/2016/07/08/TeatroZinzanni.html" rel="bookmark canonical">Teatro Zinzanni</a>
         </h1>
@@ -106,8 +146,8 @@ three others were arrested.</p>
     <a class="reference external image-reference" href="https://zinzanni.com/seattle/"></a>
 <p>Teatro Zinzanni is a long-running circus dinner theater in Seattle.
 Six of us went tonight and enjoyed
-a blend of cabaret, circus arts, fine dining, and vaudeville.</p>
-<p>The current show, Hotel L'Amour, is ostensibly set in a fine hotel,
+a blend of cabaret, circus arts, fine dining, and&nbsp;vaudeville.</p>
+<p>The current show, Hotel L&#8217;Amour, is ostensibly set in a fine hotel,
 where the oc&shy;to&shy;ge&shy;nar&shy;i&shy;an Madame reminisces about her career,
 while Caesar the lounge lizard hams it up,
 Maestro Voronin brings a puppet girl to life,
@@ -115,9 +155,9 @@ one aerialist cavorts around an enormous martini glass,
 a juggler dazzles with his ver&shy;sa&shy;til&shy;i&shy;ty,
 another aerialist works the straps,
 and the soprano trills.
-All this while the audience eats a fairly decent meal spread out over three hours.</p>
-<p>'Twas enjoyable to be sure and the acts were good
-but it <span>&#8230;<a href="/blog/2016/07/08/TeatroZinzanni.html" class="continue">continue</a>.</span></p>
+All this while the audience eats a fairly decent meal spread out over three&nbsp;hours.</p>
+<p>&#8216;Twas enjoyable to be sure and the acts were good
+but it was hard <span>&#8230;<a href="/blog/2016/07/08/TeatroZinzanni.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/08/TeatroZinzanni.html#disqus_thread">Comment</a>
@@ -128,10 +168,12 @@ but it <span>&#8230;<a href="/blog/2016/07/08/TeatroZinzanni.html" class="contin
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2016-07-07">07.07.2016, 00:00</time>
+        <time datetime="2016-07-07">2016-07-07</time>
         <h1>
             <a href="/blog/2016/07/07/ReviewTheTailorOfPanama.html" rel="bookmark canonical">Review: The Tailor of Panama</a>
         </h1>
@@ -145,17 +187,17 @@ but it <span>&#8230;<a href="/blog/2016/07/08/TeatroZinzanni.html" class="contin
 <div class="line">Keywords: spy thriller, satire</div>
 <div class="line">Watched: 7 July, 2016</div>
 </div>
-<p>Andy Osnard (Pierce Brosnan) is a disgraced MI6 officer, packed off to Panama,
+<p>Andy Osnard (Pierce Brosnan) is a disgraced <span class="caps">MI6</span> officer, packed off to Panama,
 where he recruits Harry Pendel (Geoffrey Rush), the eponymous tailor.
 Osnard is an un&shy;scrupu&shy;lous dirtbag;
 Pendel is a fabulist in need of money;
-they're made for each other.
+they&#8217;re made for each other.
 Panama is “Casablan&shy;ca without the heroes”
 and Pendel spins tall tales that make their way back to London.
 Eventually, he outdoes himself, claiming that the Canal is to be sold to the Chinese.
 Osnard manages to procure $15 million to fund a revolution,
-which he plans to abscond with.</p>
-<p>Brosnan plays against <span>&#8230;<a href="/blog/2016/07/07/ReviewTheTailorOfPanama.html" class="continue">continue</a>.</span></p>
+which he plans to abscond&nbsp;with.</p>
+<p>Brosnan plays against type <span>&#8230;<a href="/blog/2016/07/07/ReviewTheTailorOfPanama.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/07/ReviewTheTailorOfPanama.html#disqus_thread">Comment</a>
@@ -166,10 +208,12 @@ which he plans to abscond with.</p>
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2016-07-06">06.07.2016, 00:00</time>
+        <time datetime="2016-07-06">2016-07-06</time>
         <h1>
             <a href="/blog/2016/07/06/BashBulkRenaming.html" rel="bookmark canonical">Bash: Bulk Renaming</a>
         </h1>
@@ -202,36 +246,38 @@ done
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2016-07-05">05.07.2016, 00:00</time>
+        <time datetime="2016-07-05">2016-07-05</time>
         <h1>
             <a href="/blog/2016/07/05/ReviewFlashmansLady.html" rel="bookmark canonical">Review: Flashman's Lady</a>
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.amazon.com/dp/0452264898/?tag=georgvreill-20"></a>
 <div class="line-block">
-<div class="line">Title: Flashman's Lady</div>
+<div class="line">Title: Flashman&#8217;s Lady</div>
 <div class="line">Author: George MacDonald Fraser</div>
 <div class="line">Rating: ★ ★ ★ ★</div>
 <div class="line">Publisher: Plume</div>
 <div class="line">Copyright: 1977</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/0452264898/?tag=georgvreill-20">0452264898</a></div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0452264898/?tag=georgvreill-20">0452264898</a></div>
 <div class="line">Pages: 330</div>
 <div class="line">Keywords: historical fiction, humor</div>
 <div class="line">Reading period: 24–29 June, 2016</div>
-<div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> VI: 1842–45</div>
+<div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> <span class="caps">VI</span>: 1842–45</div>
 </div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman%27s_Lady">Flashman's Lady</a> takes place between the two parts of <a class="reference external" href="/blog/2016/06/26/ReviewRoyalFlash.html">Royal Flash</a>,
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman%27s_Lady">Flashman&#8217;s Lady</a> takes place between the two parts of <a class="reference external" href="/blog/2016/06/26/ReviewRoyalFlash.html">Royal Flash</a>,
 making it the third book chrono&shy;log&shy;i&shy;cal&shy;ly of the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>
-and the sixth book published.</p>
+and the sixth book&nbsp;published.</p>
 <p>Flashman and his wife, Elspeth, become friendly with Don Solomon Haslam,
 a rich merchant from the East Indies.
 Losing a wager to Haslam, who is smitten with Elspeth,
 Flashy has to let Haslam take Elspeth and her father on a trip to Singapore.
 As things have become hot for him in England, he sails east with them.
-Haslam's feelings <span>&#8230;<a href="/blog/2016/07/05/ReviewFlashmansLady.html" class="continue">continue</a>.</span></p>
+Haslam&#8217;s feelings for <span>&#8230;<a href="/blog/2016/07/05/ReviewFlashmansLady.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/05/ReviewFlashmansLady.html#disqus_thread">Comment</a>
@@ -242,10 +288,12 @@ Haslam's feelings <span>&#8230;<a href="/blog/2016/07/05/ReviewFlashmansLady.htm
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2016-07-04">04.07.2016, 00:00</time>
+        <time datetime="2016-07-04">2016-07-04</time>
         <h1>
             <a href="/blog/2016/07/04/IndependenceDay.html" rel="bookmark canonical">Independence Day</a>
         </h1>
@@ -253,14 +301,14 @@ Haslam's feelings <span>&#8230;<a href="/blog/2016/07/05/ReviewFlashmansLady.htm
     
 <p>I have an ambivalent relation to the notion of patriotism
 because all too often those who most loudly proclaim themselves to be patriots
-are the worst sort of jingoistic, know-nothing, blowhard&shy;s—be they Trump supporters, Brexiters, or Irish na&shy;tion&shy;al&shy;ists.</p>
+are the worst sort of jingoistic, know-nothing, blowhard&shy;s—be they Trump supporters, Brexiters, or Irish&nbsp;na&shy;tion&shy;al&shy;ists.</p>
 <p>And yet, for all the flaws and failures of the American Experiment,
 there are still things to celebrate.
-America's optimism and can-do spirit, although much abraded in recent years, is still exemplary.
+America&#8217;s optimism and can-do spirit, although much abraded in recent years, is still exemplary.
 Millions continue to flock here, drawn to the land of op&shy;por&shy;tu&shy;ni&shy;ty.
 The Founding Fathers created a great and lasting democracy,
 albeit with a franchise and a set of rights that had to be widened several times.
-The world can't <span>&#8230;<a href="/blog/2016/07/04/IndependenceDay.html" class="continue">continue</a>.</span></p>
+The world can&#8217;t get <span>&#8230;<a href="/blog/2016/07/04/IndependenceDay.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/04/IndependenceDay.html#disqus_thread">Comment</a>
@@ -271,24 +319,26 @@ The world can't <span>&#8230;<a href="/blog/2016/07/04/IndependenceDay.html" cla
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2016-07-03">03.07.2016, 00:00</time>
+        <time datetime="2016-07-03">2016-07-03</time>
         <h1>
             <a href="/blog/2016/07/03/SSDUpgradeFor2012MacBook.html" rel="bookmark canonical">SSD Upgrade for 2012 MacBook</a>
         </h1>
     </header>
     <a class="reference external image-reference" href="https://eshop.macsales.com/shop/internal_storage/Data_Doubler"></a>
 <p>My mid-2012 15&quot; MacBook Pro has been getting ever slower.
-My last two work laptops came with SSDs, but this older machine has a 768GB hard disk drive.
+My last two work laptops came with SSDs, but this older machine has a <span class="caps">768GB</span> hard disk drive.
 It was time to get a solid-state drive, which are far more affordable now than four years ago.
-Rather than replace the HDD, I bought a <a class="reference external" href="https://eshop.macsales.com/shop/internal_storage/Data_Doubler">Data Doubler</a> kit and a 480GB SSD.
-I removed the optical drive and installed the Data Doubler with SSD in that space.
-I rarely used the DVD drive, so I won't miss it.</p>
+Rather than replace the <span class="caps">HDD</span>, I bought a <a class="reference external" href="https://eshop.macsales.com/shop/internal_storage/Data_Doubler">Data Doubler</a> kit and a <span class="caps">480GB</span> <span class="caps">SSD</span>.
+I removed the optical drive and installed the Data Doubler with <span class="caps">SSD</span> in that space.
+I rarely used the <span class="caps">DVD</span> drive, so I won&#8217;t miss&nbsp;it.</p>
 <p>The Data Doubler kit came with a set of screw&shy;drivers and
 a detailed manual that covered multiple MacBook models.
-The manual <span>&#8230;<a href="/blog/2016/07/03/SSDUpgradeFor2012MacBook.html" class="continue">continue</a>.</span></p>
+The manual had <span>&#8230;<a href="/blog/2016/07/03/SSDUpgradeFor2012MacBook.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/03/SSDUpgradeFor2012MacBook.html#disqus_thread">Comment</a>
@@ -299,10 +349,12 @@ The manual <span>&#8230;<a href="/blog/2016/07/03/SSDUpgradeFor2012MacBook.html"
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2016-07-02">02.07.2016, 00:00</time>
+        <time datetime="2016-07-02">2016-07-02</time>
         <h1>
             <a href="/blog/2016/07/02/ReviewTomorrowland.html" rel="bookmark canonical">Review: Tomorrowland</a>
         </h1>
@@ -316,15 +368,15 @@ The manual <span>&#8230;<a href="/blog/2016/07/03/SSDUpgradeFor2012MacBook.html"
 <div class="line">Keywords: sf</div>
 <div class="line">Watched: 2 July, 2016</div>
 </div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Tomorrowland_(film)">To&shy;mor&shy;row&shy;land</a> is a story of dashed dreams and recovered optimism.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Tomorrowland_(film)">To&shy;mor&shy;row&shy;land</a> is a story of dashed dreams and recovered&nbsp;optimism.</p>
 <p>In 1964, eleven-year-old Frank Walker meets a girl called Athena
-who takes him from the World's Fair into a futuristic city called To&shy;mor&shy;row&shy;land.
+who takes him from the World&#8217;s Fair into a futuristic city called To&shy;mor&shy;row&shy;land.
 In the present day, where doom and gloom reign,
-a teenager called Casey hasn't given up hope of a better future.
+a teenager called Casey hasn&#8217;t given up hope of a better future.
 She is recruited by Athena—&shy;some&shy;how no older—to save the world.
 Casey finds Frank, who is embittered at having been cast out of paradise decades ago.
 They find their way back into the now-desolate To&shy;mor&shy;row&shy;land
-and destroy the machine that's casting a pall <span>&#8230;<a href="/blog/2016/07/02/ReviewTomorrowland.html" class="continue">continue</a>.</span></p>
+and destroy the machine that&#8217;s casting a pall of <span>&#8230;<a href="/blog/2016/07/02/ReviewTomorrowland.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/02/ReviewTomorrowland.html#disqus_thread">Comment</a>
@@ -335,45 +387,8 @@ and destroy the machine that's casting a pall <span>&#8230;<a href="/blog/2016/0
     </footer>
     <div class="comments"></div>
 </article>
-    
-        <article>
-    <header>
-        <time datetime="2016-07-01">01.07.2016, 00:00</time>
-        <h1>
-            <a href="/blog/2016/07/01/ReviewJimmysHall.html" rel="bookmark canonical">Review: Jimmy's Hall</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Jimmy%27s_Hall"></a>
-<div class="line-block">
-<div class="line">Title: Jimmy's Hall</div>
-<div class="line">Director: Ken Loach</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Released: 2014</div>
-<div class="line">Keywords: irish, historical</div>
-<div class="line">Watched: 1 July, 2016</div>
-</div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Jimmy%27s_Hall">Jimmy's Hall</a> tells how Jimmy Gralton became the only Irishman ever deported from Ireland.
-Gralton returns to rural Ireland from the US in 1932,
-after being run out ten years' earlier
-during the Irish Civil War for Communist activity.
-He revives the dance hall he had built previously,
-as it is a much-needed outlet for the young to dance, study, and talk,
-and im&shy;me&shy;di&shy;ate&shy;ly runs afoul of the local powers,
-par&shy;tic&shy;u&shy;lar&shy;ly the parish priest.
-Tensions escalate, cul&shy;mi&shy;nat&shy;ing in his de&shy;por&shy;ta&shy;tion.</p>
-<p>Ken Loach is never subtle about his own socialist beliefs.
-<em>Jimmy's Hall</em> is a polemic about
-the <span>&#8230;<a href="/blog/2016/07/01/ReviewJimmysHall.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/01/ReviewJimmysHall.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
+
+
     
     
         <a href="/blog/page/7/" class="page floatright">

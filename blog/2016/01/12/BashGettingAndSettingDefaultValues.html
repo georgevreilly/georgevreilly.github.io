@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Bash: Getting and Setting Default Values</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,14 +32,14 @@
     
         <article>
     <header>
-        <time datetime="2016-01-12">12.01.2016, 00:00</time>
+        <time datetime="2016-01-12">2016-01-12</time>
         <h1>
             <a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" rel="bookmark canonical">Bash: Getting and Setting Default Values</a>
         </h1>
     </header>
     <p>Bash has some handy syntax for getting and setting default values.
-Un&shy;for&shy;tu&shy;nate&shy;ly, it's a collection of punc&shy;tu&shy;a&shy;tion characters,
-which makes it hard to Google when you can't quite remember the syntax.</p>
+Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s a collection of punc&shy;tu&shy;a&shy;tion characters,
+which makes it hard to Google when you can&#8217;t quite remember the&nbsp;syntax.</p>
 <p>Getting a default value using <tt class="docutils literal"><span class="pre">${var:-fallback}</span></tt>:</p>
 
 <pre class="brush: bash">
@@ -50,8 +51,8 @@ build_version=${VERSION:-$(someprog --version | sed 's/[^0-9.]*\([0-9.]*\).*/\1/
 </pre>
 
 <p>The colon-dash con&shy;struc&shy;tion is known as the
-<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog's bollocks</a>
-in typography.</p>
+<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog&#8217;s bollocks</a>
+in&nbsp;typography.</p>
 <p>Setting a default value, using <tt class="docutils literal"><span class="pre">${var:=fallback}</span></tt>:</p>
 
 <pre class="brush: bash">
@@ -70,8 +71,8 @@ $ cd; pwd
 
 <p>Note: <tt class="docutils literal">:=</tt> uses the new value in two cases.
 First, when the shell variable is not set;
-second, when the variable is set but empty.</p>
-<p>If you want to assign the variable only when it's previously unset, omit the colon,
+second, when the variable is set but&nbsp;empty.</p>
+<p>If you want to assign the variable only when it&#8217;s previously unset, omit the colon,
 <tt class="docutils literal">${var=fallback}</tt>.</p>
 
     <footer>
@@ -106,6 +107,8 @@ second, when the variable is set but empty.</p>
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2016/01/11/ReviewBlindJustice.html" class="page floatright">

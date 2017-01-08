@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Nosetests won't discover tests in executable files</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,24 +32,24 @@
     
         <article>
     <header>
-        <time datetime="2015-03-02">02.03.2015, 00:00</time>
+        <time datetime="2015-03-02">2015-03-02</time>
         <h1>
             <a href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html" rel="bookmark canonical">Nosetests won't discover tests in executable files</a>
         </h1>
     </header>
     <a class="reference external image-reference" href="http://nose.readthedocs.org/"><img alt="Nose is nicer testing for Python" class="right-float" src="/content/binary/nose-is-nicer-testing-for-python.jpg"/></a>
 <p>We use <a class="reference external" href="http://nose.readthedocs.org/">Nose</a> to run unit tests.
-I noticed that we had some tests that weren't being run,
+I noticed that we had some tests that weren&#8217;t being run,
 and it took me some time to work out why.
 Eventually, I found this <a class="reference external" href="https://www.hyperink.com/blog/?p=22">checklist</a>,
-which told me to &quot;make sure the files in your tests directory are not executable&quot;.</p>
-<p>A quick <tt class="docutils literal">chmod <span class="pre">-x</span> *.py</tt> later and <tt class="docutils literal">nosetests project/tests</tt> suddenly found all the tests.</p>
-<p>Now that I know what to look for, I found this in the Nose docs:</p>
+which told me to &quot;make sure the files in your tests directory are not&nbsp;executable&quot;.</p>
+<p>A quick <tt class="docutils literal">chmod <span class="pre">-x</span> *.py</tt> later and <tt class="docutils literal">nosetests project/tests</tt> suddenly found all the&nbsp;tests.</p>
+<p>Now that I know what to look for, I found this in the Nose&nbsp;docs:</p>
 <blockquote>
 <p>It is important to note that the default behavior of nose
-is to not include tests from files which are executable.</p>
+is to not include tests from files which are&nbsp;executable.</p>
 <p><tt class="docutils literal"><span class="pre">--exe</span></tt>: Look for tests in python modules that are executable.
-Normal behavior is to exclude executable modules, since they may not be import-safe</p>
+Normal behavior is to exclude executable modules, since they may not be&nbsp;import-safe</p>
 </blockquote>
 
     <footer>
@@ -83,6 +84,8 @@ Normal behavior is to exclude executable modules, since they may not be import-s
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2015/03/01/ReviewBloodEye.html" class="page floatright">

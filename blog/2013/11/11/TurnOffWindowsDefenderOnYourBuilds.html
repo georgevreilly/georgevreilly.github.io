@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Turn off Windows Defender on your builds</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,43 +32,43 @@
     
         <article>
     <header>
-        <time datetime="2013-11-11">11.11.2013, 00:00</time>
+        <time datetime="2013-11-11">2013-11-11</time>
         <h1>
             <a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" rel="bookmark canonical">Turn off Windows Defender on your builds</a>
         </h1>
     </header>
-    <p>I've spent some time this evening profiling a Python ap&shy;pli&shy;ca&shy;tion on Windows,
+    <p>I&#8217;ve spent some time this evening profiling a Python ap&shy;pli&shy;ca&shy;tion on Windows,
 trying to find out why it was so much slower than on Mac or Linux.
 The ap&shy;pli&shy;ca&shy;tion is an in-house build tool which reads a number of config files,
-then writes some output files.</p>
+then writes some output&nbsp;files.</p>
 <p>Using the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run&shy;SnakeRun</a> Python profile viewer on Windows,
 two things im&shy;me&shy;di&shy;ate&shy;ly leapt out at me:
 we were running <tt class="docutils literal">os.stat</tt> a lot
-and <tt class="docutils literal">file.close</tt> was really expensive.</p>
+and <tt class="docutils literal">file.close</tt> was really&nbsp;expensive.</p>
 <p>A quick test convinced me that we were <a class="reference external" href="http://docs.python.org/2/library/stat.html">stat-ing</a> the same files over and over.
 It was a com&shy;bi&shy;na&shy;tion of explicit checks and implicit code,
 like <tt class="docutils literal">os.walk</tt> calling <tt class="docutils literal">os.path.isdir</tt>.
 I wrote a little cache that memoizes the results,
-which brought the cost of the <tt class="docutils literal">os.stats</tt> down from 1.5 seconds to 0.6.</p>
+which brought the cost of the <tt class="docutils literal">os.stats</tt> down from 1.5 seconds to&nbsp;0.6.</p>
 <p>Figuring out why closing files was so expensive was harder.
-I was writing 77 files, totaling just over 1MB, and it was taking 3.5 seconds.
-It turned out that it wasn't the UTF-8 codec or newline trans&shy;la&shy;tion.
-It was simply that <em>closing</em> those files took far longer than it should have.</p>
+I was writing 77 files, totaling just over <span class="caps">1MB</span>, and it was taking 3.5 seconds.
+It turned out that it wasn&#8217;t the <span class="caps">UTF</span>-8 codec or newline trans&shy;la&shy;tion.
+It was simply that <em>closing</em> those files took far longer than it should&nbsp;have.</p>
 <p>I decided to try a different profiler, hoping to learn more.
 I downloaded the <a class="reference external" href="http://msdn.microsoft.com/en-us/library/windows/hardware/hh448170.aspx">Windows Per&shy;for&shy;mance Toolkit</a>.
 I recorded a couple of traces of my ap&shy;pli&shy;ca&shy;tion running,
 then I looked at them in the Windows Per&shy;for&shy;mance Analyzer,
-whereupon I saw that in each case, the CPU spike of my app
-was followed by a CPU spike in MsMpEng.exe.</p>
-<p><a class="reference external" href="http://helpdeskgeek.com/windows-vista-tips/what-is-msmpeng-exe/">What's MsMpEng.exe</a>? It's Mi&shy;crosoft&shy;'s an&shy;ti&shy;mal&shy;ware engine,
+whereupon I saw that in each case, the <span class="caps">CPU</span> spike of my app
+was followed by a <span class="caps">CPU</span> spike in&nbsp;MsMpEng.exe.</p>
+<p><a class="reference external" href="http://helpdeskgeek.com/windows-vista-tips/what-is-msmpeng-exe/">What&#8217;s MsMpEng.exe</a>? It&#8217;s Microsoft&#8217;s an&shy;ti&shy;mal&shy;ware engine,
 at the heart of Windows Defender.
 I added my build tree to the list of excluded locations,
 and my runtime <em>halved</em>.
 The 3.5 seconds of file closing dropped to 60 mil&shy;lisec&shy;onds,
-a 98% reduction.</p>
+a 98%&nbsp;reduction.</p>
 <p>The moral of this story is:
-don't let your virus checker run on your builds.</p>
-<img alt="Windows Defender: Exclude directory for scanning" src="http://www.georgevreilly.com/blog/content/binary/WindowsDefender-FileExclusion.png"/>
+don&#8217;t let your virus checker run on your&nbsp;builds.</p>
+<img alt="Windows Defender: Exclude directory for scanning" src="/content/binary/WindowsDefender-FileExclusion.png"/>
 
     <footer>
         
@@ -101,6 +102,8 @@ don't let your virus checker run on your builds.</p>
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2013/10/24/ReviewBackbonejsTesting.html" class="page floatright">

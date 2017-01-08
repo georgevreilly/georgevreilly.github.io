@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>HTTPS for GitHub Pages Custom Domain: Not Yet</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,40 +32,40 @@
     
         <article>
     <header>
-        <time datetime="2016-08-29">29.08.2016, 00:00</time>
+        <time datetime="2016-08-29">2016-08-29</time>
         <h1>
             <a href="/blog/2016/08/29/HTTPSforGitHubPagesCustomDomainNotYet.html" rel="bookmark canonical">HTTPS for GitHub Pages Custom Domain: Not Yet</a>
         </h1>
     </header>
     <p>This website, <a class="reference external" href="http://www.georgevreilly.com/">http://www.georgevreil&shy;ly.com/</a>, is hosted at GitHub Pages.
-It's actually <a class="reference external" href="https://georgevreilly.github.io/">https://georgevreil&shy;ly.github.io/</a>
-but I've configured the former as the “custom domain”,
-so the latter is un&shy;con&shy;di&shy;tion&shy;al&shy;ly redirected to the custom domain.</p>
+It&#8217;s actually <a class="reference external" href="https://georgevreilly.github.io/">https://georgevreil&shy;ly.github.io/</a>
+but I&#8217;ve configured the former as the “custom domain”,
+so the latter is un&shy;con&shy;di&shy;tion&shy;al&shy;ly redirected to the custom&nbsp;domain.</p>
 <p>GitHub Pages gives me free, fast hosting and an easy pub&shy;li&shy;ca&shy;tion model:
 I commit the latest changes to my <tt class="docutils literal">master</tt> branch,
 I push the branch to GitHub,
 and seconds later, my site is updated.
-I'm using <a class="reference external" href="https://posativ.org/acrylamid/">Acrylamid</a> to generate the content from re&shy;Struc&shy;tured&shy;Text source
+I&#8217;m using <a class="reference external" href="https://posativ.org/acrylamid/">Acrylamid</a> to generate the content from re&shy;Struc&shy;tured&shy;Text source
 on the <tt class="docutils literal">blog</tt> branch
-and <a class="reference external" href="https://github.com/davisp/ghp-import">ghp-import</a> to commit the HTML to the <tt class="docutils literal">master</tt> branch.</p>
-<p>GitHub Pages supports <a class="reference external" href="https://github.com/blog/2186-https-for-github-pages">HTTPS</a> as of June 2016, but not for custom domains.
-There are some <a class="reference external" href="https://konklone.com/post/github-pages-now-sorta-supports-https-so-use-it">hacks</a> but I don't feel like using them.
-I'm hoping that GitHub will add support for custom domains soon.</p>
-<p>Why HTTPS?
-It's secure, it engenders trust, and <a class="reference external" href="https://scotthelme.co.uk/still-think-you-dont-need-https/">it's faster than HTTP</a>.
-The latter surprised me and the (big) caveat is that HTTPS's speed is due to HTTP/2,
+and <a class="reference external" href="https://github.com/davisp/ghp-import">ghp-import</a> to commit the <span class="caps">HTML</span> to the <tt class="docutils literal">master</tt> branch.</p>
+<p>GitHub Pages supports <a class="reference external" href="https://github.com/blog/2186-https-for-github-pages"><span class="caps">HTTPS</span></a> as of June 2016, but not for custom domains.
+There are some <a class="reference external" href="https://konklone.com/post/github-pages-now-sorta-supports-https-so-use-it">hacks</a> but I don&#8217;t feel like using them.
+I&#8217;m hoping that GitHub will add support for custom domains&nbsp;soon.</p>
+<p>Why <span class="caps">HTTPS</span>?
+It&#8217;s secure, it engenders trust, and <a class="reference external" href="https://scotthelme.co.uk/still-think-you-dont-need-https/">it&#8217;s faster than <span class="caps">HTTP</span></a>.
+The latter surprised me and the (big) caveat is that <span class="caps">HTTPS</span>&#8217;s speed is due to <span class="caps">HTTP</span>/2,
 which <em>requires</em> a secure connection using TLSv1.2.
-HTTP/1.1 is indeed slower than HTTP/2.</p>
-<p>I have never quite trained myself <a class="reference external" href="https://thoughtstreams.io/glyph/there-is-no-ssl/">not to say SSL</a>,
+<span class="caps">HTTP</span>/1.1 is indeed slower than&nbsp;<span class="caps">HTTP</span>/2.</p>
+<p>I have never quite trained myself <a class="reference external" href="https://thoughtstreams.io/glyph/there-is-no-ssl/">not to say <span class="caps">SSL</span></a>,
 even though Secure Sockets Layer 3.0 was released <em>twenty</em> years ago in 1996
-and has long been superseded by Transport Layer Security (TLS).
-And it's “HTTP Secure”, not “HTTP over SSL”.</p>
-<p>I briefly looked at <a class="reference external" href="https://letsencrypt.org/">Let's Encrypt</a> while thinking about generating a cer&shy;tifi&shy;cate.
+and has long been superseded by Transport Layer Security (<span class="caps">TLS</span>).
+And it&#8217;s “<span class="caps">HTTP</span> Secure”, not “<span class="caps">HTTP</span> over&nbsp;<span class="caps">SSL</span>”.</p>
+<p>I briefly looked at <a class="reference external" href="https://letsencrypt.org/">Let&#8217;s Encrypt</a> while thinking about generating a cer&shy;tifi&shy;cate.
 I installed its <a class="reference external" href="https://certbot.eff.org/">Certbot</a> tool using Homebrew
 and I saw that it depended upon something called <a class="reference external" href="http://augeas.net/">Augeas</a>,
 which turns out to be a con&shy;fig&shy;u&shy;ra&shy;tion-editing tool.
 Ironically, Augeas is hosted at <a class="reference external" href="http://augeas.net/">http://augeas.net/</a> [sic].
-I <a class="reference external" href="https://twitter.com/georgevreilly/status/770501648955211776">tweeted</a> about it.</p>
+I <a class="reference external" href="https://twitter.com/georgevreilly/status/770501648955211776">tweeted</a> about&nbsp;it.</p>
 
     <footer>
         
@@ -98,6 +99,8 @@ I <a class="reference external" href="https://twitter.com/georgevreilly/status/7
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2016/08/28/Plums.html" class="page floatright">

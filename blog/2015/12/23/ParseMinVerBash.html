@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Checking minimum version numbers in Bash</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,7 +32,7 @@
     
         <article>
     <header>
-        <time datetime="2015-12-23">23.12.2015, 00:00</time>
+        <time datetime="2015-12-23">2015-12-23</time>
         <h1>
             <a href="/blog/2015/12/23/ParseMinVerBash.html" rel="bookmark canonical">Checking minimum version numbers in Bash</a>
         </h1>
@@ -41,17 +42,17 @@
 We need a recent version of Docker
 but our <a class="reference external" href="https://www.atlassian.com/software/bamboo/">Bamboo</a> build agents are running on Ubuntu 14.04,
 which has a very old version of Docker.
-The script upgrades Docker when it's first run.
+The script upgrades Docker when it&#8217;s first run.
 The script may be run more than once during the lifetime of the agent,
-so the second and subsequent calls should not upgrade Docker.</p>
-<p>Basically, I wanted</p>
+so the second and subsequent calls should not upgrade&nbsp;Docker.</p>
+<p>Basically, I&nbsp;wanted</p>
 
 <pre class="brush: bash">
 if $DOCKER_VERSION &lt; 1.9; then upgrade_docker; fi
 </pre>
 
-<p>Un&shy;for&shy;tu&shy;nate&shy;ly, it's not that easy in Bash.
-Here's what I came up with.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s not that easy in Bash.
+Here&#8217;s what I came up&nbsp;with.</p>
 
 <pre class="brush: bash">
 install_latest_docker() {
@@ -65,8 +66,8 @@ sys.exit(v &lt; min)";
     # Install Docker ...
 </pre>
 
-<p>Let's unpack that ugly <tt class="docutils literal">if</tt> one-liner.
-Note: the <tt class="docutils literal">↩</tt> denotes linebreaks introduced for pre&shy;sen&shy;ta&shy;tion purposes; it's all one line.</p>
+<p>Let&#8217;s unpack that ugly <tt class="docutils literal">if</tt> one-liner.
+Note: the <tt class="docutils literal">↩</tt> denotes linebreaks introduced for pre&shy;sen&shy;ta&shy;tion purposes; it&#8217;s all one&nbsp;line.</p>
 
 <pre class="brush: bash">
 $ docker --version
@@ -131,11 +132,11 @@ Out[17]: 1
 produces a list of integers,
 which can be compared lex&shy;i&shy;co&shy;graph&shy;i&shy;cal&shy;ly against
 <tt class="docutils literal">min</tt>, another list.
-<tt class="docutils literal">sys.exit</tt> is called with <tt class="docutils literal">1</tt> when Docker's version is less than <tt class="docutils literal">min</tt>.</p>
+<tt class="docutils literal">sys.exit</tt> is called with <tt class="docutils literal">1</tt> when Docker&#8217;s version is less than <tt class="docutils literal">min</tt>.</p>
 <p>When <tt class="docutils literal">$?</tt> is non-zero in Bash, then <tt class="docutils literal">if some_&shy;com&shy;mand</tt> fails
-and the <tt class="docutils literal">else</tt> clause (none here) is executed.</p>
+and the <tt class="docutils literal">else</tt> clause (none here) is&nbsp;executed.</p>
 <p>I came across <a class="reference external" href="http://python-oneliner.readthedocs.org/en/latest/">Python Oneliner</a>, while debugging my script.
-I might use Oneliner in other cir&shy;cum&shy;stances.</p>
+I might use Oneliner in other&nbsp;cir&shy;cum&shy;stances.</p>
 
     <footer>
         
@@ -169,6 +170,8 @@ I might use Oneliner in other cir&shy;cum&shy;stances.</p>
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2015/12/22/ChristmasCake.html" class="page floatright">

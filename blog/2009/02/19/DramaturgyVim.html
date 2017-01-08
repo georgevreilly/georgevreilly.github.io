@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Dramaturgy: Vim</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -12,7 +13,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content=".. image:: http://www.georgevreilly.com/blog/conte..." />
+    <meta name="description" content=".. image:: /content/binary/bloom-anointed-pdf.png..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,14 +32,14 @@
     
         <article>
     <header>
-        <time datetime="2009-02-19">19.02.2009, 00:00</time>
+        <time datetime="2009-02-19">2009-02-19</time>
         <h1>
             <a href="/blog/2009/02/19/DramaturgyVim.html" rel="bookmark canonical">Dramaturgy: Vim</a>
         </h1>
     </header>
-    <a class="reference external image-reference" href="http://www.wildgeeseseattle.org/"><img alt="Bloomsday reading" src="http://www.georgevreilly.com/blog/content/binary/bloom-anointed-pdf.png"/></a>
+    <a class="reference external image-reference" href="http://www.wildgeeseseattle.org/"><img alt="Bloomsday reading" src="/content/binary/bloom-anointed-pdf.png"/></a>
 <p>So how do I go from the <a class="reference external" href="http://www.gutenberg.org/etext/4300">Project Gutenberg etext</a> to <a class="reference external" href="http://www.georgevreilly.com/blog/2009/02/18/DramaturgyLaTeX.html">LaTeX</a>?</p>
-<p>Here's the Gutenberg text for the pictured fragment:</p>
+<p>Here&#8217;s the Gutenberg text for the pictured&nbsp;fragment:</p>
 <pre class="literal-block">
 (BLOOM'S WEATHER. A SUNBURST APPEARS IN THE NORTHWEST.)
 
@@ -63,8 +64,8 @@ HEAD) GAUDIUM MAGNUM ANNUNTIO VOBIS. HABEMUS CARNEFICEM. Leopold,
 Patrick, Andrew, David, George, be thou anointed!
 </pre>
 <p>The Gutenberg tran&shy;scriber has converted all italics to uppercase.
-All accents on letters have been lost (there were none in this fragment).</p>
-<p>Here's the cor&shy;re&shy;spond&shy;ing LaTeX that I derived from the above:</p>
+All accents on letters have been lost (there were none in this&nbsp;fragment).</p>
+<p>Here&#8217;s the cor&shy;re&shy;spond&shy;ing LaTeX that I derived from the&nbsp;above:</p>
 <pre class="literal-block">
 \stage{(Bloom's weather.
 A sunburst appears in the northwest.)}
@@ -101,33 +102,33 @@ Habemus carneficem.}
 Leopold, Patrick, Andrew, David, George, be thou anointed!
 </pre>
 <p>I could simply have used <tt class="docutils literal">\em</tt> to get italics,
-but I'm a big believer in semantic markup,
+but I&#8217;m a big believer in semantic markup,
 so I wrote a set of custom macros,
 like <tt class="docutils literal">\stage</tt> and <tt class="docutils literal">\latin</tt>.
 The name macros, like <tt class="docutils literal">\Bloom</tt> and <tt class="docutils literal">\All</tt>,
 are defined in terms of the <tt class="docutils literal">\role</tt> macro.
 The <tt class="docutils literal">\gab</tt> macro lists the line number
 in the Gabler edition of <em>Ulysses</em>.
-It's useful for looking up reference works
-and it would have been hard to do in re&shy;Struc&shy;tured&shy;Text.</p>
+It&#8217;s useful for looking up reference works
+and it would have been hard to do in&nbsp;re&shy;Struc&shy;tured&shy;Text.</p>
 <pre class="literal-block">
 \newcommand{\stage}[1]{\emph{#1}}
 \newcommand{\role}[1]{{\textsc{#1}}}
 \newcommand{\Bloom}{\role{Bloom}}
 \newcommand{\gab}[1]{\marginpar{#1}}
 </pre>
-<p>I used Vim to massage the text.</p>
+<p>I used Vim to massage the&nbsp;text.</p>
 <ul class="simple">
 <li>For my own sanity, I have broken each clause onto a separate line.
 Much of this can be done by sub&shy;sti&shy;tut&shy;ing a newline
 after every period and right paren&shy;the&shy;sis.
-The other breaks require manual splitting and joining of lines.</li>
-<li>Trans&shy;form&shy;ing <tt class="docutils literal">BLOOM:</tt> into <tt class="docutils literal">\Bloom:</tt> is a trivial text sub&shy;sti&shy;tu&shy;tion,
-<tt class="docutils literal"><span class="pre">:%s/^BLOOM:</span> <span class="pre">/\\Bloom:\r/</span></tt></li>
+The other breaks require manual splitting and joining of&nbsp;lines.</li>
+<li>Trans&shy;form&shy;ing <tt class="docutils literal"><span class="caps">BLOOM</span>:</tt> into <tt class="docutils literal">\Bloom:</tt> is a trivial text sub&shy;sti&shy;tu&shy;tion,
+<tt class="docutils literal"><span class="pre">:%s/^<span class="caps">BLOOM</span>:</span> <span class="pre">/\\Bloom:\r/</span></tt></li>
 <li>All the uppercase text has been converted to mixed case.
 Much of it needs to be bracketed by <tt class="docutils literal">\stage{}</tt> in this chapter.
 The rest needs to be treated as <tt class="docutils literal">\latin{}</tt>, <tt class="docutils literal">\hebrew{}</tt>, <tt class="docutils literal">\french{}</tt>,
-and so on.</li>
+and so&nbsp;on.</li>
 </ul>
 <p>I used the following Vim macro to bracket the <a class="reference external" href="http://jmcpherson.org/editing.html">visual selection</a>
 with <tt class="docutils literal">\stage{}</tt>.</p>
@@ -135,7 +136,7 @@ with <tt class="docutils literal">\stage{}</tt>.</p>
 &quot; ;s =&gt; SELECTION -&gt; \stage{selection}
 vnoremap &lt;buffer&gt; &lt;silent&gt; ;s u`&gt;a}&lt;Esc&gt;`&lt;i\stage{&lt;Esc&gt;
 </pre>
-<p>Breaking it down, since that looks like line noise.</p>
+<p>Breaking it down, since that looks like line&nbsp;noise.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="18%"/>
@@ -146,10 +147,10 @@ vnoremap &lt;buffer&gt; &lt;silent&gt; ;s u`&gt;a}&lt;Esc&gt;`&lt;i\stage{&lt;Es
 <td>Visual-mode keymap; no further expansion of the right-hand side</td>
 </tr>
 <tr><td>&lt;buffer&gt;</td>
-<td>Buffer-local. Won't apply in other buffers.</td>
+<td>Buffer-local. Won&#8217;t apply in other buffers.</td>
 </tr>
 <tr><td>&lt;silent&gt;</td>
-<td>Mapping won't be echoed on the Vim command line</td>
+<td>Mapping won&#8217;t be echoed on the Vim command line</td>
 </tr>
 <tr><td>;s</td>
 <td>Mapping is bound to sequence <tt class="docutils literal">;s</tt></td>
@@ -171,33 +172,33 @@ vnoremap &lt;buffer&gt; &lt;silent&gt; ;s u`&gt;a}&lt;Esc&gt;`&lt;i\stage{&lt;Es
 </tr>
 </tbody>
 </table>
-<p>It's necessary to append to the end of the selection first.
+<p>It&#8217;s necessary to append to the end of the selection first.
 Were I to first insert at the beginning,
 the append would happen seven characters (<tt class="docutils literal"><span class="pre">len('\stage{')</span></tt>) too early.
-(I picked this trick up from Christian Robinson's <a class="reference external" href="http://www.infynity.spodzone.com/vim/HTML/">HTML macros</a>.)
+(I picked this trick up from Christian Robinson&#8217;s <a class="reference external" href="http://www.infynity.spodzone.com/vim/HTML/"><span class="caps">HTML</span> macros</a>.)
 Then I have to go back and convert a few characters to uppercase
 with the <tt class="docutils literal">~</tt> operator.</p>
-<p>This workflow isn't for everyone and it would be difficult
+<p>This workflow isn&#8217;t for everyone and it would be difficult
 if I had to hand it off to someone else.
-Most non-geeks would prefer to use a WYSIWYG tool like Word.
-I loathe Word and I want the control.</p>
+Most non-geeks would prefer to use a <span class="caps">WYSIWYG</span> tool like Word.
+I loathe Word and I want the&nbsp;control.</p>
 <p>All of this is somewhat tedious,
 since even with useful Vim macros taking care of many of the changes,
 I still have to make manual tweaks on almost every line.
 But this is also a virtue,
-as it makes me intimately familiar with the text.</p>
+as it makes me intimately familiar with the&nbsp;text.</p>
 <p>The hardest task—at least for me—is making the dra&shy;matur&shy;gi&shy;cal decisions.
 Usually, it can be hard to decide exactly to whom
 a particular line should be as&shy;cribed—&shy;mak&shy;ing
-sense of Bloom's interior monologue, for example,
+sense of Bloom&#8217;s interior monologue, for example,
 or splitting a long stretch of narrative between several narrators.
-This year's chapter is written in the form of a play,
+This year&#8217;s chapter is written in the form of a play,
 so that particular problem is gone.
 Last year was the first time we abridged a chapter.
 This year, we have to reduce 60,000 words to 15–20,000 words.
-Whether that's by breaking the chapter into two or more readings,
+Whether that&#8217;s by breaking the chapter into two or more readings,
 or by deep, deep cuts, I have yet to decide.
-And that's where the line-by-line fa&shy;mil&shy;iar&shy;i&shy;ty is helpful.</p>
+And that&#8217;s where the line-by-line fa&shy;mil&shy;iar&shy;i&shy;ty is&nbsp;helpful.</p>
 
     <footer>
         
@@ -231,6 +232,8 @@ And that's where the line-by-line fa&shy;mil&shy;iar&shy;i&shy;ty is helpful.</p
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2009/02/18/DramaturgyLaTeX.html" class="page floatright">

@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Creating External SSL Certificates for CloudFront</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,25 +32,25 @@
     
         <article>
     <header>
-        <time datetime="2016-08-01">01.08.2016, 00:00</time>
+        <time datetime="2016-08-01">2016-08-01</time>
         <h1>
             <a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" rel="bookmark canonical">Creating External SSL Certificates for CloudFront</a>
         </h1>
     </header>
-    <p>I needed to create a wildcard SSL cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/">AWS CloudFront</a> today.</p>
-<p>First, generate a 2048-bit private key. This will prompt you for a passphrase:</p>
+    <p>I needed to create a wildcard <span class="caps">SSL</span> cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/"><span class="caps">AWS</span> CloudFront</a>&nbsp;today.</p>
+<p>First, generate a 2048-bit private key. This will prompt you for a&nbsp;passphrase:</p>
 <pre class="literal-block">
 $ openssl genrsa -des3 -out example.key 2048
 </pre>
-<p>Check which signature algorithm was used (SHA-256 is rec&shy;om&shy;mend&shy;ed):</p>
+<p>Check which signature algorithm was used (<span class="caps">SHA</span>-256 is&nbsp;rec&shy;om&shy;mend&shy;ed):</p>
 <pre class="literal-block">
 $ openssl req -in example.csr -noout -text
 </pre>
-<p>Transform the private key to PEM format:</p>
+<p>Transform the private key to <span class="caps">PEM</span>&nbsp;format:</p>
 <pre class="literal-block">
 $ openssl rsa -outform PEM -in example.key -out example.pem
 </pre>
-<p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server FQDN:</p>
+<p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server&nbsp;<span class="caps">FQDN</span>:</p>
 <pre class="literal-block">
 $ openssl req -new -key example.key -out example.csr
 
@@ -66,11 +67,11 @@ to be sent with your certificate request
 A challenge password []:
 An optional company name []:
 </pre>
-<p>Upload the CSR to your Cer&shy;tifi&shy;cate Authority and generate a signed cer&shy;tifi&shy;cate.
-We used <a class="reference external" href="https://www.ssl.com/">SSL.com</a>.</p>
+<p>Upload the <span class="caps">CSR</span> to your Cer&shy;tifi&shy;cate Authority and generate a signed cer&shy;tifi&shy;cate.
+We used <a class="reference external" href="https://www.ssl.com/"><span class="caps">SSL</span>.com</a>.</p>
 <p>Be sure to save the keys and cer&shy;tifi&shy;cates in a secure place.
-The private key is a <em>secret</em>: treat it as such.</p>
-<p>Finally, <a class="reference external" href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs_manage.html#UploadSignedCert">upload the cer&shy;tifi&shy;cate to IAM (AWS Identity and Access Management)</a>:</p>
+The private key is a <em>secret</em>: treat it as&nbsp;such.</p>
+<p>Finally, <a class="reference external" href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs_manage.html#UploadSignedCert">upload the cer&shy;tifi&shy;cate to <span class="caps">IAM</span> (<span class="caps">AWS</span> Identity and Access Management)</a>:</p>
 <pre class="literal-block">
 $ aws iam upload-server-certificate \
     --server-certificate-name 'Example_Wildcard_Cert' \
@@ -79,9 +80,9 @@ $ aws iam upload-server-certificate \
     --certificate-chain file://ca-chain-amazon.crt \
     --path /cloudfront/production/
 </pre>
-<p>Note the <tt class="docutils literal"><span class="pre">--path</span></tt> argument, which is required for CloudFront dis&shy;tri&shy;b&shy;u&shy;tions.</p>
+<p>Note the <tt class="docutils literal"><span class="pre">--path</span></tt> argument, which is required for CloudFront&nbsp;dis&shy;tri&shy;b&shy;u&shy;tions.</p>
 <p>Bryce Fisher-Fleig has <a class="reference external" href="https://bryce.fisher-fleig.org/blog/setting-up-ssl-on-aws-cloudfront-and-s3/">more</a>.
-(I wish I had discovered his post this morning.)</p>
+(I wish I had discovered his post this&nbsp;morning.)</p>
 
     <footer>
         
@@ -115,6 +116,8 @@ $ aws iam upload-server-certificate \
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2016/07/31/ReviewCymbeline.html" class="page floatright">

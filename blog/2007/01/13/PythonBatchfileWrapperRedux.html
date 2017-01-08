@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Python Batchfile Wrapper, Redux</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -32,21 +33,21 @@
     
         <article>
     <header>
-        <time datetime="2007-01-13">13.01.2007, 00:00</time>
+        <time datetime="2007-01-13">2007-01-13</time>
         <h1>
             <a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" rel="bookmark canonical">Python Batchfile Wrapper, Redux</a>
         </h1>
     </header>
     <img alt="Python Batchfile Wrapper" src="/content/binary/PythonBatch.jpg"/>
 <div class="section" id="batchfile-wrapper">
-<h2>Batchfile Wrapper</h2>
-<p>I've made some sig&shy;nif&shy;i&shy;cant changes to my <a class="reference external" href="http://www.georgevreilly.com/blog/2006/12/29/PythonBatchfileWrapper.html">Python Batchfile Wrapper</a>.
+<h2>Batchfile&nbsp;Wrapper</h2>
+<p>I&#8217;ve made some sig&shy;nif&shy;i&shy;cant changes to my <a class="reference external" href="http://www.georgevreilly.com/blog/2006/12/29/PythonBatchfileWrapper.html">Python Batchfile Wrapper</a>.
 The main virtue of this wrapper is that it finds python.exe and
 invokes it on the associated Python script,
-ensuring that <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi&shy;rec&shy;tion</a> works.</p>
-<p>I've also adapted <a class="reference external" href="http://mail.python.org/pipermail/python-list/2000-January/019450.html">py2bat</a> to work with my wrapper.
-I'm calling my version <a class="reference external" href="http://www.georgevreilly.com/Python/py2cmd/">py2cmd</a>.</p>
-<p>Here's my latest batch file, which is shorter than its pre&shy;de&shy;ces&shy;sor.</p>
+ensuring that <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi&shy;rec&shy;tion</a>&nbsp;works.</p>
+<p>I&#8217;ve also adapted <a class="reference external" href="http://mail.python.org/pipermail/python-list/2000-January/019450.html">py2bat</a> to work with my wrapper.
+I&#8217;m calling my version <a class="reference external" href="http://www.georgevreilly.com/Python/py2cmd/">py2cmd</a>.</p>
+<p>Here&#8217;s my latest batch file, which is shorter than its&nbsp;pre&shy;de&shy;ces&shy;sor.</p>
 <p>To use it, place it in the same directory as the Python script
 you want to run and give it the same basename;
 i.e., <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.cmd</tt>
@@ -82,10 +83,10 @@ if not [%1]==[""] (
 goto :EOF
 </pre>
 
-<p>This is suf&shy;fi&shy;cient&shy;ly cryptic that it merits some ex&shy;pla&shy;na&shy;tion.</p>
+<p>This is suf&shy;fi&shy;cient&shy;ly cryptic that it merits some&nbsp;ex&shy;pla&shy;na&shy;tion.</p>
 <p>The first set of nested loops attempts to find
 <tt class="docutils literal">python.cmd</tt>, <tt class="docutils literal">python.bat</tt>, and <tt class="docutils literal">python.exe</tt>, re&shy;spec&shy;tive&shy;ly,
-along your PATH:</p>
+along your&nbsp;<span class="caps">PATH</span>:</p>
 <pre class="literal-block">
 for %%i in (cmd bat exe) do (
     for %%j in (python.%%i) do (
@@ -93,23 +94,23 @@ for %%i in (cmd bat exe) do (
     )
 )
 </pre>
-<p>The <tt class="docutils literal"><span class="pre">%%~$PATH:j</span></tt> expression searches the PATH for <tt class="docutils literal">%%j</tt>
+<p>The <tt class="docutils literal"><span class="pre">%%~$<span class="caps">PATH</span>:j</span></tt> expression searches the <span class="caps">PATH</span> for <tt class="docutils literal">%%j</tt>
 (i.e., <tt class="docutils literal">python.cmd</tt>, etc).
-If it's found, the expression evaluates to the full path to <tt class="docutils literal">%%j</tt>.
+If it&#8217;s found, the expression evaluates to the full path to <tt class="docutils literal">%%j</tt>.
 Otherwise, it evaluates to the empty string.
-I've bracketed the expression with <a class="reference external" href="http://ss64.com/ntsyntax/esc.html">double quotes</a> in order to handle
-spaces in directory names.</p>
+I&#8217;ve bracketed the expression with <a class="reference external" href="http://ss64.com/ntsyntax/esc.html">double quotes</a> in order to handle
+spaces in directory&nbsp;names.</p>
 <p>The <tt class="docutils literal">Set&shy;PythonExe</tt> subroutine simply sets <tt class="docutils literal">%PythonEx&shy;e%</tt> to <tt class="docutils literal">%1</tt>
-if and only if <tt class="docutils literal">%PythonEx&shy;e%</tt> doesn't already have a value <em>and</em>
-<tt class="docutils literal">%1</tt> is not empty:</p>
+if and only if <tt class="docutils literal">%PythonEx&shy;e%</tt> doesn&#8217;t already have a value <em>and</em>
+<tt class="docutils literal">%1</tt> is not&nbsp;empty:</p>
 <div class="system-message">
-<p class="system-message-title">System Message: WARNING/2 (<tt class="docutils">&lt;string&gt;</tt>, line 86)</p>
+<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils">&lt;string&gt;</tt>, line&nbsp;86)</p>
 Literal block expected; none found.</div>
-<p>We can't set <tt class="docutils literal">%PythonEx&shy;e%</tt> directly in the loop.
+<p>We can&#8217;t set <tt class="docutils literal">%PythonEx&shy;e%</tt> directly in the loop.
 As explained at <a class="reference external" href="http://ss64.com/nt/for.html">for loops</a> and <a class="reference external" href="http://www.robvanderwoude.com/variableexpansion.html">variable expansion</a>,
 en&shy;vi&shy;ron&shy;ment variables in the body of the loop are
 evaluated once <em>before</em> the loop starts and
-won't change until after the loop terminates:</p>
+won&#8217;t change until after the loop&nbsp;terminates:</p>
 <pre class="literal-block">
 :SetPythonExe
 if not [%1]==[&quot;&quot;] (
@@ -123,8 +124,8 @@ goto :EOF
 (ss64.com has details on <a class="reference external" href="http://ss64.com/ntsyntax/parameters.html">parameter syntax</a>.)</p>
 <p>The square brackets and double quotes are necessary to make it all work
 if either <tt class="docutils literal">%PythonEx&shy;e%</tt> or <tt class="docutils literal">%1</tt> contains spaces.
-Getting this right was one of the hardest parts of the whole exercise.</p>
-<p>The second set of nested loops are scarier:</p>
+Getting this right was one of the hardest parts of the whole&nbsp;exercise.</p>
+<p>The second set of nested loops are&nbsp;scarier:</p>
 <pre class="literal-block">
 for /f &quot;tokens=2 delims==&quot; %%i in ('assoc .py') do (
     for /f &quot;tokens=2 delims==&quot; %%j in ('ftype %%i') do (
@@ -138,7 +139,7 @@ for /f &quot;tokens=2 delims==&quot; %%i in ('assoc .py') do (
 <tt class="docutils literal">assoc .py</tt> yields <tt class="docutils literal">.py=Python.File</tt>
 and <tt class="docutils literal">%%i</tt> is set to <tt class="docutils literal">Python.File</tt>.
 Running <tt class="docutils literal">ftype Python.File</tt> yields
-<tt class="docutils literal"><span class="pre">Python.File=&quot;C:\Python24\python.exe&quot;</span> &quot;%1&quot; %*</tt> (on my machine).</p>
+<tt class="docutils literal"><span class="pre">Python.File=&quot;C:\Python24\python.exe&quot;</span> &quot;%1&quot; %*</tt> (on my&nbsp;machine).</p>
 <p>The second loop also runs once:
 <tt class="docutils literal">%%j</tt> is set to everything on the right-hand side of the <tt class="docutils literal">=</tt>.</p>
 <p>The third loop also runs once:
@@ -146,9 +147,9 @@ Running <tt class="docutils literal">ftype Python.File</tt> yields
 which is passed in to <tt class="docutils literal">Set&shy;PythonExe</tt>.</p>
 <p>At this point, <tt class="docutils literal">%PythonEx&shy;e%</tt> will have a value if
 <tt class="docutils literal">python.cmd</tt> (or <tt class="docutils literal">python.bat</tt> or <tt class="docutils literal">python.exe</tt>) existed on your path,
-or the <tt class="docutils literal">.py</tt> extension was registered.</p>
-<p>If it doesn't have a value, then the invocation of <tt class="docutils literal">&quot;%PythonEx&shy;e%&quot;</tt> will
-fail, setting <tt class="docutils literal">%er&shy;ror&shy;level%</tt> to 9009:</p>
+or the <tt class="docutils literal">.py</tt> extension was&nbsp;registered.</p>
+<p>If it doesn&#8217;t have a value, then the invocation of <tt class="docutils literal">&quot;%PythonEx&shy;e%&quot;</tt> will
+fail, setting <tt class="docutils literal">%er&shy;ror&shy;level%</tt> to&nbsp;9009:</p>
 <pre class="literal-block">
 &quot;%PythonExe%&quot; %PythonExeFlags% &quot;%~dpn0.py&quot; %*
 goto :EOF
@@ -161,19 +162,19 @@ If you want cooked input, simply remove the <tt class="docutils literal"><span c
 <p>The <tt class="docutils literal"><span class="pre">&quot;%~dpn0.py&quot;</span></tt> notation yields the absolute path to the
 Python script with the <tt class="docutils literal">.py</tt> extension sitting beside this batch file:
 another example of <a class="reference external" href="http://ss64.com/ntsyntax/parameters.html">parameter syntax</a>.</p>
-<p>Finally, <tt class="docutils literal">goto :EOF</tt> ends execution of the batchfile,
+<p>Finally, <tt class="docutils literal">goto :<span class="caps">EOF</span></tt> ends execution of the batchfile,
 skipping the <tt class="docutils literal">:Set&shy;PythonExe</tt> subroutine.</p>
 <p>Whew!</p>
 </div>
 <div class="section" id="py2cmd">
 <h2>py2cmd</h2>
 <p>You can have a batchfile sitting alongside a Python script as above,
-or you can have a self-contained batchfile cum Python script.</p>
+or you can have a self-contained batchfile cum Python&nbsp;script.</p>
 <p><a class="reference external" href="http://mail.python.org/pipermail/python-list/2000-January/019450.html">py2bat</a> has been kicking around for years.
 It takes a Python script and turns it into a batchfile,
-by relying on a couple of tricks.</p>
-<p>I've adapted py2bat into a new script, <a class="reference external" href="http://www.georgevreilly.com/Python/py2cmd/">py2cmd</a>.
-In essence, the generated batchfile looks like this:</p>
+by relying on a couple of&nbsp;tricks.</p>
+<p>I&#8217;ve adapted py2bat into a new script, <a class="reference external" href="http://www.georgevreilly.com/Python/py2cmd/">py2cmd</a>.
+In essence, the generated batchfile looks like&nbsp;this:</p>
 <pre class="literal-block">
 &#64;echo off
 REM=&quot;&quot;&quot;
@@ -187,29 +188,29 @@ goto :EOF
 </pre>
 <p>When this file is executed by cmd.exe, the control flow should be obvious.
 Disable echoing to the screen,
-a funny-looking REM,
+a funny-looking <span class="caps">REM</span>,
 set <tt class="docutils literal">%PythonEx&shy;e%</tt> as before (not shown),
 invoke <tt class="docutils literal">python.exe</tt> with the <tt class="docutils literal"><span class="pre">-x</span></tt> flag on the current batchfile,
-and finally skip past the rest of the file.</p>
+and finally skip past the rest of the&nbsp;file.</p>
 <p>When Python is invoked with the <tt class="docutils literal"><span class="pre">-x</span></tt> flag,
 it skips the first line of the script (<tt class="docutils literal">&#64;echo off</tt>).
-The second line sets the variable <tt class="docutils literal">REM</tt> to the multiline string
-which continues down to the closing <tt class="docutils literal">&quot;&quot;&quot;</tt> below the <tt class="docutils literal">goto :EOF</tt>.
+The second line sets the variable <tt class="docutils literal"><span class="caps">REM</span></tt> to the multiline string
+which continues down to the closing <tt class="docutils literal">&quot;&quot;&quot;</tt> below the <tt class="docutils literal">goto :<span class="caps">EOF</span></tt>.
 Everything after that is the original Python script.
-All the batchfile nonsense is wrapped up inside the <tt class="docutils literal">REM</tt> variable.</p>
+All the batchfile nonsense is wrapped up inside the <tt class="docutils literal"><span class="caps">REM</span></tt> variable.</p>
 <p>Download <a class="reference external" href="http://www.georgevreilly.com/Python/py2cmd/">py2cmd</a>.</p>
 </div>
 <div class="section" id="other-wrappers">
-<h2>Other Wrappers</h2>
-<p>Fredrik Lundh's <a class="reference external" href="http://effbot.org/zone/exemaker.htm">ExeMaker</a> generates a stub executable to launch
+<h2>Other&nbsp;Wrappers</h2>
+<p>Fredrik Lundh&#8217;s <a class="reference external" href="http://effbot.org/zone/exemaker.htm">ExeMaker</a> generates a stub executable to launch
 a Python script with the same basename.
 It requires that Python already be installed on the target machine.
-I couldn't get ExeMaker to work properly.
-The stub executable leaves me at the Python in&shy;ter&shy;preter's in&shy;ter&shy;ac&shy;tive prompt.</p>
+I couldn&#8217;t get ExeMaker to work properly.
+The stub executable leaves me at the Python in&shy;ter&shy;preter&#8217;s in&shy;ter&shy;ac&shy;tive&nbsp;prompt.</p>
 <p><a class="reference external" href="http://www.py2exe.org/">py2exe</a> takes a Python script and bundles up all the Python support files
-to make it run on a machine that doesn't have Python installed.
-Works fine for me, but you get 4MB+ of associated runtime.
-Massive overkill if the target machine is known to have Python installed.</p>
+to make it run on a machine that doesn&#8217;t have Python installed.
+Works fine for me, but you get <span class="caps">4MB</span>+ of associated runtime.
+Massive overkill if the target machine is known to have Python&nbsp;installed.</p>
 </div>
 
     <footer>
@@ -244,6 +245,8 @@ Massive overkill if the target machine is known to have Python installed.</p>
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2007/01/12/BushsSurgeSpeech.html" class="page floatright">

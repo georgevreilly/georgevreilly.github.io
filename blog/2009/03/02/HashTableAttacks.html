@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Hash Table Attacks</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,7 +32,7 @@
     
         <article>
     <header>
-        <time datetime="2009-03-02">02.03.2009, 00:00</time>
+        <time datetime="2009-03-02">2009-03-02</time>
         <h1>
             <a href="/blog/2009/03/02/HashTableAttacks.html" rel="bookmark canonical">Hash Table Attacks</a>
         </h1>
@@ -39,17 +40,17 @@
     <a class="reference external image-reference" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf"><img alt="Worst-case hash table collisions" class="right-float" src="/content/binary/hashtable-collide.png"/></a>
 <p>At lunch today, I told Eric about <a class="reference external" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf">Hash Attacks</a>:
 for many hash functions,
-it's possible to construct a large set of keys that collide.
+it&#8217;s possible to construct a large set of keys that collide.
 This can be used to cause a Denial of Service
 as hashtable operations can be induced
 to take <em>O(n)</em> time instead of <em>O(1)</em>.</p>
 <p>Crosby and Wallach suc&shy;cess&shy;ful&shy;ly <a class="reference external" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf">demon&shy;strat&shy;ed</a> this
-against a number of ap&shy;pli&shy;ca&shy;tions.</p>
+against a number of&nbsp;ap&shy;pli&shy;ca&shy;tions.</p>
 <p>Andrew has a good writeup of <a class="reference external" href="http://web.archive.org/web/20120318203841/http://www.team5150.com/~andrew/blog/2007/03/hash_algorithm_attacks.html">Hash Algorithm Attacks</a>.</p>
 <p>There are various mit&shy;i&shy;ga&shy;tions suggested.
 The one that I used when I first became aware of this problem
-is to use a salt to the hash function.</p>
-<p>In other words, change:</p>
+is to use a salt to the hash&nbsp;function.</p>
+<p>In other words,&nbsp;change:</p>
 
 <pre class="brush: C">
 unsigned hash(const char* s)
@@ -76,7 +77,7 @@ unsigned hash(const char* s, unsigned salt)
 <p>where <tt class="docutils literal">salt</tt> is chosen <em>randomly</em> when the hash table is created
 or when the process starts.
 This should be enough to vary the order in which keys
-are dis&shy;trib&shy;uted to buckets from run to run.</p>
+are dis&shy;trib&shy;uted to buckets from run to&nbsp;run.</p>
 
     <footer>
         
@@ -110,6 +111,8 @@ are dis&shy;trib&shy;uted to buckets from run to run.</p>
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2009/03/01/PBwiki20.html" class="page floatright">

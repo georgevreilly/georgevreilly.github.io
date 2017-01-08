@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Python: Joining URLs with posixpath.join</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,7 +32,7 @@
     
         <article>
     <header>
-        <time datetime="2016-07-12">12.07.2016, 00:00</time>
+        <time datetime="2016-07-12">2016-07-12</time>
         <h1>
             <a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" rel="bookmark canonical">Python: Joining URLs with posixpath.join</a>
         </h1>
@@ -41,7 +42,7 @@ which always joins path segments with <tt class="docutils literal">/</tt>.
 On Windows, <tt class="docutils literal">os.path.join</tt> is an alias for <tt class="docutils literal">ntpath.join</tt>,
 which always uses <tt class="docutils literal">\</tt>.
 When dealing with URLs, we always want forward slashes,
-regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build URL paths.</p>
+regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build <span class="caps">URL</span>&nbsp;paths.</p>
 <p>Running:</p>
 
 <pre class="brush: python">
@@ -78,8 +79,8 @@ test_join('https://www.example.com/prefix', local_path)
         -&gt; 'https://www.example.com/2016/07/12/release/index.html'
 </pre>
 <p>The last one is a problem,
-as the path after the hostname, <tt class="docutils literal">/pre/fix</tt>, is lost.</p>
-<p>We can fix it using <a class="reference external" href="https://docs.python.org/2/library/urlparse.html#urlparse.urlparse">urlparse</a> to separate that path from the hostname:</p>
+as the path after the hostname, <tt class="docutils literal">/pre/fix</tt>, is&nbsp;lost.</p>
+<p>We can fix it using <a class="reference external" href="https://docs.python.org/2/library/urlparse.html#urlparse.urlparse">urlparse</a> to separate that path from the&nbsp;hostname:</p>
 
 <pre class="brush: python">
 from six.moves.urllib_parse import urljoin as abs_urljoin, urlparse
@@ -88,7 +89,7 @@ def urljoin(site, path):
     return abs_urljoin(site, path_urljoin(urlparse(site).path, path))
 </pre>
 
-<p>which yields:</p>
+<p>which&nbsp;yields:</p>
 <pre class="literal-block">
 'https://www.example.com' + 'foo/bar/quux.js'
         -&gt; 'https://www.example.com/foo/bar/quux.js'
@@ -100,13 +101,13 @@ def urljoin(site, path):
         -&gt; 'https://www.example.com/pre/fix/2016/07/12/release/index.html'
 </pre>
 <p>Note that if the <tt class="docutils literal">path</tt> argument to my <tt class="docutils literal">urljoin</tt> function is absolute,
-any path suffix to <tt class="docutils literal">site</tt> is discarded:</p>
+any path suffix to <tt class="docutils literal">site</tt> is&nbsp;discarded:</p>
 <pre class="literal-block">
 'https://www.example.com/pre/fix' + '/abs/path'
         -&gt; 'https://www.example.com/abs/path'
 </pre>
 <p>That in turn can be fixed by using <tt class="docutils literal"><span class="pre">str.split('/')</span></tt>
-and discarding any empty segments.</p>
+and discarding any empty&nbsp;segments.</p>
 
 <pre class="brush: python">
 def urljoin(site, path):
@@ -157,6 +158,8 @@ def urljoin(site, path):
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" class="page floatright">

@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>0xFF...FF / 10 == 0x19...99</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -33,7 +34,7 @@ A few..." />
     
         <article>
     <header>
-        <time datetime="2006-05-16">16.05.2006, 00:00</time>
+        <time datetime="2006-05-16">2006-05-16</time>
         <h1>
             <a href="/blog/2006/05/16/0xFFFF100x1999.html" rel="bookmark canonical">0xFF...FF / 10 == 0x19...99</a>
         </h1>
@@ -42,8 +43,8 @@ A few..." />
 <p>A few weeks ago, I wrote a C++ routine to parse decimal numbers using the
 overflow detection principles of
 <a class="reference external" href="http://msdn.microsoft.com/library/en-us/dncode/html/secure01142004.asp">SafeInt</a>.
-I couldn't find anything in the libraries that actually did a good job of checking
-for overflow.</p>
+I couldn&#8217;t find anything in the libraries that actually did a good job of checking
+for&nbsp;overflow.</p>
 <p>Briefly, to see if <tt class="docutils literal">unsigned</tt> values <tt class="docutils literal">A+B</tt> overflow, check
 <tt class="docutils literal">if (A &gt; MAX_UINT - B)</tt>. Similarly, <tt class="docutils literal">A*B</tt> will overflow
 <tt class="docutils literal">if (A &gt; MAX_UINT / B)</tt>.</p>
@@ -82,10 +83,10 @@ StringToUnsigned(
 
 <p>While debugging this code, I noticed something in&shy;ter&shy;est&shy;ing. 0xFFFFFFFF
 divided by ten (0xA) is 0x19999999. This pattern holds for smaller and
-larger sequences of 0xFF...FF too: 0xFF/10 = 0x19; 0xFFFF/10 = 0x1999; and
-so on.</p>
-<p>I'm not sure how to prove this, but I can prove the closely related result:
-0x19...99 * 10 = 0xFF...FA:</p>
+larger sequences of 0xFF&#8230;<span class="caps">FF</span> too: 0xFF/10 = 0x19; 0xFFFF/10 = 0x1999; and
+so&nbsp;on.</p>
+<p>I&#8217;m not sure how to prove this, but I can prove the closely related result:
+0x19&#8230;99 * 10 =&nbsp;0xFF&#8230;<span class="caps">FA</span>:</p>
 <pre class="literal-block">
 10 * N         = 8 * N  +  2 * N
 10 * 0x19...99 = 8 * 0x19...99  +  2 * 0x19...99
@@ -96,7 +97,7 @@ so on.</p>
                  + %0011 0011 0011 ... 0011 0010
                =   %1111 1111 1111 ... 1111 1010
 </pre>
-<p>A mildly curious result of no value, but it amused me.</p>
+<p>A mildly curious result of no value, but it amused&nbsp;me.</p>
 
     <footer>
         
@@ -130,6 +131,8 @@ so on.</p>
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2006/05/16/NotAsLameAsYouThink.html" class="page floatright">

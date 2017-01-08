@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Logging in Python: Don't use new-fangled format</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,29 +32,29 @@
     
         <article>
     <header>
-        <time datetime="2016-07-11">11.07.2016, 00:00</time>
+        <time datetime="2016-07-11">2016-07-11</time>
         <h1>
             <a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" rel="bookmark canonical">Logging in Python: Don't use new-fangled format</a>
         </h1>
     </header>
     <p>Python 2.6 introduced the <a class="reference external" href="https://pyformat.info/">format method</a> to strings.
 In general, <tt class="docutils literal">format</tt> is now the preferred way to build strings
-instead of the old <tt class="docutils literal">%</tt> formatting operator.</p>
+instead of the old <tt class="docutils literal">%</tt> formatting&nbsp;operator.</p>
 <p>One exception is with the <tt class="docutils literal">logging</tt> module,
 where the best practice is to use <tt class="docutils literal">%s</tt> and <tt class="docutils literal">%d</tt>.
 Why?
 First, <tt class="docutils literal">%s</tt> is the idiomatic way to use <tt class="docutils literal">logging</tt>,
 which was built years before <tt class="docutils literal">format</tt> was introduced.
-Second, if there's a literal <tt class="docutils literal">%</tt> in the in&shy;ter&shy;po&shy;lat&shy;ed values,
+Second, if there&#8217;s a literal <tt class="docutils literal">%</tt> in the in&shy;ter&shy;po&shy;lat&shy;ed values,
 <tt class="docutils literal">logging</tt> will be unhappy,
-since there won't be cor&shy;re&shy;spond&shy;ing arguments in the call.
-It won't fall over, since
+since there won&#8217;t be cor&shy;re&shy;spond&shy;ing arguments in the call.
+It won&#8217;t fall over, since
 “The logging package is designed to swallow exceptions which occur while logging in production.
 This is so that errors which occur while handling logging events
 - such as logging mis&shy;con&shy;fig&shy;u&shy;ra&shy;tion, network or other similar errors -
-do not cause the ap&shy;pli&shy;ca&shy;tion using logging to terminate pre&shy;ma&shy;ture&shy;ly.”</p>
-<p>In other systems, an <a class="reference external" href="https://en.wikipedia.org/wiki/Uncontrolled_format_string">un&shy;con&shy;trolled format string</a> can lead to serious vul&shy;ner&shy;a&shy;bil&shy;i&shy;ties.</p>
-<p>TL;DR, write:</p>
+do not cause the ap&shy;pli&shy;ca&shy;tion using logging to terminate&nbsp;pre&shy;ma&shy;ture&shy;ly.”</p>
+<p>In other systems, an <a class="reference external" href="https://en.wikipedia.org/wiki/Uncontrolled_format_string">un&shy;con&shy;trolled format string</a> can lead to serious&nbsp;vul&shy;ner&shy;a&shy;bil&shy;i&shy;ties.</p>
+<p><span class="caps">TL</span>;<span class="caps">DR</span>,&nbsp;write:</p>
 
 <pre class="brush: python">
 logging.info("Report: Processing %d annotations for id %s",
@@ -100,6 +101,8 @@ logging.info("Report: Processing {} annotations for id {}".format(
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2016/07/10/ReviewFlashmanAndTheMountainOfLight.html" class="page floatright">

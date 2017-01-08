@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Serializing a NameValueCollection</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -12,7 +13,8 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content=".. image:: http://www.georgevreilly.com/blog/conte..." />
+    <meta name="description" content=".. image:: /content/binary/serialize-nvc.jpg
+    :..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,27 +33,27 @@
     
         <article>
     <header>
-        <time datetime="2007-07-20">20.07.2007, 00:00</time>
+        <time datetime="2007-07-20">2007-07-20</time>
         <h1>
             <a href="/blog/2007/07/20/SerializingANameValueCollection.html" rel="bookmark canonical">Serializing a NameValueCollection</a>
         </h1>
     </header>
-    <img alt="Serializing a NameValueCollection" src="http://www.georgevreilly.com/blog/content/binary/serialize-nvc.jpg"/>
+    <img alt="Serializing a NameValueCollection" src="/content/binary/serialize-nvc.jpg"/>
 <p>I had a NameVal&shy;ueCol&shy;lec&shy;tion embedded inside a larger object.
-I needed to serialize the larger object into XML and back.
-Un&shy;for&shy;tu&shy;nate&shy;ly, NameVal&shy;ueCol&shy;lec&shy;tion is not XML se&shy;ri&shy;al&shy;iz&shy;able.
-Why I do not know.</p>
+I needed to serialize the larger object into <span class="caps">XML</span> and back.
+Un&shy;for&shy;tu&shy;nate&shy;ly, NameVal&shy;ueCol&shy;lec&shy;tion is not <span class="caps">XML</span> se&shy;ri&shy;al&shy;iz&shy;able.
+Why I do not&nbsp;know.</p>
 <p>A blog comment from <a class="reference external" href="http://nayyeri.net/archive/2006/08/11/Serialize-NameValueCollection.aspx#72442">Tim Erwin</a> got me started in the right direction.
 Implement <tt class="docutils literal">IXmlSe&shy;ri&shy;al&shy;iz&shy;able</tt> and do the work by hand in
 <tt class="docutils literal">ReadXml</tt> and <tt class="docutils literal">WriteXml</tt>.</p>
-<p>Tim's im&shy;ple&shy;men&shy;ta&shy;tion turned out to be overly simple.
-It didn't handle an empty collection well,
-nor did it leave the <tt class="docutils literal">XmlReader</tt> in a good state.</p>
+<p>Tim&#8217;s im&shy;ple&shy;men&shy;ta&shy;tion turned out to be overly simple.
+It didn&#8217;t handle an empty collection well,
+nor did it leave the <tt class="docutils literal">XmlReader</tt> in a good&nbsp;state.</p>
 <p>I used <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/bk3w6240(vs.80).aspx">SGen</a> to examine the de&shy;se&shy;ri&shy;al&shy;iza&shy;tion of a
-<tt class="docutils literal">List&lt;String&gt;</tt> to figure out what else needed to be done.</p>
+<tt class="docutils literal">List&lt;String&gt;</tt> to figure out what else needed to be&nbsp;done.</p>
 <p>The following <tt class="docutils literal">ReadXml</tt> seems to work.
-If I expected to receive XML from untrusted sources,
-I would make this more robust.</p>
+If I expected to receive <span class="caps">XML</span> from untrusted sources,
+I would make this more&nbsp;robust.</p>
 
 <pre class="brush: csharp">
 public void ReadXml(XmlReader reader)
@@ -95,7 +97,7 @@ public XmlSchema GetSchema( )
 
 <p>I also found that I needed to implement custom <tt class="docutils literal">Equals</tt>
 and <tt class="docutils literal">GetH&shy;ash&shy;Code</tt>, as the <tt class="docutils literal">NameVal&shy;ueCol&shy;lec&shy;tion</tt>
-im&shy;ple&shy;men&shy;ta&shy;tions didn't seem to do what I wanted.</p>
+im&shy;ple&shy;men&shy;ta&shy;tions didn&#8217;t seem to do what I&nbsp;wanted.</p>
 
 <pre class="brush: csharp">
 // Have to override GetHashCode() as two apparently identical NameValueCollections
@@ -188,6 +190,8 @@ public override bool Equals(object obj)
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2007/07/16/ReviewHarryPotterAndTheOrderOfThePhoenix.html" class="page floatright">

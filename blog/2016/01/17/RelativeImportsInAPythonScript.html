@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Relative Imports in a Python Script</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,12 +32,12 @@
     
         <article>
     <header>
-        <time datetime="2016-01-17">17.01.2016, 00:00</time>
+        <time datetime="2016-01-17">2016-01-17</time>
         <h1>
             <a href="/blog/2016/01/17/RelativeImportsInAPythonScript.html" rel="bookmark canonical">Relative Imports in a Python Script</a>
         </h1>
     </header>
-    <p>Have you ever attempted a <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">relative import</a> in a Python script?</p>
+    <p>Have you ever attempted a <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">relative import</a> in a Python&nbsp;script?</p>
 
 <pre class="brush: bash">
 $ ./foo/bar/script.py some parameters
@@ -47,13 +48,13 @@ ValueError: Attempted relative import in non-package
 </pre>
 
 <p>I prefer to use <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">absolute imports</a> to minimize ambiguity and confusion,
-and most of my Python modules begin with:</p>
+and most of my Python modules begin&nbsp;with:</p>
 
 <pre class="brush: python">
 from __future__ import absolute_import, unicode_literals, print_function
 </pre>
 
-<p>(Using <a class="reference external" href="https://www.python.org/dev/peps/pep-3112/">uni&shy;code_lit&shy;er&shy;als</a> and <a class="reference external" href="https://www.python.org/dev/peps/pep-3105/">print&shy;_&shy;func&shy;tion</a> makes porting to Python 3 easier.)</p>
+<p>(Using <a class="reference external" href="https://www.python.org/dev/peps/pep-3112/">uni&shy;code_lit&shy;er&shy;als</a> and <a class="reference external" href="https://www.python.org/dev/peps/pep-3105/">print&shy;_&shy;func&shy;tion</a> makes porting to Python 3&nbsp;easier.)</p>
 <p>I recently read the accepted answer to <a class="reference external" href="http://stackoverflow.com/questions/14132789/python-relative-imports-for-the-billionth-time">Python relative imports for the billionth time</a>
 and the solution to the above <tt class="docutils literal">ValueError</tt> occurred to me:
 Use <tt class="docutils literal">python <span class="pre">-m</span> package</tt> instead:</p>
@@ -96,6 +97,8 @@ $ python -m foo.bar.script some parameters
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html" class="page floatright">

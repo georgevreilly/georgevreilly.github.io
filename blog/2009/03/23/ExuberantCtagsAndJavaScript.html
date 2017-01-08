@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Exuberant Ctags and JavaScript</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,7 +32,7 @@
     
         <article>
     <header>
-        <time datetime="2009-03-23">23.03.2009, 00:00</time>
+        <time datetime="2009-03-23">2009-03-23</time>
         <h1>
             <a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" rel="bookmark canonical">Exuberant Ctags and JavaScript</a>
         </h1>
@@ -40,15 +41,15 @@
 <p><a class="reference external" href="http://ctags.sourceforge.net/">Exuberant Ctags</a> is an essential complement to Vim:
 it generates an index of symbol names (tags) for a set of source files.
 In Vim, just place the cursor on a function name
-and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its definition.</p>
+and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its&nbsp;definition.</p>
 <p>Ctags works well for most of the languages that I deal with,
 but falls down badly on modern JavaScript.
-Its built-in parser simply doesn't handle de&shy;c&shy;la&shy;ra&shy;tions like these:</p>
+Its built-in parser simply doesn&#8217;t handle de&shy;c&shy;la&shy;ra&shy;tions like&nbsp;these:</p>
 <div class="highlight"><pre><span></span><span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// ...</span>
 <span class="nx">ajaxSetup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">settings</span> <span class="p">)</span> <span class="p">{</span>
 </pre></div>
-<p>I came across <a class="reference external" href="http://www.unbad.net/blog/ctags-and-relevant-support-for-javascript">Unbad</a>'s workaround earlier tonight.
-His code didn't work for me, so I hacked on it until it did:</p>
+<p>I came across <a class="reference external" href="http://www.unbad.net/blog/ctags-and-relevant-support-for-javascript">Unbad</a>&#8216;s workaround earlier tonight.
+His code didn&#8217;t work for me, so I hacked on it until it&nbsp;did:</p>
 <pre class="literal-block">
 --langdef=js
 --langmap=js:.js
@@ -59,7 +60,7 @@ His code didn't work for me, so I hacked on it until it did:</p>
 --regex-js=/([^= ]+)[ \t]*=[ \t]*[^&quot;]'[^']*/\1/,string/
 --regex-js=/([^= ]+)[ \t]*=[ \t]*[^']&quot;[^&quot;]*/\1/,string/
 </pre>
-<p>Simply add the above to <tt class="docutils literal"><span class="pre">~/.ctags</span></tt> or <tt class="docutils literal">$HOME/ctags.cnf</tt>.</p>
+<p>Simply add the above to <tt class="docutils literal"><span class="pre">~/.ctags</span></tt> or <tt class="docutils literal">$<span class="caps">HOME</span>/ctags.cnf</tt>.</p>
 
     <footer>
         
@@ -93,6 +94,8 @@ His code didn't work for me, so I hacked on it until it did:</p>
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2009/03/23/ReviewNoCountryForOldMen.html" class="page floatright">

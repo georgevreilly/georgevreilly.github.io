@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>psutil kill</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,22 +32,22 @@
     
         <article>
     <header>
-        <time datetime="2016-03-06">06.03.2016, 00:00</time>
+        <time datetime="2016-03-06">2016-03-06</time>
         <h1>
             <a href="/blog/2016/03/06/psutil-kill.html" rel="bookmark canonical">psutil kill</a>
         </h1>
     </header>
-    <p>From Python, I needed to find a process that was performing SSH tunneling on port 8080
-and kill it.</p>
-<p>The following works in Bash:</p>
+    <p>From Python, I needed to find a process that was performing <span class="caps">SSH</span> tunneling on port 8080
+and kill&nbsp;it.</p>
+<p>The following works in&nbsp;Bash:</p>
 
 <pre class="brush: bash">
 ps aux | grep [s]sh.*:8080 | awk '{print $2}' | xargs kill -9
 </pre>
 
 <p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
-won't make it through to <tt class="docutils literal">awk</tt>.</p>
-<p>Here's what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
+won&#8217;t make it through to <tt class="docutils literal">awk</tt>.</p>
+<p>Here&#8217;s what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
 
 <pre class="brush: python">
 def kill_port_forwarding(host_port):
@@ -60,7 +61,7 @@ def kill_port_forwarding(host_port):
             pass
 </pre>
 
-<p>Obviously, the process filtering is more rigorous in the Python version.</p>
+<p>Obviously, the process filtering is more rigorous in the Python&nbsp;version.</p>
 
     <footer>
         
@@ -94,6 +95,8 @@ def kill_port_forwarding(host_port):
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2016/03/05/ReviewDeadpool.html" class="page floatright">

@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Greasemonkey for demos and mockups</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,26 +32,26 @@
     
         <article>
     <header>
-        <time datetime="2007-10-11">11.10.2007, 00:00</time>
+        <time datetime="2007-10-11">2007-10-11</time>
         <h1>
             <a href="/blog/2007/10/11/GreasemonkeyForDemosAndMockups.html" rel="bookmark canonical">Greasemonkey for demos and mockups</a>
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.greasespot.net/"><img alt="Greasemonkey" src="http://www.wired.com/wired/archive/13.09/images/ST_34_monkey1_f.jpg"/></a>
-<p>I've been meaning to play around with <a class="reference external" href="http://www.greasespot.net/">Grease&shy;mon&shy;key</a> for a couple of years.
+<p>I&#8217;ve been meaning to play around with <a class="reference external" href="http://www.greasespot.net/">Grease&shy;mon&shy;key</a> for a couple of years.
 Grease&shy;mon&shy;key is a Firefox extension that allows users to install
 scripts that make on-the-fly changes to the look and feel of third-party websites.
 For example, adding price com&shy;par&shy;isons to Amazon
 or thumbnail images to Google search results.
-<a class="reference external" href="http://userscripts.org/">User&shy;Scripts.org</a> has a large repository of Grease&shy;mon&shy;key scripts.</p>
+<a class="reference external" href="http://userscripts.org/">User&shy;Scripts.org</a> has a large repository of Grease&shy;mon&shy;key&nbsp;scripts.</p>
 <p>I finally built my first script the other day.
-We're putting together a new feature at <a class="reference external" href="http://www.cozi.com/">Cozi</a> that integrates
+We&#8217;re putting together a new feature at <a class="reference external" href="http://www.cozi.com/">Cozi</a> that integrates
 partner websites with our site.
-Since the feature is not yet announced, I'll just say that partners
+Since the feature is not yet announced, I&#8217;ll just say that partners
 will add a link to Cozi on many of their database-driven pages.
 That link has a complex, page-dependent querys&shy;tring.
 Until the partners do the work to add the link to their sites,
-we were limited to testing and demoing with hand-modified pages.</p>
+we were limited to testing and demoing with hand-modified&nbsp;pages.</p>
 <p>I wrote a little Grease&shy;mon&shy;key script that finds the right spot
 on the partner pages to place the link,
 scrapes some context to construct the querys&shy;tring,
@@ -59,18 +60,18 @@ Now we can test against the real sites and show a compelling demo.
 Of course, it only works on Firefox and it requires you to
 install both Grease&shy;mon&shy;key and this script.
 Our partners will have to make minor changes to their sites
-before ordinary users can take advantage of the feature.</p>
+before ordinary users can take advantage of the&nbsp;feature.</p>
 <p>Some gotchas with Grease&shy;mon&shy;key.
 Inserting, say, <tt class="docutils literal">&lt;b&gt;Click <span class="pre">here&lt;/b&gt;</span></tt> is as simple as
 <tt class="docutils literal"><span class="pre">document.getEle&shy;ment&shy;ById('spot').innerHTML</span> = &lt;b&gt;Click <span class="pre">here&lt;/b&gt;</span></tt>.
-However, inserting a <tt class="docutils literal">&lt;script&gt;</tt> node requires:</p>
+However, inserting a <tt class="docutils literal">&lt;script&gt;</tt> node&nbsp;requires:</p>
 <pre class="literal-block">
 var scr = document.createElement('script');
 scr.type = 'text/javascript';
 scr.text = 'createLink(' + p1 + ', ' + p2 + ', ' + p3 + ');';
 document.getElementById('spot').appendChild(scr);
 </pre>
-<p>Grease&shy;mon&shy;key will definitely become part of my repertoire.</p>
+<p>Grease&shy;mon&shy;key will definitely become part of my&nbsp;repertoire.</p>
 
     <footer>
         
@@ -104,6 +105,8 @@ document.getElementById('spot').appendChild(scr);
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2007/10/05/SillyCatPicturesRedux.html" class="page floatright">

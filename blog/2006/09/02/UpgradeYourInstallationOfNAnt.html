@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Upgrade your installation of NAnt</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,54 +32,54 @@
     
         <article>
     <header>
-        <time datetime="2006-09-02">02.09.2006, 00:00</time>
+        <time datetime="2006-09-02">2006-09-02</time>
         <h1>
             <a href="/blog/2006/09/02/UpgradeYourInstallationOfNAnt.html" rel="bookmark canonical">Upgrade your installation of NAnt</a>
         </h1>
     </header>
     <a class="reference external image-reference" href="http://nant.sourceforge.net/release/0.85-rc4/releasenotes.html"><img alt="NAnt" class="right-float" src="http://nant.sourceforge.net/logo.gif"/></a>
 <p>My colleague, Greg, and I spent all day debugging a build break in
-some unit tests that exercise a webservice interface in legacy .NET 1.1 code.
+some unit tests that exercise a webservice interface in legacy .<span class="caps">NET</span> 1.1 code.
 Last night, the tests stopped working on our
-<a class="reference external" href="http://ccnet.thoughtworks.com">CruiseC&shy;on&shy;trol.NET</a>
-build server. We couldn't understand it. The tests had been working for
-months. Now we were getting timeouts in SOAP. The tests es&shy;sen&shy;tial&shy;ly
+<a class="reference external" href="http://ccnet.thoughtworks.com">CruiseC&shy;on&shy;trol.<span class="caps">NET</span></a>
+build server. We couldn&#8217;t understand it. The tests had been working for
+months. Now we were getting timeouts in <span class="caps">SOAP</span>. The tests es&shy;sen&shy;tial&shy;ly
 <a class="reference external" href="http://en.wikipedia.org/wiki/Mock_object">mock</a>
-a SOAP service using the <tt class="docutils literal">soap.inproc</tt> transport and a stub
-im&shy;ple&shy;men&shy;ta&shy;tion that signaled an event to ac&shy;knowl&shy;edge a method being called.</p>
+a <span class="caps">SOAP</span> service using the <tt class="docutils literal">soap.inproc</tt> transport and a stub
+im&shy;ple&shy;men&shy;ta&shy;tion that signaled an event to ac&shy;knowl&shy;edge a method being&nbsp;called.</p>
 <p>The only thing that had changed in the code tree was that another
 colleague, Pavel, had discovered that two of our <tt class="docutils literal">.csproj</tt> files somehow
-shared the same GUID, and had repaired that. But that could hardly have any
-effect on the WSE2 runtime. Could it?</p>
+shared the same <span class="caps">GUID</span>, and had repaired that. But that could hardly have any
+effect on the <span class="caps">WSE2</span> runtime. Could&nbsp;it?</p>
 <p>Turns out that it was the cause of the break.
 NAnt 0.85 rc2 and rc3 silently failed to build the
 NUnit assembly because of the duplicated GUIDs. The assembly was not
 getting propagated to the directory where all the other NUnit assemblies
-are placed. The CC.NET task that ran the tests never noticed the missing
+are placed. The <span class="caps">CC</span>.<span class="caps">NET</span> task that ran the tests never noticed the missing
 assembly because the test was couched in terms of <tt class="docutils literal">*.NUnit.dll</tt>. And we
-never noticed that the test hadn't been run in months because we have ~20
+never noticed that the test hadn&#8217;t been run in months because we have ~20
 such NUnit assemblies, and the NUnit summary output goes on for several
-screens in CC.NET.</p>
-<p><strong>Morals of the story</strong></p>
+screens in&nbsp;<span class="caps">CC</span>.<span class="caps">NET</span>.</p>
+<p><strong>Morals of the&nbsp;story</strong></p>
 <ol class="arabic simple">
 <li>Use <a class="reference external" href="http://nant.sourceforge.net/release/0.85-rc4/releasenotes.html">NAnt 0.85 rc4</a>, which
-detects the GUID collision and treats it as a fatal error.</li>
-<li>Create <tt class="docutils literal">.csproj</tt> files through the IDE, not by taking an existing file
-and hacking on it. (At least, that's we assume happened.)</li>
+detects the <span class="caps">GUID</span> collision and treats it as a fatal&nbsp;error.</li>
+<li>Create <tt class="docutils literal">.csproj</tt> files through the <span class="caps">IDE</span>, not by taking an existing file
+and hacking on it. (At least, that&#8217;s we assume&nbsp;happened.)</li>
 <li>As&shy;sump&shy;tions can bite you. We assumed that the code was being run all
 along, so it took us several hours to draw the connection between
-Pavel's checkin and the failing NUnit assembly.</li>
-<li>Don't mock a webservice by im&shy;ple&shy;ment&shy;ing a dummy <tt class="docutils literal">SoapRe&shy;ceiv&shy;er</tt>,
-hauling in the WSE runtime and a boatload of non-de&shy;ter&shy;min&shy;ism.
+Pavel&#8217;s checkin and the failing NUnit&nbsp;assembly.</li>
+<li>Don&#8217;t mock a webservice by im&shy;ple&shy;ment&shy;ing a dummy <tt class="docutils literal">SoapRe&shy;ceiv&shy;er</tt>,
+hauling in the <span class="caps">WSE</span> runtime and a boatload of non-de&shy;ter&shy;min&shy;ism.
 (Instead, make fun of its dress sense.)
-For our newer code, we've been taking an approach
+For our newer code, we&#8217;ve been taking an approach
 <a class="reference external" href="http://blogs.msdn.com/davidwaddleton/archive/2006/08/03/687841.aspx">like this</a>,
 using <tt class="docutils literal">partial</tt> classes and <a class="reference external" href="http://www.ayende.com/projects/rhino-mocks.aspx">Rhino Mocks</a>.</li>
 <li>We have also taken to including our test fixtures in the same
 assemblies as the code they test. I have mixed feelings about this:
 it offends my sen&shy;si&shy;bil&shy;i&shy;ties to have all this test code compiled into
 production code. But it would certainly have been hard to miss the
-build break in production code.</li>
+build break in production&nbsp;code.</li>
 </ol>
 
     <footer>
@@ -113,6 +114,8 @@ build break in production code.</li>
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2006/08/30/MovingOffices.html" class="page floatright">

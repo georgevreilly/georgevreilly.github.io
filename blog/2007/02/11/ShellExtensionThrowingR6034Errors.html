@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Shell extension throwing R6034 errors</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -12,7 +13,8 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content=".. image:: http://www.georgevreilly.com/blog/conte..." />
+    <meta name="description" content=".. image:: /content/binary/R6034.png
+    :alt: She..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,32 +33,32 @@
     
         <article>
     <header>
-        <time datetime="2007-02-11">11.02.2007, 00:00</time>
+        <time datetime="2007-02-11">2007-02-11</time>
         <h1>
             <a href="/blog/2007/02/11/ShellExtensionThrowingR6034Errors.html" rel="bookmark canonical">Shell extension throwing R6034 errors</a>
         </h1>
     </header>
-    <img alt="Shell extension throwing R6034 errors" class="right-float" src="http://www.georgevreilly.com/blog/content/binary/R6034.png"/>
+    <img alt="Shell extension throwing R6034 errors" class="right-float" src="/content/binary/R6034.png"/>
 <p>I have been cleaning up some issues with the <a class="reference external" href="http://www.georgevreilly.com/blog/2006/04/22/Win64PortOfVim.html">Win64 port of Vim</a>,
 including the <em>Edit with Vim</em> shell extension not working very well.
-When I built the shell extension with VS 2005 on x86, I would
-get the following whenever I right-clicked in Explorer:</p>
+When I built the shell extension with <span class="caps">VS</span> 2005 on x86, I would
+get the following whenever I right-clicked in&nbsp;Explorer:</p>
 <blockquote>
-<p>Microsoft Visual C++ Runtime Library</p>
-<p>Runtime Error!</p>
-<p>Program: C:WIN&shy;DOW&shy;S&shy;Ex&shy;plor&shy;er.EXE</p>
+<p>Microsoft Visual C++ Runtime&nbsp;Library</p>
+<p>Runtime&nbsp;Error!</p>
+<p>Program:&nbsp;C:WIN&shy;DOW&shy;S&shy;Ex&shy;plor&shy;er.<span class="caps">EXE</span></p>
 <p>R6034</p>
 <p>An ap&shy;pli&shy;ca&shy;tion has made an attempt to load the C runtime library in&shy;cor&shy;rect&shy;ly.
-Please contact the ap&shy;pli&shy;ca&shy;tion's support team for more in&shy;for&shy;ma&shy;tion.</p>
+Please contact the ap&shy;pli&shy;ca&shy;tion&#8217;s support team for more&nbsp;in&shy;for&shy;ma&shy;tion.</p>
 </blockquote>
 <p>There was no mention of which ap&shy;pli&shy;ca&shy;tion was at fault,
 though it was obvious in this case.
 I have also seen some mention of <tt class="docutils literal">verclsid</tt> in the error dialog,
-though not when I took this snapshot.</p>
+though not when I took this&nbsp;snapshot.</p>
 <p>The underlying problem relates to SxS, Fusion, and all that good stuff.
 By far the simplest fix was for me to statically link with <tt class="docutils literal">libcmt.lib</tt>,
 instead of <tt class="docutils literal">msvcrt.lib</tt>, rather than figure out the necessary
-manifest magic.</p>
+manifest&nbsp;magic.</p>
 
     <footer>
         
@@ -90,6 +92,8 @@ manifest magic.</p>
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2007/02/10/ReviewGrantvilleGazetteIII.html" class="page floatright">

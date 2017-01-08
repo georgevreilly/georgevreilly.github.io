@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Find remote Git branch with change to a file</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,7 +32,7 @@
     
         <article>
     <header>
-        <time datetime="2016-04-03">03.04.2016, 00:00</time>
+        <time datetime="2016-04-03">2016-04-03</time>
         <h1>
             <a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" rel="bookmark canonical">Find remote Git branch with change to a file</a>
         </h1>
@@ -39,8 +40,8 @@
     <p>I needed to track down a remote branch created a couple of months ago
 on another machine.
 I knew which file had been changed,
-but none of the far-too-many remote branches' names rang a bell.</p>
-<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch --contains</a> in the right way finds all the relevant branches.</p>
+but none of the far-too-many remote branches&#8217; names rang a&nbsp;bell.</p>
+<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch &#8211;contains</a> in the right way finds all the relevant&nbsp;branches.</p>
 
 <pre class="brush: bash">
 git log --all --format=%H FILENAME \
@@ -48,17 +49,17 @@ git log --all --format=%H FILENAME \
     | sort -u
 </pre>
 
-<p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> FILENAME</tt>,
-lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal">FILENAME</tt>.
+<p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> <span class="caps">FILENAME</span></tt>,
+lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal"><span class="caps">FILENAME</span></tt>.
 The second finds all the branches that contain those hashes
 (I added <tt class="docutils literal"><span class="pre">--remotes</span></tt>).
-The third uniquifies the results.</p>
+The third uniquifies the&nbsp;results.</p>
 <p>The <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">original answer</a> goes on to suggest using
-<tt class="docutils literal">gitk <span class="pre">--all</span> <span class="pre">--date-order</span> <span class="pre">--</span> FILENAME</tt>
+<tt class="docutils literal">gitk <span class="pre">--all</span> <span class="pre">--date-order</span> <span class="pre">--</span> <span class="caps">FILENAME</span></tt>
 to manually inspect all branches.
 However, gitk complains <tt class="docutils literal">unknown color name &quot;lime&quot;</tt> on my new Mac.
 I must have hit this before, on an earlier in&shy;stal&shy;la&shy;tion of Git,
-because the <a class="reference external" href="http://stackoverflow.com/questions/34637896/gitk-will-not-start-on-mac-unknown-color-name-lime">Stack&shy;Over&shy;flow answer</a> contains an edit from me.</p>
+because the <a class="reference external" href="http://stackoverflow.com/questions/34637896/gitk-will-not-start-on-mac-unknown-color-name-lime">Stack&shy;Over&shy;flow answer</a> contains an edit from&nbsp;me.</p>
 
     <footer>
         
@@ -92,6 +93,8 @@ because the <a class="reference external" href="http://stackoverflow.com/questio
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2016/04/02/ReviewTheMercyOfTheNight.html" class="page floatright">

@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Python Base Class Order</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -32,14 +33,14 @@ from..." />
     
         <article>
     <header>
-        <time datetime="2016-01-14">14.01.2016, 00:00</time>
+        <time datetime="2016-01-14">2016-01-14</time>
         <h1>
             <a href="/blog/2016/01/14/PythonBaseClassOrder.html" rel="bookmark canonical">Python Base Class Order</a>
         </h1>
     </header>
     <p>When I declare a derived class that inherits
 from both a base class and some mixins,
-I am always tempted to write:</p>
+I am always tempted to&nbsp;write:</p>
 
 <pre class="brush: python">
 class Derived(Base, Mixin1, Mixin2):
@@ -48,13 +49,13 @@ class Derived(Base, Mixin1, Mixin2):
 
 <p>My reasoning is that <tt class="docutils literal">Derived</tt> is a <tt class="docutils literal">Base</tt>
 with some <tt class="docutils literal">Mixin1</tt> and <tt class="docutils literal">Mixin2</tt> goodness sprinkled on.
-Generally, that's fine.
+Generally, that&#8217;s fine.
 The exception is when I want one of the mixins to override
-a method or attribute that's defined in <tt class="docutils literal">Base</tt>.
+a method or attribute that&#8217;s defined in <tt class="docutils literal">Base</tt>.
 Because the <a class="reference external" href="http://python-history.blogspot.com/2010/06/method-resolution-order.html">Method Resolution Order</a> is left-to-right,
-then <tt class="docutils literal">Base</tt>'s im&shy;ple&shy;men&shy;ta&shy;tion will always be found first.</p>
+then <tt class="docutils literal">Base</tt>&#8216;s im&shy;ple&shy;men&shy;ta&shy;tion will always be found&nbsp;first.</p>
 <p>To get the desired behavior of the mixin overriding the base,
-<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance list.</p>
+<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance&nbsp;list.</p>
 
 <pre class="brush: python">
 from __future__ import print_function
@@ -81,7 +82,7 @@ print('')
 MixinThenUseful('base last').stuff()
 </pre>
 
-<p>Running yields:</p>
+<p>Running&nbsp;yields:</p>
 
 <pre class="brush: bash">
 UsefulThenMixin: base first
@@ -124,6 +125,8 @@ mixin
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2016/01/13/ReviewStarDoc.html" class="page floatright">

@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Python Batchfile Wrapper</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -32,25 +33,24 @@
     
         <article>
     <header>
-        <time datetime="2006-12-29">29.12.2006, 00:00</time>
+        <time datetime="2006-12-29">2006-12-29</time>
         <h1>
             <a href="/blog/2006/12/29/PythonBatchfileWrapper.html" rel="bookmark canonical">Python Batchfile Wrapper</a>
         </h1>
     </header>
     <img alt="Python Batchfile Wrapper" src="/content/binary/PythonBatch.jpg"/>
-<p>I've been getting into Python lately. One problem that I've en&shy;coun&shy;tered
-under Windows, is that input redi&shy;rec&shy;tion doesn't work if you use
-the <tt class="docutils literal">.py</tt> file as&shy;so&shy;ci&shy;a&shy;tion to run the script; e.g.:</p>
+<p>I&#8217;ve been getting into Python lately. One problem that I&#8217;ve en&shy;coun&shy;tered
+under Windows, is that input redi&shy;rec&shy;tion doesn&#8217;t work if you use
+the <tt class="docutils literal">.py</tt> file as&shy;so&shy;ci&shy;a&shy;tion to run the script;&nbsp;e.g.:</p>
 <pre class="literal-block">
 C:\&gt; foo.py &lt; input.txt
 </pre>
-<p>There's a well-known <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi&shy;rec&shy;tion bug</a>. The fix is to explicitly use
-<tt class="docutils literal">python.exe</tt> to run the script.</p>
+<p>There&#8217;s a well-known <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi&shy;rec&shy;tion bug</a>. The fix is to explicitly use
+<tt class="docutils literal">python.exe</tt> to run the&nbsp;script.</p>
 <p>A related problem for me was that <tt class="docutils literal">stdin</tt> was opened as a <em>text</em> file,
 not a <em>binary</em> file, so <tt class="docutils literal">\r</tt> bytes were being discarded from binary input
-files. The fix is to run <tt class="docutils literal">python.exe <span class="pre">-u</span></tt> (unbuffered binary input and
-output).</p>
-<p>I didn't want to hardcode the path to <tt class="docutils literal">python.exe</tt> in a batch file,
+files. The fix is to run <tt class="docutils literal">python.exe <span class="pre">-u</span></tt> (unbuffered binary input and&nbsp;output).</p>
+<p>I didn&#8217;t want to hardcode the path to <tt class="docutils literal">python.exe</tt> in a batch file,
 so I came up with the following wrapper, which parses the output from
 <tt class="docutils literal">assoc .py</tt> and <tt class="docutils literal">ftype Python.File</tt>.</p>
 <p>Just place this batch file in the same directory as <tt class="docutils literal">foo.py</tt> and call it
@@ -120,14 +120,14 @@ for /f "tokens=1" %%i in ("%_rhs%") do set _exe=%%i
 goto :EOF
 </pre>
 
-<p>Now you can run <tt class="docutils literal">foo.bat &lt; bar.jpg</tt> with the expected results.</p>
+<p>Now you can run <tt class="docutils literal">foo.bat &lt; bar.jpg</tt> with the expected&nbsp;results.</p>
 <p>Enjoy!</p>
 <p><strong>Update 2006/01/03</strong>:
-The batchfile now searches <tt class="docutils literal">%PATH%</tt> before looking
+The batchfile now searches <tt class="docutils literal">%<span class="caps">PATH</span>%</tt> before looking
 up the <tt class="docutils literal">.py</tt> as&shy;so&shy;ci&shy;a&shy;tion.</p>
 <p><strong>Update 2007/01/12</strong>:
 See <a class="reference external" href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html">here</a>
-for a sig&shy;nif&shy;i&shy;cant&shy;ly improved batchfile and for py2cmd.</p>
+for a sig&shy;nif&shy;i&shy;cant&shy;ly improved batchfile and for&nbsp;py2cmd.</p>
 
     <footer>
         
@@ -161,6 +161,8 @@ for a sig&shy;nif&shy;i&shy;cant&shy;ly improved batchfile and for py2cmd.</p>
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2006/12/26/InstallingRainlendarOnKubuntu.html" class="page floatright">

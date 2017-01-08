@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Nose Test Discovery</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,7 +32,7 @@
     
         <article>
     <header>
-        <time datetime="2016-01-24">24.01.2016, 00:00</time>
+        <time datetime="2016-01-24">2016-01-24</time>
         <h1>
             <a href="/blog/2016/01/24/NoseTestDiscovery.html" rel="bookmark canonical">Nose Test Discovery</a>
         </h1>
@@ -57,17 +58,17 @@ TypeError: type() takes 1 or 3 arguments
 which had a <tt class="docutils literal">class&shy;method</tt> called <tt class="docutils literal">run_in&shy;te&shy;gra&shy;tion_tests</tt>.
 The module itself had no tests; it just declared a class called <tt class="docutils literal">TestO&shy;b&shy;fus&shy;cat&shy;ed&shy;Mix&shy;in</tt>,
 which used some other <tt class="docutils literal">class&shy;method</tt>s on <tt class="docutils literal">TestApi</tt>.
-Nose's <a class="reference external" href="http://nose.readthedocs.org/en/latest/writing_tests.html">test discovery</a> considered <tt class="docutils literal">run_in&shy;te&shy;gra&shy;tion_tests</tt> to be a test because
+Nose&#8217;s <a class="reference external" href="http://nose.readthedocs.org/en/latest/writing_tests.html">test discovery</a> considered <tt class="docutils literal">run_in&shy;te&shy;gra&shy;tion_tests</tt> to be a test because
 both the class and the function matched the <tt class="docutils literal">testMatch</tt> regular expression,
 i.e., a name that has <tt class="docutils literal">test</tt> or <tt class="docutils literal">Test</tt> at a word boundary
 or following a <tt class="docutils literal">-</tt> or <tt class="docutils literal">_</tt>.</p>
 <p>I renamed it to <tt class="docutils literal">run_in&shy;te&shy;gra&shy;tion_t3sts</tt> [sic].
-It's hard to find a good synonym for &quot;tests&quot;.</p>
-<p>Tip: to run a particular test from the command line:</p>
+It&#8217;s hard to find a good synonym for&nbsp;&quot;tests&quot;.</p>
+<p>Tip: to run a particular test from the command&nbsp;line:</p>
 <pre class="literal-block">
 nosetests path/to/test_module.py:SomeTestClass.test_whatever
 </pre>
-<p>That is, <em>pathname</em> COLON <em>classname</em> DOT <em>testname</em></p>
+<p>That is, <em>pathname</em> <span class="caps">COLON</span> <em>classname</em> <span class="caps">DOT</span> <em>testname</em></p>
 
     <footer>
         
@@ -101,6 +102,8 @@ nosetests path/to/test_module.py:SomeTestClass.test_whatever
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2016/01/23/ReviewSherlockHolmes2010Film.html" class="page floatright">

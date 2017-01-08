@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>George V. Reilly</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -29,15 +30,84 @@
     
         <article>
     <header>
-        <time datetime="2006-04-18">18.04.2006, 00:00</time>
+        <time datetime="2006-04-22">2006-04-22</time>
+        <h1>
+            <a href="/blog/2006/04/22/Win64PortOfVim.html" rel="bookmark canonical">Win64 port of Vim</a>
+        </h1>
+    </header>
+    <p>I&#8217;ve ported Vim to Win64. Native binaries for <span class="caps">AMD64</span> can be found on my
+<a class="reference external" href="http://www.georgevreilly.com/vim/">Vim page</a>.</p>
+<p>In the end, it wasn&#8217;t all that hard. Last weekend, I fixed ap&shy;prox&shy;i&shy;mate&shy;ly
+400 warnings that were thrown up by the x86_amd64 cross compiler.
+Most of them were due to the widening of <tt class="docutils literal">size_t</tt> (especially the value
+returned from <tt class="docutils literal">strlen()</tt>) and <tt class="docutils literal">ptrdiff_t</tt> to 64-bits.
+Several years ago, I went through a similar exercise in fixing these
+warnings for Vim6, but I never finished the&nbsp;port.</p>
+<p>This week, I scrounged access to an <span class="caps">AMD64</span> box at work. Today, I turned on
+the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/yt4xw8fh(VS.80).aspx">/Wp64 flag</a>,
+which found several new, subtler problems, where pointers where being
+truncated to <tt class="docutils literal">__int32</tt>s <span>&#8230;<a href="/blog/2006/04/22/Win64PortOfVim.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/04/22/Win64PortOfVim.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-04-19">2006-04-19</time>
+        <h1>
+            <a href="/blog/2006/04/19/BarbecueUniversity.html" rel="bookmark canonical">Barbecue University</a>
+        </h1>
+    </header>
+    <p>One of my favorite shows is back on the TiVo.
+<a class="reference external" href="http://www.bbqu.net/">Barbecue University</a> is
+Steven Raichlen&#8217;s show about all kinds of
+grilling and barbecue techniques and&nbsp;recipes.</p>
+<a href="http://splendidtable.publicradio.org/recipes/main_beercan.shtml" title="Beer Can Chicken">
+     
+</a><p>I <em>love</em> this recipe for
+<a class="reference external" href="http://www.recipecircus.com/recipes/Magnolias/BBQ/Afghan-Style_Game_Hens.html">Afghan Game Hens</a>,
+although I always substitute chicken(s) for the game hens.
+This recipe convinced me to buy a rotisserie.
+It&#8217;s been a huge hit whenever I&#8217;ve served it up.
+It&#8217;s not the easiest meal to prepare, so I don&#8217;t do it often.
+Note: I cook the marinaded onions in a pan and serve them with the chicken.&nbsp;Yum!</p>
+<p><a class="reference external" href="http://splendidtable.publicradio.org/recipes/main_beercan.shtml">Beer Can Chicken</a>,
+on the other hand, is very easy.
+It also works well in the oven.
+Last year, I found <span>&#8230;<a href="/blog/2006/04/19/BarbecueUniversity.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/04/19/BarbecueUniversity.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-04-18">2006-04-18</time>
         <h1>
             <a href="/blog/2006/04/18/TheBigotsphere.html" rel="bookmark canonical">The Bigotsphere</a>
         </h1>
     </header>
     <p>Over at <a class="reference external" href="http://www.firedoglake.com/">Fire&shy;DogLake</a>,
-they've put together an impressive (and depressing) <a class="reference external" href="http://www.firedoglake.com/2006/04/16/late-nite-fdl-dear-wolfie-can-you-tell-the-difference-yet/">series</a>
-on the &quot;racist freak show&quot; that con&shy;sti&shy;tutes so many right-wing blogs.</p>
-<p>En&shy;light&shy;en&shy;ing, if dis&shy;taste&shy;ful.</p>
+they&#8217;ve put together an impressive (and depressing) <a class="reference external" href="http://www.firedoglake.com/2006/04/16/late-nite-fdl-dear-wolfie-can-you-tell-the-difference-yet/">series</a>
+on the &quot;racist freak show&quot; that con&shy;sti&shy;tutes so many right-wing&nbsp;blogs.</p>
+<p>En&shy;light&shy;en&shy;ing, if&nbsp;dis&shy;taste&shy;ful.</p>
 
     <footer>
         
@@ -49,25 +119,27 @@ on the &quot;racist freak show&quot; that con&shy;sti&shy;tutes so many right-wi
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2006-04-18">18.04.2006, 00:00</time>
+        <time datetime="2006-04-18">2006-04-18</time>
         <h1>
             <a href="/blog/2006/04/18/SupportJimMcDermott.html" rel="bookmark canonical">Jim McDermott needs money</a>
         </h1>
     </header>
-    <p>I'm a lot happier in my U.S. con&shy;gress&shy;man, Jim McDermott, than I am in my
-senators, Patty Murray and Maria Cantwell. (Especially Cantwell.)</p>
+    <p>I&#8217;m a lot happier in my <span class="caps">U.S.</span> con&shy;gress&shy;man, Jim McDermott, than I am in my
+senators, Patty Murray and Maria Cantwell. (Especially&nbsp;Cantwell.)</p>
 <p>Jim has been a strong pro&shy;gres&shy;sive voice in Congress for years.
-His early opposition to the Iraq War led to him being dubbed 'Baghdad Jim'
+His early opposition to the Iraq War led to him being dubbed &#8216;Baghdad Jim&#8217;
 by infuriated Re&shy;pub&shy;li&shy;cans. He was one of the first national politi&shy;cians
-to support Howard Dean's bid for the presidency. He had a big role in
+to support Howard Dean&#8217;s bid for the presidency. He had a big role in
 Fahrenheit 9/11. And he reads the role of Leopold Bloom for the
-<a class="reference external" href="http://wildgeeseseattle.org/Joyce/Bloomsday/">Wild Geese Players of Seattle's readings of *Ulysses*</a>.</p>
+<a class="reference external" href="http://wildgeeseseattle.org/Joyce/Bloomsday/">Wild Geese Players of Seattle&#8217;s readings of *Ulysses*</a>.</p>
 <a href="http://wildgeeseseattle.org/Joyce/Bloomsday/" title="Jim McDermott and others rehearsing Ulysses">
      
-</a><p>For a decade, Jim has been fighting a legal battle <span>&#8230;<a href="/blog/2006/04/18/SupportJimMcDermott.html" class="continue">continue</a>.</span></p>
+</a><p>For a decade, Jim has been fighting a legal battle for <span>&#8230;<a href="/blog/2006/04/18/SupportJimMcDermott.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/04/18/SupportJimMcDermott.html#disqus_thread">Comment</a>
@@ -78,10 +150,12 @@ Fahrenheit 9/11. And he reads the role of Leopold Bloom for the
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2006-04-16">16.04.2006, 00:00</time>
+        <time datetime="2006-04-16">2006-04-16</time>
         <h1>
             <a href="/blog/2006/04/16/RubeGoldbergSan.html" rel="bookmark canonical">Rube Goldberg San</a>
         </h1>
@@ -89,9 +163,9 @@ Fahrenheit 9/11. And he reads the role of Leopold Bloom for the
     <p>Via <a class="reference external" href="http://groups.yahoo.com/group/win_tech_off_topic">Win Tech Off Topic</a>,
 an amazing collection of
 <a class="reference external" href="http://www.pistolwimp.com/media/44210/">Rube Goldberg devices</a>
-from a Japanese children's TV show. 13 minutes.</p>
+from a Japanese children&#8217;s <span class="caps">TV</span> show. 13&nbsp;minutes.</p>
 <p>It reminds me of the famous
-<a class="reference external" href="http://www.snopes.com/autos/business/hondacog.asp">Honda 'Cog' Ad</a>,
+<a class="reference external" href="http://www.snopes.com/autos/business/hondacog.asp">Honda &#8216;Cog&#8217; Ad</a>,
 which can be viewed
 <a class="reference external" href="http://www.ebaumsworld.com/flash/honda-ad.html">here</a>.</p>
 
@@ -105,27 +179,29 @@ which can be viewed
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2006-04-11">11.04.2006, 00:00</time>
+        <time datetime="2006-04-11">2006-04-11</time>
         <h1>
             <a href="/blog/2006/04/11/YourPresidentSpeaks.html" rel="bookmark canonical">Your President Speaks</a>
         </h1>
     </header>
-    <p>It's no secret that Bush is ap&shy;palling&shy;ly vacuous and incoherent whenever he
-has to answer a question that he hasn't been prepped for. Here are a few
+    <p>It&#8217;s no secret that Bush is ap&shy;palling&shy;ly vacuous and incoherent whenever he
+has to answer a question that he hasn&#8217;t been prepped for. Here are a few
 excerpts from his recent <a class="reference external" href="http://www.whitehouse.gov/news/releases/2006/04/20060410-1.html">appearance at Johns Hopkins University</a>:</p>
 <blockquote>
-<p><strong>The Presidency Is No Place for a Smart person</strong></p>
+<p><strong>The Presidency Is No Place for a Smart&nbsp;person</strong></p>
 <blockquote>
-We're a in&shy;flu&shy;en&shy;tial nation, and so, therefore, many problems come
-to the Oval Office. And you don't know what those problems are
+We&#8217;re a in&shy;flu&shy;en&shy;tial nation, and so, therefore, many problems come
+to the Oval Office. And you don&#8217;t know what those problems are
 going to be, which then argues for having smart people around.
-That's why you ought to serve in government if you're not going to
+That&#8217;s why you ought to serve in government if you&#8217;re not going to
 be the President. You have a chance to influence policy by giving
 good rec&shy;om&shy;men&shy;da&shy;tions to the President.</blockquote>
-<p><strong>Return of <span>&#8230;<a href="/blog/2006/04/11/YourPresidentSpeaks.html" class="continue">continue</a>.</span></strong></p></blockquote>
+<p><strong>Return of Complete, <span>&#8230;<a href="/blog/2006/04/11/YourPresidentSpeaks.html" class="continue">continue</a>.</span></strong></p></blockquote>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/04/11/YourPresidentSpeaks.html#disqus_thread">Comment</a>
@@ -136,27 +212,30 @@ good rec&shy;om&shy;men&shy;da&shy;tions to the President.</blockquote>
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2006-04-09">09.04.2006, 00:00</time>
+        <time datetime="2006-04-09">2006-04-09</time>
         <h1>
             <a href="/blog/2006/04/09/ViEmuAViAndVimEmulatorForVisualStudio.html" rel="bookmark canonical">ViEmu: a vi and Vim emulator for Visual Studio</a>
         </h1>
     </header>
     <div class="section" id="vim-vs-visual-studio">
-<h2>Vim vs. Visual Studio</h2>
-<p>I've been an <a class="reference external" href="http://www.georgevreilly.com/blog/2005/12/30/20YearsOfVi.html">obsessive vi user</a>
+<h2>Vim vs. Visual&nbsp;Studio</h2>
+<p>I&#8217;ve been an <a class="reference external" href="http://www.georgevreilly.com/blog/2005/12/30/20YearsOfVi.html">obsessive vi user</a>
 for more than 20 years. Vi keystrokes are indelibly burned into my
 <a class="reference external" href="http://www.oreilly.com/news/zenclavier_1299.html">muscle memory</a>.
 When I have to use Notepad or Word or Visual Studio, I feel crippled.
 I have to work harder to do simple things; I have to type too many chords
 with Alt and Ctrl; I have to take my hands off the home keys to use the
-cursor keys and the mouse.</p>
+cursor keys and the&nbsp;mouse.</p>
 <p>In the mid-90s, I adopted <a class="reference external" href="http://www.vim.org">Vim</a> (Vi IMproved)
 to the point where I became a sig&shy;nif&shy;i&shy;cant con&shy;trib&shy;u&shy;tor, writing a big chunk of the
 <a class="reference external" href="http://www.georgevreilly.com/blog/2005/12/30/20YearsOfVi.html">Win32 code</a>.</p>
-<p>While I was at Microsoft, I hardly ever used Visual <span>&#8230;<a href="/blog/2006/04/09/ViEmuAViAndVimEmulatorForVisualStudio.html" class="continue">continue</a>.</span></p></div>
+<p>While I was at Microsoft, I hardly ever used Visual Studio.
+I edited <span>&#8230;<a href="/blog/2006/04/09/ViEmuAViAndVimEmulatorForVisualStudio.html" class="continue">continue</a>.</span></p></div>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/04/09/ViEmuAViAndVimEmulatorForVisualStudio.html#disqus_thread">Comment</a>
@@ -167,25 +246,27 @@ to the point where I became a sig&shy;nif&shy;i&shy;cant con&shy;trib&shy;u&shy;
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2006-04-08">08.04.2006, 00:00</time>
+        <time datetime="2006-04-08">2006-04-08</time>
         <h1>
             <a href="/blog/2006/04/08/2upmanship.html" rel="bookmark canonical">Two-upmanship</a>
         </h1>
     </header>
     <a href="http://video.google.com/videoplay?docid=4776181634656145640" title="Chris Bliss's Amazing Juggling Finale">
      
-</a><p>Here's (left) a video of Chris Bliss doing a pretty amazing
+</a><p>Here&#8217;s (left) a video of Chris Bliss doing a pretty amazing
 <a class="reference external" href="http://video.google.com/videoplay?docid=4776181634656145640">juggling routine</a>
-to the ac&shy;com&shy;pa&shy;ni&shy;ment of the Beatle's <em>Once There Was a Way</em>.</p>
+to the ac&shy;com&shy;pa&shy;ni&shy;ment of the Beatle&#8217;s <em>Once There Was a Way</em>.</p>
 <a href="http://video.google.com/videoplay?docid=-6283096511750618839&amp;pl=true" title="Chris Bliss Juggling Parody">
      
-</a><p>And here's (right) a video of Jason Garfield doing the
+</a><p>And here&#8217;s (right) a video of Jason Garfield doing the
 <a class="reference external" href="http://video.google.com/videoplay?docid=-6283096511750618839&amp;pl=true">same routine</a>
-with five balls instead of three.</p>
-<p>(Each video is about 4.5 minutes long.)</p>
+with five balls instead of&nbsp;three.</p>
+<p>(Each video is about 4.5 minutes&nbsp;long.)</p>
 
     <footer>
         
@@ -197,28 +278,30 @@ with five balls instead of three.</p>
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2006-04-07">07.04.2006, 00:00</time>
+        <time datetime="2006-04-07">2006-04-07</time>
         <h1>
             <a href="/blog/2006/04/07/TheMediasChanceAtRedemption.html" rel="bookmark canonical">The Media's Chance at Redemption</a>
         </h1>
     </header>
-    <p>In <a class="reference external" href="http://www.tompaine.com/articles/2006/04/06/the_medias_chance_at_redemption.php">The Media's Chance at Redemption</a>,
-Russ Baker ably takes the MSM to task:</p>
+    <p>In <a class="reference external" href="http://www.tompaine.com/articles/2006/04/06/the_medias_chance_at_redemption.php">The Media&#8217;s Chance at Redemption</a>,
+Russ Baker ably takes the <span class="caps">MSM</span> to&nbsp;task:</p>
 <blockquote>
-<p>When, oh when, will the U.S. “main&shy;stream media” finally stop hemming and
+<p>When, oh when, will the <span class="caps">U.S.</span>“main&shy;stream media” finally stop hemming and
 hawing, parsing and un&shy;der&shy;stat&shy;ing? When will they simply go for the jugular
 to confirm what any thoughtful American has already learned from “less
 reputable” but in&shy;creas&shy;ing&shy;ly relevant al&shy;ter&shy;na&shy;tive in&shy;for&shy;ma&shy;tion sources: that
 from the beginning of the Bush ad&shy;min&shy;is&shy;tra&shy;tion, invading Iraq has always
 been as much an article of faith for the president as, well, promoting
-faith over reason?</p>
-<p>...-</p>
+faith over&nbsp;reason?</p>
+<p>&#8230;-</p>
 <p>The <em>Times</em> report was full of throat-clearing and arcane notations that,
 while the memo had previously been reported, it had never been as fully
-reported, or that <span>&#8230;<a href="/blog/2006/04/07/TheMediasChanceAtRedemption.html" class="continue">continue</a>.</span></p></blockquote>
+reported, or that a particular passage <span>&#8230;<a href="/blog/2006/04/07/TheMediasChanceAtRedemption.html" class="continue">continue</a>.</span></p></blockquote>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/04/07/TheMediasChanceAtRedemption.html#disqus_thread">Comment</a>
@@ -229,17 +312,19 @@ reported, or that <span>&#8230;<a href="/blog/2006/04/07/TheMediasChanceAtRedemp
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2006-04-03">03.04.2006, 00:00</time>
+        <time datetime="2006-04-03">2006-04-03</time>
         <h1>
             <a href="/blog/2006/04/03/GodsOwnParty.html" rel="bookmark canonical">God's Own Party</a>
         </h1>
     </header>
     <p>More on the Ta&shy;l&shy;abap&shy;tist front.
-In yes&shy;ter&shy;day's Washinton Post, Kevin Phillips on
-<a class="reference external" href="http://www.washingtonpost.com/wp-dyn/content/article/2006/04/01/AR2006040100004.html">How the GOP Became God's Own Party</a>.</p>
+In yesterday&#8217;s Washinton Post, Kevin Phillips on
+<a class="reference external" href="http://www.washingtonpost.com/wp-dyn/content/article/2006/04/01/AR2006040100004.html">How the <span class="caps">GOP</span> Became God&#8217;s Own Party</a>.</p>
 
     <footer>
         
@@ -251,60 +336,8 @@ In yes&shy;ter&shy;day's Washinton Post, Kevin Phillips on
     </footer>
     <div class="comments"></div>
 </article>
-    
-        <article>
-    <header>
-        <time datetime="2006-03-24">24.03.2006, 00:00</time>
-        <h1>
-            <a href="/blog/2006/03/24/TheocracyInAction.html" rel="bookmark canonical">Theocracy in Action</a>
-        </h1>
-    </header>
-    <p>Rolling Stone magazine profiles Senator Sam Brownback in
-<a class="reference external" href="http://www.rollingstone.com/politics/story/9178374/gods_senator">God's Senator</a>.
-It's a scary look at the Christian far Right.</p>
 
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/03/24/TheocracyInAction.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2006-03-23">23.03.2006, 00:00</time>
-        <h1>
-            <a href="/blog/2006/03/23/BusinessWeekCoversAtlasOnDemand.html" rel="bookmark canonical">Business Week Covers Atlas On Demand</a>
-        </h1>
-    </header>
-    <p>The latest issue of <a class="reference external" href="http://www.businessweek.com/">Busi&shy;ness&shy;Week</a> covers
-<a class="reference external" href="http://www.atlassolutions.com/news/releases/20050523">Atlas On Demand</a>,
-the product that I've worked on for the last six months, in a piece called
-<a class="reference external" href="http://www.businessweek.com/@@nKnqf4YQDhFL8B0A/magazine/content/06_13/b3977404.htm">TV Eyeballs Close-Up</a></p>
-<blockquote>
-<p>Ever since the advent of commercial television, ad&shy;ver&shy;tis&shy;ers have
-wondered exactly what they get for the megabucks they spend on
-30-second spots. After all, the networks and cable companies offer only
-a crude ap&shy;prox&shy;i&shy;ma&shy;tion of who is watching what. With such thin
-in&shy;for&shy;ma&shy;tion, ad&shy;ver&shy;tis&shy;ers can't target specific neigh&shy;bor&shy;hoods or
-consumer tastes. As for converting ads directly to sales, well, that's
-virtually impossible. Yet the Web, with its so&shy;phis&shy;ti&shy;cat&shy;ed per-click
-metrics, does all of that billions of times a day. &quot;The problem,&quot; says
-Yankee Group analyst <span>&#8230;<a href="/blog/2006/03/23/BusinessWeekCoversAtlasOnDemand.html" class="continue">continue</a>.</span></p></blockquote>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/03/23/BusinessWeekCoversAtlasOnDemand.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
+
     
     
         <a href="/blog/page/110/" class="page floatright">

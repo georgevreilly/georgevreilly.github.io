@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Deploying a Docker Container on AWS</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,33 +32,33 @@
     
         <article>
     <header>
-        <time datetime="2016-05-24">24.05.2016, 00:00</time>
+        <time datetime="2016-05-24">2016-05-24</time>
         <h1>
             <a href="/blog/2016/05/24/DeployingADockerContainerOnAWS.html" rel="bookmark canonical">Deploying a Docker Container on AWS</a>
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.ybrikman.com/writing/2015/11/11/running-docker-aws-ground-up/"><img alt="Docker + AWS" class="right-float" src="http://www.ybrikman.com/assets/img/blog/aws-docker/docker-on-aws.png"/></a>
 <p>I spent a couple of frus&shy;trat&shy;ing hours this evening
-trying to figure out an easy way to deploy a Docker container on AWS.
-I tried out the <a class="reference external" href="https://aws.amazon.com/ecs/">EC2 Container Service</a> and got lost
+trying to figure out an easy way to deploy a Docker container on <span class="caps">AWS</span>.
+I tried out the <a class="reference external" href="https://aws.amazon.com/ecs/"><span class="caps">EC2</span> Container Service</a> and got lost
 in a sea of Clusters, Tasks, and Services.
-I couldn't connect to the EC2 instance where my container supposedly lived.</p>
+I couldn&#8217;t connect to the <span class="caps">EC2</span> instance where my container supposedly&nbsp;lived.</p>
 <p>I tried <a class="reference external" href="https://aws.amazon.com/elasticbeanstalk/">Elastic Beanstalk</a> and gave up in ex&shy;as&shy;per&shy;a&shy;tion.
 When you create a new Docker en&shy;vi&shy;ron&shy;ment,
-there's no way to pull an existing image from an external repo
+there&#8217;s no way to pull an existing image from an external repo
 that I could see.
 We have some tools for deploying a Docker image to Elastic Beanstalk,
-but they were so cryptic that I didn't want to pursue that.</p>
+but they were so cryptic that I didn&#8217;t want to pursue&nbsp;that.</p>
 <p>Eventually I went old school.
-I created a new EC2 instance,
+I created a new <span class="caps">EC2</span> instance,
 SSHed in,
 installed Docker,
 logged into the Docker repository,
 pulled the image,
 and started the container.
 Admittedly, re&shy;de&shy;ploy&shy;ment will be a pain
-and I don't get au&shy;toscal&shy;ing or other AWS goodness,
-but I got the container working in 10 minutes.</p>
+and I don&#8217;t get au&shy;toscal&shy;ing or other <span class="caps">AWS</span> goodness,
+but I got the container working in 10&nbsp;minutes.</p>
 
     <footer>
         
@@ -91,6 +92,8 @@ but I got the container working in 10 minutes.</p>
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2016/05/23/ToastmastersEvaluations.html" class="page floatright">

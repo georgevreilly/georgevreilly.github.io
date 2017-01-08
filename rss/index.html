@@ -5,9 +5,39 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Thu, 05 Jan 2017 08:00:00 GMT</pubDate>
+        <pubDate>Sat, 07 Jan 2017 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Review: Dr. Strange</title>
+        <link>http://www.georgevreilly.com/blog/2017/01/07/ReviewDrStrange.html</link>
+        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Doctor_Strange_(film)&#34;&gt;&lt;img alt=&#34;Dr. Strange&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Doctor_Strange_poster.jpg/220px-Doctor_Strange_poster.jpg&#34;/&gt;&lt;/a&gt;
+&lt;div class=&#34;line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;Title: Dr. Strange&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Director: Scott Derrickson&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ½&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Released: 2016&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Keywords: Marvel, fantasy&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Watched: 7 January, 2017&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Stephen Strange is a world-class surgeon whose talent is only matched by his arrogance.
+His hands are ruined by a car crash, leaving him desperate to regain their use.
+In Nepal, he finds a temple of sorcerers led by the Ancient One,
+where he learns new and unsuspected ways of dealing with the world.
+Eventually he takes on the renegade sorcerer Kaecilius,
+who wants to summon Dormammu from the Dark Dimension to change the world.&lt;/p&gt;
+&lt;p&gt;Aside from his very odd American accent,
+Benedict Cumberbatch does a decent job with a not-great script
+of portraying one of Marvel&#39;s odder superheroes.
+There was a lot of controversy over Tilda Swinton playing the Ancient One,
+in yet another example of Hollywood whitewashing Asian characters.
+We learned little about the other characters,
+since everyone was running around like crazy for most of the film.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 07 Jan 2017 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-07:/blog/2017/01/07/ReviewDrStrange.html</guid>
+    </item>
         
             <item>
         <title>Git: pruning unused branches</title>
@@ -28,35 +58,34 @@ it&#39;s usually safe to delete these.&lt;/li&gt;
 these require further investigation.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Here&#39;s an example for &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/cookbrite/flyingcloud&#34;&gt;flyingcloud&lt;/a&gt;:&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;
-$ git for-each-ref --sort=-committerdate \
-    --format=&#39;%(committerdate:short) %(refname)&#39; refs/heads refs/remotes
-2016-12-29 refs/remotes/origin/master
-2016-12-29 refs/remotes/origin/HEAD
-2016-12-29 refs/heads/master
-2016-12-11 refs/remotes/origin/0.1.x
-2016-06-09 refs/remotes/origin/fix/salt-pip-version-problem-in-demo
-2016-05-25 refs/remotes/origin/updates
-2016-05-09 refs/remotes/origin/feature/documentation-improvements-3
-2016-04-19 refs/remotes/origin/feature/developer-setup-example
-2016-04-17 refs/remotes/origin/feature/travis-build
-2016-03-16 refs/remotes/origin/feature/documentation-improvements-2
-2016-03-06 refs/remotes/origin/feature/documentation-improvements-1
-2016-03-06 refs/remotes/origin/feature/documentation-and-examples
-2016-02-26 refs/remotes/origin/rtfd
-2016-02-21 refs/remotes/origin/feature/metakube
-2016-01-17 refs/remotes/origin/walk_tree
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;$&lt;/span&gt; git &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;-each-ref --sort&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;-committerdate &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;    --format=&amp;#39;%(committerdate:short) %(refname)&amp;#39; refs/heads refs/remotes&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-12-29 refs/remotes/origin/master&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-12-29 refs/remotes/origin/HEAD&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-12-29 refs/heads/master&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-12-11 refs/remotes/origin/0.1.x&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-06-09 refs/remotes/origin/fix/salt-pip-version-problem-in-demo&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-05-25 refs/remotes/origin/updates&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-05-09 refs/remotes/origin/feature/documentation-improvements-3&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-04-19 refs/remotes/origin/feature/developer-setup-example&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-04-17 refs/remotes/origin/feature/travis-build&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-03-16 refs/remotes/origin/feature/documentation-improvements-2&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-03-06 refs/remotes/origin/feature/documentation-improvements-1&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-03-06 refs/remotes/origin/feature/documentation-and-examples&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-02-26 refs/remotes/origin/rtfd&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-02-21 refs/remotes/origin/feature/metakube&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;2016-01-17 refs/remotes/origin/walk_tree&lt;/span&gt;
 
-$ git branch --remote --merged master
-  origin/HEAD -&amp;gt; origin/master
-  origin/feature/documentation-improvements-1
-  origin/feature/documentation-improvements-2
-  origin/feature/travis-build
-  origin/fix/salt-pip-version-problem-in-demo
-  origin/master
-  origin/rtfd
-  origin/updates
-&lt;/pre&gt;
+&lt;span class=&#34;gp&#34;&gt;$&lt;/span&gt; git branch --remote --merged master
+&lt;span class=&#34;go&#34;&gt;  origin/HEAD -&amp;gt; origin/master&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;  origin/feature/documentation-improvements-1&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;  origin/feature/documentation-improvements-2&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;  origin/feature/travis-build&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;  origin/fix/salt-pip-version-problem-in-demo&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;  origin/master&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;  origin/rtfd&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;  origin/updates&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 </description>
         <pubDate>Thu, 05 Jan 2017 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-05:/blog/2017/01/05/GitPruningUnusedBranches.html</guid>
@@ -88,30 +117,26 @@ The blank lines may be omitted in all but the GitHub &lt;tt class=&#34;docutils 
 without affecting the rendering.
 However, without the blank lines,
 the code block will collapse onto one line in the GitHub &lt;tt class=&#34;docutils literal&#34;&gt;README.md&lt;/tt&gt;.&lt;/p&gt;
-&lt;!-- // code-block: markdown --&gt;
-
-&lt;pre class=&#34;brush: markdown&#34;&gt;
-* The following has been tested with RabbitMQ 3.6.0 on macOS
-  (`brew install rabbitmq`):
-        - `/usr/local/etc/rabbitmq/rabbitmq-env.conf`
-          should *not* have a localhost entry for `NODE_IP_ADDRESS`;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;* &lt;/span&gt;The following has been tested with RabbitMQ 3.6.0 on macOS
+  (&lt;span class=&#34;k&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;brew install rabbitmq&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;`&lt;/span&gt;):
+&lt;span class=&#34;k&#34;&gt;        - `&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;/usr/local/etc/rabbitmq/rabbitmq-env.conf&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;`&lt;/span&gt;
+          should &lt;span class=&#34;k&#34;&gt;*&lt;/span&gt;&lt;span class=&#34;ge&#34;&gt;not&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;*&lt;/span&gt; have a localhost entry for &lt;span class=&#34;k&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;NODE_IP_ADDRESS&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;`&lt;/span&gt;;
           e.g.:
 
-                ```
+                &lt;span class=&#34;k&#34;&gt;```&lt;/span&gt;
                 CONFIG_FILE=/usr/local/etc/rabbitmq/rabbitmq
-                #NODE_IP_ADDRESS=127.0.0.1
+                #NODE&lt;span class=&#34;k&#34;&gt;_&lt;/span&gt;&lt;span class=&#34;ge&#34;&gt;IP&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;_&lt;/span&gt;ADDRESS=127.0.0.1
                 NODENAME=rabbit@localhost
-                ```
+                &lt;span class=&#34;k&#34;&gt;```&lt;/span&gt;
 
-        - `/usr/local/etc/rabbitmq/rabbitmq.config`:
+&lt;span class=&#34;k&#34;&gt;        - `&lt;/span&gt;&lt;span class=&#34;sb&#34;&gt;/usr/local/etc/rabbitmq/rabbitmq.config&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;`&lt;/span&gt;:
 
-                ```
+                &lt;span class=&#34;k&#34;&gt;```&lt;/span&gt;
                 [{rabbit, [{loopback_users, []}]}].
-                ```
+                &lt;span class=&#34;k&#34;&gt;```&lt;/span&gt;
 
                 (Yes, the trailing period is deliberate.)
-&lt;/pre&gt;
-
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Both Atom and VSCode are built on top of &lt;a class=&#34;reference external&#34; href=&#34;http://electron.atom.io/&#34;&gt;Electron&lt;/a&gt;,
 which seems to be an excellent way to built powerful cross-platform desktop apps
 using HTML, CSS, and JavaScript on top of Chromium and Node.js.
@@ -890,47 +915,6 @@ so the fastener won&#39;t loosen much.&lt;/p&gt;
 </description>
         <pubDate>Tue, 16 Aug 2016 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-16:/blog/2016/08/16/OnWashers.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: Flashman And The Redskins</title>
-        <link>http://www.georgevreilly.com/blog/2016/08/15/ReviewFlashmanAndTheRedskins.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0452264871/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Flashman And The Redskins&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/0452264871.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: Flashman And The Redskins&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: George MacDonald Fraser&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Plume&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 1982&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/0452264871/?tag=georgvreill-20&#34;&gt;0452264871&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 480&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: historical fiction, humor&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 20 July–7 August, 2016&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/The_Flashman_Papers&#34;&gt;Flashman Papers&lt;/a&gt; VII: 1849–50 and 1875–76&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Flashman_and_the_Redskins&#34;&gt;Flashman And The Redskins&lt;/a&gt; is the seventh volume of the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/The_Flashman_Papers&#34;&gt;Flashman Papers&lt;/a&gt;,
-although it opens immediately after &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2016/08/07/ReviewFlashForFreedom.html&#34;&gt;Flash For Freedom!&lt;/a&gt;
-In the first part, which takes place in 1849–50,
-Flashman is fleeing from New Orleans in the company of a madam
-who is taking her entire brothel westward to take advantage of the California Gold Rush.
-He sees the opening of the West and the beginning of huge changes to the Plains.
-He is taken captive by Apaches and spends several months living with them.
-Flashman can be a callous self-centered bastard,
-but I was shocked by his off-hand betrayal of someone who misplaced their trust in him.&lt;/p&gt;
-&lt;p&gt;A quarter-century later, Flashman is back in America,
-where he is persuaded by his friend George Custer to travel to North Dakota.
-The Plains have been radically transformed in the interim, as the West has been “won”:
-the bison are largely gone, white settlements abound,
-and the tribes are not happy that they have been relocated to ever-shrinking reservations.
-Flashman comes to regret his earlier betrayal,
-as his former victim arranges for him to be captured by Sioux warriors,
-which leads to his barely surviving in the Battle of the Little Bighorn (Custer&#39;s Last Stand).&lt;/p&gt;
-&lt;p&gt;Flashman has a grudging respect for the various tribes he spends time with,
-and he is (by nineteenth century standards) sympathetic to their plight
-as white Americans encroach upon their lands.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 15 Aug 2016 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-15:/blog/2016/08/15/ReviewFlashmanAndTheRedskins.html</guid>
     </item>
         </channel>
 </rss>

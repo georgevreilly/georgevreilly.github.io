@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>George V. Reilly</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -29,7 +30,76 @@
     
         <article>
     <header>
-        <time datetime="2007-02-11">11.02.2007, 00:00</time>
+        <time datetime="2007-02-20">2007-02-20</time>
+        <h1>
+            <a href="/blog/2007/02/20/VimOnWin64Updated.html" rel="bookmark canonical">Vim on Win64 updated</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.georgevreilly.com/vim/"></a>
+<p>I have updated the <a class="reference external" href="http://www.georgevreilly.com/vim/">Win64 port of Vim</a>.
+It now includes a working installer,
+a working &quot;Edit with Vim&quot; shell extension,
+and the first 195 patches for Vim 7.0.
+Get it while it&#8217;s&nbsp;hot!</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/20/VimOnWin64Updated.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-02-12">2007-02-12</time>
+        <h1>
+            <a href="/blog/2007/02/12/ReviewTheDanteClub.html" rel="bookmark canonical">Review: The Dante Club</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0812971043"></a>
+<div class="line-block">
+<div class="line">Title: The Dante Club</div>
+<div class="line">Author: Matthew Pearl</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Publisher: Random House</div>
+<div class="line">Copyright: 2003</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0812971043">0812971043</a></div>
+<div class="line">Pages: 372</div>
+<div class="line">Keywords: historical mystery</div>
+<div class="line">Reading period: 10-12 February, 2007</div>
+</div>
+<p>This book is blurbed by Dan Brown on the front cover;
+happily, <em>The Dante Club</em> is a much better book than
+<em>The Da Vinci Code</em> and Pearl is a much better writer than&nbsp;Brown.</p>
+<p>The poets Henry Wadsworth Longfellow, James Russell Lowell,
+and Dr. Oliver Wendell Holmes, their publisher, <span class="caps">J.T.</span> Fields,
+and the historian George Washington Greene
+are completing the first trans&shy;la&shy;tion of Dante Alighieri&#8217;s
+<em>The Divine Comedy</em> ever to be published in America.
+It is Boston in 1865, just after the Civil War.
+Two prominent Brahmins are murdered in <span>&#8230;<a href="/blog/2007/02/12/ReviewTheDanteClub.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/12/ReviewTheDanteClub.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-02-11">2007-02-11</time>
         <h1>
             <a href="/blog/2007/02/11/ShellExtensionThrowingR6034Errors.html" rel="bookmark canonical">Shell extension throwing R6034 errors</a>
         </h1>
@@ -37,21 +107,21 @@
     
 <p>I have been cleaning up some issues with the <a class="reference external" href="http://www.georgevreilly.com/blog/2006/04/22/Win64PortOfVim.html">Win64 port of Vim</a>,
 including the <em>Edit with Vim</em> shell extension not working very well.
-When I built the shell extension with VS 2005 on x86, I would
-get the following whenever I right-clicked in Explorer:</p>
+When I built the shell extension with <span class="caps">VS</span> 2005 on x86, I would
+get the following whenever I right-clicked in&nbsp;Explorer:</p>
 <blockquote>
-<p>Microsoft Visual C++ Runtime Library</p>
-<p>Runtime Error!</p>
-<p>Program: C:WIN&shy;DOW&shy;S&shy;Ex&shy;plor&shy;er.EXE</p>
+<p>Microsoft Visual C++ Runtime&nbsp;Library</p>
+<p>Runtime&nbsp;Error!</p>
+<p>Program:&nbsp;C:WIN&shy;DOW&shy;S&shy;Ex&shy;plor&shy;er.<span class="caps">EXE</span></p>
 <p>R6034</p>
 <p>An ap&shy;pli&shy;ca&shy;tion has made an attempt to load the C runtime library in&shy;cor&shy;rect&shy;ly.
-Please contact the ap&shy;pli&shy;ca&shy;tion's support team for more in&shy;for&shy;ma&shy;tion.</p>
+Please contact the ap&shy;pli&shy;ca&shy;tion&#8217;s support team for more&nbsp;in&shy;for&shy;ma&shy;tion.</p>
 </blockquote>
 <p>There was no mention of which ap&shy;pli&shy;ca&shy;tion was at fault,
 though it was obvious in this case.
 I have also seen some mention of <tt class="docutils literal">verclsid</tt> in the error dialog,
-though not when I took this snapshot.</p>
-<p>The <span>&#8230;<a href="/blog/2007/02/11/ShellExtensionThrowingR6034Errors.html" class="continue">continue</a>.</span></p>
+though not when I took this&nbsp;snapshot.</p>
+<p>The underlying problem relates to SxS, Fusion, <span>&#8230;<a href="/blog/2007/02/11/ShellExtensionThrowingR6034Errors.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/11/ShellExtensionThrowingR6034Errors.html#disqus_thread">Comment</a>
@@ -62,22 +132,24 @@ though not when I took this snapshot.</p>
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2007-02-10">10.02.2007, 00:00</time>
+        <time datetime="2007-02-10">2007-02-10</time>
         <h1>
             <a href="/blog/2007/02/10/ReviewGrantvilleGazetteIII.html" rel="bookmark canonical">Review: Grantville Gazette III</a>
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.amazon.com/dp/1416509410/?tag=georgvreill-20"></a>
 <div class="line-block">
-<div class="line">Title: Grantville Gazette III</div>
+<div class="line">Title: Grantville Gazette <span class="caps">III</span></div>
 <div class="line">Author: Eric Flint (ed.)</div>
 <div class="line">Rating: ★ ★</div>
 <div class="line">Publisher: Baen</div>
 <div class="line">Copyright: 2006</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/1416509410/?tag=georgvreill-20">1416509410</a></div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/1416509410/?tag=georgvreill-20">1416509410</a></div>
 <div class="line">Pages: 314</div>
 <div class="line">Keywords: alternate history, spec&shy;u&shy;la&shy;tive fiction</div>
 <div class="line">Reading period: 4th-9th February, 2007</div>
@@ -85,12 +157,12 @@ though not when I took this snapshot.</p>
 <p>The popular <a class="reference external" href="http://en.wikipedia.org/wiki/1632_series">1632 series</a> is a <a class="reference external" href="http://en.wikipedia.org/wiki/Shared_universe">shared universe</a> of <a class="reference external" href="http://en.wikipedia.org/wiki/Alternate_history">alternate history</a>,
 where the small town of Grantville, West Virginia has somehow been
 trans&shy;port&shy;ed in a Ring of Fire to central Germany in 1631,
-during the middle of the <a class="reference external" href="http://en.wikipedia.org/wiki/Thirty_years%27_war">Thirty Years' War</a>.
+during the middle of the <a class="reference external" href="http://en.wikipedia.org/wiki/Thirty_years%27_war">Thirty Years&#8217; War</a>.
 The towns&shy;peo&shy;ple adapt fairly suc&shy;cess&shy;ful&shy;ly and im&shy;me&shy;di&shy;ate&shy;ly and ir&shy;rev&shy;o&shy;ca&shy;bly
-change the course of history, thanks to their advanced technology.</p>
+change the course of history, thanks to their advanced&nbsp;technology.</p>
 <p>The Ring of Fire has spawned an active community at <a class="reference external" href="http://www.1632.org/">1632.org</a>,
 leading to a great deal of fan fiction, developing plot lines,
-fleshing out major and minor characters, <span>&#8230;<a href="/blog/2007/02/10/ReviewGrantvilleGazetteIII.html" class="continue">continue</a>.</span></p>
+fleshing out major and minor characters, as <span>&#8230;<a href="/blog/2007/02/10/ReviewGrantvilleGazetteIII.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/10/ReviewGrantvilleGazetteIII.html#disqus_thread">Comment</a>
@@ -101,22 +173,24 @@ fleshing out major and minor characters, <span>&#8230;<a href="/blog/2007/02/10/
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2007-02-10">10.02.2007, 00:00</time>
+        <time datetime="2007-02-10">2007-02-10</time>
         <h1>
             <a href="/blog/2007/02/10/IranOfficialWashingtonWakingUp.html" rel="bookmark canonical">Iran: Official Washington Waking Up</a>
         </h1>
     </header>
     
-<p>I'm slightly more hopeful this week about not <a class="reference external" href="http://www.georgevreilly.com/blog/2007/02/02/AttackingIran.html">Attacking Iran</a>
+<p>I&#8217;m slightly more hopeful this week about not <a class="reference external" href="http://www.georgevreilly.com/blog/2007/02/02/AttackingIran.html">Attacking Iran</a>
 after reading this piece, subtitled <a class="reference external" href="http://www.tomdispatch.com/index.mhtml?emx=x&amp;pid=164164">Thelma and Louise Im&shy;pe&shy;ri&shy;al&shy;ism</a>.</p>
 <blockquote>
 <p>You only have to pick up the morning paper to find the most mainstream
 of official types in an over-the-top mode that, bare months ago, would
 have been confined to the distant pe&shy;riph&shy;eries of political argument.
-There's Senator Joe Biden, the very definition of a mainstream man,
+There&#8217;s Senator Joe Biden, the very definition of a mainstream man,
 grilling Secretary of State Con&shy;doleez&shy;za Rice about whether she believes
 the ad&shy;min&shy;is&shy;tra&shy;tion already has the authority to attack Iran and
 swearing, if she does, that it &quot;will generate a con&shy;sti&shy;tu&shy;tion&shy;al
@@ -132,23 +206,25 @@ ex&shy;cla&shy;ma&shy;tion point <span>&#8230;<a href="/blog/2007/02/10/IranOffi
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2007-02-08">08.02.2007, 00:00</time>
+        <time datetime="2007-02-08">2007-02-08</time>
         <h1>
             <a href="/blog/2007/02/08/UsingGmailToReadOtherAccounts.html" rel="bookmark canonical">Using Gmail to read other accounts</a>
         </h1>
     </header>
     <a class="reference external image-reference" href="http://gmail.com/"></a>
-<p><a class="reference external" href="http://googlesystem.blogspot.com/2006/12/screenshots-of-gmails-mail-fetcher.html">Gmail's Mail Fetcher</a> now works for me!
+<p><a class="reference external" href="http://googlesystem.blogspot.com/2006/12/screenshots-of-gmails-mail-fetcher.html">Gmail&#8217;s Mail Fetcher</a> now works for me!
 As of today, I can now read my reilly.org email through Gmail,
 instead of the crappy webmail interface that Ne&shy;tI&shy;den&shy;ti&shy;ty provides.
-Much, much nicer.</p>
+Much, much&nbsp;nicer.</p>
 <p>I still prefer to read my email with a <em>real</em> email client,
-like Thun&shy;der&shy;bird, but I don't have POP3 access from work.</p>
+like Thun&shy;der&shy;bird, but I don&#8217;t have <span class="caps">POP3</span> access from&nbsp;work.</p>
 <p>In related news, it looks like <a class="reference external" href="http://googlesystem.blogspot.com/2007/02/anyone-can-signup-for-gmail-account.html">anyone can sign up for Gmail</a>.
-You no longer need to be invited.</p>
+You no longer need to be&nbsp;invited.</p>
 
     <footer>
         
@@ -160,10 +236,12 @@ You no longer need to be invited.</p>
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2007-02-07">07.02.2007, 00:00</time>
+        <time datetime="2007-02-07">2007-02-07</time>
         <h1>
             <a href="/blog/2007/02/07/DoctorWhoAndTheFrenchDalek.html" rel="bookmark canonical">Doctor Who and the French Dalek</a>
         </h1>
@@ -176,7 +254,7 @@ You no longer need to be invited.</p>
 </object><br />
 Doctor Who and the French Dalek
 </div><p>Via <a class="reference external" href="http://andrewsullivan.theatlantic.com/the_daily_dish/2007/02/beyond_good_and.html">Andrew Sullivan</a>, an extremely well cut YouTube mashup of Doctor Who and
-Monty Python.</p>
+Monty&nbsp;Python.</p>
 
     <footer>
         
@@ -188,10 +266,12 @@ Monty Python.</p>
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2007-02-07">07.02.2007, 00:00</time>
+        <time datetime="2007-02-07">2007-02-07</time>
         <h1>
             <a href="/blog/2007/02/07/I957TheDefenseOfMarriageInitiative.html" rel="bookmark canonical">I-957: The Defense of Marriage Initiative</a>
         </h1>
@@ -200,21 +280,21 @@ Monty Python.</p>
 <p>Last year, the Washington State Supreme Court handed down its
 wrong&shy;head&shy;ed <a class="reference external" href="http://www.georgevreilly.com/blog/2006/07/27/NoSameSexMarriagesInWashingtonStateYet.html">decision on same-sex marriage</a>.</p>
 <p>In a delightful piece of political theater,
-<a class="reference external" href="http://www.wa-doma.org/">WA-DOMA</a> has just filed ballot initiative I-957:</p>
+<a class="reference external" href="http://www.wa-doma.org/"><span class="caps">WA</span>-<span class="caps">DOMA</span></a> has just filed ballot initiative&nbsp;I-957:</p>
 <blockquote>
-<p>If passed by Washington voters, the Defense of Marriage Initiative
-would:</p>
+<p>If passed by Washington voters, the Defense of Marriage Initiative&nbsp;would:</p>
 <blockquote>
 <ul class="simple">
 <li>add the phrase, “who are capable of having children with one
-another” to the legal definition of marriage;</li>
+another” to the legal definition of&nbsp;marriage;</li>
 <li>require that couples married in Washington file proof of
 pro&shy;cre&shy;ation within three years of the date of marriage or
-have their marriage au&shy;to&shy;mat&shy;i&shy;cal&shy;ly annulled;</li>
+have their marriage au&shy;to&shy;mat&shy;i&shy;cal&shy;ly&nbsp;annulled;</li>
 <li>require that couples married out of state file proof of
 pro&shy;cre&shy;ation within three years of the date of marriage or
-have their marriage classed as “un&shy;rec&shy;og&shy;nized;”</li>
-<li>establish a process for filing proof <span>&#8230;<a href="/blog/2007/02/07/I957TheDefenseOfMarriageInitiative.html" class="continue">continue</a>.</span></li></ul></blockquote></blockquote>
+have their marriage classed as&nbsp;“un&shy;rec&shy;og&shy;nized;”</li>
+<li>establish a process for filing proof of pro&shy;cre&shy;ation;&nbsp;and</li>
+<li>make it a <span>&#8230;<a href="/blog/2007/02/07/I957TheDefenseOfMarriageInitiative.html" class="continue">continue</a>.</span></li></ul></blockquote></blockquote>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/07/I957TheDefenseOfMarriageInitiative.html#disqus_thread">Comment</a>
@@ -225,25 +305,28 @@ have their marriage classed as “un&shy;rec&shy;og&shy;nized;”</li>
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2007-02-07">07.02.2007, 00:00</time>
+        <time datetime="2007-02-07">2007-02-07</time>
         <h1>
             <a href="/blog/2007/02/07/PrintfN.html" rel="bookmark canonical">Printf %n</a>
         </h1>
     </header>
     
 <p>In my post about <a class="reference external" href="http://www.georgevreilly.com/blog/2005/06/02/PrintfTricks.html">Printf Tricks</a> a couple of years ago,
-I mentioned that &quot;<tt class="docutils literal">%n</tt> is dangerous and disabled by default in Visual Studio 2005.&quot;</p>
-<p>I got email today from someone who was porting a large codebase to VS 2005.
+I mentioned that &quot;<tt class="docutils literal">%n</tt> is dangerous and disabled by default in Visual Studio&nbsp;2005.&quot;</p>
+<p>I got email today from someone who was porting a large codebase to <span class="caps">VS</span> 2005.
 He was getting an assert from <tt class="docutils literal">%n</tt> and he needed a way to get past it.
-He intends to fix the uses of <tt class="docutils literal">%n</tt> when he has a chance.</p>
-<p>I spent several minutes digging around in MSDN and came up with
-<a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms175782(VS.80).aspx">set_print&shy;f_&shy;coun&shy;t_out&shy;put</a>. Wikipedi&shy;a's <a class="reference external" href="http://en.wikipedia.org/wiki/Format_string_attack">Format string attack</a> page
+He intends to fix the uses of <tt class="docutils literal">%n</tt> when he has a&nbsp;chance.</p>
+<p>I spent several minutes digging around in <span class="caps">MSDN</span> and came up with
+<a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms175782(VS.80).aspx">set_print&shy;f_&shy;coun&shy;t_out&shy;put</a>. Wikipedia&#8217;s <a class="reference external" href="http://en.wikipedia.org/wiki/Format_string_attack">Format string attack</a> page
 led me to <a class="reference external" href="http://julianor.tripod.com/bc/formatstring-1.2.pdf">Exploiting Format String Vul&shy;ner&shy;a&shy;bil&shy;i&shy;ties</a>, which
-describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="docutils literal">%s</tt>) may be exploited.</p>
-<p>In short, if you <span>&#8230;<a href="/blog/2007/02/07/PrintfN.html" class="continue">continue</a>.</span></p>
+describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="docutils literal">%s</tt>) may be&nbsp;exploited.</p>
+<p>In short, if you have <tt class="docutils literal">printf(un&shy;val&shy;i&shy;dat&shy;ed_user_in&shy;put)</tt>,
+instead of <span>&#8230;<a href="/blog/2007/02/07/PrintfN.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/07/PrintfN.html#disqus_thread">Comment</a>
@@ -254,22 +337,24 @@ describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="doc
     </footer>
     <div class="comments"></div>
 </article>
+
+
     
         <article>
     <header>
-        <time datetime="2007-02-06">06.02.2007, 00:00</time>
+        <time datetime="2007-02-06">2007-02-06</time>
         <h1>
             <a href="/blog/2007/02/06/ReviewInTheBeginningWasTheCommandLine.html" rel="bookmark canonical">Review: In the Beginning ... Was the Command Line</a>
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.amazon.com/dp/0380815931/?tag=georgvreill-20"></a>
 <div class="line-block">
-<div class="line">Title: In the Beginning ... Was the Command Line</div>
+<div class="line">Title: In the Beginning &#8230; Was the Command Line</div>
 <div class="line">Author: Neal Stephenson</div>
 <div class="line">Rating: ★ ★</div>
 <div class="line">Publisher: Perennial</div>
 <div class="line">Copyright: 1999</div>
-<div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/0380815931/?tag=georgvreill-20">0380815931</a></div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0380815931/?tag=georgvreill-20">0380815931</a></div>
 <div class="line">Pages: 151</div>
 <div class="line">Keywords: sociology, business</div>
 <div class="line">Reading period: October 2006—Feb&shy;ru&shy;ary 5, 2007</div>
@@ -277,12 +362,12 @@ describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="doc
 <p>This is a rather strange, rambling essay about the state of the computer industry,
 historical accidents, and Windows vs. Mac vs. Linux, favoring Linux.
 Written in 1999, it has not aged well.
-Stephenson has a fas&shy;ci&shy;na&shy;tion with the command line and a disdain for GUIs.</p>
+Stephenson has a fas&shy;ci&shy;na&shy;tion with the command line and a disdain for&nbsp;GUIs.</p>
 <blockquote>
 By using GUIs all the time we have insensibly bought into a premise
 that few people would have accepted if it were presented to them bluntly:
 namely, that hard things can be made easy, and com&shy;pli&shy;cat&shy;ed things simple,
-by <span>&#8230;<a href="/blog/2007/02/06/ReviewInTheBeginningWasTheCommandLine.html" class="continue">continue</a>.</span></blockquote>
+by putting <span>&#8230;<a href="/blog/2007/02/06/ReviewInTheBeginningWasTheCommandLine.html" class="continue">continue</a>.</span></blockquote>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/06/ReviewInTheBeginningWasTheCommandLine.html#disqus_thread">Comment</a>
@@ -293,72 +378,8 @@ by <span>&#8230;<a href="/blog/2007/02/06/ReviewInTheBeginningWasTheCommandLine.
     </footer>
     <div class="comments"></div>
 </article>
-    
-        <article>
-    <header>
-        <time datetime="2007-02-05">05.02.2007, 00:00</time>
-        <h1>
-            <a href="/blog/2007/02/05/SurveyOfIrishbornImmigrantsInWashingtonAndBritishColumbia.html" rel="bookmark canonical">Survey of Irish-born immigrants in Washington and British Columbia</a>
-        </h1>
-    </header>
-    
-<p>In last week's newsletter from the <a class="reference external" href="http://www.irishclub.org/">Irish Heritage Club</a>,
-I read about a survey of Irish-born residents of Washington state.</p>
-<blockquote>
-<p><a class="reference external" href="/blog/2007/02/05/SurveyOfIrishbornImmigrantsInWashingtonAndBritishColumbia.html/mailto:SEATTLE-NEWS@IRISHCLUB.ORG">SEATTLE-NEWS&#64;IRISHCLUB.ORG</a>, FRIDAY, JANUARY 26, 2007, PART-1</p>
-<p>IRISH SURVEY - Irish-born residents of Washington State are being asked to
-complete a 32-question survey in connection with a PhD. research project
-sponsored by Seattle's Irish Im&shy;mi&shy;gra&shy;tion Support Group. The goal is to take
-a snapshot of Irish-born people living in the Seattle area who left Ireland
-in the 1900s, mostly those who left Ireland after WW-II. If you or someone
-you know is willing to par&shy;tic&shy;i&shy;pate, please contact Melissa at 206-229-8512
-or <a class="reference external" href="/blog/2007/02/05/SurveyOfIrishbornImmigrantsInWashingtonAndBritishColumbia.html/mailto:melissae@irishclub.org">melissae&#64;irishclub.org</a>.</p>
-</blockquote>
-<p>I filled it out and emailed it back to <span>&#8230;<a href="/blog/2007/02/05/SurveyOfIrishbornImmigrantsInWashingtonAndBritishColumbia.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/05/SurveyOfIrishbornImmigrantsInWashingtonAndBritishColumbia.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-    
-        <article>
-    <header>
-        <time datetime="2007-02-05">05.02.2007, 00:00</time>
-        <h1>
-            <a href="/blog/2007/02/05/WatchingLiberallyFilmClub.html" rel="bookmark canonical">Watching Liberally Film Club</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.jesuscampthemovie.com"></a>
-<p>Inspired by <a class="reference external" href="http://drinkingliberally.org/locations.html">Drinking Liberally</a>, I've founded my own little pro&shy;gres&shy;sive
-movie club. It will meet at my house on the first Wednesday of every month.
-We show a pro&shy;gres&shy;sive film, followed by a discussion.
-Typically, these will be political doc&shy;u&shy;men&shy;taries,
-but you can also expect to see non-political doc&shy;u&shy;men&shy;taries, fiction,
-and even the occasional right-wing piece for contrast.</p>
-<p>The first film will be shown this coming Wednesday.
-Here's the an&shy;nounce&shy;ment that I just sent out:</p>
-<blockquote>
-<p>We'll show ONE of the following movies on Wednesday, February 7th. Those
-who show up will make the choice.</p>
-<ul class="simple">
-<li><a class="reference external" href="http://www.jesuscampthemovie.com">Jesus Camp</a>.
-A growing number of Evan&shy;gel&shy;i&shy;cal Christians believe there is a revival
-underway in America that requires <span>&#8230;<a href="/blog/2007/02/05/WatchingLiberallyFilmClub.html" class="continue">continue</a>.</span></li></ul></blockquote>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/05/WatchingLiberallyFilmClub.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
+
+
     
     
         <a href="/blog/page/99/" class="page floatright">

@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Raising IOError for 'file not found'</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -31,13 +32,13 @@
     
         <article>
     <header>
-        <time datetime="2016-03-24">24.03.2016, 00:00</time>
+        <time datetime="2016-03-24">2016-03-24</time>
         <h1>
             <a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" rel="bookmark canonical">Raising IOError for 'file not found'</a>
         </h1>
     </header>
-    <p>I wanted to raise Python's <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.IOError">IOError</a> for a file-not-found condition,
-but it wasn't obvious what the parameters to the exception should be.</p>
+    <p>I wanted to raise Python&#8217;s <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.IOError">IOError</a> for a file-not-found condition,
+but it wasn&#8217;t obvious what the parameters to the exception should&nbsp;be.</p>
 
 <pre class="brush: python">
 from errno import ENOENT
@@ -48,13 +49,13 @@ with open(source_file) as fp:
     return fp.read()
 </pre>
 
-<p><tt class="docutils literal">IOError</tt> can be in&shy;stan&shy;ti&shy;at&shy;ed with 1, 2, or 3 arguments:</p>
+<p><tt class="docutils literal">IOError</tt> can be in&shy;stan&shy;ti&shy;at&shy;ed with 1, 2, or 3&nbsp;arguments:</p>
 <dl class="docutils">
 <dt><tt class="docutils literal">IOError(errno, strerror, filename)</tt></dt>
 <dd>These arguments are available
 on the <tt class="docutils literal">errno</tt>, <tt class="docutils literal">strerror</tt>, and <tt class="docutils literal">filename</tt> attributes of the exception object,
 re&shy;spec&shy;tive&shy;ly, in both Python 2 and 3.
-The <tt class="docutils literal">args</tt> attribute contains the verbatim con&shy;struc&shy;tor arguments as a tuple.</dd>
+The <tt class="docutils literal">args</tt> attribute contains the verbatim con&shy;struc&shy;tor arguments as a&nbsp;tuple.</dd>
 <dt><tt class="docutils literal">IOError(errno, strerror)</tt></dt>
 <dd>These are available on the <tt class="docutils literal">errno</tt> and <tt class="docutils literal">strerror</tt> attributes of the exception,
 re&shy;spec&shy;tive&shy;ly, in both Python 2 and 3,
@@ -66,16 +67,16 @@ There is no <tt class="docutils literal">message</tt> attribute on the exception
 you must obtain <tt class="docutils literal">errmsg</tt> from the <tt class="docutils literal">args</tt> attribute.
 The <tt class="docutils literal">errno</tt>, <tt class="docutils literal">strerror</tt>, and <tt class="docutils literal">filename</tt> attributes are all <tt class="docutils literal">None</tt>.</dd>
 </dl>
-<p>I used <tt class="docutils literal">errno.ENOENT</tt> above.
+<p>I used <tt class="docutils literal">errno.<span class="caps">ENOENT</span></tt> above.
 You can obtain all the <tt class="docutils literal">errno</tt> error codes and de&shy;scrip&shy;tions with
 <tt class="docutils literal">[(k,v, os.strerror(k)) for k,v in <span class="pre">os.errno.errorcode.items()]</span></tt>.</p>
 <p>You may object that opening a file only after checking for its existence
-is fragile because there's a small window between checking and opening
+is fragile because there&#8217;s a small window between checking and opening
 where the file could be removed by another process.
-You'd be right.
+You&#8217;d be right.
 In such a case, <tt class="docutils literal">open(filename)</tt> will raise
-<tt class="docutils literal">IOError(ENOENT, &quot;No such file or directory&quot;, filename)</tt>.
-Still, there are other cases where it's useful to raise the 2- or 3-argument
+<tt class="docutils literal">IOError(<span class="caps">ENOENT</span>, &quot;No such file or directory&quot;, filename)</tt>.
+Still, there are other cases where it&#8217;s useful to raise the 2- or 3-argument
 form of <tt class="docutils literal">IOError</tt>.</p>
 
     <footer>
@@ -110,6 +111,8 @@ form of <tt class="docutils literal">IOError</tt>.</p>
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2016/03/23/MoleRemoval.html" class="page floatright">

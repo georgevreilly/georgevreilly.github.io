@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <title>Er, er</title>
   <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
     <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
   <link href="/" rel="home start" />
@@ -12,7 +13,8 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content=".. image:: http://www.georgevreilly.com/blog/conte..." />
+    <meta name="description" content=".. image:: /content/binary/ErEr.png
+    :alt: Er,..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -31,13 +33,13 @@
     
         <article>
     <header>
-        <time datetime="2007-10-25">25.10.2007, 00:00</time>
+        <time datetime="2007-10-25">2007-10-25</time>
         <h1>
             <a href="/blog/2007/10/25/ErEr.html" rel="bookmark canonical">Er, er</a>
         </h1>
     </header>
-    <img alt="Er, er" src="http://www.georgevreilly.com/blog/content/binary/ErEr.png"/>
-<p>I've grown fond of the JavaScript <tt class="docutils literal">||</tt> idiom:</p>
+    <img alt="Er, er" src="/content/binary/ErEr.png"/>
+<p>I&#8217;ve grown fond of the JavaScript <tt class="docutils literal">||</tt> idiom:</p>
 <pre class="literal-block">
 function FrobImage(img) {
     var width  = img.width  || 400;
@@ -47,7 +49,7 @@ function FrobImage(img) {
 
 FrobImage({height: 100, name: &quot;example.png&quot;});
 </pre>
-<p>If <tt class="docutils literal">img.width</tt> exists and it's <a class="reference external" href="http://mattsnider.com/wp-content/uploads/2007/04/FalseTest.html">truthy</a>,
+<p>If <tt class="docutils literal">img.width</tt> exists and it&#8217;s <a class="reference external" href="http://mattsnider.com/wp-content/uploads/2007/04/FalseTest.html">truthy</a>,
 then <tt class="docutils literal">width = img.width</tt>; otherwise, <tt class="docutils literal">width = 400</tt>.
 Here, it will be <tt class="docutils literal">400</tt> since the <tt class="docutils literal">img</tt> hash
 has no <tt class="docutils literal">width</tt> property.
@@ -59,20 +61,20 @@ I came across a <a class="reference external" href="http://www.ss64.com/ntsyntax
 foo.exe bar 123 &quot;some stuff&quot;  || goto :Error
 </pre>
 <p>Only if <tt class="docutils literal">foo.exe</tt> fails (<tt class="docutils literal">exit()</tt> returns a non-zero value),
-is the second clause executed.</p>
-<p><a class="reference external" href="http://perldoc.perl.org/functions/die.html">Perl's die</a> is typically used in a very similar idom:</p>
+is the second clause&nbsp;executed.</p>
+<p><a class="reference external" href="http://perldoc.perl.org/functions/die.html">Perl&#8217;s die</a> is typically used in a very similar&nbsp;idom:</p>
 <pre class="literal-block">
 chdir '/usr/spool/news' || die &quot;Can't cd to spool: $!\n&quot;
 </pre>
 <p>though the <tt class="docutils literal">or</tt> keyword seems to be preferred nowadays to <tt class="docutils literal">||</tt>.</p>
 <p>This morning, I came across the <a class="reference external" href="http://blog.devstone.com/Aaron/archive/2006/01/02/1404.aspx">?? operator in C# 2.0</a>,
-aka the null coalescing operator:</p>
+aka the null coalescing&nbsp;operator:</p>
 <pre class="literal-block">
 Customer cust = getCustomer(id) ?? new Customer();
 </pre>
-<p>If <tt class="docutils literal">get&shy;Cus&shy;tomer(id)</tt> is not <tt class="docutils literal">null</tt>, then that's the value that <tt class="docutils literal">cust</tt> gets;
-otherwise it's set to <tt class="docutils literal">new Customer()</tt>.</p>
-<p>All of these idioms are <a class="reference external" href="http://en.wikipedia.org/wiki/Syntactic_sugar">syntactic sugar</a> and all of them are in my toolbox.</p>
+<p>If <tt class="docutils literal">get&shy;Cus&shy;tomer(id)</tt> is not <tt class="docutils literal">null</tt>, then that&#8217;s the value that <tt class="docutils literal">cust</tt> gets;
+otherwise it&#8217;s set to <tt class="docutils literal">new Customer()</tt>.</p>
+<p>All of these idioms are <a class="reference external" href="http://en.wikipedia.org/wiki/Syntactic_sugar">syntactic sugar</a> and all of them are in my&nbsp;toolbox.</p>
 
     <footer>
         
@@ -106,6 +108,8 @@ otherwise it's set to <tt class="docutils literal">new Customer()</tt>.</p>
         </a>
         </div>
 </article>
+
+
     
     
         <a href="/blog/2007/10/24/Virtualization.html" class="page floatright">
