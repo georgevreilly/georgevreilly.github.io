@@ -30,6 +30,42 @@
     
         <article>
     <header>
+        <time datetime="2007-07-20">2007-07-20</time>
+        <h1>
+            <a href="/blog/2007/07/20/SerializingANameValueCollection.html" rel="bookmark canonical">Serializing a NameValueCollection</a>
+        </h1>
+    </header>
+    
+<p>I had a NameVal&shy;ueCol&shy;lec&shy;tion embedded inside a larger object.
+I needed to serialize the larger object into <span class="caps">XML</span> and back.
+Un&shy;for&shy;tu&shy;nate&shy;ly, NameVal&shy;ueCol&shy;lec&shy;tion is not <span class="caps">XML</span> se&shy;ri&shy;al&shy;iz&shy;able.
+Why I do not&nbsp;know.</p>
+<p>A blog comment from <a class="reference external" href="http://nayyeri.net/archive/2006/08/11/Serialize-NameValueCollection.aspx#72442">Tim Erwin</a> got me started in the right direction.
+Implement <tt class="docutils literal">IXmlSe&shy;ri&shy;al&shy;iz&shy;able</tt> and do the work by hand in
+<tt class="docutils literal">ReadXml</tt> and <tt class="docutils literal">WriteXml</tt>.</p>
+<p>Tim&#8217;s im&shy;ple&shy;men&shy;ta&shy;tion turned out to be overly simple.
+It didn&#8217;t handle an empty collection well,
+nor did it leave the <tt class="docutils literal">XmlReader</tt> in a good&nbsp;state.</p>
+<p>I used <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/bk3w6240(vs.80).aspx">SGen</a> to examine the de&shy;se&shy;ri&shy;al&shy;iza&shy;tion of a
+<tt class="docutils literal">List&lt;String&gt;</tt> to figure out what else needed to be&nbsp;done.</p>
+<p>The following <tt class="docutils literal">ReadXml</tt> seems to work.
+If I expected to receive <span class="caps">XML</span> from untrusted sources,
+I would <span>&#8230;<a href="/blog/2007/07/20/SerializingANameValueCollection.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/07/20/SerializingANameValueCollection.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2007-07-16">2007-07-16</time>
         <h1>
             <a href="/blog/2007/07/16/ReviewHarryPotterAndTheOrderOfThePhoenix.html" rel="bookmark canonical">Review: The Order of the Phoenix</a>
@@ -403,49 +439,6 @@ and whose eye&nbsp;wanders.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2007/06/17/ReviewHearseOfADifferentColor.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2007-06-13">2007-06-13</time>
-        <h1>
-            <a href="/blog/2007/06/13/ReviewProvenGuilty.html" rel="bookmark canonical">Review: Proven Guilty</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0451461037"></a>
-<div class="line-block">
-<div class="line">Title: Proven Guilty</div>
-<div class="line">Author: Jim Butcher</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Roc</div>
-<div class="line">Copyright: 2006</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0451461037">0451461037</a></div>
-<div class="line">Pages: 479</div>
-<div class="line">Keywords: fantasy</div>
-<div class="line">Reading period: 9–12 June, 2007</div>
-</div>
-<p>Ninth book in the <a class="reference external" href="http://en.wikipedia.org/wiki/The_Dresden_Files">Dresden Files</a>
-series of urban&nbsp;fantasies.</p>
-<p>Harry Dresden is a wizard who consults with the Chicago Police on weird crimes.
-Molly, the rebellious teenaged daughter of an old friend,
-leads him to a horror fiction convention where the fans are being
-attacked by real monsters.
-Given Harry&#8217;s smart mouth and talent for drawing trouble upon himself,
-it&#8217;s not too long before he&#8217;s captured by a sadistic villain
-who tries to auction him to his many enemies on eBay.
-He escapes but then has to lead a rescue mission into
-the <span>&#8230;<a href="/blog/2007/06/13/ReviewProvenGuilty.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/06/13/ReviewProvenGuilty.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
