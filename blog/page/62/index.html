@@ -30,6 +30,41 @@
     
         <article>
     <header>
+        <time datetime="2009-04-02">2009-04-02</time>
+        <h1>
+            <a href="/blog/2009/04/02/ContrastingColorsForTextAndBackground.html" rel="bookmark canonical">Contrasting Colors for Text and Background</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://colorschemedesigner.com/"></a>
+<p>About three weeks ago, I answered a question on Stack&shy;Over&shy;flow
+about generating the <a class="reference external" href="http://stackoverflow.com/questions/646068/find-most-readable-colour-of-text-that-is-drawn-on-a-coloured-surface/646328#646328">most readable color</a> of text
+on a colored&nbsp;background.</p>
+<p>I suggested flipping the top bit of each component,
+<tt class="docutils literal">(r ^ 0x80, g ^ 0x80, b ^ 0x80)</tt>.
+This has the same effect as adding 128 if the component is less than 128,
+and sub&shy;tract&shy;ing 128&nbsp;otherwise.</p>
+<p>Another way to think about it is to imagine the 256x256x256 color cube.
+Inside that cube, erect another cube half as wide.
+One corner is at your original color
+and the diagonally opposite corner is the one computed&nbsp;above.</p>
+<p>The questioner liked my answer the best,
+but I decided to experiment further.
+I wrote some JavaScript to <span>&#8230;<a href="/blog/2009/04/02/ContrastingColorsForTextAndBackground.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2009/04/02/ContrastingColorsForTextAndBackground.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2009-04-01">2009-04-01</time>
         <h1>
             <a href="/blog/2009/04/01/Allergies.html" rel="bookmark canonical">Allergies</a>
@@ -319,48 +354,6 @@ Sanjay Pitroda of <a class="reference external" href="http://www.metlifehomeloan
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2009/03/25/Refinancing.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-23">2009-03-23</time>
-        <h1>
-            <a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" rel="bookmark canonical">Exuberant Ctags and JavaScript</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://ctags.sourceforge.net/"></a>
-<p><a class="reference external" href="http://ctags.sourceforge.net/">Exuberant Ctags</a> is an essential complement to Vim:
-it generates an index of symbol names (tags) for a set of source files.
-In Vim, just place the cursor on a function name
-and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its&nbsp;definition.</p>
-<p>Ctags works well for most of the languages that I deal with,
-but falls down badly on modern JavaScript.
-Its built-in parser simply doesn&#8217;t handle de&shy;c&shy;la&shy;ra&shy;tions like&nbsp;these:</p>
-<div class="highlight"><pre><span></span><span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// ...</span>
-<span class="nx">ajaxSetup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">settings</span> <span class="p">)</span> <span class="p">{</span>
-</pre></div>
-<p>I came across <a class="reference external" href="http://www.unbad.net/blog/ctags-and-relevant-support-for-javascript">Unbad</a>&#8216;s workaround earlier tonight.
-His code didn&#8217;t work for me, so I hacked on it until it&nbsp;did:</p>
-<pre class="literal-block">
---langdef=js
---langmap=js:.js
---regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
---regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
---regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\(([^)])\)/\1/,function/
---regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
---regex-js=/([^= ]+)[ \t]*=[ \t]*[^&quot;]'[^']*/\1/,string/
---regex-js=/([^= ]+)[ </pre><span>&#8230;<a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2009/03/23/ExuberantCtagsAndJavaScript.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
