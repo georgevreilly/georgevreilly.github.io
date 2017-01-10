@@ -30,281 +30,6 @@
     
         <article>
     <header>
-        <time datetime="2006-09-02">2006-09-02</time>
-        <h1>
-            <a href="/blog/2006/09/02/UpgradeYourInstallationOfNAnt.html" rel="bookmark canonical">Upgrade your installation of NAnt</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://nant.sourceforge.net/release/0.85-rc4/releasenotes.html"></a>
-<p>My colleague, Greg, and I spent all day debugging a build break in
-some unit tests that exercise a webservice interface in legacy .<span class="caps">NET</span> 1.1 code.
-Last night, the tests stopped working on our
-<a class="reference external" href="http://ccnet.thoughtworks.com">CruiseC&shy;on&shy;trol.<span class="caps">NET</span></a>
-build server. We couldn&#8217;t understand it. The tests had been working for
-months. Now we were getting timeouts in <span class="caps">SOAP</span>. The tests es&shy;sen&shy;tial&shy;ly
-<a class="reference external" href="http://en.wikipedia.org/wiki/Mock_object">mock</a>
-a <span class="caps">SOAP</span> service using the <tt class="docutils literal">soap.inproc</tt> transport and a stub
-im&shy;ple&shy;men&shy;ta&shy;tion that signaled an event to ac&shy;knowl&shy;edge a method being&nbsp;called.</p>
-<p>The only thing that had changed in the code tree was that another
-colleague, Pavel, had discovered that two of our <tt class="docutils literal">.csproj</tt> files somehow
-shared the same <span class="caps">GUID</span>, and had repaired that. <span>&#8230;<a href="/blog/2006/09/02/UpgradeYourInstallationOfNAnt.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/09/02/UpgradeYourInstallationOfNAnt.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-08-30">2006-08-30</time>
-        <h1>
-            <a href="/blog/2006/08/30/MovingOffices.html" rel="bookmark canonical">Moving Offices</a>
-        </h1>
-    </header>
-    
-<p>In mid-July, most of the
-<a class="reference external" href="http://www.WorkForAtlas.com">Atlas Solutions</a>
-developer teams moved from
-our old offices at Fifth and Jackson in the In&shy;ter&shy;na&shy;tion&shy;al District
-four blocks west to swanky offices in Pioneer Square.
-The new offices are at the State building on the corner of
-Occidental and Main, the pedes&shy;tri&shy;an&shy;ized block
-with the antique stores and art galleries.
-Occidental Park across the street has been re&shy;fur&shy;bished.
-There are three coffee shops within two blocks,
-and <a class="reference external" href="http://www.elliottbaybook.com/">Elliott Bay Books</a>
-is one block west of us.
-It&#8217;s all very pleasant, with the exception of the large
-number of homeless&nbsp;people.</p>
-<p>The only thing that I miss from the old offices is that we&#8217;re
-further from the large number of Asian <span>&#8230;<a href="/blog/2006/08/30/MovingOffices.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/08/30/MovingOffices.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-08-29">2006-08-29</time>
-        <h1>
-            <a href="/blog/2006/08/29/UsingLog4NetFromACOMApplication.html" rel="bookmark canonical">Using Log4Net from a COM+ Application</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://logging.apache.org/log4net/"></a>
-<p>I spent far too much time on Friday trying to make <a class="reference external" href="https://logging.apache.org/log4net/">log4net</a> work in a <span class="caps">COM</span>+&nbsp;ap&shy;pli&shy;ca&shy;tion.</p>
-<p>Someone else had done part of the work necessary,
-by creating an <a class="reference external" href="http://blogs.msdn.com/florinlazar/archive/2003/12/04/41369.aspx">ap&shy;pli&shy;ca&shy;tion.config</a> for the <span class="caps">COM</span>+ ap&shy;pli&shy;ca&shy;tion
-and setting a custom Ap&shy;pli&shy;ca&shy;tion Root Directory.
-This was enough to ensure that most of the managed code in the ap&shy;pli&shy;ca&shy;tion
-got their con&shy;fig&shy;u&shy;ra&shy;tion settings;
-log4net being the&nbsp;exception.</p>
-<p>It took some additional work to realize that we needed to add two assembly&nbsp;attributes:</p>
-<pre class="literal-block">
-[assembly: log4net.Config.Repository(&quot;unique-name&quot;)]
-[assembly: log4net.Config.XmlConfigurator(ConfigFile=&quot;application.config&quot;)]
-</pre>
-<p>The repository name just needs to be a unique string.
-We used the name of the&nbsp;assembly.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/08/29/UsingLog4NetFromACOMApplication.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-08-18">2006-08-18</time>
-        <h1>
-            <a href="/blog/2006/08/18/SponsorMeForTheAIDSWalk.html" rel="bookmark canonical">Sponsor me for the AIDS Walk</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.seattleaidswalk.org/"></a>
-<p>This year is the 20th an&shy;niver&shy;sary of the Northwest <span class="caps">AIDS</span> Walk.
-A whole generation has passed.
-Twenty years ago, <span class="caps">AIDS</span> was considered a gay man&#8217;s disease and a death sentence.
-The <span class="caps">U.S.</span> government was just beginning to ac&shy;knowl&shy;edge the existence of <span class="caps">AIDS</span>,
-half a decade after it had first been recognized by health au&shy;thor&shy;i&shy;ties,
-and thousands had&nbsp;died.</p>
-<p><span class="caps">AIDS</span> is still a serious problem,
-but the de&shy;vel&shy;op&shy;ment of an&shy;ti&shy;retro&shy;vi&shy;ral drugs a decade ago
-means that people with <span class="caps">HIV</span> are living longer,
-healthier lives than before.
-More than 1 million Americans are now living with <span class="caps">HIV</span>/<span class="caps">AIDS</span>:
-9,000 of them in King County.
-40,000 people are infected every year in the U.S.,
-and most new infections <span>&#8230;<a href="/blog/2006/08/18/SponsorMeForTheAIDSWalk.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/08/18/SponsorMeForTheAIDSWalk.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-08-18">2006-08-18</time>
-        <h1>
-            <a href="/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html" rel="bookmark canonical">Posting to dasBlog with Windows Live Writer</a>
-        </h1>
-    </header>
-    <p>From Scott Hanselman,
-I learned about Microsoft&#8217;s new blog posting client, <a class="reference external" href="/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html/http%3a%2f%2fwww.hanselman.com%2fblog%2fWindowsLiveWriterAndDasBlog19.aspx">Windows Live Writer</a>.
-I&#8217;ve played around with it and it&#8217;s definitely the nicest free blogging client that I&#8217;ve&nbsp;used.</p>
-<p>Here are in&shy;struc&shy;tions on con&shy;fig&shy;ur&shy;ing it to post to dasBlog.
-I&#8217;m showing how to set it up for <a class="reference external" href="/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html/http%3a%2f%2fwww.emmabart.com%2fMeanderings%2f">Emma&#8217;s blog</a>, since she&#8217;s running dasBlog 1.8.
-I&#8217;m running a recent build of the as-yet unreleased dasBlog 1.9,
-which supports Really Simple Discovery,
-which makes the first part of this exercise simpler,
-as <span class="caps">WLW</span> can infer that it&#8217;s dealing with Metaweblog <span class="caps">API</span>,
-just by pointing it at the root of the&nbsp;blog.</p>
-<p>Launch <span class="caps">WLW</span> and Add a Weblog Account.
-Choose Another weblog&nbsp;service.</p>
-
-<p>Next, enter the <span class="caps">URL</span> <span>&#8230;<a href="/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-08-17">2006-08-17</time>
-        <h1>
-            <a href="/blog/2006/08/17/TheUKTerrorPlot.html" rel="bookmark canonical">The UK Terror Plot</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.craigmurray.co.uk/archives/2006/08/the_uk_terror_p.html"></a>
-<p>Craig Murray, the former British Ambassador to Uzbekistan, who was fired
-for speaking out about Karimov&#8217;s use of torture,
-<a class="reference external" href="http://www.craigmurray.co.uk/archives/2006/08/the_uk_terror_p.html">writes about the <span class="caps">UK</span> terror plot</a>:</p>
-<blockquote>
-<p>I have been reading very carefully through all the Sunday newspapers to
-try and analyse the truth from all the scores of pages claiming to
-detail the so-called bomb plot. Unlike the great herd of so-called
-security experts doing the media analysis, I have the advantage of
-having had the very highest security clearances myself, having done a
-huge amount of pro&shy;fes&shy;sion&shy;al in&shy;tel&shy;li&shy;gence analysis, and having been
-inside the spin&nbsp;machine&#8230;.</p>
-<p>None of the alleged terrorists had made a bomb. None had bought a plane
-ticket. Many <span>&#8230;<a href="/blog/2006/08/17/TheUKTerrorPlot.html" class="continue">continue</a>.</span></p></blockquote>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/08/17/TheUKTerrorPlot.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-08-16">2006-08-16</time>
-        <h1>
-            <a href="/blog/2006/08/16/SomeFamilyPhotos.html" rel="bookmark canonical">Some Family Photos</a>
-        </h1>
-    </header>
-    <p>My brother David sent me this photo earlier today, of
-me, him, and Michelle. I&#8217;m guessing that Michelle is less than a year old,
-so it was taken sometime in 1971, which would make David four and me six.
-(Our youngest brother, Mark, wasn&#8217;t born until&nbsp;1973.)</p>
-
-<p>Emma thinks we&#8217;re adorable and has already made this picture her desktop
-background on her work&nbsp;computer.</p>
-<p>Mark has another photo of the four of us, taken in 1978
-on his website, <a class="reference external" href="http://www.alienresident.net/">alien&shy;res&shy;i&shy;dent.net</a>:</p>
-<a class="reference external image-reference" href="http://www.alienresident.net/contact/contact.html"></a>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/08/16/SomeFamilyPhotos.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-08-16">2006-08-16</time>
-        <h1>
-            <a href="/blog/2006/08/16/AnInterviewWithSaulAlinsky.html" rel="bookmark canonical">An Interview with Saul Alinsky</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.forestcouncil.org/tims_picks/view.php?id=1075"></a>
-<p>I came across a very long <a class="reference external" href="http://www.forestcouncil.org/tims_picks/view.php?id=1075">interview with Saul Alinsky</a> (24,000 words),
-conducted by Playboy in 1972, in a
-<a class="reference external" href="http://www.firedoglake.com/">Fire&shy;DogLake</a> thread
-about the book <a class="reference external" href="http://www.firedoglake.com/2006/08/13/fdl-book-salon-50-simple-things-you-can-do-to-fight-the-right/">50 Simple Things You Can Do to Fight the Right</a>.</p>
-<p><a class="reference external" href="http://en.wikipedia.org/wiki/Saul_Alinsky">Saul Alinsky</a>
-was a longtime radical activist, starting in the Great Depression.
-He moved from labor organizing to social organizing in the late 1930s,
-working in the Back of the Yards neigh&shy;bor&shy;hood of Chicago that was made
-famous by Upton Sinclair in <em>The Jungle</em>. He is generally considered the
-father of community&nbsp;organizing.</p>
-<p>Shortly before he died, he published his most famous book,
-<a class="reference external" href="http://www.amazon.com/exec/obidos/ASIN/0679721134/georgvreill-20">Rules for&nbsp;Radicals</a></p>
-<p>As a graduate student in crim&shy;i&shy;nol&shy;o&shy;gy, he spent a couple of years hobnobbing
-with Al <span>&#8230;<a href="/blog/2006/08/16/AnInterviewWithSaulAlinsky.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/08/16/AnInterviewWithSaulAlinsky.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
         <time datetime="2006-08-11">2006-08-11</time>
         <h1>
             <a href="/blog/2006/08/11/StarTrekInspirationalPosters.html" rel="bookmark canonical">Star Trek Inspirational Posters</a>
@@ -355,6 +80,263 @@ called het&shy;ero&shy;sex&shy;u&shy;als, plus a handful in the middle called bi
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/08/09/AreYouAnInBetween.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-08-09">2006-08-09</time>
+        <h1>
+            <a href="/blog/2006/08/09/EndorseLamontSpurnLieberman.html" rel="bookmark canonical">Endorse Lamont, Spurn Lieberman</a>
+        </h1>
+    </header>
+    
+<p>Joe Lieberman, the 2000 vice-pres&shy;i&shy;den&shy;tial nominee, lost the Democratic primary
+for his Senate seat tonight. He has said that he will run as an in&shy;de&shy;pen&shy;dent.
+In effect, he will not accept the will of the&nbsp;people.</p>
+<p>Lieberman lost, in part, because of his continuing refusal to admit that
+the Iraq war is a disaster, and in part because he has been a leading
+enabler of the Republican agenda. Good&nbsp;riddance!</p>
+<p><a class="reference external" href="http://americablog.blogspot.com/2006/08/on-wednesday-call-senate-dems-and.html">Amer&shy;i&shy;ca&shy;Blog</a>
+suggests contacting your senators and demand that they come out in support of
+Lamont and that they strip Lieberman of his Senate&nbsp;committees.</p>
+<p>I sent the following email to Senators Murray, Cantwell, and&nbsp;Reid:</p>
+<blockquote>
+<p>Ned Lamont won the Democratic primary in Con&shy;necti&shy;cut. I <span>&#8230;<a href="/blog/2006/08/09/EndorseLamontSpurnLieberman.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/08/09/EndorseLamontSpurnLieberman.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-07-28">2006-07-28</time>
+        <h1>
+            <a href="/blog/2006/07/28/ChainMailHoaxes.html" rel="bookmark canonical">Chain Mail Hoaxes</a>
+        </h1>
+    </header>
+    
+<p>I got an email earlier today from one of my relatives who has ties to South
+Africa, which&nbsp;read:</p>
+<blockquote>
+<p>Last week a 3 year old girl (in South Africa ) was beaten and raped. She is
+still alive. The man re&shy;spon&shy;si&shy;ble was released on bail yesterday. He is
+walking the streets. If you are too busy to read this then just sign your
+name and forward this on. The Government is planning to close the child
+protection unit and this is a petition against it. This is a very important
+petition. It is an essential part of the justice system for children. You
+may have already heard that there&#8217;s <span>&#8230;<a href="/blog/2006/07/28/ChainMailHoaxes.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/07/28/ChainMailHoaxes.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-07-28">2006-07-28</time>
+        <h1>
+            <a href="/blog/2006/07/28/DrRaven.html" rel="bookmark canonical">Dr. Raven</a>
+        </h1>
+    </header>
+    
+<p><a class="reference external" href="http://ravensara.blogspot.com/">Raven</a> is now <em>Doctor</em> Raven.
+She suc&shy;cess&shy;ful&shy;ly defended her doctoral dis&shy;ser&shy;ta&shy;tion in biomedical
+in&shy;for&shy;ma&shy;tions this morning. Six long years in the&nbsp;making.</p>
+<p>Dr. Raven and Mr. Raven came over this evening for Games Night,
+a twice-monthly get-together we have for our friends to play board games.
+Emma and I had been given a bottle of <em>Dom Perignon &#8216;92</em> for our wedding
+that we had never quite found a suitable occasion for until now,
+so we chilled that in an&shy;tic&shy;i&shy;pa&shy;tion of tonight&#8217;s cel&shy;e&shy;bra&shy;tion.
+I generally don&#8217;t care for champagne, but that went down&nbsp;nicely.</p>
+<p>Con&shy;grat&shy;u&shy;la&shy;tions,&nbsp;Raven!</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/07/28/DrRaven.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-07-27">2006-07-27</time>
+        <h1>
+            <a href="/blog/2006/07/27/NoSameSexMarriagesInWashingtonStateYet.html" rel="bookmark canonical">No Same-Sex Marriages in Washington State. Yet.</a>
+        </h1>
+    </header>
+    
+<p>Well, fuck! The Washington State Supreme Court handed down its long-awaited decision
+today on the con&shy;sti&shy;tion&shy;al&shy;i&shy;ty of the state&#8217;s Defense of Marriage Act.
+Somehow, they found that it didn&#8217;t violate the state con&shy;sti&shy;tu&shy;tion&#8217;s Equal
+Protection&nbsp;clause.</p>
+<p>No same-sex marriages in Washington state anytime&nbsp;soon.</p>
+<p>I attended the <a class="reference external" href="http://seattlepi.nwsource.com/local/279042_samesex27.html">rally at the First Baptist church</a>
+earlier this evening. (Find me in the photo!)
+Some anger, some dis&shy;ap&shy;point&shy;ment. Mostly upbeat.
+The young Latina couple were very affecting.
+The Serkin-Pooles invited everyone to join their club,
+as they announced their formal engagement to each other.
+One speaker pointed out that even if the court had handed down a favorable
+decision, the process would not have been&nbsp;over.</p>
+<p>Tomorrow we fight <span>&#8230;<a href="/blog/2006/07/27/NoSameSexMarriagesInWashingtonStateYet.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/07/27/NoSameSexMarriagesInWashingtonStateYet.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-07-01">2006-07-01</time>
+        <h1>
+            <a href="/blog/2006/07/01/TheIncredibleShrinkingArtwork.html" rel="bookmark canonical">The Incredible Shrinking Artwork</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.419eater.com/html/john_boko.htm"></a>
+<p>Sometimes spammers can be taken in by their would-be victims. Here&#8217;s a
+hilarious, if long, <a class="reference external" href="http://www.419eater.com/html/john_boko.htm">story</a>
+of just such a&nbsp;case.</p>
+<p>It&#8217;s even funnier if you&#8217;re already familiar with the character of
+<a class="reference external" href="http://en.wikipedia.org/wiki/Del_Boy">Derek &#8216;Del Boy&#8217; Trotter</a>.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/07/01/TheIncredibleShrinkingArtwork.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-07-01">2006-07-01</time>
+        <h1>
+            <a href="/blog/2006/07/01/InfernalAffairs.html" rel="bookmark canonical">Infernal Affairs</a>
+        </h1>
+    </header>
+    
+<p>At <span class="caps">SIFF</span> 2004, I saw an acclaimed trilogy from Hong Kong,
+<a class="reference external" href="http://www.imdb.com/title/tt0338564/">Infernal Affairs</a>,
+<a class="reference external" href="http://www.imdb.com/title/tt0369060/">Infernal Affairs-<span class="caps">II</span></a>,
+and <a class="reference external" href="http://www.imdb.com/title/tt0374339/">Infernal Affairs-<span class="caps">III</span></a>
+on three con&shy;sec&shy;u&shy;tive nights,
+Yan is a cop who&#8217;s been in deep cover for ten years, in&shy;fil&shy;trat&shy;ing the triads.
+Lau is a triad who joined the cops about ten years ago,
+rising to the rank of inspector.
+Only their respective bosses, Su&shy;per&shy;in&shy;ten&shy;dant Wong and Big Sam, know who they are.
+Each becomes aware of the other about the same time,
+and the chase to find the moles is&nbsp;on.</p>
+<p>It&#8217;s a tense and complex thriller and a meditation on good and evil.
+Yan has long blurred the line between cop and gangster.
+Lau is having second <span>&#8230;<a href="/blog/2006/07/01/InfernalAffairs.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/07/01/InfernalAffairs.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-07-01">2006-07-01</time>
+        <h1>
+            <a href="/blog/2006/07/01/MichellesWedding.html" rel="bookmark canonical">Michelle's Wedding</a>
+        </h1>
+    </header>
+    
+<p>I hadn&#8217;t really planned to visit Ireland this year, but then my sister
+Michelle phoned the other day to say that her boyfriend, David Bowles, had
+just proposed to her. Not a big surprise. They had moved in together
+earlier this year, and we were all assuming that it was a question of when,
+not&nbsp;if.</p>
+<p>They plan to get married quite soon, as his father has been given
+six-to-nine months to live, and they want him to be at the wedding. I don&#8217;t
+know if the date is firm yet, but the latest that I&#8217;m hearing is&nbsp;November-11th.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/07/01/MichellesWedding.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-06-27">2006-06-27</time>
+        <h1>
+            <a href="/blog/2006/06/27/AntiAbortionMovementStartedInResponseToDesegregation.html" rel="bookmark canonical">Anti-Abortion movement started in response to desegregation</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.npr.org/templates/story/story.php?storyId=5502785"></a>
+<p>I found an in&shy;ter&shy;est&shy;ing
+<a class="reference external" href="http://www.npr.org/templates/story/story.php?storyId=5502785">piece</a>
+on the <span class="caps">NPR</span> website about the modern anti-abortion&nbsp;movement:</p>
+<blockquote>
+<p>In the 1980s, in order to solidify their shift from divorce to
+abortion, the Religious Right con&shy;struct&shy;ed an <em>abortion myth</em>, one
+accepted by most Americans as true. Simply put, the abortion myth is
+this: Leaders of the Religious Right would have us believe that their
+movement began in direct response to the <span class="caps">U.S.</span> Supreme Court&#8217;s 1973
+<em>Roe v. Wade</em> decision. Po&shy;lit&shy;i&shy;cal&shy;ly con&shy;ser&shy;v&shy;a&shy;tive evan&shy;gel&shy;i&shy;cal leaders were so
+morally outraged by the ruling that they instantly shed their
+apolitical stupor in order to mobilize po&shy;lit&shy;i&shy;cal&shy;ly in defense of the
+sanctity of life. Most of these leaders did so re&shy;luc&shy;tant&shy;ly and <span>&#8230;<a href="/blog/2006/06/27/AntiAbortionMovementStartedInResponseToDesegregation.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/06/27/AntiAbortionMovementStartedInResponseToDesegregation.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

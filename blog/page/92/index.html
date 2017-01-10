@@ -30,120 +30,6 @@
     
         <article>
     <header>
-        <time datetime="2007-08-04">2007-08-04</time>
-        <h1>
-            <a href="/blog/2007/08/04/ReviewBelisariusSeries.html" rel="bookmark canonical">Review: The Belisarius Series</a>
-        </h1>
-    </header>
-    
-<a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0671878654"></a>
-<div class="line-block">
-<div class="line">Title: An Oblique Approach</div>
-<div class="line">Author: Eric Flint <span class="amp">&amp;</span> David Drake</div>
-<div class="line">Rating: ★ ★ ★</div>
-<div class="line">Publisher: Baen</div>
-<div class="line">Copyright: 1998</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0671878654">0671878654</a></div>
-<div class="line">Pages: 480</div>
-<div class="line">Keywords: alternate history</div>
-<div class="line">Reading period: 18-21 July, 2007</div>
-</div>
-
-<a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0671878859"></a>
-<div class="line-block">
-<div class="line">Title: In the Heart of Darkness</div>
-<div class="line">Author: Eric Flint <span class="amp">&amp;</span> David Drake</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Baen</div>
-<div class="line">Copyright: 1998</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0671878859">0671878859</a></div>
-<div class="line">Pages: 480</div>
-<div class="line">Keywords: alternate history</div>
-<div class="line">Reading period: 22-24 July, 2007</div>
-</div>
-
-<a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0671578723"></a>
-<div class="line-block">
-<div class="line">Title: Destiny&#8217;s Shield</div>
-<div class="line">Author: Eric Flint <span class="amp">&amp;</span> David Drake</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Baen</div>
-<div class="line">Copyright: 2000</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0671578723">0671578723</a></div>
-<div class="line">Pages: 576</div>
-<div class="line">Keywords: alternate history</div>
-<div class="line">Reading period: 25-27 July, 2007</div>
-</div>
-
-<a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0671319981"></a>
-<div class="line-block">
-<div class="line">Title: Fortune&#8217;s Stroke</div>
-<div class="line">Author: Eric Flint <span class="amp">&amp;</span> David Drake</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Baen</div>
-<div class="line">Copyright: 2001</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0671319981">0671319981</a></div>
-<div class="line">Pages: 512</div>
-<div class="line">Keywords: alternate history</div>
-<div class="line">Reading period: 28 July, 2007</div>
-</div>
-
-<a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0743435656"></a>
-<div class="line-block">
-<div class="line">Title: The Tide of Victory</div>
-<div class="line">Author: Eric Flint <span class="amp">&amp;</span> David Drake</div>
-<div class="line">Rating: ★ ★ ★ <span>&#8230;<a href="/blog/2007/08/04/ReviewBelisariusSeries.html" class="continue">continue</a>.</span></div></div>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/08/04/ReviewBelisariusSeries.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2007-07-20">2007-07-20</time>
-        <h1>
-            <a href="/blog/2007/07/20/SerializingANameValueCollection.html" rel="bookmark canonical">Serializing a NameValueCollection</a>
-        </h1>
-    </header>
-    
-<p>I had a NameVal&shy;ueCol&shy;lec&shy;tion embedded inside a larger object.
-I needed to serialize the larger object into <span class="caps">XML</span> and back.
-Un&shy;for&shy;tu&shy;nate&shy;ly, NameVal&shy;ueCol&shy;lec&shy;tion is not <span class="caps">XML</span> se&shy;ri&shy;al&shy;iz&shy;able.
-Why I do not&nbsp;know.</p>
-<p>A blog comment from <a class="reference external" href="http://nayyeri.net/archive/2006/08/11/Serialize-NameValueCollection.aspx#72442">Tim Erwin</a> got me started in the right direction.
-Implement <tt class="docutils literal">IXmlSe&shy;ri&shy;al&shy;iz&shy;able</tt> and do the work by hand in
-<tt class="docutils literal">ReadXml</tt> and <tt class="docutils literal">WriteXml</tt>.</p>
-<p>Tim&#8217;s im&shy;ple&shy;men&shy;ta&shy;tion turned out to be overly simple.
-It didn&#8217;t handle an empty collection well,
-nor did it leave the <tt class="docutils literal">XmlReader</tt> in a good&nbsp;state.</p>
-<p>I used <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/bk3w6240(vs.80).aspx">SGen</a> to examine the de&shy;se&shy;ri&shy;al&shy;iza&shy;tion of a
-<tt class="docutils literal">List&lt;String&gt;</tt> to figure out what else needed to be&nbsp;done.</p>
-<p>The following <tt class="docutils literal">ReadXml</tt> seems to work.
-If I expected to receive <span class="caps">XML</span> from untrusted sources,
-I would <span>&#8230;<a href="/blog/2007/07/20/SerializingANameValueCollection.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/07/20/SerializingANameValueCollection.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
         <time datetime="2007-07-16">2007-07-16</time>
         <h1>
             <a href="/blog/2007/07/16/ReviewHarryPotterAndTheOrderOfThePhoenix.html" rel="bookmark canonical">Review: The Order of the Phoenix</a>
@@ -474,6 +360,92 @@ Then Karl Dahl&nbsp;escapes&#8230;.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2007/06/19/ReviewPriorBadActs.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-06-17">2007-06-17</time>
+        <h1>
+            <a href="/blog/2007/06/17/ReviewHearseOfADifferentColor.html" rel="bookmark canonical">Review: Hearse of a Different Color</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0786889632"></a>
+<div class="line-block">
+<div class="line">Title: Hearse of a Different Color</div>
+<div class="line">Author: Tim Cockey</div>
+<div class="line">Rating: ★ ★ ★</div>
+<div class="line">Publisher: Hyperion</div>
+<div class="line">Copyright: 2001</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0786889632">0786889632</a></div>
+<div class="line">Pages: 382</div>
+<div class="line">Keywords: mystery, humor</div>
+<div class="line">Reading period: 13-16 June, 2007</div>
+</div>
+<p>Hitchcock Sewell is an undertaker who finds the murdered body
+of a waitress on the front door of his funeral parlor,
+one winter&#8217;s evening during a wake.
+Hitch and his weath&shy;er&shy;woman girlfriend, Bonnie,
+become obsessed with finding out who killed the&nbsp;waitress.</p>
+<p>This is a fairly amusing comic mystery,
+with a semi-plausible but twisted plot.
+Hitch is a sym&shy;pa&shy;thet&shy;ic character,
+albeit one who drinks too much
+and whose eye&nbsp;wanders.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/06/17/ReviewHearseOfADifferentColor.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-06-13">2007-06-13</time>
+        <h1>
+            <a href="/blog/2007/06/13/ReviewProvenGuilty.html" rel="bookmark canonical">Review: Proven Guilty</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0451461037"></a>
+<div class="line-block">
+<div class="line">Title: Proven Guilty</div>
+<div class="line">Author: Jim Butcher</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Publisher: Roc</div>
+<div class="line">Copyright: 2006</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0451461037">0451461037</a></div>
+<div class="line">Pages: 479</div>
+<div class="line">Keywords: fantasy</div>
+<div class="line">Reading period: 9–12 June, 2007</div>
+</div>
+<p>Ninth book in the <a class="reference external" href="http://en.wikipedia.org/wiki/The_Dresden_Files">Dresden Files</a>
+series of urban&nbsp;fantasies.</p>
+<p>Harry Dresden is a wizard who consults with the Chicago Police on weird crimes.
+Molly, the rebellious teenaged daughter of an old friend,
+leads him to a horror fiction convention where the fans are being
+attacked by real monsters.
+Given Harry&#8217;s smart mouth and talent for drawing trouble upon himself,
+it&#8217;s not too long before he&#8217;s captured by a sadistic villain
+who tries to auction him to his many enemies on eBay.
+He escapes but then has to lead a rescue mission into
+the <span>&#8230;<a href="/blog/2007/06/13/ReviewProvenGuilty.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/06/13/ReviewProvenGuilty.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
