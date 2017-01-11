@@ -30,46 +30,6 @@
     
         <article>
     <header>
-        <time datetime="2015-12-15">2015-12-15</time>
-        <h1>
-            <a href="/blog/2015/12/15/PythonFStrings.html" rel="bookmark canonical">Python f-strings</a>
-        </h1>
-    </header>
-    <p>At this month&#8217;s <a class="reference external" href="http://www.meetup.com/PSPPython/">PuPPy (Puget Sound Pro&shy;gram&shy;ming Python) Meetup</a>,
-I heard a brief mention of <a class="reference external" href="https://www.python.org/dev/peps/pep-0498/">Python f-strings</a>
-as a new feature coming in Python&nbsp;3.6.</p>
-<p>In essence, they offer a simpler, more versatile method
-of string formatting and in&shy;ter&shy;po&shy;la&shy;tion
-over existing methods.
-F-strings can include not only symbol names
-but Python <em>ex&shy;pres&shy;sions</em> within strings.
-With <a class="reference external" href="https://docs.python.org/3/library/string.html#formatstrings">str.format</a>, you can write
-<tt class="docutils literal">'Hello, <span class="pre">{name}'.format(name=some_name)</span></tt>.
-You can control various aspects of how <tt class="docutils literal">name</tt> is formatted,
-such as being centered within a field—see <a class="reference external" href="https://pyformat.info/">PyFormat</a> and <a class="reference external" href="https://mkaz.github.io/2012/10/10/python-string-format/">Python String Format Cookbook</a>
-for ex&shy;am&shy;ples—but no more complex expression is allowed between the&nbsp;braces.</p>
-<p>Herewith some examples of f-string ex&shy;pres&shy;sions
-drawn from <a class="reference external" href="https://www.python.org/dev/peps/pep-0498/"><span class="caps">PEP</span> 0498</a>:</p>
-
-<pre class="brush: python">
->>> date = datetime.date(1991, 10, 12)
->>> f'{date} was on a {date:%A}'
-'1991-10-12 was </pre><span>&#8230;<a href="/blog/2015/12/15/PythonFStrings.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/15/PythonFStrings.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
         <time datetime="2015-12-14">2015-12-14</time>
         <h1>
             <a href="/blog/2015/12/14/DarkChocolateGelatoButtermilkMilkshakes.html" rel="bookmark canonical">Dark Chocolate Gelato-Buttermilk Milkshakes</a>
@@ -385,6 +345,53 @@ and pour the flaming <span>&#8230;<a href="/blog/2015/12/06/ChristmasPudding.htm
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/06/ChristmasPudding.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-12-05">2015-12-05</time>
+        <h1>
+            <a href="/blog/2015/12/05/python-print-formatting.html" rel="bookmark canonical">Python Print Formatting</a>
+        </h1>
+    </header>
+    <p>On Stack&shy;Over&shy;flow, someone wanted to
+<a class="reference external" href="http://stackoverflow.com/questions/34109838/for-while-loops-to-make-triangles">print triangles in Python</a>
+in an M-shape.
+Various clumsy solutions were&nbsp;offered.</p>
+<p>Here&#8217;s mine which uses the left- and right-jus&shy;ti&shy;fi&shy;ca&shy;tion features of
+<a class="reference external" href="https://docs.python.org/2/library/string.html#formatstrings">str.format</a>.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">&quot;{0}+++{0}&quot;.format('Hello!')</span></tt> produces two copies of the zeroth argument to <tt class="docutils literal">format</tt>
+(here <tt class="docutils literal">'Hello!'</tt>), separated by three plusses: <tt class="docutils literal"><span class="pre">Hello!+++Hello!</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">&quot;{:&lt;4}&quot;.format('x')</span></tt> left-justifies <tt class="docutils literal">'x'</tt> in a 4-character field; i.e., <tt class="docutils literal">'x&nbsp;&nbsp; '</tt>.</li>
+<li><tt class="docutils literal"><span class="pre">&quot;{:&gt;4}&quot;.format('x')</span></tt> right-justifies <tt class="docutils literal">'x'</tt> in a 4-character field; i.e., <tt class="docutils literal">'&nbsp;&nbsp; x'</tt>.</li>
+<li><tt class="docutils literal"><span class="pre">&quot;{:&gt;{}}&quot;.format('x',</span> width)</tt> right-justifies <tt class="docutils literal">'x'</tt> in a <tt class="docutils literal">width</tt>-character&nbsp;field.</li>
+<li><tt class="docutils literal">'ab' * 4</tt> yields 4 copies of <tt class="docutils literal">'ab'</tt>; i.e., <tt class="docutils literal">'abababab'</tt>.</li>
+</ul>
+<p>Putting them&nbsp;together:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; WIDTH = 4
+&gt;&gt;&gt;
+&gt;&gt;&gt; for a in range(1, WIDTH+1):
+...     print(&quot;{0:&lt;{1}}{0:&gt;{1}}&quot;.format('*' * a, WIDTH))
+...
+*      *
+**    **
+***  ***
+********
+</pre>
+<p>Handy references: <span>&#8230;<a href="/blog/2015/12/05/python-print-formatting.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/05/python-print-formatting.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
