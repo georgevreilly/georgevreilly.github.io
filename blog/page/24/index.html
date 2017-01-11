@@ -30,6 +30,102 @@
     
         <article>
     <header>
+        <time datetime="2016-01-13">2016-01-13</time>
+        <h1>
+            <a href="/blog/2016/01/13/ReviewStarDoc.html" rel="bookmark canonical">Review: Star Doc</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/0451457730/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: Star Doc</div>
+<div class="line">Author: <span class="caps">S.L.</span> Viehl</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Publisher: Roc</div>
+<div class="line">Copyright: 2000</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0451457730/?tag=georgvreill-20">0451457730</a></div>
+<div class="line">Pages: 400</div>
+<div class="line">Keywords: <span class="caps">SF</span></div>
+<div class="line">Reading period: 11–12 January, 2016</div>
+</div>
+<p>Dr. Cherijo Grey Veil flees Earth to the remote planet of Kevarzanga-2,
+seeking to get away from her dom&shy;i&shy;neer&shy;ing father
+and the xenophobic Terrans.
+She finds in&shy;ter&shy;est&shy;ing challenges and romance
+working with a variety of alien species at the FreeClinic.
+Then a plague strikes that kills thousands.
+When that&#8217;s resolved, the news comes that her father really, really wants her back,
+and is bringing enormous resources to make that&nbsp;happen.</p>
+<p>I didn&#8217;t like the book at first, but it grew on me as I read more of it
+and I got caught up <span>&#8230;<a href="/blog/2016/01/13/ReviewStarDoc.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/13/ReviewStarDoc.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-12">2016-01-12</time>
+        <h1>
+            <a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" rel="bookmark canonical">Bash: Getting and Setting Default Values</a>
+        </h1>
+    </header>
+    <p>Bash has some handy syntax for getting and setting default values.
+Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s a collection of punc&shy;tu&shy;a&shy;tion characters,
+which makes it hard to Google when you can&#8217;t quite remember the&nbsp;syntax.</p>
+<p>Getting a default value using <tt class="docutils literal"><span class="pre">${var:-fallback}</span></tt>:</p>
+
+<pre class="brush: bash">
+# set $LOGDIR to $1 if $1 has a value; otherwise set $LOGDIR to "/var/log"
+LOGDIR="${1:-/var/log}"
+
+# use $VERSION unless it's empty or unset; fall back to extracting someprog's version num
+build_version=${VERSION:-$(someprog --version | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')}
+</pre>
+
+<p>The colon-dash con&shy;struc&shy;tion is known as the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog&#8217;s bollocks</a>
+in&nbsp;typography.</p>
+<p>Setting a default value, using <tt class="docutils literal"><span class="pre">${var:=fallback}</span></tt>:</p>
+
+<pre class="brush: bash">
+$ echo $HOME
+/Users/georgevreilly
+$ echo ${HOME:=/tmp}
+/Users/georgevreilly
+$ unset HOME
+$ echo ${HOME:=/tmp}
+/tmp
+$ echo $HOME
+/tmp
+$ cd; pwd
+/tmp
+</pre>
+
+<p>Note: <tt class="docutils literal">:=</tt> uses the new value in two cases.
+First, when the shell <span>&#8230;<a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/12/BashGettingAndSettingDefaultValues.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-11">2016-01-11</time>
         <h1>
             <a href="/blog/2016/01/11/ReviewBlindJustice.html" rel="bookmark canonical">Review: Blind Justice</a>
@@ -195,6 +291,44 @@ The <a class="reference external" href="http://www.smh.com.au/entertainment/movi
     <header>
         <time datetime="2016-01-07">2016-01-07</time>
         <h1>
+            <a href="/blog/2016/01/07/ReviewDrStrange.html" rel="bookmark canonical">Review: Dr. Strange</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Doctor_Strange_(film)"></a>
+<div class="line-block">
+<div class="line">Title: Dr. Strange</div>
+<div class="line">Director: Scott Derrickson</div>
+<div class="line">Rating: ★ ★ ★ ½</div>
+<div class="line">Released: 2016</div>
+<div class="line">Keywords: Marvel, fantasy</div>
+<div class="line">Watched: 7 January, 2017</div>
+</div>
+<p>Stephen Strange is a world-class surgeon whose talent is only matched by his arrogance.
+His hands are ruined by a car crash, leaving him desperate to regain their use.
+In Nepal, he finds a temple of sorcerers led by the Ancient One,
+where he learns new and un&shy;sus&shy;pect&shy;ed ways of dealing with the world.
+Eventually he takes on the renegade sorcerer Kaecilius,
+who wants to summon Dormammu from the Dark Dimension to change the&nbsp;world.</p>
+<p>Aside from his very odd American accent,
+Benedict Cum&shy;ber&shy;batch does a decent job with a not-great script
+of portraying one <span>&#8230;<a href="/blog/2016/01/07/ReviewDrStrange.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/07/ReviewDrStrange.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-07">2016-01-07</time>
+        <h1>
             <a href="/blog/2016/01/07/DicewareAndLastpass.html" rel="bookmark canonical">LastPass and Diceware</a>
         </h1>
     </header>
@@ -304,107 +438,6 @@ Then we postin&shy;cre&shy;ment <span>&#8230;<a href="/blog/2016/01/05/Decrement
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/05/DecrementingLoops.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-04">2016-01-04</time>
-        <h1>
-            <a href="/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html" rel="bookmark canonical">Obfuscating Passwords in URLs in Python</a>
-        </h1>
-    </header>
-    <p>New MetaBrite Dev Blog post,
-<a class="reference external" href="http://www.metabrite.com/devblog/posts/python-obfuscate-url-password/">Ob&shy;fus&shy;cat&shy;ing Passwords in URLs in Python</a>.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-03">2016-01-03</time>
-        <h1>
-            <a href="/blog/2016/01/03/2015-Q4-books.html" rel="bookmark canonical">My Recent Reading</a>
-        </h1>
-    </header>
-    
-<p>The ac&shy;com&shy;pa&shy;ny&shy;ing photo shows most of the books that I&#8217;ve read between late September 2015
-and January&nbsp;2nd:</p>
-<ul class="simple">
-<li>Five <a class="reference external" href="https://en.wikipedia.org/wiki/Inspector_Rebus">Rebus</a> novels by Ian Rankin&nbsp;(unreviewed)</li>
-<li>Nine <a class="reference external" href="https://en.wikipedia.org/wiki/Kurt_Wallander">Wallander</a> novels by Henning Mankell (un&shy;re&shy;viewed; <em>The Fifth Woman</em> was an&nbsp;e-book)</li>
-<li><em>The Seacoast of Bohemia</em> by Nicolas&nbsp;Freeling</li>
-<li><em>The Vault</em> by Peter&nbsp;Lovesey</li>
-<li><em>A German Requiem</em> by Philip&nbsp;Kerr</li>
-<li><a class="reference external" href="http://www.georgevreilly.com/blog/2015/12/04/ReviewStarFall.html">Star&nbsp;Fall</a></li>
-<li><a class="reference external" href="http://www.georgevreilly.com/blog/2015/12/08/ReviewTheAx.html">The&nbsp;Ax</a></li>
-<li>The first seven books of <a class="reference external" href="http://www.georgevreilly.com/blog/2015/12/16/ReviewSaxonTales.html">The Saxon Tales</a> by Bernard&nbsp;Cornwell</li>
-<li><a class="reference external" href="http://www.georgevreilly.com/blog/2015/12/20/ReviewDestinationMorgue.html">Des&shy;ti&shy;na&shy;tion:&nbsp;Morgue</a></li>
-<li><a class="reference external" href="http://www.georgevreilly.com/blog/2015/12/26/ReviewTheMagicians.html">The Magicians</a>, <a class="reference external" href="http://www.georgevreilly.com/blog/2015/12/27/ReviewTheMagicianKing.html">The Magician King</a>, and <a class="reference external" href="http://www.georgevreilly.com/blog/2015/12/31/ReviewTheMagiciansLand.html">The Magician&#8217;s&nbsp;Land</a></li>
-<li><a class="reference external" href="http://www.georgevreilly.com/blog/2016/01/02/ReviewTheRedRoad.html">The Red&nbsp;Road</a></li>
-<li>Some other ebooks, including some technical&nbsp;books</li>
-</ul>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/03/2015-Q4-books.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-02">2016-01-02</time>
-        <h1>
-            <a href="/blog/2016/01/02/ReviewTheRedRoad.html" rel="bookmark canonical">Review: The Red Road</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0316188506/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Red Road</div>
-<div class="line">Author: Denise Mina</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Back Bay Books</div>
-<div class="line">Copyright: 2014</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0316188506/?tag=georgvreill-20">0316188506</a></div>
-<div class="line">Pages: 320</div>
-<div class="line">Keywords: police procedural, tartan noir</div>
-<div class="line">Reading period: 31 December, 2015–2 January, 2016</div>
-</div>
-<p>Glasgow <span class="caps">DI</span> Alex Morrow is trying to put a dangerous criminal back in prison,
-but she can&#8217;t explain how his prints were found at the scene of a recent murder
-when he was already in custody.
-Fifteen years ago, when Rose Wilson was a sexually abused 14 year old,
-she was re&shy;spon&shy;si&shy;ble for two deaths in one night,
-but only did time for one culpable homicide.
-Now the lawyer who saved her is dead and coverups are&nbsp;unraveling.</p>
-<p>In other hands, this tale <span>&#8230;<a href="/blog/2016/01/02/ReviewTheRedRoad.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/02/ReviewTheRedRoad.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

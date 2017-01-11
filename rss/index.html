@@ -5,9 +5,37 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Mon, 09 Jan 2017 08:00:00 GMT</pubDate>
+        <pubDate>Tue, 10 Jan 2017 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>LKRhash</title>
+        <link>http://www.georgevreilly.com/articles/LKRhash.html</link>
+        <description>&lt;p&gt;LKRhash is a hashtable that scales to multiple processors and to millions of items.
+LKRhash was invented at Microsoft in 1997
+by Per-Åke (Paul) Larson of Microsoft Research
+and Murali Krishnan and George Reilly of Internet Information Services.
+LKRhash has been used in many Microsoft products.
+The techniques that give LKRhash its performance
+include &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Linear_hashing&#34;&gt;linear hashing&lt;/a&gt;, cache-friendly data structures, and fine-grained locking.&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://nwcpp.org/june-2012.html&#34;&gt;NWCPP talk&lt;/a&gt;, June 2012. &lt;a class=&#34;reference external&#34; href=&#34;https://speakerdeck.com/georgevreilly/lkrhash-the-design-of-a-scalable-hashtable&#34;&gt;Speaker Deck Slides&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/content/binary/LKRhash-for-SoftwarePE.pdf&#34;&gt;Unpublished paper&lt;/a&gt; submitted to &lt;a class=&#34;reference external&#34; href=&#34;http://www.wiley.com/WileyCDA/WileyTitle/productCd-SPE.html&#34;&gt;Software: Practice &amp;amp; Experience&lt;/a&gt; (Oct 1999).&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://patents.google.com/patent/US6578131B1/en&#34;&gt;US 6,578,131 patent&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If Microsoft had had &lt;a class=&#34;reference external&#34; href=&#34;https://qz.com/115831/googles-20-time-which-brought-you-gmail-and-adsense-is-now-as-good-as-dead/&#34;&gt;20% time&lt;/a&gt;,
+LKRhash would have been my main project.
+I put a lot of effort into making it a polished, well-tuned library
+that was used in multiple products.
+Several years ago, after I left Microsoft,
+I attempted to get it open-sourced.
+However, despite some help on the inside,
+we were never able to surmount the legal barriers.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 10 Jan 2017 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-10:/articles/LKRhash.html</guid>
+    </item>
         
             <item>
         <title>Review: Watch Your Back!</title>
@@ -38,6 +66,23 @@ because nothing ever goes to plan in a Dortmunder book.&lt;/p&gt;
 </description>
         <pubDate>Mon, 09 Jan 2017 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-09:/blog/2017/01/09/ReviewWatchYourBack.html</guid>
+    </item>
+        
+            <item>
+        <title>More Blog Cleanup</title>
+        <link>http://www.georgevreilly.com/blog/2017/01/08/MoreBlogCleanup.html</link>
+        <description>&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2017/01/02/BlogCleanup.html&#34;&gt;Last weekend&lt;/a&gt;, I restored a number of posts that had appeared
+on the earlier &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/shanselman/dasblog&#34;&gt;dasBlog&lt;/a&gt; incarnation of this blog,
+but had never made it to the &lt;a class=&#34;reference external&#34; href=&#34;https://posativ.org/acrylamid/&#34;&gt;Acrylamid&lt;/a&gt; version.&lt;/p&gt;
+&lt;p&gt;I added about another 50 posts this weekend,
+taken from the &lt;a class=&#34;reference external&#34; href=&#34;http://web.archive.org/web&#34;&gt;Wayback Machine&lt;/a&gt;.
+I think that this is all the posts that are missing.&lt;/p&gt;
+&lt;p&gt;That required further fixup.
+I had to turn the HTML back into reStructuredText, which I did by hand.&lt;/p&gt;
+&lt;p&gt;Some useful tips will follow in future posts.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 08 Jan 2017 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-08:/blog/2017/01/08/MoreBlogCleanup.html</guid>
     </item>
         
             <item>
@@ -853,53 +898,6 @@ the plot is tired and the characters are unappealing.&lt;/p&gt;
 </description>
         <pubDate>Sat, 20 Aug 2016 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-20:/blog/2016/08/20/ReviewJasonBourne.html</guid>
-    </item>
-        
-            <item>
-        <title>Opening Vim at the right place</title>
-        <link>http://www.georgevreilly.com/blog/2016/08/19/OpeningVimAtTheRightPlace.html</link>
-        <description>&lt;p&gt;If you know exactly which line you want to go
-or which pattern you want to search for,
-Vim provides a couple of command-line options that can help:
-&lt;tt class=&#34;docutils literal&#34;&gt;+NUM&lt;/tt&gt; goes to line number &lt;tt class=&#34;docutils literal&#34;&gt;NUM&lt;/tt&gt;,
-while &lt;tt class=&#34;docutils literal&#34;&gt;+/PAT&lt;/tt&gt; searches for the first occurrence of &lt;tt class=&#34;docutils literal&#34;&gt;PAT&lt;/tt&gt;.
-It&#39;s also possible to execute an Ex command with &lt;tt class=&#34;docutils literal&#34;&gt;+CMD&lt;/tt&gt;,
-such as &lt;tt class=&#34;docutils literal&#34;&gt;&amp;quot;+set fenc=latin1&amp;quot;&lt;/tt&gt;.
-You can supply up to ten &lt;tt class=&#34;docutils literal&#34;&gt;+&lt;/tt&gt; options.&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;
-vim +23 ~/.bashrc
-vim &#39;+/ASIN\|ISBN&#39; template.rst
-vim &amp;quot;+set fenc=latin1&amp;quot; some.csv
-&lt;/pre&gt;
-</description>
-        <pubDate>Fri, 19 Aug 2016 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-19:/blog/2016/08/19/OpeningVimAtTheRightPlace.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: The Murder Road</title>
-        <link>http://www.georgevreilly.com/blog/2016/08/18/ReviewTheMurderRoad.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/B00XHRVXKE/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;The Murder Road&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/B00XHRVXKE.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: The Murder Road&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: Stephen Booth&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Witness Impulse&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 2015&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/B00XHRVXKE/?tag=georgvreill-20&#34;&gt;B00XHRVXKE&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 403&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: police procedural&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 24–31 July, 2016&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;Detective Inspector Ben Cooper, newly promoted, is leading the team
-that&#39;s investigating the murder of a lorry driver outside a remote Peak District village.
-It seems to be connected to a suicide that took place the same day, but how?
-Cooper and his team manage to peel back the layers surrounding the dual mysteries.&lt;/p&gt;
-&lt;p&gt;Booth writes solidly plotted, solidly characterized novels,
-and this is another good entry in his long-running Cooper &amp;amp; Fry series.&lt;/p&gt;
-</description>
-        <pubDate>Thu, 18 Aug 2016 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-18:/blog/2016/08/18/ReviewTheMurderRoad.html</guid>
     </item>
         </channel>
 </rss>

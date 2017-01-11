@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Posting to dasBlog with Windows Live Writer</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="From Scott Hanselman,
+I learned about Microsoft&#39;s..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2006-08-18">2006-08-18</time>
+        <h1>
+            <a href="/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html" rel="bookmark canonical">Posting to dasBlog with Windows Live Writer</a>
+        </h1>
+    </header>
+    <p>From Scott Hanselman,
+I learned about Microsoft&#8217;s new blog posting client, <a class="reference external" href="http%3a%2f%2fwww.hanselman.com%2fblog%2fWindowsLiveWriterAndDasBlog19.aspx">Windows Live Writer</a>.
+I&#8217;ve played around with it and it&#8217;s definitely the nicest free blogging client that I&#8217;ve&nbsp;used.</p>
+<p>Here are in&shy;struc&shy;tions on con&shy;fig&shy;ur&shy;ing it to post to dasBlog.
+I&#8217;m showing how to set it up for <a class="reference external" href="http%3a%2f%2fwww.emmabart.com%2fMeanderings%2f">Emma&#8217;s blog</a>, since she&#8217;s running dasBlog 1.8.
+I&#8217;m running a recent build of the as-yet unreleased dasBlog 1.9,
+which supports Really Simple Discovery,
+which makes the first part of this exercise simpler,
+as <span class="caps">WLW</span> can infer that it&#8217;s dealing with Metaweblog <span class="caps">API</span>,
+just by pointing it at the root of the&nbsp;blog.</p>
+<p>Launch <span class="caps">WLW</span> and Add a Weblog Account.
+Choose Another weblog&nbsp;service.</p>
+<img alt="/content/binary/chooseblogtype_thumb.png" src="/content/binary/chooseblogtype_thumb.png"/>
+<p>Next, enter the <span class="caps">URL</span> of your blog
+and the username and password that you use to log&nbsp;in.</p>
+<img alt="/content/binary/login_thumb.png" src="/content/binary/login_thumb.png"/>
+<p>Select your provider, Metaweblog <span class="caps">API</span>.
+The remote posting <span class="caps">URL</span> is the blog homepage <span class="caps">URL</span> +&nbsp;/blogger.aspx:</p>
+<img alt="/content/binary/selectprovider_thumb.png" src="/content/binary/selectprovider_thumb.png"/>
+<p>You are now ready to post text to your&nbsp;blog:</p>
+<img alt="/content/binary/configcomplete_thumb.png" src="/content/binary/configcomplete_thumb.png"/>
+<p>Create a test post.
+Be sure to include an image.
+When you try to Publish it, you&#8217;ll get a dialog like&nbsp;this:</p>
+<img alt="/content/binary/imageuploadunsupported_thumb.png" src="/content/binary/imageuploadunsupported_thumb.png"/>
+<p>Use an <span class="caps">FTP</span> program to discover the <span class="caps">FTP</span> path to your blog&#8217;s content/binary directory.
+Here&#8217;s the relevant area in <a class="reference external" href="http%3a%2f%2ffilezilla.sourceforge.net%2f">FileZilla</a>:</p>
+<img alt="/content/binary/filezillaaddressbar_thumb.png" src="/content/binary/filezillaaddressbar_thumb.png"/>
+<p>Note that the leading parts of the path
+are quite different to the cor&shy;re&shy;spond&shy;ing <span class="caps">HTTP</span> <span class="caps">URL</span> (and peculiar to Emma&#8217;s site).
+Fill out the <span class="caps">FTP</span> Settings dialog with the ap&shy;pro&shy;pri&shy;ate&nbsp;settings:</p>
+<img alt="/content/binary/ftpsettings_thumb.png" src="/content/binary/ftpsettings_thumb.png"/>
+<p>You&#8217;re now ready to upload images via&nbsp;<span class="caps">FTP</span>:</p>
+<img alt="/content/binary/ftpconfigcomplete_thumb.png" src="/content/binary/ftpconfigcomplete_thumb.png"/>
+<p>Go for&nbsp;it.</p>
+<p>This post was of course created with Windows Live Writer.
+I did have to set the Image Size to original for each image,
+or they would have been squished down to an unreadable&nbsp;size.</p>
+<p>Update: I had a hell of a time when I first posted this.
+None of the images showed up.
+Instead I was seeing fragments of raw <span class="caps">HTML</span>.
+I tracked it down to the dasBlog con&shy;fig&shy;u&shy;ra&shy;tion filters,
+which (by default) rewrite the word dasBlog as a link to the dasBlog website.
+That&#8217;s more-or-less fine in plain text,
+but it plays havoc if the word dasBlog appears in the middle of one of your image&nbsp;URLs.</p>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+
+
+    
+    
+        <a href="/blog/2006/08/17/TheUKTerrorPlot.html" class="page floatright">
+        The UK Terror Plot &raquo;
+        </a>
+    
+    
+        <a href="/blog/2006/08/18/SponsorMeForTheAIDSWalk.html" class="page floatleft">
+        &laquo; Sponsor me for the AIDS Walk
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
