@@ -5,9 +5,34 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Tue, 10 Jan 2017 08:00:00 GMT</pubDate>
+        <pubDate>Wed, 11 Jan 2017 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Diff a Transformed File</title>
+        <link>http://www.georgevreilly.com/blog/2017/01/11/DiffTransformedFile.html</link>
+        <description>&lt;p&gt;I wanted to diff two files.
+One of them needed some &lt;tt class=&#34;docutils literal&#34;&gt;sed&lt;/tt&gt;s on each line and sorting.
+I wanted to do that on the fly,
+without leaving a massaged intermediate file lying around.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;colordiff --unified &amp;lt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;cat orphaned_permalinks.txt
+                        &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sed &lt;span class=&#34;s1&#34;&gt;&amp;#39;s@http://www.georgevreilly.com/@@&amp;#39;&lt;/span&gt;
+                        &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sed &lt;span class=&#34;s1&#34;&gt;&amp;#39;s/.aspx$/.html/&amp;#39;&lt;/span&gt;
+                        &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; sort&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+        links.txt &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; less -R
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;Use &lt;a class=&#34;reference external&#34; href=&#34;https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html&#34;&gt;process substitution&lt;/a&gt;—&lt;tt class=&#34;docutils literal&#34;&gt;&amp;lt;(cat | sed | sort)&lt;/tt&gt;—to generate one argument to &lt;a class=&#34;reference external&#34; href=&#34;http://www.colordiff.org/&#34;&gt;colordiff&lt;/a&gt;.
+The other argument is simply &lt;tt class=&#34;docutils literal&#34;&gt;links.txt&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;The first &lt;tt class=&#34;docutils literal&#34;&gt;sed&lt;/tt&gt; is using &lt;tt class=&#34;docutils literal&#34;&gt;&amp;#64;&lt;/tt&gt; as the delimiter rather than the more usual &lt;tt class=&#34;docutils literal&#34;&gt;/&lt;/tt&gt;,
+since the pattern contains multiple slashes that would otherwise need to be escaped.&lt;/li&gt;
+&lt;li&gt;Pipe the &lt;a class=&#34;reference external&#34; href=&#34;http://unix.stackexchange.com/questions/19317/can-less-retain-colored-output&#34;&gt;colored output&lt;/a&gt; into &lt;tt class=&#34;docutils literal&#34;&gt;less &lt;span class=&#34;pre&#34;&gt;-R&lt;/span&gt;&lt;/tt&gt; (aka &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--RAW-CONTROL-CHARS&lt;/span&gt;&lt;/tt&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Wed, 11 Jan 2017 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-11:/blog/2017/01/11/DiffTransformedFile.html</guid>
+    </item>
         
             <item>
         <title>LKRhash: Scalable Hash Tables</title>
@@ -872,34 +897,6 @@ and wonders that it doesn&#39;t backfire on the Russian nobility
 </description>
         <pubDate>Sun, 21 Aug 2016 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-21:/blog/2016/08/21/ReviewFlashmanAtTheCharge.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: Jason Bourne</title>
-        <link>http://www.georgevreilly.com/blog/2016/08/20/ReviewJasonBourne.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Jason_Bourne_(film)&#34;&gt;&lt;img alt=&#34;Jason Bourne&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/en/thumb/b/b2/Jason_Bourne_%28film%29.jpg/220px-Jason_Bourne_%28film%29.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: Jason Bourne&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Director: Paul Greengrass&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ½&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Released: 2016&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: action, thriller&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Watched: 20 August, 2016&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;In &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Jason_Bourne_(film)&#34;&gt;Jason Bourne&lt;/a&gt;,
-the eponym is back in action, running around the planet
-in a personal vendetta with the director of the CIA.
-Bourne&#39;s old ally Nicky Parsons is killed trying to pass him some information
-that she&#39;s unearthed about the Treadstone program
-that turned David Webb into the amnesiac assassin known as Jason Bourne.
-The CIA director sends a killer known only as the Asset after Bourne,
-while the fresh-faced head of the Cyber Ops division does her best to keep Bourne alive.&lt;/p&gt;
-&lt;p&gt;This is a largely unnecessary sequel to the Bourne franchise.
-While the action scenes are good,
-the plot is tired and the characters are unappealing.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 20 Aug 2016 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-20:/blog/2016/08/20/ReviewJasonBourne.html</guid>
     </item>
         </channel>
 </rss>
