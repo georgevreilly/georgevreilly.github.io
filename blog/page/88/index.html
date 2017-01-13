@@ -30,6 +30,47 @@
     
         <article>
     <header>
+        <time datetime="2007-10-25">2007-10-25</time>
+        <h1>
+            <a href="/blog/2007/10/25/ErEr.html" rel="bookmark canonical">Er, er</a>
+        </h1>
+    </header>
+    
+<p>I&#8217;ve grown fond of the JavaScript <tt class="docutils literal">||</tt> idiom:</p>
+<pre class="literal-block">
+function FrobImage(img) {
+    var width  = img.width  || 400;
+    var height = img.height || 300;
+    // ...
+}
+
+FrobImage({height: 100, name: &quot;example.png&quot;});
+</pre>
+<p>If <tt class="docutils literal">img.width</tt> exists and it&#8217;s <a class="reference external" href="http://mattsnider.com/wp-content/uploads/2007/04/FalseTest.html">truthy</a>,
+then <tt class="docutils literal">width = img.width</tt>; otherwise, <tt class="docutils literal">width = 400</tt>.
+Here, it will be <tt class="docutils literal">400</tt> since the <tt class="docutils literal">img</tt> hash
+has no <tt class="docutils literal">width</tt> property.
+More than two al&shy;ter&shy;na&shy;tives may be used:
+<tt class="docutils literal">x = a || b || c || ... || q;</tt></p>
+<p>A few weeks ago, while cleaning up the error handling in some batch files,
+I came across a <a class="reference external" href="http://www.ss64.com/ntsyntax/conditional.html">similar idiom</a>:</p>
+<pre class="literal-block">
+foo.exe bar 123 &quot;some stuff&quot;  </pre><span>&#8230;<a href="/blog/2007/10/25/ErEr.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/10/25/ErEr.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2007-10-24">2007-10-24</time>
         <h1>
             <a href="/blog/2007/10/24/Virtualization.html" rel="bookmark canonical">Virtualization</a>
@@ -349,36 +390,6 @@ Their list of <a class="reference external" href="http://www.mydd.com/story/2006
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2007/09/27/UnityOhEightDotCom.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2007-09-24">2007-09-24</time>
-        <h1>
-            <a href="/blog/2007/09/24/CoziIsHiring.html" rel="bookmark canonical">Cozi is Hiring</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.cozi.com/about/careers.aspx"></a>
-<p>Cozi is <a class="reference external" href="http://www.cozi.com/about/careers.aspx">hiring</a>.
-We have positions for Developers and Web&nbsp;Developers.</p>
-<p>We&#8217;re a small Web 2.0 startup, based in the <a class="reference external" href="http://www.smithtower.com/">Smith Tower</a> in downtown Seattle.
-Our <a class="reference external" href="http://www.cozi.com/products/default.aspx">Cozi Central</a> product is groupware for families:
-it helps parents manage their own and their kids&#8217; schedules,
-shopping lists, and reminders, from computers, PDAs, and mobile&nbsp;phones.</p>
-<p>If you&#8217;re interested, let me&nbsp;know.</p>
-<p><em>Update</em>: we have some non-developer positions&nbsp;too.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/09/24/CoziIsHiring.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

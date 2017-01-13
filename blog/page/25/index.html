@@ -30,6 +30,52 @@
     
         <article>
     <header>
+        <time datetime="2016-01-05">2016-01-05</time>
+        <h1>
+            <a href="/blog/2016/01/05/DecrementingLoops.html" rel="bookmark canonical">Decrementing Loops</a>
+        </h1>
+    </header>
+    <p>The canonical <tt class="docutils literal">for</tt>-loop in C and C++ is written thus,
+counting up <tt class="docutils literal">i = 0</tt>, <tt class="docutils literal">i = 1</tt>, &#8230;, <tt class="docutils literal">i = <span class="pre">N-1</span></tt>:</p>
+
+<pre class="brush: c++">
+for (int i=0; i &lt; N; i++) {
+    // loop body
+}
+</pre>
+
+<p>(In C, you have to declare <tt class="docutils literal">int i</tt> before the <tt class="docutils literal">for</tt>-loop.)</p>
+<p>Let&#8217;s unpack that <tt class="docutils literal">for</tt>-loop into an equivalent <tt class="docutils literal">while</tt>-loop:</p>
+
+<pre class="brush: c++">
+int i = 0;
+while (i &lt; N) {
+    // loop body
+    i = i + 1
+}
+</pre>
+
+<p>In other words, we initialize <tt class="docutils literal">i</tt> to zero.
+Then, before every execution of either loop,
+we check <tt class="docutils literal">i &lt; N</tt>.
+If <tt class="docutils literal">i</tt> is still within bounds,
+we execute the loop body.
+Then we postin&shy;cre&shy;ment <span>&#8230;<a href="/blog/2016/01/05/DecrementingLoops.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/05/DecrementingLoops.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-04">2016-01-04</time>
         <h1>
             <a href="/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html" rel="bookmark canonical">Obfuscating Passwords in URLs in Python</a>
@@ -343,50 +389,6 @@ and <span>&#8230;<a href="/blog/2015/12/27/ReviewTheMagicianKing.html" class="co
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/27/ReviewTheMagicianKing.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-26">2015-12-26</time>
-        <h1>
-            <a href="/blog/2015/12/26/ReviewTheMagicians.html" rel="bookmark canonical">Review: The Magicians</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0670020559/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Magicians</div>
-<div class="line">Author: Lev Grossman</div>
-<div class="line">Rating: ★ ★ ★ ★ ½</div>
-<div class="line">Publisher: Plume</div>
-<div class="line">Copyright: 2009</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0670020559/?tag=georgvreill-20">0670020559</a></div>
-<div class="line">Pages: 402</div>
-<div class="line">Keywords: adult fantasy</div>
-<div class="line">Reading period: 20–26 December, 2015</div>
-</div>
-<p>Take a heavy dose of <a class="reference external" href="https://en.wikipedia.org/wiki/The_Chronicles_of_Narnia">Narnia</a>,
-add a hefty dollop of <a class="reference external" href="https://en.wikipedia.org/wiki/Harry_Potter">Harry Potter</a>,
-stir in some <a class="reference external" href="https://en.wikipedia.org/wiki/Bret_Easton_Ellis">Bret Easton Ellis</a>
-and a dash of <a class="reference external" href="https://en.wikipedia.org/wiki/The_Catcher_in_the_Rye">The Catcher in the Rye</a>,
-then cook for adults.
-That glib de&shy;scrip&shy;tion short&shy;changes <a class="reference external" href="https://en.wikipedia.org/wiki/The_Magicians_(Grossman_novel)">The Magicians</a>,
-even though Fillory clearly owes a major debt to Narnia
-and the preppy Brakebills College for Magical Pedagogy somewhat resembles&nbsp;Hogwarts.</p>
-<p>Quentin Coldwater is an over&shy;achiev&shy;ing, solitary math nerd from Brooklyn,
-who thinks he&#8217;s attending an entrance interview for Princeton
-but instead gains admittance to Brakebills.
-Magic turns out to be real, but difficult, requiring <span>&#8230;<a href="/blog/2015/12/26/ReviewTheMagicians.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/26/ReviewTheMagicians.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
