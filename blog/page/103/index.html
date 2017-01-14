@@ -32,6 +32,39 @@
     <header>
         <time datetime="2006-11-01">2006-11-01</time>
         <h1>
+            <a href="/blog/2006/11/01/AddictiveEmail.html" rel="bookmark canonical">Addictive Email</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.mindhacks.com/blog/2006/09/why_email_is_addicti.html"></a>
+<p><a class="reference external" href="http://www.mindhacks.com/blog/2006/09/why_email_is_addicti.html">Email is addictive</a> because of &quot;operant&nbsp;con&shy;di&shy;tion&shy;ing&quot;:</p>
+<blockquote>
+<p>This means the mechanisms by which behaviour is shaped by its
+con&shy;se&shy;quences; how what we do depends on the rewards and pun&shy;ish&shy;ments of
+what we did last time. &#8230;
+The most effective training regime is one where you give the animal a
+reward only sometimes, and then only at random intervals. Animals
+trained like this, with what&#8217;s called a &#8216;variable interval
+re&shy;in&shy;force&shy;ment schedule&#8217;, work harder for their rewards, and take longer
+to give up once all rewards for the behaviour is removed. There&#8217;s a
+logic to this. Although we might know that we&#8217;ve stopped rewarding the
+animal, it has got used to performing the <span>&#8230;<a href="/blog/2006/11/01/AddictiveEmail.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/11/01/AddictiveEmail.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-11-01">2006-11-01</time>
+        <h1>
             <a href="/blog/2006/11/01/HalloweenPhotos.html" rel="bookmark canonical">Halloween Photos</a>
         </h1>
     </header>
@@ -315,47 +348,6 @@ of a cockroach taking on a weatherman.&nbsp;Twice.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/09/20/CockroachVsWeatherman.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-09-14">2006-09-14</time>
-        <h1>
-            <a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" rel="bookmark canonical">Never Sleep(0) in an Infinite Loop</a>
-        </h1>
-    </header>
-    
-<p>I ran into a problem installing some <span class="caps">COM</span>+ components today. The installer
-was using <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/04za0hca.aspx">Regsvcs.exe</a>
-to register each <span class="caps">COM</span>+ component. I noticed after a while that the installer
-wasn&#8217;t making any progress and that my dual-proc system was stuck at 50%
-<span class="caps">CPU</span> uti&shy;liza&shy;tion. I attached a debugger to the offending process, regsvcs,
-and found that it was stuck in the following infinite loop
-(dis&shy;as&shy;sem&shy;bly courtesy of <a class="reference external" href="http://www.aisto.com/roeder/dotnet/">Reflector</a>):</p>
-
-
-<pre class="brush: csharp">
-internal void System.EnterpriseServices.CatalogSync.Wait()
-{
-  if (this._set)
-  {
-    RegistryKey key1
-      = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\CLSID");
-    while (true)
-    {
-      int num1 = (int) key1.GetValue("CLBVersion", 0);
- </pre><span>&#8230;<a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

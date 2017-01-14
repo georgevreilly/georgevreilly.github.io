@@ -5,9 +5,59 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Thu, 12 Jan 2017 08:00:00 GMT</pubDate>
+        <pubDate>Fri, 13 Jan 2017 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Computed Parallel Branches in Jenkins Pipeline</title>
+        <link>http://www.georgevreilly.com/blog/2017/01/13/ComputedParallelBranchesInJenkinsPipeline.html</link>
+        <description>&lt;p&gt;I&#39;ve been using Jenkins lately,
+setting up &lt;a class=&#34;reference external&#34; href=&#34;https://jenkins.io/solutions/pipeline/&#34;&gt;Pipeline&lt;/a&gt; builds.
+I have mixed feelings about that,
+but I&#39;m quite liking Groovy.&lt;/p&gt;
+&lt;p&gt;Here&#39;s an example of a &lt;tt class=&#34;docutils literal&#34;&gt;Closure&lt;/tt&gt; called &lt;tt class=&#34;docutils literal&#34;&gt;acceptance_integration_tests&lt;/tt&gt;,
+where the &lt;tt class=&#34;docutils literal&#34;&gt;release_level&lt;/tt&gt; parameter is a &lt;tt class=&#34;docutils literal&#34;&gt;String&lt;/tt&gt;
+which must be either &lt;tt class=&#34;docutils literal&#34;&gt;&amp;quot;dev&amp;quot;&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;&amp;quot;prod&amp;quot;&lt;/tt&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;acceptance_integration_tests&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;release_level&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;assert&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;release_level&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=~&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/^(dev|prod)$/&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;--${release_level}&amp;quot;&lt;/span&gt;
+
+    &lt;span class=&#34;kt&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;branches&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;
+        &lt;span class=&#34;s2&#34;&gt;&amp;quot;${release_level}_acceptance_tests&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;run_tests&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;ci_acceptance_test&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;**/*nosetests.xml&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;},&lt;/span&gt;
+        &lt;span class=&#34;s2&#34;&gt;&amp;quot;${release_level}_integration_tests&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;n&#34;&gt;run_tests&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;ci_integration_test&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;**/*nosetests.xml&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;parallel&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;branches&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We create a &lt;tt class=&#34;docutils literal&#34;&gt;Map&lt;/tt&gt; called &lt;tt class=&#34;docutils literal&#34;&gt;branches&lt;/tt&gt; with dynamically named keys,
+such as &lt;tt class=&#34;docutils literal&#34;&gt;&amp;quot;prod_integration_tests&amp;quot;&lt;/tt&gt;,
+thanks to &lt;tt class=&#34;docutils literal&#34;&gt;GString&lt;/tt&gt; interpolation.
+The values in the &lt;tt class=&#34;docutils literal&#34;&gt;branches&lt;/tt&gt; map are themselves closures,
+where &lt;tt class=&#34;docutils literal&#34;&gt;arg&lt;/tt&gt; is bound to &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;--dev&amp;quot;&lt;/span&gt;&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;--prod&amp;quot;&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;branches&lt;/tt&gt; map is passed to Pipeline&#39;s &lt;tt class=&#34;docutils literal&#34;&gt;parallel&lt;/tt&gt; command,
+which causes the two &lt;tt class=&#34;docutils literal&#34;&gt;run_tests&lt;/tt&gt; closures to be executed
+on two different executors—eventually.&lt;/p&gt;
+&lt;p&gt;I figured out the above syntax myself, then found a &lt;a class=&#34;reference external&#34; href=&#34;https://jenkins.io/doc/pipeline/examples/#jobs-in-parallel&#34;&gt;similar example&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Deploy to Dev&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;deploy&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;dev&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;stage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Dev Tests&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;acceptance_integration_tests&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;dev&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;stage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Deploy to Prod&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;deploy&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;prod&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;stage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Prod Tests&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;acceptance_integration_tests&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;prod&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;acceptance_integration_tests&lt;/tt&gt; closure is used in two different &lt;tt class=&#34;docutils literal&#34;&gt;stage&lt;/tt&gt;s.
+Each &lt;tt class=&#34;docutils literal&#34;&gt;stage&lt;/tt&gt; is passed an anonymous closure,
+which invokes the parallel tests at a suitable time.&lt;/p&gt;
+&lt;p&gt;The use of closures and Groovy&#39;s &lt;a class=&#34;reference external&#34; href=&#34;http://docs.groovy-lang.org/docs/latest/html/documentation/core-domain-specific-languages.html&#34;&gt;DSL&lt;/a&gt; facilities
+is powerful, terse, and expressive.&lt;/p&gt;
+</description>
+        <pubDate>Fri, 13 Jan 2017 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-13:/blog/2017/01/13/ComputedParallelBranchesInJenkinsPipeline.html</guid>
+    </item>
         
             <item>
         <title>Review: Death of a Red Heroine</title>
@@ -838,52 +888,6 @@ while presenting valid IDNs in Unicode; e.g., &lt;tt class=&#34;docutils literal
 </description>
         <pubDate>Fri, 26 Aug 2016 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-26:/blog/2016/08/26/HomographAttacks.html</guid>
-    </item>
-        
-            <item>
-        <title>Flame Graphs and Flame Charts</title>
-        <link>http://www.georgevreilly.com/blog/2016/08/23/FlameGraphsAndFlameCharts.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://queue.acm.org/detail.cfm?id=2927301&#34;&gt;&lt;img alt=&#34;Flame Graph&#34; class=&#34;right-float&#34; src=&#34;http://deliveryimages.acm.org/10.1145/2930000/2927301/gregg4.png&#34; style=&#34;width: 700px;&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;I was investigating the performance of a web app today,
-and I spent some time looking at the &lt;a class=&#34;reference external&#34; href=&#34;https://addyosmani.com/blog/devtools-flame-charts/&#34;&gt;Flame Chart&lt;/a&gt; visualization
-in Chrome&#39;s profiling tools, which helped identify some problems.&lt;/p&gt;
-&lt;p&gt;Flame Charts are like Brendan Gregg&#39;s &lt;a class=&#34;reference external&#34; href=&#34;http://www.brendangregg.com/flamegraphs.html&#34;&gt;Flame Graphs&lt;/a&gt;,
-except that the charts are sorted by time,
-while the graphs are sorted alphabetically.&lt;/p&gt;
-&lt;p&gt;Quoting from Gregg&#39;s recent &lt;a class=&#34;reference external&#34; href=&#34;http://queue.acm.org/detail.cfm?id=2927301&#34;&gt;ACM Queue article&lt;/a&gt;:&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;A flame graph has the following characteristics:&lt;/p&gt;
-&lt;ul class=&#34;simple&#34;&gt;
-&lt;li&gt;A stack trace is represented as a column of boxes,
-where each box represents a function (a stack frame).&lt;/li&gt;
-&lt;li&gt;The y-axis shows the stack depth,
-ordered from root at the bottom to leaf at the top.
-The top box shows the function
-that was on-CPU when the stack trace was collected,
-and everything beneath that is its ancestry.
-The function beneath a function is its parent.&lt;/li&gt;
-&lt;li&gt;The x-axis spans the stack trace collection.
-It does not show the passage of time,
-so the left-to-right ordering has no special meaning.
-The left-to-right ordering of stack traces
-is performed alphabetically on the function names,
-from the root to the leaf of each stack.
-This maximizes box merging:
-when identical function boxes are horizontally adjacent,
-they are merged.&lt;/li&gt;
-&lt;li&gt;The width of each function box shows the frequency
-at which that function was present in the stack traces,
-or part of a stack trace ancestry.
-Functions with wide boxes were more present in the stack traces
-than those with narrow boxes,
-in proportion to their widths.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Flame graphs are a clever, information-dense way to present computer performance.
-I suspect Edward Tufte would approve.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 23 Aug 2016 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-23:/blog/2016/08/23/FlameGraphsAndFlameCharts.html</guid>
     </item>
         </channel>
 </rss>
