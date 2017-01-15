@@ -5,9 +5,35 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Fri, 13 Jan 2017 08:00:00 GMT</pubDate>
+        <pubDate>Sat, 14 Jan 2017 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Review: Boiling Point</title>
+        <link>http://www.georgevreilly.com/blog/2017/01/14/ReviewBoilingPoint.html</link>
+        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0099281082/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Boiling Point&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/0099281082.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
+&lt;div class=&#34;line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;Title: Boiling Point&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Author: Frank Lean&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ½&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Publisher: Arrow&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Copyright: 2000&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/0099281082/?tag=georgvreill-20&#34;&gt;0099281082&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Pages: 432&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Keywords: crime, UK&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Reading period: 2–5 January, 2017&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Dave Cunane is Manchester&#39;s mouthiest PI.
+He gets tangled up with the wild daughter-in-law of the crooked Carlyle family.
+Marti wants him to prove the innocence of her father who&#39;s doing life for killing a cop.
+She doesn&#39;t go over well with Dave&#39;s own half-crazy girlfriend.
+Neither the Carlyles nor Dave&#39;s ex-police father want Vince King freed.
+It&#39;s not going to end well.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 14 Jan 2017 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-14:/blog/2017/01/14/ReviewBoilingPoint.html</guid>
+    </item>
         
             <item>
         <title>Computed Parallel Branches in Jenkins Pipeline</title>
@@ -851,43 +877,6 @@ Even so, a solid addition to the &lt;a class=&#34;reference external&#34; href=&
 </description>
         <pubDate>Sat, 27 Aug 2016 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-27:/blog/2016/08/27/ReviewFlashmanInTheGreatGame.html</guid>
-    </item>
-        
-            <item>
-        <title>Homograph Attacks</title>
-        <link>http://www.georgevreilly.com/blog/2016/08/26/HomographAttacks.html</link>
-        <description>&lt;p&gt;During an internal training exercise today,
-as a sort of one-man &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey&#34;&gt;Chaos Monkey&lt;/a&gt;,
-I deliberately broke a test system by changing a config setting to read:&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;
-itemfinder.url = http://test-іtemfinder.example.com/
-&lt;/pre&gt;
-&lt;p&gt;The correct value should have been:&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;
-itemfinder.url = http://test-itemfinder.example.com/
-&lt;/pre&gt;
-&lt;p&gt;What&#39;s that, you say? There&#39;s no difference, you say?&lt;/p&gt;
-&lt;p&gt;There &lt;em&gt;is&lt;/em&gt; a difference, but it&#39;s subtle.
-The first &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt; in the URL is
-&lt;a class=&#34;reference external&#34; href=&#34;http://www.fileformat.info/info/unicode/char/0456/index.htm&#34;&gt;&#39;CYRILLIC SMALL LETTER BYELORUSSIAN-UKRAINIAN I&#39; (U+0456)&lt;/a&gt;,
-not &lt;a class=&#34;reference external&#34; href=&#34;http://www.fileformat.info/info/unicode/char/0069/index.htm&#34;&gt;&#39;LATIN SMALL LETTER I&#39; (U+0069)&lt;/a&gt;.
-Depending upon the font, the two &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt;s may be visually indistinguishable,
-very similar looking, or the Cyrillic &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt; may not render.&lt;/p&gt;
-&lt;p&gt;This is an example of an &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/IDN_homograph_attack&#34;&gt;International Domain Name Homograph Attack&lt;/a&gt;.
-There are Greek letters and Cyrillic letters that look very similar to Latin letters,
-but which have distinct meanings, histories, and code points.
-International Domain Names permit the construction of non-Latin domain names.&lt;/p&gt;
-&lt;p&gt;Since domain name labels may only contain Latin letters, digits, and hyphens,
-an encoding scheme known as &lt;a class=&#34;reference external&#34; href=&#34;https://www.punycoder.com/&#34;&gt;Punycode&lt;/a&gt; transforms Unicode domain names into ASCII domain names.
-For example, &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;test-іtemfinder.example.com&lt;/span&gt;&lt;/tt&gt; (Cyrillic &lt;tt class=&#34;docutils literal&#34;&gt;i&lt;/tt&gt;)
-becomes &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;xn--test-temfinder-99l.example.com&lt;/span&gt;&lt;/tt&gt; in Punycode.&lt;/p&gt;
-&lt;p&gt;Obviously, homographs can be used to spoof URLs.
-Browsers generally present the Punycode form of an IDN
-if it looks like suspicious homographs might be present in the address bar,
-while presenting valid IDNs in Unicode; e.g., &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;http://ουτοπία.δπθ.gr/&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Fri, 26 Aug 2016 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-26:/blog/2016/08/26/HomographAttacks.html</guid>
     </item>
         </channel>
 </rss>
