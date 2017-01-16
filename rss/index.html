@@ -5,9 +5,46 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Sat, 14 Jan 2017 08:00:00 GMT</pubDate>
+        <pubDate>Sun, 15 Jan 2017 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Git File Modes</title>
+        <link>http://www.georgevreilly.com/blog/2017/01/15/GitFileModes.html</link>
+        <description>&lt;p&gt;Ever wonder what the six-digit file modes are in a Git commit?
+The mysterious &lt;tt class=&#34;docutils literal&#34;&gt;100644&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;100755&lt;/tt&gt; modes?&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;go&#34;&gt;diff --git a/foo/bar.py b/foo/bar.py&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;old mode 100644&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;new mode 100755&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;index b829edea4..ee6bda024&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;--- a/foo/bar.py&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;+++ b/foo/bar.py&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;@@ -1,3 +1,4 @@&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;...&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;I had made &lt;tt class=&#34;docutils literal&#34;&gt;foo/bar.py&lt;/tt&gt; executable by using &lt;tt class=&#34;docutils literal&#34;&gt;chmod +x&lt;/tt&gt;
+and adding a &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;#!/usr/bin/env&lt;/span&gt; python&lt;/tt&gt; shebang.
+The last three digits are obviously the same octal digits that you can use with &lt;tt class=&#34;docutils literal&#34;&gt;chmod&lt;/tt&gt;.
+But what&#39;s that &lt;tt class=&#34;docutils literal&#34;&gt;100&lt;/tt&gt;?&lt;/p&gt;
+&lt;p&gt;The explanation can be found in a &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/a/8347325/6364&#34;&gt;StackOverflow answer&lt;/a&gt;:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+100644  regular file (non-executable)   S_IFREG | S_IRUSR | S_IWUSR
+                                                | S_IRGRP | S_IWGRP
+                                                | S_IROTH | S_IWOTH
+100755  regular file (executable)       S_IFREG | S_IRUSR | S_IWUSR | S_IXUSR
+                                                | S_IRGRP | S_IWGRP | S_IXGRP
+                                                | S_IROTH | S_IWOTH | S_IXOTH
+120000  symbolic link                   S_IFLNK
+160000  gitlink                         No stat(2) equivalent
+040000  directory                       S_IFDIR
+&lt;/pre&gt;
+&lt;p&gt;A &lt;a class=&#34;reference external&#34; href=&#34;https://www.kernel.org/pub/software/scm/git/docs/git-fast-import.html#_tt_filemodify_tt&#34;&gt;gitlink&lt;/a&gt; is used to refer to a commit in another repository;
+it&#39;s how submodules are implemented.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 15 Jan 2017 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-15:/blog/2017/01/15/GitFileModes.html</guid>
+    </item>
         
             <item>
         <title>Review: Boiling Point</title>
@@ -836,47 +873,6 @@ which I&#39;ll pick over Labor Day weekend.&lt;/p&gt;
 </description>
         <pubDate>Sun, 28 Aug 2016 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-28:/blog/2016/08/28/Plums.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: Flashman in the Great Game</title>
-        <link>http://www.georgevreilly.com/blog/2016/08/27/ReviewFlashmanInTheGreatGame.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0452263034/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Flashman in the Great Game&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/0452263034.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: Flashman in the Great Game&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: George MacDonald Fraser&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Plume&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 1975&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/0452263034/?tag=georgvreill-20&#34;&gt;0452263034&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 322&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: historical fiction, humor&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 16–25 August, 2016&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/The_Flashman_Papers&#34;&gt;Flashman Papers&lt;/a&gt; V: 1856–58&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Flashman_in_the_Great_Game&#34;&gt;Flashman in the Great Game&lt;/a&gt; finds Flashy back to India,
-sent there by prime minister Lord Palmerston
-to look into worrying rumors of mutiny amongst the Indian troops
-and to sweet talk the recalcitrant Rani of Jhansi.
-After an attempt upon his life by Thugees,
-Flashman goes undercover in the native cavalry at Meerut,
-where the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Indian_Rebellion_of_1857&#34;&gt;Sepoy Mutiny&lt;/a&gt; begins soon after.
-He then finds himself in the Siege of Cawnpore and the Siege of Lucknow
-and imprisoned at Gwalior before being almost executed as a mutineer.
-Having survived all of this bloodshed,
-he receives a knighthood and the Victoria Cross,
-and learns that he has been immortalized as a bully and a cad
-in the newly published book, &lt;em&gt;Tom Brown&#39;s School Days&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;Flashman is forced by circumstances to act heroically several times
-(having an unearned reputation for bravery can lead to
-unrefusable requests for more of the same).
-To the detriment of the book,
-Fraser goes through contortions to find reasons for Flashman to be present
-at most of the major events of the Mutiny.
-Even so, a solid addition to the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/The_Flashman_Papers&#34;&gt;Flashman Papers&lt;/a&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 27 Aug 2016 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-27:/blog/2016/08/27/ReviewFlashmanInTheGreatGame.html</guid>
     </item>
         </channel>
 </rss>

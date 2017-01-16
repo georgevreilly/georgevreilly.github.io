@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Review: Boiling Point</title>
+  <title>Git File Modes</title>
   <link media="all" href="/style.css" rel="stylesheet" />
   <link media="all" href="/pygments.css" rel="stylesheet" />
   <link href="/favicon.ico" rel="shortcut icon" />
@@ -13,7 +13,7 @@
   <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-    <meta name="description" content=".. image:: http://images.amazon.com/images/P/00992..." />
+    <meta name="description" content="Ever wonder what the six-digit file modes are in a..." />
     <meta name="keywords" content="" />
 </head>
 <body>
@@ -32,29 +32,40 @@
     
         <article>
     <header>
-        <time datetime="2017-01-14">2017-01-14</time>
+        <time datetime="2017-01-15">2017-01-15</time>
         <h1>
-            <a href="/blog/2017/01/14/ReviewBoilingPoint.html" rel="bookmark canonical">Review: Boiling Point</a>
+            <a href="/blog/2017/01/15/GitFileModes.html" rel="bookmark canonical">Git File Modes</a>
         </h1>
     </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0099281082/?tag=georgvreill-20"><img alt="Boiling Point" class="right-float" src="http://images.amazon.com/images/P/0099281082.01.MZZZZZZZ.jpg"/></a>
-<div class="line-block">
-<div class="line">Title: Boiling Point</div>
-<div class="line">Author: Frank Lean</div>
-<div class="line">Rating: ★ ★ ★ ½</div>
-<div class="line">Publisher: Arrow</div>
-<div class="line">Copyright: 2000</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0099281082/?tag=georgvreill-20">0099281082</a></div>
-<div class="line">Pages: 432</div>
-<div class="line">Keywords: crime, <span class="caps">UK</span></div>
-<div class="line">Reading period: 2–5 January, 2017</div>
-</div>
-<p>Dave Cunane is Manchester&#8217;s mouthiest <span class="caps">PI</span>.
-He gets tangled up with the wild daughter-in-law of the crooked Carlyle family.
-Marti wants him to prove the innocence of her father who&#8217;s doing life for killing a cop.
-She doesn&#8217;t go over well with Dave&#8217;s own half-crazy girlfriend.
-Neither the Carlyles nor Dave&#8217;s ex-police father want Vince King freed.
-It&#8217;s not going to end&nbsp;well.</p>
+    <p>Ever wonder what the six-digit file modes are in a Git commit?
+The mysterious <tt class="docutils literal">100644</tt> and <tt class="docutils literal">100755</tt> modes?</p>
+<div class="highlight"><pre><span></span><span class="go">diff --git a/foo/bar.py b/foo/bar.py</span>
+<span class="go">old mode 100644</span>
+<span class="go">new mode 100755</span>
+<span class="go">index b829edea4..ee6bda024</span>
+<span class="go">--- a/foo/bar.py</span>
+<span class="go">+++ b/foo/bar.py</span>
+<span class="go">@@ -1,3 +1,4 @@</span>
+<span class="go">...</span>
+</pre></div>
+<p>I had made <tt class="docutils literal">foo/bar.py</tt> executable by using <tt class="docutils literal">chmod +x</tt>
+and adding a <tt class="docutils literal"><span class="pre">#!/usr/bin/env</span> python</tt> shebang.
+The last three digits are obviously the same octal digits that you can use with <tt class="docutils literal">chmod</tt>.
+But what&#8217;s that <tt class="docutils literal">100</tt>?</p>
+<p>The ex&shy;pla&shy;na&shy;tion can be found in a <a class="reference external" href="http://stackoverflow.com/a/8347325/6364">Stack&shy;Over&shy;flow answer</a>:</p>
+<pre class="literal-block">
+100644  regular file (non-executable)   S_IFREG | S_IRUSR | S_IWUSR
+                                                | S_IRGRP | S_IWGRP
+                                                | S_IROTH | S_IWOTH
+100755  regular file (executable)       S_IFREG | S_IRUSR | S_IWUSR | S_IXUSR
+                                                | S_IRGRP | S_IWGRP | S_IXGRP
+                                                | S_IROTH | S_IWOTH | S_IXOTH
+120000  symbolic link                   S_IFLNK
+160000  gitlink                         No stat(2) equivalent
+040000  directory                       S_IFDIR
+</pre>
+<p>A <a class="reference external" href="https://www.kernel.org/pub/software/scm/git/docs/git-fast-import.html#_tt_filemodify_tt">gitlink</a> is used to refer to a commit in another repos&shy;i&shy;to&shy;ry;
+it&#8217;s how submodules are&nbsp;im&shy;ple&shy;ment&shy;ed.</p>
 
     <footer>
         
@@ -68,8 +79,8 @@ It&#8217;s not going to end&nbsp;well.</p>
             var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
 
             // The following are highly recommended additional parameters. Remove the slashes in front to use.
-            var disqus_identifier = "http://www.georgevreilly.com/blog/2017/01/14/ReviewBoilingPoint.html";
-            var disqus_url = "http://www.georgevreilly.com/blog/2017/01/14/ReviewBoilingPoint.html";
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2017/01/15/GitFileModes.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2017/01/15/GitFileModes.html";
 
             if (window.location.hostname != "localhost") {
                 /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -92,14 +103,11 @@ It&#8217;s not going to end&nbsp;well.</p>
 
     
     
-        <a href="/blog/2017/01/13/ComputedParallelBranchesInJenkinsPipeline.html" class="page floatright">
-        Computed Parallel Branches in Jenkins Pipeline &raquo;
+        <a href="/blog/2017/01/14/ReviewBoilingPoint.html" class="page floatright">
+        Review: Boiling Point &raquo;
         </a>
     
     
-        <a href="/blog/2017/01/15/GitFileModes.html" class="page floatleft">
-        &laquo; Git File Modes
-        </a>
 <footer>
     
     
