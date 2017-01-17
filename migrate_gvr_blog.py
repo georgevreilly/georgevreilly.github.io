@@ -12,7 +12,8 @@ import re
 import urlparse
 import shutil
 
-BASE_URL = "http://www.georgevreilly.com/blog"
+#BASE_URL = "http://www.georgevreilly.com/blog"
+BASE_URL = "/blog"
 
 
 def parse_args():
