@@ -5,9 +5,31 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Mon, 16 Jan 2017 08:00:00 GMT</pubDate>
+        <pubDate>Tue, 17 Jan 2017 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Knee Walker</title>
+        <link>http://www.georgevreilly.com/blog/2017/01/17/KneeWalker.html</link>
+        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.eastsidelegup.com/&#34;&gt;&lt;img alt=&#34;Knee Walker&#34; class=&#34;right-float&#34; src=&#34;http://www.georgevreilly.com/content/binary/knee-walker.jpg&#34; style=&#34;width: 300px;&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;I had heel surgery last week
+to remove a heel spur which was causing tendonitis
+and to repair the Achilles tendon.
+More on that some other time.&lt;/p&gt;
+&lt;p&gt;I rented a knee walker this morning from &lt;a class=&#34;reference external&#34; href=&#34;http://www.eastsidelegup.com/&#34;&gt;Eastside Leg Up&lt;/a&gt;.
+I love it!
+After barely getting around with crutches for a week,
+the scooter makes a &lt;em&gt;huge&lt;/em&gt; difference.
+I can move around at normal walking pace now,
+instead of wearing myself out with the crutches.&lt;/p&gt;
+&lt;p&gt;Incidentally, I found my first &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/WebP&#34;&gt;WebP&lt;/a&gt; image in the wild:
+the original of the image that&#39;s shown here.
+I used ImageMagick &lt;tt class=&#34;docutils literal&#34;&gt;convert&lt;/tt&gt; to make it into a JPEG.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 17 Jan 2017 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-17:/blog/2017/01/17/KneeWalker.html</guid>
+    </item>
         
             <item>
         <title>Review: The Atrocity Archives</title>
@@ -849,43 +871,6 @@ as we&#39;re going to Europe in a week&#39;s time.&lt;/p&gt;
 </description>
         <pubDate>Tue, 30 Aug 2016 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-30:/blog/2016/08/30/USBChargeOnlyCablesAndCondoms.html</guid>
-    </item>
-        
-            <item>
-        <title>HTTPS for GitHub Pages Custom Domain: Not Yet</title>
-        <link>http://www.georgevreilly.com/blog/2016/08/29/HTTPSforGitHubPagesCustomDomainNotYet.html</link>
-        <description>&lt;p&gt;This website, &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/&#34;&gt;http://www.georgevreilly.com/&lt;/a&gt;, is hosted at GitHub Pages.
-It&#39;s actually &lt;a class=&#34;reference external&#34; href=&#34;https://georgevreilly.github.io/&#34;&gt;https://georgevreilly.github.io/&lt;/a&gt;
-but I&#39;ve configured the former as the “custom domain”,
-so the latter is unconditionally redirected to the custom domain.&lt;/p&gt;
-&lt;p&gt;GitHub Pages gives me free, fast hosting and an easy publication model:
-I commit the latest changes to my &lt;tt class=&#34;docutils literal&#34;&gt;master&lt;/tt&gt; branch,
-I push the branch to GitHub,
-and seconds later, my site is updated.
-I&#39;m using &lt;a class=&#34;reference external&#34; href=&#34;https://posativ.org/acrylamid/&#34;&gt;Acrylamid&lt;/a&gt; to generate the content from reStructuredText source
-on the &lt;tt class=&#34;docutils literal&#34;&gt;blog&lt;/tt&gt; branch
-and &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/davisp/ghp-import&#34;&gt;ghp-import&lt;/a&gt; to commit the HTML to the &lt;tt class=&#34;docutils literal&#34;&gt;master&lt;/tt&gt; branch.&lt;/p&gt;
-&lt;p&gt;GitHub Pages supports &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/blog/2186-https-for-github-pages&#34;&gt;HTTPS&lt;/a&gt; as of June 2016, but not for custom domains.
-There are some &lt;a class=&#34;reference external&#34; href=&#34;https://konklone.com/post/github-pages-now-sorta-supports-https-so-use-it&#34;&gt;hacks&lt;/a&gt; but I don&#39;t feel like using them.
-I&#39;m hoping that GitHub will add support for custom domains soon.&lt;/p&gt;
-&lt;p&gt;Why HTTPS?
-It&#39;s secure, it engenders trust, and &lt;a class=&#34;reference external&#34; href=&#34;https://scotthelme.co.uk/still-think-you-dont-need-https/&#34;&gt;it&#39;s faster than HTTP&lt;/a&gt;.
-The latter surprised me and the (big) caveat is that HTTPS&#39;s speed is due to HTTP/2,
-which &lt;em&gt;requires&lt;/em&gt; a secure connection using TLSv1.2.
-HTTP/1.1 is indeed slower than HTTP/2.&lt;/p&gt;
-&lt;p&gt;I have never quite trained myself &lt;a class=&#34;reference external&#34; href=&#34;https://thoughtstreams.io/glyph/there-is-no-ssl/&#34;&gt;not to say SSL&lt;/a&gt;,
-even though Secure Sockets Layer 3.0 was released &lt;em&gt;twenty&lt;/em&gt; years ago in 1996
-and has long been superseded by Transport Layer Security (TLS).
-And it&#39;s “HTTP Secure”, not “HTTP over SSL”.&lt;/p&gt;
-&lt;p&gt;I briefly looked at &lt;a class=&#34;reference external&#34; href=&#34;https://letsencrypt.org/&#34;&gt;Let&#39;s Encrypt&lt;/a&gt; while thinking about generating a certificate.
-I installed its &lt;a class=&#34;reference external&#34; href=&#34;https://certbot.eff.org/&#34;&gt;Certbot&lt;/a&gt; tool using Homebrew
-and I saw that it depended upon something called &lt;a class=&#34;reference external&#34; href=&#34;http://augeas.net/&#34;&gt;Augeas&lt;/a&gt;,
-which turns out to be a configuration-editing tool.
-Ironically, Augeas is hosted at &lt;a class=&#34;reference external&#34; href=&#34;http://augeas.net/&#34;&gt;http://augeas.net/&lt;/a&gt; [sic].
-I &lt;a class=&#34;reference external&#34; href=&#34;https://twitter.com/georgevreilly/status/770501648955211776&#34;&gt;tweeted&lt;/a&gt; about it.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 29 Aug 2016 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2016-08-29:/blog/2016/08/29/HTTPSforGitHubPagesCustomDomainNotYet.html</guid>
     </item>
         </channel>
 </rss>
