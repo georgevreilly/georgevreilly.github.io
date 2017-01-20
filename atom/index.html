@@ -11,8 +11,39 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2017-01-18T08:00:00Z</updated>
+    <updated>2017-01-19T08:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Bash: echo success of previous command</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2017/01/19/BashEchoSuccessOfPreviousCommand.html" />
+        <id>tag:www.georgevreilly.com,2017-01-19:/blog/2017/01/19/BashEchoSuccessOfPreviousCommand.html</id>
+        <updated>2017-01-19T08:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;C-like languages have a ternary operator,
+&lt;tt class=&#34;docutils literal&#34;&gt;cond ? true_result : false_result&lt;/tt&gt;.
+Python has &lt;tt class=&#34;docutils literal&#34;&gt;true_result if cond else false_result&lt;/tt&gt;.
+Bash doesn&#39;t have a ternary operator, but there are &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/a/3953712/6364&#34;&gt;various workarounds&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I wanted to print &lt;tt class=&#34;docutils literal&#34;&gt;succeeded&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;failed&lt;/tt&gt;
+based on the exit code of the previous command
+in a shell script.
+In Unix, all programs exit with an integer status code.
+Successful programs exit with &lt;tt class=&#34;docutils literal&#34;&gt;0&lt;/tt&gt;;
+all other values, positive or negative, indicate &lt;a class=&#34;reference external&#34; href=&#34;http://www-numi.fnal.gov/offline_software/srt_public_context/WebDocs/Errors/unix_system_errors.html&#34;&gt;failure&lt;/a&gt;.
+In Bash, the &lt;a class=&#34;reference external&#34; href=&#34;http://tldp.org/LDP/abs/html/exit-status.html&#34;&gt;status code&lt;/a&gt; of the previous program is held in &lt;tt class=&#34;docutils literal&#34;&gt;$?&lt;/tt&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;some/command or-other fer example
+
+&lt;span class=&#34;nv&#34;&gt;STATUS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;succeeded&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;failed&amp;#39;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Results: &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$STATUS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;There are &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/a/3953712/6364&#34;&gt;other ways&lt;/a&gt; to handle this.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Movember 2016</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2017/01/18/Movember2016.html" />
@@ -72,15 +103,25 @@ I look quite ruffianly at the moment.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;figure&#34;&gt;
 &lt;img alt=&#34;https://cdn.movember.com/uploads/member-album/15a9337868c885a7ccb0eb26f3ec3180-5820b7926d214.jpg&#34; src=&#34;https://cdn.movember.com/uploads/member-album/15a9337868c885a7ccb0eb26f3ec3180-5820b7926d214.jpg&#34; style=&#34;width: 200px;&#34;/&gt;
-&lt;p class=&#34;caption&#34;&gt;Nascent Moustache, one week&lt;/p&gt;
+&lt;p class=&#34;caption&#34;&gt;Nascent Moustache, day 7&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img alt=&#34;/content/binary/movember-day11.jpg&#34; src=&#34;http://www.georgevreilly.com/content/binary/movember-day11.jpg&#34; style=&#34;width: 200px;&#34;/&gt;
+&lt;p class=&#34;caption&#34;&gt;Moustache, day 11.&lt;/p&gt;
+&lt;div class=&#34;legend&#34;&gt;
+This is my Mickey Rourke phase, apparently. I&#39;ll need some tats, stat.&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&#34;figure&#34;&gt;
 &lt;img alt=&#34;https://cdn.movember.com/uploads/member-album/479be8a4c1b25e3271fbac5fcc91e019-5839ceb23ef82.jpg&#34; src=&#34;https://cdn.movember.com/uploads/member-album/479be8a4c1b25e3271fbac5fcc91e019-5839ceb23ef82.jpg&#34; style=&#34;width: 200px;&#34;/&gt;
-&lt;p class=&#34;caption&#34;&gt;Definite Moustache, three weeks&lt;/p&gt;
+&lt;p class=&#34;caption&#34;&gt;Definite Moustache, day 26&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;figure&#34;&gt;
 &lt;img alt=&#34;https://cdn.movember.com/uploads/member-album/f7bc004a8d991c9db1bf3db49b85d43c-5843759d1e5d7.jpg&#34; src=&#34;https://cdn.movember.com/uploads/member-album/f7bc004a8d991c9db1bf3db49b85d43c-5843759d1e5d7.jpg&#34; style=&#34;width: 200px;&#34;/&gt;
-&lt;p class=&#34;caption&#34;&gt;Moustache, six weeks&lt;/p&gt;
+&lt;p class=&#34;caption&#34;&gt;Moustache, day 33&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img alt=&#34;/content/binary/movember-day48.jpg&#34; src=&#34;http://www.georgevreilly.com/content/binary/movember-day48.jpg&#34; style=&#34;width: 200px;&#34;/&gt;
+&lt;p class=&#34;caption&#34;&gt;Moustache, day 48&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;figure&#34;&gt;
 &lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Zardoz&#34;&gt;&lt;img alt=&#34;/content/binary/zardoz.jpg&#34; src=&#34;http://www.georgevreilly.com/content/binary/zardoz.jpg&#34; style=&#34;width: 400px;&#34;/&gt;&lt;/a&gt;
@@ -1042,37 +1083,6 @@ I just bought several from the September crop, including
 &lt;a class=&#34;reference external&#34; href=&#34;https://www.amazon.com/gp/product/B00CR6NCK0/georgevreill-20&#34;&gt;Follow the Rabbit-Proof Fence&lt;/a&gt; (Doris Pilkington),
 and
 &lt;a class=&#34;reference external&#34; href=&#34;https://www.amazon.com/gp/product/B00PDDKVW6/georgevreill-20&#34;&gt;Schismatrix Plus&lt;/a&gt; (Bruce Sterling).&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>New Compression Formats</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2016/08/31/NewCompressionFormats.html" />
-        <id>tag:www.georgevreilly.com,2016-08-31:/blog/2016/08/31/NewCompressionFormats.html</id>
-        <updated>2016-08-31T08:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;You might think that data compression is a solved problem, lossless or lossy.
-But, no.
-Gzip and related formats like zlib, Zip, and PNG that use the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/DEFLATE&#34;&gt;DEFLATE&lt;/a&gt; algorithm
-were great 25 years ago, still do a decent job, and are completely ubiquitous and indispensable,
-but there are better, smarter algorithms now.&lt;/p&gt;
-&lt;p&gt;Google has announced two new compression formats in the last couple of years,
-Zopfli and Brotli.
-&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Zopfli&#34;&gt;Zopfli&lt;/a&gt; does a better job of generating Deflate-compatible data,
-although it&#39;s very slow.
-&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Brotli&#34;&gt;Brotli&lt;/a&gt; gives ~20% better compression than Deflate, but at about the same speed.
-Then there&#39;s &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Xz&#34;&gt;xz&lt;/a&gt;, which grew out of 7-zip, and also works well.&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://code.facebook.com/posts/1658392934479273/smaller-and-faster-data-compression-with-zstandard/&#34;&gt;Zstandard&lt;/a&gt; has just been announced by Facebook
-and it sounds like it does a great all-round job
-of achieving high compression ratios at high speed.
-The announcement article is worth reading.&lt;/p&gt;
-&lt;p&gt;There are also several new lossless image compression algorithms:
-&lt;a class=&#34;reference external&#34; href=&#34;http://flif.info/&#34;&gt;FLIF&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Better_Portable_Graphics&#34;&gt;BPG&lt;/a&gt;, and &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/WebP&#34;&gt;WebP&lt;/a&gt;, all of which &lt;a class=&#34;reference external&#34; href=&#34;http://cloudinary.com/blog/flif_the_new_lossless_image_format_that_outperforms_png_webp_and_bpg&#34;&gt;outperform&lt;/a&gt; the venerable PNG.&lt;/p&gt;
 </content>
     </entry>
     </feed>

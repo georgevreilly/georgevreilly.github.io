@@ -30,6 +30,45 @@
     
         <article>
     <header>
+        <time datetime="2016-08-26">2016-08-26</time>
+        <h1>
+            <a href="/blog/2016/08/26/HomographAttacks.html" rel="bookmark canonical">Homograph Attacks</a>
+        </h1>
+    </header>
+    <p>During an internal training exercise today,
+as a sort of one-man <a class="reference external" href="https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey">Chaos Monkey</a>,
+I de&shy;lib&shy;er&shy;ate&shy;ly broke a test system by changing a config setting to&nbsp;read:</p>
+<pre class="literal-block">
+itemfinder.url = http://test-іtemfinder.example.com/
+</pre>
+<p>The correct value should have&nbsp;been:</p>
+<pre class="literal-block">
+itemfinder.url = http://test-itemfinder.example.com/
+</pre>
+<p>What&#8217;s that, you say? There&#8217;s no difference, you&nbsp;say?</p>
+<p>There <em>is</em> a difference, but it&#8217;s subtle.
+The first <tt class="docutils literal">i</tt> in the <span class="caps">URL</span> is
+<a class="reference external" href="http://www.fileformat.info/info/unicode/char/0456/index.htm">&#8216;<span class="caps">CYRILLIC</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> <span class="caps">BYELORUSS&shy;IAN</span>-<span class="caps">UKRAINIAN</span> I&#8217; (U+0456)</a>,
+not <a class="reference external" href="http://www.fileformat.info/info/unicode/char/0069/index.htm">&#8216;<span class="caps">LATIN</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> I&#8217; (U+0069)</a>.
+Depending upon the font, the two <tt class="docutils literal">i</tt>s may be visually in&shy;dis&shy;tin&shy;guish&shy;able,
+very similar looking, or the Cyrillic <tt class="docutils literal">i</tt> may not&nbsp;render.</p>
+<p>This is an example of an <a class="reference external" href="https://en.wikipedia.org/wiki/IDN_homograph_attack">In&shy;ter&shy;na&shy;tion&shy;al Domain Name Homograph Attack</a>.
+There are Greek letters and Cyrillic letters that look very similar to Latin <span>&#8230;<a href="/blog/2016/08/26/HomographAttacks.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/08/26/HomographAttacks.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-08-23">2016-08-23</time>
         <h1>
             <a href="/blog/2016/08/23/FlameGraphsAndFlameCharts.html" rel="bookmark canonical">Flame Graphs and Flame Charts</a>
@@ -360,48 +399,6 @@ I&#8217;ve known people who died of <span class="caps">AIDS</span> <span>&#8230;
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/08/09/AIDSWalk2016.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-08-07">2016-08-07</time>
-        <h1>
-            <a href="/blog/2016/08/07/ReviewFlashForFreedom.html" rel="bookmark canonical">Review: Flash For Freedom!</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0452260892/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Flash For Freedom!</div>
-<div class="line">Author: George MacDonald Fraser</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Plume</div>
-<div class="line">Copyright: 1971</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0452260892/?tag=georgvreill-20">0452260892</a></div>
-<div class="line">Pages: 304</div>
-<div class="line">Keywords: historical fiction, humor</div>
-<div class="line">Reading period: 11–20 July, 2016</div>
-<div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> <span class="caps">III</span>: 1848–49</div>
-</div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flash_for_Freedom!">Flash For Freedom!</a> is the third volume of the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>,
-in which Flashy gets caught up in the slave trade.
-After a scandal involving cheating and assault, England becomes too hot for young Flashman
-and his father-in-law ships him off.
-Flashman quickly realizes that he&#8217;s on a slave ship
-captained by a lunatic that is bound for Africa to take on a cargo of slaves,
-and he&#8217;s horrified.
-Not so much about slavery but that running slaves is proscribed in 1848
-and he&#8217;s <span>&#8230;<a href="/blog/2016/08/07/ReviewFlashForFreedom.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/08/07/ReviewFlashForFreedom.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

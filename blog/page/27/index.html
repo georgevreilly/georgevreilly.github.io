@@ -30,6 +30,47 @@
     
         <article>
     <header>
+        <time datetime="2015-12-23">2015-12-23</time>
+        <h1>
+            <a href="/blog/2015/12/23/ParseMinVerBash.html" rel="bookmark canonical">Checking minimum version numbers in Bash</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://cube-drone.com/comics/c/version-sacrifice"></a>
+<p>I worked on a Bash script today that sets up various pre&shy;req&shy;ui&shy;sites for our build.
+We need a recent version of Docker
+but our <a class="reference external" href="https://www.atlassian.com/software/bamboo/">Bamboo</a> build agents are running on Ubuntu 14.04,
+which has a very old version of Docker.
+The script upgrades Docker when it&#8217;s first run.
+The script may be run more than once during the lifetime of the agent,
+so the second and subsequent calls should not upgrade&nbsp;Docker.</p>
+<p>Basically, I&nbsp;wanted</p>
+
+<pre class="brush: bash">
+if $DOCKER_VERSION &lt; 1.9; then upgrade_docker; fi
+</pre>
+
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s not that easy in Bash.
+Here&#8217;s what I came up&nbsp;with.</p>
+
+<pre class="brush: bash">
+install_latest_docker() {
+    if docker --version | python -c "min=[1, 9]; import sys; ↩
+v=[int(x) for x in </pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/23/ParseMinVerBash.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-12-22">2015-12-22</time>
         <h1>
             <a href="/blog/2015/12/22/ChristmasCake.html" rel="bookmark canonical">Christmas Cake</a>
@@ -367,41 +408,6 @@ I par&shy;tic&shy;u&shy;lar&shy;ly enjoyed making and drinking these&nbsp;milksh
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/14/DarkChocolateGelatoButtermilkMilkshakes.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-13">2015-12-13</time>
-        <h1>
-            <a href="/blog/2015/12/13/ChristmasCards.html" rel="bookmark canonical">Christmas Cards</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.kickstarter.com/projects/malki/multi-purpose-all-occasion-greeting-cards"></a>
-<p>It seems old-fashioned to do so,
-but I still like to send and to receive Christmas cards.
-We wrote <a class="reference external" href="/blog/2015/12/06/ChristmasPudding.html">30 cards</a> last weekend.
-Almost all were <a class="reference external" href="https://www.kickstarter.com/projects/malki/multi-purpose-all-occasion-greeting-cards">Wondermark Multi-Purpose Greeting Cards</a>,
-from a Kick&shy;starter that Emma con&shy;tributed to a few months&nbsp;ago.</p>
-<p>Speaking of Kick&shy;starters,
-<a class="reference external" href="http://nerdist.com/pickstarter-shakespeare-fights-crime-like-batman-in-no-holds-bard/">No Holds Bard</a> showed up in my Facebook feed today.
-I was so tickled by the concept that I anted up $10.
-I&#8217;ve read several novels where Will Shake&shy;speare was a character,
-such as <a class="reference external" href="/blog/2009/07/26/ReviewInkAndSteel.html">Ink and Steel</a> and <a class="reference external" href="/blog/2015/03/07/ReviewRevenger.html">Revenger</a>,
-but never a comic book where he was a&nbsp;superhero.</p>
-<p>Yesterday, we started receiving cards from other people.
-A couple of dozen more will&nbsp;follow.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/13/ChristmasCards.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

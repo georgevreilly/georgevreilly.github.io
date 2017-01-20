@@ -30,6 +30,49 @@
     
         <article>
     <header>
+        <time datetime="2008-05-14">2008-05-14</time>
+        <h1>
+            <a href="/blog/2008/05/14/SharingDotfilesBetweenWindowsAndNix.html" rel="bookmark canonical">Sharing Dotfiles between Windows and \*nix</a>
+        </h1>
+    </header>
+    
+<p>Tomas Restrepo wrote a post about
+<a class="reference external" href="http://www.winterdom.com/weblog/2008/05/09/SharingDotfilesBetweenWindowsAndUbuntu.aspx">sharing dotfiles between Windows and Ubuntu</a>,
+specif&shy;i&shy;cal&shy;ly about sharing <tt class="docutils literal">.vimrc</tt> (Linux) and <tt class="docutils literal">_vimrc</tt> (Windows)
+and the <tt class="docutils literal">.vim</tt> (Linux) and <tt class="docutils literal">vimfiles</tt> (Windows)&nbsp;di&shy;rec&shy;to&shy;ries.</p>
+<p>I have a different solution.
+On Windows, my <tt class="docutils literal"><span class="pre">C:\AutoExec.bat</span></tt> includes:</p>
+<pre class="literal-block">
+set HOME=C:\gvr
+set VIM=C:\Vim
+set VIMDIR=%VIM%\vim71
+set EDITOR=%VIMDIR%\gvim.exe
+set PATH=%PATH%;C:\Win32app;C:\GnuWin32\bin;C:\UnxUtils;C:\SysInternals;C:\Python25\Scripts
+</pre>
+<p><tt class="docutils literal">%<span class="caps">HOME</span>%</tt> (<tt class="docutils literal"><span class="pre">C:\gvr</span></tt>) contains <tt class="docutils literal">_vimrc</tt>, <tt class="docutils literal">vimfiles</tt>,
+and other stuff ac&shy;cu&shy;mu&shy;lat&shy;ed over many years.
+This directory is stored in a personal Subversion repository at <a class="reference external" href="http://www.devjavu.com/">DevjaVu</a>.
+All my Vim files are stored with Unix <span class="caps">LF</span> endings, not Windows <span class="caps">CR</span>-LFs,
+so that they&#8217;ll work on my Mac <span class="caps">OS</span> X and Linux boxen.
+I play some games with <tt class="docutils literal">if <span class="pre">has(&quot;win32&quot;)</span></tt> and
+<tt class="docutils literal">if <span class="pre">has('gui_&shy;macvim')</span></tt> to ensure that my <tt class="docutils literal">_vimrc</tt>
+works&nbsp;cross-platform.</p>
+<p>On my *nix boxes, the <tt class="docutils literal">gvr</tt> folder lives <span>&#8230;<a href="/blog/2008/05/14/SharingDotfilesBetweenWindowsAndNix.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2008/05/14/SharingDotfilesBetweenWindowsAndNix.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2008-05-10">2008-05-10</time>
         <h1>
             <a href="/blog/2008/05/10/ReviewWhatTheDeadKnow.html" rel="bookmark canonical">Review: What the Dead Know</a>
@@ -408,48 +451,6 @@ He&#8217;s just a little less likely to <span>&#8230;<a href="/blog/2008/04/19/R
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2008/04/19/ReviewWhiteNight.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2008-04-15">2008-04-15</time>
-        <h1>
-            <a href="/blog/2008/04/15/OddsAndEnds12.html" rel="bookmark canonical">Odds and Ends #12</a>
-        </h1>
-    </header>
-    <ul class="simple">
-<li><a class="reference external" href="http://www.codinghorror.com/blog/archives/001079.html">The First Rule of Pro&shy;gram&shy;ming: It&#8217;s Always Your&nbsp;Fault</a></li>
-<li><a class="reference external" href="http://blogs.cozi.com/tech/2008/03/daylight-saving.html">Daylight Savings Time and&nbsp;JavaScript</a></li>
-</ul>
-<ul class="simple">
-<li><a class="reference external" href="http://www.nytimes.com/2008/01/13/magazine/13Psychology-t.html">The Moral Instinct</a>&nbsp;&#8230;</li>
-</ul>
-<ul class="simple">
-<li><a class="reference external" href="http://traskpro.com/">Traskpro</a></li>
-</ul>
-<ul class="simple">
-<li><a class="reference external" href="http://www.ntfs-3g.org/"><span class="caps">NTFS</span>-3G</a> on Mac: <a class="reference external" href="http://macntfs-3g.blogspot.com/">Mac <span class="caps">NTFS</span>-3G</a> which uses <a class="reference external" href="http://code.google.com/p/macfuse/">MacFUSE</a>.</li>
-</ul>
-<p>shopping&nbsp;miniLists</p>
-<ul class="simple">
-<li><a class="reference external" href="http://www.huffingtonpost.com/george-lakoff/what-counts-as-an-issue_b_84177.html">http://www.huff&shy;in&shy;g&shy;ton&shy;post.com/george-lakoff/what-counts-as-an-is&shy;sue_b_84177.html</a></li>
-<li><a class="reference external" href="http://radar.oreilly.com/archives/2008/02/google_social_graph_api.html">http://radar.oreilly.com/archives/2008/02/google_&shy;so&shy;cial_&shy;graph_api.html</a></li>
-<li><a class="reference external" href="http://www.aboutmyip.com/AboutMyXApp/DeltaCopy.jsp">http://www.aboutmyip.com/About&shy;MyXApp/DeltaCopy.jsp</a></li>
-<li><a class="reference external" href="http://www.godhatesireland.com/">http://www.god&shy;hate&shy;sire&shy;land.com/</a></li>
-<li><a class="reference external" href="http://norvig.com/hiring-president2.html">http://norvig.com/hiring-president2.html</a></li>
-</ul>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2008/04/15/OddsAndEnds12.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
