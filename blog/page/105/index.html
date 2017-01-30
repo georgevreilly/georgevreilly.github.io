@@ -30,6 +30,47 @@
     
         <article>
     <header>
+        <time datetime="2006-09-14">2006-09-14</time>
+        <h1>
+            <a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" rel="bookmark canonical">Never Sleep(0) in an Infinite Loop</a>
+        </h1>
+    </header>
+    
+<p>I ran into a problem installing some <span class="caps">COM</span>+ components today. The installer
+was using <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/04za0hca.aspx">Regsvcs.exe</a>
+to register each <span class="caps">COM</span>+ component. I noticed after a while that the installer
+wasn&#8217;t making any progress and that my dual-proc system was stuck at 50%
+<span class="caps">CPU</span> uti&shy;liza&shy;tion. I attached a debugger to the offending process, regsvcs,
+and found that it was stuck in the following infinite loop
+(dis&shy;as&shy;sem&shy;bly courtesy of <a class="reference external" href="http://www.aisto.com/roeder/dotnet/">Reflector</a>):</p>
+
+
+<pre class="brush: csharp">
+internal void System.EnterpriseServices.CatalogSync.Wait()
+{
+  if (this._set)
+  {
+    RegistryKey key1
+      = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\CLSID");
+    while (true)
+    {
+      int num1 = (int) key1.GetValue("CLBVersion", 0);
+ </pre><span>&#8230;<a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-09-12">2006-09-12</time>
         <h1>
             <a href="/blog/2006/09/12/2006911.html" rel="bookmark canonical">9/11</a>
@@ -331,37 +372,6 @@ ticket. Many <span>&#8230;<a href="/blog/2006/08/17/TheUKTerrorPlot.html" class=
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/08/17/TheUKTerrorPlot.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-08-16">2006-08-16</time>
-        <h1>
-            <a href="/blog/2006/08/16/SomeFamilyPhotos.html" rel="bookmark canonical">Some Family Photos</a>
-        </h1>
-    </header>
-    <p>My brother David sent me this photo earlier today, of
-me, him, and Michelle. I&#8217;m guessing that Michelle is less than a year old,
-so it was taken sometime in 1971, which would make David four and me six.
-(Our youngest brother, Mark, wasn&#8217;t born until&nbsp;1973.)</p>
-
-<p>Emma thinks we&#8217;re adorable and has already made this picture her desktop
-background on her work&nbsp;computer.</p>
-<p>Mark has another photo of the four of us, taken in 1978
-on his website, <a class="reference external" href="http://www.alienresident.net/">alien&shy;res&shy;i&shy;dent.net</a>:</p>
-<a class="reference external image-reference" href="http://www.alienresident.net/contact/contact.html"></a>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/08/16/SomeFamilyPhotos.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

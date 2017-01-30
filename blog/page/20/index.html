@@ -30,6 +30,45 @@
     
         <article>
     <header>
+        <time datetime="2016-03-06">2016-03-06</time>
+        <h1>
+            <a href="/blog/2016/03/06/psutil-kill.html" rel="bookmark canonical">psutil kill</a>
+        </h1>
+    </header>
+    <p>From Python, I needed to find a process that was performing <span class="caps">SSH</span> tunneling on port 8080
+and kill&nbsp;it.</p>
+<p>The following works in&nbsp;Bash:</p>
+
+<pre class="brush: bash">
+ps aux | grep [s]sh.*:8080 | awk '{print $2}' | xargs kill -9
+</pre>
+
+<p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
+won&#8217;t make it through to <tt class="docutils literal">awk</tt>.</p>
+<p>Here&#8217;s what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
+
+<pre class="brush: python">
+def kill_port_forwarding(host_port):
+    ssh_args = ["-f", "-N", "-L", "{0}:localhost:{0}".format(host_port)]
+    for process in psutil.process_iter():
+        try:
+            if process.name().endswith('ssh'):
+        </pre><span>&#8230;<a href="/blog/2016/03/06/psutil-kill.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/06/psutil-kill.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-03-05">2016-03-05</time>
         <h1>
             <a href="/blog/2016/03/05/ReviewDeadpool.html" rel="bookmark canonical">Review: Deadpool</a>
@@ -357,40 +396,6 @@ and <span>&#8230;<a href="/blog/2016/02/26/ReviewRunFatboyRun.html" class="conti
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/02/26/ReviewRunFatboyRun.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-02-25">2016-02-25</time>
-        <h1>
-            <a href="/blog/2016/02/25/ReviewHailCaesar.html" rel="bookmark canonical">Review: Hail, Caesar!</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Hail,_Caesar!"></a>
-<p>The Coen Brothers&#8217; latest movie, <a class="reference external" href="https://en.wikipedia.org/wiki/Hail,_Caesar!">Hail, Caesar!</a>, is a lot of fun.
-I&#8217;ve been looking forward to it since the trailers showed up a few months ago.
-It&#8217;s a homage to the Golden Age of Hollywood,
-an age where quirky talents like the Coens
-could not have made Coen Brothers&#8217; movies.
-We see song and dance numbers, syn&shy;chro&shy;nized swimming,
-singing cowboys, and ballroom dramas.
-Most of all, we see a big-budget swords-and-sandals epic,
-whose star, Baird Whitlock, has been kidnapped by The Future,
-a group of Communist screen&shy;writ&shy;ers,
-and is being held for $100,000 ransom.
-Eddie Mannix is the studio fixer who has to wrangle
-the studio&#8217;s stars and keep them out <span>&#8230;<a href="/blog/2016/02/25/ReviewHailCaesar.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/02/25/ReviewHailCaesar.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
