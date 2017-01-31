@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>JSON data from Docker Images</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+  <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+    <meta name="description" content="I was trying to get some structured information fr..." />
+    <meta name="keywords" content="" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2017-01-30">2017-01-30</time>
+        <h1>
+            <a href="/blog/2017/01/30/JsonDataFromDockerImages.html" rel="bookmark canonical">JSON data from Docker Images</a>
+        </h1>
+    </header>
+    <p>I was trying to get some structured in&shy;for&shy;ma&shy;tion from <tt class="docutils literal">docker images</tt>,
+hoping to replace some ugly Sed and <span class="caps">AWK</span> trickery.
+I could have used the <a class="reference external" href="https://docker-py.readthedocs.io/en/stable/">docker-py</a> library.
+Instead I chose to use the poorly documented <tt class="docutils literal"><span class="pre">--format</span></tt> option to <tt class="docutils literal">docker images</tt>
+(and some other Docker <span class="caps">CLI</span> commands).
+Adrian Mouat gives some useful starting points at <a class="reference external" href="http://container-solutions.com/docker-inspect-template-magic/">Docker Inspect Template Magic</a>
+and notes that formatting is built around <a class="reference external" href="https://golang.org/pkg/text/template/">Go templates</a>.</p>
+<p>I quickly figured out that this format would meet my immediate&nbsp;need.</p>
+<div class="highlight"><pre><span></span>sudo docker images --format <span class="s1">&#39;{{.Repository}}:{{.Tag}}&#39;</span> <span class="se">\</span>
+    <span class="p">|</span> grep <span class="nv">$IMAGE_NAME</span> <span class="se">\</span>
+    <span class="p">|</span> grep -v latest <span class="se">\</span>
+    <span class="p">|</span> head -1
+</pre></div>
+<p>That&#8217;s fine, but I still had no idea what other possible names
+could be used in the format template.
+While getting there, I learned that <a class="reference external" href="https://nathanleclaire.com/blog/2015/11/12/using-curl-and-the-unix-socket-to-talk-to-the-docker-api/">Curl can be used with a Unix socket</a>
+to talk to the Docker&nbsp;daemon.</p>
+<div class="highlight"><pre><span></span>sudo curl --unix-socket /var/run/docker.sock <span class="se">\</span>
+    http://localhost/images/json <span class="p">|</span> python -m json.tool
+</pre></div>
+<p>This produces a pret&shy;typrint&shy;ed list of all the Docker images.
+However, the names are not the same as those that can be used in the format&nbsp;template.</p>
+<p>The actual field names that can be used in the format template can be found in
+<a class="reference external" href="https://github.com/docker/docker/blob/master/cli/command/formatter/image.go">cli/command/formatter/image.go</a>. They&nbsp;include:</p>
+<ul class="simple">
+<li><tt class="docutils literal">.<span class="caps">ID</span></tt> — 12-char <span class="caps">SHA</span> aka Image&nbsp;<span class="caps">ID</span></li>
+<li><tt class="docutils literal">.Repository</tt> — aka image&nbsp;name</li>
+<li><tt class="docutils literal">.Tag</tt></li>
+<li><tt class="docutils literal">.Digest</tt> —&nbsp;unsure</li>
+<li><tt class="docutils literal">.Cre&shy;at&shy;edSince</tt> — e.g., “4&nbsp;weeks”</li>
+<li><tt class="docutils literal">.CreatedAt</tt> —&nbsp;date</li>
+<li><tt class="docutils literal">.Size</tt></li>
+<li><tt class="docutils literal">.Containers</tt></li>
+<li><tt class="docutils literal">.Vir&shy;tu&shy;al&shy;Size</tt></li>
+<li><tt class="docutils literal">.SharedSize</tt></li>
+<li><tt class="docutils literal">.UniqueSize</tt></li>
+</ul>
+
+    <footer>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "http://www.georgevreilly.com/blog/2017/01/30/JsonDataFromDockerImages.html";
+            var disqus_url = "http://www.georgevreilly.com/blog/2017/01/30/JsonDataFromDockerImages.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="http://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+
+
+    
+    
+        <a href="/blog/2017/01/29/ReviewTheApocalypseCodex.html" class="page floatright">
+        Review: The Apocalypse Codex &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

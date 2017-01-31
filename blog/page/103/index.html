@@ -30,6 +30,40 @@
     
         <article>
     <header>
+        <time datetime="2006-12-29">2006-12-29</time>
+        <h1>
+            <a href="/blog/2006/12/29/PythonBatchfileWrapper.html" rel="bookmark canonical">Python Batchfile Wrapper</a>
+        </h1>
+    </header>
+    
+<p>I&#8217;ve been getting into Python lately. One problem that I&#8217;ve en&shy;coun&shy;tered
+under Windows, is that input redi&shy;rec&shy;tion doesn&#8217;t work if you use
+the <tt class="docutils literal">.py</tt> file as&shy;so&shy;ci&shy;a&shy;tion to run the script;&nbsp;e.g.:</p>
+<pre class="literal-block">
+C:\&gt; foo.py &lt; input.txt
+</pre>
+<p>There&#8217;s a well-known <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi&shy;rec&shy;tion bug</a>. The fix is to explicitly use
+<tt class="docutils literal">python.exe</tt> to run the&nbsp;script.</p>
+<p>A related problem for me was that <tt class="docutils literal">stdin</tt> was opened as a <em>text</em> file,
+not a <em>binary</em> file, so <tt class="docutils literal">\r</tt> bytes were being discarded from binary input
+files. The fix is to run <tt class="docutils literal">python.exe <span class="pre">-u</span></tt> (unbuffered binary input and&nbsp;output).</p>
+<p>I didn&#8217;t want to hardcode the path to <tt class="docutils literal">python.exe</tt> in a batch file,
+so I came up with the following wrapper, <span>&#8230;<a href="/blog/2006/12/29/PythonBatchfileWrapper.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/12/29/PythonBatchfileWrapper.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-12-26">2006-12-26</time>
         <h1>
             <a href="/blog/2006/12/26/InstallingRainlendarOnKubuntu.html" rel="bookmark canonical">Installing Rainlendar on Kubuntu</a>
@@ -306,44 +340,6 @@ view the original image by clicking on the&nbsp;thumbnail.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/11/02/GoogleImages.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-11-02">2006-11-02</time>
-        <h1>
-            <a href="/blog/2006/11/02/AndrewSullivanNotAnElectionButAnIntervention.html" rel="bookmark canonical">Andrew Sullivan: not an election, but an intervention</a>
-        </h1>
-    </header>
-    <p>&quot;This isn&#8217;t an election anymore, it&#8217;s an&nbsp;in&shy;ter&shy;ven&shy;tion.&quot;</p>
-<blockquote>
-&#8211; Andrew Sullivan on <span class="caps">CNN</span>.</blockquote>
-<div align="center">
-<object width="425" height="350">
-    <param name="movie" value="http://www.youtube.com/v/kB48J_0re2g"></param>
-    <param name="wmode" value="transparent"></param>
-    <embed src="http://www.youtube.com/v/kB48J_0re2g" type="application/x-shockwave-flash" wmode="transparent" width="425" height="350"></embed>
-</object><br />
-Andrew Sullivan and Christo&shy;pher Hitchens on <span class="caps">CNN</span>
-</div><p>I don&#8217;t have much time for either Andrew Sullivan or Christo&shy;pher Hitchens.
-Both of them bear a lot of blame for getting us into Iraq in the first&nbsp;place.</p>
-<p>But here they are on <a class="reference external" href="http://www.youtube.com/watch?v=kB48J_0re2g&amp;eurl="><span class="caps">CNN</span></a>
-yesterday, ripping into Bush for saying that Rumsfeld
-is doing a fabulous job and that he and Cheney must stay until the end of
-his&nbsp;presidency.</p>
-<p>(Via <a class="reference external" href="http://americablog.blogspot.com/2006/11/andrew-sullivan-on-cnn.html">Amer&shy;i&shy;ca&shy;Blog</a>)</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/11/02/AndrewSullivanNotAnElectionButAnIntervention.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
