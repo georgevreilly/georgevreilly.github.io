@@ -30,6 +30,40 @@
     
         <article>
     <header>
+        <time datetime="2016-08-19">2016-08-19</time>
+        <h1>
+            <a href="/blog/2016/08/19/OpeningVimAtTheRightPlace.html" rel="bookmark canonical">Opening Vim at the right place</a>
+        </h1>
+    </header>
+    <p>If you know exactly which line you want to go
+or which pattern you want to search for,
+Vim provides a couple of command-line options that can help:
+<tt class="docutils literal">+<span class="caps">NUM</span></tt> goes to line number <tt class="docutils literal"><span class="caps">NUM</span></tt>,
+while <tt class="docutils literal">+/<span class="caps">PAT</span></tt> searches for the first occurrence of <tt class="docutils literal"><span class="caps">PAT</span></tt>.
+It&#8217;s also possible to execute an Ex command with <tt class="docutils literal">+<span class="caps">CMD</span></tt>,
+such as <tt class="docutils literal">&quot;+set fenc=latin1&quot;</tt>.
+You can supply up to ten <tt class="docutils literal">+</tt> options.</p>
+<pre class="literal-block">
+vim +23 ~/.bashrc
+vim '+/ASIN\|ISBN' template.rst
+vim &quot;+set fenc=latin1&quot; some.csv
+</pre>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/08/19/OpeningVimAtTheRightPlace.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-08-18">2016-08-18</time>
         <h1>
             <a href="/blog/2016/08/18/ReviewTheMurderRoad.html" rel="bookmark canonical">Review: The Murder Road</a>
@@ -400,37 +434,6 @@ as well as a strong dislike of the to&shy;tal&shy;i&shy;tar&shy;i&shy;an&shy;ism
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/08/04/ReviewAboveSuspicion.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-08-03">2016-08-03</time>
-        <h1>
-            <a href="/blog/2016/08/03/GitCommitVerbose.html" rel="bookmark canonical">git commit --verbose</a>
-        </h1>
-    </header>
-    <p>I learned today about the <tt class="docutils literal"><span class="pre">-v</span></tt> (<tt class="docutils literal"><span class="pre">--verbose</span></tt>) flag to <tt class="docutils literal">git commit</tt> (<a class="reference external" href="https://git-scm.com/docs/git-commit">git-commit</a>),
-which causes a unified diff of what would be committed
-to be appended to the end of the commit message.
-This diff is not part of the commit.
-Set the <tt class="docutils literal">commit.verbose</tt> con&shy;fig&shy;u&shy;ra&shy;tion variable (new in Git 2.9)
-to adjust the default&nbsp;behavior.</p>
-<p>I also learned about using <tt class="docutils literal">git show</tt> (<a class="reference external" href="https://git-scm.com/docs/git-show">git-show</a>)
-to display the diff for the most recent commit.
-I had been using <tt class="docutils literal">git log <span class="pre">-1</span> <span class="pre">--patch</span></tt> (<a class="reference external" href="https://git-scm.com/docs/git-log">git-log</a>).
-More on <a class="reference external" href="http://stackoverflow.com/questions/25608809/git-log-p-vs-git-show-vs-git-diff">git log -p vs. git show vs. git diff</a>.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/08/03/GitCommitVerbose.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

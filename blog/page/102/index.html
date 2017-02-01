@@ -30,6 +30,50 @@
     
         <article>
     <header>
+        <time datetime="2007-01-13">2007-01-13</time>
+        <h1>
+            <a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" rel="bookmark canonical">Python Batchfile Wrapper, Redux</a>
+        </h1>
+    </header>
+    
+<div class="section" id="batchfile-wrapper">
+<h2>Batchfile&nbsp;Wrapper</h2>
+<p>I&#8217;ve made some sig&shy;nif&shy;i&shy;cant changes to my <a class="reference external" href="/blog/2006/12/29/PythonBatchfileWrapper.html">Python Batchfile Wrapper</a>.
+The main virtue of this wrapper is that it finds python.exe and
+invokes it on the associated Python script,
+ensuring that <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi&shy;rec&shy;tion</a>&nbsp;works.</p>
+<p>I&#8217;ve also adapted <a class="reference external" href="http://mail.python.org/pipermail/python-list/2000-January/019450.html">py2bat</a> to work with my wrapper.
+I&#8217;m calling my version <a class="reference external" href="/Python/py2cmd/">py2cmd</a>.</p>
+<p>Here&#8217;s my latest batch file, which is shorter than its&nbsp;pre&shy;de&shy;ces&shy;sor.</p>
+<p>To use it, place it in the same directory as the Python script
+you want to run and give it the same basename;
+i.e., <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.cmd</tt>
+will run <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.py</tt>.</p>
+
+<pre class="brush: batch">
+@echo off
+setlocal
+set PythonExe=
+set PythonExeFlags=-u
+
+for %%i in (cmd bat exe) do (
+    for %%j in (python.%%i) do (
+   </pre><span>&#8230;<a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" class="continue">continue</a>.</span></div>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/01/13/PythonBatchfileWrapperRedux.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2007-01-12">2007-01-12</time>
         <h1>
             <a href="/blog/2007/01/12/BushsSurgeSpeech.html" rel="bookmark canonical">Bush's surge speech</a>
@@ -403,42 +447,6 @@ and one page of text for each <span>&#8230;<a href="/blog/2006/12/31/ReviewWindo
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/12/31/ReviewWindowSeat.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-12-30">2006-12-30</time>
-        <h1>
-            <a href="/blog/2006/12/30/RatingWithStars.html" rel="bookmark canonical">Rating with Stars</a>
-        </h1>
-    </header>
-    
-
-
-<p>I want to be able to write some reviews and graph&shy;i&shy;cal&shy;ly rate them with stars.
-I put together some trans&shy;par&shy;ent stars in Gimp and added a macro to&nbsp;dasBlog.</p>
-<p>I&#8217;m going to rate this&nbsp;effort:</p>
-<p>$stars(4.5)</p>
-<p>To get this effect, I simply wrote <tt class="docutils literal">$</tt><tt class="docutils literal">stars(4.5)</tt>.</p>
-<p>(And I had to carefully construct the previous sentence so
-that dasBlog wouldn&#8217;t invoke the <tt class="docutils literal">stars</tt> macro.)</p>
-<p>I&#8217;m hardnosed. I rarely give 5/5 to anything. I don&#8217;t really expect to need
-the half stars, but I may want that fine control at some&nbsp;point.</p>
-<p>To use this in your own blog, download the <a class="reference external" href="/content/binary/5stars.zip">zipfile</a> of star&nbsp;images.</p>
-<p>Copy <tt class="docutils literal"><span class="pre">5star*.gif</span></tt> to your blog&#8217;s <tt class="docutils literal">images</tt> directory.
-The <tt class="docutils literal">*.xcf</tt> files are Gimp source&nbsp;files.</p>
-<p>Add the <span>&#8230;<a href="/blog/2006/12/30/RatingWithStars.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/12/30/RatingWithStars.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
