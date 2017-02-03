@@ -30,6 +30,41 @@
     
         <article>
     <header>
+        <time datetime="2016-07-11">2016-07-11</time>
+        <h1>
+            <a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" rel="bookmark canonical">Logging in Python: Don't use new-fangled format</a>
+        </h1>
+    </header>
+    <p>Python 2.6 introduced the <a class="reference external" href="https://pyformat.info/">format method</a> to strings.
+In general, <tt class="docutils literal">format</tt> is now the preferred way to build strings
+instead of the old <tt class="docutils literal">%</tt> formatting&nbsp;operator.</p>
+<p>One exception is with the <tt class="docutils literal">logging</tt> module,
+where the best practice is to use <tt class="docutils literal">%s</tt> and <tt class="docutils literal">%d</tt>.
+Why?
+First, <tt class="docutils literal">%s</tt> is the idiomatic way to use <tt class="docutils literal">logging</tt>,
+which was built years before <tt class="docutils literal">format</tt> was introduced.
+Second, if there&#8217;s a literal <tt class="docutils literal">%</tt> in the in&shy;ter&shy;po&shy;lat&shy;ed values,
+<tt class="docutils literal">logging</tt> will be unhappy,
+since there won&#8217;t be cor&shy;re&shy;spond&shy;ing arguments in the call.
+It won&#8217;t fall over, since
+“The logging package is designed to swallow exceptions which occur while logging in production.
+This is so that errors which occur while handling logging events
+- <span>&#8230;<a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-07-10">2016-07-10</time>
         <h1>
             <a href="/blog/2016/07/10/ReviewFlashmanAndTheMountainOfLight.html" rel="bookmark canonical">Review: Flashman and the Mountain of Light</a>
@@ -345,47 +380,6 @@ and destroy the machine that&#8217;s casting a pall of <span>&#8230;<a href="/bl
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/02/ReviewTomorrowland.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-01">2016-07-01</time>
-        <h1>
-            <a href="/blog/2016/07/01/ReviewJimmysHall.html" rel="bookmark canonical">Review: Jimmy's Hall</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Jimmy%27s_Hall"></a>
-<div class="line-block">
-<div class="line">Title: Jimmy&#8217;s Hall</div>
-<div class="line">Director: Ken Loach</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Released: 2014</div>
-<div class="line">Keywords: irish, historical</div>
-<div class="line">Watched: 1 July, 2016</div>
-</div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Jimmy%27s_Hall">Jimmy&#8217;s Hall</a> tells how Jimmy Gralton became the only Irishman ever deported from Ireland.
-Gralton returns to rural Ireland from the <span class="caps">US</span> in 1932,
-after being run out ten years&#8217; earlier
-during the Irish Civil War for Communist activity.
-He revives the dance hall he had built previously,
-as it is a much-needed outlet for the young to dance, study, and talk,
-and im&shy;me&shy;di&shy;ate&shy;ly runs afoul of the local powers,
-par&shy;tic&shy;u&shy;lar&shy;ly the parish priest.
-Tensions escalate, cul&shy;mi&shy;nat&shy;ing in his&nbsp;de&shy;por&shy;ta&shy;tion.</p>
-<p>Ken Loach is never subtle about his own socialist beliefs.
-<em>Jimmy&#8217;s Hall</em> is a polemic about
-the struggle <span>&#8230;<a href="/blog/2016/07/01/ReviewJimmysHall.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/01/ReviewJimmysHall.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
