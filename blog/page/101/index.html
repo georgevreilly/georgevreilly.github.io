@@ -30,6 +30,38 @@
     
         <article>
     <header>
+        <time datetime="2007-02-07">2007-02-07</time>
+        <h1>
+            <a href="/blog/2007/02/07/PrintfN.html" rel="bookmark canonical">Printf %n</a>
+        </h1>
+    </header>
+    
+<p>In my post about <a class="reference external" href="/blog/2005/06/02/PrintfTricks.html">Printf Tricks</a> a couple of years ago,
+I mentioned that &quot;<tt class="docutils literal">%n</tt> is dangerous and disabled by default in Visual Studio&nbsp;2005.&quot;</p>
+<p>I got email today from someone who was porting a large codebase to <span class="caps">VS</span> 2005.
+He was getting an assert from <tt class="docutils literal">%n</tt> and he needed a way to get past it.
+He intends to fix the uses of <tt class="docutils literal">%n</tt> when he has a&nbsp;chance.</p>
+<p>I spent several minutes digging around in <span class="caps">MSDN</span> and came up with
+<a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms175782(VS.80).aspx">set_print&shy;f_&shy;coun&shy;t_out&shy;put</a>. Wikipedia&#8217;s <a class="reference external" href="http://en.wikipedia.org/wiki/Format_string_attack">Format string attack</a> page
+led me to <a class="reference external" href="http://julianor.tripod.com/bc/formatstring-1.2.pdf">Exploiting Format String Vul&shy;ner&shy;a&shy;bil&shy;i&shy;ties</a>, which
+describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="docutils literal">%s</tt>) may be&nbsp;exploited.</p>
+<p>In short, if you have <tt class="docutils literal">printf(un&shy;val&shy;i&shy;dat&shy;ed_user_in&shy;put)</tt>,
+instead of <span>&#8230;<a href="/blog/2007/02/07/PrintfN.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/07/PrintfN.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2007-02-06">2007-02-06</time>
         <h1>
             <a href="/blog/2007/02/06/ReviewInTheBeginningWasTheCommandLine.html" rel="bookmark canonical">Review: In the Beginning ... Was the Command Line</a>
@@ -354,42 +386,6 @@ Caius Merlyn <span>&#8230;<a href="/blog/2007/01/29/ReviewUther.html" class="con
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2007/01/29/ReviewUther.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2007-01-18">2007-01-18</time>
-        <h1>
-            <a href="/blog/2007/01/18/StringPod.html" rel="bookmark canonical">The String Pod</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.flickr.com/photos/george_v_reilly/sets/72157594486191381/"></a>
-<p>I recently learned about <a class="reference external" href="http://www.flickr.com/photos/photophool/119574325/">string pods</a> and <a class="reference external" href="http://flickr.com/photos/coffeefromhell/sets/72157594215569637/">chain pods</a>.
-In essence, they are pocket-sized monopods.
-You screw a six-foot string into the tripod socket of your camera,
-step on the other end of the string,
-and pull it taut.
-The tension on the string reduces camera&nbsp;shake.</p>
-<a class="reference external image-reference" href="http://www.flickr.com/photos/george_v_reilly/sets/72157594486191381/"></a>
-<p><a class="reference external" href="http://www.flickr.com/photos/george_v_reilly/sets/72157594486191381/">My string pod tutorial</a> shows how I made the string pod,
-as well as some before and after&nbsp;shots.</p>
-<p>Before now, I used to try to find a handy surface or wall
-to brace the camera, when taking photos without flash.
-Often there isn&#8217;t such a surface.
-I have a little 3-inch pocket tripod that I carry with me all the time,
-but I haven&#8217;t used it&nbsp;much.</p>
-<p>A <span>&#8230;<a href="/blog/2007/01/18/StringPod.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/01/18/StringPod.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
