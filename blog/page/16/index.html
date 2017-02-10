@@ -30,6 +30,38 @@
     
         <article>
     <header>
+        <time datetime="2016-04-23">2016-04-23</time>
+        <h1>
+            <a href="/blog/2016/04/23/WindingStringOntoATrimmersSpool.html" rel="bookmark canonical">Winding String onto a Trimmer's Spool</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.wikihow.com/Replace-the-Line-on-a-Black-and-Decker-Trimmer"></a>
+<p>I bought a new strimmer last weekend and used it agres&shy;sive&shy;ly today,
+revealing a once grass-covered pathway that I hadn&#8217;t seen in years
+and edging the parkway in front of my house very neatly.
+Naturally, I exhausted the line on the spool.
+I bought refill line and wound it onto the spool.
+It seems to work better than on my previous strimmer,
+which would jam or break every couple of minutes.
+I took more care than in the past and I very carefully and snugly wound the line,
+trying to minimize crossings or loose areas.
+I&#8217;ve seen a rec&shy;om&shy;men&shy;da&shy;tion to <a class="reference external" href="http://gardening.stackexchange.com/a/9401/3163">soak the line</a> to make it more pliable.
+I&#8217;ll try <span>&#8230;<a href="/blog/2016/04/23/WindingStringOntoATrimmersSpool.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/23/WindingStringOntoATrimmersSpool.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-04-22">2016-04-22</time>
         <h1>
             <a href="/blog/2016/04/22/ReviewJeevesAndTheFeudalSpirit.html" rel="bookmark canonical">Review: Jeeves and the Feudal Spirit</a>
@@ -377,47 +409,6 @@ but rather a happily married father with a nose for the&nbsp;truth.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/14/ReviewAStoneOfTheHeart.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-04-13">2016-04-13</time>
-        <h1>
-            <a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" rel="bookmark canonical">io.StringIO and UnicodeCSV DictWriter</a>
-        </h1>
-    </header>
-    <p>I like to use <a class="reference external" href="https://docs.python.org/2/library/io.html#io.StringIO">io.StringIO</a> rather than the older <a class="reference external" href="https://docs.python.org/2/library/stringio.html#cStringIO.StringIO">cStringIO.StringIO</a>,
-as it&#8217;s Python 3–ready
-<tt class="docutils literal">io.StringIO</tt> is also a <a class="reference external" href="https://docs.python.org/2/reference/datamodel.html#context-managers">context manager</a>:
-if you use it in a <tt class="docutils literal">with</tt> statement,
-the string buffer is au&shy;to&shy;mat&shy;i&shy;cal&shy;ly <tt class="docutils literal">close</tt>d as you go out of&nbsp;scope.</p>
-<p>I tried using <tt class="docutils literal">io.StringIO</tt> with <a class="reference external" href="https://github.com/jdunck/python-unicodecsv">unicodecsv</a>,
-as I wanted to capture the <span class="caps">CSV</span> output into a string buffer
-for use with unit tests.
-<tt class="docutils literal">unicodecsv</tt> is a drop-in re&shy;place&shy;ment for Python&#8217;s built-in <tt class="docutils literal">csv</tt> module,
-which supports Unicode&nbsp;strings.</p>
-
-<pre class="brush: python">
-with io.StringIO() as csv_file:
-    write_csv_rows(csv_file)
-    lines = csv_file.getvalue().split('\r\n')
-    return lines[:-1]  # drop empty line after trailing \r\n
-</pre>
-
-<p>It failed horribly with
-<tt class="docutils literal">TypeError: unicode argument expected, got 'str'</tt>.</p>
-<p>I <span>&#8230;<a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
