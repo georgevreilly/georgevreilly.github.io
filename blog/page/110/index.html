@@ -32,6 +32,47 @@
     <header>
         <time datetime="2006-05-16">2006-05-16</time>
         <h1>
+            <a href="/blog/2006/05/16/0xFFFF100x1999.html" rel="bookmark canonical">0xFF...FF / 10 == 0x19...99</a>
+        </h1>
+    </header>
+    
+<p>A few weeks ago, I wrote a C++ routine to parse decimal numbers using the
+overflow detection principles of
+<a class="reference external" href="http://msdn.microsoft.com/library/en-us/dncode/html/secure01142004.asp">SafeInt</a>.
+I couldn&#8217;t find anything in the libraries that actually did a good job of checking
+for&nbsp;overflow.</p>
+<p>Briefly, to see if <tt class="docutils literal">unsigned</tt> values <tt class="docutils literal">A+B</tt> overflow, check
+<tt class="docutils literal">if (A &gt; MAX_UINT - B)</tt>. Similarly, <tt class="docutils literal">A*B</tt> will overflow
+<tt class="docutils literal">if (A &gt; MAX_UINT / B)</tt>.</p>
+
+<pre class="brush: cpp">
+// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
+bool
+StringToUnsigned(
+    const string& str,
+    unsigned&     rUint)
+{
+    rUint = 0;
+
+    if (str.empty())
+        return </pre><span>&#8230;<a href="/blog/2006/05/16/0xFFFF100x1999.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/05/16/0xFFFF100x1999.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-05-16">2006-05-16</time>
+        <h1>
             <a href="/blog/2006/05/16/NotAsLameAsYouThink.html" rel="bookmark canonical">Not as Lame as You Think</a>
         </h1>
     </header>
@@ -342,40 +383,6 @@ Bram invited me to merge my changes into Vim-4.0, which was then <span>&#8230;<a
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/05/11/Vim70IsOut.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-05-10">2006-05-10</time>
-        <h1>
-            <a href="/blog/2006/05/10/Varekai.html" rel="bookmark canonical">Varekai</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.cirquedusoleil.com/CirqueDuSoleil/en/showstickets/varekai/TicketsGeneral/Seattle.htm"></a>
-<p>Three years ago, one of our must-watch shows was
-<a class="reference external" href="http://www.cirquedusoleil.com/CirqueDuSoleil/en/OnScreen/TVShows/FireWithin.htm">Fire Within</a>,
-a doc&shy;u&shy;men&shy;tary on the making of Cirque du Soleil&#8217;s <em>Varekai</em> show.
-It followed a set of would-be performers in the eight months leading up to
-the premiere of <em>Varekai</em>, as they train at the Cirque&#8217;s school in
-Montreal, developing potential acts. Some of them make it, some fall by the&nbsp;wayside.</p>
-<p><em>Varekai</em> has been on tour ever since, and it just opened in <a class="reference external" href="http://www.cirquedusoleil.com/CirqueDuSoleil/en/showstickets/varekai/TicketsGeneral/Seattle.htm">Seattle</a>.
-We saw it tonight.
-Very little of the original show survives;
-mostly, the aerial strap act with the twins, Kevin and&nbsp;Andrew.</p>
-<p>I recommend it. <em>Varekai</em> is a visual spec&shy;tac&shy;u&shy;lar,
-with all the familiar elements of incredible acrobatics,
-clown <span>&#8230;<a href="/blog/2006/05/10/Varekai.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/05/10/Varekai.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
