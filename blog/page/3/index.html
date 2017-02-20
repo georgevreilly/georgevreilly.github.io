@@ -30,6 +30,49 @@
     
         <article>
     <header>
+        <time datetime="2017-01-16">2017-01-16</time>
+        <h1>
+            <a href="/blog/2017/01/16/ReviewTheAtrocityArchives.html" rel="bookmark canonical">Review: The Atrocity Archives</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/0441016685/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: The Atrocity Archives</div>
+<div class="line">Author: Charles Stross</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Publisher: Ace</div>
+<div class="line">Copyright: 2004</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0441016685/?tag=georgvreill-20">0441016685</a></div>
+<div class="line">Pages: 345</div>
+<div class="line">Keywords: Love&shy;craft&shy;ian spy thriller</div>
+<div class="line">Series: <a class="reference external" href="https://en.wikipedia.org/wiki/The_Laundry_Files">Laundry Files</a>, vol. 1</div>
+<div class="line">Reading period: 10–12 January, 2017</div>
+</div>
+<p>Bob Howard, Laundry hacker newly promoted to field agent,
+finds himself protecting a logic professor from rogue <span class="caps">SS</span>-Ahnenerbe agents
+who&#8217;ve been hiding in another dimension since the end of the War.
+But their biggest problem is the frost giant that was summoned.
+And later there&#8217;s the subverted <span class="caps">CCTV</span> cameras with the basilisk&nbsp;stare.</p>
+<p>To borrow Charlie Stross&#8217;s own words from his <a class="reference external" href="http://www.antipope.org/charlie/blog-static/2013/05/crib-sheet-the-atrocity-archiv.html">Crib Sheet</a>:</p>
+<blockquote>
+So there you&#8217;ve got the in&shy;gre&shy;di&shy;ents.
+Love&shy;craft&shy;ian horror;
+the secret agency [the Laundry] dedicated to protecting us from the scum of the <span>&#8230;<a href="/blog/2017/01/16/ReviewTheAtrocityArchives.html" class="continue">continue</a>.</span></blockquote>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2017/01/16/ReviewTheAtrocityArchives.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2017-01-15">2017-01-15</time>
         <h1>
             <a href="/blog/2017/01/15/GitFileModes.html" rel="bookmark canonical">Git File Modes</a>
@@ -346,52 +389,6 @@ of portraying one <span>&#8230;<a href="/blog/2017/01/07/ReviewDrStrange.html" c
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2017/01/07/ReviewDrStrange.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2017-01-05">2017-01-05</time>
-        <h1>
-            <a href="/blog/2017/01/05/GitPruningUnusedBranches.html" rel="bookmark canonical">Git: pruning unused branches</a>
-        </h1>
-    </header>
-    <p>Ever had a Git repository where there&#8217;s an over&shy;whelm&shy;ing number of branches,
-most of which are surely abandoned?
-You run <tt class="docutils literal">git branch <span class="pre">--remote</span></tt> and you see dozens of unfamiliar branches.
-Where to&nbsp;begin?</p>
-<ul class="simple">
-<li>Use <a class="reference external" href="http://stackoverflow.com/a/11144311/6364">git for-each-ref &#8211;sort</a> to sort the branches
-so that you can identify the oldest&nbsp;branches.</li>
-<li>Use <a class="reference external" href="http://stackoverflow.com/a/227026/6364">git branch &#8211;remote &#8211;merged master</a>
-to detect which branches have already been merged into <tt class="docutils literal">master</tt>.
-It&#8217;s likely that these are branches that weren&#8217;t deleted
-after a pull request was merged;
-it&#8217;s usually safe to delete&nbsp;these.</li>
-<li><tt class="docutils literal"><span class="pre">--no-merged</span></tt> shows unmerged branches;
-these require further&nbsp;in&shy;ves&shy;ti&shy;ga&shy;tion.</li>
-</ul>
-<p>Here&#8217;s an example for <a class="reference external" href="https://github.com/cookbrite/flyingcloud">fly&shy;ing&shy;cloud</a>:</p>
-<div class="highlight"><pre><span></span><span class="gp">$</span> git <span class="k">for</span>-each-ref --sort<span class="o">=</span>-committerdate <span class="se">\</span>
-<span class="go">    --format=&#39;%(committerdate:short) %(refname)&#39; refs/heads refs/remotes</span>
-<span class="go">2016-12-29 refs/remotes/origin/master</span>
-<span class="go">2016-12-29 refs/remotes/origin/<span class="caps">HEAD</span></span>
-<span class="go">2016-12-29 refs/heads/master</span>
-<span class="go">2016-12-11 refs/remotes/origin/0.1.x</span>
-<span class="go">2016-06-09 refs/remotes/origin/fix/salt-pip-version-problem-in-demo</span>
-<span class="go">2016-05-25 refs/remotes/origin/updates</span>
-<span class="go">2016-05-09 refs/remotes/origin/feature/documentation-improvements-3</span>
-<span class="go">2016-04-19 </span></pre><span>&#8230;<a href="/blog/2017/01/05/GitPruningUnusedBranches.html" class="continue">continue</a>.</span></div>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2017/01/05/GitPruningUnusedBranches.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
