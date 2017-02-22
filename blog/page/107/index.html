@@ -30,6 +30,42 @@
     
         <article>
     <header>
+        <time datetime="2006-08-29">2006-08-29</time>
+        <h1>
+            <a href="/blog/2006/08/29/UsingLog4NetFromACOMApplication.html" rel="bookmark canonical">Using Log4Net from a COM+ Application</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://logging.apache.org/log4net/"></a>
+<p>I spent far too much time on Friday trying to make <a class="reference external" href="https://logging.apache.org/log4net/">log4net</a> work in a <span class="caps">COM</span>+&nbsp;ap&shy;pli&shy;ca&shy;tion.</p>
+<p>Someone else had done part of the work necessary,
+by creating an <a class="reference external" href="http://blogs.msdn.com/florinlazar/archive/2003/12/04/41369.aspx">ap&shy;pli&shy;ca&shy;tion.config</a> for the <span class="caps">COM</span>+ ap&shy;pli&shy;ca&shy;tion
+and setting a custom Ap&shy;pli&shy;ca&shy;tion Root Directory.
+This was enough to ensure that most of the managed code in the ap&shy;pli&shy;ca&shy;tion
+got their con&shy;fig&shy;u&shy;ra&shy;tion settings;
+log4net being the&nbsp;exception.</p>
+<p>It took some additional work to realize that we needed to add two assembly&nbsp;attributes:</p>
+<pre class="literal-block">
+[assembly: log4net.Config.Repository(&quot;unique-name&quot;)]
+[assembly: log4net.Config.XmlConfigurator(ConfigFile=&quot;application.config&quot;)]
+</pre>
+<p>The repository name just needs to be a unique string.
+We used the name of the&nbsp;assembly.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/08/29/UsingLog4NetFromACOMApplication.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-08-18">2006-08-18</time>
         <h1>
             <a href="/blog/2006/08/18/SponsorMeForTheAIDSWalk.html" rel="bookmark canonical">Sponsor me for the AIDS Walk</a>
@@ -313,38 +349,6 @@ may have already heard that there&#8217;s <span>&#8230;<a href="/blog/2006/07/28
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/07/28/ChainMailHoaxes.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-07-28">2006-07-28</time>
-        <h1>
-            <a href="/blog/2006/07/28/DrRaven.html" rel="bookmark canonical">Dr. Raven</a>
-        </h1>
-    </header>
-    
-<p><a class="reference external" href="http://ravensara.blogspot.com/">Raven</a> is now <em>Doctor</em> Raven.
-She suc&shy;cess&shy;ful&shy;ly defended her doctoral dis&shy;ser&shy;ta&shy;tion in biomedical
-in&shy;for&shy;ma&shy;tions this morning. Six long years in the&nbsp;making.</p>
-<p>Dr. Raven and Mr. Raven came over this evening for Games Night,
-a twice-monthly get-together we have for our friends to play board games.
-Emma and I had been given a bottle of <em>Dom Perignon &#8216;92</em> for our wedding
-that we had never quite found a suitable occasion for until now,
-so we chilled that in an&shy;tic&shy;i&shy;pa&shy;tion of tonight&#8217;s cel&shy;e&shy;bra&shy;tion.
-I generally don&#8217;t care for champagne, but that went down&nbsp;nicely.</p>
-<p>Con&shy;grat&shy;u&shy;la&shy;tions,&nbsp;Raven!</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/07/28/DrRaven.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

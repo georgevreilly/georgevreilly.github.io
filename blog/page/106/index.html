@@ -32,6 +32,46 @@
     <header>
         <time datetime="2006-09-28">2006-09-28</time>
         <h1>
+            <a href="/blog/2006/09/28/GoogleTransit.html" rel="bookmark canonical">Google Transit</a>
+        </h1>
+    </header>
+    
+<p>I ex&shy;per&shy;i&shy;ment&shy;ed with Google&#8217;s new service,
+<a class="reference external" href="http://www.google.com/transit">Google Transit</a>.</p>
+<p>It suggested this route for traveling from
+my home to my&nbsp;work:</p>
+<pre class="literal-block">
+Begin by walking
+1   Start at 4XXX 13th Ave S
+2   Go to Airport Way S <span class="amp">&amp;</span> S Industrial Way (takes about 7 mins)
+
+Take the King County Metro 131 (Direction: <span class="caps">NORTH</span>)
+3   7:17pm leave from Airport Way S <span class="amp">&amp;</span> S Industrial Way
+4   7:24pm arrive at 4th Ave S <span class="amp">&amp;</span> S Jackson St
+
+End by walking
+5   Go to 315 5th Ave S (takes about 2 mins)
+</pre>
+<p>This fails badly in two&nbsp;respects.</p>
+<p>First, four bus routes run along 15th Avenue S,
+two blocks east <span>&#8230;<a href="/blog/2006/09/28/GoogleTransit.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/09/28/GoogleTransit.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-09-28">2006-09-28</time>
+        <h1>
             <a href="/blog/2006/09/28/GregoiresChutzpah.html" rel="bookmark canonical">Gregoire's Chutzpah</a>
         </h1>
     </header>
@@ -327,42 +367,6 @@ further from the large number of Asian <span>&#8230;<a href="/blog/2006/08/30/Mo
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/08/30/MovingOffices.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-08-29">2006-08-29</time>
-        <h1>
-            <a href="/blog/2006/08/29/UsingLog4NetFromACOMApplication.html" rel="bookmark canonical">Using Log4Net from a COM+ Application</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://logging.apache.org/log4net/"></a>
-<p>I spent far too much time on Friday trying to make <a class="reference external" href="https://logging.apache.org/log4net/">log4net</a> work in a <span class="caps">COM</span>+&nbsp;ap&shy;pli&shy;ca&shy;tion.</p>
-<p>Someone else had done part of the work necessary,
-by creating an <a class="reference external" href="http://blogs.msdn.com/florinlazar/archive/2003/12/04/41369.aspx">ap&shy;pli&shy;ca&shy;tion.config</a> for the <span class="caps">COM</span>+ ap&shy;pli&shy;ca&shy;tion
-and setting a custom Ap&shy;pli&shy;ca&shy;tion Root Directory.
-This was enough to ensure that most of the managed code in the ap&shy;pli&shy;ca&shy;tion
-got their con&shy;fig&shy;u&shy;ra&shy;tion settings;
-log4net being the&nbsp;exception.</p>
-<p>It took some additional work to realize that we needed to add two assembly&nbsp;attributes:</p>
-<pre class="literal-block">
-[assembly: log4net.Config.Repository(&quot;unique-name&quot;)]
-[assembly: log4net.Config.XmlConfigurator(ConfigFile=&quot;application.config&quot;)]
-</pre>
-<p>The repository name just needs to be a unique string.
-We used the name of the&nbsp;assembly.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/08/29/UsingLog4NetFromACOMApplication.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
