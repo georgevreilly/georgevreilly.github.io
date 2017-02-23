@@ -30,6 +30,39 @@
     
         <article>
     <header>
+        <time datetime="2007-08-15">2007-08-15</time>
+        <h1>
+            <a href="/blog/2007/08/15/BuildingARESTWebServiceDay1.html" rel="bookmark canonical">Building a REST Web Service, day 1</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://rest.blueoxen.net/"></a>
+<p>My first project at <a class="reference external" href="http://www.cozi.com/">Cozi</a> is to build a simple <a class="reference external" href="http://rest.blueoxen.net/"><span class="caps">REST</span></a>-style Web Service.
+Nobody here has done that&nbsp;before.</p>
+<p>The first thing that I&#8217;m trying to get going is a simple <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms972974.aspx"><span class="caps">URL</span> rewriter</a>,
+using an <span class="caps">ASP</span>.<span class="caps">NET</span>&nbsp;HttpModule.</p>
+<p>I&#8217;m running Vista as my de&shy;vel&shy;op&shy;ment desktop for the first time.
+So far, not bad, but there are lots of new quirks to get used to.
+I&#8217;ve been a good boy so far and I&#8217;ve left the User Access Control stuff enabled,
+so that I&#8217;m not running with ad&shy;min&shy;is&shy;tra&shy;tive privileges by&nbsp;default.</p>
+<p>It&#8217;s my first exposure to <span class="caps">IIS</span> 7.
+I must say that the <span class="caps">IIS</span> <span class="caps">UI</span> is much improved
+(a low bar to&nbsp;surmount).</p>
+<p>My first problem was <span>&#8230;<a href="/blog/2007/08/15/BuildingARESTWebServiceDay1.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/08/15/BuildingARESTWebServiceDay1.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2007-08-13">2007-08-13</time>
         <h1>
             <a href="/blog/2007/08/13/PCMagSiteOfTheWeek.html" rel="bookmark canonical">PC Mag Site of the Week</a>
@@ -392,42 +425,6 @@ The cooked-up onion marinade had a <span>&#8230;<a href="/blog/2007/08/05/Habene
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2007/08/04/ReviewBelisariusSeries.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2007-07-20">2007-07-20</time>
-        <h1>
-            <a href="/blog/2007/07/20/SerializingANameValueCollection.html" rel="bookmark canonical">Serializing a NameValueCollection</a>
-        </h1>
-    </header>
-    
-<p>I had a NameVal&shy;ueCol&shy;lec&shy;tion embedded inside a larger object.
-I needed to serialize the larger object into <span class="caps">XML</span> and back.
-Un&shy;for&shy;tu&shy;nate&shy;ly, NameVal&shy;ueCol&shy;lec&shy;tion is not <span class="caps">XML</span> se&shy;ri&shy;al&shy;iz&shy;able.
-Why I do not&nbsp;know.</p>
-<p>A blog comment from <a class="reference external" href="http://nayyeri.net/archive/2006/08/11/Serialize-NameValueCollection.aspx#72442">Tim Erwin</a> got me started in the right direction.
-Implement <tt class="docutils literal">IXmlSe&shy;ri&shy;al&shy;iz&shy;able</tt> and do the work by hand in
-<tt class="docutils literal">ReadXml</tt> and <tt class="docutils literal">WriteXml</tt>.</p>
-<p>Tim&#8217;s im&shy;ple&shy;men&shy;ta&shy;tion turned out to be overly simple.
-It didn&#8217;t handle an empty collection well,
-nor did it leave the <tt class="docutils literal">XmlReader</tt> in a good&nbsp;state.</p>
-<p>I used <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/bk3w6240(vs.80).aspx">SGen</a> to examine the de&shy;se&shy;ri&shy;al&shy;iza&shy;tion of a
-<tt class="docutils literal">List&lt;String&gt;</tt> to figure out what else needed to be&nbsp;done.</p>
-<p>The following <tt class="docutils literal">ReadXml</tt> seems to work.
-If I expected to receive <span class="caps">XML</span> from untrusted sources,
-I would <span>&#8230;<a href="/blog/2007/07/20/SerializingANameValueCollection.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/07/20/SerializingANameValueCollection.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

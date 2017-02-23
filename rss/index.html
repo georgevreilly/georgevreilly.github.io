@@ -5,9 +5,34 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Tue, 21 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Wed, 22 Feb 2017 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>I Haz Shoes</title>
+        <link>http://www.georgevreilly.com/blog/2017/02/22/IHazShoes.html</link>
+        <description>&lt;p&gt;I&#39;ve been wearing a surgical boot since my &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2017/01/17/KneeWalker.html&#34;&gt;heel surgery&lt;/a&gt; six weeks ago.
+The first month I spent getting around on a knee walker or crutches.
+For the last couple of weeks, I&#39;ve been walking more and more,
+but always wearing the boot.
+The doctor told me today that I could start weaning myself off the boot,
+but not to rush it.&lt;/p&gt;
+&lt;p&gt;I wore shoes on my right foot tonight for the first time.
+I tried on a Doc Marten shoe but found it too stiff.
+It rubbed against the scar at the back of my heel.
+A pair of sneakers were more comfortable.
+I&#39;ll bring the right sneaker to work with me tomorrow and wear it for a while.&lt;/p&gt;
+&lt;p&gt;It&#39;s such a relief to let my ankle flex forward.
+As soon as I step off my right foot while wearing the surgical boot,
+the inability to lean forward crimps my stride.
+And the thick raised sole pushes me off-kilter
+and does my hips and lower back no good.&lt;/p&gt;
+&lt;p&gt;Baby steps!&lt;/p&gt;
+</description>
+        <pubDate>Wed, 22 Feb 2017 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-22:/blog/2017/02/22/IHazShoes.html</guid>
+    </item>
         
             <item>
         <title>OrderedDict Initialization</title>
@@ -897,56 +922,6 @@ It&#39;s not going to end well.&lt;/p&gt;
 </description>
         <pubDate>Sat, 14 Jan 2017 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-14:/blog/2017/01/14/ReviewBoilingPoint.html</guid>
-    </item>
-        
-            <item>
-        <title>Computed Parallel Branches in Jenkins Pipeline</title>
-        <link>http://www.georgevreilly.com/blog/2017/01/13/ComputedParallelBranchesInJenkinsPipeline.html</link>
-        <description>&lt;p&gt;I&#39;ve been using Jenkins lately,
-setting up &lt;a class=&#34;reference external&#34; href=&#34;https://jenkins.io/solutions/pipeline/&#34;&gt;Pipeline&lt;/a&gt; builds.
-I have mixed feelings about that,
-but I&#39;m quite liking Groovy.&lt;/p&gt;
-&lt;p&gt;Here&#39;s an example of a &lt;tt class=&#34;docutils literal&#34;&gt;Closure&lt;/tt&gt; called &lt;tt class=&#34;docutils literal&#34;&gt;acceptance_integration_tests&lt;/tt&gt;,
-where the &lt;tt class=&#34;docutils literal&#34;&gt;release_level&lt;/tt&gt; parameter is a &lt;tt class=&#34;docutils literal&#34;&gt;String&lt;/tt&gt;
-which must be either &lt;tt class=&#34;docutils literal&#34;&gt;&amp;quot;dev&amp;quot;&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;&amp;quot;prod&amp;quot;&lt;/tt&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;acceptance_integration_tests&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;release_level&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;assert&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;release_level&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=~&lt;/span&gt; &lt;span class=&#34;s&#34;&gt;/^(dev|prod)$/&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;--${release_level}&amp;quot;&lt;/span&gt;
-
-    &lt;span class=&#34;kt&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;branches&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;
-        &lt;span class=&#34;s2&#34;&gt;&amp;quot;${release_level}_acceptance_tests&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;run_tests&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;ci_acceptance_test&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;**/*nosetests.xml&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;},&lt;/span&gt;
-        &lt;span class=&#34;s2&#34;&gt;&amp;quot;${release_level}_integration_tests&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;run_tests&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;ci_integration_test&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;arg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;**/*nosetests.xml&amp;#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;parallel&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;branches&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;We create a &lt;tt class=&#34;docutils literal&#34;&gt;Map&lt;/tt&gt; called &lt;tt class=&#34;docutils literal&#34;&gt;branches&lt;/tt&gt; with dynamically named keys,
-such as &lt;tt class=&#34;docutils literal&#34;&gt;&amp;quot;prod_integration_tests&amp;quot;&lt;/tt&gt;,
-thanks to &lt;tt class=&#34;docutils literal&#34;&gt;GString&lt;/tt&gt; interpolation.
-The values in the &lt;tt class=&#34;docutils literal&#34;&gt;branches&lt;/tt&gt; map are themselves closures,
-where &lt;tt class=&#34;docutils literal&#34;&gt;arg&lt;/tt&gt; is bound to &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;--dev&amp;quot;&lt;/span&gt;&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;&amp;quot;--prod&amp;quot;&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;branches&lt;/tt&gt; map is passed to Pipeline&#39;s &lt;tt class=&#34;docutils literal&#34;&gt;parallel&lt;/tt&gt; command,
-which causes the two &lt;tt class=&#34;docutils literal&#34;&gt;run_tests&lt;/tt&gt; closures to be executed
-on two different executors—eventually.&lt;/p&gt;
-&lt;p&gt;I figured out the above syntax myself, then found a &lt;a class=&#34;reference external&#34; href=&#34;https://jenkins.io/doc/pipeline/examples/#jobs-in-parallel&#34;&gt;similar example&lt;/a&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;stage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Deploy to Dev&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;deploy&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;dev&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;stage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Dev Tests&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;acceptance_integration_tests&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;dev&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;stage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Deploy to Prod&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;deploy&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;prod&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;stage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Prod Tests&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;acceptance_integration_tests&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;prod&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;acceptance_integration_tests&lt;/tt&gt; closure is used in two different &lt;tt class=&#34;docutils literal&#34;&gt;stage&lt;/tt&gt;s.
-Each &lt;tt class=&#34;docutils literal&#34;&gt;stage&lt;/tt&gt; is passed an anonymous closure,
-which invokes the parallel tests at a suitable time.&lt;/p&gt;
-&lt;p&gt;The use of closures and Groovy&#39;s &lt;a class=&#34;reference external&#34; href=&#34;http://docs.groovy-lang.org/docs/latest/html/documentation/core-domain-specific-languages.html&#34;&gt;DSL&lt;/a&gt; facilities
-is powerful, terse, and expressive.&lt;/p&gt;
-</description>
-        <pubDate>Fri, 13 Jan 2017 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-13:/blog/2017/01/13/ComputedParallelBranchesInJenkinsPipeline.html</guid>
     </item>
         </channel>
 </rss>
