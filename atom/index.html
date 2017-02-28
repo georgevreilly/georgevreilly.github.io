@@ -46,6 +46,45 @@ it only takes one bad accident to trigger cascading traffic jams everywhere.&lt;
     </entry>
     
         <entry>
+        <title>Stitches in my Finger</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2017/02/23/StitchesInMyFinger.html" />
+        <id>tag:www.georgevreilly.com,2017-02-23:/blog/2017/02/23/StitchesInMyFinger.html</id>
+        <updated>2017-02-23T08:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;img alt=&#34;Five Stitches in Left Index Finger&#34; class=&#34;right-float&#34; src=&#34;http://www.georgevreilly.com/content/binary/finger-stitches.jpg&#34;/&gt;
+&lt;p&gt;I&#39;ve had stitches before, but never from a self-inflicted cut.
+Five stitches this morning
+from a bread knife slipping on a stale loaf that I was going to toast.
+I never did get that snack.&lt;/p&gt;
+&lt;p&gt;Fortunately, it hasn&#39;t been painful.
+The stitches should come out in 7–9 days.
+Meanwhile, typing is awkward and slow.&lt;/p&gt;
+&lt;p&gt;My brother David when he was eight or nine nearly ruined his thumb with a chisel.
+He was using it to make a wooden sign for his cub scout troop.
+The chisel slipped and jammed into the back of his left thumb.
+He didn&#39;t sever the tendon and he got the full use of his thumb back,
+but he still has an ugly scar.&lt;/p&gt;
+&lt;p&gt;Within a year or two of David&#39;s accident,
+my father lost the tip of his index finger.
+He was making a deposit into a night safe
+when some keys got in the way as the door swung closed.
+He flipped them out of the way,
+but his fingertip didn&#39;t clear the gap in time.
+Fortunately his own father was present and took him for medical treatment.
+He has a divot missing from the tip of his right index finger.
+Vincent, unlike his children, is left-handed
+so it wasn&#39;t quite as much of a loss as it sounds.&lt;/p&gt;
+&lt;p&gt;Life!
+No-one gets out without scars.&lt;/p&gt;
+</content>
+    </entry>
+    
+        <entry>
         <title>I Haz Shoes</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2017/02/22/IHazShoes.html" />
         <id>tag:www.georgevreilly.com,2017-02-22:/blog/2017/02/22/IHazShoes.html</id>
@@ -1032,49 +1071,6 @@ which I was re-reading at the time—one of the most significant of the British 
 &lt;p&gt;Elsewhere, he makes the half-serious point that
 Deighton was a horror writer—the existential crisis of the Cold War—while Lovecraft was a spy writer.&lt;/p&gt;
 &lt;p&gt;Stross piles horror upon absurdity in a satisfying and original creation.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Git File Modes</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2017/01/15/GitFileModes.html" />
-        <id>tag:www.georgevreilly.com,2017-01-15:/blog/2017/01/15/GitFileModes.html</id>
-        <updated>2017-01-15T08:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;Ever wonder what the six-digit file modes are in a Git commit?
-The mysterious &lt;tt class=&#34;docutils literal&#34;&gt;100644&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;100755&lt;/tt&gt; modes?&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gh&#34;&gt;diff --git a/foo/bar.py b/foo/bar.py&lt;/span&gt;
-old mode 100644
-new mode 100755
-&lt;span class=&#34;gh&#34;&gt;index b829edea4..ee6bda024&lt;/span&gt;
-&lt;span class=&#34;gd&#34;&gt;--- a/foo/bar.py&lt;/span&gt;
-&lt;span class=&#34;gi&#34;&gt;+++ b/foo/bar.py&lt;/span&gt;
-&lt;span class=&#34;gu&#34;&gt;@@ -1,3 +1,4 @@&lt;/span&gt;
-...
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;I had made &lt;tt class=&#34;docutils literal&#34;&gt;foo/bar.py&lt;/tt&gt; executable by using &lt;tt class=&#34;docutils literal&#34;&gt;chmod +x&lt;/tt&gt;
-and adding a &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;#!/usr/bin/env&lt;/span&gt; python&lt;/tt&gt; shebang.
-The last three digits are obviously the same &lt;a class=&#34;reference external&#34; href=&#34;http://weblogs.asp.net/george_v_reilly/archive/2004/12/13/284388.aspx&#34;&gt;octal&lt;/a&gt; digits that you can use with &lt;tt class=&#34;docutils literal&#34;&gt;chmod&lt;/tt&gt;.
-But what&#39;s that &lt;tt class=&#34;docutils literal&#34;&gt;100&lt;/tt&gt; prefix?&lt;/p&gt;
-&lt;p&gt;The explanation can be found in a &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/a/8347325/6364&#34;&gt;StackOverflow answer&lt;/a&gt;:&lt;/p&gt;
-&lt;pre class=&#34;literal-block&#34;&gt;
-100644₈  regular file (non-executable)  S_IFREG | S_IRUSR | S_IWUSR
-                                                | S_IRGRP | S_IWGRP
-                                                | S_IROTH | S_IWOTH
-100755₈  regular file (executable)      S_IFREG | S_IRUSR | S_IWUSR | S_IXUSR
-                                                | S_IRGRP | S_IWGRP | S_IXGRP
-                                                | S_IROTH | S_IWOTH | S_IXOTH
-120000₈  symbolic link                  S_IFLNK
-160000₈  gitlink                        No stat(2) equivalent
-040000₈  directory                      S_IFDIR
-&lt;/pre&gt;
-&lt;p&gt;A &lt;a class=&#34;reference external&#34; href=&#34;https://www.kernel.org/pub/software/scm/git/docs/git-fast-import.html#_tt_filemodify_tt&#34;&gt;gitlink&lt;/a&gt; is used to refer to a commit in another repository;
-it&#39;s how submodules are implemented.&lt;/p&gt;
 </content>
     </entry>
     </feed>
