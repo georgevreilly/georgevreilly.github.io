@@ -30,6 +30,30 @@
     
         <article>
     <header>
+        <time datetime="2006-03-24">2006-03-24</time>
+        <h1>
+            <a href="/blog/2006/03/24/TheocracyInAction.html" rel="bookmark canonical">Theocracy in Action</a>
+        </h1>
+    </header>
+    <p>Rolling Stone magazine profiles Senator Sam Brownback in
+<a class="reference external" href="http://www.rollingstone.com/politics/story/9178374/gods_senator">God&#8217;s Senator</a>.
+It&#8217;s a scary look at the Christian far&nbsp;Right.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/03/24/TheocracyInAction.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-03-23">2006-03-23</time>
         <h1>
             <a href="/blog/2006/03/23/BusinessWeekCoversAtlasOnDemand.html" rel="bookmark canonical">Business Week Covers Atlas On Demand</a>
@@ -177,6 +201,30 @@ but I&#8217;ve never disliked it enough to do anything about it.
     <header>
         <time datetime="2006-03-09">2006-03-09</time>
         <h1>
+            <a href="/blog/2006/03/09/FrustrationsWithMicrosoftsCompensationSystem.html" rel="bookmark canonical">Frustrations with Microsoft's compensation system</a>
+        </h1>
+    </header>
+    <p>WashTech has a piece on <a class="reference external" href="http://web.archive.org/web/20130617114056/http://archive.washtech.org/news/industry/display.php?ID_Content=5041">frus&shy;tra&shy;tions with Microsoft&#8217;s com&shy;pen&shy;sa&shy;tion system</a>.
+Sounds about right to me.
+I don&#8217;t miss the horseshit of Microsoft&#8217;s stack ranking one little&nbsp;bit.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/03/09/FrustrationsWithMicrosoftsCompensationSystem.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-03-09">2006-03-09</time>
+        <h1>
             <a href="/blog/2006/03/09/CosiFanTutte.html" rel="bookmark canonical">Cosi Fan Tutte</a>
         </h1>
     </header>
@@ -197,30 +245,6 @@ Ostensibly a comedy, by the end, everyone has <span>&#8230;<a href="/blog/2006/0
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/03/09/CosiFanTutte.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-03-09">2006-03-09</time>
-        <h1>
-            <a href="/blog/2006/03/09/FrustrationsWithMicrosoftsCompensationSystem.html" rel="bookmark canonical">Frustrations with Microsoft's compensation system</a>
-        </h1>
-    </header>
-    <p>WashTech has a piece on <a class="reference external" href="http://web.archive.org/web/20130617114056/http://archive.washtech.org/news/industry/display.php?ID_Content=5041">frus&shy;tra&shy;tions with Microsoft&#8217;s com&shy;pen&shy;sa&shy;tion system</a>.
-Sounds about right to me.
-I don&#8217;t miss the horseshit of Microsoft&#8217;s stack ranking one little&nbsp;bit.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/03/09/FrustrationsWithMicrosoftsCompensationSystem.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -285,41 +309,6 @@ moderate former Talibs than to freeze them&nbsp;out.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/03/02/ATalibAtYale.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-03-02">2006-03-02</time>
-        <h1>
-            <a href="/blog/2006/03/02/ThrowingFromXSLT.html" rel="bookmark canonical">Throwing from XSLT</a>
-        </h1>
-    </header>
-    <p>I needed to add some de&shy;clar&shy;a&shy;tive error checking to some <span class="caps">XSLT</span> templates
-recently. Specif&shy;i&shy;cal&shy;ly, I wanted to throw an error if my selects yielded an
-empty string, indicating that the input <span class="caps">XML</span> was&nbsp;wrong.</p>
-<p>Un&shy;for&shy;tu&shy;nate&shy;ly, there seems to be no easy way of doing this in <span class="caps">XSLT</span>, nor in
-<tt class="docutils literal">XslTrans&shy;form</tt>. The approved way is to validate against an <span class="caps">XSD</span> schema,
-but for various reasons, I didn&#8217;t want to go to the hassle of creating&nbsp;one.</p>
-<p>I found a partial solution using <tt class="docutils literal">xsl:message</tt> with the
-<tt class="docutils literal"><span class="pre">terminate=&quot;yes&quot;</span></tt> attribute. Under <tt class="docutils literal">XslTrans&shy;form.Transform()</tt> the
-following code throws an exception if the XPath expression is&nbsp;empty.</p>
-<div class="highlight"><pre><span></span><span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span>
-    <span class="k">&lt;xsl:message</span> <span class="na">terminate=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>Missing expression<span class="k">&lt;/xsl:message&gt;</span>
-<span class="k">&lt;/xsl:if&gt;</span>
-<span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;/some/xpath/expression&quot;</span> <span class="nt">/&gt;</span>
-</pre></div>
-<p>It doesn&#8217;t do <span>&#8230;<a href="/blog/2006/03/02/ThrowingFromXSLT.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/03/02/ThrowingFromXSLT.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

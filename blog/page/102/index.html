@@ -30,24 +30,56 @@
     
         <article>
     <header>
-        <time datetime="2007-02-07">2007-02-07</time>
+        <time datetime="2007-02-08">2007-02-08</time>
         <h1>
-            <a href="/blog/2007/02/07/DoctorWhoAndTheFrenchDalek.html" rel="bookmark canonical">Doctor Who and the French Dalek</a>
+            <a href="/blog/2007/02/08/UsingGmailToReadOtherAccounts.html" rel="bookmark canonical">Using Gmail to read other accounts</a>
         </h1>
     </header>
-    <div align="center">
-<object width="425" height="350">
-    <param name="movie" value="http://www.youtube.com/v/GfNfDiqAF9Q"></param>
-    <param name="wmode" value="transparent"></param>
-    <embed src="http://www.youtube.com/v/GfNfDiqAF9Q" type="application/x-shockwave-flash" wmode="transparent" width="425" height="350"></embed>
-</object><br />
-Doctor Who and the French Dalek
-</div><p>Via <a class="reference external" href="http://andrewsullivan.theatlantic.com/the_daily_dish/2007/02/beyond_good_and.html">Andrew Sullivan</a>, an extremely well cut YouTube mashup of Doctor Who and
-Monty&nbsp;Python.</p>
+    <a class="reference external image-reference" href="http://gmail.com/"></a>
+<p><a class="reference external" href="http://googlesystem.blogspot.com/2006/12/screenshots-of-gmails-mail-fetcher.html">Gmail&#8217;s Mail Fetcher</a> now works for me!
+As of today, I can now read my reilly.org email through Gmail,
+instead of the crappy webmail interface that Ne&shy;tI&shy;den&shy;ti&shy;ty provides.
+Much, much&nbsp;nicer.</p>
+<p>I still prefer to read my email with a <em>real</em> email client,
+like Thun&shy;der&shy;bird, but I don&#8217;t have <span class="caps">POP3</span> access from&nbsp;work.</p>
+<p>In related news, it looks like <a class="reference external" href="http://googlesystem.blogspot.com/2007/02/anyone-can-signup-for-gmail-account.html">anyone can sign up for Gmail</a>.
+You no longer need to be&nbsp;invited.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/07/DoctorWhoAndTheFrenchDalek.html#disqus_thread">Comment</a>
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/08/UsingGmailToReadOtherAccounts.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-02-07">2007-02-07</time>
+        <h1>
+            <a href="/blog/2007/02/07/PrintfN.html" rel="bookmark canonical">Printf %n</a>
+        </h1>
+    </header>
+    
+<p>In my post about <a class="reference external" href="/blog/2005/06/02/PrintfTricks.html">Printf Tricks</a> a couple of years ago,
+I mentioned that &quot;<tt class="docutils literal">%n</tt> is dangerous and disabled by default in Visual Studio&nbsp;2005.&quot;</p>
+<p>I got email today from someone who was porting a large codebase to <span class="caps">VS</span> 2005.
+He was getting an assert from <tt class="docutils literal">%n</tt> and he needed a way to get past it.
+He intends to fix the uses of <tt class="docutils literal">%n</tt> when he has a&nbsp;chance.</p>
+<p>I spent several minutes digging around in <span class="caps">MSDN</span> and came up with
+<a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms175782(VS.80).aspx">set_print&shy;f_&shy;coun&shy;t_out&shy;put</a>. Wikipedia&#8217;s <a class="reference external" href="http://en.wikipedia.org/wiki/Format_string_attack">Format string attack</a> page
+led me to <a class="reference external" href="http://julianor.tripod.com/bc/formatstring-1.2.pdf">Exploiting Format String Vul&shy;ner&shy;a&shy;bil&shy;i&shy;ties</a>, which
+describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="docutils literal">%s</tt>) may be&nbsp;exploited.</p>
+<p>In short, if you have <tt class="docutils literal">printf(un&shy;val&shy;i&shy;dat&shy;ed_user_in&shy;put)</tt>,
+instead of <span>&#8230;<a href="/blog/2007/02/07/PrintfN.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/07/PrintfN.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -101,24 +133,22 @@ have their marriage classed as&nbsp;“un&shy;rec&shy;og&shy;nized;”</li>
     <header>
         <time datetime="2007-02-07">2007-02-07</time>
         <h1>
-            <a href="/blog/2007/02/07/PrintfN.html" rel="bookmark canonical">Printf %n</a>
+            <a href="/blog/2007/02/07/DoctorWhoAndTheFrenchDalek.html" rel="bookmark canonical">Doctor Who and the French Dalek</a>
         </h1>
     </header>
-    
-<p>In my post about <a class="reference external" href="/blog/2005/06/02/PrintfTricks.html">Printf Tricks</a> a couple of years ago,
-I mentioned that &quot;<tt class="docutils literal">%n</tt> is dangerous and disabled by default in Visual Studio&nbsp;2005.&quot;</p>
-<p>I got email today from someone who was porting a large codebase to <span class="caps">VS</span> 2005.
-He was getting an assert from <tt class="docutils literal">%n</tt> and he needed a way to get past it.
-He intends to fix the uses of <tt class="docutils literal">%n</tt> when he has a&nbsp;chance.</p>
-<p>I spent several minutes digging around in <span class="caps">MSDN</span> and came up with
-<a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms175782(VS.80).aspx">set_print&shy;f_&shy;coun&shy;t_out&shy;put</a>. Wikipedia&#8217;s <a class="reference external" href="http://en.wikipedia.org/wiki/Format_string_attack">Format string attack</a> page
-led me to <a class="reference external" href="http://julianor.tripod.com/bc/formatstring-1.2.pdf">Exploiting Format String Vul&shy;ner&shy;a&shy;bil&shy;i&shy;ties</a>, which
-describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="docutils literal">%s</tt>) may be&nbsp;exploited.</p>
-<p>In short, if you have <tt class="docutils literal">printf(un&shy;val&shy;i&shy;dat&shy;ed_user_in&shy;put)</tt>,
-instead of <span>&#8230;<a href="/blog/2007/02/07/PrintfN.html" class="continue">continue</a>.</span></p>
+    <div align="center">
+<object width="425" height="350">
+    <param name="movie" value="http://www.youtube.com/v/GfNfDiqAF9Q"></param>
+    <param name="wmode" value="transparent"></param>
+    <embed src="http://www.youtube.com/v/GfNfDiqAF9Q" type="application/x-shockwave-flash" wmode="transparent" width="425" height="350"></embed>
+</object><br />
+Doctor Who and the French Dalek
+</div><p>Via <a class="reference external" href="http://andrewsullivan.theatlantic.com/the_daily_dish/2007/02/beyond_good_and.html">Andrew Sullivan</a>, an extremely well cut YouTube mashup of Doctor Who and
+Monty&nbsp;Python.</p>
+
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/07/PrintfN.html#disqus_thread">Comment</a>
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/07/DoctorWhoAndTheFrenchDalek.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -244,39 +274,6 @@ underway in America that requires Christian youth to <span>&#8230;<a href="/blog
     <header>
         <time datetime="2007-02-04">2007-02-04</time>
         <h1>
-            <a href="/blog/2007/02/04/AttackingIranTheCantwellResponse.html" rel="bookmark canonical">Attacking Iran - The Cantwell Response</a>
-        </h1>
-    </header>
-    
-<p>I got a reply from Maria Cantwell&#8217;s office, regarding the email that I sent
-about <a class="reference external" href="/blog/2007/02/02/AttackingIran.html">Attacking Iran</a>. Clearly no brain cells were used in sending out
-this form&nbsp;response.</p>
-<blockquote>
-<p>Dear Mr.&nbsp;Reilly,</p>
-<p>Thank you for contacting me to express your concerns for the de&shy;vel&shy;op&shy;ment of
-nuclear weapons in Iran.  I appreciate hearing from you on this important&nbsp;issue.</p>
-<p>As you may know, in&shy;ter&shy;na&shy;tion&shy;al nuclear inspectors continue to monitor
-whether Iran is developing nuclear weapons.  Such a program would be in
-con&shy;tra&shy;ven&shy;tion to the nuclear non-pro&shy;lif&shy;er&shy;a&shy;tion agreement that Iran has
-signed.  In November 2004, the countries of Britain, France, and Germany
-negotiated an agreement with Iran, in which Iran agreed to <span>&#8230;<a href="/blog/2007/02/04/AttackingIranTheCantwellResponse.html" class="continue">continue</a>.</span></p></blockquote>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/04/AttackingIranTheCantwellResponse.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2007-02-04">2007-02-04</time>
-        <h1>
             <a href="/blog/2007/02/04/ReviewLakeOfSorrows.html" rel="bookmark canonical">Review: Lake of Sorrows</a>
         </h1>
     </header>
@@ -351,31 +348,27 @@ as a re&shy;place&shy;ment for <span>&#8230;<a href="/blog/2007/02/04/LaptopWoes
     
         <article>
     <header>
-        <time datetime="2007-02-02">2007-02-02</time>
+        <time datetime="2007-02-04">2007-02-04</time>
         <h1>
-            <a href="/blog/2007/02/02/AttackingIran.html" rel="bookmark canonical">Attacking Iran</a>
+            <a href="/blog/2007/02/04/AttackingIranTheCantwellResponse.html" rel="bookmark canonical">Attacking Iran - The Cantwell Response</a>
         </h1>
     </header>
     
-<p>Via <a class="reference external" href="http://digbysblog.blogspot.com/2007_02_01_digbysblog_archive.html#117030984348531361">Digby</a>, a warning about the Bush Ad&shy;min&shy;is&shy;tra&shy;tion trying to gin up a
-case for war against Iran.
-<a class="reference external" href="http://powerofnarrative.blogspot.com/2007/02/time-has-run-out-and-choice-is-yours.html">Arthur Silber</a> and <a class="reference external" href="http://www.thenation.com/doc/20070205/ritter">Scott Ritter</a> have things to&nbsp;say.</p>
-<p>I just sent the following letter to my Senators,
-<a class="reference external" href="http://murray.senate.gov/email/index.cfm">Patty Murray</a> and <a class="reference external" href="http://cantwell.senate.gov/contact/index.cfm">Maria Cantwell</a>,
-my Rep&shy;re&shy;sen&shy;ta&shy;tive, <a class="reference external" href="http://www.house.gov/mcdermott/contact.shtml">Jim McDermott</a>,
-and to Senator <a class="reference external" href="http://feingold.senate.gov/contact_opinion.html">Russ Feingold</a>.</p>
+<p>I got a reply from Maria Cantwell&#8217;s office, regarding the email that I sent
+about <a class="reference external" href="/blog/2007/02/02/AttackingIran.html">Attacking Iran</a>. Clearly no brain cells were used in sending out
+this form&nbsp;response.</p>
 <blockquote>
-<p>Senator:</p>
-<p>It is quite apparent that the Bush Ad&shy;min&shy;is&shy;tra&shy;tion is
-working up to provoking a war on Iran.
-We went through this before, in the leadup to the Iraq war in&nbsp;2002.</p>
-<p>I hold no brief for Iran. They are bad actors in the region.
-Clearly, they have worrisome nuclear ambitions.
-And they have little love for the&nbsp;<span class="caps">U.S.</span></p>
-<p>But somehow, we survived more than 40 years <span>&#8230;<a href="/blog/2007/02/02/AttackingIran.html" class="continue">continue</a>.</span></p></blockquote>
+<p>Dear Mr.&nbsp;Reilly,</p>
+<p>Thank you for contacting me to express your concerns for the de&shy;vel&shy;op&shy;ment of
+nuclear weapons in Iran.  I appreciate hearing from you on this important&nbsp;issue.</p>
+<p>As you may know, in&shy;ter&shy;na&shy;tion&shy;al nuclear inspectors continue to monitor
+whether Iran is developing nuclear weapons.  Such a program would be in
+con&shy;tra&shy;ven&shy;tion to the nuclear non-pro&shy;lif&shy;er&shy;a&shy;tion agreement that Iran has
+signed.  In November 2004, the countries of Britain, France, and Germany
+negotiated an agreement with Iran, in which Iran agreed to <span>&#8230;<a href="/blog/2007/02/04/AttackingIranTheCantwellResponse.html" class="continue">continue</a>.</span></p></blockquote>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/02/AttackingIran.html#disqus_thread">Comment</a>
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/04/AttackingIranTheCantwellResponse.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
