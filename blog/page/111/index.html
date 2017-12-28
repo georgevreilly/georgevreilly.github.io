@@ -30,6 +30,47 @@
     
         <article>
     <header>
+        <time datetime="2006-05-16">2006-05-16</time>
+        <h1>
+            <a href="/blog/2006/05/16/0xFFFF100x1999.html" rel="bookmark canonical">0xFF...FF / 10 == 0x19...99</a>
+        </h1>
+    </header>
+    
+<p>A few weeks ago, I wrote a C++ routine to parse decimal numbers using the
+overflow detection principles of
+<a class="reference external" href="http://msdn.microsoft.com/library/en-us/dncode/html/secure01142004.asp">SafeInt</a>.
+I couldn&#8217;t find anything in the libraries that actually did a good job of checking
+for&nbsp;overflow.</p>
+<p>Briefly, to see if <tt class="docutils literal">unsigned</tt> values <tt class="docutils literal">A+B</tt> overflow, check
+<tt class="docutils literal">if (A &gt; MAX_UINT - B)</tt>. Similarly, <tt class="docutils literal">A*B</tt> will overflow
+<tt class="docutils literal">if (A &gt; MAX_UINT / B)</tt>.</p>
+
+<pre class="brush: cpp">
+// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
+bool
+StringToUnsigned(
+    const string& str,
+    unsigned&     rUint)
+{
+    rUint = 0;
+
+    if (str.empty())
+        return </pre><span>&#8230;<a href="/blog/2006/05/16/0xFFFF100x1999.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/05/16/0xFFFF100x1999.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-05-15">2006-05-15</time>
         <h1>
             <a href="/blog/2006/05/15/WritingClearly.html" rel="bookmark canonical">Writing Clearly</a>
@@ -345,42 +386,6 @@ clown <span>&#8230;<a href="/blog/2006/05/10/Varekai.html" class="continue">cont
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2006/05/10/Varekai.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-05-09">2006-05-09</time>
-        <h1>
-            <a href="/blog/2006/05/09/AntiWarMusicAndVideos.html" rel="bookmark canonical">Anti-War Music and Videos</a>
-        </h1>
-    </header>
-    <p>A lot of anti-war music and videos are appearing of late,
-and about time&nbsp;too.</p>
-<p>Via <a class="reference external" href="http://www.americablog.com/">Amer&shy;i&shy;ca&shy;Blog</a>, I learn today of
-Jackson Browne&#8217;s new anti-war video, <a class="reference external" href="http://videos.digett.net/jacksonbrowne/lives/lives_in_the_balance.wmv">Lives in the Balance</a>.</p>
-<a class="reference external image-reference" href="http://videos.digett.net/jacksonbrowne/lives/lives_in_the_balance.wmv"></a>
-<p>There&#8217;s also Pink&#8217;s song
-<a class="reference external" href="http://www.youtube.com/watch?v=9eDJ3cuXKV4">Dear Mr. President</a>.</p>
-<a class="reference external image-reference" href="http://www.youtube.com/watch?v=9eDJ3cuXKV4"></a>
-<p>Not to mention <a class="reference external" href="http://www.neilyoung.com/">Neil Young&#8217;s</a>
-new album, <a class="reference external" href="http://livingwithwar.blogspot.com/">Living with War</a>. You can listen to the
-<a class="reference external" href="http://www.hyfntrak.com/neilyoung2/AFF23130/">entire album</a>&nbsp;online.</p>
-<a class="reference external image-reference" href="http://www.hyfntrak.com/neilyoung2/AFF23130/"></a>
-<p>And the <a class="reference external" href="http://www.dixiechicks.com/">Dixie Chicks&#8217;</a> forth&shy;com&shy;ing album,
-<a class="reference external" href="http://www.dixiechicks.com/06_longway.asp">Taking the Long Way</a>.</p>
-<a class="reference external image-reference" href="http://www.dixiechicks.com/"></a>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2006/05/09/AntiWarMusicAndVideos.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
