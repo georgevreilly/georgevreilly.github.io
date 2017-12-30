@@ -5,9 +5,25 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Wed, 27 Dec 2017 08:00:00 GMT</pubDate>
+        <pubDate>Sat, 30 Dec 2017 08:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Brilliant Jerks in Engineering</title>
+        <link>http://www.georgevreilly.com/blog/2017/12/30/BrilliantJerksInEngineering.html</link>
+        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.brendangregg.com/blog/2017-11-13/brilliant-jerks.html&#34;&gt;&lt;img alt=&#34;&#34;Do not tolerate brilliant jerks. The cost to teamwork is too high&#34; — Reed Hastings, CEO Netflix&#34; class=&#34;right-float&#34; src=&#34;http://www.brendangregg.com/blog/images/2017/brilliantjerks.jpg&#34; style=&#34;width: 400px;&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;Brendan Gregg&#39;s &lt;a class=&#34;reference external&#34; href=&#34;http://www.brendangregg.com/blog/2017-11-13/brilliant-jerks.html&#34;&gt;Brilliant Jerks in Engineering&lt;/a&gt;
+is an excellent discussion of the &amp;quot;No Asshole Rule&amp;quot;
+applied to software engineers.&lt;/p&gt;
+&lt;p&gt;He posits two kinds of brilliant jerks, the selfless and the selfish.
+You might call them unempathic and sociopathic, respectively.
+The former, if they develop some emotional intelligence, are worth saving.
+The latter are simply toxic and probably need to be fired.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 30 Dec 2017 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-12-30:/blog/2017/12/30/BrilliantJerksInEngineering.html</guid>
+    </item>
         
             <item>
         <title>How to talk to people you disagree with</title>
@@ -821,31 +837,6 @@ I&#39;ll be doing more with Presterity in the coming months.&lt;/p&gt;
 </description>
         <pubDate>Fri, 20 Jan 2017 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-20:/blog/2017/01/20/TrumpInauguration.html</guid>
-    </item>
-        
-            <item>
-        <title>Bash: echo success of previous command</title>
-        <link>http://www.georgevreilly.com/blog/2017/01/19/BashEchoSuccessOfPreviousCommand.html</link>
-        <description>&lt;p&gt;C-like languages have a ternary operator,
-&lt;tt class=&#34;docutils literal&#34;&gt;cond ? true_result : false_result&lt;/tt&gt;.
-Python has &lt;tt class=&#34;docutils literal&#34;&gt;true_result if cond else false_result&lt;/tt&gt;.
-Bash doesn&#39;t have a ternary operator, but there are &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/a/3953712/6364&#34;&gt;various workarounds&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;I wanted to print &lt;tt class=&#34;docutils literal&#34;&gt;succeeded&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;failed&lt;/tt&gt;
-based on the exit code of the previous command
-in a shell script.
-In Unix, all programs exit with an integer status code.
-Successful programs exit with &lt;tt class=&#34;docutils literal&#34;&gt;0&lt;/tt&gt;;
-all other values, positive or negative, indicate &lt;a class=&#34;reference external&#34; href=&#34;http://www-numi.fnal.gov/offline_software/srt_public_context/WebDocs/Errors/unix_system_errors.html&#34;&gt;failure&lt;/a&gt;.
-In Bash, the &lt;a class=&#34;reference external&#34; href=&#34;http://tldp.org/LDP/abs/html/exit-status.html&#34;&gt;status code&lt;/a&gt; of the previous program is held in &lt;tt class=&#34;docutils literal&#34;&gt;$?&lt;/tt&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;some/command or-other fer example
-
-&lt;span class=&#34;nv&#34;&gt;STATUS&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;succeeded&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;failed&amp;#39;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Results: &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$STATUS&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;There are &lt;a class=&#34;reference external&#34; href=&#34;http://stackoverflow.com/a/3953712/6364&#34;&gt;other ways&lt;/a&gt; to handle this.&lt;/p&gt;
-</description>
-        <pubDate>Thu, 19 Jan 2017 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-19:/blog/2017/01/19/BashEchoSuccessOfPreviousCommand.html</guid>
     </item>
         </channel>
 </rss>
