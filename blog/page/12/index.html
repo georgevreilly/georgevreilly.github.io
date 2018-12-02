@@ -30,6 +30,42 @@
     
         <article>
     <header>
+        <time datetime="2016-06-18">2016-06-18</time>
+        <h1>
+            <a href="/blog/2016/06/18/DeployingDockerContainersOnAWSPart3.html" rel="bookmark canonical">Deploying Docker Containers on AWS, part 3</a>
+        </h1>
+    </header>
+    <p>I complained <a class="reference external" href="/blog/2016/06/18/17/DeployingDockerContainersOnAWSPart2.html">yesterday</a> about my dif&shy;fi&shy;cul&shy;ties in deploying Docker containers on <span class="caps">AWS</span>.
+I have since succeeded in getting my app to deploy on Elas&shy;ticBeanstalk,
+though I have not quite ironed out all the&nbsp;problems.</p>
+<p>I found several&nbsp;problems:</p>
+<blockquote>
+<ul class="simple">
+<li>I had to revert from a Multi-Container Docker en&shy;vi&shy;ron&shy;ment
+to a Single-Container Docker en&shy;vi&shy;ron&shy;ment
+because <span class="caps">ECS</span> wasn&#8217;t starting in the multi-container en&shy;vi&shy;ron&shy;ment.
+That meant I had to revert to a v1 <tt class="docutils literal">Dockerrun.aws.json</tt>.</li>
+<li>I had to ensure that the Instance Profile had the
+Ama&shy;zonEC2&shy;Con&shy;tain&shy;erReg&shy;istryRead&shy;On&shy;ly policy attached,
+so that I could pull from the <span class="caps">EC2</span> Container&nbsp;Repository.</li>
+</ul>
+</blockquote>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/06/18/DeployingDockerContainersOnAWSPart3.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-06-17">2016-06-17</time>
         <h1>
             <a href="/blog/2016/06/17/DeployingDockerContainersOnAWSPart2.html" rel="bookmark canonical">Deploying Docker Containers on AWS, part 2</a>
@@ -324,35 +360,6 @@ Clinton has survived more scrutiny and more attacks than <span>&#8230;<a href="/
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/06/09/HillaryClintonPresumptiveNominee.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-06-08">2016-06-08</time>
-        <h1>
-            <a href="/blog/2016/06/08/BloomsdayApproaches.html" rel="bookmark canonical">Bloomsday Approaches</a>
-        </h1>
-    </header>
-    <p>I wrote in <a class="reference external" href="/blog/2016/03/27/PreparingBloomsdayScripts.html">Preparing Bloomsday Scripts</a> back in late March,
-that I was getting ready for this year&#8217;s reading of <em>Ulysses</em>.
-Our <a class="reference external" href="http://www.wildgeeseseattle.org/Joyce/Bloomsday/2016.html">2016 Reading</a> is a week and a half away, on Sunday June 19th.
-We&#8217;ll be reading Chapters 3 (“Proteus”) and 6 (“Hades”)
-of James Joyce&#8217;s mas&shy;ter&shy;piece at the Seattle Central Library.
-We had our first full readthrough at tonight&#8217;s rehearsal,
-one hour fifty five minutes.
-Next week, our dress&nbsp;rehearsal.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/06/08/BloomsdayApproaches.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

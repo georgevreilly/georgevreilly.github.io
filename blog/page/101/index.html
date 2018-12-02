@@ -30,6 +30,45 @@
     
         <article>
     <header>
+        <time datetime="2007-03-14">2007-03-14</time>
+        <h1>
+            <a href="/blog/2007/03/14/NVelocityLoadingTemplatesFromEmbeddedResources.html" rel="bookmark canonical">NVelocity: loading templates from embedded resources</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.castleproject.org/others/nvelocity/index.html"></a>
+<p>In last week&#8217;s tip on
+using the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/index.html">NVelocity</a> template formatting engine,
+I described what to set to load a template from
+an <a class="reference external" href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html">absolute path</a>.</p>
+<p>Here&#8217;s the magic necessary to get NVelocity to load a template from an
+embedded&nbsp;resource:</p>
+
+<pre class="brush: csharp">
+VelocityEngine engine = new VelocityEngine();
+ExtendedProperties properties = new ExtendedProperties();
+properties.AddProperty("resource.loader", "assembly");
+properties.AddProperty("assembly.resource.loader.class",
+    "NVelocity.Runtime.Resource.Loader.AssemblyResourceLoader, NVelocity");
+properties.AddProperty("assembly.resource.loader.assembly", "StencilFormatter");
+engine.Init(properties);
+</pre>
+
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/03/14/NVelocityLoadingTemplatesFromEmbeddedResources.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2007-03-07">2007-03-07</time>
         <h1>
             <a href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html" rel="bookmark canonical">NVelocity templates and absolute paths</a>
@@ -380,51 +419,6 @@ Get it while it&#8217;s&nbsp;hot!</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/20/VimOnWin64Updated.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2007-02-20">2007-02-20</time>
-        <h1>
-            <a href="/blog/2007/02/20/ReviewDarkFire.html" rel="bookmark canonical">Review: Dark Fire</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=&lt;ISBN&gt;"></a>
-<div class="line-block">
-<div class="line">Title: Dark Fire</div>
-<div class="line">Author: <span class="caps">C.J.</span> Sansom</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Penguin</div>
-<div class="line">Copyright: 2004</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0143036432">0143036432</a></div>
-<div class="line">Pages: 503</div>
-<div class="line">Keywords: historical mystery</div>
-<div class="line">Reading period: 18-19 February, 2007</div>
-</div>
-<p>Dark Fire is set in the summer of 1540,
-a few years after Henry <span class="caps">VIII</span> es&shy;tab&shy;lished himself
-as the head of the Church of England.
-Matthew Shardlake is a London lawyer,
-who takes on a case defending a young woman
-against the charge of murdering her 12-year-old cousin.
-She refuses to speak and will be &quot;pressed&quot; by heavy weights
-until she enters a plea—or dies.
-In exchange for a temporary reprieve,
-Shardlake agrees to take on an in&shy;ves&shy;ti&shy;ga&shy;tion
-for his sometime patron, <a class="reference external" href="http://en.wikipedia.org/wiki/Thomas_Cromwell">Thomas Cromwell</a>,
-Henry&#8217;s first minister.
-An alchemist claims to have discovered the <span>&#8230;<a href="/blog/2007/02/20/ReviewDarkFire.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/20/ReviewDarkFire.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
