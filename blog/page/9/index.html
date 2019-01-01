@@ -30,6 +30,87 @@
     
         <article>
     <header>
+        <time datetime="2016-07-27">2016-07-27</time>
+        <h1>
+            <a href="/blog/2016/07/27/ReviewTheKingsHounds.html" rel="bookmark canonical">Review: The King's Hounds</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/B00BCPEWQU/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: The King&#8217;s Hounds</div>
+<div class="line">Author: Martin Jensen</div>
+<div class="line">Rating: ★ ★ ★ ½</div>
+<div class="line">Publisher: Ama&shy;zon&shy;Cross&shy;ing</div>
+<div class="line">Copyright: 2013</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/B00BCPEWQU/?tag=georgvreill-20"><span class="caps">B00BCPEWQU</span></a></div>
+<div class="line">Pages: 274</div>
+<div class="line">Keywords: historical mystery</div>
+<div class="line">Reading period: 11 June–22 July, 2016</div>
+</div>
+<p><span class="caps">1018AD</span>. King Cnut of Denmark (aka <a class="reference external" href="https://en.wikipedia.org/wiki/Cnut_the_Great">Canute</a>) has recently conquered England,
+and now must broker peace between the Saxons and the Danes at Oxford.
+Also in Oxford are Winston, a talented il&shy;lu&shy;mi&shy;na&shy;tor of man&shy;u&shy;scripts,
+and Halfdan, a roguish half-Danish half-Saxon landless noble.
+A prominent Saxon has been murdered and Cnut commands Winston and Halfdan to&nbsp;in&shy;ves&shy;ti&shy;gate.</p>
+<p>While the mystery was reasonably while done,
+I found the anachro&shy;nis&shy;tic speech patterns quite jarring.
+The book is translated from Danish;
+I presume this is also true in the&nbsp;original.</p>
+
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/27/ReviewTheKingsHounds.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-07-26">2016-07-26</time>
+        <h1>
+            <a href="/blog/2016/07/26/ReviewStarTrekBeyond.html" rel="bookmark canonical">Review: Star Trek Beyond</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Star_Trek_Beyond"></a>
+<div class="line-block">
+<div class="line">Title: Star Trek Beyond</div>
+<div class="line">Director: Justin Lin</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Released: 2016</div>
+<div class="line">Keywords: sf, action</div>
+<div class="line">Watched: 24 July, 2016</div>
+</div>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Star_Trek_Beyond">Star Trek Beyond</a> is the best of the <a class="reference external" href="http://screenrant.com/star-trek-jj-abrams-kelvin-timeline/">Kelvin timeline</a> Trek movies,
+easily surpassing the two previous episodes in the&nbsp;reboot.</p>
+<p>The <em>Enterprise</em> is lured into an ambush where the ship is destroyed by Krall,
+a mega&shy;lo&shy;ma&shy;ni&shy;ac who has a grudge against the Federation.
+Most of the crew are captured,
+leaving only a few of the officers at large to run around fre&shy;net&shy;i&shy;cal&shy;ly.
+They find an ancient Federation ship, free the crew,
+and stop Krall before he can destroy a giant&nbsp;starbase.</p>
+<p>I thought that this was the best of the three Kelvin movies
+and the <span>&#8230;<a href="/blog/2016/07/26/ReviewStarTrekBeyond.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/26/ReviewStarTrekBeyond.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-07-22">2016-07-22</time>
         <h1>
             <a href="/blog/2016/07/22/HighTemperatures.html" rel="bookmark canonical">High Temperatures</a>
@@ -301,95 +382,6 @@ to notify you that someone posted&nbsp;something.</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/13/DisablingVibratingNotificationsInFacebookAndroidApp.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-12">2016-07-12</time>
-        <h1>
-            <a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" rel="bookmark canonical">Python: Joining URLs with posixpath.join</a>
-        </h1>
-    </header>
-    <p>On Mac/Linux, <a class="reference external" href="https://docs.python.org/2/library/os.path.html#os.path.join">os.path.join</a> is an alias for <tt class="docutils literal">posixpath.join</tt>,
-which always joins path segments with <tt class="docutils literal">/</tt>.
-On Windows, <tt class="docutils literal">os.path.join</tt> is an alias for <tt class="docutils literal">ntpath.join</tt>,
-which always uses <tt class="docutils literal">\</tt>.
-When dealing with URLs, we always want forward slashes,
-regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build <span class="caps">URL</span>&nbsp;paths.</p>
-<p>Running:</p>
-
-<pre class="brush: python">
-from __future__ import print_function
-
-from six.moves.urllib_parse import urljoin as abs_urljoin
-from posixpath import join as path_urljoin
-
-def urljoin(site, path):
-    return abs_urljoin(site, path)
-
-def test_join(site, path):
-    result = urljoin(site, path)
-    print("'{0}' + '{1}'\n\t-> '{2}'".format(site, path, result))
-    return result
-
-local_path = path_urljoin('2016', '07', '12', 'release', 'index.html')
-
-test_join('https://www.example.com', 'foo/bar/quux.js')
-test_join('https://www.example.com', local_path)
-test_join('https://www.example.com/', local_path)
-test_join('https://www.example.com/prefix', local_path)
-</pre>
-
-<p>Yields:</p>
-<pre class="literal-block">
-'https://www.example.com' + 'foo/bar/quux.js'
-   </pre><span>&#8230;<a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-11">2016-07-11</time>
-        <h1>
-            <a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" rel="bookmark canonical">Logging in Python: Don't use new-fangled format</a>
-        </h1>
-    </header>
-    <p>Python 2.6 introduced the <a class="reference external" href="https://pyformat.info/">format method</a> to strings.
-In general, <tt class="docutils literal">format</tt> is now the preferred way to build strings
-instead of the old <tt class="docutils literal">%</tt> formatting&nbsp;operator.</p>
-<p>One exception is with the <tt class="docutils literal">logging</tt> module,
-where the best practice is to use <tt class="docutils literal">%s</tt> and <tt class="docutils literal">%d</tt>.
-Why?
-First, <tt class="docutils literal">%s</tt> is the idiomatic way to use <tt class="docutils literal">logging</tt>,
-which was built years before <tt class="docutils literal">format</tt> was introduced.
-Second, if there&#8217;s a literal <tt class="docutils literal">%</tt> in the in&shy;ter&shy;po&shy;lat&shy;ed values,
-<tt class="docutils literal">logging</tt> will be unhappy,
-since there won&#8217;t be cor&shy;re&shy;spond&shy;ing arguments in the call.
-It won&#8217;t fall over, since
-“The logging package is designed to swallow exceptions which occur while logging in production.
-This is so that errors which occur while handling logging events
-- <span>&#8230;<a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

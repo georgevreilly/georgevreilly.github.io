@@ -30,6 +30,71 @@
     
         <article>
     <header>
+        <time datetime="2015-03-03">2015-03-03</time>
+        <h1>
+            <a href="/blog/2015/03/03/GeorgeClery.html" rel="bookmark canonical">George Clery, died 3rd March 1965</a>
+        </h1>
+    </header>
+    
+<p>It&#8217;s the fiftieth an&shy;niver&shy;sary of the death of my maternal grand&shy;fa&shy;ther,
+George Victor Clery, on 3rd March 1965.
+It did not come as a shock to the family.
+His health was often poor and he had been ill for some time.
+He was born a month premature on 30th March 1900
+and his mother was told she would never rear him.
+Nev&shy;er&shy;the&shy;less, he grew up to become an avid golfer and tennis player,
+to marry and father five children,
+and to live all the way to a brief retirement,
+though not quite long enough to see any of his grand&shy;chil&shy;dren.
+Both I and my cousin Siobhán were born in the <span>&#8230;<a href="/blog/2015/03/03/GeorgeClery.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/03/03/GeorgeClery.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-03-02">2015-03-02</time>
+        <h1>
+            <a href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html" rel="bookmark canonical">Nosetests won't discover tests in executable files</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://nose.readthedocs.org/"></a>
+<p>We use <a class="reference external" href="http://nose.readthedocs.org/">Nose</a> to run unit tests.
+I noticed that we had some tests that weren&#8217;t being run,
+and it took me some time to work out why.
+Eventually, I found this <a class="reference external" href="https://www.hyperink.com/blog/?p=22">checklist</a>,
+which told me to &quot;make sure the files in your tests directory are not&nbsp;executable&quot;.</p>
+<p>A quick <tt class="docutils literal">chmod <span class="pre">-x</span> *.py</tt> later and <tt class="docutils literal">nosetests project/tests</tt> suddenly found all the&nbsp;tests.</p>
+<p>Now that I know what to look for, I found this in the Nose&nbsp;docs:</p>
+<blockquote>
+<p>It is important to note that the default behavior of nose
+is to not include tests from files which are&nbsp;executable.</p>
+<p><tt class="docutils literal"><span class="pre">--exe</span></tt>: Look for tests in python modules that are executable.
+Normal behavior is to exclude executable <span>&#8230;<a href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-03-01">2015-03-01</time>
         <h1>
             <a href="/blog/2015/03/01/ReviewCryFather.html" rel="bookmark canonical">Review: Cry Father</a>
@@ -323,66 +388,6 @@ Since it was <span>&#8230;<a href="/blog/2015/01/27/UtiliKey.html" class="contin
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2015/01/27/UtiliKey.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-01-26">2015-01-26</time>
-        <h1>
-            <a href="/blog/2015/01/26/UnseasonableJanuaryWeather.html" rel="bookmark canonical">Unseasonable January Weather</a>
-        </h1>
-    </header>
-    <p>While the Northeast is being hammered with a major snowstorm,
-we&#8217;ve enjoyed some un&shy;sea&shy;son&shy;ably warm weather in the Northwest.
-Yesterday, it was 63°F (17°C) in Seattle—<a class="reference external" href="http://www.kirotv.com/news/news/seattle-sets-weather-record-boston-prepares-massiv/njw6m/">a record high tem&shy;per&shy;a&shy;ture</a>.
-The flowers are blooming. I smelled some glorious blossoms yesterday and today.
-One friend dubbed it&nbsp;“sumter”.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/01/26/UnseasonableJanuaryWeather.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-01-25">2015-01-25</time>
-        <h1>
-            <a href="/blog/2015/01/25/PyCharmYosemite.html" rel="bookmark canonical">Running PyCharm on Yosemite</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.jetbrains.com/pycharm/"></a>
-<p>I did a <a class="reference external" href="/blog/2015/01/17/YosemiteCleanInstall.html">clean install of <span class="caps">OS</span> X 10.10</a> on my home laptop a week ago.
-I tried to launch <a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a> 4.0.4 on it today.
-It im&shy;me&shy;di&shy;ate&shy;ly failed. Every&nbsp;time.</p>
-<p>When I looked in the System Console, I&nbsp;saw:</p>
-<pre class="literal-block">
-1/25/15 7:46:00.557 PM pycharm[1160]: No matching VM found.
-1/25/15 7:46:00.711 PM com.apple.xpc.launchd[1]: (com.jetbrains.pycharm.58252[1160]) Service exited with abnormal code: 1
-</pre>
-<p>The JetBrains website wasn&#8217;t very helpful when I looked there.
-In time, I found a <a class="reference external" href="http://stackoverflow.com/questions/26438628/crash-jetbrains-ide-with-yosemite-mac-osx-webstorm-intellij">Stack&shy;Over&shy;flow answer</a> that put me on the right track
-(and reminded me that I had previously solved this problem about a year ago, at work).
-PyCharm and some of the other JetBrains IDEs require <span class="caps">JDK</span> 1.6,
-as there are <span>&#8230;<a href="/blog/2015/01/25/PyCharmYosemite.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/01/25/PyCharmYosemite.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>

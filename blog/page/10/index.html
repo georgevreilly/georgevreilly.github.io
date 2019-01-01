@@ -30,6 +30,95 @@
     
         <article>
     <header>
+        <time datetime="2016-07-12">2016-07-12</time>
+        <h1>
+            <a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" rel="bookmark canonical">Python: Joining URLs with posixpath.join</a>
+        </h1>
+    </header>
+    <p>On Mac/Linux, <a class="reference external" href="https://docs.python.org/2/library/os.path.html#os.path.join">os.path.join</a> is an alias for <tt class="docutils literal">posixpath.join</tt>,
+which always joins path segments with <tt class="docutils literal">/</tt>.
+On Windows, <tt class="docutils literal">os.path.join</tt> is an alias for <tt class="docutils literal">ntpath.join</tt>,
+which always uses <tt class="docutils literal">\</tt>.
+When dealing with URLs, we always want forward slashes,
+regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build <span class="caps">URL</span>&nbsp;paths.</p>
+<p>Running:</p>
+
+<pre class="brush: python">
+from __future__ import print_function
+
+from six.moves.urllib_parse import urljoin as abs_urljoin
+from posixpath import join as path_urljoin
+
+def urljoin(site, path):
+    return abs_urljoin(site, path)
+
+def test_join(site, path):
+    result = urljoin(site, path)
+    print("'{0}' + '{1}'\n\t-> '{2}'".format(site, path, result))
+    return result
+
+local_path = path_urljoin('2016', '07', '12', 'release', 'index.html')
+
+test_join('https://www.example.com', 'foo/bar/quux.js')
+test_join('https://www.example.com', local_path)
+test_join('https://www.example.com/', local_path)
+test_join('https://www.example.com/prefix', local_path)
+</pre>
+
+<p>Yields:</p>
+<pre class="literal-block">
+'https://www.example.com' + 'foo/bar/quux.js'
+   </pre><span>&#8230;<a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-07-11">2016-07-11</time>
+        <h1>
+            <a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" rel="bookmark canonical">Logging in Python: Don't use new-fangled format</a>
+        </h1>
+    </header>
+    <p>Python 2.6 introduced the <a class="reference external" href="https://pyformat.info/">format method</a> to strings.
+In general, <tt class="docutils literal">format</tt> is now the preferred way to build strings
+instead of the old <tt class="docutils literal">%</tt> formatting&nbsp;operator.</p>
+<p>One exception is with the <tt class="docutils literal">logging</tt> module,
+where the best practice is to use <tt class="docutils literal">%s</tt> and <tt class="docutils literal">%d</tt>.
+Why?
+First, <tt class="docutils literal">%s</tt> is the idiomatic way to use <tt class="docutils literal">logging</tt>,
+which was built years before <tt class="docutils literal">format</tt> was introduced.
+Second, if there&#8217;s a literal <tt class="docutils literal">%</tt> in the in&shy;ter&shy;po&shy;lat&shy;ed values,
+<tt class="docutils literal">logging</tt> will be unhappy,
+since there won&#8217;t be cor&shy;re&shy;spond&shy;ing arguments in the call.
+It won&#8217;t fall over, since
+“The logging package is designed to swallow exceptions which occur while logging in production.
+This is so that errors which occur while handling logging events
+- <span>&#8230;<a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-07-10">2016-07-10</time>
         <h1>
             <a href="/blog/2016/07/10/ReviewFlashmanAndTheMountainOfLight.html" rel="bookmark canonical">Review: Flashman and the Mountain of Light</a>
@@ -307,85 +396,6 @@ The manual had <span>&#8230;<a href="/blog/2016/07/03/SSDUpgradeFor2012MacBook.h
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/03/SSDUpgradeFor2012MacBook.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-02">2016-07-02</time>
-        <h1>
-            <a href="/blog/2016/07/02/ReviewTomorrowland.html" rel="bookmark canonical">Review: Tomorrowland</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Tomorrowland_(film)"></a>
-<div class="line-block">
-<div class="line">Title: To&shy;mor&shy;row&shy;land</div>
-<div class="line">Director: Brad Bird</div>
-<div class="line">Rating: ★ ★ ★ ½</div>
-<div class="line">Released: 2015</div>
-<div class="line">Keywords: sf</div>
-<div class="line">Watched: 2 July, 2016</div>
-</div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Tomorrowland_(film)">To&shy;mor&shy;row&shy;land</a> is a story of dashed dreams and recovered&nbsp;optimism.</p>
-<p>In 1964, eleven-year-old Frank Walker meets a girl called Athena
-who takes him from the World&#8217;s Fair into a futuristic city called To&shy;mor&shy;row&shy;land.
-In the present day, where doom and gloom reign,
-a teenager called Casey hasn&#8217;t given up hope of a better future.
-She is recruited by Athena—&shy;some&shy;how no older—to save the world.
-Casey finds Frank, who is embittered at having been cast out of paradise decades ago.
-They find their way back into the now-desolate To&shy;mor&shy;row&shy;land
-and destroy the machine that&#8217;s casting a pall of <span>&#8230;<a href="/blog/2016/07/02/ReviewTomorrowland.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/02/ReviewTomorrowland.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-01">2016-07-01</time>
-        <h1>
-            <a href="/blog/2016/07/01/ReviewJimmysHall.html" rel="bookmark canonical">Review: Jimmy's Hall</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Jimmy%27s_Hall"></a>
-<div class="line-block">
-<div class="line">Title: Jimmy&#8217;s Hall</div>
-<div class="line">Director: Ken Loach</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Released: 2014</div>
-<div class="line">Keywords: irish, historical</div>
-<div class="line">Watched: 1 July, 2016</div>
-</div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Jimmy%27s_Hall">Jimmy&#8217;s Hall</a> tells how Jimmy Gralton became the only Irishman ever deported from Ireland.
-Gralton returns to rural Ireland from the <span class="caps">US</span> in 1932,
-after being run out ten years&#8217; earlier
-during the Irish Civil War for Communist activity.
-He revives the dance hall he had built previously,
-as it is a much-needed outlet for the young to dance, study, and talk,
-and im&shy;me&shy;di&shy;ate&shy;ly runs afoul of the local powers,
-par&shy;tic&shy;u&shy;lar&shy;ly the parish priest.
-Tensions escalate, cul&shy;mi&shy;nat&shy;ing in his&nbsp;de&shy;por&shy;ta&shy;tion.</p>
-<p>Ken Loach is never subtle about his own socialist beliefs.
-<em>Jimmy&#8217;s Hall</em> is a polemic about
-the struggle <span>&#8230;<a href="/blog/2016/07/01/ReviewJimmysHall.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/01/ReviewJimmysHall.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
