@@ -11,8 +11,49 @@
     <link rel="self" type="application/atom+xml" href="http://www.georgevreilly.com/atom/" />
     <icon>http://www.georgevreilly.com/favicon.ico</icon>
     <logo>http://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2018-12-31T08:00:00Z</updated>
+    <updated>2019-01-02T08:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Review: Watership Down (miniseries)</title>
+        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2019/01/02/ReviewWatershipDownMiniseries.html" />
+        <id>tag:www.georgevreilly.com,2019-01-02:/blog/2019/01/02/ReviewWatershipDownMiniseries.html</id>
+        <updated>2019-01-02T08:00:00Z</updated>
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>http://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Watership_Down_(miniseries)&#34;&gt;&lt;img alt=&#34;Watership Down&#34; src=&#34;https://occ-0-1782-1007.1.nflxso.net/art/ec6ad/8da2469ea8d6ed01ce41c61a0dae6a7c26fec6ad.jpg&#34;/&gt;&lt;/a&gt;
+&lt;div class=&#34;line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;Title: Watership Down (miniseries)&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Director: Noam Murro&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Released: 2018&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Keywords: animation&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Country: UK&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Watched: 30 December, 2018–1 January, 2019&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Two years ago, just after the death of Richard Adams,
+I reread the &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2017/01/01/ReviewWatershipDown.html&#34;&gt;book&lt;/a&gt; of &lt;em&gt;Watership Down&lt;/em&gt;
+for the first time in many years,
+having originally discovered it when it was new
+in the mid-1970s.
+There&#39;s a beautiful new adaptation,
+an animated &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Watership_Down_(miniseries)&#34;&gt;miniseries&lt;/a&gt; made by the BBC and Netflix.&lt;/p&gt;
+&lt;p&gt;This adaptation is largely faithful to the original book:
+The brave young rabbits striking out on their own
+before their home warren is destroyed;
+creating a new warren on Watership Down;
+the war with the totalitarian warren of Efrafa;
+the peaceful aftermath.
+One shortcoming is that
+although the voices are generally distinct,
+many of the rabbits look alike,
+and it&#39;s hard to tell one gray-brown rabbit from another.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>2018 ends</title>
         <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2018/12/31/2018-review.html" />
@@ -1144,57 +1185,6 @@ They play well with the &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span clas
 &lt;/ol&gt;
 &lt;p&gt;Because these characters are extra-wide even in a monospaced font,
 Vim doesn&#39;t render them properly unless they&#39;re followed by a space.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>JSON data from Docker Images</title>
-        <link rel="alternate" type="text/html" href="http://www.georgevreilly.com/blog/2017/01/30/JsonDataFromDockerImages.html" />
-        <id>tag:www.georgevreilly.com,2017-01-30:/blog/2017/01/30/JsonDataFromDockerImages.html</id>
-        <updated>2017-01-30T08:00:00Z</updated>
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>http://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;I was trying to get some structured information from &lt;tt class=&#34;docutils literal&#34;&gt;docker images&lt;/tt&gt;,
-hoping to replace some ugly Sed and AWK trickery.
-I could have used the &lt;a class=&#34;reference external&#34; href=&#34;https://docker-py.readthedocs.io/en/stable/&#34;&gt;docker-py&lt;/a&gt; library.
-Instead I chose to use the poorly documented &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--format&lt;/span&gt;&lt;/tt&gt; option to &lt;tt class=&#34;docutils literal&#34;&gt;docker images&lt;/tt&gt;
-(and some other Docker CLI commands).
-Adrian Mouat gives some useful starting points at &lt;a class=&#34;reference external&#34; href=&#34;http://container-solutions.com/docker-inspect-template-magic/&#34;&gt;Docker Inspect Template Magic&lt;/a&gt;
-and notes that formatting is built around &lt;a class=&#34;reference external&#34; href=&#34;https://golang.org/pkg/text/template/&#34;&gt;Go templates&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;I quickly figured out that this format would meet my immediate need.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo docker images --format &lt;span class=&#34;s1&#34;&gt;&amp;#39;{{.Repository}}:{{.Tag}}&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep &lt;span class=&#34;nv&#34;&gt;$IMAGE_NAME&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -v latest &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; head -1
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;That&#39;s fine, but I still had no idea what other possible names
-could be used in the format template.
-While getting there, I learned that &lt;a class=&#34;reference external&#34; href=&#34;https://nathanleclaire.com/blog/2015/11/12/using-curl-and-the-unix-socket-to-talk-to-the-docker-api/&#34;&gt;Curl can be used with a Unix socket&lt;/a&gt;
-to talk to the Docker daemon.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo curl --unix-socket /var/run/docker.sock &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
-    http://localhost/images/json &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; python -m json.tool
-&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;This produces a prettyprinted list of all the Docker images.
-However, the names are not the same as those that can be used in the format template.&lt;/p&gt;
-&lt;p&gt;The actual field names that can be used in the format template can be found in
-&lt;a class=&#34;reference external&#34; href=&#34;https://github.com/docker/docker/blob/master/cli/command/formatter/image.go&#34;&gt;cli/command/formatter/image.go&lt;/a&gt;. They include:&lt;/p&gt;
-&lt;ul class=&#34;simple&#34;&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;.ID&lt;/tt&gt; — 12-char SHA aka Image ID&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;.Repository&lt;/tt&gt; — aka image name&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;.Tag&lt;/tt&gt;&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;.Digest&lt;/tt&gt; — unsure&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;.CreatedSince&lt;/tt&gt; — e.g., “4 weeks”&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;.CreatedAt&lt;/tt&gt; — date&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;.Size&lt;/tt&gt;&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;.Containers&lt;/tt&gt;&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;.VirtualSize&lt;/tt&gt;&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;.SharedSize&lt;/tt&gt;&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;.UniqueSize&lt;/tt&gt;&lt;/li&gt;
-&lt;/ul&gt;
 </content>
     </entry>
     </feed>

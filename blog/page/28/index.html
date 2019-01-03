@@ -30,6 +30,60 @@
     
         <article>
     <header>
+        <time datetime="2016-01-12">2016-01-12</time>
+        <h1>
+            <a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" rel="bookmark canonical">Bash: Getting and Setting Default Values</a>
+        </h1>
+    </header>
+    <p>Bash has some handy syntax for getting and setting default values.
+Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s a collection of punc&shy;tu&shy;a&shy;tion characters,
+which makes it hard to Google when you can&#8217;t quite remember the&nbsp;syntax.</p>
+<p>Getting a default value using <tt class="docutils literal"><span class="pre">${var:-fallback}</span></tt>:</p>
+
+<pre class="brush: bash">
+# set $LOGDIR to $1 if $1 has a value; otherwise set $LOGDIR to "/var/log"
+LOGDIR="${1:-/var/log}"
+
+# use $VERSION unless it's empty or unset; fall back to extracting someprog's version num
+build_version=${VERSION:-$(someprog --version | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')}
+</pre>
+
+<p>The colon-dash con&shy;struc&shy;tion is known as the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog&#8217;s bollocks</a>
+in&nbsp;typography.</p>
+<p>Setting a default value, using <tt class="docutils literal"><span class="pre">${var:=fallback}</span></tt>:</p>
+
+<pre class="brush: bash">
+$ echo $HOME
+/Users/georgevreilly
+$ echo ${HOME:=/tmp}
+/Users/georgevreilly
+$ unset HOME
+$ echo ${HOME:=/tmp}
+/tmp
+$ echo $HOME
+/tmp
+$ cd; pwd
+/tmp
+</pre>
+
+<p>Note: <tt class="docutils literal">:=</tt> uses the new value in two cases.
+First, when the shell <span>&#8230;<a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/12/BashGettingAndSettingDefaultValues.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-11">2016-01-11</time>
         <h1>
             <a href="/blog/2016/01/11/ReviewBlindJustice.html" rel="bookmark canonical">Review: Blind Justice</a>
@@ -365,46 +419,6 @@ and January&nbsp;2nd:</p>
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/03/2015-Q4-books.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-02">2016-01-02</time>
-        <h1>
-            <a href="/blog/2016/01/02/ReviewTheRedRoad.html" rel="bookmark canonical">Review: The Red Road</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0316188506/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Red Road</div>
-<div class="line">Author: Denise Mina</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Back Bay Books</div>
-<div class="line">Copyright: 2014</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0316188506/?tag=georgvreill-20">0316188506</a></div>
-<div class="line">Pages: 320</div>
-<div class="line">Keywords: police procedural, tartan noir</div>
-<div class="line">Reading period: 31 December, 2015–2 January, 2016</div>
-</div>
-<p>Glasgow <span class="caps">DI</span> Alex Morrow is trying to put a dangerous criminal back in prison,
-but she can&#8217;t explain how his prints were found at the scene of a recent murder
-when he was already in custody.
-Fifteen years ago, when Rose Wilson was a sexually abused 14 year old,
-she was re&shy;spon&shy;si&shy;ble for two deaths in one night,
-but only did time for one culpable homicide.
-Now the lawyer who saved her is dead and coverups are&nbsp;unraveling.</p>
-<p>In other hands, this tale <span>&#8230;<a href="/blog/2016/01/02/ReviewTheRedRoad.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/02/ReviewTheRedRoad.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
