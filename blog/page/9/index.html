@@ -30,43 +30,6 @@
     
         <article>
     <header>
-        <time datetime="2016-07-29">2016-07-29</time>
-        <h1>
-            <a href="/blog/2016/07/29/ReviewGhostbusters.html" rel="bookmark canonical">Review: Ghostbusters</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Ghostbusters_(2016_film)"></a>
-<div class="line-block">
-<div class="line">Title: Ghost&shy;busters</div>
-<div class="line">Director: Paul Feig</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Released: 2016</div>
-<div class="line">Keywords: su&shy;per&shy;nat&shy;ur&shy;al comedy</div>
-<div class="line">Watched: 29 July, 2016</div>
-</div>
-<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Ghostbusters_(2016_film)">Ghost&shy;busters</a> remake is a light&shy;weight but enjoyable summer comedy and a lot of fun.
-Four women, mostly dis&shy;cred&shy;it&shy;ed scientists, fight an increasing number of paranormal incursions
-and kick some as&shy;s—with&shy;out wearing skintight clothing or being adjuncts to male leads.
-Internet trolls may be outraged but the non-tra&shy;di&shy;tion&shy;al casting works.
-Melissa McCarthy, Kristen Wiig, Kate McKinnon, and Leslie Jones are funny and jell together.
-And Chris Hemsworth as the hunky but dim re&shy;cep&shy;tion&shy;ist is an amusing bit of reverse casting,
-while Kate McKinnon seems to have become a <a class="reference external" href="http://the-orbit.net/teacosy/2016/07/21/jillian-holtzmann-is-queer-as-a-salty-parabola-and-not-here-for-the-straight-people/">queer icon</a>&nbsp;overnight.</p>
-<p>I dislike Hollywood&#8217;s lazy <span>&#8230;<a href="/blog/2016/07/29/ReviewGhostbusters.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/29/ReviewGhostbusters.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
         <time datetime="2016-07-28">2016-07-28</time>
         <h1>
             <a href="/blog/2016/07/28/ImWithHer.html" rel="bookmark canonical">I'm With Her</a>
@@ -384,6 +347,37 @@ with the have-nots <span>&#8230;<a href="/blog/2016/07/15/Elysium.html" class="c
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/15/Elysium.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-07-14">2016-07-14</time>
+        <h1>
+            <a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" rel="bookmark canonical">SQLAlchemy got me Killed</a>
+        </h1>
+    </header>
+    <p>I ran a script this afternoon that died mys&shy;te&shy;ri&shy;ous&shy;ly without any output.
+It was using <a class="reference external" href="http://www.sqlalchemy.org/">SQLAlchemy</a> to query all the rows from a large table
+so that they could be trans&shy;formed into <a class="reference external" href="http://jsonlines.org/"><span class="caps">JSON</span> Lines</a> to be loaded into Elas&shy;tic&shy;search.
+When I reran my script,
+I noticed this time that something had printed <tt class="docutils literal">Killed</tt> at the very&nbsp;end.</p>
+<p>A little research convinced me that the <a class="reference external" href="http://stackoverflow.com/questions/726690/who-killed-my-process-and-why"><span class="caps">OOM</span> Killer</a> was the likely assassin.
+I looked in <tt class="docutils literal">/var/log/kern.log</tt>
+and I found that my process had used up almost all of the <span class="caps">8GB</span> on this system
+before being&nbsp;killed.</p>
+<p>The query had to be the problem.
+A little more research led me to augment my query with <span>&#8230;<a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/07/14/SQLAlchemyGotMeKilled.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
