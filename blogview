@@ -1,0 +1,7 @@
+#!/bin/sh
+
+BLOGROOT="$(cd "$(dirname "$0")"; pwd)"
+ASSETS="$BLOGROOT/output"
+CSS="$ASSETS/style.css"
+
+python ~/gvr/python/restview.py -l 8080 --css="$CSS" --assets="$ASSETS" "$@"
