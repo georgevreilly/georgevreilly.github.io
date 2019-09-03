@@ -5,9 +5,270 @@
         <link>http://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Thu, 03 Jan 2019 08:00:00 GMT</pubDate>
+        <pubDate>Mon, 02 Sep 2019 07:00:00 GMT</pubDate>
         <docs>http://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
+        
+            <item>
+        <title>Decrypting Blackbox secrets at build time with Paperkey</title>
+        <link>http://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html</link>
+        <description>&lt;p&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+“Security is 1% technology plus 99% following the procedures correctly” — Tom Limoncelli&lt;/blockquote&gt;
+&lt;p&gt;Having dealt with GPG last week at work,
+I remembered that I had intended to write a blog post
+about how we used &lt;a class=&#34;reference external&#34; href=&#34;https://gnupg.org/&#34;&gt;GPG&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/StackExchange/blackbox&#34;&gt;Blackbox&lt;/a&gt;, and &lt;a class=&#34;reference external&#34; href=&#34;http://www.jabberwocky.com/software/paperkey/&#34;&gt;Paperkey&lt;/a&gt; to store secrets in Git
+at my &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2018/12/31/2018-review.html&#34;&gt;previous job&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We used Blackbox to manage secrets that were needed
+during development, build, deployment, and runtime.
+These secrets included AWS credentials, Docker registry credentials,
+our private PyPI credentials, database credentials, and certificates.
+We wanted these secrets to be under version control,
+but also to be secure.&lt;/p&gt;
+&lt;p&gt;For example, we had a &lt;tt class=&#34;docutils literal&#34;&gt;credentials.sh&lt;/tt&gt; that exported environment variables,
+which was managed by Blackbox:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Save current value of xtrace option from $-; disable echoing of executed commands&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -q &lt;span class=&#34;s2&#34;&gt;&amp;quot;x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;XT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;-x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;XT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;+x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; +x&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&amp;gt;/dev/null
+
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;AWS_ACCESS_KEY_ID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;...&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;AWS_SECRET_ACCESS_KEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;...&amp;#39;&lt;/span&gt;
+
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PYPI_USER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;build&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PYPI_PASSWD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;...&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PIP_INDEX_URL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;https://&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PYPI_USER&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PYPI_PASSWD&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;@pypi.example.com/pypi/&amp;quot;&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# Restore previous value of xtrace option&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$XT&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;XT&lt;/tt&gt; prologue ensures that even if this script is &lt;tt class=&#34;docutils literal&#34;&gt;source&lt;/tt&gt;’d
+with &lt;a class=&#34;reference external&#34; href=&#34;https://renenyffenegger.ch/notes/Linux/shell/bash/built-in/set/x&#34;&gt;set -x&lt;/a&gt; (debug tracing) enabled,
+that executing this script will not leak secrets into build logs.
+The epilogue turns the &lt;tt class=&#34;docutils literal&#34;&gt;xtrace&lt;/tt&gt; option back on again if it was on at the start.&lt;/p&gt;
+&lt;p&gt;We used &lt;a class=&#34;reference external&#34; href=&#34;https://www.lastpass.com/&#34;&gt;LastPass&lt;/a&gt; to manage personal credentials that were needed in a browser,
+but it wasn&#39;t suitable for automated use in CI.&lt;/p&gt;
+&lt;div class=&#34;section&#34; id=&#34;how-blackbox-works&#34;&gt;
+&lt;h3&gt;How Blackbox Works&lt;/h3&gt;
+&lt;p&gt;Blackbox builds on top of &lt;a class=&#34;reference external&#34; href=&#34;https://gnupg.org/&#34;&gt;GNU Privacy Guard&lt;/a&gt; (aka GnuPG aka GPG)
+to automate the secure management
+of a set of files containing secrets
+that are “encrypted at rest”
+and stored in a Version Control System (VCS), such as Git.
+These registered files are owned collectively by a set of administrators,
+each of whom has their own separate keypair
+(a public key and a private key)
+stored in their own keyrings.
+The administrators&#39; public keys are also present in Blackbox&#39;s keyring,
+which is stored in the VCS.
+Using Blackbox&#39;s commands,
+any administrator can decrypt a file containing secrets,
+update the secrets in the file,
+encrypt the updated secrets file,
+and commit that encrypted file into the VCS.
+Administrators can be removed from a Blackbox installation,
+after which they will not be able to decrypt the updated secrets files&lt;a class=&#34;footnote-reference&#34; href=&#34;http://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html/#revocation&#34; id=&#34;id1&#34;&gt;[1]&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;How does Blackbox encrypt a file so that any administrator can decrypt it?
+It uses GPG to encrypt the file for multiple recipients,
+say, &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Alice_and_Bob#Cast_of_characters&#34;&gt;Alice, Bob, and Carol&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;When GPG encrypts a file, it:&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;creates a random &lt;em&gt;session key&lt;/em&gt; for &lt;a class=&#34;reference external&#34; href=&#34;https://www.ssl2buy.com/wiki/symmetric-vs-asymmetric-encryption-what-are-differences&#34;&gt;symmetric encryption&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;writes a header for each recipient, containing:&lt;ul&gt;
+&lt;li&gt;the ID of the recipient&#39;s public key&lt;/li&gt;
+&lt;li&gt;the result of encrypting the session key with the recipient&#39;s public key&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;possibly signs the data&lt;/li&gt;
+&lt;li&gt;compresses the (signed) data&lt;/li&gt;
+&lt;li&gt;encrypts the compressed data with the session key&lt;/li&gt;
+&lt;li&gt;writes the encrypted, compressed data&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Only the recipients have the private keys (in theory, at least).
+Therefore, only a recipient can decrypt the encrypted file.&lt;/p&gt;
+&lt;p&gt;To decrypt the file for a recipient, GPG:&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;finds the encrypted session key packet whose keyID matches the recipient&#39;s public key&lt;/li&gt;
+&lt;li&gt;decrypts the session key using the recipient&#39;s private key&lt;/li&gt;
+&lt;li&gt;decrypts the encrypted, compressed data using the session key&lt;/li&gt;
+&lt;li&gt;decompresses the decrypted data&lt;/li&gt;
+&lt;li&gt;verifies the signature, if present&lt;/li&gt;
+&lt;li&gt;writes the cleartext&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This is a hybrid scheme.
+Symmetric encryption is a lot faster than public key/private key asymmetric encryption,
+so it&#39;s used to encrypt the actual data.
+Furthermore, if the data were entirely encrypted with a recipient&#39;s public key,
+then encrypting for &lt;em&gt;N&lt;/em&gt; recipients would mean that the size of the result
+would be proportional to the number of recipients times the length of the original data.
+With the hybrid scheme, the header grows a &lt;a class=&#34;reference external&#34; href=&#34;https://security.stackexchange.com/questions/8245/gpg-file-size-with-multiple-recipients&#34;&gt;few hundred bytes&lt;/a&gt; for each recipient
+but the data is encrypted only once, with faster encryption.&lt;/p&gt;
+&lt;p&gt;Blackbox encrypts a registered file with all of the administrators as the recipients,
+so any administrator can decrypt the file.&lt;/p&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.cse.tkk.fi/fi/opinnot/T-110.5240/2009/luennot-files/Lecture%202.pdf&#34;&gt;&lt;img alt=&#34;Typical PGP Message&#34; src=&#34;http://www.georgevreilly.com/content/binary/typical-pgp-message.jpg&#34;/&gt;&lt;/a&gt;
+&lt;p class=&#34;caption&#34;&gt;Typical PGP Message&lt;/p&gt;
+&lt;div class=&#34;legend&#34;&gt;
+(Figure from &lt;a class=&#34;reference external&#34; href=&#34;http://www.cse.tkk.fi/fi/opinnot/T-110.5240/2009/luennot-files/Lecture%202.pdf&#34;&gt;Network Security: Email Security, PKI&lt;/a&gt;, Tuomas Aura)&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;You can use &lt;tt class=&#34;docutils literal&#34;&gt;gpg &lt;span class=&#34;pre&#34;&gt;--list-packets&lt;/span&gt;&lt;/tt&gt; to dump the contents of any GPG message.
+&lt;a class=&#34;reference external&#34; href=&#34;https://begriffs.com/posts/2016-11-05-advanced-intro-gnupg.html&#34;&gt;An Advanced Intro to GnuPG&lt;/a&gt; dives into the message format in more detail.&lt;/p&gt;
+&lt;p&gt;Going back to my original example,
+&lt;tt class=&#34;docutils literal&#34;&gt;credentials.sh&lt;/tt&gt; is a file registered in &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;blackbox-files.txt&lt;/span&gt;&lt;/tt&gt;.
+This file should never be committed to the VCS—add it to &lt;a class=&#34;reference external&#34; href=&#34;https://git-scm.com/docs/gitignore&#34;&gt;gitignore&lt;/a&gt; to prevent accidentally committing it.
+Instead, &lt;tt class=&#34;docutils literal&#34;&gt;credentials.sh.gpg&lt;/tt&gt; is committed.
+Since the latter is a binary file,
+comparing two versions in cleartext is tricky.&lt;/p&gt;
+&lt;table class=&#34;docutils footnote&#34; frame=&#34;void&#34; id=&#34;revocation&#34; rules=&#34;none&#34;&gt;
+&lt;colgroup&gt;&lt;col class=&#34;label&#34;/&gt;&lt;col /&gt;&lt;/colgroup&gt;
+&lt;tbody valign=&#34;top&#34;&gt;
+&lt;tr&gt;&lt;td class=&#34;label&#34;&gt;&lt;a class=&#34;fn-backref&#34; href=&#34;http://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html/#id1&#34;&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;If they have a snapshot of the VCS before their access was revoked,
+they will still be able to decrypt the secrets as they were then.
+In principle, you should be changing passwords and certificates
+every time someone&#39;s access is revoked.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;private-keys-and-paperkey&#34;&gt;
+&lt;h3&gt;Private Keys and Paperkey&lt;/h3&gt;
+&lt;p&gt;Administrators can encrypt and decrypt Blackbox&#39;d files
+because they have their private key on a local keyring.&lt;/p&gt;
+&lt;p&gt;Getting a private key onto other hosts can be tricky.
+We developed this technique when we were using Atlassian&#39;s hosted Bamboo CI service.
+We later used it with hosted Jenkins at Cloudbees.
+Because we were using a hosted Continuous Integration (CI) service,
+we had limited control over what we could install.
+If I remember correctly,
+Bamboo had support for secret environment variables,
+but did not provide a way to store a keyring file.
+There was also a limit on the length of the environment variables, I believe.&lt;/p&gt;
+&lt;p&gt;We were able to get past this by using &lt;a class=&#34;reference external&#34; href=&#34;http://www.jabberwocky.com/software/paperkey/&#34;&gt;Paperkey&lt;/a&gt;
+to (de)serialize the secret key.
+Paperkey can extract just the secret part of a secret key:
+‘Due to metadata and redundancy,
+OpenPGP secret keys are significantly larger than just the &amp;quot;secret bits&amp;quot;.
+In fact, the secret key contains a complete copy of the public key.’&lt;/p&gt;
+&lt;p&gt;We created a keypair for the CI on a secure host,
+serialized the secret with Paperkey,
+and pasted the secret into the CI&#39;s UI to become an environment variable.
+At build time, we used Paperkey on the CI box to deserialize the secret key
+from the environment variable,
+before decrypting the secrets needed with Blackbox.&lt;/p&gt;
+&lt;p&gt;To create the CI keypair,
+follow the portion of the &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/StackExchange/blackbox#set-up-automated-users-or-role-accounts&#34;&gt;Blackbox &amp;quot;role accounts&amp;quot; instructions&lt;/a&gt;
+that create a sub-key with no password for &lt;tt class=&#34;docutils literal&#34;&gt;ci&amp;#64;example.com&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Then, serialize the public key and the secret with Paperkey:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /tmp/NEWMASTER
+gpg --homedir . --export ci@example.com &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 &amp;gt; public_key.txt
+gpg --homedir . --export-secret-keys ci@example.com &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; paperkey --output-type&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;raw &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 &amp;gt; secret.txt
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Copy and paste the contents of &lt;tt class=&#34;docutils literal&#34;&gt;public_key.txt&lt;/tt&gt;
+to the &lt;tt class=&#34;docutils literal&#34;&gt;GPG_PUBLIC_KEY&lt;/tt&gt; environment variable in the CI.
+Similarly, copy &lt;tt class=&#34;docutils literal&#34;&gt;secret.txt&lt;/tt&gt; to &lt;tt class=&#34;docutils literal&#34;&gt;GPG_SECRET&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Securely delete everything in &lt;tt class=&#34;docutils literal&#34;&gt;/tmp/NEWMASTER&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;We used a script like this on the CI to reconstitute the keypair
+and to decrypt the other secrets from Blackbox:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;ch&#34;&gt;#!/usr/bin/env bash&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# Run during a CI build to decrypt all Blackbox-encrypted files in this repo.&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# Can also be used interactively.&lt;/span&gt;
+
+&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -ex
+
+&lt;span class=&#34;c1&#34;&gt;# Root of Git working tree&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;SERVICES_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dirname &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/..&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CI_BUILD&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;true&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;mktemp -d -t gnupg.XXX&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;SECRET_KEY_FILE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/secret.key&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;PUBLIC_KEY_FILE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/public_key.gpg&amp;quot;&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;# this variable is how you can customize how GPG is used in Blackbox&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;gpg --homedir=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;# Remove secrets from filesystem on exit.&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; clean_up &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;# TODO: use shred, if available&lt;/span&gt;
+        rm -rf &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;trap&lt;/span&gt; clean_up EXIT&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Unpacking keys; exiting debug mode to redact...&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; +x
+
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; -z &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_PUBLIC_KEY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; -o -z &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_SECRET&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Missing CI credential env vars for GPG key and secret&amp;quot;&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;# unpack public key&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_PUBLIC_KEY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 --decode &amp;gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PUBLIC_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;# unpack secret key&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_SECRET&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 --decode &amp;gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SECRET_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+
+    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Secrets unpacked...&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -x
+
+    &lt;span class=&#34;c1&#34;&gt;# reconstitute and import full key into $GPG_HOMEDIR&lt;/span&gt;
+    paperkey --pubring &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PUBLIC_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; --secrets &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SECRET_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$GPG&lt;/span&gt; --import
+
+    &lt;span class=&#34;c1&#34;&gt;# TODO: vendor Blackbox&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;BLACKBOX_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;mktemp -d -t blackbox.XXX&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_DIR&lt;/span&gt;/bin
+
+    &lt;span class=&#34;c1&#34;&gt;# Shallow clone of Blackbox with most-recent commit only&lt;/span&gt;
+    git clone --depth &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; https://github.com/StackExchange/blackbox.git &lt;span class=&#34;nv&#34;&gt;$BLACKBOX_DIR&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;# So that you only have to enter your password once when running interactively&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;eval&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;gpg-agent --daemon&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+
+    &lt;span class=&#34;c1&#34;&gt;# No custom GPG_HOMEDIR needed&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;gpg&amp;quot;&lt;/span&gt;
+
+    &lt;span class=&#34;nv&#34;&gt;BLACKBOX_POSTDEPLOY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;command&lt;/span&gt; -v blackbox_postdeploy&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;ret&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_POSTDEPLOY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;# Use the Blackbox that&amp;#39;s on the path&lt;/span&gt;
+        &lt;span class=&#34;nv&#34;&gt;BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dirname &lt;span class=&#34;nv&#34;&gt;$BLACKBOX_POSTDEPLOY&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;# Assume Blackbox is checked out in a sibling dir to $SERVICES_DIR&lt;/span&gt;
+        &lt;span class=&#34;nv&#34;&gt;BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SERVICES_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/..&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;/blackbox/bin
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; ! -f &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/blackbox_postdeploy&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+            &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Can&amp;#39;t find Blackbox binaries&amp;quot;&lt;/span&gt;
+            &lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# decrypt secrets in $SERVICES_DIR using custom GPG_HOMEDIR&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$BLACKBOX_BIN&lt;/span&gt;/blackbox_postdeploy
+
+&lt;span class=&#34;c1&#34;&gt;# test that decryption worked&lt;/span&gt;
+grep &lt;span class=&#34;s1&#34;&gt;&amp;#39;congrats!&amp;#39;&lt;/span&gt; test_secret.txt
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;At the end of the build,
+run &lt;tt class=&#34;docutils literal&#34;&gt;blackbox_shred_all_files&lt;/tt&gt; to destroy any decrypted files.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;more-reading&#34;&gt;
+&lt;h3&gt;More Reading&lt;/h3&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://github.com/StackExchange/blackbox&#34;&gt;Blackbox&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://www.jabberwocky.com/software/paperkey/&#34;&gt;Paperkey&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://www.linux-magazine.com/Online/Features/Protect-your-Documents-with-GPG&#34;&gt;Protect your documents with GPG&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://davesteele.github.io/gpg/2014/09/20/anatomy-of-a-gpg-key/&#34;&gt;Anatomy of a GPG Key&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://alexcabal.com/creating-the-perfect-gpg-keypair&#34;&gt;Creating the perfect GPG keypair&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://www.darkcoding.net/software/how-gpg-works-encrypt/&#34;&gt;How GPG works: Encrypt&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://gist.github.com/chrisroos/1205934&#34;&gt;GPG import and export&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://begriffs.com/posts/2016-11-05-advanced-intro-gnupg.html&#34;&gt;An Advanced Intro to GnuPG&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://www.cse.tkk.fi/fi/opinnot/T-110.5240/2009/luennot-files/Lecture%202.pdf&#34;&gt;Network Security: Email Security, PKI&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 02 Sep 2019 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2019-09-02:/blog/2019/09/02/gpg-blackbox-paperkey.html</guid>
+    </item>
         
             <item>
         <title>Review: Fire and Blood</title>
@@ -49,7 +310,7 @@ alliances are made and lives are broken.&lt;/p&gt;
 &lt;p&gt;This book was once dubbed the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Fire_%26_Blood_(book)&#34;&gt;GRRMarillion&lt;/a&gt;;
 I would recommend it mainly to completists.&lt;/p&gt;
 </description>
-        <pubDate>Thu, 03 Jan 2019 08:00:00 GMT</pubDate>
+        <pubDate>Thu, 03 Jan 2019 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2019-01-03:/blog/2019/01/03/ReviewFireAndBlood.html</guid>
     </item>
         
@@ -84,7 +345,7 @@ although the voices are generally distinct,
 many of the rabbits look alike,
 and it&#39;s hard to tell one gray-brown rabbit from another.&lt;/p&gt;
 </description>
-        <pubDate>Wed, 02 Jan 2019 08:00:00 GMT</pubDate>
+        <pubDate>Wed, 02 Jan 2019 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2019-01-02:/blog/2019/01/02/ReviewWatershipDownMiniseries.html</guid>
     </item>
         
@@ -139,7 +400,7 @@ I look forward to the new Democratic Congress
 which takes office later this week.&lt;/p&gt;
 &lt;p&gt;Here&#39;s to 2019!&lt;/p&gt;
 </description>
-        <pubDate>Mon, 31 Dec 2018 08:00:00 GMT</pubDate>
+        <pubDate>Mon, 31 Dec 2018 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2018-12-31:/blog/2018/12/31/2018-review.html</guid>
     </item>
         
@@ -250,7 +511,7 @@ My mother gave me this book,
 after reading it herself,
 so I think it would be easier this time around.&lt;/p&gt;
 </description>
-        <pubDate>Sat, 01 Dec 2018 08:00:00 GMT</pubDate>
+        <pubDate>Sat, 01 Dec 2018 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2018-12-01:/blog/2018/12/01/ReviewHeartsInvisibleFuries.html</guid>
     </item>
         
@@ -301,7 +562,7 @@ to &lt;em&gt;vote Democrat&lt;/em&gt; today.&lt;/p&gt;
 &lt;p&gt;Please vote.
 It matters.&lt;/p&gt;
 </description>
-        <pubDate>Tue, 06 Nov 2018 08:00:00 GMT</pubDate>
+        <pubDate>Tue, 06 Nov 2018 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2018-11-06:/blog/2018/11/06/ElectionDay2018.html</guid>
     </item>
         
@@ -317,7 +578,7 @@ You might call them unempathic and sociopathic, respectively.
 The former, if they develop some emotional intelligence, are worth saving.
 The latter are simply toxic and probably need to be fired.&lt;/p&gt;
 </description>
-        <pubDate>Sat, 30 Dec 2017 08:00:00 GMT</pubDate>
+        <pubDate>Sat, 30 Dec 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-12-30:/blog/2017/12/30/BrilliantJerksInEngineering.html</guid>
     </item>
         
@@ -342,7 +603,7 @@ especially online.&lt;/p&gt;
 &lt;li&gt;Be mindful of the onlookers&lt;/li&gt;
 &lt;/ol&gt;
 </description>
-        <pubDate>Wed, 27 Dec 2017 08:00:00 GMT</pubDate>
+        <pubDate>Wed, 27 Dec 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-12-27:/blog/2017/12/27/HowToTalkToPeopleYouDisagreeWith.html</guid>
     </item>
         
@@ -362,7 +623,7 @@ use the &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&
 The default diff algorithm is &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--myers&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;Lots more at the &lt;a class=&#34;reference external&#34; href=&#34;https://git-scm.com/docs/git-diff&#34;&gt;docs&lt;/a&gt;.&lt;/p&gt;
 </description>
-        <pubDate>Tue, 26 Dec 2017 08:00:00 GMT</pubDate>
+        <pubDate>Tue, 26 Dec 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-12-26:/blog/2017/12/26/GitDiffTips.html</guid>
     </item>
         
@@ -399,7 +660,7 @@ as well as the difficulties of being in a family
 and the costs of following one&#39;s dreams.&lt;/p&gt;
 &lt;p&gt;Highly recommended.&lt;/p&gt;
 </description>
-        <pubDate>Mon, 25 Dec 2017 08:00:00 GMT</pubDate>
+        <pubDate>Mon, 25 Dec 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-12-25:/blog/2017/12/25/ReviewCoco.html</guid>
     </item>
         
@@ -425,7 +686,7 @@ When the system is running hot most of the time,
 close to its capacity,
 it only takes one bad accident to trigger cascading traffic jams everywhere.&lt;/p&gt;
 </description>
-        <pubDate>Mon, 27 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Mon, 27 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-27:/blog/2017/02/27/SeattleOverturnedTruck.html</guid>
     </item>
         
@@ -458,7 +719,7 @@ so it wasn&#39;t quite as much of a loss as it sounds.&lt;/p&gt;
 &lt;p&gt;Life!
 No-one gets out without scars.&lt;/p&gt;
 </description>
-        <pubDate>Thu, 23 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Thu, 23 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-23:/blog/2017/02/23/StitchesInMyFinger.html</guid>
     </item>
         
@@ -483,7 +744,7 @@ And the thick raised sole pushes me off-kilter
 and does my hips and lower back no good.&lt;/p&gt;
 &lt;p&gt;Baby steps!&lt;/p&gt;
 </description>
-        <pubDate>Wed, 22 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Wed, 22 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-22:/blog/2017/02/22/IHazShoes.html</guid>
     </item>
         
@@ -552,7 +813,7 @@ use &lt;tt class=&#34;docutils literal&#34;&gt;OrderedDict&lt;/tt&gt; rather tha
 &lt;span class=&#34;n&#34;&gt;odict_items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;one&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;two&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;three&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;four&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;…&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 </description>
-        <pubDate>Tue, 21 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Tue, 21 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-21:/blog/2017/02/21/OrderedDictInitialization.html</guid>
     </item>
         
@@ -584,7 +845,7 @@ but his outrage at the despoliation of the Everglades is quite real.
 And once again, the grizzled cynical middleaged guy
 attracts the pretty younger woman.&lt;/p&gt;
 </description>
-        <pubDate>Sun, 19 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Sun, 19 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-19:/blog/2017/02/19/ReviewSkinnyDip.html</guid>
     </item>
         
@@ -625,7 +886,7 @@ Until yesterday when I ran afoul of an HTML5 validator on a remote API,
 which simply would not let me proceed until I wrapped my &lt;tt class=&#34;docutils literal&#34;&gt;&amp;lt;th&amp;gt;&lt;/tt&gt; cells with a &lt;tt class=&#34;docutils literal&#34;&gt;&amp;lt;tr&amp;gt;&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;Who knew?&lt;/p&gt;
 </description>
-        <pubDate>Sat, 18 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Sat, 18 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-18:/blog/2017/02/18/HTML5TablesRequireTrInsideThead.html</guid>
     </item>
         
@@ -665,7 +926,7 @@ but the rest are ciphers.
 No matter.
 The plot ticks along and it delivers.&lt;/p&gt;
 </description>
-        <pubDate>Fri, 17 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Fri, 17 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-17:/blog/2017/02/17/ReviewTheItalianJob.html</guid>
     </item>
         
@@ -675,7 +936,7 @@ The plot ticks along and it delivers.&lt;/p&gt;
         <description>&lt;p&gt;I just published a series of &lt;a class=&#34;reference external&#34; href=&#34;https://www.metabrite.com/devblog/posts/jenkins-01-migrating-pipelines/&#34;&gt;blog posts&lt;/a&gt; at the MetaBrite DevBlog
 about our experiences in migrating to Jenkins and Pipelines.&lt;/p&gt;
 </description>
-        <pubDate>Tue, 14 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Tue, 14 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-14:/blog/2017/02/14/JenkinsPipelines.html</guid>
     </item>
         
@@ -703,7 +964,7 @@ The characters are thinly drawn and unengaging.
 They&#39;re a far cry from Tarantino&#39;s gonzo motormouths
 or the Coen Brother&#39;s quirky killers.&lt;/p&gt;
 </description>
-        <pubDate>Fri, 10 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Fri, 10 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-10:/blog/2017/02/10/ReviewKillMeThreeTimes.html</guid>
     </item>
         
@@ -734,7 +995,7 @@ Aided by the troublemaking Nac Mac Feegle, she defeats him.&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/I_Shall_Wear_Midnight&#34;&gt;I Shall Wear Midnight&lt;/a&gt; follows
 &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2008/05/19/ReviewTheWeeFreeMen.html&#34;&gt;The Wee Free Men&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2010/01/28/ReviewAHatFullOfSky.html&#34;&gt;A Hat Full of Sky&lt;/a&gt;, and &lt;em&gt;Wintersmith&lt;/em&gt;.&lt;/p&gt;
 </description>
-        <pubDate>Thu, 09 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Thu, 09 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-09:/blog/2017/02/09/ReviewIShallWearMidnight.html</guid>
     </item>
         
@@ -754,7 +1015,7 @@ I gave this talk at &lt;a class=&#34;reference external&#34; href=&#34;https://w
 I gave this talk at an internal brownbag at Cozi in November 2011.&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Tue, 07 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Tue, 07 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-07:/blog/2017/02/07/OldPresentations.html</guid>
     </item>
         
@@ -797,7 +1058,7 @@ it&#39;s very clear that Trump will lie about anything
 and pick a fight with anyone.&lt;/p&gt;
 &lt;p&gt;There is worse to come.&lt;/p&gt;
 </description>
-        <pubDate>Mon, 06 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Mon, 06 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-06:/blog/2017/02/06/TrumpMediaSuppressesCoverageTerroristAttacks.html</guid>
     </item>
         
@@ -829,7 +1090,7 @@ and against decent people doing wrong for reasons that seem right to them.
 Lehane pulls us through the wringer along with his characters.&lt;/p&gt;
 &lt;p&gt;Recommended.&lt;/p&gt;
 </description>
-        <pubDate>Fri, 03 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Fri, 03 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-03:/blog/2017/02/03/ReviewGoneBabyGone.html</guid>
     </item>
         
@@ -858,7 +1119,7 @@ for wheelchair users and others with low mobility to get around.
 Before the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Americans_with_Disabilities_Act_of_1990&#34;&gt;Americans with Disabilities Act of 1990&lt;/a&gt;, it must have been a lot worse.
 I suspect that Seattle is probably one of the more accessible cities.&lt;/p&gt;
 </description>
-        <pubDate>Thu, 02 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Thu, 02 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-02:/blog/2017/02/02/SeattleAccessibility.html</guid>
     </item>
         
@@ -890,33 +1151,8 @@ But there are old vampires who have the Laundry&#39;s newest recruits in their s
 &lt;p&gt;Sequel to &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2017/01/29/ReviewTheApocalypseCodex.html&#34;&gt;The Apocalypse Codex&lt;/a&gt;.
 More at Charlie Stross&#39;s &lt;a class=&#34;reference external&#34; href=&#34;http://www.antipope.org/charlie/blog-static/2015/07/crib-sheet-the-rhesus-chart.html&#34;&gt;Crib Sheet&lt;/a&gt; and the &lt;a class=&#34;reference external&#34; href=&#34;http://thelaundryfiles.wikia.com/wiki/The_Rhesus_Chart&#34;&gt;Laundry Files Wiki&lt;/a&gt;.&lt;/p&gt;
 </description>
-        <pubDate>Wed, 01 Feb 2017 08:00:00 GMT</pubDate>
+        <pubDate>Wed, 01 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-01:/blog/2017/02/01/ReviewTheRhesusChart.html</guid>
-    </item>
-        
-            <item>
-        <title>Negative Circled Digits</title>
-        <link>http://www.georgevreilly.com/blog/2017/01/31/NegativeCircledDigits.html</link>
-        <description>&lt;p&gt;I found something very useful in the &lt;a class=&#34;reference external&#34; href=&#34;http://graphemica.com/blocks/dingbats&#34;&gt;dingbats&lt;/a&gt; range of Unicode characters:
-the negative circled san-serif digits, ➊ ➋ ➌ ➍ ➎ ➏ ➐ ➑ ➒ ➓ .&lt;/p&gt;
-&lt;p&gt;I&#39;ve started using them to label points of interest in code.
-They play well with the &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;code-block&lt;/span&gt;&lt;/tt&gt; directive in reStructuredText.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;sudo docker images --format &lt;span class=&#34;s1&#34;&gt;&amp;#39;{{.Repository}}:{{.Tag}}&amp;#39;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\ &lt;/span&gt;   ➊
-    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep &lt;span class=&#34;nv&#34;&gt;$IMAGE_NAME&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\ &lt;/span&gt;                                   ➋
-    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -v latest &lt;span class=&#34;se&#34;&gt;\ &lt;/span&gt;                                     ➌
-    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; head -1                                               ➍
-&lt;/pre&gt;&lt;/div&gt;
-&lt;ol class=&#34;arabic simple&#34;&gt;
-&lt;li&gt;A Golang Template format string for image-name and tag&lt;/li&gt;
-&lt;li&gt;Match some Docker image name&lt;/li&gt;
-&lt;li&gt;Exclude the &lt;tt class=&#34;docutils literal&#34;&gt;latest&lt;/tt&gt; tag&lt;/li&gt;
-&lt;li&gt;Take only the first&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Because these characters are extra-wide even in a monospaced font,
-Vim doesn&#39;t render them properly unless they&#39;re followed by a space.&lt;/p&gt;
-</description>
-        <pubDate>Tue, 31 Jan 2017 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-01-31:/blog/2017/01/31/NegativeCircledDigits.html</guid>
     </item>
         </channel>
 </rss>

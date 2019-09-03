@@ -32,6 +32,38 @@
     <header>
         <time datetime="2007-02-07">2007-02-07</time>
         <h1>
+            <a href="/blog/2007/02/07/PrintfN.html" rel="bookmark canonical">Printf %n</a>
+        </h1>
+    </header>
+    
+<p>In my post about <a class="reference external" href="/blog/2005/06/02/PrintfTricks.html">Printf Tricks</a> a couple of years ago,
+I mentioned that &quot;<tt class="docutils literal">%n</tt> is dangerous and disabled by default in Visual Studio&nbsp;2005.&quot;</p>
+<p>I got email today from someone who was porting a large codebase to <span class="caps">VS</span> 2005.
+He was getting an assert from <tt class="docutils literal">%n</tt> and he needed a way to get past it.
+He intends to fix the uses of <tt class="docutils literal">%n</tt> when he has a&nbsp;chance.</p>
+<p>I spent several minutes digging around in <span class="caps">MSDN</span> and came up with
+<a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms175782(VS.80).aspx">set_print&shy;f_&shy;coun&shy;t_out&shy;put</a>. Wikipedia&#8217;s <a class="reference external" href="http://en.wikipedia.org/wiki/Format_string_attack">Format string attack</a> page
+led me to <a class="reference external" href="http://julianor.tripod.com/bc/formatstring-1.2.pdf">Exploiting Format String Vul&shy;ner&shy;a&shy;bil&shy;i&shy;ties</a>, which
+describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="docutils literal">%s</tt>) may be&nbsp;exploited.</p>
+<p>In short, if you have <tt class="docutils literal">printf(un&shy;val&shy;i&shy;dat&shy;ed_user_in&shy;put)</tt>,
+instead of <span>&#8230;<a href="/blog/2007/02/07/PrintfN.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/07/PrintfN.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-02-07">2007-02-07</time>
+        <h1>
             <a href="/blog/2007/02/07/I957TheDefenseOfMarriageInitiative.html" rel="bookmark canonical">I-957: The Defense of Marriage Initiative</a>
         </h1>
     </header>
@@ -342,43 +374,6 @@ it has trouble discerning <span>&#8230;<a href="/blog/2007/02/02/Nutritionism.ht
     <footer>
         
             <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/02/Nutritionism.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2007-02-02">2007-02-02</time>
-        <h1>
-            <a href="/blog/2007/02/02/AttackingIran.html" rel="bookmark canonical">Attacking Iran</a>
-        </h1>
-    </header>
-    
-<p>Via <a class="reference external" href="http://digbysblog.blogspot.com/2007_02_01_digbysblog_archive.html#117030984348531361">Digby</a>, a warning about the Bush Ad&shy;min&shy;is&shy;tra&shy;tion trying to gin up a
-case for war against Iran.
-<a class="reference external" href="http://powerofnarrative.blogspot.com/2007/02/time-has-run-out-and-choice-is-yours.html">Arthur Silber</a> and <a class="reference external" href="http://www.thenation.com/doc/20070205/ritter">Scott Ritter</a> have things to&nbsp;say.</p>
-<p>I just sent the following letter to my Senators,
-<a class="reference external" href="http://murray.senate.gov/email/index.cfm">Patty Murray</a> and <a class="reference external" href="http://cantwell.senate.gov/contact/index.cfm">Maria Cantwell</a>,
-my Rep&shy;re&shy;sen&shy;ta&shy;tive, <a class="reference external" href="http://www.house.gov/mcdermott/contact.shtml">Jim McDermott</a>,
-and to Senator <a class="reference external" href="http://feingold.senate.gov/contact_opinion.html">Russ Feingold</a>.</p>
-<blockquote>
-<p>Senator:</p>
-<p>It is quite apparent that the Bush Ad&shy;min&shy;is&shy;tra&shy;tion is
-working up to provoking a war on Iran.
-We went through this before, in the leadup to the Iraq war in&nbsp;2002.</p>
-<p>I hold no brief for Iran. They are bad actors in the region.
-Clearly, they have worrisome nuclear ambitions.
-And they have little love for the&nbsp;<span class="caps">U.S.</span></p>
-<p>But somehow, we survived more than 40 years <span>&#8230;<a href="/blog/2007/02/02/AttackingIran.html" class="continue">continue</a>.</span></p></blockquote>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2007/02/02/AttackingIran.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
