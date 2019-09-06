@@ -1,53 +1,89 @@
 @charset "UTF-8";
 
-@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700);
-@import url(https://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700);
-
-@charset "UTF-8";
-
 @font-face {
-  font-family: "et-book";
-  src: url("et-book-roman-line-figures.woff") format("woff"),
-       url("et-book-roman-line-figures.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal
+    font-family: "et-book";
+    src: url("etbookot-roman-webfont.woff2") format("woff2"),
+         url("etbookot-roman-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: normal
 }
 
 @font-face {
-  font-family: "et-book";
-  src: url("et-book-display-italic-old-style-figures.woff") format("woff"),
-       url("et-book-display-italic-old-style-figures.ttf") format("truetype");
-  font-weight: normal;
-  font-style: italic
+    font-family: "et-book";
+    src: url("etbookot-italic-webfont.woff2") format("woff2"),
+         url("etbookot-italic-webfont.woff") format("woff");
+    font-weight: normal;
+    font-style: italic
 }
 
 @font-face {
-  font-family: "et-book";
-  src: url("et-book-bold-line-figures.woff") format("woff"),
-       url("et-book-bold-line-figures.ttf") format("truetype");
-  font-weight: bold;
-  font-style: normal
+    font-family: "et-book";
+    src: url("etbookot-bold-webfont.woff2") format("woff2"),
+         url("etbookot-bold-webfont.woff") format("woff");
+    font-weight: bold;
+    font-style: normal
 }
 
 @font-face {
-  font-family: "et-book-roman-old-style";
-  src: url("et-book-roman-old-style-figures.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+    font-family: "et-book-roman-old-style";
+    src: url("et-book-roman-old-style-figures.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gintronic';
+    src: url('Gintronic-Regular.woff2') format('woff2'),
+         url('Gintronic-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gintronic';
+    src: url('Gintronic-Italic.woff2') format('woff2'),
+         url('Gintronic-Italic.woff') format('woff');
+    font-weight: normal;
+    font-style: italic;
+}
+
+html {
+    box-sizing: border-box;
+    font-family: et-book, Palatino, "times new roman", serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    background: #fffff8;
+    color: #112;
+    font-size: 15px;
+}
+
+*, *:after, *:before, input {
+    font-family: inherit;
+    box-sizing: inherit
+}
+
+body {
+    line-height: 1.4;
+    width: 60em;
+    margin: 4em auto;
+    max-width: 100%;
+    padding-left: 1em;
+    padding-right: 1em
 }
 
 /* Tufte CSS styles */
-html { font-size: 15px; }
-p, ol, ul { font-size: 1.4rem; }
+html {
+    font-size: 15px;
+}
+p, ol, ul, dl {
+    font-size: 1.4rem;
+    margin-top: 1.3em;
+    margin-bottom: 1.3em
+}
 
 article, aside, figure, footer, header, hgroup, nav, section {
-  display: block; }
-body {
-    background-color: #fffff8;
-    color: #111;
-    margin: 0 auto;
-    width: 900px;
-    font-family: et-book, "Source Serif Pro", Palatino, "times new roman", serif;
+    display: block;
 }
 body > header {
     padding: 10px;
@@ -63,9 +99,15 @@ body > header h1 a {
 	font-size: 2.2rem;
     text-decoration: none;
 }
-body > header h1 a:hover { text-shadow: #888888 0px 0px 1px }
-body > header h1 a:visited { color: black }
-body > header ul { padding: 1em }
+body > header h1 a:hover {
+    text-shadow: #888888 0px 0px 1px
+}
+body > header h1 a:visited {
+    color: black
+}
+body > header ul {
+    padding: 1em
+}
 body > header ul li {
     display: inline-block;
     margin: 0 2em 0 2em;
@@ -74,7 +116,9 @@ body > header ul a {
     color: black;
     text-decoration: none;
 }
-body > header ul a:hover { text-shadow: #888888 0px 0px 1px }
+body > header ul a:hover {
+    text-shadow: #888888 0px 0px 1px
+}
 body > article {
     padding: 1.6em;
     margin-top: 64px;
@@ -91,26 +135,46 @@ body > article > header h1 a {
     font-weight: bold;
     text-decoration: none;
 }
-body > article > header h1 a:hover { text-shadow: #888888 0px 0px 1px }
-body > article > header h1 a:visited { color: black }
+body > article > header h1 a:hover {
+    text-shadow: #888888 0px 0px 1px
+}
+body > article > header h1 a:visited {
+    color: black
+}
 body > article > header time {
     float: right;
 	font-size: 1.2rem;
+	margin: 0pt 0pt 0pt 15px;
 }
-body > article h2 { font-weight: bold; font-size: 2.1rem; }
-body > article h3 { font-weight: bold; font-size: 1.9rem; }
-body > article h4 { font-weight: bold; font-size: 1.7rem; }
+body > article h2 {
+    font-weight: bold;
+    font-size: 2.1rem;
+}
+body > article h3 {
+    font-weight: bold;
+    font-size: 1.9rem;
+}
+body > article h4 {
+    font-weight: bold;
+    font-size: 1.7rem;
+}
 body > article a {
     text-decoration: none;
     color: #cc0000;
 }
-body > article a:visited { color: #aa0000 }
+body > article a:visited {
+    color: #aa0000
+}
 body > article a:hover {
     color: #ff190d;
     text-shadow: #ff6666 0px 0px 1px;
 }
-body > article p { line-height: 1.3em }
-body > article dl { padding-left: 16px }
+body > article p {
+    line-height: 1.3em
+}
+body > article dl {
+    padding-left: 16px
+}
 body > article dl dt {
     font-weight: bold;
     color: #444444;
@@ -121,14 +185,16 @@ body > article ul {
     padding: 0 0 10px 40px;
     list-style-type: disc;
 }
-body > article li { padding-top: 3px }
+body > article li {
+    padding-top: 3px
+}
 body > article pre,
 body > article tt,
 body > article kbd,
 body > article samp,
 body > article code {
-    font-family: 'Source Code Pro', monospace;
-    font-size: 1.125rem;
+    font-family: 'Gintronic', monospace;
+    font-size: 1.0rem;
 }
 body > article blockquote {
     border-left: 3pt solid #aaaaaa;
@@ -138,7 +204,9 @@ body > article blockquote {
     font-style: italic;
     color: #222222;
 }
-body > article blockquote em { font-weight: bold }
+body > article blockquote em {
+    font-weight: bold
+}
 body > article img {
     max-width: 700px;
     margin: 0em 20px;
@@ -149,7 +217,9 @@ body > article .amp {
     font-size: small;
     font-style: italic;
 }
-body > article .caps { font-size: 0.92em }
+body > article .caps {
+    font-size: 0.92em
+}
 body > article .highlight {
     border: 1px solid #cccccc;
     padding-left: 1em;
@@ -172,7 +242,9 @@ body > article > footer a:hover {
     color: #111111;
     text-shadow: #aaaaaa 0px 0px 1px;
 }
-body > article > footer a:visited { color: black }
+body > article > footer a:visited {
+    color: black
+}
 body > article .page {
     margin-top: -20px;
     font-weight: bold;
@@ -181,16 +253,21 @@ body > article .page {
     border-bottom: 1px dotted black;
 }
 body > .page {
-  margin-top: -20px;
-  font-weight: bold;
-  font-size: 1.4rem;
-  color: black;
-  text-decoration: none;
-  border-bottom: 1px dotted black; }
-  body > .page:hover {
-    text-shadow: #aaaaaa 0px 0px 1px; }
+    margin-top: -20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: black;
+    text-decoration: none;
+    border-bottom: 1px dotted black;
+}
+body > .page:hover {
+    text-shadow: #aaaaaa 0px 0px 1px;
+}
 
-#arc { border-collapse: collapse }
+#arc {
+    border-collapse: collapse
+}
 #arc th,
 #arc td {
     padding-top: 0.4em;
@@ -217,27 +294,39 @@ body > footer a:hover {
     text-shadow: #ee6688 0px 0px 1px;
     color: #ff190d;
 }
-.comments a { color: black }
+.comments a {
+    color: black
+}
 .comments a:hover {
     color: #111111;
     text-shadow: #aaaaaa 0px 0px 1px;
 }
-.comments a:visited { color: black }
+.comments a:visited {
+    color: black
+}
 object[type="application/x-shockwave-flash"], iframe.video {
     box-shadow: 0px 0px 12px #777777;
     margin-left: 15px;
     text-align: center;
 }
-#dsq-content .dsq-avatar { margin-left: -18px; } /* disqus fix */
-.shadow { box-shadow: 0px 0px 4px black }
-.floatright { float: right }
-.floatleft { float: left }
+#dsq-content .dsq-avatar {
+    /* disqus fix */
+    margin-left: -18px;
+}
+.shadow {
+    box-shadow: 0px 0px 4px black
+}
+.floatright {
+    float: right
+}
+.floatleft {
+    float: left
+}
 
 img.right-float {
 	margin: 0pt 0pt 0pt 15px;
     float: right;
 }
-
 img.left-float {
 	margin: 0pt 15px 0pt 0pt;
     float: left;
@@ -246,9 +335,18 @@ img.left-float {
 .figure .caption {
     padding-top: 0.5em;
 }
-
 .figure .caption,
 .figure .legend {
     padding-left: 1em;
     padding-right: 1em;
+}
+
+@media only screen and (min-device-width : 375px) and (max-device-width : 667px) {
+    html {
+        font-size: 12px
+    }
+    body {
+        margin: 2em auto
+        width: 25em;
+    }
 }
