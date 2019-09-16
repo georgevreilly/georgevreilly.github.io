@@ -27,6 +27,39 @@
     
         <article>
     <header>
+        <time datetime="2013-11-11">2013-11-11</time>
+        <h1>
+            <a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" rel="bookmark canonical">Turn off Windows Defender on your builds</a>
+        </h1>
+    </header>
+    <p>I&#8217;ve spent some time this evening profiling a Python ap&shy;pli&shy;ca&shy;tion on Windows,
+trying to find out why it was so much slower than on Mac or Linux.
+The ap&shy;pli&shy;ca&shy;tion is an in-house build tool which reads a number of config files,
+then writes some output&nbsp;files.</p>
+<p>Using the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run&shy;SnakeRun</a> Python profile viewer on Windows,
+two things im&shy;me&shy;di&shy;ate&shy;ly leapt out at me:
+we were running <tt class="docutils literal">os.stat</tt> a lot
+and <tt class="docutils literal">file.close</tt> was really&nbsp;expensive.</p>
+<p>A quick test convinced me that we were <a class="reference external" href="http://docs.python.org/2/library/stat.html">stat-ing</a> the same files over and over.
+It was a com&shy;bi&shy;na&shy;tion of explicit checks and implicit code,
+like <tt class="docutils literal">os.walk</tt> calling <tt class="docutils literal">os.path.isdir</tt>.
+I wrote a little cache that memoizes the results,
+which brought the cost <span>&#8230;<a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2013-10-24">2013-10-24</time>
         <h1>
             <a href="/blog/2013/10/24/ReviewBackbonejsTesting.html" rel="bookmark canonical">Review: Backbone.js Testing</a>
@@ -58,7 +91,7 @@ which runs your tests.
 They complement each <span>&#8230;<a href="/blog/2013/10/24/ReviewBackbonejsTesting.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2013/10/24/ReviewBackbonejsTesting.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2013/10/24/ReviewBackbonejsTesting.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -105,7 +138,7 @@ well-dressed men;
 losing weight, face lotion, and beauty <span>&#8230;<a href="/blog/2013/01/21/AdaptingPenelopePartII.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2013/01/21/AdaptingPenelopePartII.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2013/01/21/AdaptingPenelopePartII.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -138,7 +171,7 @@ Leopold climbed in to bed a little while ago,
 put his head at her <span>&#8230;<a href="/blog/2013/01/20/AdaptingPenelopePartI.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2013/01/20/AdaptingPenelopePartI.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2013/01/20/AdaptingPenelopePartI.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -175,7 +208,7 @@ a static <span class="caps">HTML</span> site badly in need of a makeover
 a dynamic site based on the horrid <a class="reference external" href="http://www.toastmastersclubs.org/welcome/">Free&shy;ToastHoast 2.0</a> <span>&#8230;<a href="/blog/2013/01/20/StaticWebsiteConversions.html" class="continue">continue</a>.</span></li></ul>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2013/01/20/StaticWebsiteConversions.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2013/01/20/StaticWebsiteConversions.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -209,7 +242,7 @@ in a normally off-limits part of the school, until late&nbsp;January.</p>
 Writing code on <span>&#8230;<a href="/blog/2012/01/26/30YearsOfProgramming.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2012/01/26/30YearsOfProgramming.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2012/01/26/30YearsOfProgramming.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -263,7 +296,7 @@ Turn down the lights to enjoy the blue-tinged&nbsp;flames.</p>
 <tr><td>½ <span>&#8230;<a href="/blog/2011/12/17/ChristmasPudding.html" class="continue">continue</a>.</span></td></tr></tbody></table>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2011/12/17/ChristmasPudding.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2011/12/17/ChristmasPudding.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -287,7 +320,7 @@ Turn down the lights to enjoy the blue-tinged&nbsp;flames.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2011/04/22/SerializationExceptionTheConstructorWasNotFound.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2011/04/22/SerializationExceptionTheConstructorWasNotFound.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -312,7 +345,7 @@ so I wrote a post a couple of weeks ago on
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2011/04/22/Security101ForDevelopers.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2011/04/22/Security101ForDevelopers.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -345,40 +378,7 @@ I am called George after him and Vincent after my&nbsp;father.</p>
 which became Allied Irish Bank <span>&#8230;<a href="/blog/2011/04/03/The1911Census.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2011/04/03/The1911Census.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2010-11-30">2010-11-30</time>
-        <h1>
-            <a href="/blog/2010/11/30/ReviewLetTheDeadLie.html" rel="bookmark canonical">Review: Let the Dead Lie</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/1416586229/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Let the Dead Lie</div>
-<div class="line">Author: Malla Nunn</div>
-<div class="line">Rating: ★ ★ ★</div>
-<div class="line">Publisher: Washington Square Press</div>
-<div class="line">Copyright: 2010</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/1416586229/?tag=georgvreill-20">1416586229</a></div>
-<div class="line">Pages: 382</div>
-<div class="line">Keywords: crime</div>
-<div class="line">Reading period: 24–<span class="caps">DD</span> November, 2010</div>
-</div>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2010/11/30/ReviewLetTheDeadLie.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2011/04/03/The1911Census.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -415,7 +415,7 @@ which became Allied Irish Bank <span>&#8230;<a href="/blog/2011/04/03/The1911Cen
                 (function () {
                     var s = document.createElement('script'); s.async = true;
                     s.type = 'text/javascript';
-                    s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+                    s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
                     (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());
             }
         </script>

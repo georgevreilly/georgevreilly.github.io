@@ -27,6 +27,47 @@
     
         <article>
     <header>
+        <time datetime="2016-04-13">2016-04-13</time>
+        <h1>
+            <a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" rel="bookmark canonical">io.StringIO and UnicodeCSV DictWriter</a>
+        </h1>
+    </header>
+    <p>I like to use <a class="reference external" href="https://docs.python.org/2/library/io.html#io.StringIO">io.StringIO</a> rather than the older <a class="reference external" href="https://docs.python.org/2/library/stringio.html#cStringIO.StringIO">cStringIO.StringIO</a>,
+as it&#8217;s Python 3–ready
+<tt class="docutils literal">io.StringIO</tt> is also a <a class="reference external" href="https://docs.python.org/2/reference/datamodel.html#context-managers">context manager</a>:
+if you use it in a <tt class="docutils literal">with</tt> statement,
+the string buffer is au&shy;to&shy;mat&shy;i&shy;cal&shy;ly <tt class="docutils literal">close</tt>d as you go out of&nbsp;scope.</p>
+<p>I tried using <tt class="docutils literal">io.StringIO</tt> with <a class="reference external" href="https://github.com/jdunck/python-unicodecsv">unicodecsv</a>,
+as I wanted to capture the <span class="caps">CSV</span> output into a string buffer
+for use with unit tests.
+<tt class="docutils literal">unicodecsv</tt> is a drop-in re&shy;place&shy;ment for Python&#8217;s built-in <tt class="docutils literal">csv</tt> module,
+which supports Unicode&nbsp;strings.</p>
+
+<pre class="brush: python">
+with io.StringIO() as csv_file:
+    write_csv_rows(csv_file)
+    lines = csv_file.getvalue().split('\r\n')
+    return lines[:-1]  # drop empty line after trailing \r\n
+</pre>
+
+<p>It failed horribly with
+<tt class="docutils literal">TypeError: unicode argument expected, got 'str'</tt>.</p>
+<p>I <span>&#8230;<a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-04-12">2016-04-12</time>
         <h1>
             <a href="/blog/2016/04/12/ReviewVenetianMask.html" rel="bookmark canonical">Review: Venetian Mask</a>
@@ -58,7 +99,7 @@ seeking or hiding from each&nbsp;other.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/12/ReviewVenetianMask.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/12/ReviewVenetianMask.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -96,7 +137,7 @@ which says,
 “Driving? Don&#8217;t have that <span>&#8230;<a href="/blog/2016/04/11/DebunkingMemes.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/11/DebunkingMemes.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/11/DebunkingMemes.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -130,7 +171,7 @@ e.g., headings are bold, not&nbsp;italic.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/10/TufteMakeover.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/10/TufteMakeover.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -159,7 +200,7 @@ I discovered it when looking up <a class="reference external" href="https://size
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/09/Sizes_Com.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/09/Sizes_Com.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -191,7 +232,7 @@ Specif&shy;i&shy;cal&shy;ly, I want to add a speech&nbsp;timer.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/08/ToastmastersAssistantAndroidApp.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/08/ToastmastersAssistantAndroidApp.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -232,7 +273,7 @@ However, <a class="reference external" href="http://www.catholic.com/tracts/seve
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/07/ReviewNationalSundayLaw.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/07/ReviewNationalSundayLaw.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -276,7 +317,7 @@ serves in the <a class="reference external" href="https://en.wikipedia.org/wiki/
 and joins the Nazi party early, rising <span>&#8230;<a href="/blog/2016/04/06/ReviewWinter.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/06/ReviewWinter.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/06/ReviewWinter.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -331,7 +372,7 @@ Got:
 <p>The problem is that Python <span>&#8230;<a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -363,44 +404,7 @@ Through Canadian Customs.
 And back through <span class="caps">US</span> Customs when <span>&#8230;<a href="/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-04-03">2016-04-03</time>
-        <h1>
-            <a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" rel="bookmark canonical">Find remote Git branch with change to a file</a>
-        </h1>
-    </header>
-    <p>I needed to track down a remote branch created a couple of months ago
-on another machine.
-I knew which file had been changed,
-but none of the far-too-many remote branches&#8217; names rang a&nbsp;bell.</p>
-<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch &#8211;contains</a> in the right way finds all the relevant&nbsp;branches.</p>
-
-<pre class="brush: bash">
-git log --all --format=%H FILENAME \
-    | while read f; do git branch --remotes --contains $f; done \
-    | sort -u
-</pre>
-
-<p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> <span class="caps">FILENAME</span></tt>,
-lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal"><span class="caps">FILENAME</span></tt>.
-The second finds all the branches that contain those hashes
-(I added <tt class="docutils literal"><span class="pre">--remotes</span></tt>).
-The third <span>&#8230;<a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -437,7 +441,7 @@ The third <span>&#8230;<a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeTo
                 (function () {
                     var s = document.createElement('script'); s.async = true;
                     s.type = 'text/javascript';
-                    s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+                    s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
                     (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());
             }
         </script>

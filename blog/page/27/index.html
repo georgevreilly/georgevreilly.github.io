@@ -27,6 +27,47 @@
     
         <article>
     <header>
+        <time datetime="2016-01-24">2016-01-24</time>
+        <h1>
+            <a href="/blog/2016/01/24/NoseTestDiscovery.html" rel="bookmark canonical">Nose Test Discovery</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://nose.readthedocs.org/"></a>
+<p>I figured out why I saw the following error every time I ran <a class="reference external" href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html">Nose</a>:</p>
+
+<pre class="brush: python">
+======================================================================
+ERROR: Failure: TypeError (type() takes 1 or 3 arguments)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File ".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py", line 523, in makeTest
+    return self._makeTest(obj, parent)
+  File ".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py", line 582, in _makeTest
+    return MethodTestCase(obj)
+  File ".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/case.py", line 345, in __init__
+    self.inst = self.cls()
+TypeError: type() takes 1 or 3 arguments
+</pre>
+
+<p>It turns out that one module was importing a class called <tt class="docutils literal">TestApi</tt>
+which had a <tt class="docutils literal">class&shy;method</tt> called <tt class="docutils literal">run_in&shy;te&shy;gra&shy;tion_tests</tt>.
+The module itself had no tests; it just declared a class called <tt class="docutils literal">TestO&shy;b&shy;fus&shy;cat&shy;ed&shy;Mix&shy;in</tt>,
+which used some <span>&#8230;<a href="/blog/2016/01/24/NoseTestDiscovery.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/24/NoseTestDiscovery.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-23">2016-01-23</time>
         <h1>
             <a href="/blog/2016/01/23/ReviewSherlockHolmes2010Film.html" rel="bookmark canonical">Review: Sherlock Holmes (2010 film)</a>
@@ -50,7 +91,7 @@ It was totally incoherent and anachro&shy;nis&shy;tic and ineptly&nbsp;made.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/23/ReviewSherlockHolmes2010Film.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/23/ReviewSherlockHolmes2010Film.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -73,7 +114,7 @@ at the MetaBrite&nbsp;blog.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/22/PythonRecursiveGenerators.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/22/PythonRecursiveGenerators.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -122,7 +163,7 @@ you&#8217;ll probably like Black&#8217;s con&shy;tri&shy;bu&shy;tion to the&nbsp
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/21/ReviewTheBlackEyedBlonde.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/21/ReviewTheBlackEyedBlonde.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -151,7 +192,7 @@ A bill is before the Canadian parliament aiming at stan&shy;dard&shy;iz&shy;ing 
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/20/MixedUpCanadianDateFormats.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/20/MixedUpCanadianDateFormats.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -185,7 +226,7 @@ couldn&#8217;t read data files created with 9.4.
 At that point, I realized that during my most recent <tt class="docutils literal">brew update; <span>&#8230;<a href="/blog/2016/01/19/PsqlCouldNotConnectToServer.html" class="continue">continue</a>.</span></tt></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/19/PsqlCouldNotConnectToServer.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/19/PsqlCouldNotConnectToServer.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -219,7 +260,7 @@ it&#8217;s also one of the least generous for holidays.
 American <span>&#8230;<a href="/blog/2016/01/18/FederalHolidaysInadequatelyObserved.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/18/FederalHolidaysInadequatelyObserved.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/18/FederalHolidaysInadequatelyObserved.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -267,7 +308,7 @@ $ python -m foo.bar.script some parameters
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/17/RelativeImportsInAPythonScript.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/17/RelativeImportsInAPythonScript.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -306,7 +347,7 @@ we managed to mess up the machine suf&shy;fi&shy;cient&shy;ly
 that <span>&#8230;<a href="/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -341,52 +382,7 @@ I hadn&#8217;t known such a thing&nbsp;existed.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/15/DVINotConsideredEqual.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-14">2016-01-14</time>
-        <h1>
-            <a href="/blog/2016/01/14/PythonBaseClassOrder.html" rel="bookmark canonical">Python Base Class Order</a>
-        </h1>
-    </header>
-    <p>When I declare a derived class that inherits
-from both a base class and some mixins,
-I am always tempted to&nbsp;write:</p>
-
-<pre class="brush: python">
-class Derived(Base, Mixin1, Mixin2):
-    "Some class"
-</pre>
-
-<p>My reasoning is that <tt class="docutils literal">Derived</tt> is a <tt class="docutils literal">Base</tt>
-with some <tt class="docutils literal">Mixin1</tt> and <tt class="docutils literal">Mixin2</tt> goodness sprinkled on.
-Generally, that&#8217;s fine.
-The exception is when I want one of the mixins to override
-a method or attribute that&#8217;s defined in <tt class="docutils literal">Base</tt>.
-Because the <a class="reference external" href="http://python-history.blogspot.com/2010/06/method-resolution-order.html">Method Resolution Order</a> is left-to-right,
-then <tt class="docutils literal">Base</tt>&#8216;s im&shy;ple&shy;men&shy;ta&shy;tion will always be found&nbsp;first.</p>
-<p>To get the desired behavior of the mixin overriding the base,
-<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance&nbsp;list.</p>
-
-<pre class="brush: python">
-from __future__ import print_function
-
-class Useful(object):
-    def __init__(self, msg):
- </pre><span>&#8230;<a href="/blog/2016/01/14/PythonBaseClassOrder.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/14/PythonBaseClassOrder.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/15/DVINotConsideredEqual.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -423,7 +419,7 @@ class Useful(object):
                 (function () {
                     var s = document.createElement('script'); s.async = true;
                     s.type = 'text/javascript';
-                    s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+                    s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
                     (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());
             }
         </script>

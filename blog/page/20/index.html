@@ -27,6 +27,43 @@
     
         <article>
     <header>
+        <time datetime="2016-04-03">2016-04-03</time>
+        <h1>
+            <a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" rel="bookmark canonical">Find remote Git branch with change to a file</a>
+        </h1>
+    </header>
+    <p>I needed to track down a remote branch created a couple of months ago
+on another machine.
+I knew which file had been changed,
+but none of the far-too-many remote branches&#8217; names rang a&nbsp;bell.</p>
+<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch &#8211;contains</a> in the right way finds all the relevant&nbsp;branches.</p>
+
+<pre class="brush: bash">
+git log --all --format=%H FILENAME \
+    | while read f; do git branch --remotes --contains $f; done \
+    | sort -u
+</pre>
+
+<p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> <span class="caps">FILENAME</span></tt>,
+lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal"><span class="caps">FILENAME</span></tt>.
+The second finds all the branches that contain those hashes
+(I added <tt class="docutils literal"><span class="pre">--remotes</span></tt>).
+The third <span>&#8230;<a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-04-02">2016-04-02</time>
         <h1>
             <a href="/blog/2016/04/02/ReviewTheMercyOfTheNight.html" rel="bookmark canonical">Review: The Mercy of the Night</a>
@@ -56,7 +93,7 @@ Some are still trying to make a difference,
 while others are too lost in their own pain and <span>&#8230;<a href="/blog/2016/04/02/ReviewTheMercyOfTheNight.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/02/ReviewTheMercyOfTheNight.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/02/ReviewTheMercyOfTheNight.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -88,7 +125,7 @@ The second lane promptly jams up as everyone merges into it.
 The oncoming <span>&#8230;<a href="/blog/2016/04/01/New520FloatingBridge.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/04/01/New520FloatingBridge.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/01/New520FloatingBridge.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -120,7 +157,7 @@ Go&nbsp;figure.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/31/Acne.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/31/Acne.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -153,7 +190,7 @@ I was pleasantly surprised at how well it worked.
 In one hour, the new machine had all the files and just about all <span>&#8230;<a href="/blog/2016/03/30/MigratingToANewMac.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/30/MigratingToANewMac.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/30/MigratingToANewMac.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -195,7 +232,7 @@ this early Hiaasen novel lacks the humor of his more famous books.
 Still, Breeze is an engaging character and the <span>&#8230;<a href="/blog/2016/03/29/ReviewTrapLine.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/29/ReviewTrapLine.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/29/ReviewTrapLine.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -237,7 +274,7 @@ The last, presumably, since it&#8217;s nearly 20 years&nbsp;old.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/28/ReviewRunJaneRun.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/28/ReviewRunJaneRun.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -271,7 +308,7 @@ Chapter 2 (Nestor) takes place at the school where Stephen teaches;
 he <span>&#8230;<a href="/blog/2016/03/27/PreparingBloomsdayScripts.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/27/PreparingBloomsdayScripts.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/27/PreparingBloomsdayScripts.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -306,7 +343,7 @@ She&#8217;s also too tied to the status quo for my&nbsp;liking.</p>
 we&#8217;ll readily <span>&#8230;<a href="/blog/2016/03/26/Caucus2016.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/26/Caucus2016.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/26/Caucus2016.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -337,50 +374,7 @@ which left only the <span class="caps">XML</span> parsing.
 Instead of handling 200 <span>&#8230;<a href="/blog/2016/03/25/Profiling.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/25/Profiling.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-03-24">2016-03-24</time>
-        <h1>
-            <a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" rel="bookmark canonical">Raising IOError for 'file not found'</a>
-        </h1>
-    </header>
-    <p>I wanted to raise Python&#8217;s <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.IOError">IOError</a> for a file-not-found condition,
-but it wasn&#8217;t obvious what the parameters to the exception should&nbsp;be.</p>
-
-<pre class="brush: python">
-from errno import ENOENT
-
-if not os.path.isfile(source_file):
-    raise IOError(ENOENT, 'Not a file', source_file)
-with open(source_file) as fp:
-    return fp.read()
-</pre>
-
-<p><tt class="docutils literal">IOError</tt> can be in&shy;stan&shy;ti&shy;at&shy;ed with 1, 2, or 3&nbsp;arguments:</p>
-<dl class="docutils">
-<dt><tt class="docutils literal">IOError(errno, strerror, filename)</tt></dt>
-<dd>These arguments are available
-on the <tt class="docutils literal">errno</tt>, <tt class="docutils literal">strerror</tt>, and <tt class="docutils literal">filename</tt> attributes of the exception object,
-re&shy;spec&shy;tive&shy;ly, in both Python 2 and 3.
-The <tt class="docutils literal">args</tt> attribute contains the verbatim con&shy;struc&shy;tor arguments as a&nbsp;tuple.</dd>
-<dt><tt class="docutils literal">IOError(errno, strerror)</tt></dt>
-<dd>These are available on the <tt class="docutils literal">errno</tt> and <tt class="docutils literal">strerror</tt> attributes of the exception,
-re&shy;spec&shy;tive&shy;ly, in both Python 2 and 3,
-while the <tt class="docutils literal">filename</tt> <span>&#8230;<a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" class="continue">continue</a>.</span></dd></dl>
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/03/24/RaisingIOErrorForFileNotFound.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/25/Profiling.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -417,7 +411,7 @@ while the <tt class="docutils literal">filename</tt> <span>&#8230;<a href="/blog
                 (function () {
                     var s = document.createElement('script'); s.async = true;
                     s.type = 'text/javascript';
-                    s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+                    s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
                     (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());
             }
         </script>

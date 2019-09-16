@@ -2,23 +2,414 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>George V. Reilly</title>
-        <link>http://www.georgevreilly.com/</link>
+        <link>https://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Mon, 02 Sep 2019 07:00:00 GMT</pubDate>
-        <docs>http://www.georgevreilly.com/rss/</docs>
+        <pubDate>Sun, 15 Sep 2019 07:00:00 GMT</pubDate>
+        <docs>https://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.7.10</generator>
         
             <item>
+        <title>A Use for Octal: Calculating Modulo 36 from Modulo 9</title>
+        <link>https://www.georgevreilly.com/blog/2019/09/15/use-for-octal.html</link>
+        <description>&lt;!--  --&gt;
+&lt;blockquote&gt;
+(I posted an &lt;a class=&#34;reference external&#34; href=&#34;https://weblogs.asp.net/george_v_reilly/284388&#34;&gt;earlier version&lt;/a&gt; of this in December 2004 on my old technical blog.
+A discussion at work last week about 36-bit computers at the &lt;a class=&#34;reference external&#34; href=&#34;https://livingcomputers.org/&#34;&gt;Living Computers Museum&lt;/a&gt;
+prompted me to write an updated post with improved explanations and much better typography.)&lt;/blockquote&gt;
+&lt;p&gt;I&#39;ve been programming in C since 1985 and C++ since 1991,
+but I&#39;ve never found a use for &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Octal&#34;&gt;octal&lt;/a&gt; representation until [2004],
+aside from the permissions argument for &lt;a class=&#34;reference external&#34; href=&#34;http://en.wikipedia.org/wiki/Chmod&#34;&gt;chmod&lt;/a&gt;.
+Octal has always seemed as vestigial as a human appendix,
+a leftover from the early days of computers,
+when &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Word_(computer_architecture)&#34;&gt;word sizes&lt;/a&gt; were often a multiple of three:
+6-, 12-, 24-, or 36-bits wide.
+All modern computers use word sizes that are powers of two—16-, 32-, or 64-bits wide—with 8-bit bytes,
+so octal is less useful than hex,
+which evenly subdivides bytes and words.
+I&#39;ve done a lot of bit twiddling
+and hexadecimal has always been indispensable,
+while octal has remained a curiosity.&lt;/p&gt;
+&lt;p&gt;The other day [in 2004], a mathematician friend described to me a problem
+that he had solved at a previous company.
+They were designing hardware that emulated some old &lt;a class=&#34;reference external&#34; href=&#34;https://retrocomputing.stackexchange.com/questions/11801/what-was-the-rationale-behind-36-bit-computer-architectures&#34;&gt;36-bit computers&lt;/a&gt;.
+For backward compatibility,
+the various shift instructions
+had to accept an arbitrarily large shift count, &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;/span&gt;,
+and shift left or right by &lt;span class=&#34;formula&#34;&gt;(&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;36)&lt;/span&gt;.
+Now, divisions are not cheap to implement in hardware,
+so they needed to come up with an alternate approach
+to calculate the modulus.&lt;/p&gt;
+&lt;p&gt;My friend tried to do something with the factors of 36: &lt;span class=&#34;formula&#34;&gt;4 × 9&lt;/span&gt;.
+Four and nine are &lt;a class=&#34;reference external&#34; href=&#34;https://artofproblemsolving.com/wiki/index.php/Relatively_prime&#34;&gt;relatively prime&lt;/a&gt;:
+they have no common factors other than one.
+By the &lt;a class=&#34;reference external&#34; href=&#34;https://medium.com/@astartekraus/the-chinese-remainder-theorem-ea110f48248c&#34;&gt;Chinese Remainder Theorem&lt;/a&gt; therefore,
+the combination of &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;4&lt;/span&gt;
+and &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9&lt;/span&gt; is enough to uniquely
+determine &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;36&lt;/span&gt;.
+By inspection, this is true for the following table of “residues”.
+All the integers in the range &lt;span class=&#34;formula&#34;&gt;[0, 36)&lt;/span&gt; appear exactly once.&lt;/p&gt;
+&lt;table border=&#34;1&#34; class=&#34;docutils&#34;&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;18%&#34;/&gt;
+&lt;col width=&#34;9%&#34;/&gt;
+&lt;col width=&#34;9%&#34;/&gt;
+&lt;col width=&#34;9%&#34;/&gt;
+&lt;col width=&#34;9%&#34;/&gt;
+&lt;col width=&#34;9%&#34;/&gt;
+&lt;col width=&#34;9%&#34;/&gt;
+&lt;col width=&#34;9%&#34;/&gt;
+&lt;col width=&#34;9%&#34;/&gt;
+&lt;col width=&#34;9%&#34;/&gt;
+&lt;/colgroup&gt;
+&lt;thead valign=&#34;bottom&#34;&gt;
+&lt;tr&gt;&lt;th class=&#34;head&#34;&gt;4 \ 9&lt;/th&gt;
+&lt;th class=&#34;head&#34;&gt;0&lt;/th&gt;
+&lt;th class=&#34;head&#34;&gt;1&lt;/th&gt;
+&lt;th class=&#34;head&#34;&gt;2&lt;/th&gt;
+&lt;th class=&#34;head&#34;&gt;3&lt;/th&gt;
+&lt;th class=&#34;head&#34;&gt;4&lt;/th&gt;
+&lt;th class=&#34;head&#34;&gt;5&lt;/th&gt;
+&lt;th class=&#34;head&#34;&gt;6&lt;/th&gt;
+&lt;th class=&#34;head&#34;&gt;7&lt;/th&gt;
+&lt;th class=&#34;head&#34;&gt;8&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign=&#34;top&#34;&gt;
+&lt;tr&gt;&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;0&lt;/td&gt;
+&lt;td&gt;28&lt;/td&gt;
+&lt;td&gt;20&lt;/td&gt;
+&lt;td&gt;12&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;32&lt;/td&gt;
+&lt;td&gt;24&lt;/td&gt;
+&lt;td&gt;16&lt;/td&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;29&lt;/td&gt;
+&lt;td&gt;21&lt;/td&gt;
+&lt;td&gt;13&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;33&lt;/td&gt;
+&lt;td&gt;25&lt;/td&gt;
+&lt;td&gt;17&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;18&lt;/td&gt;
+&lt;td&gt;10&lt;/td&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;30&lt;/td&gt;
+&lt;td&gt;22&lt;/td&gt;
+&lt;td&gt;14&lt;/td&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;34&lt;/td&gt;
+&lt;td&gt;26&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;27&lt;/td&gt;
+&lt;td&gt;19&lt;/td&gt;
+&lt;td&gt;11&lt;/td&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;31&lt;/td&gt;
+&lt;td&gt;23&lt;/td&gt;
+&lt;td&gt;15&lt;/td&gt;
+&lt;td&gt;7&lt;/td&gt;
+&lt;td&gt;35&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Calculating &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;4&lt;/span&gt; is easy in hardware:
+it&#39;s the two least-significant bits.&lt;/p&gt;
+&lt;p&gt;How to calculate &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9&lt;/span&gt; in hardware is not so obvious.&lt;/p&gt;
+&lt;div class=&#34;section&#34; id=&#34;shifting-and-masking&#34;&gt;
+&lt;h3&gt;Shifting and Masking&lt;/h3&gt;
+&lt;p&gt;Several programming languages now provide a &lt;tt class=&#34;docutils literal&#34;&gt;0b&lt;/tt&gt; prefix for binary literals
+to go along with the &lt;tt class=&#34;docutils literal&#34;&gt;0x&lt;/tt&gt; prefix for hex literals
+and the &lt;tt class=&#34;docutils literal&#34;&gt;0o&lt;/tt&gt; prefix for octal literals.
+(Older languages use a &lt;tt class=&#34;docutils literal&#34;&gt;0&lt;/tt&gt; prefix for octal and have no &lt;tt class=&#34;docutils literal&#34;&gt;0b&lt;/tt&gt; prefix.)
+See the discussion in &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/golang/proposal/blob/master/design/19308-number-literals.md&#34;&gt;Go number literals&lt;/a&gt; for more detail on &lt;tt class=&#34;docutils literal&#34;&gt;0b&lt;/tt&gt;,
+including a list of languages that now support this notation.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;, written in binary, looks like &lt;tt class=&#34;docutils literal&#34;&gt;1&lt;/tt&gt; followed by &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; &lt;tt class=&#34;docutils literal&#34;&gt;0&lt;/tt&gt;s.
+For example, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;3&lt;/sup&gt; = 1000&lt;sub&gt;2&lt;/sub&gt;&lt;/span&gt;.
+In C-like languages, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt; can be written as &lt;tt class=&#34;docutils literal&#34;&gt;1 &amp;lt;&amp;lt; n&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Similarly, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; − 1&lt;/span&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;(1 &amp;lt;&amp;lt; n) - 1&lt;/tt&gt;,
+written in binary, looks like &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; &lt;tt class=&#34;docutils literal&#34;&gt;1&lt;/tt&gt;s.
+For example, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;5&lt;/sup&gt; − 1 = 31&lt;sub&gt;10&lt;/sub&gt; = 11111&lt;sub&gt;2&lt;/sub&gt;&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;We can &lt;strong&gt;multiply&lt;/strong&gt; an unsigned integer, &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt;, by &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;
+by &lt;strong&gt;shifting&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; &lt;strong&gt;left&lt;/strong&gt; by &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; bits, &lt;tt class=&#34;docutils literal&#34;&gt;u &amp;lt;&amp;lt; n&lt;/tt&gt;,
+introducing &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt;&amp;nbsp;zeroes as the low-order bits.
+For example, using 8-bit numbers without loss of generality,
+written as modern Go/Rust number literals:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: rust&#34;&gt;
+0b_0001_0101 &amp;lt;&amp;lt; 3 = 0b_1010_1000
+&lt;/pre&gt;
+
+&lt;p&gt;Similarly, we can &lt;strong&gt;divide&lt;/strong&gt; by &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;
+by &lt;strong&gt;shifting&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; &lt;strong&gt;right&lt;/strong&gt; by &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; bits, &lt;tt class=&#34;docutils literal&#34;&gt;u &amp;gt;&amp;gt;&amp;gt; n&lt;/tt&gt;,
+which drops the &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; low-order bits
+and introduces &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; zeroes as the high-order bits.&lt;/p&gt;
+
+&lt;pre class=&#34;brush: rust&#34;&gt;
+0b_0101_0110 &gt;&gt;&gt; 3 = 0b_0000_1010
+&lt;/pre&gt;
+
+&lt;p&gt;A sign-extending or arithmetic right shift introduces &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; copies
+of the sign bit as the high-order bits.
+In some languages, such as Java and JavaScript,
+&lt;tt class=&#34;docutils literal&#34;&gt;&amp;gt;&amp;gt;&lt;/tt&gt;&amp;nbsp;means an arithmetic right shift and
+&lt;tt class=&#34;docutils literal&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/tt&gt;&amp;nbsp;means a zero-extending right shift.
+In other languages, including C, C++, and Go,
+there is only a &lt;tt class=&#34;docutils literal&#34;&gt;&amp;gt;&amp;gt;&lt;/tt&gt; operator and
+sign-extension generally depends upon the type of the left operand,
+&lt;tt class=&#34;docutils literal&#34;&gt;signed&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;unsigned&lt;/tt&gt;.
+However, sign extension is not guaranteed in C/C++.&lt;/p&gt;
+
+&lt;pre class=&#34;brush: rust&#34;&gt;
+0b_0101_0110 &gt;&gt; 2 = 0b_0001_0101
+0b_1001_0110 &gt;&gt; 2 = 0b_1110_0101
+&lt;/pre&gt;
+
+&lt;p&gt;Finally, we can find the &lt;strong&gt;remainder&lt;/strong&gt; of dividing &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; by &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;
+by &lt;strong&gt;masking&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; with &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; − 1&lt;/span&gt;,
+bitwise-and with &lt;tt class=&#34;docutils literal&#34;&gt;(1 &amp;lt;&amp;lt; n) - 1&lt;/tt&gt;,
+to extract the &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; low-order bits:&lt;/p&gt;
+
+&lt;pre class=&#34;brush: rust&#34;&gt;
+0b_0101_0110 &amp; 0b_0000_0111 = 0b_0000_0110
+&lt;/pre&gt;
+
+&lt;p&gt;In other words, &lt;tt class=&#34;docutils literal&#34;&gt;u % 8 == u &amp;amp; 7&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;u / 8 == u &amp;gt;&amp;gt; 3&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Read MDN&#39;s page on &lt;a class=&#34;reference external&#34; href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators&#34;&gt;bitwise operators&lt;/a&gt; for more background.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;casting-out-nines&#34;&gt;
+&lt;h3&gt;Casting Out Nines&lt;/h3&gt;
+&lt;p&gt;There&#39;s an old trick for checking the results of arithmetic operations,
+known as &lt;a class=&#34;reference external&#34; href=&#34;http://mathworld.wolfram.com/CastingOutNines.html&#34;&gt;casting out nines&lt;/a&gt; or &lt;a class=&#34;reference external&#34; href=&#34;http://web.archive.org/web/20060101140519/http://web.mit.edu/mwpstr/www/dropnine.htm&#34;&gt;dropping nines&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Add up the decimal digits of each number.
+Apply the arithmetic operation to these digit sums.
+They should be congruent, modulo 9.&lt;/p&gt;
+&lt;p&gt;For example, &lt;span class=&#34;formula&#34;&gt;12, 345 × 8, 765 = 108, 203, 925&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;To check the multiplication,
+compute the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Digit_sum&#34;&gt;digit sum&lt;/a&gt; of each number,
+by adding up each decimal digit:&lt;/p&gt;
+&lt;div class=&#34;line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;1 + 2 + 3 + 4 + 5 = 15 ≡ 6 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;12, 345&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 6&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;and&lt;/p&gt;
+&lt;div class=&#34;line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;8 + 7 + 6 + 5 = 26 ≡ 8 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;8, 765&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 8&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Take the first two digit sums, modulo 9, and multiply them:&lt;/p&gt;
+&lt;div class=&#34;line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;6 × 8 = 48 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;15 × 26 = 390 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;Check against the sum of the digits of the product:&lt;/p&gt;
+&lt;div class=&#34;line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;1 + 0 + 8 + 2 + 0 + 3 + 9 + 2 + 5 = 30 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;108, 203, 925&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 3&lt;/span&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;This works because &lt;span class=&#34;formula&#34;&gt;10&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡ 1 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;.
+Consider 758:&lt;/p&gt;
+&lt;div class=&#34;formula&#34;&gt;
+758 = 7 × 100 + 5 × 10 + 8
+&lt;/div&gt;
+&lt;div class=&#34;formula&#34;&gt;
+758 = 7 × (9 + 1) × (9 + 1) + 5 × (9 + 1) + 8
+&lt;/div&gt;
+&lt;div class=&#34;formula&#34;&gt;
+758 = 7 × (9&lt;sup&gt;2&lt;/sup&gt; + 2 × 9 + 1) + 5 × (9 + 1) + 8
+&lt;/div&gt;
+&lt;p&gt;Dropping the nines from each term leaves the digit sum:&lt;/p&gt;
+&lt;div class=&#34;formula&#34;&gt;
+7 × 1 + 5 × 1 + 8 = 7 + 5 + 8 = 20 ≡ 2 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
+&lt;/div&gt;
+&lt;p&gt;Checking: &lt;span class=&#34;formula&#34;&gt;758&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 2&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://www.math.nyu.edu/faculty/hausner/congruence.pdf&#34;&gt;Congruences&lt;/a&gt; have a number of useful properties.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;casting-out-elevens&#34;&gt;
+&lt;h3&gt;Casting Out Elevens&lt;/h3&gt;
+&lt;p&gt;Let&#39;s use 11, instead of 9.
+Since &lt;span class=&#34;formula&#34;&gt;10 = 11 − 1&lt;/span&gt;, then &lt;span class=&#34;formula&#34;&gt;10&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡  − 1&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; (&lt;span class=&#34;textrm&#34;&gt;mod &lt;/span&gt;11)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Consider 5234:&lt;/p&gt;
+&lt;div class=&#34;formula&#34;&gt;
+5234 = 5 × 10&lt;sup&gt;3&lt;/sup&gt; + 2 × 10&lt;sup&gt;2&lt;/sup&gt; + 3 × 10&lt;sup&gt;1&lt;/sup&gt; + 4 × 10&lt;sup&gt;0&lt;/sup&gt;
+&lt;/div&gt;
+&lt;div class=&#34;formula&#34;&gt;
+5234 = 5 × (11 − 1) × (11 − 1) × (11 − 1) + 2 × (11 − 1) × (11 − 1) + 3 × (11 − 1) + 4
+&lt;/div&gt;
+&lt;div class=&#34;formula&#34;&gt;
+5234 = 5 × (11&lt;sup&gt;3&lt;/sup&gt; − 3 × 11&lt;sup&gt;2&lt;/sup&gt; × 1 + 3 × 11 × 1&lt;sup&gt;2&lt;/sup&gt; − 1&lt;sup&gt;3&lt;/sup&gt;) + 2 × (11&lt;sup&gt;2&lt;/sup&gt; − 2 × 11 × 1 + 1&lt;sup&gt;2&lt;/sup&gt;) + 3 × (11 − 1) + 4
+&lt;/div&gt;
+&lt;p&gt;Dropping the elevens from each term leaves the alternating digit sum:&lt;/p&gt;
+&lt;div class=&#34;formula&#34;&gt;
+5 ×  − 1 + 2 × 1 + 3 ×  − 1 + 4 =  − 5 + 2 − 3 + 4 =  − 2 ≡ 9 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;11)
+&lt;/div&gt;
+&lt;p&gt;It&#39;s more convenient to proceed rightwards from the least significant digit,
+&lt;span class=&#34;formula&#34;&gt;4 − 3 + 2 − 5&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Checking: &lt;span class=&#34;formula&#34;&gt;5234&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;11 = 9&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;To cast out elevens,
+we calculate the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Alternating_sum&#34;&gt;alternating sum&lt;/a&gt; &lt;em&gt;from right to left&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Casting out elevens catches some &lt;a class=&#34;reference external&#34; href=&#34;http://mathyear2013.blogspot.com/2013/01/casting-out-elevens.html&#34;&gt;transposition errors&lt;/a&gt;, unlike casting out nines.
+For more, see &lt;a class=&#34;reference external&#34; href=&#34;https://artofproblemsolving.com/wiki/index.php/Divisibility_rules/Rule_for_11_proof&#34;&gt;divisibility rule for 11&lt;/a&gt;
+and &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Divisibility_rule#Proof_using_basic_algebra&#34;&gt;proof for alternating sum&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;modulo-9&#34;&gt;
+&lt;h3&gt;Modulo 9&lt;/h3&gt;
+&lt;p&gt;At last, we turn to base 8, octal.
+Nine bears the same relationship
+to eight in octal,
+as eleven does to ten in decimal:
+&lt;span class=&#34;formula&#34;&gt;9&lt;sub&gt;10&lt;/sub&gt; = 11&lt;sub&gt;8&lt;/sub&gt;&lt;/span&gt;,
+base plus one.&lt;/p&gt;
+&lt;p&gt;We can calculate &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9&lt;/span&gt; in base 8 by alternately
+adding and subtracting the octal digits, from right to left.
+For example,
+&lt;span class=&#34;formula&#34;&gt;1234&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 4 − 3 + 2 − 1 = 2&lt;/span&gt;.
+This gives the right answer.&lt;/p&gt;
+&lt;p&gt;Casting out “elevens” in octal,
+by an alternating sum of the base-eight digits,
+computes the number modulo nine.&lt;/p&gt;
+&lt;p&gt;Here&#39;s a simple, albeit incomplete, algorithm in Go.
+We&#39;re masking and shifting three bits at a time,
+which is tantamount to working with the octal representation of &lt;tt class=&#34;docutils literal&#34;&gt;k&lt;/tt&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Mod9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;sign&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;sign&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;*&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;sign&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;sign&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;What about &lt;span class=&#34;formula&#34;&gt;617&lt;sub&gt;8&lt;/sub&gt;&lt;/span&gt;?&lt;/p&gt;
+&lt;div class=&#34;formula&#34;&gt;
+7 − 1 + 6 = 12 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
+&lt;/div&gt;
+&lt;div class=&#34;formula&#34;&gt;
+617&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 3
+&lt;/div&gt;
+&lt;p&gt;And &lt;span class=&#34;formula&#34;&gt;6172&lt;sub&gt;8&lt;/sub&gt;&lt;/span&gt;?&lt;/p&gt;
+&lt;div class=&#34;formula&#34;&gt;
+2 − 7 + 1 − 6 =  − 10 ≡ 8 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
+&lt;/div&gt;
+&lt;div class=&#34;formula&#34;&gt;
+6172&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 8
+&lt;/div&gt;
+&lt;p&gt;If the intermediate sum dips below zero, or rises above eight,
+we have to add nine or subtract nine respectively
+to keep the sum in the range &lt;span class=&#34;formula&#34;&gt;[0, 9)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Here&#39;s a complete algorithm for Modulo 9 in Go,
+computing the alternating sum of the octal digits:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Mod9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;negative&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;bool&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;negative&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;
+            &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;r&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+                &lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;
+            &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;// assert(0 &amp;lt;= m &amp;amp;&amp;amp; m &amp;lt; 9)&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;negative&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;negative&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Clearly, this algorithm can be implemented in much simpler circuitry
+than full-blown division.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;modulo-36&#34;&gt;
+&lt;h3&gt;Modulo 36&lt;/h3&gt;
+&lt;p&gt;We now have enough to calculate &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;36&lt;/span&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Mod36&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;Residues&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;28&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;24&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;29&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;33&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;25&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;18&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;30&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;22&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;mi&#34;&gt;6&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;34&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;26&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;27&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;19&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;11&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;31&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;23&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;15&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;mi&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;35&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Residues&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Mod9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)]&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;My friend says that he later learned that similar tricks were
+used in classic 36-bit hardware.&lt;/p&gt;
+&lt;p&gt;I looked everywhere I could think of to see if I could
+find this algorithm to calculate modulo 9 described.
+I found something that hinted at it in
+Knuth&#39;s &lt;a class=&#34;reference external&#34; href=&#34;http://www-cs-faculty.stanford.edu/~knuth/taocp.html&#34;&gt;Seminumerical Algorithms&lt;/a&gt;, §4.4.C,
+discussing &lt;a class=&#34;reference external&#34; href=&#34;https://books.google.com/books?id=Zu-HAwAAQBAJ&amp;amp;pg=PT532&amp;amp;lpg=PT532&amp;amp;dq=octal+cast+out+nines+modulo+36&amp;amp;source=bl&amp;amp;ots=9nglVlTuaU&amp;amp;sig=ACfU3U0_RR51okwrvfY3WwC0xBudfLGhuw&amp;amp;hl=en&amp;amp;sa=X&amp;amp;ved=2ahUKEwih44eUxc_kAhVVo54KHcgKDeEQ6AEwDXoECAgQAg#v=onepage&amp;amp;q=octal%20cast%20out%20nines%20modulo%2036&amp;amp;f=false&#34;&gt;converting octal integers to decimal&lt;/a&gt; by hand,
+where he mentions using casting out nines in octal and in decimal
+to check the result.
+There was no mention of it in Warren&#39;s marvelous
+&lt;a class=&#34;reference external&#34; href=&#34;http://www.informit.com/articles/article.asp?p=28678&#34;&gt;Hacker&#39;s Delight&lt;/a&gt; or in &lt;a class=&#34;reference external&#34; href=&#34;http://home.pipeline.com/~hbaker1/hakmem/hakmem.html&#34;&gt;HAKMEM&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I tried to come up with an analytic way to calculate the
+elements of the &lt;span class=&#34;formula&#34;&gt;9&lt;i&gt;x&lt;/i&gt;4&lt;/span&gt; table.
+The best that I found is
+&lt;span class=&#34;formula&#34;&gt;(72 − 8 × (&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9) + 9 × (&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;4))&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;36&lt;/span&gt;!
+The inner expression yields a number in the range &lt;span class=&#34;formula&#34;&gt;[0, 99]&lt;/span&gt;,
+which can be reduced to &lt;span class=&#34;formula&#34;&gt;[0, 36)&lt;/span&gt;
+by subtracting 36 at most twice.
+From &lt;a class=&#34;reference external&#34; href=&#34;http://www-cs-faculty.stanford.edu/~knuth/gkp.html&#34;&gt;Concrete Mathematics&lt;/a&gt;,
+mod 36 can be derived from mod 4 and mod 9
+by looking at the [0][1] and [1][0] elements of the table:
+&lt;span class=&#34;formula&#34;&gt;(9 × (&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;4) + 28 × (&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9))&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;36&lt;/span&gt;.
+It works, but it&#39;s even worse.
+A table lookup is clearly more efficient.&lt;/p&gt;
+&lt;p&gt;Most, if not all, of the computer architectures
+designed in the last forty years
+use a word size that is a power of two.
+Useful relationships like shifting and masking are one big reason
+why non-power-of-two word sizes have gone out of fashion.&lt;/p&gt;
+&lt;p&gt;Another big reason is the success of C and Unix,
+which have a bias towards 8-bit bytes.
+&lt;a class=&#34;reference external&#34; href=&#34;http://www.parashift.com/c++-faq-lite/intrinsic-types.html&#34;&gt;C doesn&#39;t require 8-bit bytes&lt;/a&gt;,
+but there&#39;s a lot of software which tacitly assumes that
+&lt;tt class=&#34;docutils literal&#34;&gt;char&lt;/tt&gt; has exactly 8 bits.&lt;/p&gt;
+&lt;p&gt;On systems with 9-bit bytes,
+like the 36-bit computers,
+octal is useful,
+since a 9-bit byte can hold all values up to &lt;span class=&#34;formula&#34;&gt;777&lt;sub&gt;8&lt;/sub&gt;&lt;/span&gt;
+and the word size is a multiple of three.&lt;/p&gt;
+&lt;p&gt;And there you have it: an unexpected use for octal notation.
+It&#39;s not exactly an important use,
+but then 36-bit computers aren&#39;t exactly important any more either.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sun, 15 Sep 2019 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2019-09-15:/blog/2019/09/15/use-for-octal.html</guid>
+    </item>
+        
+            <item>
         <title>Decrypting Blackbox secrets at build time with Paperkey</title>
-        <link>http://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html</link>
-        <description>&lt;p&gt;&lt;/p&gt;
+        <link>https://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html</link>
+        <description>&lt;!--  --&gt;
 &lt;blockquote&gt;
 “Security is 1% technology plus 99% following the procedures correctly” — Tom Limoncelli&lt;/blockquote&gt;
 &lt;p&gt;Having dealt with GPG last week at work,
 I remembered that I had intended to write a blog post
 about how we used &lt;a class=&#34;reference external&#34; href=&#34;https://gnupg.org/&#34;&gt;GPG&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/StackExchange/blackbox&#34;&gt;Blackbox&lt;/a&gt;, and &lt;a class=&#34;reference external&#34; href=&#34;http://www.jabberwocky.com/software/paperkey/&#34;&gt;Paperkey&lt;/a&gt; to store secrets in Git
-at my &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2018/12/31/2018-review.html&#34;&gt;previous job&lt;/a&gt;.&lt;/p&gt;
+at my &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2018/12/31/2018-review.html&#34;&gt;previous job&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;We used Blackbox to manage secrets that were needed
 during development, build, deployment, and runtime.
 These secrets included AWS credentials, Docker registry credentials,
@@ -65,7 +456,7 @@ update the secrets in the file,
 encrypt the updated secrets file,
 and commit that encrypted file into the VCS.
 Administrators can be removed from a Blackbox installation,
-after which they will not be able to decrypt the updated secrets files&lt;a class=&#34;footnote-reference&#34; href=&#34;http://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html/#revocation&#34; id=&#34;id1&#34;&gt;[1]&lt;/a&gt;.&lt;/p&gt;
+after which they will not be able to decrypt the updated secrets files&lt;a class=&#34;footnote-reference&#34; href=&#34;https://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html/#revocation&#34; id=&#34;id1&#34;&gt;[1]&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;How does Blackbox encrypt a file so that any administrator can decrypt it?
 It uses GPG to encrypt the file for multiple recipients,
 say, &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Alice_and_Bob#Cast_of_characters&#34;&gt;Alice, Bob, and Carol&lt;/a&gt;.&lt;/p&gt;
@@ -104,7 +495,7 @@ but the data is encrypted only once, with faster encryption.&lt;/p&gt;
 &lt;p&gt;Blackbox encrypts a registered file with all of the administrators as the recipients,
 so any administrator can decrypt the file.&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.cse.tkk.fi/fi/opinnot/T-110.5240/2009/luennot-files/Lecture%202.pdf&#34;&gt;&lt;img alt=&#34;Typical PGP Message&#34; src=&#34;http://www.georgevreilly.com/content/binary/typical-pgp-message.jpg&#34;/&gt;&lt;/a&gt;
+&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.cse.tkk.fi/fi/opinnot/T-110.5240/2009/luennot-files/Lecture%202.pdf&#34;&gt;&lt;img alt=&#34;Typical PGP Message&#34; src=&#34;https://www.georgevreilly.com/content/binary/typical-pgp-message.jpg&#34;/&gt;&lt;/a&gt;
 &lt;p class=&#34;caption&#34;&gt;Typical PGP Message&lt;/p&gt;
 &lt;div class=&#34;legend&#34;&gt;
 (Figure from &lt;a class=&#34;reference external&#34; href=&#34;http://www.cse.tkk.fi/fi/opinnot/T-110.5240/2009/luennot-files/Lecture%202.pdf&#34;&gt;Network Security: Email Security, PKI&lt;/a&gt;, Tuomas Aura)&lt;/div&gt;
@@ -120,7 +511,7 @@ comparing two versions in cleartext is tricky.&lt;/p&gt;
 &lt;table class=&#34;docutils footnote&#34; frame=&#34;void&#34; id=&#34;revocation&#34; rules=&#34;none&#34;&gt;
 &lt;colgroup&gt;&lt;col class=&#34;label&#34;/&gt;&lt;col /&gt;&lt;/colgroup&gt;
 &lt;tbody valign=&#34;top&#34;&gt;
-&lt;tr&gt;&lt;td class=&#34;label&#34;&gt;&lt;a class=&#34;fn-backref&#34; href=&#34;http://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html/#id1&#34;&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;If they have a snapshot of the VCS before their access was revoked,
+&lt;tr&gt;&lt;td class=&#34;label&#34;&gt;&lt;a class=&#34;fn-backref&#34; href=&#34;https://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html/#id1&#34;&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;If they have a snapshot of the VCS before their access was revoked,
 they will still be able to decrypt the secrets as they were then.
 In principle, you should be changing passwords and certificates
 every time someone&#39;s access is revoked.&lt;/td&gt;&lt;/tr&gt;
@@ -272,7 +663,7 @@ run &lt;tt class=&#34;docutils literal&#34;&gt;blackbox_shred_all_files&lt;/tt&g
         
             <item>
         <title>Review: Fire and Blood</title>
-        <link>http://www.georgevreilly.com/blog/2019/01/03/ReviewFireAndBlood.html</link>
+        <link>https://www.georgevreilly.com/blog/2019/01/03/ReviewFireAndBlood.html</link>
         <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/152479628X/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Fire and Blood&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/152479628X.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
 &lt;div class=&#34;line-block&#34;&gt;
 &lt;div class=&#34;line&#34;&gt;Title: Fire and Blood&lt;/div&gt;
@@ -287,7 +678,7 @@ run &lt;tt class=&#34;docutils literal&#34;&gt;blackbox_shred_all_files&lt;/tt&g
 &lt;/div&gt;
 &lt;p&gt;I&#39;ve been waiting longer than most for George R.R. Martin
 to finish the &lt;em&gt;A Song of Fire and Ice&lt;/em&gt; series:
-I read the first book when it was &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2005/11/20/AFeastForCrows.html&#34;&gt;newly published in paperback&lt;/a&gt; in 1997.
+I read the first book when it was &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2005/11/20/AFeastForCrows.html&#34;&gt;newly published in paperback&lt;/a&gt; in 1997.
 &lt;em&gt;Fire and Blood&lt;/em&gt; is a new addition to the series,
 but it is a prequel and does not advance the plot at all.
 This book is a history of the first half of the
@@ -316,7 +707,7 @@ I would recommend it mainly to completists.&lt;/p&gt;
         
             <item>
         <title>Review: Watership Down (miniseries)</title>
-        <link>http://www.georgevreilly.com/blog/2019/01/02/ReviewWatershipDownMiniseries.html</link>
+        <link>https://www.georgevreilly.com/blog/2019/01/02/ReviewWatershipDownMiniseries.html</link>
         <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Watership_Down_(miniseries)&#34;&gt;&lt;img alt=&#34;Watership Down&#34; src=&#34;https://occ-0-1782-1007.1.nflxso.net/art/ec6ad/8da2469ea8d6ed01ce41c61a0dae6a7c26fec6ad.jpg&#34;/&gt;&lt;/a&gt;
 &lt;div class=&#34;line-block&#34;&gt;
 &lt;div class=&#34;line&#34;&gt;Title: Watership Down (miniseries)&lt;/div&gt;
@@ -328,7 +719,7 @@ I would recommend it mainly to completists.&lt;/p&gt;
 &lt;div class=&#34;line&#34;&gt;Watched: 30 December, 2018–1 January, 2019&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;Two years ago, just after the death of Richard Adams,
-I reread the &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2017/01/01/ReviewWatershipDown.html&#34;&gt;book&lt;/a&gt; of &lt;em&gt;Watership Down&lt;/em&gt;
+I reread the &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2017/01/01/ReviewWatershipDown.html&#34;&gt;book&lt;/a&gt; of &lt;em&gt;Watership Down&lt;/em&gt;
 for the first time in many years,
 having originally discovered it when it was new
 in the mid-1970s.
@@ -351,7 +742,7 @@ and it&#39;s hard to tell one gray-brown rabbit from another.&lt;/p&gt;
         
             <item>
         <title>2018 ends</title>
-        <link>http://www.georgevreilly.com/blog/2018/12/31/2018-review.html</link>
+        <link>https://www.georgevreilly.com/blog/2018/12/31/2018-review.html</link>
         <description>&lt;p&gt;2018 was a mixed year for Emma and me.&lt;/p&gt;
 &lt;p&gt;At the start of the year,
 I was the principal engineer at MetaBrite.
@@ -385,7 +776,7 @@ Most of those books were on Kindle.
 I didn&#39;t bother to add most of the paperbacks and hardbacks that I read,
 so the total is probably closer to 140 books for the year.&lt;/p&gt;
 &lt;p&gt;In the year leading up to my
-&lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2017/01/17/KneeWalker.html&#34;&gt;heel surgery&lt;/a&gt;
+&lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2017/01/17/KneeWalker.html&#34;&gt;heel surgery&lt;/a&gt;
 at the beginning of 2017,
 I lost the habit of cycling to work,
 which I had developed over the preceding decade.
@@ -406,7 +797,7 @@ which takes office later this week.&lt;/p&gt;
         
             <item>
         <title>Review: The Heart&#39;s Invisible Furies</title>
-        <link>http://www.georgevreilly.com/blog/2018/12/01/ReviewHeartsInvisibleFuries.html</link>
+        <link>https://www.georgevreilly.com/blog/2018/12/01/ReviewHeartsInvisibleFuries.html</link>
         <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/152476079X/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;The Heart&#39;s Invisible Furies&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/152476079X.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
 &lt;div class=&#34;line-block&#34;&gt;
 &lt;div class=&#34;line&#34;&gt;Title: The Heart&#39;s Invisible Furies&lt;/div&gt;
@@ -517,8 +908,8 @@ so I think it would be easier this time around.&lt;/p&gt;
         
             <item>
         <title>Election Day 2018</title>
-        <link>http://www.georgevreilly.com/blog/2018/11/06/ElectionDay2018.html</link>
-        <description>&lt;img alt=&#34;Grab &#39;Em by the Midterms&#34; class=&#34;right-float&#34; src=&#34;http://www.georgevreilly.com/content/binary/grab-them-by-the-midterms.jpg&#34; style=&#34;width: 400px;&#34;/&gt;
+        <link>https://www.georgevreilly.com/blog/2018/11/06/ElectionDay2018.html</link>
+        <description>&lt;img alt=&#34;Grab &#39;Em by the Midterms&#34; class=&#34;right-float&#34; src=&#34;https://www.georgevreilly.com/content/binary/grab-them-by-the-midterms.jpg&#34; style=&#34;width: 400px;&#34;/&gt;
 &lt;!-- source: http://chicagowomentakeaction.com/event/vote-in-2018/ --&gt;
 &lt;p&gt;In 2016, I threw an Election Night victory party for Hillary Clinton.
 It turned into a wake.&lt;/p&gt;
@@ -568,7 +959,7 @@ It matters.&lt;/p&gt;
         
             <item>
         <title>Brilliant Jerks in Engineering</title>
-        <link>http://www.georgevreilly.com/blog/2017/12/30/BrilliantJerksInEngineering.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/12/30/BrilliantJerksInEngineering.html</link>
         <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.brendangregg.com/blog/2017-11-13/brilliant-jerks.html&#34;&gt;&lt;img alt=&#34;&#34;Do not tolerate brilliant jerks. The cost to teamwork is too high&#34; — Reed Hastings, CEO Netflix&#34; class=&#34;right-float&#34; src=&#34;http://www.brendangregg.com/blog/images/2017/brilliantjerks.jpg&#34; style=&#34;width: 400px;&#34;/&gt;&lt;/a&gt;
 &lt;p&gt;Brendan Gregg&#39;s &lt;a class=&#34;reference external&#34; href=&#34;http://www.brendangregg.com/blog/2017-11-13/brilliant-jerks.html&#34;&gt;Brilliant Jerks in Engineering&lt;/a&gt;
 is an excellent discussion of the &amp;quot;No Asshole Rule&amp;quot;
@@ -584,7 +975,7 @@ The latter are simply toxic and probably need to be fired.&lt;/p&gt;
         
             <item>
         <title>How to talk to people you disagree with</title>
-        <link>http://www.georgevreilly.com/blog/2017/12/27/HowToTalkToPeopleYouDisagreeWith.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/12/27/HowToTalkToPeopleYouDisagreeWith.html</link>
         <description>&lt;p&gt;I came across an interesting post on Medium earlier tonight,
 &lt;a class=&#34;reference external&#34; href=&#34;https://medium.com/@jeremycaney/how-to-talk-to-people-you-disagree-with-420e12f695bc&#34;&gt;How to talk to people you disagree with&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;It can be hard to have a fruitful conversation with people you&#39;re at odds with,
@@ -609,7 +1000,7 @@ especially online.&lt;/p&gt;
         
             <item>
         <title>Git Diff Tips</title>
-        <link>http://www.georgevreilly.com/blog/2017/12/26/GitDiffTips.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/12/26/GitDiffTips.html</link>
         <description>&lt;p&gt;The &lt;a class=&#34;reference external&#34; href=&#34;https://git-scm.com/docs/git-diff&#34;&gt;Git Diff&lt;/a&gt; utility is much more functional than the standard command-line &lt;tt class=&#34;docutils literal&#34;&gt;diff&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;To see changes relative to the staging area (aka the index),
 use &lt;tt class=&#34;docutils literal&#34;&gt;git diff&lt;/tt&gt;.&lt;/p&gt;
@@ -629,7 +1020,7 @@ The default diff algorithm is &lt;tt class=&#34;docutils literal&#34;&gt;&lt;spa
         
             <item>
         <title>Review: Coco</title>
-        <link>http://www.georgevreilly.com/blog/2017/12/25/ReviewCoco.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/12/25/ReviewCoco.html</link>
         <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Coco_(2017_film)&#34;&gt;&lt;img alt=&#34;Coco&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/en/9/98/Coco_%282017_film%29_poster.jpg&#34;/&gt;&lt;/a&gt;
 &lt;div class=&#34;line-block&#34;&gt;
 &lt;div class=&#34;line&#34;&gt;Title: Coco&lt;/div&gt;
@@ -666,7 +1057,7 @@ and the costs of following one&#39;s dreams.&lt;/p&gt;
         
             <item>
         <title>Seattle: Overturned Truck</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/27/SeattleOverturnedTruck.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/02/27/SeattleOverturnedTruck.html</link>
         <description>&lt;p&gt;Seattle traffic ground to an eight-hour standstill today
 after a propane truck &lt;a class=&#34;reference external&#34; href=&#34;http://www.seattletimes.com/seattle-news/transportation/semi-rollover-on-i-5-near-west-seattle-bridge-blocking-lanes/&#34;&gt;overturned&lt;/a&gt; on southbound I-5.
 Both directions of I-5 were closed until the truck had been emptied enough
@@ -692,8 +1083,8 @@ it only takes one bad accident to trigger cascading traffic jams everywhere.&lt;
         
             <item>
         <title>Stitches in my Finger</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/23/StitchesInMyFinger.html</link>
-        <description>&lt;img alt=&#34;Five Stitches in Left Index Finger&#34; class=&#34;right-float&#34; src=&#34;http://www.georgevreilly.com/content/binary/finger-stitches.jpg&#34;/&gt;
+        <link>https://www.georgevreilly.com/blog/2017/02/23/StitchesInMyFinger.html</link>
+        <description>&lt;img alt=&#34;Five Stitches in Left Index Finger&#34; class=&#34;right-float&#34; src=&#34;https://www.georgevreilly.com/content/binary/finger-stitches.jpg&#34;/&gt;
 &lt;p&gt;I&#39;ve had stitches before, but never from a self-inflicted cut.
 Five stitches this morning
 from a bread knife slipping on a stale loaf that I was going to toast.
@@ -725,8 +1116,8 @@ No-one gets out without scars.&lt;/p&gt;
         
             <item>
         <title>I Haz Shoes</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/22/IHazShoes.html</link>
-        <description>&lt;p&gt;I&#39;ve been wearing a surgical boot since my &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2017/01/17/KneeWalker.html&#34;&gt;heel surgery&lt;/a&gt; six weeks ago.
+        <link>https://www.georgevreilly.com/blog/2017/02/22/IHazShoes.html</link>
+        <description>&lt;p&gt;I&#39;ve been wearing a surgical boot since my &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2017/01/17/KneeWalker.html&#34;&gt;heel surgery&lt;/a&gt; six weeks ago.
 The first month I spent getting around on a knee walker or crutches.
 For the last couple of weeks, I&#39;ve been walking more and more,
 but always wearing the boot.
@@ -750,7 +1141,7 @@ and does my hips and lower back no good.&lt;/p&gt;
         
             <item>
         <title>OrderedDict Initialization</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/21/OrderedDictInitialization.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/02/21/OrderedDictInitialization.html</link>
         <description>&lt;p&gt;An &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/2/library/collections.html#collections.OrderedDict&#34;&gt;OrderedDict&lt;/a&gt; is a Python &lt;tt class=&#34;docutils literal&#34;&gt;dict&lt;/tt&gt; which remembers insertion order.
 When iterating over an &lt;tt class=&#34;docutils literal&#34;&gt;OrderedDict&lt;/tt&gt;, items are returned in that order.
 Ordinary &lt;tt class=&#34;docutils literal&#34;&gt;dicts&lt;/tt&gt; return their items in an unspecified order.&lt;/p&gt;
@@ -819,7 +1210,7 @@ use &lt;tt class=&#34;docutils literal&#34;&gt;OrderedDict&lt;/tt&gt; rather tha
         
             <item>
         <title>Review: Skinny Dip</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/19/ReviewSkinnyDip.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/02/19/ReviewSkinnyDip.html</link>
         <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0446615129/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Skinny Dip&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/0446615129.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
 &lt;div class=&#34;line-block&#34;&gt;
 &lt;div class=&#34;line&#34;&gt;Title: Skinny Dip&lt;/div&gt;
@@ -851,7 +1242,7 @@ attracts the pretty younger woman.&lt;/p&gt;
         
             <item>
         <title>HTML5 tables require tr inside thead</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/18/HTML5TablesRequireTrInsideThead.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/02/18/HTML5TablesRequireTrInsideThead.html</link>
         <description>&lt;p&gt;When I learned HTML tables back in the 90s,
 at some point I discovered the &lt;tt class=&#34;docutils literal&#34;&gt;&amp;lt;thead&amp;gt;&lt;/tt&gt; element
 for grouping the &lt;tt class=&#34;docutils literal&#34;&gt;&amp;lt;th&amp;gt;&lt;/tt&gt; column headers.
@@ -892,7 +1283,7 @@ which simply would not let me proceed until I wrapped my &lt;tt class=&#34;docut
         
             <item>
         <title>Review: The Italian Job</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/17/ReviewTheItalianJob.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/02/17/ReviewTheItalianJob.html</link>
         <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/The_Italian_Job&#34;&gt;&lt;img alt=&#34;The Italian Job&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/en/b/b3/The_Italian_Job_1969_poster.jpg&#34;/&gt;&lt;/a&gt;
 &lt;div class=&#34;line-block&#34;&gt;
 &lt;div class=&#34;line&#34;&gt;Title: The Italian Job&lt;/div&gt;
@@ -932,7 +1323,7 @@ The plot ticks along and it delivers.&lt;/p&gt;
         
             <item>
         <title>Jenkins Pipelines</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/14/JenkinsPipelines.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/02/14/JenkinsPipelines.html</link>
         <description>&lt;p&gt;I just published a series of &lt;a class=&#34;reference external&#34; href=&#34;https://www.metabrite.com/devblog/posts/jenkins-01-migrating-pipelines/&#34;&gt;blog posts&lt;/a&gt; at the MetaBrite DevBlog
 about our experiences in migrating to Jenkins and Pipelines.&lt;/p&gt;
 </description>
@@ -942,7 +1333,7 @@ about our experiences in migrating to Jenkins and Pipelines.&lt;/p&gt;
         
             <item>
         <title>Review: Kill Me Three Times</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/10/ReviewKillMeThreeTimes.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/02/10/ReviewKillMeThreeTimes.html</link>
         <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Kill_Me_Three_Times&#34;&gt;&lt;img alt=&#34;Kill Me Three Times&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/en/2/2e/Kill_Me_Three_Times_poster.jpg&#34;/&gt;&lt;/a&gt;
 &lt;div class=&#34;line-block&#34;&gt;
 &lt;div class=&#34;line&#34;&gt;Title: Kill Me Three Times&lt;/div&gt;
@@ -970,7 +1361,7 @@ or the Coen Brother&#39;s quirky killers.&lt;/p&gt;
         
             <item>
         <title>Review: I Shall Wear Midnight</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/09/ReviewIShallWearMidnight.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/02/09/ReviewIShallWearMidnight.html</link>
         <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0061433063/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;I Shall Wear Midnight&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/0061433063.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
 &lt;div class=&#34;line-block&#34;&gt;
 &lt;div class=&#34;line&#34;&gt;Title: I Shall Wear Midnight&lt;/div&gt;
@@ -993,7 +1384,7 @@ is seeping poison into people&#39;s hearts.
 Aided by the troublemaking Nac Mac Feegle, she defeats him.&lt;/p&gt;
 &lt;p&gt;Recommended.&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/I_Shall_Wear_Midnight&#34;&gt;I Shall Wear Midnight&lt;/a&gt; follows
-&lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2008/05/19/ReviewTheWeeFreeMen.html&#34;&gt;The Wee Free Men&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2010/01/28/ReviewAHatFullOfSky.html&#34;&gt;A Hat Full of Sky&lt;/a&gt;, and &lt;em&gt;Wintersmith&lt;/em&gt;.&lt;/p&gt;
+&lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2008/05/19/ReviewTheWeeFreeMen.html&#34;&gt;The Wee Free Men&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2010/01/28/ReviewAHatFullOfSky.html&#34;&gt;A Hat Full of Sky&lt;/a&gt;, and &lt;em&gt;Wintersmith&lt;/em&gt;.&lt;/p&gt;
 </description>
         <pubDate>Thu, 09 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-09:/blog/2017/02/09/ReviewIShallWearMidnight.html</guid>
@@ -1001,7 +1392,7 @@ Aided by the troublemaking Nac Mac Feegle, she defeats him.&lt;/p&gt;
         
             <item>
         <title>Old Presentations</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/07/OldPresentations.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/02/07/OldPresentations.html</link>
         <description>&lt;p&gt;I uploaded some presentations to SpeakerDeck.com tonight.&lt;/p&gt;
 &lt;p&gt;Here are various presentations of mine at &lt;a class=&#34;reference external&#34; href=&#34;https://speakerdeck.com/georgevreilly&#34;&gt;SpeakerDeck.com&lt;/a&gt; and &lt;a class=&#34;reference external&#34; href=&#34;http://www.slideshare.net/george_v_reilly&#34;&gt;SlideShare.net&lt;/a&gt;:&lt;/p&gt;
 &lt;ul class=&#34;simple&#34;&gt;
@@ -1021,7 +1412,7 @@ I gave this talk at an internal brownbag at Cozi in November 2011.&lt;/li&gt;
         
             <item>
         <title>Trump: Media Suppresses Coverage of Terrorist Attacks</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/06/TrumpMediaSuppressesCoverageTerroristAttacks.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/02/06/TrumpMediaSuppressesCoverageTerroristAttacks.html</link>
         <description>&lt;p&gt;Donald Trump is now &lt;a class=&#34;reference external&#34; href=&#34;https://www.washingtonpost.com/news/politics/wp/2017/02/06/president-trump-is-now-speculating-that-the-media-is-covering-up-terrorist-attacks/&#34;&gt;claiming&lt;/a&gt; (WaPo):&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Speaking to the U.S. Central Command on Monday,
@@ -1064,7 +1455,7 @@ and pick a fight with anyone.&lt;/p&gt;
         
             <item>
         <title>Review: Gone, Baby, Gone</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/03/ReviewGoneBabyGone.html</link>
+        <link>https://www.georgevreilly.com/blog/2017/02/03/ReviewGoneBabyGone.html</link>
         <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0061336211/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Gone, Baby, Gone&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/0061336211.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
 &lt;div class=&#34;line-block&#34;&gt;
 &lt;div class=&#34;line&#34;&gt;Title: Gone, Baby, Gone&lt;/div&gt;
@@ -1096,8 +1487,8 @@ Lehane pulls us through the wringer along with his characters.&lt;/p&gt;
         
             <item>
         <title>Seattle Accessibility</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/02/SeattleAccessibility.html</link>
-        <description>&lt;p&gt;I&#39;ve been using a &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2017/01/17/KneeWalker.html&#34;&gt;knee walker&lt;/a&gt; for the last couple of weeks.
+        <link>https://www.georgevreilly.com/blog/2017/02/02/SeattleAccessibility.html</link>
+        <description>&lt;p&gt;I&#39;ve been using a &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2017/01/17/KneeWalker.html&#34;&gt;knee walker&lt;/a&gt; for the last couple of weeks.
 For the first time, I took public transportation by myself
 to attend &lt;a class=&#34;reference external&#34; href=&#34;https://www.meetup.com/Papers-We-Love-Seattle/events/236557338/&#34;&gt;Papers We Love&lt;/a&gt; tonight.
 I rolled myself from 1st Ave S &amp;amp; Washington up to the Pioneer Square station,
@@ -1121,38 +1512,6 @@ I suspect that Seattle is probably one of the more accessible cities.&lt;/p&gt;
 </description>
         <pubDate>Thu, 02 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-02:/blog/2017/02/02/SeattleAccessibility.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: The Rhesus Chart</title>
-        <link>http://www.georgevreilly.com/blog/2017/02/01/ReviewTheRhesusChart.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.amazon.com/dp/0425256863/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;The Rhesus Chart&#34; class=&#34;right-float&#34; src=&#34;http://images.amazon.com/images/P/0425256863.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: The Rhesus Chart&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: Charles Stross&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★ ½&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Ace&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 2014&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;http://www.amazon.com/dp/0425256863/?tag=georgvreill-20&#34;&gt;978-0425256862&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 359&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: Lovecraftian spy thriller&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Series: &lt;a class=&#34;reference external&#34; href=&#34;http://www.antipope.org/charlie/blog-static/2016/04/faq-the-laundry-filesseries-ti.html&#34;&gt;Laundry Files&lt;/a&gt;, vol. 5&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 27–29 January, 2017&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;em&gt;“Don&#39;t be silly,” Bob, said Mo, “everyone knows vampires don&#39;t exist!”&lt;/em&gt;
-Thus opens &lt;em&gt;The Rhesus Chart&lt;/em&gt;.
-We quickly come to realize that vampires do exist and
-we come to wonder why everyone in the Laundry is so dogmatically sure that they don&#39;t.
-One of the nest of baby vampires that sets the plot in motion
-is Bob&#39;s toxic ex-girlfriend, Mhari,
-who manages to convince the Laundry that they should recruit her clutch
-rather than exterminate them.
-But there are old vampires who have the Laundry&#39;s newest recruits in their sights.&lt;/p&gt;
-&lt;p&gt;Sequel to &lt;a class=&#34;reference external&#34; href=&#34;http://www.georgevreilly.com/blog/2017/01/29/ReviewTheApocalypseCodex.html&#34;&gt;The Apocalypse Codex&lt;/a&gt;.
-More at Charlie Stross&#39;s &lt;a class=&#34;reference external&#34; href=&#34;http://www.antipope.org/charlie/blog-static/2015/07/crib-sheet-the-rhesus-chart.html&#34;&gt;Crib Sheet&lt;/a&gt; and the &lt;a class=&#34;reference external&#34; href=&#34;http://thelaundryfiles.wikia.com/wiki/The_Rhesus_Chart&#34;&gt;Laundry Files Wiki&lt;/a&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Wed, 01 Feb 2017 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-01:/blog/2017/02/01/ReviewTheRhesusChart.html</guid>
     </item>
         </channel>
 </rss>

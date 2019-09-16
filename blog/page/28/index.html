@@ -27,6 +27,51 @@
     
         <article>
     <header>
+        <time datetime="2016-01-14">2016-01-14</time>
+        <h1>
+            <a href="/blog/2016/01/14/PythonBaseClassOrder.html" rel="bookmark canonical">Python Base Class Order</a>
+        </h1>
+    </header>
+    <p>When I declare a derived class that inherits
+from both a base class and some mixins,
+I am always tempted to&nbsp;write:</p>
+
+<pre class="brush: python">
+class Derived(Base, Mixin1, Mixin2):
+    "Some class"
+</pre>
+
+<p>My reasoning is that <tt class="docutils literal">Derived</tt> is a <tt class="docutils literal">Base</tt>
+with some <tt class="docutils literal">Mixin1</tt> and <tt class="docutils literal">Mixin2</tt> goodness sprinkled on.
+Generally, that&#8217;s fine.
+The exception is when I want one of the mixins to override
+a method or attribute that&#8217;s defined in <tt class="docutils literal">Base</tt>.
+Because the <a class="reference external" href="http://python-history.blogspot.com/2010/06/method-resolution-order.html">Method Resolution Order</a> is left-to-right,
+then <tt class="docutils literal">Base</tt>&#8216;s im&shy;ple&shy;men&shy;ta&shy;tion will always be found&nbsp;first.</p>
+<p>To get the desired behavior of the mixin overriding the base,
+<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance&nbsp;list.</p>
+
+<pre class="brush: python">
+from __future__ import print_function
+
+class Useful(object):
+    def __init__(self, msg):
+ </pre><span>&#8230;<a href="/blog/2016/01/14/PythonBaseClassOrder.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/14/PythonBaseClassOrder.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-13">2016-01-13</time>
         <h1>
             <a href="/blog/2016/01/13/ReviewStarDoc.html" rel="bookmark canonical">Review: Star Doc</a>
@@ -56,7 +101,7 @@ and is bringing enormous resources to make that&nbsp;happen.</p>
 and I got caught up <span>&#8230;<a href="/blog/2016/01/13/ReviewStarDoc.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/13/ReviewStarDoc.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/13/ReviewStarDoc.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -110,7 +155,7 @@ $ cd; pwd
 First, when the shell <span>&#8230;<a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/12/BashGettingAndSettingDefaultValues.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/12/BashGettingAndSettingDefaultValues.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -152,7 +197,7 @@ Alexander vividly brings Georgian London to&nbsp;life.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/11/ReviewBlindJustice.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/11/ReviewBlindJustice.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -194,7 +239,7 @@ Robinson is an expatriate York&shy;shire&shy;man
 with a fondness for his homeland and <span>&#8230;<a href="/blog/2016/01/10/ReviewADedicatedMan.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/10/ReviewADedicatedMan.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/10/ReviewADedicatedMan.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -238,7 +283,7 @@ and a longtime criminal policeman now in the Gestapo.
 Both are astute <span>&#8230;<a href="/blog/2016/01/09/ReviewDollmaker.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/09/ReviewDollmaker.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/09/ReviewDollmaker.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -273,7 +318,7 @@ The <a class="reference external" href="http://www.smh.com.au/entertainment/movi
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/08/HappyBirthdayRoyBatty.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/08/HappyBirthdayRoyBatty.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -308,7 +353,7 @@ and <span class="caps">GPG</span>&nbsp;passphras&shy;es.</p>
 <p>I&#8217;ve long used <span>&#8230;<a href="/blog/2016/01/07/DicewareAndLastpass.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/07/DicewareAndLastpass.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/07/DicewareAndLastpass.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -350,7 +395,7 @@ and a horrified repulsion at their own potential&nbsp;damnation.</p>
 wherein he takes historical events <span>&#8230;<a href="/blog/2016/01/06/ReviewHideMeAmongTheGraves.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/06/ReviewHideMeAmongTheGraves.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/06/ReviewHideMeAmongTheGraves.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -396,30 +441,7 @@ we execute the loop body.
 Then we postin&shy;cre&shy;ment <span>&#8230;<a href="/blog/2016/01/05/DecrementingLoops.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/05/DecrementingLoops.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-04">2016-01-04</time>
-        <h1>
-            <a href="/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html" rel="bookmark canonical">Obfuscating Passwords in URLs in Python</a>
-        </h1>
-    </header>
-    <p>New MetaBrite Dev Blog post,
-<a class="reference external" href="http://www.metabrite.com/devblog/posts/python-obfuscate-url-password/">Ob&shy;fus&shy;cat&shy;ing Passwords in URLs in Python</a>.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/05/DecrementingLoops.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -456,7 +478,7 @@ Then we postin&shy;cre&shy;ment <span>&#8230;<a href="/blog/2016/01/05/Decrement
                 (function () {
                     var s = document.createElement('script'); s.async = true;
                     s.type = 'text/javascript';
-                    s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+                    s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
                     (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());
             }
         </script>

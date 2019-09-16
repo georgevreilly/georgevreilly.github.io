@@ -27,6 +27,53 @@
     
         <article>
     <header>
+        <time datetime="2015-12-05">2015-12-05</time>
+        <h1>
+            <a href="/blog/2015/12/05/python-print-formatting.html" rel="bookmark canonical">Python Print Formatting</a>
+        </h1>
+    </header>
+    <p>On Stack&shy;Over&shy;flow, someone wanted to
+<a class="reference external" href="http://stackoverflow.com/questions/34109838/for-while-loops-to-make-triangles">print triangles in Python</a>
+in an M-shape.
+Various clumsy solutions were&nbsp;offered.</p>
+<p>Here&#8217;s mine which uses the left- and right-jus&shy;ti&shy;fi&shy;ca&shy;tion features of
+<a class="reference external" href="https://docs.python.org/2/library/string.html#formatstrings">str.format</a>.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">&quot;{0}+++{0}&quot;.format('Hello!')</span></tt> produces two copies of the zeroth argument to <tt class="docutils literal">format</tt>
+(here <tt class="docutils literal">'Hello!'</tt>), separated by three plusses: <tt class="docutils literal"><span class="pre">Hello!+++Hello!</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">&quot;{:&lt;4}&quot;.format('x')</span></tt> left-justifies <tt class="docutils literal">'x'</tt> in a 4-character field; i.e., <tt class="docutils literal">'x&nbsp;&nbsp; '</tt>.</li>
+<li><tt class="docutils literal"><span class="pre">&quot;{:&gt;4}&quot;.format('x')</span></tt> right-justifies <tt class="docutils literal">'x'</tt> in a 4-character field; i.e., <tt class="docutils literal">'&nbsp;&nbsp; x'</tt>.</li>
+<li><tt class="docutils literal"><span class="pre">&quot;{:&gt;{}}&quot;.format('x',</span> width)</tt> right-justifies <tt class="docutils literal">'x'</tt> in a <tt class="docutils literal">width</tt>-character&nbsp;field.</li>
+<li><tt class="docutils literal">'ab' * 4</tt> yields 4 copies of <tt class="docutils literal">'ab'</tt>; i.e., <tt class="docutils literal">'abababab'</tt>.</li>
+</ul>
+<p>Putting them&nbsp;together:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; WIDTH = 4
+&gt;&gt;&gt;
+&gt;&gt;&gt; for a in range(1, WIDTH+1):
+...     print(&quot;{0:&lt;{1}}{0:&gt;{1}}&quot;.format('*' * a, WIDTH))
+...
+*      *
+**    **
+***  ***
+********
+</pre>
+<p>Handy references: <span>&#8230;<a href="/blog/2015/12/05/python-print-formatting.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/05/python-print-formatting.html#disqus_thread">Comment</a>
+        
+        
+            <p>untagged</p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-12-04">2015-12-04</time>
         <h1>
             <a href="/blog/2015/12/04/ReviewStarFall.html" rel="bookmark canonical">Review: Star Fall</a>
@@ -53,7 +100,7 @@ showing both the working and home lives of Slider and&nbsp;team.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/04/ReviewStarFall.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/04/ReviewStarFall.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -95,7 +142,7 @@ and they take pleasure in causing trouble and&nbsp;strife.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/03/ReviewGraceOfKings.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/03/ReviewGraceOfKings.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -132,7 +179,7 @@ which is next to the spacebar on a Mac&nbsp;keyboard.</p>
 <p>On a Mac, <span>&#8230;<a href="/blog/2015/12/02/MSNaturalKeyboardOSXElCapitanSwapWindowsAltKeys.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/02/MSNaturalKeyboardOSXElCapitanSwapWindowsAltKeys.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/02/MSNaturalKeyboardOSXElCapitanSwapWindowsAltKeys.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -173,7 +220,7 @@ The <tt class="docutils literal">re.<span class="caps">DOTALL</span></tt> modifi
 including <span>&#8230;<a href="/blog/2015/12/01/ExplainingEpilogFnmatchTranslate.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/12/01/ExplainingEpilogFnmatchTranslate.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/01/ExplainingEpilogFnmatchTranslate.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -209,7 +256,7 @@ Toast&shy;mas&shy;ters have something to say, whether in person or in&nbsp;print
 <p>A blog can <span>&#8230;<a href="/blog/2015/11/30/OnBlogging.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/11/30/OnBlogging.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/11/30/OnBlogging.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -251,7 +298,7 @@ you will likely get a misleading error message from <span class="caps">OS</span>
 You should eject <span>&#8230;<a href="/blog/2015/09/20/RunSnakeRun-WxPython-Brew-Virtualenv.html" class="continue">continue</a>.</span></blockquote></div>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/09/20/RunSnakeRun-WxPython-Brew-Virtualenv.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/09/20/RunSnakeRun-WxPython-Brew-Virtualenv.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -289,7 +336,7 @@ More&nbsp;mayhem.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/06/07/ReviewHardFreeze.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/06/07/ReviewHardFreeze.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -322,7 +369,7 @@ It&#8217;s still far from perfect, but it&#8217;s much cleaner,
 you can use the desk, and the remaining clutter is stacked into <span>&#8230;<a href="/blog/2015/06/07/BerlinSpringCleaning.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/06/07/BerlinSpringCleaning.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/06/07/BerlinSpringCleaning.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -359,45 +406,7 @@ but I didn&#8217;t enjoy this&nbsp;book.</p>
 
     <footer>
         
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/06/07/ReviewGlimmering.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-06-07">2015-06-07</time>
-        <h1>
-            <a href="/blog/2015/06/07/ReviewPirateKing.html" rel="bookmark canonical">Review: Pirate King</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0553386751/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Pirate King</div>
-<div class="line">Author: Laurie R. King</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Bantam</div>
-<div class="line">Copyright: 2011</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0553386751/?tag=georgvreill-20">0553386751</a></div>
-<div class="line">Pages: 368</div>
-<div class="line">Keywords: historical mystery, Holmes</div>
-<div class="line">Reading period: 14–16 May, 2015</div>
-</div>
-<p><a class="reference external" href="http://en.wikipedia.org/wiki/Mary_Russell_(fictional)">Mary Russell</a>—Sherlock Holmes&#8217; much younger wife—in&shy;ves&shy;ti&shy;gates the odd goings on in a British silent film company
-that&#8217;s making a pirate film on location in Lisbon and Morocco in 1924.
-The filmmakers get more than they bargained for,
-as the rogues they cast as pirates seem to be <em>real</em>&nbsp;pirates.</p>
-<p>A decent entry in this&nbsp;series.</p>
-
-    <footer>
-        
-            <a class="floatright" href="http://www.georgevreilly.com/blog/2015/06/07/ReviewPirateKing.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/06/07/ReviewGlimmering.html#disqus_thread">Comment</a>
         
         
             <p>untagged</p>
@@ -434,7 +443,7 @@ as the rogues they cast as pirates seem to be <em>real</em>&nbsp;pirates.</p>
                 (function () {
                     var s = document.createElement('script'); s.async = true;
                     s.type = 'text/javascript';
-                    s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+                    s.src = 'https://' + disqus_shortname + '.disqus.com/count.js';
                     (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);}());
             }
         </script>
