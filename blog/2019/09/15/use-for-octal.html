@@ -240,8 +240,8 @@ by adding up each decimal&nbsp;digit:</p>
 <div class="line"><span class="formula">1 + 0 + 8 + 2 + 0 + 3 + 9 + 2 + 5 = 30 ≡ 3 (<span class="textrm"> mod </span>9)</span></div>
 <div class="line">Note: <span class="formula">108, 203, 925<span class="textrm">  mod </span>9 = 3</span></div>
 </div>
-<p>This works because <span class="formula">10<sup><i>n</i></sup> ≡ 1 (<span class="textrm"> mod </span>9)</span>.
-Consider&nbsp;758:</p>
+<p>This works because <span class="formula">10<sup><i>n</i></sup> ≡ 1 (<span class="textrm"> mod </span>9)</span>.</p>
+<p>Consider&nbsp;758:</p>
 <div class="formula">
 758 = 7 × 100 + 5 × 10 + 8
 </div>
@@ -251,7 +251,8 @@ Consider&nbsp;758:</p>
 <div class="formula">
 758 = 7 × (9<sup>2</sup> + 2 × 9 + 1) + 5 × (9 + 1) + 8
 </div>
-<p>Dropping the nines from each term leaves the digit&nbsp;sum:</p>
+<p>Dropping the nines from each term leaves the digit sum,
+which is <em>congruent</em> to the original number modulo&nbsp;nine:</p>
 <div class="formula">
 7 × 1 + 5 × 1 + 8 = 7 + 5 + 8 = 20 ≡ 2 (<span class="textrm"> mod </span>9)
 </div>
@@ -292,15 +293,13 @@ Nine bears the same re&shy;la&shy;tion&shy;ship
 to eight in octal,
 as eleven does to ten in decimal:
 <span class="formula">9<sub>10</sub> = 11<sub>8</sub></span>,
-base plus&nbsp;one.</p>
+base plus one,
+and <span class="formula">8<sup><i>n</i></sup> ≡  − 1<sup><i>n</i></sup> (<span class="textrm">mod </span>9)</span>.</p>
 <p>We can calculate <span class="formula"><i>k</i><span class="textrm"> mod </span>9</span> in base 8 by al&shy;ter&shy;nate&shy;ly
 adding and sub&shy;tract&shy;ing the octal digits, from right to left.
 For example,
 <span class="formula">1234<sub>8</sub><span class="textrm">  mod </span>9 = 4 − 3 + 2 − 1 = 2</span>.
 This gives the right&nbsp;answer.</p>
-<p>Casting out “elevens” in octal,
-by an al&shy;ter&shy;nat&shy;ing sum of the base-eight digits,
-computes the number modulo&nbsp;nine.</p>
 <p>Here&#8217;s a simple, albeit incomplete, algorithm in Go.
 We&#8217;re masking and shifting three bits at a time,
 which is tantamount to working with the octal rep&shy;re&shy;sen&shy;ta&shy;tion of <tt class="docutils literal">k</tt>.</p>
@@ -331,9 +330,18 @@ which is tantamount to working with the octal rep&shy;re&shy;sen&shy;ta&shy;tion
 <div class="formula">
 6172<sub>8</sub><span class="textrm">  mod </span>9 = 8
 </div>
-<p>If the in&shy;ter&shy;me&shy;di&shy;ate sum dips below zero, or rises above eight,
+<p>Almost&nbsp;there!</p>
+<blockquote>
+Casting out “octal-elevens” (<span class="formula">11<sub>8</sub> = 9<sub>10</sub></span>) in octal,
+by an al&shy;ter&shy;nat&shy;ing sum of the base-eight digits,
+computes a small number
+<em>congruent</em> to the original number number modulo nine.</blockquote>
+<p>The algorithm above is cal&shy;cu&shy;lat&shy;ing numbers
+that are congruent to the correct answer modulo nine,
+but which may be outside the desired range.
+If the in&shy;ter&shy;me&shy;di&shy;ate sum dips below zero or rises above eight,
 we have to add nine or subtract nine re&shy;spec&shy;tive&shy;ly
-to keep the sum in the range <span class="formula">[0, 9)</span>.</p>
+to keep the running total in the range <span class="formula">[0, 9)</span>.</p>
 <p>Here&#8217;s a complete algorithm for Modulo 9 in Go,
 computing the al&shy;ter&shy;nat&shy;ing sum of the octal&nbsp;digits:</p>
 <div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">Mod9</span><span class="p">(</span><span class="nx">k</span> <span class="kt">uint</span><span class="p">)</span> <span class="kt">uint</span> <span class="p">{</span>
@@ -361,11 +369,12 @@ computing the al&shy;ter&shy;nat&shy;ing sum of the octal&nbsp;digits:</p>
 <span class="p">}</span>
 </pre></div>
 <p>Clearly, this algorithm can be im&shy;ple&shy;ment&shy;ed in much simpler circuitry
-than full-blown&nbsp;division.</p>
+than that required to compute a remainder through full-blown&nbsp;division.</p>
 </div>
 <div class="section" id="modulo-36">
 <h2>Modulo&nbsp;36</h2>
-<p>We now have enough to calculate <span class="formula"><i>k</i><span class="textrm"> mod </span>36</span>:</p>
+<p>We now have enough to calculate <span class="formula"><i>k</i><span class="textrm"> mod </span>36</span>
+from <tt class="docutils literal">Mod9</tt> and the Chinese Remainder&nbsp;Theorem:</p>
 <div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">Mod36</span><span class="p">(</span><span class="nx">k</span> <span class="kt">uint</span><span class="p">)</span> <span class="kt">uint</span> <span class="p">{</span>
     <span class="nx">Residues</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">9</span><span class="p">]</span><span class="kt">uint</span><span class="p">{</span>
         <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span>  <span class="mi">4</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span>  <span class="mi">8</span><span class="p">},</span>

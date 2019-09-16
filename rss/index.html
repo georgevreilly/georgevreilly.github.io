@@ -216,8 +216,8 @@ by adding up each decimal digit:&lt;/p&gt;
 &lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;1 + 0 + 8 + 2 + 0 + 3 + 9 + 2 + 5 = 30 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
 &lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;108, 203, 925&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 3&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;This works because &lt;span class=&#34;formula&#34;&gt;10&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡ 1 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;.
-Consider 758:&lt;/p&gt;
+&lt;p&gt;This works because &lt;span class=&#34;formula&#34;&gt;10&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡ 1 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Consider 758:&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
 758 = 7 × 100 + 5 × 10 + 8
 &lt;/div&gt;
@@ -227,7 +227,8 @@ Consider 758:&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
 758 = 7 × (9&lt;sup&gt;2&lt;/sup&gt; + 2 × 9 + 1) + 5 × (9 + 1) + 8
 &lt;/div&gt;
-&lt;p&gt;Dropping the nines from each term leaves the digit sum:&lt;/p&gt;
+&lt;p&gt;Dropping the nines from each term leaves the digit sum,
+which is &lt;em&gt;congruent&lt;/em&gt; to the original number modulo nine:&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
 7 × 1 + 5 × 1 + 8 = 7 + 5 + 8 = 20 ≡ 2 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
 &lt;/div&gt;
@@ -268,15 +269,13 @@ Nine bears the same relationship
 to eight in octal,
 as eleven does to ten in decimal:
 &lt;span class=&#34;formula&#34;&gt;9&lt;sub&gt;10&lt;/sub&gt; = 11&lt;sub&gt;8&lt;/sub&gt;&lt;/span&gt;,
-base plus one.&lt;/p&gt;
+base plus one,
+and &lt;span class=&#34;formula&#34;&gt;8&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡  − 1&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; (&lt;span class=&#34;textrm&#34;&gt;mod &lt;/span&gt;9)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;We can calculate &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9&lt;/span&gt; in base 8 by alternately
 adding and subtracting the octal digits, from right to left.
 For example,
 &lt;span class=&#34;formula&#34;&gt;1234&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 4 − 3 + 2 − 1 = 2&lt;/span&gt;.
 This gives the right answer.&lt;/p&gt;
-&lt;p&gt;Casting out “elevens” in octal,
-by an alternating sum of the base-eight digits,
-computes the number modulo nine.&lt;/p&gt;
 &lt;p&gt;Here&#39;s a simple, albeit incomplete, algorithm in Go.
 We&#39;re masking and shifting three bits at a time,
 which is tantamount to working with the octal representation of &lt;tt class=&#34;docutils literal&#34;&gt;k&lt;/tt&gt;.&lt;/p&gt;
@@ -307,9 +306,18 @@ which is tantamount to working with the octal representation of &lt;tt class=&#3
 &lt;div class=&#34;formula&#34;&gt;
 6172&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 8
 &lt;/div&gt;
-&lt;p&gt;If the intermediate sum dips below zero, or rises above eight,
+&lt;p&gt;Almost there!&lt;/p&gt;
+&lt;blockquote&gt;
+Casting out “octal-elevens” (&lt;span class=&#34;formula&#34;&gt;11&lt;sub&gt;8&lt;/sub&gt; = 9&lt;sub&gt;10&lt;/sub&gt;&lt;/span&gt;) in octal,
+by an alternating sum of the base-eight digits,
+computes a small number
+&lt;em&gt;congruent&lt;/em&gt; to the original number number modulo nine.&lt;/blockquote&gt;
+&lt;p&gt;The algorithm above is calculating numbers
+that are congruent to the correct answer modulo nine,
+but which may be outside the desired range.
+If the intermediate sum dips below zero or rises above eight,
 we have to add nine or subtract nine respectively
-to keep the sum in the range &lt;span class=&#34;formula&#34;&gt;[0, 9)&lt;/span&gt;.&lt;/p&gt;
+to keep the running total in the range &lt;span class=&#34;formula&#34;&gt;[0, 9)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;Here&#39;s a complete algorithm for Modulo 9 in Go,
 computing the alternating sum of the octal digits:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Mod9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -337,11 +345,12 @@ computing the alternating sum of the octal digits:&lt;/p&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Clearly, this algorithm can be implemented in much simpler circuitry
-than full-blown division.&lt;/p&gt;
+than that required to compute a remainder through full-blown division.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;section&#34; id=&#34;modulo-36&#34;&gt;
 &lt;h3&gt;Modulo 36&lt;/h3&gt;
-&lt;p&gt;We now have enough to calculate &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;36&lt;/span&gt;:&lt;/p&gt;
+&lt;p&gt;We now have enough to calculate &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;36&lt;/span&gt;
+from &lt;tt class=&#34;docutils literal&#34;&gt;Mod9&lt;/tt&gt; and the Chinese Remainder Theorem:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Mod36&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;nx&#34;&gt;Residues&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;28&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;24&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
