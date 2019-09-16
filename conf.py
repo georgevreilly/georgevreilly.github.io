@@ -3,7 +3,7 @@
 # See http://posativ.org/acrylamid/conf.py.html
 
 SITENAME = 'George V. Reilly'
-WWW_ROOT = 'http://www.georgevreilly.com/'
+WWW_ROOT = 'https://www.georgevreilly.com/'
 
 AUTHOR = 'George V. Reilly'
 EMAIL = 'george@reilly.org'
