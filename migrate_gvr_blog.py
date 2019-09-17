@@ -74,10 +74,8 @@ def read_permalink(filename):
         if i >= 0:
             try:
                 link = data[i + len(PERMALINK):].strip().split()[0]
-                link = link.decode('utf8')
-                log(filename, link)
-            except:
-                print(filename)
+            except Exception as e:
+                print(filename, e)
     return link
 
 
@@ -272,7 +270,7 @@ if __name__ == '__main__':
         if link:
             link = link_path(link)
             filename_links[link] = fname
-        else:
+        elif args.verbose:
             print("No link for {}".format(fname))
 
 #   dump_links(permalink_titles, filename_links)
