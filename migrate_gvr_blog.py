@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function, unicode_literals, absolute_import
 
+import six
 import argparse
 import codecs
 import fnmatch
@@ -9,11 +11,19 @@ import hashlib
 import json
 import os
 import re
-import urlparse
 import shutil
+from six.moves.urllib.parse import urlsplit
 
 #BASE_URL = "http://www.georgevreilly.com/blog"
 BASE_URL = "/blog"
+
+
+Verbose = False
+
+
+def log(*args):
+    if Verbose:
+        print(*args)
 
 
 def parse_args():
@@ -25,7 +35,8 @@ def parse_args():
         limit=None,
         base_dir=os.path.abspath(os.path.join(os.path.dirname(__file__), "content")),
         blog_dir="blog",
-        )
+        verbose=False,
+    )
 
     parser.add_argument(
         'dasblog_dir', nargs="?",
@@ -38,16 +49,25 @@ def parse_args():
         '--limit', '-l',
         type=int,
         help="Process this many entries (default: all).")
+    parser.add_argument(
+        '--verbose', '-v',
+        action="store_true",
+        help="Be more verbose")
 
     args = parser.parse_args()
+
     args.dasblog_dir = os.path.abspath(os.path.expanduser(args.dasblog_dir))
+
+    global Verbose
+    Verbose = args.verbose
+
     return args
 
 
 def read_permalink(filename):
     PERMALINK = ".. _permalink:"
     link = None
-    with open(filename) as fp:
+    with open(filename, "rb") as fp:
         last_lines = tail(fp, 10)
         data = ''.join(last_lines)
         i = data.find(PERMALINK)
@@ -55,8 +75,9 @@ def read_permalink(filename):
             try:
                 link = data[i + len(PERMALINK):].strip().split()[0]
                 link = link.decode('utf8')
+                log(filename, link)
             except:
-                print filename
+                print(filename)
     return link
 
 
@@ -66,16 +87,14 @@ def walk_tree(dir, includes, excludes=None):
     Adapted (and fixed!) from http://stackoverflow.com/a/5141829/6364
     """
     # Transform glob patterns to regular expressions
-    includes_re = re.compile('|'.join([fnmatch.translate(x)
-                                       for x in includes]))
-    excludes_re = re.compile('|'.join([fnmatch.translate(x)
-                                       for x in excludes])
-                             if excludes else '$.')
+    includes_re = re.compile('|'.join(
+        [fnmatch.translate(x) for x in includes]))
+    excludes_re = re.compile('|'.join(
+        [fnmatch.translate(x) for x in excludes]) if excludes else '$.')
 
     for top, dirs, files in os.walk(dir, topdown=True):
         # exclude directories by mutating `dirs`
-        dirs[:] = [d for d in dirs
-                   if not excludes_re.search(os.path.join(top, d))]
+        dirs[:] = [d for d in dirs if not excludes_re.search(os.path.join(top, d))]
 
         # exclude/include files
         files = [os.path.join(top, f) for f in files]
@@ -93,31 +112,33 @@ def tail(fp, window=20):
         return []
     BUFSIZ = 1024
     fp.seek(0, os.SEEK_END)
-    bytes = fp.tell()
+    byte_count = fp.tell()
     size = window + 1
     block = -1
     data = []
-    while size > 0 and bytes > 0:
-        if bytes - BUFSIZ > 0:
+    while size > 0 and byte_count > 0:
+        if byte_count - BUFSIZ > 0:
             # Seek back one whole BUFSIZ
             fp.seek(block * BUFSIZ, os.SEEK_END)
             # read BUFFER
-            data.insert(0, fp.read(BUFSIZ))
+            line_bytes = fp.read(BUFSIZ)
         else:
             # file too small, start from beginning
             fp.seek(0, os.SEEK_SET)
             # only read what was not read
-            data.insert(0, fp.read(bytes))
-        lines_found = data[0].count('\n')
+            line_bytes = fp.read(byte_count)
+        data.insert(0, line_bytes)
+        lines_found = line_bytes.count(ord('\n'))
         size -= lines_found
-        bytes -= BUFSIZ
+        byte_count -= BUFSIZ
         block -= 1
-    return ''.join(data).splitlines()[-window:]
+    data = b''.join(data).splitlines()
+    return [l.decode("utf-8") for l in data[-window:]]
 
 
 def link_path(url):
     return url[len(BASE_URL):]
-    u = urlparse.urlsplit(url)
+    u = urlsplit(url)
     return u.path
 
 
@@ -126,20 +147,20 @@ def dump_links(permalink_titles, filename_links):
     filelinks = set(filename_links.keys())
 
     orphaned_permalinks = permalinks - filelinks
-    print "\n", len(orphaned_permalinks), "Orphaned Permalinks"
+    print("\n", len(orphaned_permalinks), "Orphaned Permalinks")
     return
     for f in orphaned_permalinks:
-        print f
+        print(f)
 
     orphaned_filelinks = filelinks - permalinks
-    print "\n", len(orphaned_filelinks), "Orphaned File Links"
+    print("\n", len(orphaned_filelinks), "Orphaned File Links")
     for f in orphaned_filelinks:
-        print f
+        print(f)
 
     found_links = permalinks & filelinks
-    print "\n", len(found_links), "Found links"
+    print("\n", len(found_links), "Found links")
     for f in found_links:
-        print f, filename_links[f]
+        print(f, filename_links[f])
 
 
 class ReMatcher(object):
@@ -154,23 +175,24 @@ class ReMatcher(object):
         return self.value.group(key)
 
 
-title_re = re.compile(ur"^.. title:: (?P<title>.*)$")
-vim_re = re.compile(ur"^.. vim:set.*")
-emacs_re = re.compile(ur"^.. -\*- .* -\*-")
-image_content_binary_re = re.compile(ur"(?P<directive>.. image::) +(?P<path>content/binary/.*)$")
+title_re = re.compile(r"^.. title:: (?P<title>.*)$")
+tags_re = re.compile(r"^.. tags: (?P<tags>.*)$")
+vim_re = re.compile(r"^.. vim:set.*")
+emacs_re = re.compile(r"^.. -\*- .* -\*-")
+image_content_binary_re = re.compile(r"(?P<directive>.. image::) +(?P<path>content/binary/.*)$")
 
 
 def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
     source_file = os.path.join(source_dir, fname)
     date_parts = permalink.split('/')[1:4]
     if len(date_parts) < 3:
-        print "Need to fix", fname, date_parts
+        print("Need to fix", fname, date_parts)
         return
     subdirs = os.path.join(target_dir, *date_parts)
     target_file = os.path.join(subdirs, os.path.splitext(os.path.split(fname)[1])[0])
     write = False
 
-    data, title, matcher = [], None, ReMatcher()
+    data, title, tags, matcher = [], None, None, ReMatcher()
     with codecs.open(source_file, "r", encoding="utf8") as fp:
         while True:
             line = fp.readline()
@@ -183,35 +205,39 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
                 continue
             elif matcher.match(image_content_binary_re, line):
                 line = "{0} /{1}\n".format(matcher.group('directive'), matcher.group('path'))
+            elif matcher.match(tags_re, line):
+                tags = matcher.group('tags').strip()
+                continue
+
             data.append(line)
 
-    prolog = u"\n".join([
+    prolog = [
         title,
-        u"#" * len(title),
-        u"",
-        u":date: {0}-{1}-{2}".format(*date_parts),
-        u":permalink: /blog{0}".format(permalink.replace(u".aspx", u".html")),
-        u""
-    ])
-    epilog = u""
+        "#" * len(title),
+        "",
+        ":date: {0}-{1}-{2}".format(*date_parts),
+        ":permalink: /blog{0}".format(permalink.replace(".aspx", ".html")),
+    ] + ([":tags: {0}".format(tags)] if tags else [])
+    prolog = "\n".join(prolog) + "\n"
+    epilog = ""
 
     subdir_path = os.path.join(base_dir, subdirs)
     if not os.path.exists(subdir_path):
         os.makedirs(subdir_path)
         write = True
-    target_file = os.path.join(base_dir, target_file + u".rst")
+    target_file = os.path.join(base_dir, target_file + ".rst")
     target_data = (prolog + ''.join(data) + epilog).encode('utf-8')
     if not os.path.exists(target_file):
         write = True
     else:
         new_md5 = hashlib.md5(target_data)
         with open(target_file) as fp:
-            old_data = fp.read()
+            old_data = fp.read().encode("utf-8")
             old_md5 = hashlib.md5(old_data)
             write = (old_md5.hexdigest() != new_md5.hexdigest())
 
     if write:
-        print u"'{0}' -> '{1}' ({2})".format(source_file, target_file, permalink)
+        print("'{0}' -> '{1}' ({2})".format(source_file, target_file, permalink))
 
         with codecs.open(target_file, "w", encoding="utf8") as fp:
             fp.write(prolog)
@@ -222,7 +248,7 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
 
 
 def migrate_files(args, filename_links):
-    for permalink, fname in filename_links.iteritems():
+    for permalink, fname in filename_links.items():
         migrate_file(args.dasblog_dir, args.base_dir, args.blog_dir, fname, permalink)
     # Copy content/binary
     cb_src = os.path.join(args.dasblog_dir, "content")
@@ -246,6 +272,8 @@ if __name__ == '__main__':
         if link:
             link = link_path(link)
             filename_links[link] = fname
+        else:
+            print("No link for {}".format(fname))
 
 #   dump_links(permalink_titles, filename_links)
     migrate_files(args, filename_links)
