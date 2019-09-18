@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Tags{% endblock %}
+
+{% block content %}
+<ul class="tag-list">
+    {% for tag in env.tag_cloud %}
+    <li class="tag-{{ tag.step }}"><a href="/tag/{{ tag.name | safeslug }}/">{{ tag.name }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
