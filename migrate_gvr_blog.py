@@ -13,6 +13,7 @@ import os
 import re
 import shutil
 from six.moves.urllib.parse import urlsplit
+from collections import OrderedDict
 
 #BASE_URL = "http://www.georgevreilly.com/blog"
 BASE_URL = "/blog"
@@ -74,6 +75,9 @@ def read_permalink(filename):
         if i >= 0:
             try:
                 link = data[i + len(PERMALINK):].strip().split()[0]
+                date_parts = link.split('/')[1:4]
+                if len(date_parts) < 3:
+                    link = None
             except Exception as e:
                 print(filename, e)
     return link
@@ -92,12 +96,14 @@ def walk_tree(dir, includes, excludes=None):
 
     for top, dirs, files in os.walk(dir, topdown=True):
         # exclude directories by mutating `dirs`
-        dirs[:] = [d for d in dirs if not excludes_re.search(os.path.join(top, d))]
+        dirs[:] = sorted([d for d in dirs if not excludes_re.search(os.path.join(top, d))],
+                         key=str.lower)
 
         # exclude/include files
         files = [os.path.join(top, f) for f in files]
         files = [f for f in files if not excludes_re.search(f)]
         files = [f for f in files if includes_re.search(f)]
+        files = sorted(files, key=str.lower)
 
         for fname in files:
             yield fname
@@ -188,7 +194,6 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
         return
     subdirs = os.path.join(target_dir, *date_parts)
     target_file = os.path.join(subdirs, os.path.splitext(os.path.split(fname)[1])[0])
-    write = False
 
     data, title, tags, matcher = [], None, None, ReMatcher()
     with codecs.open(source_file, "r", encoding="utf8") as fp:
@@ -219,6 +224,7 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
     prolog = "\n".join(prolog) + "\n"
     epilog = ""
 
+    write = False
     subdir_path = os.path.join(base_dir, subdirs)
     if not os.path.exists(subdir_path):
         os.makedirs(subdir_path)
@@ -228,11 +234,13 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
     if not os.path.exists(target_file):
         write = True
     else:
-        new_md5 = hashlib.md5(target_data)
+        new_md5 = hashlib.md5(target_data).hexdigest()
         with open(target_file) as fp:
             old_data = fp.read().encode("utf-8")
-            old_md5 = hashlib.md5(old_data)
-            write = (old_md5.hexdigest() != new_md5.hexdigest())
+        old_md5 = hashlib.md5(old_data).hexdigest()
+        write = (old_md5 != new_md5)
+#       if not write:
+#           log("Not writing '{0}': old={1}, new={2}".format(source_file, old_md5, new_md5))
 
     if write:
         print("'{0}' -> '{1}' ({2})".format(source_file, target_file, permalink))
@@ -248,6 +256,7 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
 def migrate_files(args, filename_links):
     for permalink, fname in filename_links.items():
         migrate_file(args.dasblog_dir, args.base_dir, args.blog_dir, fname, permalink)
+
     # Copy content/binary
     cb_src = os.path.join(args.dasblog_dir, "content")
     cb_dst = os.path.abspath(os.path.join(args.base_dir, "..", "media", "content"))
@@ -275,4 +284,3 @@ if __name__ == '__main__':
 
 #   dump_links(permalink_titles, filename_links)
     migrate_files(args, filename_links)
-
