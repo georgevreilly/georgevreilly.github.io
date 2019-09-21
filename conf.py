@@ -70,6 +70,8 @@ DATE_FORMAT = '%Y-%m-%d %H:%M'
 METASTYLE = 'native'
 STATIC = ["media"]
 
+TAG_CLOUD_MAX_ITEMS = 300
+
 GH_PAGES_BRANCH = "master" # User & Organization Pages use 'master', not 'gh-pages'
 
 DEPLOYMENT = {
