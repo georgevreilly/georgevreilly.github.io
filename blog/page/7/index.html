@@ -21,9 +21,47 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-08-29">2016-08-29</time>
+        <h1>
+            <a href="/blog/2016/08/29/HTTPSforGitHubPagesCustomDomainNotYet.html" rel="bookmark canonical">HTTPS for GitHub Pages Custom Domain: Not Yet</a>
+        </h1>
+    </header>
+    <p>This website, <a class="reference external" href="http://www.georgevreilly.com/">http://www.georgevreil­ly.com/</a>, is hosted at GitHub Pages.
+It’s actually <a class="reference external" href="https://georgevreilly.github.io/">https://georgevreil­ly.github.io/</a>
+but I’ve configured the former as the “custom domain”,
+so the latter is un­con­di­tion­al­ly redirected to the custom domain.</p>
+<p>GitHub Pages gives me free, fast hosting and an easy pub­li­ca­tion model:
+I commit the latest changes to my <tt class="docutils literal">master</tt> branch,
+I push the branch to GitHub,
+and seconds later, my site is updated.
+I’m using <a class="reference external" href="https://posativ.org/acrylamid/">Acrylamid</a> to generate the content from re­Struc­tured­Text source
+on the <tt class="docutils literal">blog</tt> branch
+and <a class="reference external" href="https://github.com/davisp/ghp-import">ghp-import</a> to commit the <span class="caps">HTML</span> to the <tt class="docutils literal">master</tt> branch.</p>
+<p>GitHub Pages supports <a class="reference external" href="https://github.com/blog/2186-https-for-github-pages"><span class="caps">HTTPS</span></a> as of June 2016, but not for custom domains.
+There are some <a class="reference external" href="https://konklone.com/post/github-pages-now-sorta-supports-https-so-use-it">hacks</a> but I don’t feel like using them.
+I’m hoping <span>&#8230;<a href="/blog/2016/08/29/HTTPSforGitHubPagesCustomDomainNotYet.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/29/HTTPSforGitHubPagesCustomDomainNotYet.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/security/" rel="tag">security</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
     
         <article>
     <header>
@@ -32,22 +70,28 @@
             <a href="/blog/2016/08/28/Plums.html" rel="bookmark canonical">Plums</a>
         </h1>
     </header>
-    <p>The cen&shy;ter&shy;piece of our back yard is an aging Italian plum tree.
+    <p>The cen­ter­piece of our back yard is an aging Italian plum tree.
 We moved in to our house in late August 2000,
 right as the fruit was fully ripe.
-We didn&#8217;t have a ladder and the former owners didn&#8217;t have time to deal with the tree either,
+We didn’t have a ladder and the former owners didn’t have time to deal with the tree either,
 so most of the fruit that year ended up in the yard waste.
 I dragged one enormously heavy yard waste can up the back steps into the alley that year.
 I like to say that it weighed as much as I did,
-but it probably&nbsp;didn&#8217;t.</p>
-<p>We bought ladders and we&#8217;ve picked the fruit thereafter.
+but it probably didn’t.</p>
+<p>We bought ladders and we’ve picked the fruit thereafter.
 The tree is old and no longer gives <span>&#8230;<a href="/blog/2016/08/28/Plums.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/28/Plums.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/personal/" rel="tag">personal</a>
+                    and
+                    
+                <a href="/tag/recipe/" rel="tag">recipe</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -78,7 +122,7 @@ The tree is old and no longer gives <span>&#8230;<a href="/blog/2016/08/28/Plums
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman_in_the_Great_Game">Flashman in the Great Game</a> finds Flashy back to India,
 sent there by prime minister Lord Palmerston
 to look into worrying rumors of mutiny amongst the Indian troops
-and to sweet talk the re&shy;cal&shy;ci&shy;trant Rani of Jhansi.
+and to sweet talk the re­cal­ci­trant Rani of Jhansi.
 After an attempt upon his life by Thugees,
 Flashman goes undercover in the native cavalry at Meerut,
 where the <a class="reference external" href="https://en.wikipedia.org/wiki/Indian_Rebellion_of_1857">Sepoy Mutiny</a> begins soon after.
@@ -89,7 +133,16 @@ and imprisoned at Gwalior before being almost <span>&#8230;<a href="/blog/2016/0
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/27/ReviewFlashmanInTheGreatGame.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>,
+                <a href="/tag/fiction/" rel="tag">fiction</a>,
+                <a href="/tag/history/" rel="tag">history</a>
+                    and
+                    
+                <a href="/tag/humor/" rel="tag">humor</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -106,29 +159,35 @@ and imprisoned at Gwalior before being almost <span>&#8230;<a href="/blog/2016/0
     </header>
     <p>During an internal training exercise today,
 as a sort of one-man <a class="reference external" href="https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey">Chaos Monkey</a>,
-I de&shy;lib&shy;er&shy;ate&shy;ly broke a test system by changing a config setting to&nbsp;read:</p>
+I de­lib­er­ate­ly broke a test system by changing a config setting to read:</p>
 <pre class="literal-block">
 itemfinder.url = http://test-іtemfinder.example.com/
 </pre>
-<p>The correct value should have&nbsp;been:</p>
+<p>The correct value should have been:</p>
 <pre class="literal-block">
 itemfinder.url = http://test-itemfinder.example.com/
 </pre>
-<p>What&#8217;s that, you say? There&#8217;s no difference, you&nbsp;say?</p>
-<p>There <em>is</em> a difference, but it&#8217;s subtle.
+<p>What’s that, you say? There’s no difference, you say?</p>
+<p>There <em>is</em> a difference, but it’s subtle.
 The first <tt class="docutils literal">i</tt> in the <span class="caps">URL</span> is
-<a class="reference external" href="http://www.fileformat.info/info/unicode/char/0456/index.htm">&#8216;<span class="caps">CYRILLIC</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> <span class="caps">BYELORUSS&shy;IAN</span>-<span class="caps">UKRAINIAN</span> I&#8217; (U+0456)</a>,
-not <a class="reference external" href="http://www.fileformat.info/info/unicode/char/0069/index.htm">&#8216;<span class="caps">LATIN</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> I&#8217; (U+0069)</a>.
-Depending upon the font, the two <tt class="docutils literal">i</tt>s may be visually in&shy;dis&shy;tin&shy;guish&shy;able,
-very similar looking, or the Cyrillic <tt class="docutils literal">i</tt> may not&nbsp;render.</p>
-<p>This is an example of an <a class="reference external" href="https://en.wikipedia.org/wiki/IDN_homograph_attack">In&shy;ter&shy;na&shy;tion&shy;al Domain Name Homograph Attack</a>.
+<a class="reference external" href="http://www.fileformat.info/info/unicode/char/0456/index.htm">‘<span class="caps">CYRILLIC</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> <span class="caps">BYELORUSS­IAN</span>-<span class="caps">UKRAINIAN</span> I’ (U+0456)</a>,
+not <a class="reference external" href="http://www.fileformat.info/info/unicode/char/0069/index.htm">‘<span class="caps">LATIN</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> I’ (U+0069)</a>.
+Depending upon the font, the two <tt class="docutils literal">i</tt>s may be visually in­dis­tin­guish­able,
+very similar looking, or the Cyrillic <tt class="docutils literal">i</tt> may not render.</p>
+<p>This is an example of an <a class="reference external" href="https://en.wikipedia.org/wiki/IDN_homograph_attack">In­ter­na­tion­al Domain Name Homograph Attack</a>.
 There are Greek letters and Cyrillic letters that look very similar to Latin <span>&#8230;<a href="/blog/2016/08/26/HomographAttacks.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/26/HomographAttacks.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/security/" rel="tag">security</a>
+                    and
+                    
+                <a href="/tag/unicode/" rel="tag">unicode</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -144,18 +203,18 @@ There are Greek letters and Cyrillic letters that look very similar to Latin <sp
         </h1>
     </header>
     <a class="reference external image-reference" href="http://queue.acm.org/detail.cfm?id=2927301"></a>
-<p>I was in&shy;ves&shy;ti&shy;gat&shy;ing the per&shy;for&shy;mance of a web app today,
-and I spent some time looking at the <a class="reference external" href="https://addyosmani.com/blog/devtools-flame-charts/">Flame Chart</a> vi&shy;su&shy;al&shy;iza&shy;tion
-in Chrome&#8217;s profiling tools, which helped identify some&nbsp;problems.</p>
-<p>Flame Charts are like Brendan Gregg&#8217;s <a class="reference external" href="http://www.brendangregg.com/flamegraphs.html">Flame Graphs</a>,
+<p>I was in­ves­ti­gat­ing the per­for­mance of a web app today,
+and I spent some time looking at the <a class="reference external" href="https://addyosmani.com/blog/devtools-flame-charts/">Flame Chart</a> vi­su­al­iza­tion
+in Chrome’s profiling tools, which helped identify some problems.</p>
+<p>Flame Charts are like Brendan Gregg’s <a class="reference external" href="http://www.brendangregg.com/flamegraphs.html">Flame Graphs</a>,
 except that the charts are sorted by time,
-while the graphs are sorted&nbsp;al&shy;pha&shy;bet&shy;i&shy;cal&shy;ly.</p>
-<p>Quoting from Gregg&#8217;s recent <a class="reference external" href="http://queue.acm.org/detail.cfm?id=2927301"><span class="caps">ACM</span> Queue article</a>:</p>
+while the graphs are sorted al­pha­bet­i­cal­ly.</p>
+<p>Quoting from Gregg’s recent <a class="reference external" href="http://queue.acm.org/detail.cfm?id=2927301"><span class="caps">ACM</span> Queue article</a>:</p>
 <blockquote>
-<p>A flame graph has the following&nbsp;char&shy;ac&shy;ter&shy;is&shy;tics:</p>
+<p>A flame graph has the following char­ac­ter­is­tics:</p>
 <ul class="simple">
-<li>A stack trace is rep&shy;re&shy;sent&shy;ed as a column of boxes,
-where each box represents a function (a stack&nbsp;frame).</li>
+<li>A stack trace is rep­re­sent­ed as a column of boxes,
+where each box represents a function (a stack frame).</li>
 <li>The y-axis shows the stack depth,
 ordered from root at the bottom to leaf at the top.
 The top box shows the function
@@ -166,7 +225,13 @@ and <span>&#8230;<a href="/blog/2016/08/23/FlameGraphsAndFlameCharts.html" class
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/23/FlameGraphsAndFlameCharts.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/performance/" rel="tag">performance</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -196,20 +261,29 @@ and <span>&#8230;<a href="/blog/2016/08/23/FlameGraphsAndFlameCharts.html" class
 </div>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman_at_the_Charge">Flashman At The Charge</a> finds our hero,
 newly promoted to Colonel,
-nurse&shy;maid&shy;ing a minor Royal cousin in the <a class="reference external" href="https://en.wikipedia.org/wiki/Crimean_War">Crimean War</a>.
+nurse­maid­ing a minor Royal cousin in the <a class="reference external" href="https://en.wikipedia.org/wiki/Crimean_War">Crimean War</a>.
 Somehow he finds himself in the thick of the <a class="reference external" href="https://en.wikipedia.org/wiki/Charge_of_the_Light_Brigade">Charge of the Light Brigade</a>,
 which he survives only to be taken captive by the Russians.
-Sent off to Count Pencher&shy;jevsky&#8217;s estate,
-he luxuriates there for some time, bedding the count&#8217;s daughter Valla.
+Sent off to Count Pencher­jevsky’s estate,
+he luxuriates there for some time, bedding the count’s daughter Valla.
 When he and another British officer overhear the Tsar discussing Russian plans to invade India,
-he re&shy;luc&shy;tant&shy;ly escapes.
+he re­luc­tant­ly escapes.
 After he is captured <span>&#8230;<a href="/blog/2016/08/21/ReviewFlashmanAtTheCharge.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/21/ReviewFlashmanAtTheCharge.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>,
+                <a href="/tag/fiction/" rel="tag">fiction</a>,
+                <a href="/tag/history/" rel="tag">history</a>
+                    and
+                    
+                <a href="/tag/humor/" rel="tag">humor</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -236,19 +310,25 @@ After he is captured <span>&#8230;<a href="/blog/2016/08/21/ReviewFlashmanAtTheC
 <p>In <a class="reference external" href="https://en.wikipedia.org/wiki/Jason_Bourne_(film)">Jason Bourne</a>,
 the eponym is back in action, running around the planet
 in a personal vendetta with the director of the <span class="caps">CIA</span>.
-Bourne&#8217;s old ally Nicky Parsons is killed trying to pass him some in&shy;for&shy;ma&shy;tion
-that she&#8217;s unearthed about the Treadstone program
+Bourne’s old ally Nicky Parsons is killed trying to pass him some in­for­ma­tion
+that she’s unearthed about the Treadstone program
 that turned David Webb into the amnesiac assassin known as Jason Bourne.
 The <span class="caps">CIA</span> director sends a killer known only as the Asset after Bourne,
-while the fresh-faced head of the Cyber Ops division does her best to keep Bourne&nbsp;alive.</p>
-<p>This is a largely un&shy;nec&shy;es&shy;sary sequel to the Bourne franchise.
+while the fresh-faced head of the Cyber Ops division does her best to keep Bourne alive.</p>
+<p>This is a largely un­nec­es­sary sequel to the Bourne franchise.
 While the <span>&#8230;<a href="/blog/2016/08/20/ReviewJasonBourne.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/20/ReviewJasonBourne.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/movies/" rel="tag">movies</a>
+                    and
+                    
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -268,13 +348,13 @@ or which pattern you want to search for,
 Vim provides a couple of command-line options that can help:
 <tt class="docutils literal">+<span class="caps">NUM</span></tt> goes to line number <tt class="docutils literal"><span class="caps">NUM</span></tt>,
 while <tt class="docutils literal">+/<span class="caps">PAT</span></tt> searches for the first occurrence of <tt class="docutils literal"><span class="caps">PAT</span></tt>.
-It&#8217;s also possible to execute an Ex command with <tt class="docutils literal">+<span class="caps">CMD</span></tt>,
-such as <tt class="docutils literal">&quot;+set fenc=latin1&quot;</tt>.
+It’s also possible to execute an Ex command with <tt class="docutils literal">+<span class="caps">CMD</span></tt>,
+such as <tt class="docutils literal">"+set fenc=latin1"</tt>.
 You can supply up to ten <tt class="docutils literal">+</tt> options.</p>
-<pre class="literal-block">
+<pre class="code bash literal-block">
 vim +23 ~/.bashrc
-vim '+/ASIN\|ISBN' template.rst
-vim &quot;+set fenc=latin1&quot; some.csv
+vim <span class="s1">'+/<span class="caps">ASIN</span>\|<span class="caps">ISBN</span>'</span> template.rst
+vim <span class="s2">"+set fenc=latin1"</span> some.csv
 </pre>
 
     <footer>
@@ -282,7 +362,10 @@ vim &quot;+set fenc=latin1&quot; some.csv
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/19/OpeningVimAtTheRightPlace.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -310,18 +393,25 @@ vim &quot;+set fenc=latin1&quot; some.csv
 <div class="line">Reading period: 24–31 July, 2016</div>
 </div>
 <p>Detective Inspector Ben Cooper, newly promoted, is leading the team
-that&#8217;s in&shy;ves&shy;ti&shy;gat&shy;ing the murder of a lorry driver outside a remote Peak District village.
+that’s in­ves­ti­gat­ing the murder of a lorry driver outside a remote Peak District village.
 It seems to be connected to a suicide that took place the same day, but how?
-Cooper and his team manage to peel back the layers sur&shy;round&shy;ing the dual&nbsp;mysteries.</p>
-<p>Booth writes solidly plotted, solidly char&shy;ac&shy;ter&shy;ized novels,
-and this is another good entry in his long-running Cooper <span class="amp">&amp;</span> Fry&nbsp;series.</p>
+Cooper and his team manage to peel back the layers sur­round­ing the dual mysteries.</p>
+<p>Booth writes solidly plotted, solidly char­ac­ter­ized novels,
+and this is another good entry in his long-running Cooper <span class="amp">&</span> Fry series.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/18/ReviewTheMurderRoad.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/mystery/" rel="tag">mystery</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -342,8 +432,8 @@ and belatedly realized that I had used only half the washers.
 The unclear directions had said to place one washer next to the bolt head
 and the other washer at the far end, just inside the nut.
 I had overlooked the latter.
-I don&#8217;t feel like undoing twelve bolts and starting over,
-so it will stay that&nbsp;way.</p>
+I don’t feel like undoing twelve bolts and starting over,
+so it will stay that way.</p>
 <p>It occurred to me to wonder what purpose the washer serves.
 I had a notion that, since it increases the apparent area of the bolt head or the nut,
 it must reduce the pressure on whatever is being tightened by the bolt
@@ -353,47 +443,10 @@ in the immediate <span>&#8230;<a href="/blog/2016/08/16/OnWashers.html" class="c
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/16/OnWashers.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-08-15">2016-08-15</time>
-        <h1>
-            <a href="/blog/2016/08/15/ReviewFlashmanAndTheRedskins.html" rel="bookmark canonical">Review: Flashman And The Redskins</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0452264871/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Flashman And The Redskins</div>
-<div class="line">Author: George MacDonald Fraser</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Plume</div>
-<div class="line">Copyright: 1982</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0452264871/?tag=georgvreill-20">0452264871</a></div>
-<div class="line">Pages: 480</div>
-<div class="line">Keywords: historical fiction, humor</div>
-<div class="line">Reading period: 20 July–7 August, 2016</div>
-<div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> <span class="caps">VII</span>: 1849–50 and 1875–76</div>
-</div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman_and_the_Redskins">Flashman And The Redskins</a> is the seventh volume of the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>,
-although it opens im&shy;me&shy;di&shy;ate&shy;ly after <a class="reference external" href="/blog/2016/08/07/ReviewFlashForFreedom.html">Flash For Freedom!</a>
-In the first part, which takes place in 1849–50,
-Flashman is fleeing from New Orleans in the company of a madam
-who is taking her entire brothel westward to take advantage of the California Gold Rush.
-He sees the opening of the West and the beginning of huge changes to the Plains.
-He is taken captive by Apaches <span>&#8230;<a href="/blog/2016/08/15/ReviewFlashmanAndTheRedskins.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/15/ReviewFlashmanAndTheRedskins.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/misc/" rel="tag">misc</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>

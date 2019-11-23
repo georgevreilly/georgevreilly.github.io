@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2011-04-22">2011-04-22</time>
+        <h1>
+            <a href="/blog/2011/04/22/SerializationExceptionTheConstructorWasNotFound.html" rel="bookmark canonical">SerializationException: the constructor was not found</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://blogs.cozi.com/tech/2011/04/serializationexception-the-constructor-was-not-found.html"></a>
+<p>I just finished another post at the Cozi Tech Blog,
+<a class="reference external" href="http://blogs.cozi.com/tech/2011/04/serializationexception-the-constructor-was-not-found.html">Se­ri­al­iza­tionEx­cep­tion: the con­struc­tor was not found</a></p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/c/" rel="tag">c</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-08-15">2007-08-15</time>
+        <h1>
+            <a href="/blog/2007/08/15/BuildingARESTWebServiceDay1.html" rel="bookmark canonical">Building a REST Web Service, day 1</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://rest.blueoxen.net/"></a>
+<p>My first project at <a class="reference external" href="http://www.cozi.com/">Cozi</a> is to build a simple <a class="reference external" href="http://rest.blueoxen.net/">REST</a>-style Web Service.
+Nobody here has done that before.</p>
+<p>The first thing that I'm trying to get going is a simple <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms972974.aspx">URL rewriter</a>,
+using an ASP.NET HttpModule.</p>
+<p>I'm running Vista as my de­vel­op­ment desktop for the first time.
+So far, not bad, but there are lots of new quirks to get used to.
+I've been a good boy so far and I've left the User Access Control stuff enabled,
+so that I'm not running with ad­min­is­tra­tive privileges by default.</p>
+<p>It's my first exposure to IIS 7.
+I must say that the IIS UI is much improved
+(a low bar to <span>&#8230;<a href="/blog/2007/08/15/BuildingARESTWebServiceDay1.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/cozi/" rel="tag">cozi</a>,
+                <a href="/tag/rest/" rel="tag">rest</a>
+                    and
+                    
+                <a href="/tag/c/" rel="tag">C</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-07-20">2007-07-20</time>
+        <h1>
+            <a href="/blog/2007/07/20/SerializingANameValueCollection.html" rel="bookmark canonical">Serializing a NameValueCollection</a>
+        </h1>
+    </header>
+    
+<p>I had a NameVal­ueCol­lec­tion embedded inside a larger object.
+I needed to serialize the larger object into XML and back.
+Un­for­tu­nate­ly, NameVal­ueCol­lec­tion is not XML se­ri­al­iz­able.
+Why I do not know.</p>
+<p>A blog comment from <a class="reference external" href="http://nayyeri.net/archive/2006/08/11/Serialize-NameValueCollection.aspx#72442">Tim Erwin</a> got me started in the right direction.
+Implement <tt class="docutils literal">IXmlSe­ri­al­iz­able</tt> and do the work by hand in
+<tt class="docutils literal">ReadXml</tt> and <tt class="docutils literal">WriteXml</tt>.</p>
+<p>Tim's im­ple­men­ta­tion turned out to be overly simple.
+It didn't handle an empty collection well,
+nor did it leave the <tt class="docutils literal">XmlReader</tt> in a good state.</p>
+<p>I used <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/bk3w6240(vs.80).aspx">SGen</a> to examine the de­se­ri­al­iza­tion of a
+<tt class="docutils literal">List<string></string> to figure out what else needed to be done.</tt>
+<p>The following <tt class="docutils literal">ReadXml</tt> seems to work.
+If I expected to receive XML from <span>&#8230;<a href="/blog/2007/07/20/SerializingANameValueCollection.html" class="continue">continue</a>.</span></p></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/c/" rel="tag">c</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-06-09">2007-06-09</time>
+        <h1>
+            <a href="/blog/2007/06/09/Multilingual.html" rel="bookmark canonical">Multilingual</a>
+        </h1>
+    </header>
+    
+<p>This week, I have written code in C#, C++, Managed C++, C, WiX, NAnt,
+Ac­tion­Script, VBScript, JScript, cmd batch, NMake, HTML,
+XSLT, and Ruby. And I will probably get some Python in before the weekend
+is over. <boggle /></p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>,
+                <a href="/tag/javascript/" rel="tag">javascript</a>,
+                <a href="/tag/c++/" rel="tag">c++</a>
+                    and
+                    
+                <a href="/tag/c/" rel="tag">c</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-03-14">2007-03-14</time>
+        <h1>
+            <a href="/blog/2007/03/14/NVelocityLoadingTemplatesFromEmbeddedResources.html" rel="bookmark canonical">NVelocity: loading templates from embedded resources</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.castleproject.org/others/nvelocity/index.html"></a>
+<p>In last week's tip on
+using the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/index.html">NVelocity</a> template formatting engine,
+I described what to set to load a template from
+an <a class="reference external" href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html">absolute path</a>.</p>
+<p>Here's the magic necessary to get NVelocity to load a template from an
+embedded resource:</p>
+<pre class="code csharp literal-block">
+<span class="n">VelocityEngine</span> <span class="n">engine</span> <span class="p">=</span> <span class="k">new</span> <span class="n">VelocityEngine</span><span class="p">();</span>
+<span class="n">ExtendedProperties</span> <span class="n">properties</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ExtendedProperties</span><span class="p">();</span>
+<span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">"resource.loader"</span><span class="p">,</span> <span class="s">"assembly"</span><span class="p">);</span>
+<span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">"assembly.resource.loader.class"</span><span class="p">,</span>
+    <span class="s">"NVelocity.Runtime.Resource.Loader.AssemblyResourceLoader, NVelocity"</span><span class="p">);</span>
+<span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">"assembly.resource.loader.assembly"</span><span class="p">,</span> <span class="s">"StencilFormatter"</span><span class="p">);</span>
+<span class="n">engine</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">properties</span><span class="p">);</span>
+</pre>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/net/" rel="tag">.NET</a>
+                    and
+                    
+                <a href="/tag/c/" rel="tag">c</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-03-07">2007-03-07</time>
+        <h1>
+            <a href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html" rel="bookmark canonical">NVelocity templates and absolute paths</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.castleproject.org/others/nvelocity/index.html"></a>
+<p>We've started using the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/index.html">NVelocity</a> template formatting engine.
+We were absolutely stymied for an hour, trying to figure
+out how to get it working with an absolute path to the template file,
+instead of the relative path shown in the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/usingit.html">doc­u­men­ta­tion</a>.</p>
+<p>The trick is to set <tt class="docutils literal">file.resource.loader.path</tt>.
+Here's how to load <tt class="docutils literal"><span class="pre">C:\foo\bar\­some­file.vm</span></tt>:</p>
+<pre class="code csharp literal-block">
+<span class="n">ExtendedProperties</span> <span class="n">props</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ExtendedProperties</span><span class="p">();</span>
+<span class="n">props</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">"file.resource.loader.path"</span><span class="p">,</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="p">(</span><span class="k">new</span> <span class="kt">string</span><span class="p">[]{</span><span class="s">"."</span><span class="p">,</span> <span class="s">"C:\\"</span><span class="p">}));</span>
+<span class="n">velocity</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">props</span><span class="p">);</span>
+
+<span class="n">template</span> <span class="p">=</span> <span class="n">velocity</span><span class="p">.</span><span class="n">GetTemplate</span><span class="p">(</span><span class="s">"foo\\bar\\somefile.vm"</span><span class="p">);</span>
+</pre>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/net/" rel="tag">.NET</a>
+                    and
+                    
+                <a href="/tag/c/" rel="tag">c</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-02-07">2007-02-07</time>
+        <h1>
+            <a href="/blog/2007/02/07/PrintfN.html" rel="bookmark canonical">Printf %n</a>
+        </h1>
+    </header>
+    
+<p>In my post about <a class="reference external" href="/blog/2005/06/02/PrintfTricks.html">Printf Tricks</a> a couple of years ago,
+I mentioned that "<tt class="docutils literal">%n</tt> is dangerous and disabled by default in Visual Studio 2005."</p>
+<p>I got email today from someone who was porting a large codebase to VS 2005.
+He was getting an assert from <tt class="docutils literal">%n</tt> and he needed a way to get past it.
+He intends to fix the uses of <tt class="docutils literal">%n</tt> when he has a chance.</p>
+<p>I spent several minutes digging around in MSDN and came up with
+<a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms175782(VS.80).aspx">set_print­f_­coun­t_out­put</a>. Wikipedi­a's <a class="reference external" href="http://en.wikipedia.org/wiki/Format_string_attack">Format string attack</a> page
+led me to <a class="reference external" href="http://julianor.tripod.com/bc/formatstring-1.2.pdf">Exploiting Format String Vul­ner­a­bil­i­ties</a>, which
+describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="docutils literal">%s</tt>) may be exploited.</p>
+<p>In short, if you <span>&#8230;<a href="/blog/2007/02/07/PrintfN.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/security/" rel="tag">security</a>
+                    and
+                    
+                <a href="/tag/c/" rel="tag">c</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-09-14">2006-09-14</time>
+        <h1>
+            <a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" rel="bookmark canonical">Never Sleep(0) in an Infinite Loop</a>
+        </h1>
+    </header>
+    
+<p>I ran into a problem installing some COM+ components today. The installer
+was using <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/04za0hca.aspx">Regsvcs.exe</a>
+to register each COM+ component. I noticed after a while that the installer
+wasn't making any progress and that my dual-proc system was stuck at 50%
+CPU uti­liza­tion. I attached a debugger to the offending process, regsvcs,
+and found that it was stuck in the following infinite loop
+(dis­as­sem­bly courtesy of <a class="reference external" href="http://www.aisto.com/roeder/dotnet/">Reflector</a>):</p>
+
+<pre class="code csharp literal-block">
+<span class="k">internal</span> <span class="k">void</span> <span class="n">System</span><span class="p">.</span><span class="n">EnterpriseServices</span><span class="p">.</span><span class="n">CatalogSync</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">_set</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">RegistryKey</span> <span class="n">key1</span>
+      <span class="p">=</span> <span class="n">Registry</span><span class="p">.</span><span class="n">LocalMachine</span><span class="p">.</span><span class="n">OpenSubKey</span><span class="p">(</span><span class="s">@"SOFTWARE\Classes\CLSID"</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">int</span> <span class="n">num1</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">key1</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="s">"CLBVersion"</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+ </pre><span>&#8230;<a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/c/" rel="tag">c</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2005-06-02">2005-06-02</time>
+        <h1>
+            <a href="/blog/2005/06/02/PrintfTricks.html" rel="bookmark canonical">Printf Tricks</a>
+        </h1>
+    </header>
+    <p>It may be old-fashioned, but I still find <tt class="docutils literal">printf</tt> (and <tt class="docutils literal">sprintf</tt>
+and <tt class="docutils literal">_vsnprintf</tt>) incredibly useful, both for printing debug output
+and for generating formatted strings.</p>
+<p>Here are a few lesser-known formats that I use again and again.
+See MSDN for the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/56e442dc(VS.71).aspx">full reference</a>.</p>
+<div class="section" id="x-4-digit-hex-number-with-leading-zeroes">
+<h2>%04x - 4-digit hex number with leading zeroes</h2>
+<p>A quick review of some of the basics.</p>
+<p><tt class="docutils literal">%x</tt> prints an <tt class="docutils literal">int</tt> in hexa­dec­i­mal.</p>
+<p><tt class="docutils literal">%4x</tt> prints a hex int, right-justified to 4 places.
+If it's less than 4 digits, it's preceded by spaces.
+If it's more than 4 digits, you get the full number.</p>
+<p><tt class="docutils literal">%04x</tt> prints a hex int, right-justified to 4 places.
+If it's less than 4 digits, it's preceded <span>&#8230;<a href="/blog/2005/06/02/PrintfTricks.html" class="continue">continue</a>.</span></p></div>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/c/" rel="tag">c</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

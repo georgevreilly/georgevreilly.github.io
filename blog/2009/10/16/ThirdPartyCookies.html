@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: http://cache.gawker.com/assets/images/l..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="web" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -41,40 +42,43 @@ The actual ap&shy;pli&shy;ca&shy;tion is hosted in an iframe
 and lives on a server in a different domain, <tt class="docutils literal">eq.dm</tt>,
 than the main server at <tt class="docutils literal">ap&shy;proveref&shy;er&shy;en&shy;dum71.org</tt>.</p>
 <p>This works fine in most browsers.
-Then we started getting reports that it wasn&#8217;t working in <span class="caps">IE8</span> on Win7 <span class="caps">RC1</span>.
-The iframe content was&nbsp;blank.</p>
+Then we started getting reports that it wasn’t working in <span class="caps">IE8</span> on Win7 <span class="caps">RC1</span>.
+The iframe content was blank.</p>
 <p>Poking around, I found the problem with the <a class="reference external" href="http://www.fiddler2.com/fiddler2/">Fiddler proxy</a>.
 The landing page on <tt class="docutils literal">eq.dm</tt> was supposed to stick some in&shy;for&shy;ma&shy;tion into the <span class="caps">PHP</span> session,
 then redirect to a second page at the same site.
 The second page was in an endless loop, redi&shy;rect&shy;ing to itself.
 In Fiddler, I saw a different <span class="caps">PHPSESSID</span> cookie on each response,
-and no cookie in the&nbsp;requests.</p>
+and no cookie in the requests.</p>
 <p>After reading <a class="reference external" href="http://stackoverflow.com/questions/1003490/ie-8-only-has-access-to-session-cookies"><span class="caps">IE</span> 8 only has access to session cookies</a>,
 I told <span class="caps">IE8</span> to Accept All Cookies and the iframe content appeared.
-That fixed it for me, but we could hardly ask people to lower their security&nbsp;sessions.</p>
+That fixed it for me, but we could hardly ask people to lower their security sessions.</p>
 <p>I created a <span class="caps">P3P</span> file for the second domain, using the <a class="reference external" href="http://www.alphaworks.ibm.com/tech/p3peditor"><span class="caps">IBM</span> <span class="caps">P3P</span> Policy Editor</a>.
-(<a class="reference external" href="http://support.microsoft.com/default.aspx/kb/323752/EN-US/"><span class="caps">KB</span> 323752</a> has more background on <span class="caps">P3P</span> and third-party&nbsp;cookies.)</p>
+(<a class="reference external" href="http://support.microsoft.com/default.aspx/kb/323752/EN-US/"><span class="caps">KB</span> 323752</a> has more background on <span class="caps">P3P</span> and third-party cookies.)</p>
 <p><span class="caps">IE</span> now worked at its default security level.
 Problem solved!
-Or so I&nbsp;thought.</p>
-<p>A day later, we got reports of similar problems with Safari&nbsp;4 on Mac&nbsp;<span class="caps">OS</span>&nbsp;X.</p>
+Or so I thought.</p>
+<p>A day later, we got reports of similar problems with Safari 4 on Mac <span class="caps">OS</span> X.</p>
 <p>I sniffed the traffic with <a class="reference external" href="http://www.wireshark.org/">Wireshark</a>.
-Same problem: the “third-party“ cookie wasn&#8217;t being accepted by&nbsp;Safari.</p>
+Same problem: the “third-party“ cookie wasn’t being accepted by Safari.</p>
 <p>Un&shy;for&shy;tu&shy;nate&shy;ly, <a class="reference external" href="http://stackoverflow.com/questions/408582/setting-cross-domain-cookies-in-safari">Setting cross-domain cookies in Safari</a>
-indicated that there was no reasonable&nbsp;workaround.</p>
+indicated that there was no reasonable workaround.</p>
 <p>We overcame the issue up playing some <span class="caps">DNS</span> games,
 which was only possible because we control both servers.
 The second server is now also acting as a subdomain of the first,
 at <tt class="docutils literal">dev.ap&shy;proveref&shy;er&shy;en&shy;dum71.org</tt>.
-We used <tt class="docutils literal"><span class="pre">ini_set(&quot;session.cook&shy;ie_&shy;do&shy;main&quot;,&quot;.ap&shy;proveref&shy;er&shy;en&shy;dum71.org&quot;)</span></tt>
+We used <tt class="docutils literal"><span class="pre">ini_set("session.cook&shy;ie_&shy;do&shy;main",".ap&shy;proveref&shy;er&shy;en&shy;dum71.org")</span></tt>
 to scope the iframe cookies.
-I&#8217;ve tried it in a variety of Windows, Mac, and Linux browsers,
-and it works in all of&nbsp;them.</p>
+I’ve tried it in a variety of Windows, Mac, and Linux browsers,
+and it works in all of them.</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/web/" rel="tag">web</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

@@ -21,9 +21,51 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-09-12">2009-09-12</time>
+        <h1>
+            <a href="/blog/2009/09/12/Launching32bitApplicationsFromBatchfilesOnWin64.html" rel="bookmark canonical">Launching 32-bit applications from batchfiles on Win64</a>
+        </h1>
+    </header>
+    
+<p>I’ve been running the <a class="reference external" href="/blog/2009/06/20/WhenVideoCardsGoBad.html">64-bit version of Windows 7 <span class="caps">RC</span></a> since June.
+It’s been quite painless on the whole.</p>
+<p>One wrinkle that I ran into was with some batchfiles which
+launch ap­pli­ca­tions in <tt class="docutils literal">%Pro­gram­Files%</tt> (normally <tt class="docutils literal"><span class="pre">C:\Program Files</span></tt>).
+Due to the magic <a class="reference external" href="http://blogs.msdn.com/craigmcmurtry/archive/2004/12/14/301155.aspx"><span class="caps">WOW64</span> redirector</a>, 32-bit ap­pli­ca­tions
+are actually installed into <tt class="docutils literal">%Pro­gram­Files(x86)%</tt>—normally <tt class="docutils literal"><span class="pre">C:\Program Files (x86)</span></tt>—instead of <tt class="docutils literal">%Pro­gram­Files%</tt>.
+This is trans­par­ent to the 32-bit ap­pli­ca­tions,
+which think they’re running in <tt class="docutils literal">%Pro­gram­Files%</tt> (<tt class="docutils literal"><span class="pre">C:\Program Files</span></tt>).</p>
+<p>However, the cmd.exe shell is 64-bit
+(unless you make a special effort to run the 32-bit cmd.exe in SysWOW64),
+so batchfiles see the 64-bit <tt class="docutils literal">%Pro­gram­Files%</tt> which contains 64-bit ap­pli­ca­tions.</p>
+<p>Hence, a batchfile that launches an installed 32-bit ap­pli­ca­tion on Win64
+must use <tt class="docutils literal">%Pro­gram­Files(x86)%</tt>, not <tt class="docutils literal">%Pro­gram­Files%</tt>.</p>
+<p>It sounds trivial to <span>&#8230;<a href="/blog/2009/09/12/Launching32bitApplicationsFromBatchfilesOnWin64.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/09/12/Launching32bitApplicationsFromBatchfilesOnWin64.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/windows/" rel="tag">windows</a>
+                    and
+                    
+                <a href="/tag/cmd/" rel="tag">cmd</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
     
         <article>
     <header>
@@ -33,26 +75,32 @@
         </h1>
     </header>
     <a class="reference external image-reference" href="http://approve71.org/"></a>
-<p>I spent 90&nbsp;minutes phonebank&shy;ing for <a class="reference external" href="http://approve71.org/">Approve 71</a> after work today.
-I called voters who had already been identified as leaning pro&shy;gres&shy;sive
-and asked them to vote <a class="reference external" href="/blog/2009/08/31/APPROVEReferendum71.html"><span class="caps">APPROVE</span> on Referendum 71</a> in&nbsp;November.</p>
-<p>Under the recent Domestic Part&shy;ner&shy;ship law
-(<span class="caps">SB</span>&nbsp;5688 aka the “ev&shy;ery&shy;thing but marriage bill”),
+<p>I spent 90 minutes phonebank­ing for <a class="reference external" href="http://approve71.org/">Approve 71</a> after work today.
+I called voters who had already been identified as leaning pro­gres­sive
+and asked them to vote <a class="reference external" href="/blog/2009/08/31/APPROVEReferendum71.html"><span class="caps">APPROVE</span> on Referendum 71</a> in November.</p>
+<p>Under the recent Domestic Part­ner­ship law
+(<span class="caps">SB</span> 5688 aka the “ev­ery­thing but marriage bill”),
 registered domestic partners (same-sex couples
 and opposite-sex couples with at least one partner over age 62),
 and married couples, are now treated equally
-under the law in all parts of Washington&nbsp;state.</p>
+under the law in all parts of Washington state.</p>
 <p>The Religious Right objected and put together an initiative
 which scraped together just enough signatures to be on the ballot.
-They&#8217;ll be voting to <span class="caps">REJECT</span> the bill,
-which would overturn domestic part&shy;ner&shy;ships in this&nbsp;state.</p>
+They’ll be voting to <span class="caps">REJECT</span> the bill,
+which would overturn domestic part­ner­ships in this state.</p>
 <p>Civil rights should not <span>&#8230;<a href="/blog/2009/09/11/ApproveReferendum71Phonebanking.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2009/09/11/ApproveReferendum71Phonebanking.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/lgbt/" rel="tag">lgbt</a>
+                    and
+                    
+                <a href="/tag/politics/" rel="tag">politics</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -70,23 +118,26 @@ which would overturn domestic part&shy;ner&shy;ships in this&nbsp;state.</p>
     
 <p>Paying bills always makes me grumpy.
 More than just the drain on my wallet,
-it&#8217;s also the sheer hassle and&nbsp;tedium.</p>
+it’s also the sheer hassle and tedium.</p>
 <p>I think it was last year that I finally switched over to using electronic billpay.
-(I&#8217;m not always an early adopter.)
-The hassle is less and I seldom write checks&nbsp;now.</p>
-<p>I&#8217;d like to know why electronic payments take days, not mil&shy;lisec&shy;onds, to clear.
-More predatory bank practices, no&nbsp;doubt.</p>
+(I’m not always an early adopter.)
+The hassle is less and I seldom write checks now.</p>
+<p>I’d like to know why electronic payments take days, not mil­lisec­onds, to clear.
+More predatory bank practices, no doubt.</p>
 <p>I wrote several checks tonight.
 For months I had been putting off renewing my membership
-in various do-gooder or&shy;ga&shy;ni&shy;za&shy;tions like the <a class="reference external" href="http://www.aclu.org/"><span class="caps">ACLU</span></a>, the <a class="reference external" href="http://www.eff.org/"><span class="caps">EFF</span></a>, and <a class="reference external" href="http://www.glaad.org/"><span class="caps">GLAAD</span></a>.
-Some I wrote checks to, others I used their online&nbsp;forms.</p>
-<p>I&#8217;m going to be getting a couple of <span>&#8230;<a href="/blog/2009/09/09/PayingBills.html" class="continue">continue</a>.</span></p>
+in various do-gooder or­ga­ni­za­tions like the <a class="reference external" href="http://www.aclu.org/"><span class="caps">ACLU</span></a>, the <a class="reference external" href="http://www.eff.org/"><span class="caps">EFF</span></a>, and <a class="reference external" href="http://www.glaad.org/"><span class="caps">GLAAD</span></a>.
+Some I wrote checks to, others I used their online forms.</p>
+<p>I’m going to be getting a couple of <span>&#8230;<a href="/blog/2009/09/09/PayingBills.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2009/09/09/PayingBills.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/personal/" rel="tag">personal</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -113,20 +164,27 @@ Some I wrote checks to, others I used their online&nbsp;forms.</p>
 <div class="line">Keywords: mystery</div>
 <div class="line">Reading period: 7 September, 2009</div>
 </div>
-<p>Jack Irish is a one-time lawyer who makes a living doing odd job&shy;s—in&shy;ves&shy;ti&shy;ga&shy;tions, racehorse hand&shy;i&shy;cap&shy;ping, cabinet making—in Melbourne.
+<p>Jack Irish is a one-time lawyer who makes a living doing odd job­s—in­ves­ti­ga­tions, racehorse hand­i­cap­ping, cabinet making—in Melbourne.
 A former client, who went to jail years ago while Jack had crawled into a bottle,
 tries to reach Jack and promptly turns up dead.
-Jack starts looking and what he finds isn&#8217;t pretty:
-corruption all the way up into the state&nbsp;government.</p>
-<p>Jack isn&#8217;t stupid, but he is naïve and out of his depth for much of the book.
+Jack starts looking and what he finds isn’t pretty:
+corruption all the way up into the state government.</p>
+<p>Jack isn’t stupid, but he is naïve and out of his depth for much of the book.
 Temple combines the Australian backdrop, social commentary,
-a decent plot, and in&shy;ter&shy;est&shy;ing <span>&#8230;<a href="/blog/2009/09/09/ReviewBadDebts.html" class="continue">continue</a>.</span></p>
+a decent plot, and in­ter­est­ing <span>&#8230;<a href="/blog/2009/09/09/ReviewBadDebts.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2009/09/09/ReviewBadDebts.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/mystery/" rel="tag">mystery</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -142,19 +200,26 @@ a decent plot, and in&shy;ter&shy;est&shy;ing <span>&#8230;<a href="/blog/2009/0
         </h1>
     </header>
     
-<p>I held my annual fundrais&shy;ing barbecue for the <a class="reference external" href="/blog/2009/08/31/SeattleAIDSWalk2009.html"><span class="caps">AIDS</span> Walk</a> today.
-Actually, the weather was so wet this morning that we cooked and ate&nbsp;inside.</p>
+<p>I held my annual fundrais­ing barbecue for the <a class="reference external" href="/blog/2009/08/31/SeattleAIDSWalk2009.html"><span class="caps">AIDS</span> Walk</a> today.
+Actually, the weather was so wet this morning that we cooked and ate inside.</p>
 <p>I am happy to report that thanks to the generosity of my sponsors,
 I have raised $982 of my original goal of $1000.
 With three weeks left until the walk,
-I am predicting success in reaching my&nbsp;goal.</p>
+I am predicting success in reaching my goal.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2009/09/07/AIDSWalkBarbecue.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/seattle/" rel="tag">seattle</a>,
+                <a href="/tag/lgbt/" rel="tag">lgbt</a>
+                    and
+                    
+                <a href="/tag/personal/" rel="tag">personal</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -181,22 +246,29 @@ I am predicting success in reaching my&nbsp;goal.</p>
 <div class="line">Keywords: horror</div>
 <div class="line">Reading period: 2–6 September, 2009</div>
 </div>
-<p>In Bram Stoker&#8217;s 1897 <a class="reference external" href="http://en.wikipedia.org/wiki/Dracula">novel</a>, Dracula relocates from Tran&shy;syl&shy;va&shy;nia to London.
+<p>In Bram Stoker’s 1897 <a class="reference external" href="http://en.wikipedia.org/wiki/Dracula">novel</a>, Dracula relocates from Tran­syl­va­nia to London.
 Asking themselves, what would Dracula have done in London
 before he was killed by Van Helsing,
-18&nbsp;authors wrote un&shy;con&shy;nect&shy;ed short stories.
+18 authors wrote un­con­nect­ed short stories.
 Dracula meets the Prince of Wales,
 he is observed by the servants,
 he terrorizes <a class="reference external" href="http://en.wikipedia.org/wiki/Aleister_Crowley">Aleister Crowley</a> and <a class="reference external" href="http://en.wikipedia.org/wiki/Charles_Fort">Charles Fort</a> and <a class="reference external" href="http://en.wikipedia.org/wiki/Ellen_Terry">Ellen Terry</a>,
-he even takes the lead in the Pirates of&nbsp;Penzance.</p>
-<p>The stories are uneven. None is&nbsp;out&shy;stand&shy;ing.</p>
+he even takes the lead in the Pirates of Penzance.</p>
+<p>The stories are uneven. None is out­stand­ing.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2009/09/07/ReviewDraculaInLondon.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/horror/" rel="tag">horror</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -213,16 +285,16 @@ he even takes the lead in the Pirates of&nbsp;Penzance.</p>
     </header>
     <a class="reference external image-reference" href="http://www.firstthursdayseattle.com/"></a>
 <p>On the <a class="reference external" href="http://www.firstthursdayseattle.com/">First Thursday</a> of every month,
-there&#8217;s an Art Walk around Seattle&#8217;s Pioneer Square.
+there’s an Art Walk around Seattle’s Pioneer Square.
 All the art galleries stay open late
-and thousands of people wander around looking at the&nbsp;art.</p>
-<p>It&#8217;s a shame then that in the four years that I&#8217;ve worked in Pioneer Square,
-I&#8217;ve only Art Walked a handful of times.
+and thousands of people wander around looking at the art.</p>
+<p>It’s a shame then that in the four years that I’ve worked in Pioneer Square,
+I’ve only Art Walked a handful of times.
 Maura and Joseph joined us on Thursday
 and we spent a pleasant couple of hours talking and wandering around,
 mostly through the Tashiro-Kaplan building.
-Muhsin was supposed to come too, but couldn&#8217;t find parking
-as the Seahawks played a pre-season&nbsp;game.</p>
+Muhsin was supposed to come too, but couldn’t find parking
+as the Seahawks played a pre-season game.</p>
 <p>There are other First Thursday events:
 many of the museums are free after 5pm.
 The <a class="reference external" href="http://www.seattleartmuseum.org/TAH/TAH.asp">Seattle Art Museum</a>,
@@ -232,7 +304,10 @@ the <a class="reference external" href="http://www.empsfm.org/programs/index.asp
             <a class="floatright" href="https://www.georgevreilly.com/blog/2009/09/06/FirstThursdayArtWalk.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/seattle/" rel="tag">seattle</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -248,24 +323,27 @@ the <a class="reference external" href="http://www.empsfm.org/programs/index.asp
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.flickr.com/photos/george_v_reilly/sets/72157622124304079/"></a>
-<p><a class="reference external" href="http://chuckanutdrive.com/">Chuckanut Drive</a> is one of Washington State&#8217;s best yet least-known scenic drives.
+<p><a class="reference external" href="http://chuckanutdrive.com/">Chuckanut Drive</a> is one of Washington State’s best yet least-known scenic drives.
 Take I-5 north from Seattle for 70 miles.
-Just past Burlington, exit on to state route&nbsp;11.
+Just past Burlington, exit on to state route 11.
 The highway heads northwest towards the coast
 across the fertile floodplain of the Skagit valley.
 For nine miles, you drive past farms and fields.
-Then the road rises at the coast, changing character&nbsp;instantly.</p>
-<p>Now you&#8217;re driving along the rocky, forested shoulder of the Chuckanut mountains.
+Then the road rises at the coast, changing character instantly.</p>
+<p>Now you’re driving along the rocky, forested shoulder of the Chuckanut mountains.
 One hundred feet below as you drive along the twisty, shady road,
 you can catch glimpses of the waters of Samish Bay through the trees.
 If you look closely, you may see the train tracks,
-prac&shy;ti&shy;cal&shy;ly at water&#8217;s <span>&#8230;<a href="/blog/2009/09/04/ChuckanutDrive.html" class="continue">continue</a>.</span></p>
+prac­ti­cal­ly at water’s <span>&#8230;<a href="/blog/2009/09/04/ChuckanutDrive.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2009/09/04/ChuckanutDrive.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/seattle/" rel="tag">seattle</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -282,7 +360,7 @@ prac&shy;ti&shy;cal&shy;ly at water&#8217;s <span>&#8230;<a href="/blog/2009/09/
     </header>
     <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0671021478"></a>
 <div class="line-block">
-<div class="line">Title: Hermit&#8217;s Peak</div>
+<div class="line">Title: Hermit’s Peak</div>
 <div class="line">Author: Michael McGarrity</div>
 <div class="line">Rating: ★ ★ ★ ★</div>
 <div class="line">Publisher: Pocket Books</div>
@@ -294,17 +372,24 @@ prac&shy;ti&shy;cal&shy;ly at water&#8217;s <span>&#8230;<a href="/blog/2009/09/
 </div>
 <p>Kevin Kerney, deputy chief of the New Mexico State Police,
 has just inherited a high-country ranch,
-where he finds a dis&shy;mem&shy;bered&nbsp;skeleton.</p>
+where he finds a dis­mem­bered skeleton.</p>
 <p>An old-school police procedural (by a real cop)
-with believable characters and a not im&shy;plau&shy;si&shy;ble plot.
-The prose is a little clumsy, but the story pulled me&nbsp;along.</p>
+with believable characters and a not im­plau­si­ble plot.
+The prose is a little clumsy, but the story pulled me along.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2009/09/03/ReviewHermitsPeak.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/mystery/" rel="tag">mystery</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -320,64 +405,31 @@ The prose is a little clumsy, but the story pulled me&nbsp;along.</p>
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.cozi.com/"></a>
-<p>This afternoon, I invited 200 friends, family, and ac&shy;quain&shy;tances
-to the <a class="reference external" href="http://family.cozi.com/reibart/">Reilly <span class="amp">&amp;</span> Bartholomew Family Journal</a>.
-The Journal is the feature that we&#8217;ve been working on at <a class="reference external" href="http://www.cozi.com/">Cozi</a> for several months.
-It&#8217;s a light&shy;weight blog that&#8217;s really easy to set up and post to,
-with straight&shy;for&shy;ward privacy&nbsp;controls.</p>
-<p>More im&shy;por&shy;tant&shy;ly, though, I invited those people to use Cozi for&nbsp;themselves.</p>
+<p>This afternoon, I invited 200 friends, family, and ac­quain­tances
+to the <a class="reference external" href="http://family.cozi.com/reibart/">Reilly <span class="amp">&</span> Bartholomew Family Journal</a>.
+The Journal is the feature that we’ve been working on at <a class="reference external" href="http://www.cozi.com/">Cozi</a> for several months.
+It’s a light­weight blog that’s really easy to set up and post to,
+with straight­for­ward privacy controls.</p>
+<p>More im­por­tant­ly, though, I invited those people to use Cozi for themselves.</p>
 <blockquote>
-<p>I&#8217;m inviting you to read the Family Journal that Emma and I set up at Cozi.
-It&#8217;s a way of letting our friends and relatives keep up with us.
+<p>I’m inviting you to read the Family Journal that Emma and I set up at Cozi.
+It’s a way of letting our friends and relatives keep up with us.
 If you see a story you like, add a smile.
-We hope you enjoy&nbsp;it!</p>
-<p>I&#8217;m also inviting you to start using Cozi for&nbsp;yourselves.</p>
+We hope you enjoy it!</p>
+<p>I’m also inviting you to start using Cozi for yourselves.</p>
 <p>Cozi <span>&#8230;<a href="/blog/2009/09/03/InvitingFriendsToCozi.html" class="continue">continue</a>.</span></p></blockquote>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2009/09/03/InvitingFriendsToCozi.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-09-02">2009-09-02</time>
-        <h1>
-            <a href="/blog/2009/09/02/ReviewWolfnight.html" rel="bookmark canonical">Review: Wolfnight</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0394713818/"></a>
-<div class="line-block">
-<div class="line">Title: Wolfnight</div>
-<div class="line">Author: Nicolas Freeling</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Vintage</div>
-<div class="line">Copyright: 1982</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0394713818">0394713818</a></div>
-<div class="line">Pages: 200</div>
-<div class="line">Keywords: mystery</div>
-<div class="line">Reading period: 24–30 August, 2009</div>
-</div>
-<p>Inspector Henri Castang of the Police Judiciare
-in&shy;ves&shy;ti&shy;gates the apparent kidnapping of a politician&#8217;s mistress
-and discovers a far-right&nbsp;conspiracy.</p>
-<p>Written in Freeling&#8217;s char&shy;ac&shy;ter&shy;is&shy;tic <a class="reference external" href="http://reflight.blogspot.com/2009/05/nicolas-freeling.html">idio&shy;syn&shy;crat&shy;ic style</a>,
-this is as much a meditation on corruption and compromise
-as it is a police&nbsp;procedural.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/09/02/ReviewWolfnight.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/cozi/" rel="tag">cozi</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>

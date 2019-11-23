@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-08-26">2016-08-26</time>
+        <h1>
+            <a href="/blog/2016/08/26/HomographAttacks.html" rel="bookmark canonical">Homograph Attacks</a>
+        </h1>
+    </header>
+    <p>During an internal training exercise today,
+as a sort of one-man <a class="reference external" href="https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey">Chaos Monkey</a>,
+I de­lib­er­ate­ly broke a test system by changing a config setting to read:</p>
+<pre class="literal-block">
+itemfinder.url = http://test-іtemfinder.example.com/
+</pre>
+<p>The correct value should have been:</p>
+<pre class="literal-block">
+itemfinder.url = http://test-itemfinder.example.com/
+</pre>
+<p>What's that, you say? There's no difference, you say?</p>
+<p>There <em>is</em> a difference, but it's subtle.
+The first <tt class="docutils literal">i</tt> in the URL is
+<a class="reference external" href="http://www.fileformat.info/info/unicode/char/0456/index.htm">'CYRILLIC SMALL LETTER BYELORUSS­IAN-UKRAINIAN I' (U+0456)</a>,
+not <a class="reference external" href="http://www.fileformat.info/info/unicode/char/0069/index.htm">'LATIN SMALL LETTER I' (U+0069)</a>.
+Depending upon the font, the two <tt class="docutils literal">i</tt>s may be visually in­dis­tin­guish­able,
+very similar looking, or the Cyrillic <tt class="docutils literal">i</tt> may not render.</p>
+<p>This is an example of an <a class="reference external" href="https://en.wikipedia.org/wiki/IDN_homograph_attack">In­ter­na­tion­al Domain Name Homograph Attack</a>.
+There are Greek letters and Cyrillic letters that look <span>&#8230;<a href="/blog/2016/08/26/HomographAttacks.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/security/" rel="tag">security</a>
+                    and
+                    
+                <a href="/tag/unicode/" rel="tag">unicode</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-02-12">2016-02-12</time>
+        <h1>
+            <a href="/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html" rel="bookmark canonical">Unicode Upside-Down Mapping, Part 2</a>
+        </h1>
+    </header>
+    <p><a class="reference external" href="/blog/2016/02/11/UnicodeUpsideDownMapping.html">Yesterday</a> I showed File­For­mat's <a class="reference external" href="http://www.fileformat.info/convert/text/upside-down.htm">ɹǝʇɹǝʌuoↃ uʍo◖-ǝpısd∩ ǝpoɔıu∩</a>.
+Although the lowercase letters generally looked good,
+several of the uppercase letters and numerals were un­sat­is­fac­to­ry.
+Looking through the <a class="reference external" href="http://unicode-table.com/en/">Unicode Table</a> site,
+I came across the <a class="reference external" href="http://unicode-table.com/en/blocks/lisu/">Fraser Lisu alphabet</a>,
+which is un­for­tu­nate­ly not well supported in most fonts.
+The following renders in <a class="reference external" href="http://sourcefoundry.org/hack/">Hack</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Source_Code_Pro">Source Code Pro</a> in MacVim,
+but not in the <a class="reference external" href="https://www.google.com/fonts/specimen/Source+Code+Pro">Source Code Pro webfont</a> from Google Fonts:</p>
+<pre class="literal-block">
+B: ꓭ u+A4ED  Lisu Letter Gha
+D: ꓷ u+A4F7  Lisu Letter Oe
+J: ꓩ u+A4E9  Lisu Letter Fa
+K: ꓘ u+A4D8  Lisu Letter Kha
+L: ꓶ u+A4F6  Lisu Letter Uh
+R: ꓤ u+A4E4  Lisu Letter Za
+T: ꓕ u+A4D5  Lisu </pre><span>&#8230;<a href="/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/font/" rel="tag">font</a>
+                    and
+                    
+                <a href="/tag/unicode/" rel="tag">unicode</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-02-11">2016-02-11</time>
+        <h1>
+            <a href="/blog/2016/02/11/UnicodeUpsideDownMapping.html" rel="bookmark canonical">Unicode Upside-Down Mapping</a>
+        </h1>
+    </header>
+    <p>Unicode is so versatile that you can (more or less) invert the Latin alphabet:</p>
+<pre class="literal-block">
+ɐqɔpǝɟƃɥıɾʞʃɯuodbɹsʇnʌʍxʎz ∀𐐒Ↄ◖ƎℲ⅁HIſ⋊⅂WᴎOԀΌᴚS⊥∩ᴧMX⅄Z 012Ɛᔭ59Ɫ86
+abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789
+68Ɫ95ᔭƐ210 Z⅄XMᴧ∩⊥SᴚΌԀOᴎW⅂⋊ſIH⅁ℲƎ◖Ↄ𐐒∀ zʎxʍʌnʇsɹbdouɯʃʞɾıɥƃɟǝpɔqɐ
+</pre>
+<p>Obtained via the <a class="reference external" href="http://www.fileformat.info/convert/text/upside-down.htm">ɹǝʇɹǝʌuoↃ uʍo◖-ǝpısd∩ ǝpoɔıu∩</a>.
+More at <a class="reference external" href="http://www.fileformat.info/convert/text/upside-down-map.htm">Unicode Upside-Down Mapping</a>.</p>
+<p><strong>Update</strong>: more <a class="reference external" href="/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html">tomorrow</a>.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/font/" rel="tag">font</a>
+                    and
+                    
+                <a href="/tag/unicode/" rel="tag">unicode</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-31">2016-01-31</time>
+        <h1>
+            <a href="/blog/2016/01/31/URLsFromUnicodeStrings.html" rel="bookmark canonical">URLs from Unicode Strings</a>
+        </h1>
+    </header>
+    <p>New <a class="reference external" href="http://www.metabrite.com/devblog/posts/urls-from-unicode-strings/">post</a>
+at the MetaBrite Dev Blog.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/unicode/" rel="tag">unicode</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="Ever had a Git repository where there&#39;s an overwhe..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="git" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -34,55 +35,59 @@
             <a href="/blog/2017/01/05/GitPruningUnusedBranches.html" rel="bookmark canonical">Git: pruning unused branches</a>
         </h1>
     </header>
-    <p>Ever had a Git repository where there&#8217;s an over&shy;whelm&shy;ing number of branches,
+    <p>Ever had a Git repository where there’s an over&shy;whelm&shy;ing number of branches,
 most of which are surely abandoned?
 You run <tt class="docutils literal">git branch <span class="pre">--remote</span></tt> and you see dozens of unfamiliar branches.
-Where to&nbsp;begin?</p>
+Where to begin?</p>
 <ul class="simple">
-<li>Use <a class="reference external" href="http://stackoverflow.com/a/11144311/6364">git for-each-ref &#8211;sort</a> to sort the branches
-so that you can identify the oldest&nbsp;branches.</li>
-<li>Use <a class="reference external" href="http://stackoverflow.com/a/227026/6364">git branch &#8211;remote &#8211;merged master</a>
+<li>Use <a class="reference external" href="http://stackoverflow.com/a/11144311/6364">git for-each-ref –sort</a> to sort the branches
+so that you can identify the oldest branches.</li>
+<li>Use <a class="reference external" href="http://stackoverflow.com/a/227026/6364">git branch –remote –merged master</a>
 to detect which branches have already been merged into <tt class="docutils literal">master</tt>.
-It&#8217;s likely that these are branches that weren&#8217;t deleted
+It’s likely that these are branches that weren’t deleted
 after a pull request was merged;
-it&#8217;s usually safe to delete&nbsp;these.</li>
+it’s usually safe to delete these.</li>
 <li><tt class="docutils literal"><span class="pre">--no-merged</span></tt> shows unmerged branches;
-these require further&nbsp;in&shy;ves&shy;ti&shy;ga&shy;tion.</li>
+these require further in&shy;ves&shy;ti&shy;ga&shy;tion.</li>
 </ul>
-<p>Here&#8217;s an example for <a class="reference external" href="https://github.com/cookbrite/flyingcloud">fly&shy;ing&shy;cloud</a>:</p>
-<div class="highlight"><pre><span></span><span class="gp">$</span> git <span class="k">for</span>-each-ref --sort<span class="o">=</span>-committerdate <span class="se">\</span>
-<span class="go">    --format=&#39;%(committerdate:short) %(refname)&#39; refs/heads refs/remotes</span>
-<span class="go">2016-12-29 refs/remotes/origin/master</span>
-<span class="go">2016-12-29 refs/remotes/origin/<span class="caps">HEAD</span></span>
-<span class="go">2016-12-29 refs/heads/master</span>
-<span class="go">2016-12-11 refs/remotes/origin/0.1.x</span>
-<span class="go">2016-06-09 refs/remotes/origin/fix/salt-pip-version-problem-in-demo</span>
-<span class="go">2016-05-25 refs/remotes/origin/updates</span>
-<span class="go">2016-05-09 refs/remotes/origin/feature/documentation-improvements-3</span>
-<span class="go">2016-04-19 refs/remotes/origin/feature/developer-setup-example</span>
-<span class="go">2016-04-17 refs/remotes/origin/feature/travis-build</span>
-<span class="go">2016-03-16 refs/remotes/origin/feature/documentation-improvements-2</span>
-<span class="go">2016-03-06 refs/remotes/origin/feature/documentation-improvements-1</span>
-<span class="go">2016-03-06 refs/remotes/origin/feature/documentation-and-examples</span>
-<span class="go">2016-02-26 refs/remotes/origin/rtfd</span>
-<span class="go">2016-02-21 refs/remotes/origin/feature/metakube</span>
-<span class="go">2016-01-17 refs/remotes/origin/walk_tree</span>
+<p>Here’s an example for <a class="reference external" href="https://github.com/cookbrite/flyingcloud">fly&shy;ing&shy;cloud</a>:</p>
+<pre class="code console literal-block">
+<span class="gp">$</span> git <span class="k">for</span>-each-ref --sort<span class="o">=</span>-committerdate <span class="se">\
+</span>    --format<span class="o">=</span><span class="s1">'%(committerdate:short) %(refname)'</span> refs/heads refs/remotes
+<span class="go">2016-12-29 refs/remotes/origin/master
+2016-12-29 refs/remotes/origin/<span class="caps">HEAD</span>
+2016-12-29 refs/heads/master
+2016-12-11 refs/remotes/origin/0.1.x
+2016-06-09 refs/remotes/origin/fix/salt-pip-version-problem-in-demo
+2016-05-25 refs/remotes/origin/updates
+2016-05-09 refs/remotes/origin/feature/documentation-improvements-3
+2016-04-19 refs/remotes/origin/feature/developer-setup-example
+2016-04-17 refs/remotes/origin/feature/travis-build
+2016-03-16 refs/remotes/origin/feature/documentation-improvements-2
+2016-03-06 refs/remotes/origin/feature/documentation-improvements-1
+2016-03-06 refs/remotes/origin/feature/documentation-and-examples
+2016-02-26 refs/remotes/origin/rtfd
+2016-02-21 refs/remotes/origin/feature/metakube
+2016-01-17 refs/remotes/origin/walk_tree
 
-<span class="gp">$</span> git branch --remote --merged master
-<span class="go">  origin/<span class="caps">HEAD</span> -&gt; origin/master</span>
-<span class="go">  origin/feature/documentation-improvements-1</span>
-<span class="go">  origin/feature/documentation-improvements-2</span>
-<span class="go">  origin/feature/travis-build</span>
-<span class="go">  origin/fix/salt-pip-version-problem-in-demo</span>
-<span class="go">  origin/master</span>
-<span class="go">  origin/rtfd</span>
-<span class="go">  origin/updates</span>
-</pre></div>
+</span><span class="gp">$</span> git branch --remote --merged master
+<span class="go">  origin/<span class="caps">HEAD</span> -> origin/master
+  origin/feature/documentation-improvements-1
+  origin/feature/documentation-improvements-2
+  origin/feature/travis-build
+  origin/fix/salt-pip-version-problem-in-demo
+  origin/master
+  origin/rtfd
+  origin/updates</span>
+</pre>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/git/" rel="tag">git</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

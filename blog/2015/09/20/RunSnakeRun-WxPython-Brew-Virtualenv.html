@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: http://www.vrplumber.com/programming/ru..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="python, mac" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -35,90 +36,92 @@
         </h1>
     </header>
     <img alt="RunSnakeRun logo" class="right-float" src="http://www.vrplumber.com/programming/runsnakerun/pyaccellerate-64.png"/>
-<p>I&#8217;m doing some Python profiling
+<p>I’m doing some Python profiling
 and I wanted to use the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run&shy;SnakeRun</a> utility to view the profile data.
-Un&shy;for&shy;tu&shy;nate&shy;ly, that&#8217;s not straight&shy;for&shy;ward on Mac <span class="caps">OS</span> X if you use a <a class="reference external" href="https://virtualenv.pypa.io/en/latest/">virtualenv</a>,
-and it&#8217;s even less easy if you&#8217;re using the Python
-installed by the <a class="reference external" href="http://brew.sh/">Homebrew</a> (<tt class="docutils literal">brew</tt>) package&nbsp;manager.</p>
-<p>There are several&nbsp;problems:</p>
+Un&shy;for&shy;tu&shy;nate&shy;ly, that’s not straight&shy;for&shy;ward on Mac <span class="caps">OS</span> X if you use a <a class="reference external" href="https://virtualenv.pypa.io/en/latest/">virtualenv</a>,
+and it’s even less easy if you’re using the Python
+installed by the <a class="reference external" href="http://brew.sh/">Homebrew</a> (<tt class="docutils literal">brew</tt>) package manager.</p>
+<p>There are several problems:</p>
 <ul class="simple">
 <li>Installing <a class="reference external" href="http://www.wxpython.org/">wxPython</a> on <span class="caps">OS</span> X 10.10.
-This is the cross-platform <span class="caps">GUI</span> <span class="caps">API</span> toolkit used by&nbsp;Run&shy;SnakeRun.</li>
-<li>Getting wxPython installed in a&nbsp;virtualenv</li>
-<li>Running wxPython apps in a virtualenv on the&nbsp;Mac.</li>
+This is the cross-platform <span class="caps">GUI</span> <span class="caps">API</span> toolkit used by Run&shy;SnakeRun.</li>
+<li>Getting wxPython installed in a virtualenv</li>
+<li>Running wxPython apps in a virtualenv on the Mac.</li>
 </ul>
 <div class="section" id="installing-wxpython">
-<h2>Installing&nbsp;wxPython</h2>
+<h2>Installing wxPython</h2>
 <p>I downloaded <tt class="docutils literal"><span class="pre">wxPython3.0-osx-3.0.2.0-cocoa-py2.7.dmg</span></tt>,
-released in November&nbsp;2014.</p>
+released in November 2014.</p>
 <p>If you open the <span class="caps">DMG</span> and attempt to run the <span class="caps">PKG</span>,
-you will likely get a misleading error message from <span class="caps">OS</span>&nbsp;X:</p>
+you will likely get a misleading error message from <span class="caps">OS</span> X:</p>
 <blockquote>
 “wxPython3.0-osx-cocoa-py2.7.pkg” is damaged and can’t be opened.
 You should eject the disk image.</blockquote>
-<p>Open the <em>System Pref&shy;er&shy;ences</em> app, click <em>Security <span class="amp">&amp;</span> Privacy</em>, then <em>General</em>.
+<p>Open the <em>System Pref&shy;er&shy;ences</em> app, click <em>Security <span class="amp">&</span> Privacy</em>, then <em>General</em>.
 Click the <em>Lock</em> icon to make changes,
 then change <em>Allow apps downloaded from</em> to <em>Anywhere</em>.
 Now try running the wxPython <span class="caps">PKG</span> again to install wxPython.
-Afterwards, you should reset <em>Allow apps downloaded from</em> to its previous&nbsp;value.</p>
+Afterwards, you should reset <em>Allow apps downloaded from</em> to its previous value.</p>
 </div>
 <div class="section" id="installing-and-running-wxpython-in-a-virtualenv">
-<h2>Installing and running wxPython in a&nbsp;virtualenv</h2>
+<h2>Installing and running wxPython in a virtualenv</h2>
 <p>As I learned from earlier work by <a class="reference external" href="http://www.but-i-digress.ca/getting-runsnakerun-osx.html">Mike Soulier</a> and <a class="reference external" href="http://wiki.wxpython.org/wxPythonVirtualenvOnMac">Robin Dunn</a>,
-there are two issues in running wxPython apps in a virtual&nbsp;en&shy;vi&shy;ron&shy;ment.</p>
+there are two issues in running wxPython apps in a virtual en&shy;vi&shy;ron&shy;ment.</p>
 <p>First, you need the <tt class="docutils literal">wx.pth</tt> <a class="reference external" href="https://docs.python.org/2/library/site.html">path con&shy;fig&shy;u&shy;ra&shy;tion file</a> to be in your
-virtualenv&#8217;s <tt class="docutils literal"><span class="pre">site-packages</span></tt> directory.
+vir&shy;tualen&shy;v’s <tt class="docutils literal"><span class="pre">site-packages</span></tt> directory.
 The solution is to copy the installed <tt class="docutils literal">wxredirect.pth</tt>.</p>
 <p>Second, the Python binary installed in the virtualenv is not a <a class="reference external" href="https://developer.apple.com/library/mac/documentation/MacOSX/Conceptual/BPFrameworks/Concepts/WhatAreFrameworks.html">framework</a> binary,
 and so wxPython cannot access the display or create <span class="caps">GUI</span> objects.
 The solution is to set <tt class="docutils literal"><span class="caps">PYTHONHOME</span></tt> to the virtualenv,
-then use the framework binary to run the wxPython&nbsp;app.</p>
-<p>The following has been tested&nbsp;with</p>
+then use the framework binary to run the wxPython app.</p>
+<p>The following has been tested with</p>
 <ul class="simple">
-<li><span class="caps">OS</span> X&nbsp;10.10.5</li>
-<li>Brew Python&nbsp;2.7.10</li>
-<li>wxPython&nbsp;3.0.2</li>
-<li>virtualenv&nbsp;13.1.0</li>
+<li><span class="caps">OS</span> X 10.10.5</li>
+<li>Brew Python 2.7.10</li>
+<li>wxPython 3.0.2</li>
+<li>virtualenv 13.1.0</li>
 </ul>
-<div class="highlight"><pre><span></span><span class="ch">#!/bin/bash -ex</span>
+<pre class="code bash literal-block">
+<span class="ch">#!/bin/bash -ex
+</span>
+<span class="nv">WXPYTHON_APP</span><span class="o">=</span><span class="s2">"runsnakerun/runsnake.py"</span>
+<span class="nv"><span class="caps">PYVER</span></span><span class="o">=</span><span class="m">2</span>.7
 
-<span class="nv">WXPYTHON_APP</span><span class="o">=</span><span class="s2">&quot;runsnakerun/runsnake.py&quot;</span>
-<span class="nv"><span class="caps">PYVER</span></span><span class="o">=</span>2.7
-
-<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
-    <span class="nb">echo</span> <span class="s2">&quot;You must activate your virtualenv: set &#39;</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">&#39;&quot;</span>
-    <span class="nb">exit</span> 1
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">"</span> <span class="o">]</span> <span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">"You must activate your virtualenv: set '</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">'"</span>
+    <span class="nb">exit</span> <span class="m">1</span>
 <span class="k">fi</span>
 
-<span class="nv">SYSTEM_FRAMEWORK_PYTHON_ROOT</span><span class="o">=</span><span class="s2">&quot;/Library/Frameworks/Python.framework/Versions/</span><span class="nv">$<span class="caps">PYVER</span></span><span class="s2">&quot;</span>
-<span class="c1"># <span class="caps">OS</span> X 10.10</span>
-<span class="nv">SYSTEM_FRAMEWORK_PYTHON_ROOT</span><span class="o">=</span><span class="s2">&quot;/System</span><span class="nv">$SYSTEM_FRAMEWORK_PYTHON_ROOT</span><span class="s2">&quot;</span>
+<span class="nv">SYSTEM_FRAMEWORK_PYTHON_ROOT</span><span class="o">=</span><span class="s2">"/Library/Frameworks/Python.framework/Versions/</span><span class="nv">$<span class="caps">PYVER</span></span><span class="s2">"</span>
+<span class="c1"># <span class="caps">OS</span> X 10.10
+</span><span class="nv">SYSTEM_FRAMEWORK_PYTHON_ROOT</span><span class="o">=</span><span class="s2">"/System</span><span class="nv">$SYSTEM_FRAMEWORK_PYTHON_ROOT</span><span class="s2">"</span>
 
-<span class="nv"><span class="caps">PYSUBVER</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>python --version 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> cut -d <span class="s1">&#39; &#39;</span> -f2<span class="k">)</span><span class="s2">&quot;</span>  <span class="c1"># e.g., 2.7.10</span>
-<span class="nv">BREW_PYTHON_ROOT</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>brew --prefix<span class="k">)</span><span class="s2">/Cellar/python/</span><span class="nv">$<span class="caps">PYSUBVER</span></span><span class="s2">/Frameworks/Python.framework/Versions/</span><span class="nv">$<span class="caps">PYVER</span></span><span class="s2">&quot;</span>
+<span class="nv"><span class="caps">PYSUBVER</span></span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>python --version <span class="m">2</span>><span class="p">&</span><span class="m">1</span> <span class="p">|</span> cut -d <span class="s1">' '</span> -f2<span class="k">)</span><span class="s2">"</span>  <span class="c1"># e.g., 2.7.10
+</span><span class="nv">BREW_PYTHON_ROOT</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>brew --prefix<span class="k">)</span><span class="s2">/Cellar/python/</span><span class="nv">$<span class="caps">PYSUBVER</span></span><span class="s2">/Frameworks/Python.framework/Versions/</span><span class="nv">$<span class="caps">PYVER</span></span><span class="s2">"</span>
 
-<span class="nv">PYTHON_BINARY</span><span class="o">=</span><span class="s2">&quot;bin/python</span><span class="nv">$<span class="caps">PYVER</span></span><span class="s2">&quot;</span>
-<span class="c1">#FRAMEWORK_PYTHON=&quot;$SYSTEM_FRAMEWORK_PYTHON_ROOT/$PYTHON_BINARY&quot;</span>
+<span class="nv">PYTHON_BINARY</span><span class="o">=</span><span class="s2">"bin/python</span><span class="nv">$<span class="caps">PYVER</span></span><span class="s2">"</span>
+<span class="c1">#FRAMEWORK_PYTHON="$SYSTEM_FRAMEWORK_PYTHON_ROOT/$PYTHON_BINARY"
+</span>
+<span class="nv">FRAMEWORK_PYTHON</span><span class="o">=</span><span class="s2">"</span><span class="nv">$BREW_PYTHON_ROOT</span><span class="s2">/</span><span class="nv">$PYTHON_BINARY</span><span class="s2">"</span>
 
-<span class="nv">FRAMEWORK_PYTHON</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$BREW_PYTHON_ROOT</span><span class="s2">/</span><span class="nv">$PYTHON_BINARY</span><span class="s2">&quot;</span>
+<span class="nv">VENV_SITE_PACKAGES</span><span class="o">=</span><span class="s2">"</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">/lib/python</span><span class="nv">$<span class="caps">PYVER</span></span><span class="s2">/site-packages"</span>
 
-<span class="nv">VENV_SITE_PACKAGES</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$VIRTUAL_ENV</span><span class="s2">/lib/python</span><span class="nv">$<span class="caps">PYVER</span></span><span class="s2">/site-packages&quot;</span>
+<span class="c1"># Ensure wx.pth is set up in the virtualenv
+</span>cp <span class="s2">"/Library/Python/</span><span class="nv">$<span class="caps">PYVER</span></span><span class="s2">/site-packages/wxredirect.pth"</span> <span class="s2">"</span><span class="nv">$VENV_SITE_PACKAGES</span><span class="s2">/wx.pth"</span>
 
-<span class="c1"># Ensure wx.pth is set up in the virtualenv</span>
-cp <span class="s2">&quot;/Library/Python/</span><span class="nv">$<span class="caps">PYVER</span></span><span class="s2">/site-packages/wxredirect.pth&quot;</span> <span class="s2">&quot;</span><span class="nv">$VENV_SITE_PACKAGES</span><span class="s2">/wx.pth&quot;</span>
-
-<span class="c1"># Use the Framework Python to run the app</span>
-<span class="nb">export</span> <span class="nv"><span class="caps">PYTHONHOME</span></span><span class="o">=</span><span class="nv">$VIRTUAL_ENV</span>
-<span class="nb">exec</span> <span class="s2">&quot;</span><span class="nv">$FRAMEWORK_PYTHON</span><span class="s2">&quot;</span> <span class="s2">&quot;</span><span class="nv">$VENV_SITE_PACKAGES</span><span class="s2">/</span><span class="nv">$WXPYTHON_APP</span><span class="s2">&quot;</span> <span class="nv">$*</span>
-</pre></div>
+<span class="c1"># Use the Framework Python to run the app
+</span><span class="nb">export</span> <span class="nv"><span class="caps">PYTHONHOME</span></span><span class="o">=</span><span class="nv">$VIRTUAL_ENV</span>
+<span class="nb">exec</span> <span class="s2">"</span><span class="nv">$FRAMEWORK_PYTHON</span><span class="s2">"</span> <span class="s2">"</span><span class="nv">$VENV_SITE_PACKAGES</span><span class="s2">/</span><span class="nv">$WXPYTHON_APP</span><span class="s2">"</span> <span class="nv">$*</span>
+</pre>
 </div>
 <div class="section" id="previous-work">
-<h2>Previous&nbsp;Work</h2>
+<h2>Previous Work</h2>
 <p>The following is an attempt from last year at setting up wxPython in a virtualenv,
 which no longer works.
 It sets up a script called <tt class="docutils literal">fwpy</tt> in the virtualenv,
-which allows you to run a wxPython app with the framework&nbsp;Python.</p>
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+which allows you to run a wxPython app with the framework Python.</p>
+<pre class="code python literal-block">
+<span class="ch">#!/usr/bin/env python</span>
 
 <span class="c1"># Adapted from http://wiki.wxpython.org/wxPythonVirtualenvOnMac</span>
 
@@ -127,45 +130,45 @@ which allows you to run a wxPython app with the framework&nbsp;Python.</p>
 <span class="kn">from</span> <span class="nn">distutils.sysconfig</span> <span class="kn">import</span> <span class="n">get_python_lib</span>
 
 <span class="n">site_packages</span> <span class="o">=</span> <span class="n">get_python_lib</span><span class="p">()</span>
-<span class="n">PYTHON_VERSION</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># e.g., &quot;2.7&quot;</span>
+<span class="n">PYTHON_VERSION</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>  <span class="c1"># e.g., "2.7"</span>
 
-<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;VIRTUAL_ENV&#39;</span><span class="p">):</span>
-    <span class="k">print</span> <span class="o">&gt;&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">&quot;<span class="caps">ERROR</span>: You must *not* run this inside of a virtualenv. Run &#39;deactivate&#39; first.&quot;</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'VIRTUAL_ENV'</span><span class="p">):</span>
+    <span class="k">print</span> <span class="o">>></span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="s2">"<span class="caps">ERROR</span>: You must *not* run this inside of a virtualenv. Run 'deactivate' first."</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="n">parser</span> <span class="o">=</span> <span class="n">optparse</span><span class="o">.</span><span class="n">OptionParser</span><span class="p">(</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;virtualenv-aware wrapper for wxPython.&quot;</span><span class="p">,</span>
-    <span class="n">usage</span><span class="o">=</span><span class="s2">&quot;usage: %prog virtualenv-name-or-path&quot;</span><span class="p">)</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">"virtualenv-aware wrapper for wxPython."</span><span class="p">,</span>
+    <span class="n">usage</span><span class="o">=</span><span class="s2">"usage: %prog virtualenv-name-or-path"</span><span class="p">)</span>
 <span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
 <span class="n">venv</span> <span class="o">=</span> <span class="n">args</span> <span class="ow">and</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 <span class="k">def</span> <span class="nf">valid_virtualenv_dir</span><span class="p">(</span><span class="n">venv</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">venv</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">venv</span><span class="p">,</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;activate&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">venv</span> <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">venv</span><span class="p">,</span> <span class="s2">"bin"</span><span class="p">,</span> <span class="s2">"activate"</span><span class="p">))</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">valid_virtualenv_dir</span><span class="p">(</span><span class="n">venv</span><span class="p">):</span>
     <span class="c1"># Using virtualenvwrapper?</span>
-    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;WORKON_HOME&quot;</span><span class="p">):</span>
-        <span class="n">venv</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;WORKON_HOME&quot;</span><span class="p">),</span> <span class="n">venv</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WORKON_HOME"</span><span class="p">):</span>
+        <span class="n">venv</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"WORKON_HOME"</span><span class="p">),</span> <span class="n">venv</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">valid_virtualenv_dir</span><span class="p">(</span><span class="n">venv</span><span class="p">):</span>
-    <span class="k">print</span> <span class="s2">&quot;Can&#39;t find virtualenv&quot;</span><span class="p">,</span> <span class="n">venv</span>
+    <span class="k">print</span> <span class="s2">"Can't find virtualenv"</span><span class="p">,</span> <span class="n">venv</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="n">framework_python</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span><span class="se">\</span>
-<span class="s2">#!/bin/bash</span>
-<span class="s2"># Invoke Framework Python inside of a virtualenv; e.g., for wxPython</span>
+<span class="n">framework_python</span> <span class="o">=</span> <span class="s2">"""</span><span class="se">\
+</span><span class="s2">#!/bin/bash
+# Invoke Framework Python inside of a virtualenv; e.g., for wxPython
 
-<span class="s2">[ -z &quot;$VIRTUAL_ENV&quot; ] &amp;&amp; echo &quot;Not running inside of a virtualenv&quot; &amp;&amp; exit 1</span>
+[ -z "$VIRTUAL_ENV" ] && echo "Not running inside of a virtualenv" && exit 1
 
-<span class="s2"><span class="caps">PYTHONHOME</span>=&quot;$VIRTUAL_ENV&quot; exec &quot;</span><span class="si">%s</span><span class="s2">&quot; &quot;$@&quot;</span>
-<span class="s2">&quot;&quot;&quot;</span> <span class="o">%</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span>
+<span class="caps">PYTHONHOME</span>="$VIRTUAL_ENV" exec "</span><span class="si">%s</span><span class="s2">" "$@"
+"""</span> <span class="o">%</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span>
 
 <span class="n">wx_pth</span> <span class="o">=</span> <span class="bp">None</span>
 
 <span class="k">for</span> <span class="n">wx_pth_file</span> <span class="ow">in</span> <span class="p">[</span>
-        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">site_packages</span><span class="p">,</span> <span class="s1">&#39;wx.pth&#39;</span><span class="p">),</span>
-        <span class="s1">&#39;/Library/Python/2.7/site-packages/wxredirect.pth&#39;</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">site_packages</span><span class="p">,</span> <span class="s1">'wx.pth'</span><span class="p">),</span>
+        <span class="s1">'/Library/Python/2.7/site-packages/wxredirect.pth'</span>
     <span class="p">]:</span>
     <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">wx_pth_file</span><span class="p">):</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">wx_pth_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -175,24 +178,30 @@ which allows you to run a wxPython app with the framework&nbsp;Python.</p>
 <span class="c1"># This is the value of wx.pth for the system python</span>
 <span class="n">abs_wx_pth</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">site_packages</span><span class="p">,</span> <span class="n">wx_pth</span><span class="p">)</span>
 
-<span class="n">fwpy</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">venv</span><span class="p">,</span> <span class="s2">&quot;bin&quot;</span><span class="p">,</span> <span class="s2">&quot;fwpy&quot;</span><span class="p">)</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fwpy</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="n">fwpy</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">venv</span><span class="p">,</span> <span class="s2">"bin"</span><span class="p">,</span> <span class="s2">"fwpy"</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fwpy</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">framework_python</span><span class="p">)</span>
 <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">fwpy</span><span class="p">,</span> <span class="mo">0755</span><span class="p">)</span>
-<span class="k">print</span> <span class="s2">&quot;Wrote&quot;</span><span class="p">,</span> <span class="n">fwpy</span>
+<span class="k">print</span> <span class="s2">"Wrote"</span><span class="p">,</span> <span class="n">fwpy</span>
 
 <span class="c1"># <span class="caps">TODO</span>: copy wx.pth</span>
-<span class="n">target_wx_pth</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">venv</span><span class="p">,</span> <span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="s2">&quot;python&quot;</span><span class="o">+</span><span class="n">PYTHON_VERSION</span><span class="p">,</span> <span class="s2">&quot;site-packages&quot;</span><span class="p">,</span> <span class="s2">&quot;wx.pth&quot;</span><span class="p">)</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">target_wx_pth</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="n">target_wx_pth</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">venv</span><span class="p">,</span> <span class="s2">"lib"</span><span class="p">,</span> <span class="s2">"python"</span><span class="o">+</span><span class="n">PYTHON_VERSION</span><span class="p">,</span> <span class="s2">"site-packages"</span><span class="p">,</span> <span class="s2">"wx.pth"</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">target_wx_pth</span><span class="p">,</span> <span class="s2">"w"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">abs_wx_pth</span><span class="p">)</span>
-<span class="k">print</span> <span class="s2">&quot;Wrote&quot;</span><span class="p">,</span> <span class="n">target_wx_pth</span>
-</pre></div>
+<span class="k">print</span> <span class="s2">"Wrote"</span><span class="p">,</span> <span class="n">target_wx_pth</span>
+</pre>
 </div>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

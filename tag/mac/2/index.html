@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-04-11">2009-04-11</time>
+        <h1>
+            <a href="/blog/2009/04/11/NTFS3GTheUniversalFilesystem.html" rel="bookmark canonical">NTFS-3G: the universal filesystem</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.ntfs-3g.org/"></a>
+<p>After I started running Linux and then Mac OS X, in addition to Windows,
+I started on a quest to find the universal filesystem.
+I had multiboot systems and external drives where I wanted to
+to be able to read and write disks under multiple operating systems.</p>
+<p>The obvious choice is <a class="reference external" href="http://en.wikipedia.org/wiki/File_Allocation_Table#FAT32">FAT32</a>,
+the ubiquitous, lowest-common de­nom­i­na­tor filesystem.
+FAT32 is supported out-of-the-box by
+all major operating systems, digital cameras, and PDAs,
+so that's a huge advantage.
+FAT32 also has major short­com­ings:</p>
+<ul class="simple">
+<li>Maximum file size is 4GB. I have ISOs, MPEGs, and other large files exceeding this limit.</li>
+<li>Frag­men­ta­tion happens too easily.</li>
+<li>Timestamps: accurate only to 2-second resolution. No notion of timezones or UTC.</li>
+<li>Journaling: <span>&#8230;<a href="/blog/2009/04/11/NTFS3GTheUniversalFilesystem.html" class="continue">continue</a>.</span></li></ul>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/windows/" rel="tag">windows</a>,
+                <a href="/tag/linux/" rel="tag">linux</a>
+                    and
+                    
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-02-25">2009-02-25</time>
+        <h1>
+            <a href="/blog/2009/02/25/Safari4FAIL.html" rel="bookmark canonical">Safari 4: FAIL!</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.sfgate.com/cgi-bin/blogs/sfgate/detail?blogid=19&amp;entry_id=36185"></a>
+<p>Apple launched the public <a class="reference external" href="http://www.sfgate.com/cgi-bin/blogs/sfgate/detail?blogid=19&amp;entry_id=36185">Safari 4 beta</a> today.</p>
+<p>It runs beau­ti­ful­ly on Vista and it's the fastest browser that I've seen,
+noticeably faster than Chrome.
+Everything that I tried worked fairly well;
+I saw only a few minor glitches.</p>
+<p>I installed it on my MacBook at home this evening.
+It crashes at startup every time that I attempt to run it.
+For­tu­nate­ly, it comes with an unin­staller so that I could revert to Safari 3.21.</p>
+<p>Back to <a class="reference external" href="/blog/2009/01/22/UsingOpera.html">Opera</a> for now.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-02-12">2009-02-12</time>
+        <h1>
+            <a href="/blog/2009/02/12/CommandlineToolsForTheClipboard.html" rel="bookmark canonical">Command-line Tools for the Clipboard</a>
+        </h1>
+    </header>
+    
+<p>I mentioned in my post on <a class="reference external" href="/blog/2008/11/24/reStructuredText.html">re­Struc­tured­Text</a> that I use a little command-line tool,
+<a class="reference external" href="http://sigpipe.macromates.com/2005/10/11/clipboard-access-from-shell-utf-8/">pbcopy</a>, to pipe the output into the clipboard.
+I finally found a similar tool for Linux, <a class="reference external" href="http://www.vergenet.net/~conrad/software/xsel/">xsel</a>.</p>
+<ul class="simple">
+<li>Mac: <a class="reference external" href="http://sigpipe.macromates.com/2005/10/11/clipboard-access-from-shell-utf-8/">pbcopy</a> (UTF-8 aware, unlike the built-in version of pbcopy)
+copies its input to the pasteboard (Mac name for the clipboard);
+pbpaste writes the pasteboard to stdout.</li>
+<li>Linux: <a class="reference external" href="http://www.vergenet.net/~conrad/software/xsel/">xsel</a> gets and sets the X selection.</li>
+<li>Windows: <a class="reference external" href="http://www.dmst.aueb.gr/dds/sw/outwit/winclip.html">winclip</a> reads and writes the clipboard in a variety of formats.
+Use <tt class="docutils literal"><span class="pre">-m</span></tt> for UTF-8 text.
+The winclip binary is available as part of the <a class="reference external" href="http://www.dmst.aueb.gr/dds/sw/outwit/">outwit</a> package.</li>
+</ul>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/windows/" rel="tag">windows</a>,
+                <a href="/tag/linux/" rel="tag">linux</a>
+                    and
+                    
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-07-16">2008-07-16</time>
+        <h1>
+            <a href="/blog/2008/07/16/MacBookMakeover.html" rel="bookmark canonical">MacBook Makeover</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.ifixit.com/Guide/Mac/MacBook-Pro-17-Inch-Core-Duo/Hard-Drive-Replacement/87/8/"></a>
+<p>Last week, I gave my <a class="reference external" href="/blog/2007/03/01/Macalicious.html">2007 MacBook Pro</a> laptop a makeover
+before upgrading to Leopard, aka OS X 10.5.</p>
+<p>A couple of months ago, I bought 4GB RAM for less than $100,
+to replace the 2GB that it came with.</p>
+<p>I wanted to upgrade the drive too,
+as I repeatedly came close to filling the original 160GB drive.
+It was no problem to get a 5400 RPM drive that had more than 300GB,
+but the 7200 RPM notebook drives were topping out at 200GB.
+Two weeks, I spotted a Western Digital Scorpio Black
+320GB 7200 RPM SATA drive on NewEgg for $180.
+Sold!</p>
+<p>I installed it the night it arrived,
+and it <span>&#8230;<a href="/blog/2008/07/16/MacBookMakeover.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-05-14">2008-05-14</time>
+        <h1>
+            <a href="/blog/2008/05/14/SharingDotfilesBetweenWindowsAndNix.html" rel="bookmark canonical">Sharing Dotfiles between Windows and \*nix</a>
+        </h1>
+    </header>
+    
+<p>Tomas Restrepo wrote a post about
+<a class="reference external" href="http://www.winterdom.com/weblog/2008/05/09/SharingDotfilesBetweenWindowsAndUbuntu.aspx">sharing dotfiles between Windows and Ubuntu</a>,
+specif­i­cal­ly about sharing <tt class="docutils literal">.vimrc</tt> (Linux) and <tt class="docutils literal">_vimrc</tt> (Windows)
+and the <tt class="docutils literal">.vim</tt> (Linux) and <tt class="docutils literal">vimfiles</tt> (Windows) di­rec­to­ries.</p>
+<p>I have a different solution.
+On Windows, my <tt class="docutils literal"><span class="pre">C:\AutoExec.bat</span></tt> includes:</p>
+<pre class="literal-block">
+set HOME=C:\gvr
+set VIM=C:\Vim
+set VIMDIR=%VIM%\vim71
+set EDITOR=%VIMDIR%\gvim.exe
+set PATH=%PATH%;C:\Win32app;C:\GnuWin32\bin;C:\UnxUtils;C:\SysInternals;C:\Python25\Scripts
+</pre>
+<p><tt class="docutils literal">%HOME%</tt> (<tt class="docutils literal"><span class="pre">C:\gvr</span></tt>) contains <tt class="docutils literal">_vimrc</tt>, <tt class="docutils literal">vimfiles</tt>,
+and other stuff ac­cu­mu­lat­ed over many years.
+This directory is stored in a personal Subversion repository at <a class="reference external" href="http://www.devjavu.com/">DevjaVu</a>.
+All my Vim files are stored with Unix LF endings, not Windows CR-LFs,
+so that they'll work on my Mac OS X and Linux boxen.
+I play some games with <tt class="docutils literal">if <span class="pre">has("win32")</span></tt> and
+<tt class="docutils literal">if <span class="pre">has('gui_­macvim')</span></tt> to ensure that my <tt class="docutils literal">_vimrc</tt>
+works cross-platform.</p>
+<p>On my *nix boxes, the <tt class="docutils literal">gvr</tt> <span>&#8230;<a href="/blog/2008/05/14/SharingDotfilesBetweenWindowsAndNix.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>,
+                <a href="/tag/windows/" rel="tag">windows</a>,
+                <a href="/tag/linux/" rel="tag">linux</a>
+                    and
+                    
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-03-01">2007-03-01</time>
+        <h1>
+            <a href="/blog/2007/03/01/Macalicious.html" rel="bookmark canonical">Macalicious</a>
+        </h1>
+    </header>
+    
+<p>I ordered a 17" <a class="reference external" href="http://www.apple.com/macbookpro/">Mac Book Pro</a> on Friday night.
+It shipped from Shanghai on Monday and arrived at work this morning.
+Scha-weet! And spendy.</p>
+<p>I've been busy ramping up all day.
+I estimate that my total lifetime usage of Macs was about one day
+before today.
+I definitely have some new habits to learn.</p>
+<p>So far, I've installed <a class="reference external" href="http://www.macvim.org/">Mac Vim</a>,
+<a class="reference external" href="http://www.mozilla.com/en-US/firefox/">Firefox</a> (browser),
+<a class="reference external" href="http://www.caminobrowser.org/">Camino</a> (browser),
+<a class="reference external" href="http://www.mozilla.com/en-US/thunderbird/">Thun­der­bird</a> (email),
+<a class="reference external" href="http://quicksilver.blacktree.com/">Quick­sil­ver</a> (fast launch utility),
+<a class="reference external" href="http://www.manytricks.com/witch/">Witch</a> (window switcher),
+<a class="reference external" href="http://tech.inhelsinki.nl/antirsi/">AntiRSI</a> (RSI preventer),
+<a class="reference external" href="http://www.adiumx.com/">Adium</a> (multi-protocol chat),
+<a class="reference external" href="http://www.skype.com/download/skype/macosx/">Skype</a> (Internet telephony),
+<a class="reference external" href="http://www.microsoft.com/mac/otherproducts/otherproducts.aspx?pid=remotedesktopclient">Remote Desktop Connection</a> (connecting to Windows desktops),
+<a class="reference external" href="http://www.stuffit.com/mac/expander/">StuffIt Expander</a> (for classic archives), and
+<a class="reference external" href="http://keepassx.sourceforge.net/">KeePassX</a> (password manager).</p>
+<p>Some of these have built-in equiv­a­lents of course, but I'm using these
+for com­pat­i­bil­i­ty with my existing Windows and Linux setups <span>&#8230;<a href="/blog/2007/03/01/Macalicious.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+        <a href="/tag/mac/" class="page floatleft">
+        &laquo; Next
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

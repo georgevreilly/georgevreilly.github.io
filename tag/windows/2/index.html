@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2008-08-17">2008-08-17</time>
+        <h1>
+            <a href="/blog/2008/08/17/Vim72IsReleased.html" rel="bookmark canonical">Vim 7.2 is released</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://code.google.com/p/vim-win3264/"></a>
+<p>Fifteen months after the release of Vim 7.1,
+Bram <a class="reference external" href="http://groups.google.com/group/vim_announce/browse_thread/thread/2c89671dd928812f">announced</a> the release of Vim 7.2 last weekend.
+No major new features, just the con­sol­i­da­tion of more than 300 patches.
+He also included a mention of the new dis­tri­b­u­tion point
+for Win64 binaries, the <a class="reference external" href="http://code.google.com/p/vim-win3264/">vim-win3264</a> project that I set up at Google Code.</p>
+<p>Bram has no way of testing the Win64 version,
+so I'm providing the official build at vim-win3264.
+I will no longer provide Win64 binaries for Vim from my own site.
+The Vim 7.2 sources compile the Win64 binaries cleanly
+(unlike the 7.1 release).
+I'll provide occasional in­ter­me­di­ate releases up there too,
+for both Win32 and Win64.</p>
+<p>I'm rather surprised to <span>&#8230;<a href="/blog/2008/08/17/Vim72IsReleased.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-05-14">2008-05-14</time>
+        <h1>
+            <a href="/blog/2008/05/14/SharingDotfilesBetweenWindowsAndNix.html" rel="bookmark canonical">Sharing Dotfiles between Windows and \*nix</a>
+        </h1>
+    </header>
+    
+<p>Tomas Restrepo wrote a post about
+<a class="reference external" href="http://www.winterdom.com/weblog/2008/05/09/SharingDotfilesBetweenWindowsAndUbuntu.aspx">sharing dotfiles between Windows and Ubuntu</a>,
+specif­i­cal­ly about sharing <tt class="docutils literal">.vimrc</tt> (Linux) and <tt class="docutils literal">_vimrc</tt> (Windows)
+and the <tt class="docutils literal">.vim</tt> (Linux) and <tt class="docutils literal">vimfiles</tt> (Windows) di­rec­to­ries.</p>
+<p>I have a different solution.
+On Windows, my <tt class="docutils literal"><span class="pre">C:\AutoExec.bat</span></tt> includes:</p>
+<pre class="literal-block">
+set HOME=C:\gvr
+set VIM=C:\Vim
+set VIMDIR=%VIM%\vim71
+set EDITOR=%VIMDIR%\gvim.exe
+set PATH=%PATH%;C:\Win32app;C:\GnuWin32\bin;C:\UnxUtils;C:\SysInternals;C:\Python25\Scripts
+</pre>
+<p><tt class="docutils literal">%HOME%</tt> (<tt class="docutils literal"><span class="pre">C:\gvr</span></tt>) contains <tt class="docutils literal">_vimrc</tt>, <tt class="docutils literal">vimfiles</tt>,
+and other stuff ac­cu­mu­lat­ed over many years.
+This directory is stored in a personal Subversion repository at <a class="reference external" href="http://www.devjavu.com/">DevjaVu</a>.
+All my Vim files are stored with Unix LF endings, not Windows CR-LFs,
+so that they'll work on my Mac OS X and Linux boxen.
+I play some games with <tt class="docutils literal">if <span class="pre">has("win32")</span></tt> and
+<tt class="docutils literal">if <span class="pre">has('gui_­macvim')</span></tt> to ensure that my <tt class="docutils literal">_vimrc</tt>
+works cross-platform.</p>
+<p>On my *nix boxes, the <tt class="docutils literal">gvr</tt> <span>&#8230;<a href="/blog/2008/05/14/SharingDotfilesBetweenWindowsAndNix.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>,
+                <a href="/tag/windows/" rel="tag">windows</a>,
+                <a href="/tag/linux/" rel="tag">linux</a>
+                    and
+                    
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-03-19">2008-03-19</time>
+        <h1>
+            <a href="/blog/2008/03/19/DebuggingJavaScriptInIEFromVisualWebDeveloper2008ExpressEdition.html" rel="bookmark canonical">Debugging JavaScript in IE from Visual Web Developer 2008 Express Edition</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://blogs.cozi.com/tech/2008/03/debugging-javascript-in-ie-from-visual-web-developer-2008-express-edition.html"></a>
+<p>It's not at all obvious how to use <a class="reference external" href="http://www.microsoft.com/express/vwd/Default.aspx">Visual Web Developer 2008 Express Edition</a>
+to debug JavaScript in Internet Explorer.
+So I wrote it up <a class="reference external" href="http://blogs.cozi.com/tech/2008/03/debugging-javascript-in-ie-from-visual-web-developer-2008-express-edition.html">at the Cozi Tech Blog</a>.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/javascript/" rel="tag">javascript</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-02-03">2008-02-03</time>
+        <h1>
+            <a href="/blog/2008/02/03/OddsAndEnds8.html" rel="bookmark canonical">Odds and Ends #8</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.oreillymaker.com/link/8085/random-walks/"></a>
+<p>Use <a class="reference external" href="http://www.oreillymaker.com/">O'Reilly Maker</a> to generate book covers.
+I've always wanted to write a book for cousin Tim,
+and now I have!</p>
+<p>Via Pavel: <a class="reference external" href="http://www.youtube.com/watch?v=ExeyrNZwzwQ">Adolf Hitler - Vista Problems</a> (YouTube).</p>
+<p><a class="reference external" href="http://www.krages.com/ThePhotographersRight.pdf">The Pho­tog­ra­pher's Right</a>: a handy one-page guide.</p>
+<blockquote>
+The general rule in the United States
+is that anyone may take pho­tographs
+of whatever they want when they are
+in a public place or places where they
+have permission to take pho­tographs.
+Absent a specific legal pro­hi­bi­tion
+such as a statute or ordinance,
+you are legally entitled to take pho­tographs.
+Examples of places that are tra­di­tion­al­ly
+considered public are streets, sidewalks,
+and public parks.</blockquote>
+<p>The tiny <tt class="docutils literal"><code></code> font in Firefox has been bugging me for a long time.
+I finally <span>&#8230;<a href="/blog/2008/02/03/OddsAndEnds8.html" class="continue">continue</a>.</span></tt></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/windows/" rel="tag">windows</a>,
+                <a href="/tag/photography/" rel="tag">photography</a>
+                    and
+                    
+                <a href="/tag/politics/" rel="tag">politics</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-01-24">2008-01-24</time>
+        <h1>
+            <a href="/blog/2008/01/24/OddsAndEnds6.html" rel="bookmark canonical">Odds and Ends #6</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://notepad-plus.sourceforge.net/"></a>
+<p>Mis­cel­la­neous links.</p>
+<ul class="simple">
+<li>Are you plagued by User Access Control prompts
+every time you run <a class="reference external" href="http://notepad-plus.sourceforge.net/">Notepad++</a> on Vista?
+See <a class="reference external" href="http://blog.danielphin.com/2007/12/06/gup/">Notepad++ and the GUP</a> for a fix.</li>
+</ul>
+<ul>
+<li><p class="first">According to The Onion, <a class="reference external" href="http://www.theonion.com/content/news/bill_clinton_screw_it_im_running">Bill Clinton is running again</a>.</p>
+<p>We saw him speak at a <a class="reference external" href="/blog/2006/05/18/TheWarOnJimMcDermott.html">fundraiser for Jim McDermott</a> a couple of years ago.
+It was impressive to see him stand up for an hour and
+riff on all manner of topics without notes.
+The current incumbent is truly a mental midget.</p>
+<p>Not that I especially enjoyed the Clinton years.
+I often felt left down.</p>
+</li>
+</ul>
+<ul class="simple">
+<li>Larry Lessig is unhappy with the <a class="reference external" href="http://lessig.org/blog/2008/01/and_what_if_the_karl_rove_viru.html">sleaze</a>
+emanating from Hillary Clinton.</li>
+</ul>
+<ul class="simple">
+<li>Joel Spolsky's article on the <a class="reference external" href="http://www.joelonsoftware.com/items/2008/01/22.html">Five Whys</a>
+showcases a useful technique to find <span>&#8230;<a href="/blog/2008/01/24/OddsAndEnds6.html" class="continue">continue</a>.</span></li></ul>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/windows/" rel="tag">windows</a>
+                    and
+                    
+                <a href="/tag/politics/" rel="tag">politics</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-03-27">2007-03-27</time>
+        <h1>
+            <a href="/blog/2007/03/27/HotkeyForClipboardNET.html" rel="bookmark canonical">Hotkey for Clipboard.NET</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://clipmon32.bountysource.com/"></a>
+<p>I use <a class="reference external" href="https://clipmon32.bountysource.com/">Clipboard.NET</a> as a clipboard manager on Windows.
+It stores the last few entries sent to the clipboard.</p>
+<p>There's one problem: the default hotkey is Ctrl+Comma,
+which also happens to be an important key for Outlook
+(previous message).
+I figured out a while ago how to <a class="reference external" href="https://clipmon32.bountysource.com/task/show/1213">change the hotkey</a>,
+but my <a class="reference external" href="https://clipmon32.bountysource.com/task/show/1213">report</a> doesn't show up when you search for it.</p>
+<p>Net: using a key name from the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/system.consolekey.aspx">ConsoleKey table</a>,
+change the value of <tt class="docutils literal">Short­cutKey</tt> in
+<tt class="docutils literal"><span class="pre">%Pro­gram­Files%\­Tom</span> Med­hurst\­Clip­board.NET\­clip­mon32.exe.config</tt>:</p>
+<pre class="literal-block">
+<applicationsettings>
+    <clipmon32.properties.settings>
+          <setting name="ShortcutKey" serializeas="String">
+                  </setting></clipmon32.properties.settings></applicationsettings></pre><span>&#8230;<a href="/blog/2007/03/27/HotkeyForClipboardNET.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-02-20">2007-02-20</time>
+        <h1>
+            <a href="/blog/2007/02/20/VimOnWin64Updated.html" rel="bookmark canonical">Vim on Win64 updated</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="//www.georgevreilly.com/vim/"></a>
+<p>I have updated the <a class="reference external" href="/vim/">Win64 port of Vim</a>.
+It now includes a working installer,
+a working "Edit with Vim" shell extension,
+and the first 195 patches for Vim 7.0.
+Get it while it's hot!</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-02-11">2007-02-11</time>
+        <h1>
+            <a href="/blog/2007/02/11/ShellExtensionThrowingR6034Errors.html" rel="bookmark canonical">Shell extension throwing R6034 errors</a>
+        </h1>
+    </header>
+    
+<p>I have been cleaning up some issues with the <a class="reference external" href="/blog/2006/04/22/Win64PortOfVim.html">Win64 port of Vim</a>,
+including the <em>Edit with Vim</em> shell extension not working very well.
+When I built the shell extension with VS 2005 on x86, I would
+get the following whenever I right-clicked in Explorer:</p>
+<blockquote>
+<p>Microsoft Visual C++ Runtime Library</p>
+<p>Runtime Error!</p>
+<p>Program: C:WIN­DOW­S­Ex­plor­er.EXE</p>
+<p>R6034</p>
+<p>An ap­pli­ca­tion has made an attempt to load the C runtime library in­cor­rect­ly.
+Please contact the ap­pli­ca­tion's support team for more in­for­ma­tion.</p>
+</blockquote>
+<p>There was no mention of which ap­pli­ca­tion was at fault,
+though it was obvious in this case.
+I have also seen some mention of <tt class="docutils literal">verclsid</tt> in the error dialog,
+though not when I took this snapshot.</p>
+<p>The <span>&#8230;<a href="/blog/2007/02/11/ShellExtensionThrowingR6034Errors.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-11-08">2006-11-08</time>
+        <h1>
+            <a href="/blog/2006/11/08/NewSysInternalsSiteAndTools.html" rel="bookmark canonical">New SysInternals Site and Tools</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.microsoft.com/technet/sysinternals/default.mspx"></a>
+<p><a class="reference external" href="http://www.sysinternals.com">Sys­In­ter­nals</a> has always been a source of great tools for trou­bleshoot­ing
+your system. FileMon, RegMon, Process Explorer, Handle, ListDlls, PsTools, DebugView:
+all of these have earned a permanent place on my Windows in­stal­la­tions.
+Mark Russi­novich, the co-founder, is a world-class hacker. He co-wrote
+<a class="reference external" href="http://www.amazon.com/exec/obidos/ASIN/0735619174/georgvreill-20">Microsoft Windows Internals</a> <em>without</em> access to the Windows source.
+It was he who discovered the <a class="reference external" href="http://blogs.technet.com/markrussinovich/archive/2005/10/31/sony-rootkits-and-digital-rights-management-gone-too-far.aspx">Sony Rootkit</a> and publicized it on his
+<a class="reference external" href="http://blogs.technet.com/MarkRussinovich/">widely read blog</a>.</p>
+<p>Many people were somewhat disturbed to learn that
+<a class="reference external" href="http://blogs.technet.com/markrussinovich/archive/2006/07/18/on-my-way-to-microsoft.aspx">Microsoft bought Sys­In­ter­nals</a> a few months ago,
+that it would compromise the tools.</p>
+<p>It seems not to be a problem. The tools have just been re-released on the
+<a class="reference external" href="http://www.microsoft.com/technet/sysinternals/default.mspx">TechNet Sys­In­ter­nals site</a>. There's one new tool, <span>&#8230;<a href="/blog/2006/11/08/NewSysInternalsSiteAndTools.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/windows/" rel="tag">windows</a>
+                    and
+                    
+                <a href="/tag/microsoft/" rel="tag">microsoft</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-04-22">2006-04-22</time>
+        <h1>
+            <a href="/blog/2006/04/22/Win64PortOfVim.html" rel="bookmark canonical">Win64 port of Vim</a>
+        </h1>
+    </header>
+    <p>I've ported Vim to Win64. Native binaries for AMD64 can be found on my
+<a class="reference external" href="//www.georgevreilly.com/vim/">Vim page</a>.</p>
+<p>In the end, it wasn't all that hard. Last weekend, I fixed ap­prox­i­mate­ly
+400 warnings that were thrown up by the x86_amd64 cross compiler.
+Most of them were due to the widening of <tt class="docutils literal">size_t</tt> (especially the value
+returned from <tt class="docutils literal">strlen()</tt>) and <tt class="docutils literal">ptrdiff_t</tt> to 64-bits.
+Several years ago, I went through a similar exercise in fixing these
+warnings for Vim6, but I never finished the port.</p>
+<p>This week, I scrounged access to an AMD64 box at work. Today, I turned on
+the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/yt4xw8fh(VS.80).aspx">/Wp64 flag</a>,
+which found several new, subtler problems, where pointers where being
+truncated to <span>&#8230;<a href="/blog/2006/04/22/Win64PortOfVim.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+        <a href="/tag/windows/3/" class="page floatright">
+        Previous &raquo;
+        </a>
+    
+    
+        <a href="/tag/windows/" class="page floatleft">
+        &laquo; Next
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

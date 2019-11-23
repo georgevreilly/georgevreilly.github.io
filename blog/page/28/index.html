@@ -21,9 +21,48 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-01-15">2016-01-15</time>
+        <h1>
+            <a href="/blog/2016/01/15/DVINotConsideredEqual.html" rel="bookmark canonical">DVI Not Considered Equal</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Digital_Visual_Interface"></a>
+<p>We got a new monitor today for one of our <a class="reference external" href="http://www.metabrite.com/devblog/posts/pairing-git/">pairing work­sta­tions</a>.
+At 2560x1600, it was higher resolution than its pre­de­ces­sor.
+I dis­con­nect­ed the <a class="reference external" href="https://en.wikipedia.org/wiki/Digital_Visual_Interface"><span class="caps">DVI</span></a> cable from the old monitor,
+leaving it connected to one of the video ports on the computer,
+and connected it to the new monitor.
+All I could see was static and noise on the screen.
+After trying a variety of other things,
+I eventually thought to use the <span class="caps">DVI</span> cable that came with the new monitor.
+It worked!</p>
+<p>I had assumed that all <span class="caps">DVI</span> cables were in­ter­change­able.
+Reading the <a class="reference external" href="https://en.wikipedia.org/wiki/Digital_Visual_Interface">Wikipedia article</a>, I see that at higher res­o­lu­tions,
+<em>dual link</em> is needed.
+I hadn’t known such a thing existed.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/15/DVINotConsideredEqual.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
     
         <article>
     <header>
@@ -34,35 +73,35 @@
     </header>
     <p>When I declare a derived class that inherits
 from both a base class and some mixins,
-I am always tempted to&nbsp;write:</p>
-
-<pre class="brush: python">
-class Derived(Base, Mixin1, Mixin2):
-    "Some class"
+I am always tempted to write:</p>
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">Mixin1</span><span class="p">,</span> <span class="n">Mixin2</span><span class="p">):</span>
+    <span class="s2">"Some class"</span>
 </pre>
-
 <p>My reasoning is that <tt class="docutils literal">Derived</tt> is a <tt class="docutils literal">Base</tt>
 with some <tt class="docutils literal">Mixin1</tt> and <tt class="docutils literal">Mixin2</tt> goodness sprinkled on.
-Generally, that&#8217;s fine.
+Generally, that’s fine.
 The exception is when I want one of the mixins to override
-a method or attribute that&#8217;s defined in <tt class="docutils literal">Base</tt>.
+a method or attribute that’s defined in <tt class="docutils literal">Base</tt>.
 Because the <a class="reference external" href="http://python-history.blogspot.com/2010/06/method-resolution-order.html">Method Resolution Order</a> is left-to-right,
-then <tt class="docutils literal">Base</tt>&#8216;s im&shy;ple&shy;men&shy;ta&shy;tion will always be found&nbsp;first.</p>
+then <tt class="docutils literal">Base</tt>‘s im­ple­men­ta­tion will always be found first.</p>
 <p>To get the desired behavior of the mixin overriding the base,
-<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance&nbsp;list.</p>
+<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in­her­i­tance list.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-<pre class="brush: python">
-from __future__ import print_function
-
-class Useful(object):
-    def __init__(self, msg):
+<span class="k">class</span> <span class="nc">Useful</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
  </pre><span>&#8230;<a href="/blog/2016/01/14/PythonBaseClassOrder.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/14/PythonBaseClassOrder.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -90,21 +129,28 @@ class Useful(object):
 <div class="line">Reading period: 11–12 January, 2016</div>
 </div>
 <p>Dr. Cherijo Grey Veil flees Earth to the remote planet of Kevarzanga-2,
-seeking to get away from her dom&shy;i&shy;neer&shy;ing father
+seeking to get away from her dom­i­neer­ing father
 and the xenophobic Terrans.
-She finds in&shy;ter&shy;est&shy;ing challenges and romance
+She finds in­ter­est­ing challenges and romance
 working with a variety of alien species at the FreeClinic.
 Then a plague strikes that kills thousands.
-When that&#8217;s resolved, the news comes that her father really, really wants her back,
-and is bringing enormous resources to make that&nbsp;happen.</p>
-<p>I didn&#8217;t like the book at first, but it grew on me as I read more of it
+When that’s resolved, the news comes that her father really, really wants her back,
+and is bringing enormous resources to make that happen.</p>
+<p>I didn’t like the book at first, but it grew on me as I read more of it
 and I got caught up <span>&#8230;<a href="/blog/2016/01/13/ReviewStarDoc.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/13/ReviewStarDoc.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/sf/" rel="tag">sf</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -120,37 +166,33 @@ and I got caught up <span>&#8230;<a href="/blog/2016/01/13/ReviewStarDoc.html" c
         </h1>
     </header>
     <p>Bash has some handy syntax for getting and setting default values.
-Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s a collection of punc&shy;tu&shy;a&shy;tion characters,
-which makes it hard to Google when you can&#8217;t quite remember the&nbsp;syntax.</p>
+Un­for­tu­nate­ly, it’s a collection of punc­tu­a­tion characters,
+which makes it hard to Google when you can’t quite remember the syntax.</p>
 <p>Getting a default value using <tt class="docutils literal"><span class="pre">${var:-fallback}</span></tt>:</p>
+<pre class="code bash literal-block">
+<span class="c1"># set $<span class="caps">LOGDIR</span> to $1 if $1 has a value; otherwise set $<span class="caps">LOGDIR</span> to "/var/log"
+</span><span class="nv"><span class="caps">LOGDIR</span></span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/var/log</span><span class="si">}</span><span class="s2">"</span>
 
-<pre class="brush: bash">
-# set $LOGDIR to $1 if $1 has a value; otherwise set $LOGDIR to "/var/log"
-LOGDIR="${1:-/var/log}"
-
-# use $VERSION unless it's empty or unset; fall back to extracting someprog's version num
-build_version=${VERSION:-$(someprog --version | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')}
+<span class="c1"># use $<span class="caps">VERSION</span> unless it's empty or unset; fall back to extracting someprog's version num
+</span><span class="nv">build_version</span><span class="o">=</span><span class="si">${</span><span class="nv"><span class="caps">VERSION</span></span><span class="k">:-$(</span>someprog --version <span class="p">|</span> sed <span class="s1">'s/[^0-9.]*\([0-9.]*\).*/\1/'</span><span class="k">)</span><span class="si">}</span>
 </pre>
-
-<p>The colon-dash con&shy;struc&shy;tion is known as the
-<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog&#8217;s bollocks</a>
-in&nbsp;typography.</p>
+<p>The colon-dash con­struc­tion is known as the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog’s bollocks</a>
+in typography.</p>
 <p>Setting a default value, using <tt class="docutils literal"><span class="pre">${var:=fallback}</span></tt>:</p>
-
-<pre class="brush: bash">
-$ echo $HOME
+<pre class="code bash literal-block">
+$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
 /Users/georgevreilly
-$ echo ${HOME:=/tmp}
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
 /Users/georgevreilly
-$ unset HOME
-$ echo ${HOME:=/tmp}
+$ <span class="nb">unset</span> <span class="caps">HOME</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
 /tmp
-$ echo $HOME
+$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
 /tmp
-$ cd; pwd
+$ cd<span class="p">;</span> <span class="nb">pwd</span>
 /tmp
 </pre>
-
 <p>Note: <tt class="docutils literal">:=</tt> uses the new value in two cases.
 First, when the shell <span>&#8230;<a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -158,7 +200,10 @@ First, when the shell <span>&#8230;<a href="/blog/2016/01/12/BashGettingAndSetti
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/12/BashGettingAndSettingDefaultValues.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/bash/" rel="tag">bash</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -187,20 +232,28 @@ First, when the shell <span>&#8230;<a href="/blog/2016/01/12/BashGettingAndSetti
 </div>
 <p>The first in a series about <a class="reference external" href="https://en.wikipedia.org/wiki/John_Fielding">Sir John Fielding</a>,
 the blind magistrate who founded the Bow Street Runners,
-London&#8217;s first pro&shy;fes&shy;sion&shy;al police force in 1749.
-Jeremy Proctor, a newly orphaned 13-year-old, is taken under Sir John&#8217;s wing
-and assists him in dis&shy;cov&shy;er&shy;ing how the rakish Lord Goodhope
-was murdered in a locked&nbsp;room.</p>
+London’s first pro­fes­sion­al police force in 1749.
+Jeremy Proctor, a newly orphaned 13-year-old, is taken under Sir John’s wing
+and assists him in dis­cov­er­ing how the rakish Lord Goodhope
+was murdered in a locked room.</p>
 <p>Although I figured out the murderer halfway through,
 I still enjoyed both the plot and the characters.
-Alexander vividly brings Georgian London to&nbsp;life.</p>
+Alexander vividly brings Georgian London to life.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/11/ReviewBlindJustice.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>,
+                <a href="/tag/mystery/" rel="tag">mystery</a>
+                    and
+                    
+                <a href="/tag/history/" rel="tag">history</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -230,19 +283,26 @@ Alexander vividly brings Georgian London to&nbsp;life.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/A_Dedicated_Man">A Dedicated Man</a> is the second novel in the <a class="reference external" href="https://en.wikipedia.org/wiki/Inspector_Alan_Banks">Inspector Banks</a> series.
 A local historian has been murdered in the Yorkshire Dales.
 He was well-liked and there seems to be no obvious motives or suspects.
-Banks must dig into the dead man&#8217;s past if there are no leads in the&nbsp;present.</p>
+Banks must dig into the dead man’s past if there are no leads in the present.</p>
 <p>Like <a class="reference external" href="/blog/2009/11/21/ReviewTheHangingValley.html">other</a> <a class="reference external" href="/blog/2015/05/31/ReviewBadBoy.html">books</a> in the series,
 this is a competent well-written police procedural,
-partly seen through Banks&#8217; eyes
+partly seen through Banks’ eyes
 and partly through the eyes of some of the locals.
-Robinson is an expatriate York&shy;shire&shy;man
+Robinson is an expatriate York­shire­man
 with a fondness for his homeland and <span>&#8230;<a href="/blog/2016/01/10/ReviewADedicatedMan.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/10/ReviewADedicatedMan.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/mystery/" rel="tag">mystery</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -272,11 +332,11 @@ with a fondness for his homeland and <span>&#8230;<a href="/blog/2016/01/10/Revi
 <p>Occupied France, January 1943.
 Detectives Jean-Louis St-Cyr and Hermann Kohler are sent
 to the German <a class="reference external" href="https://en.wikipedia.org/wiki/Keroman_Submarine_Base">submarine base</a> at Lorient in Brittany
-to in&shy;ves&shy;ti&shy;gate a murder.
+to in­ves­ti­gate a murder.
 The Gross-Admiral wants a quick resolution to the case
 since the prime suspect is a U-Boat captain known as the Dollmaker,
-whose crew are de&shy;mor&shy;al&shy;ized after many months of punishing cruises
-and who won&#8217;t go back to sea without&nbsp;him.</p>
+whose crew are de­mor­al­ized after many months of punishing cruises
+and who won’t go back to sea without him.</p>
 <p>St-Cyr and Kohler are unlikely partners,
 a Chief Inspector from the Sûreté in Paris
 and a longtime criminal policeman now in the Gestapo.
@@ -286,7 +346,15 @@ Both are astute <span>&#8230;<a href="/blog/2016/01/09/ReviewDollmaker.html" cla
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/09/ReviewDollmaker.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>,
+                <a href="/tag/mystery/" rel="tag">mystery</a>
+                    and
+                    
+                <a href="/tag/history/" rel="tag">history</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -304,24 +372,30 @@ Both are astute <span>&#8230;<a href="/blog/2016/01/09/ReviewDollmaker.html" cla
     <a class="reference external image-reference" href="http://anjinanhut.deviantart.com/art/time-to-die-roy-batty-108197743"></a>
 <p></p>
 <blockquote>
-<p>I&#8217;ve seen things you people wouldn&#8217;t believe.
+<p>I’ve seen things you people wouldn’t believe.
 Attack ships on fire off the shoulder of Orion.
 I watched C-beams glitter in the dark near the Tannhäuser Gate.
 All those moments will be lost in time, like tears…in…rain.
-Time to&nbsp;die.</p>
-<p class="attribution">&mdash;Roy Batty, the <a class="reference external" href="https://en.wikipedia.org/wiki/Tears_in_rain_monologue">Tears in Rain</a>&nbsp;monologue</p>
+Time to die.</p>
+<p class="attribution">—Roy Batty, the <a class="reference external" href="https://en.wikipedia.org/wiki/Tears_in_rain_monologue">Tears in Rain</a> monologue</p>
 </blockquote>
 <p>According to <a class="reference external" href="https://en.wikipedia.org/wiki/Blade_Runner">Blade Runner</a>,
-the replicant Roy Batty&#8217;s incept date is January 8th, 2016.
-The <a class="reference external" href="http://www.smh.com.au/entertainment/movies/blade-runner-fans-its-roy-battys-birthday-20160107-gm19z8.html">Sydney Morning Herald</a> has an&nbsp;article.</p>
-<p>In honor of which, we watched Blade Runner&nbsp;tonight.</p>
+the replicant Roy Batty’s incept date is January 8th, 2016.
+The <a class="reference external" href="http://www.smh.com.au/entertainment/movies/blade-runner-fans-its-roy-battys-birthday-20160107-gm19z8.html">Sydney Morning Herald</a> has an article.</p>
+<p>In honor of which, we watched Blade Runner tonight.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/08/HappyBirthdayRoyBatty.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/movies/" rel="tag">movies</a>
+                    and
+                    
+                <a href="/tag/sf/" rel="tag">sf</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -338,25 +412,31 @@ The <a class="reference external" href="http://www.smh.com.au/entertainment/movi
     </header>
     <a class="reference external image-reference" href="https://lastpass.com/"></a>
 <p>My <a class="reference external" href="https://lastpass.com/">LastPass</a> browser plugin just upgraded itself to v4.0.
-For several years, I&#8217;ve been using LastPass to manage all of my passwords.
+For several years, I’ve been using LastPass to manage all of my passwords.
 I have literally hundreds of passwords.
-I can&#8217;t even remember half the sites, much less the usernames.
+I can’t even remember half the sites, much less the usernames.
 With LastPass, I can maintain a strong, distinct password for each site,
 which is robustly encrypted and backed up in the cloud,
-and I get good browser in&shy;te&shy;gra&shy;tion and adequate Android in&shy;te&shy;gra&shy;tion.
+and I get good browser in­te­gra­tion and adequate Android in­te­gra­tion.
 We also use LastPass at work for our individual use
-and to share&nbsp;cre&shy;den&shy;tials.</p>
+and to share cre­den­tials.</p>
 <p>There are still a handful of passwords that I have to remember and type,
 including the master password for my LastPass account,
 laptop passwords,
-and <span class="caps">GPG</span>&nbsp;passphras&shy;es.</p>
-<p>I&#8217;ve long used <span>&#8230;<a href="/blog/2016/01/07/DicewareAndLastpass.html" class="continue">continue</a>.</span></p>
+and <span class="caps">GPG</span> passphras­es.</p>
+<p>I’ve long used <span>&#8230;<a href="/blog/2016/01/07/DicewareAndLastpass.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/07/DicewareAndLastpass.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/security/" rel="tag">security</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -385,12 +465,12 @@ and <span class="caps">GPG</span>&nbsp;passphras&shy;es.</p>
 </div>
 <p>The Rosetti siblings, <a class="reference external" href="https://en.wikipedia.org/wiki/Christina_Rossetti">Christina</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Dante_Gabriel_Rossetti">Dante (Gabriel)</a>, Maria, and William,
 are haunted by the vampire who was once their uncle, <a class="reference external" href="https://en.wikipedia.org/wiki/John_William_Polidori">John Polidori</a>.
-The vampires pos&shy;ses&shy;sive&shy;ly love certain humans
+The vampires pos­ses­sive­ly love certain humans
 and grant those humans great powers of creativity.
 Christina both loves her uncle and yearns to be free of him.
 The other humans who receive the attentions of the vampires
 likewise feel both a forbidden attraction
-and a horrified repulsion at their own potential&nbsp;damnation.</p>
+and a horrified repulsion at their own potential damnation.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Tim_Powers">Tim Powers</a> is known for his “<a class="reference external" href="https://en.wikipedia.org/wiki/Secret_history">secret histories</a>”,
 wherein he takes historical events <span>&#8230;<a href="/blog/2016/01/06/ReviewHideMeAmongTheGraves.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -398,53 +478,15 @@ wherein he takes historical events <span>&#8230;<a href="/blog/2016/01/06/Review
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/06/ReviewHideMeAmongTheGraves.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-05">2016-01-05</time>
-        <h1>
-            <a href="/blog/2016/01/05/DecrementingLoops.html" rel="bookmark canonical">Decrementing Loops</a>
-        </h1>
-    </header>
-    <p>The canonical <tt class="docutils literal">for</tt>-loop in C and C++ is written thus,
-counting up <tt class="docutils literal">i = 0</tt>, <tt class="docutils literal">i = 1</tt>, &#8230;, <tt class="docutils literal">i = <span class="pre">N-1</span></tt>:</p>
-
-<pre class="brush: c++">
-for (int i=0; i &lt; N; i++) {
-    // loop body
-}
-</pre>
-
-<p>(In C, you have to declare <tt class="docutils literal">int i</tt> before the <tt class="docutils literal">for</tt>-loop.)</p>
-<p>Let&#8217;s unpack that <tt class="docutils literal">for</tt>-loop into an equivalent <tt class="docutils literal">while</tt>-loop:</p>
-
-<pre class="brush: c++">
-int i = 0;
-while (i &lt; N) {
-    // loop body
-    i = i + 1
-}
-</pre>
-
-<p>In other words, we initialize <tt class="docutils literal">i</tt> to zero.
-Then, before every execution of either loop,
-we check <tt class="docutils literal">i &lt; N</tt>.
-If <tt class="docutils literal">i</tt> is still within bounds,
-we execute the loop body.
-Then we postin&shy;cre&shy;ment <span>&#8230;<a href="/blog/2016/01/05/DecrementingLoops.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/05/DecrementingLoops.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>,
+                <a href="/tag/fantasy/" rel="tag">fantasy</a>
+                    and
+                    
+                <a href="/tag/history/" rel="tag">history</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>

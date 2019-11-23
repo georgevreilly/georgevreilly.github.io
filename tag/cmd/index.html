@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-09-12">2009-09-12</time>
+        <h1>
+            <a href="/blog/2009/09/12/Launching32bitApplicationsFromBatchfilesOnWin64.html" rel="bookmark canonical">Launching 32-bit applications from batchfiles on Win64</a>
+        </h1>
+    </header>
+    
+<p>I've been running the <a class="reference external" href="/blog/2009/06/20/WhenVideoCardsGoBad.html">64-bit version of Windows 7 RC</a> since June.
+It's been quite painless on the whole.</p>
+<p>One wrinkle that I ran into was with some batchfiles which
+launch ap­pli­ca­tions in <tt class="docutils literal">%Pro­gram­Files%</tt> (normally <tt class="docutils literal"><span class="pre">C:\Program Files</span></tt>).
+Due to the magic <a class="reference external" href="http://blogs.msdn.com/craigmcmurtry/archive/2004/12/14/301155.aspx">WOW64 redirector</a>, 32-bit ap­pli­ca­tions
+are actually installed into <tt class="docutils literal">%Pro­gram­Files(x86)%</tt>—normally <tt class="docutils literal"><span class="pre">C:\Program Files (x86)</span></tt>—instead of <tt class="docutils literal">%Pro­gram­Files%</tt>.
+This is trans­par­ent to the 32-bit ap­pli­ca­tions,
+which think they're running in <tt class="docutils literal">%Pro­gram­Files%</tt> (<tt class="docutils literal"><span class="pre">C:\Program Files</span></tt>).</p>
+<p>However, the cmd.exe shell is 64-bit
+(unless you make a special effort to run the 32-bit cmd.exe in SysWOW64),
+so batchfiles see the 64-bit <tt class="docutils literal">%Pro­gram­Files%</tt> which contains 64-bit ap­pli­ca­tions.</p>
+<p>Hence, a batchfile that launches an installed 32-bit ap­pli­ca­tion on Win64
+must use <tt class="docutils literal">%Pro­gram­Files(x86)%</tt>, not <tt class="docutils literal">%Pro­gram­Files%</tt>.</p>
+<p>It sounds <span>&#8230;<a href="/blog/2009/09/12/Launching32bitApplicationsFromBatchfilesOnWin64.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/windows/" rel="tag">windows</a>
+                    and
+                    
+                <a href="/tag/cmd/" rel="tag">cmd</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-01-13">2007-01-13</time>
+        <h1>
+            <a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" rel="bookmark canonical">Python Batchfile Wrapper, Redux</a>
+        </h1>
+    </header>
+    
+<div class="section" id="batchfile-wrapper">
+<h2>Batchfile Wrapper</h2>
+<p>I've made some sig­nif­i­cant changes to my <a class="reference external" href="/blog/2006/12/29/PythonBatchfileWrapper.html">Python Batchfile Wrapper</a>.
+The main virtue of this wrapper is that it finds python.exe and
+invokes it on the associated Python script,
+ensuring that <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi­rec­tion</a> works.</p>
+<p>I've also adapted <a class="reference external" href="http://mail.python.org/pipermail/python-list/2000-January/019450.html">py2bat</a> to work with my wrapper.
+I'm calling my version <a class="reference external" href="/Python/py2cmd/">py2cmd</a>.</p>
+<p>Here's my latest batch file, which is shorter than its pre­de­ces­sor.</p>
+<p>To use it, place it in the same directory as the Python script
+you want to run and give it the same basename;
+i.e., <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth­er\ex­am­ple.cmd</tt>
+will run <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth­er\ex­am­ple.py</tt>.</p>
+<pre class="code batch literal-block">
+<span class="p">@</span><span class="k">echo</span> off
+<span class="k">setlocal</span>
+<span class="k">set</span> <span class="nv">PythonExe</span><span class="p">=</span>
+<span class="k">set</span> <span class="nv">PythonExeFlags</span><span class="p">=</span>-u
+
+<span class="k">for</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span>cmd bat exe<span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
+    <span class="k">for</span> <span class="se">%%</span>j <span class="k">in</span> <span class="p">(</span>python.<span class="se">%%</span>i<span class="p">)</span> <span class="k">do</span> </pre><span>&#8230;<a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" class="continue">continue</a>.</span></div>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/cmd/" rel="tag">cmd</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-12-29">2006-12-29</time>
+        <h1>
+            <a href="/blog/2006/12/29/PythonBatchfileWrapper.html" rel="bookmark canonical">Python Batchfile Wrapper</a>
+        </h1>
+    </header>
+    
+<p>I've been getting into Python lately. One problem that I've en­coun­tered
+under Windows, is that input redi­rec­tion doesn't work if you use
+the <tt class="docutils literal">.py</tt> file as­so­ci­a­tion to run the script; e.g.:</p>
+<pre class="literal-block">
+C:\> foo.py < input.txt
+</pre>
+<p>There's a well-known <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi­rec­tion bug</a>. The fix is to explicitly use
+<tt class="docutils literal">python.exe</tt> to run the script.</p>
+<p>A related problem for me was that <tt class="docutils literal">stdin</tt> was opened as a <em>text</em> file,
+not a <em>binary</em> file, so <tt class="docutils literal">\r</tt> bytes were being discarded from binary input
+files. The fix is to run <tt class="docutils literal">python.exe <span class="pre">-u</span></tt> (unbuffered binary input and
+output).</p>
+<p>I didn't want to hardcode the path to <tt class="docutils literal">python.exe</tt> in a batch file,
+so I came up with the <span>&#8230;<a href="/blog/2006/12/29/PythonBatchfileWrapper.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/cmd/" rel="tag">cmd</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2005-08-11">2005-08-11</time>
+        <h1>
+            <a href="/blog/2005/08/11/TIMEStamping.html" rel="bookmark canonical">TIME stamping</a>
+        </h1>
+    </header>
+    <p>I'm a command-line dinosaur.
+<a class="reference external" href="http://www.vim.org/">Vim</a> (Vi IMproved) is my favorite text editor.
+And I write quite a few little batch files.</p>
+<p>Here are a few useful tricks that work with cmd.exe on Windows XP.</p>
+<div class="section" id="timestamped-filename">
+<h2>Time­stamped filename</h2>
+<p>Sometimes I want to create a file whose name includes the current date and time.
+By combining the magic <tt class="docutils literal">%DATE%</tt> and <tt class="docutils literal">%TIME%</tt> en­vi­ron­ment variables,
+with <tt class="docutils literal">for /f</tt> and a little bit of string sub­sti­tu­tion,
+I can create that filename.</p>
+<pre class="code winbatch literal-block">
+<span class="c1">REM</span>
+<span class="c1">REM "Tue 06/14/2005" -> "06/14/2005"</span>
+<span class="c1">REM</span>
+<span class="k">for</span> <span class="k">/f</span> <span class="s2">"tokens=2"</span>              <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="s2">"</span><span class="nv">%DATE%</span><span class="s2">"</span><span class="p">)</span> <span class="k">do</span> <span class="k">set</span> <span class="nv">MDY</span><span class="p">=</span><span class="se">%%</span>i
+<span class="c1">REM</span>
+<span class="c1">REM "06/14/2005" -> "2005-06-14"</span>
+<span class="c1">REM</span>
+<span class="k">for</span> <span class="k">/f</span> <span class="s2">"delims=/ tokens=1,2,3"</span> <span class="se">%%</span>i <span class="k">in</span> </pre><span>&#8230;<a href="/blog/2005/08/11/TIMEStamping.html" class="continue">continue</a>.</span></div>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/cmd/" rel="tag">cmd</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

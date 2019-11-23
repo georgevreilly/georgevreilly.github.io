@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="Every so often, one of our Bamboo_ builds would br..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="python" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -34,7 +35,7 @@
             <a href="/blog/2015/01/28/PythonEggCache.html" rel="bookmark canonical">Python Egg Cache</a>
         </h1>
     </header>
-    <p>Every so often, one of our <a class="reference external" href="https://www.atlassian.com/software/bamboo">Bamboo</a> builds would break&nbsp;thus:</p>
+    <p>Every so often, one of our <a class="reference external" href="https://www.atlassian.com/software/bamboo">Bamboo</a> builds would break thus:</p>
 <pre class="literal-block">
 pkg_resources.ExtractionError: Can't extract file(s) to egg cache
 
@@ -53,16 +54,19 @@ variable to point to an accessible directory.
 </pre>
 <p>This occurred while trying to make use of <a class="reference external" href="http://pycrypto.org">PyCrypto</a>.</p>
 <p>After a little <a class="reference external" href="http://stackoverflow.com/questions/2192323/what-is-the-python-egg-cache-python-egg-cache">research</a>, I decided that instead of installing PyCrypto
-as a zipped egg (as it does by default) into the build&#8217;s virtual en&shy;vi&shy;ron&shy;ment,
+as a zipped egg (as it does by default) into the build’s virtual en&shy;vi&shy;ron&shy;ment,
 to instead force it to unzip itself: <tt class="docutils literal">easy_in&shy;stall <span class="pre">--always-unzip</span> pycrypto</tt>.
 This seems to have fixed the problem,
 as <a class="reference external" href="https://pythonhosted.org/setuptools/pkg_resources.html">pkg_re&shy;sources</a> no longer needs to unpack anything.
-<a class="reference external" href="https://pillow.readthedocs.org/">Pillow</a> was also in the Egg Cache and probably needs similar&nbsp;treatment.</p>
+<a class="reference external" href="https://pillow.readthedocs.org/">Pillow</a> was also in the Egg Cache and probably needs similar treatment.</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

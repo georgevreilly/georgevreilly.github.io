@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-01-05">2016-01-05</time>
+        <h1>
+            <a href="/blog/2016/01/05/DecrementingLoops.html" rel="bookmark canonical">Decrementing Loops</a>
+        </h1>
+    </header>
+    <p>The canonical <tt class="docutils literal">for</tt>-loop in C and C++ is written thus,
+counting up <tt class="docutils literal">i = 0</tt>, <tt class="docutils literal">i = 1</tt>, ..., <tt class="docutils literal">i = <span class="pre">N-1</span></tt>:</p>
+<pre class="code c++ literal-block">
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o"><</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// loop body
+</span><span class="p">}</span>
+</pre>
+<p>(In C, you have to declare <tt class="docutils literal">int i</tt> before the <tt class="docutils literal">for</tt>-loop.)</p>
+<p>Let's unpack that <tt class="docutils literal">for</tt>-loop into an equivalent <tt class="docutils literal">while</tt>-loop:</p>
+<pre class="code c++ literal-block">
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o"><</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// loop body
+</span>    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre>
+<p>In other words, we initialize <tt class="docutils literal">i</tt> to zero.
+Then, before every execution of either loop,
+we check <tt class="docutils literal">i < N</tt>.
+If <tt class="docutils literal">i</tt> is still within bounds,
+we execute the loop body.
+Then we postin­cre­ment <span>&#8230;<a href="/blog/2016/01/05/DecrementingLoops.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/c++/" rel="tag">c++</a>
+                    and
+                    
+                <a href="/tag/performance/" rel="tag">performance</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2013-12-12">2013-12-12</time>
+        <h1>
+            <a href="/blog/2013/12/12/SampleASPComponentsNowAtGithub.html" rel="bookmark canonical">Sample ASP Components: now at Github</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/1861001207/?tag=georgvreill-20"></a>
+<p>From October 1996 to May 1997, I wrote a number of sample components
+for the then-new <a class="reference external" href="http://en.wikipedia.org/wiki/Active_Server_Pages">Active Server Pages</a>
+(Classic ASP).
+I worked for Mi­cro­Crafts, a consulting company in Redmond, WA;
+the samples were written for Mi­crosoft­'s
+<a class="reference external" href="http://en.wikipedia.org/wiki/Internet_Information_Services">Internet In­for­ma­tion Server</a>
+(IIS) team.
+Most of the components used Mi­crosoft­'s new
+<a class="reference external" href="http://en.wikipedia.org/wiki/Active_Template_Library">Active Template Library</a> (ATL),
+a C++ library for COM.</p>
+<p>This work had two important con­se­quences for me:
+Microsoft recruited me to join the IIS de­vel­op­ment team
+to work on improving ASP per­for­mance for IIS 3,
+and Wrox Press invited me to write
+<a class="reference external" href="http://www.amazon.com/gp/product/1861000111/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1861000111&amp;linkCode=as2&amp;tag=georgvreill-20">Beginning ATL COM Pro­gram­ming</a>
+I was originally supposed to be the sole author of the book,
+but I was a slow writer and I was <span>&#8230;<a href="/blog/2013/12/12/SampleASPComponentsNowAtGithub.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>,
+                <a href="/tag/iis/" rel="tag">iis</a>,
+                <a href="/tag/c++/" rel="tag">c++</a>
+                    and
+                    
+                <a href="/tag/writing/" rel="tag">writing</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-06-09">2007-06-09</time>
+        <h1>
+            <a href="/blog/2007/06/09/Multilingual.html" rel="bookmark canonical">Multilingual</a>
+        </h1>
+    </header>
+    
+<p>This week, I have written code in C#, C++, Managed C++, C, WiX, NAnt,
+Ac­tion­Script, VBScript, JScript, cmd batch, NMake, HTML,
+XSLT, and Ruby. And I will probably get some Python in before the weekend
+is over. <boggle /></p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>,
+                <a href="/tag/javascript/" rel="tag">javascript</a>,
+                <a href="/tag/c++/" rel="tag">c++</a>
+                    and
+                    
+                <a href="/tag/c/" rel="tag">c</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-03-21">2007-03-21</time>
+        <h1>
+            <a href="/blog/2007/03/21/NUnitCallingCppUnit.html" rel="bookmark canonical">NUnit calling CppUnit</a>
+        </h1>
+    </header>
+    
+<p>Over the last few days, I've been adapting an existing native C++ library
+so that it can be called from managed code.
+I had written a large number of unit tests with <a class="reference external" href="http://cppunit.sourceforge.net/">CppUnit</a>
+and I wanted to be able to call the tests from <a class="reference external" href="http://www.nunit.org/">NUnit</a>.</p>
+<p>I suppose that I could have written a new CppUnit <a class="reference external" href="http://cppunit.sourceforge.net/cppunit-wiki/TestRunner">TestRunner</a> so that I
+could call it from NUnit.
+Instead, I took the cheap-n-dirty route, playing with <tt class="docutils literal">#define</tt>
+and include paths.
+It took less time to get working than it did to write this blog post.</p>
+<p>Here's the original native CppUnit test code</p>
+<pre class="code cpp literal-block">
+<span class="c1">//-------------------------------
+// native\FooTest.h
+//-------------------------------
+</span>
+<span class="cp">#include</span> <span class="cpf"><cppunit extensions helpermacros.h></cppunit><span class="cp">
+</span>
+<span class="k">class</span> <span class="nc">FooTest</span> <span class="o">:</span> <span class="k">public</span> <span class="n">CppUnit</span><span class="o">::</span><span class="n">TestFixture</span>
+<span class="p">{</span>
+    <span class="n">CPPUNIT_TEST_SUITE</span><span class="p">(</span> <span class="n">FooTest</span> </span></pre><span>&#8230;<a href="/blog/2007/03/21/NUnitCallingCppUnit.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/net/" rel="tag">.NET</a>
+                    and
+                    
+                <a href="/tag/c++/" rel="tag">C++</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-05-16">2006-05-16</time>
+        <h1>
+            <a href="/blog/2006/05/16/0xFFFF100x1999.html" rel="bookmark canonical">0xFF...FF / 10 == 0x19...99</a>
+        </h1>
+    </header>
+    
+<p>A few weeks ago, I wrote a C++ routine to parse decimal numbers using the
+overflow detection principles of
+<a class="reference external" href="http://msdn.microsoft.com/library/en-us/dncode/html/secure01142004.asp">SafeInt</a>.
+I couldn't find anything in the libraries that actually did a good job of checking
+for overflow.</p>
+<p>Briefly, to see if <tt class="docutils literal">unsigned</tt> values <tt class="docutils literal">A+B</tt> overflow, check
+<tt class="docutils literal">if (A > MAX_UINT - B)</tt>. Similarly, <tt class="docutils literal">A*B</tt> will overflow
+<tt class="docutils literal">if (A > MAX_UINT / B)</tt>.</p>
+<pre class="code cpp literal-block">
+<span class="c1">// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
+</span><span class="kt">bool</span>
+<span class="nf">StringToUnsigned</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">string</span><span class="o">&</span> <span class="n">str</span><span class="p">,</span>
+    <span class="kt">unsigned</span><span class="o">&</span>     <span class="n">rUint</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">rUint</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+        </pre><span>&#8230;<a href="/blog/2006/05/16/0xFFFF100x1999.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/c++/" rel="tag">c++</a>
+                    and
+                    
+                <a href="/tag/octal/" rel="tag">octal</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-04-29">2006-04-29</time>
+        <h1>
+            <a href="/blog/2006/04/29/AssertResultToStringExpected.html" rel="bookmark canonical">Assert(Result.ToString() == "Expected")</a>
+        </h1>
+    </header>
+    <p>I'm writing some C++ code at the moment, after months of C#.
+I'm trying to be very <a class="reference external" href="http://www.xprogramming.com/xpmag/testFirstGuidelines.htm">Test First</a>,
+writing Red tests, then making them turn Green.</p>
+<p>I'm also using <a class="reference external" href="http://cppunit.sourceforge.net/cppunit-wiki">CppUnit</a>
+for the first time. It's not as easy as
+<a class="reference external" href="http://www.nunit.org/">NUnit</a>. You can't just declare
+your test method with an attribute, you have to declare the test method
+in a header file, place it inside a macro, and then have the test
+im­ple­men­ta­tion in a .cpp-file. And there's no nunit-gui.
+I'm using a post-build step to run the tests, which makes it
+fairly pain free.</p>
+<p>There was one internal method that I didn't have an explicit test for,
+although I had tests <span>&#8230;<a href="/blog/2006/04/29/AssertResultToStringExpected.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/c++/" rel="tag">c++</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-01-22">2006-01-22</time>
+        <h1>
+            <a href="/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html" rel="bookmark canonical">Compiling Vim with Visual C++ 2003 Toolkit</a>
+        </h1>
+    </header>
+    <p>I've been trying to make <a class="reference external" href="http://www.vim.org/develop.php">Vim 7</a>
+compile with the
+<a class="reference external" href="http://msdn.microsoft.com/visualc/vctoolkit2003/">Microsoft Visual C++ 2003 Toolkit</a>,
+as a favor to Bram Moolenaar, the primary author of Vim.
+He wants to be able to use the free compiler as the
+primary build tool for the Win32 version of Vim.</p>
+<p>Oh. My. God.</p>
+<p>The VC2003 toolkit may include a full optimizing compiler,
+but it's certainly far from a complete system for building
+Windows binaries.</p>
+<p>First, I discovered that it came only with the C library headers,
+but not the Windows headers. That was easily rectified. Download the
+<a class="reference external" href="http://www.microsoft.com/msdownload/platformsdk/sdkupdate/">Platform SDK</a>.
+Just the Windows Core SDK subset. This also got me nmake.</p>
+<p>At this point, I was able to <span>&#8230;<a href="/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/c++/" rel="tag">c++</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

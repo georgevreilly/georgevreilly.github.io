@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-09-06">2016-09-06</time>
+        <h1>
+            <a href="/blog/2016/09/06/AlembicDataMigrations.html" rel="bookmark canonical">Alembic: Data Migrations</a>
+        </h1>
+    </header>
+    <p>We use <a class="reference external" href="http://alembic.zzzcomputing.com/en/latest/">Alembic</a> to perform schema migrations whenever we add (or drop) tables or columns
+from our databases.
+It's less well known that Alembic can also perform data migrations,
+updating existing data in tables.</p>
+<p>Here's an example adapted from a migration I put together this afternoon.
+I added a non-NULL Boolean <tt class="docutils literal">stooge</tt> column to the <tt class="docutils literal">old_timers</tt> table,
+with a default value of <tt class="docutils literal">FALSE</tt>.
+I wanted to update certain rows to have <tt class="docutils literal">stooge=TRUE</tt> as part of the migration.
+The following works with PostgreSQL.</p>
+<p>Note the <tt class="docutils literal">server_de­fault=sa.false()</tt> in the de­c­la­ra­tion of the <tt class="docutils literal">stooge</tt> column,
+which is needed to initially set all instances of <tt class="docutils literal">stooge=FALSE</tt>.
+I then declare a <tt class="docutils literal">table</tt> which has only the <span>&#8230;<a href="/blog/2016/09/06/AlembicDataMigrations.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/sql/" rel="tag">sql</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

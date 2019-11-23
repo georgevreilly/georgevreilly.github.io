@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="We use Alembic__ to perform schema migrations when..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="python, sql" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -36,39 +37,40 @@
     </header>
     <p>We use <a class="reference external" href="http://alembic.zzzcomputing.com/en/latest/">Alembic</a> to perform schema migrations whenever we add (or drop) tables or columns
 from our databases.
-It&#8217;s less well known that Alembic can also perform data migrations,
-updating existing data in&nbsp;tables.</p>
-<p>Here&#8217;s an example adapted from a migration I put together this afternoon.
+It’s less well known that Alembic can also perform data migrations,
+updating existing data in tables.</p>
+<p>Here’s an example adapted from a migration I put together this afternoon.
 I added a non-<span class="caps">NULL</span> Boolean <tt class="docutils literal">stooge</tt> column to the <tt class="docutils literal">old_timers</tt> table,
 with a default value of <tt class="docutils literal"><span class="caps">FALSE</span></tt>.
 I wanted to update certain rows to have <tt class="docutils literal">stooge=<span class="caps">TRUE</span></tt> as part of the migration.
-The following works with&nbsp;PostgreSQL.</p>
+The following works with PostgreSQL.</p>
 <p>Note the <tt class="docutils literal">server_de&shy;fault=sa.false()</tt> in the de&shy;c&shy;la&shy;ra&shy;tion of the <tt class="docutils literal">stooge</tt> column,
 which is needed to initially set all instances of <tt class="docutils literal">stooge=<span class="caps">FALSE</span></tt>.
 I then declare a <tt class="docutils literal">table</tt> which has only the two columns needed for the migration.
-Finally, I execute an <tt class="docutils literal">update</tt> on the&nbsp;table.</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">alembic</span> <span class="kn">import</span> <span class="n">op</span>
+Finally, I execute an <tt class="docutils literal">update</tt> on the table.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">alembic</span> <span class="kn">import</span> <span class="n">op</span>
 <span class="kn">import</span> <span class="nn">sqlalchemy</span> <span class="kn">as</span> <span class="nn">sa</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy.sql</span> <span class="kn">import</span> <span class="n">table</span>
 
 <span class="n">StoogeNames</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;Larry - Production&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Moe - Production&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Curly - Production&quot;</span><span class="p">,</span>
+    <span class="s2">"Larry - Production"</span><span class="p">,</span>
+    <span class="s2">"Moe - Production"</span><span class="p">,</span>
+    <span class="s2">"Curly - Production"</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">upgrade</span><span class="p">():</span>
     <span class="n">op</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span>
-        <span class="s1">&#39;old_timers&#39;</span><span class="p">,</span>
-        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">&#39;stooge&#39;</span><span class="p">,</span>
+        <span class="s1">'old_timers'</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">'stooge'</span><span class="p">,</span>
                   <span class="n">sa</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(),</span>
                   <span class="n">nullable</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
                   <span class="n">server_default</span><span class="o">=</span><span class="n">sa</span><span class="o">.</span><span class="n">false</span><span class="p">()))</span>
 
     <span class="n">old_timers</span> <span class="o">=</span> <span class="n">table</span><span class="p">(</span>
-        <span class="s1">&#39;old_timers&#39;</span><span class="p">,</span>
-        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n"><span class="caps">VARCHAR</span></span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">40</span><span class="p">)),</span>
-        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">&#39;stooge&#39;</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">Boolean</span><span class="p">())</span>
+        <span class="s1">'old_timers'</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n"><span class="caps">VARCHAR</span></span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">40</span><span class="p">)),</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">'stooge'</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">Boolean</span><span class="p">())</span>
         <span class="c1"># Other columns not needed for the data migration</span>
     <span class="p">)</span>
 
@@ -76,17 +78,23 @@ Finally, I execute an <tt class="docutils literal">update</tt> on the&nbsp;table
         <span class="n">old_timers</span>
             <span class="o">.</span><span class="n">update</span><span class="p">()</span>
             <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">old_timers</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">in_</span><span class="p">(</span><span class="n">StoogeNames</span><span class="p">))</span>
-            <span class="o">.</span><span class="n">values</span><span class="p">({</span><span class="s1">&#39;stooge&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">})</span>
+            <span class="o">.</span><span class="n">values</span><span class="p">({</span><span class="s1">'stooge'</span><span class="p">:</span> <span class="bp">True</span><span class="p">})</span>
     <span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">downgrade</span><span class="p">():</span>
-    <span class="n">op</span><span class="o">.</span><span class="n">drop_column</span><span class="p">(</span><span class="s1">&#39;old_timers&#39;</span><span class="p">,</span> <span class="s1">&#39;stooge&#39;</span><span class="p">)</span>
-</pre></div>
+    <span class="n">op</span><span class="o">.</span><span class="n">drop_column</span><span class="p">(</span><span class="s1">'old_timers'</span><span class="p">,</span> <span class="s1">'stooge'</span><span class="p">)</span>
+</pre>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/sql/" rel="tag">sql</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

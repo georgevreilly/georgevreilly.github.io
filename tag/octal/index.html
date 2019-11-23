@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2019-09-15">2019-09-15</time>
+        <h1>
+            <a href="/blog/2019/09/15/use-for-octal.html" rel="bookmark canonical">A Use for Octal: Calculating Modulo 36 from Modulo 9</a>
+        </h1>
+    </header>
+    
+<blockquote>
+(I posted an <a class="reference external" href="https://weblogs.asp.net/george_v_reilly/284388">earlier version</a> of this in December 2004 on my old technical blog.
+A discussion at work last week about 36-bit computers at the <a class="reference external" href="https://livingcomputers.org/">Living Computers Museum</a>
+prompted me to write an updated post with improved ex­pla­na­tions and much better typography.)</blockquote>
+<p>I've been pro­gram­ming in C since 1985 and C++ since 1991,
+but I've never found a use for <a class="reference external" href="https://en.wikipedia.org/wiki/Octal">octal</a> rep­re­sen­ta­tion until [2004],
+aside from the per­mis­sions argument for <a class="reference external" href="http://en.wikipedia.org/wiki/Chmod">chmod</a>.
+Octal has always seemed as vestigial as a human appendix,
+a leftover from the early days of computers,
+when <a class="reference external" href="https://en.wikipedia.org/wiki/Word_(computer_architecture)">word sizes</a> were often a multiple of three:
+6-, 12-, 24-, or 36-bits wide.
+All modern computers use word <span>&#8230;<a href="/blog/2019/09/15/use-for-octal.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/octal/" rel="tag">octal</a>,
+                <a href="/tag/math/" rel="tag">math</a>
+                    and
+                    
+                <a href="/tag/go/" rel="tag">go</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-05-16">2006-05-16</time>
+        <h1>
+            <a href="/blog/2006/05/16/0xFFFF100x1999.html" rel="bookmark canonical">0xFF...FF / 10 == 0x19...99</a>
+        </h1>
+    </header>
+    
+<p>A few weeks ago, I wrote a C++ routine to parse decimal numbers using the
+overflow detection principles of
+<a class="reference external" href="http://msdn.microsoft.com/library/en-us/dncode/html/secure01142004.asp">SafeInt</a>.
+I couldn't find anything in the libraries that actually did a good job of checking
+for overflow.</p>
+<p>Briefly, to see if <tt class="docutils literal">unsigned</tt> values <tt class="docutils literal">A+B</tt> overflow, check
+<tt class="docutils literal">if (A > MAX_UINT - B)</tt>. Similarly, <tt class="docutils literal">A*B</tt> will overflow
+<tt class="docutils literal">if (A > MAX_UINT / B)</tt>.</p>
+<pre class="code cpp literal-block">
+<span class="c1">// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
+</span><span class="kt">bool</span>
+<span class="nf">StringToUnsigned</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">string</span><span class="o">&</span> <span class="n">str</span><span class="p">,</span>
+    <span class="kt">unsigned</span><span class="o">&</span>     <span class="n">rUint</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">rUint</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+        </pre><span>&#8230;<a href="/blog/2006/05/16/0xFFFF100x1999.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/c++/" rel="tag">c++</a>
+                    and
+                    
+                <a href="/tag/octal/" rel="tag">octal</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

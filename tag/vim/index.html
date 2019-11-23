@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-08-19">2016-08-19</time>
+        <h1>
+            <a href="/blog/2016/08/19/OpeningVimAtTheRightPlace.html" rel="bookmark canonical">Opening Vim at the right place</a>
+        </h1>
+    </header>
+    <p>If you know exactly which line you want to go
+or which pattern you want to search for,
+Vim provides a couple of command-line options that can help:
+<tt class="docutils literal">+NUM</tt> goes to line number <tt class="docutils literal">NUM</tt>,
+while <tt class="docutils literal">+/PAT</tt> searches for the first occurrence of <tt class="docutils literal">PAT</tt>.
+It's also possible to execute an Ex command with <tt class="docutils literal">+CMD</tt>,
+such as <tt class="docutils literal">"+set fenc=latin1"</tt>.
+You can supply up to ten <tt class="docutils literal">+</tt> options.</p>
+<pre class="code bash literal-block">
+vim +23 ~/.bashrc
+vim <span class="s1">'+/ASIN\|ISBN'</span> template.rst
+vim <span class="s2">"+set fenc=latin1"</span> some.csv
+</pre>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-01-25">2015-01-25</time>
+        <h1>
+            <a href="/blog/2015/01/25/PyCharmYosemite.html" rel="bookmark canonical">Running PyCharm on Yosemite</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.jetbrains.com/pycharm/"></a>
+<p>I did a <a class="reference external" href="/blog/2015/01/17/YosemiteCleanInstall.html">clean install of OS X 10.10</a> on my home laptop a week ago.
+I tried to launch <a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a> 4.0.4 on it today.
+It im­me­di­ate­ly failed. Every time.</p>
+<p>When I looked in the System Console, I saw:</p>
+<pre class="literal-block">
+1/25/15 7:46:00.557 PM pycharm[1160]: No matching VM found.
+1/25/15 7:46:00.711 PM com.apple.xpc.launchd[1]: (com.jetbrains.pycharm.58252[1160]) Service exited with abnormal code: 1
+</pre>
+<p>The JetBrains website wasn't very helpful when I looked there.
+In time, I found a <a class="reference external" href="http://stackoverflow.com/questions/26438628/crash-jetbrains-ide-with-yosemite-mac-osx-webstorm-intellij">Stack­Over­flow answer</a> that put me on the right track
+(and reminded me that I had previously solved this problem about a year ago, at work).
+PyCharm and some of the other JetBrains IDEs require JDK 1.6,
+as <span>&#8230;<a href="/blog/2015/01/25/PyCharmYosemite.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/mac/" rel="tag">mac</a>
+                    and
+                    
+                <a href="/tag/vim/" rel="tag">vim</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-05-22">2009-05-22</time>
+        <h1>
+            <a href="/blog/2009/05/22/Win64Vim72182.html" rel="bookmark canonical">Win64 Vim 7.2.182</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://code.google.com/p/vim-win3264/"></a>
+<p>I updated the Win64 binaries of Vim at <a class="reference external" href="http://code.google.com/p/vim-win3264/">vim-win3264</a>
+from Vim 7.2.000 to 7.2.182.</p>
+<p>I'm amazed that the original binaries were downloaded over 11,000 times
+since last August.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-23">2009-03-23</time>
+        <h1>
+            <a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" rel="bookmark canonical">Exuberant Ctags and JavaScript</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://ctags.sourceforge.net/"></a>
+<p><a class="reference external" href="http://ctags.sourceforge.net/">Exuberant Ctags</a> is an essential complement to Vim:
+it generates an index of symbol names (tags) for a set of source files.
+In Vim, just place the cursor on a function name
+and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its definition.</p>
+<p>Ctags works well for most of the languages that I deal with,
+but falls down badly on modern JavaScript.
+Its built-in parser simply doesn't handle de­c­la­ra­tions like these:</p>
+<pre class="code javascript literal-block">
+<span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// ...
+</span><span class="nx">ajaxSetup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">settings</span> <span class="p">)</span> <span class="p">{</span>
+</pre>
+<p>I came across <a class="reference external" href="http://www.unbad.net/blog/ctags-and-relevant-support-for-javascript">Unbad</a>'s workaround earlier tonight.
+His code didn't work for me, so I hacked on it until it did:</p>
+<pre class="literal-block">
+--langdef=js
+--langmap=js:.js
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
+--regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
+--regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\(([^)])\)/\1/,function/
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
+--regex-js=/([^= ]+)[ </pre><span>&#8230;<a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/javascript/" rel="tag">javascript</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-07">2009-03-07</time>
+        <h1>
+            <a href="/blog/2009/03/07/reStructuredTextSyntaxHighlighting.html" rel="bookmark canonical">reStructuredText syntax highlighting</a>
+        </h1>
+    </header>
+    
+<p>Vim has had <a class="reference external" href="http://vimdoc.sourceforge.net/htmldoc/syntax.html">syntax high­light­ing</a> since version 5.0 in 1998.
+It quickly became in­dis­pens­able.
+It's hard to go back to looking at mono­chro­mat­ic source code
+after you've become accustomed to syntax high­light­ing.</p>
+<p>The syntax high­light­ing is tied into Vim's support for col­orschemes,
+which define colors for the fun­da­men­tal syntax groups
+like <tt class="docutils literal">Number</tt>, <tt class="docutils literal">Comment</tt>, and <tt class="docutils literal">String</tt>.
+The syntax high­light­ing for a particular language
+defines custom syntax groups for specific language features,
+such as <tt class="docutils literal">cppEx­cep­tions</tt> or <tt class="docutils literal">htmlEndTag</tt>,</p>
+<p>The custom syntax groups are <em>linked</em> to the underlying fun­da­men­tal syntax groups.
+Hence, if you change your col­orscheme, your syntax high­light­ing is updated au­to­mat­i­cal­ly.</p>
+<p>The re­Struc­tured­Text syntax high­light­ing in Vim 7.2
+has some short­com­ings, in my opinion.
+For example, <span>&#8230;<a href="/blog/2009/03/07/reStructuredTextSyntaxHighlighting.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>
+                    and
+                    
+                <a href="/tag/vim/" rel="tag">vim</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-02-19">2009-02-19</time>
+        <h1>
+            <a href="/blog/2009/02/19/DramaturgyVim.html" rel="bookmark canonical">Dramaturgy: Vim</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.wildgeeseseattle.org/"></a>
+<p>So how do I go from the <a class="reference external" href="http://www.gutenberg.org/etext/4300">Project Gutenberg etext</a> to <a class="reference external" href="/blog/2009/02/18/DramaturgyLaTeX.html">LaTeX</a>?</p>
+<p>Here's the Gutenberg text for the pictured fragment:</p>
+<pre class="literal-block">
+(BLOOM'S WEATHER. A SUNBURST APPEARS IN THE NORTHWEST.)
+
+THE BISHOP OF DOWN AND CONNOR: I here present your undoubted emperor-
+president and king-chairman, the most serene and potent and very puissant
+ruler of this realm. God save Leopold the First!
+
+ALL: God save Leopold the First!
+
+BLOOM: (IN DALMATIC AND PURPLE MANTLE, TO THE BISHOP OF DOWN AND CONNOR,
+WITH DIGNITY) Thanks, somewhat eminent sir.
+
+WILLIAM, ARCHBISHOP OF ARMAGH: (IN PURPLE STOCK AND SHOVEL HAT) Will you
+to your power cause law and mercy to be executed in all your </pre><span>&#8230;<a href="/blog/2009/02/19/DramaturgyVim.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/vim/" rel="tag">vim</a>,
+                <a href="/tag/jamesjoyce/" rel="tag">jamesjoyce</a>,
+                <a href="/tag/latex/" rel="tag">LaTeX</a>
+                    and
+                    
+                <a href="/tag/dramaturgy/" rel="tag">dramaturgy</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-11-29">2008-11-29</time>
+        <h1>
+            <a href="/blog/2008/11/29/Reach.html" rel="bookmark canonical">Reach</a>
+        </h1>
+    </header>
+    
+<p>Perusing Eric S. Raymond's blog recently,
+I noticed his <a class="reference external" href="http://esr.ibiblio.org/?p=578">claim</a> that as a one-time maintainer of GIFLIB,
+just about <em>every</em> cellphone and browser has some of his software
+running in it.</p>
+<p>That got me thinking about my own reach and
+where software that I've con­tributed to can be found.</p>
+<blockquote>
+<p>‘Oh that a man's reach should exceed his grasp, or what's a Heaven for?’</p>
+<p class="attribution">—Robert Browning</p>
+</blockquote>
+<p>I spent seven years on the IIS (<a class="reference external" href="http://en.wikipedia.org/wiki/Internet_Information_Services">Internet In­for­ma­tion Services</a>)
+de­vel­op­ment team at Microsoft.
+By any measure, that's a successful product,
+running one-third of all websites.
+There are over 100 million registered websites.
+Many of them are parked and many others see negligible volume,
+but that's millions, perhaps tens <span>&#8230;<a href="/blog/2008/11/29/Reach.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>,
+                <a href="/tag/personal/" rel="tag">personal</a>
+                    and
+                    
+                <a href="/tag/iis/" rel="tag">iis</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-08-17">2008-08-17</time>
+        <h1>
+            <a href="/blog/2008/08/17/Vim72IsReleased.html" rel="bookmark canonical">Vim 7.2 is released</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://code.google.com/p/vim-win3264/"></a>
+<p>Fifteen months after the release of Vim 7.1,
+Bram <a class="reference external" href="http://groups.google.com/group/vim_announce/browse_thread/thread/2c89671dd928812f">announced</a> the release of Vim 7.2 last weekend.
+No major new features, just the con­sol­i­da­tion of more than 300 patches.
+He also included a mention of the new dis­tri­b­u­tion point
+for Win64 binaries, the <a class="reference external" href="http://code.google.com/p/vim-win3264/">vim-win3264</a> project that I set up at Google Code.</p>
+<p>Bram has no way of testing the Win64 version,
+so I'm providing the official build at vim-win3264.
+I will no longer provide Win64 binaries for Vim from my own site.
+The Vim 7.2 sources compile the Win64 binaries cleanly
+(unlike the 7.1 release).
+I'll provide occasional in­ter­me­di­ate releases up there too,
+for both Win32 and Win64.</p>
+<p>I'm rather surprised to <span>&#8230;<a href="/blog/2008/08/17/Vim72IsReleased.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-01-29">2008-01-29</time>
+        <h1>
+            <a href="/blog/2008/01/29/OddsAndEnds7.html" rel="bookmark canonical">Odds and Ends #7</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.socialtext.net/"></a>
+<p>Mis­cel­la­neous links.</p>
+<ul class="simple">
+<li>I've uploaded <a class="reference external" href="/vim/stwiki/">Vim syntax high­light­ing for Socialtext</a>,
+the wiki we use at <a class="reference external" href="http://www.cozi.com/">Cozi</a>.
+Amusingly, it's derived from code
+that I found on the Socialtext website, which in turn is derived from
+<a class="reference external" href="/blog/2006/05/04/VimSyntaxHighlightingForFlexWiki.html">my syntax high­light­ing for Flexwiki</a>.</li>
+</ul>
+<ul class="simple">
+<li><a class="reference external" href="http://www.igniteseattle.com/2008/01/ignite-seattle-on-219-submit-your-talk/">Ignite Seattle is back on 2/19</a>.
+There were lots of in­ter­est­ing, geeky talks the
+<a class="reference external" href="/blog/2007/04/02/IgniteSeattle.html">last time I went</a>.</li>
+</ul>
+<ul>
+<li><p class="first">Via <a class="reference external" href="http://science.slashdot.org/article.pl?sid=08/01/27/2221228">Slashdot</a>, Walter Kirn on the failure of <a class="reference external" href="http://www.theatlantic.com/doc/200711/multitasking">mul­ti­task­ing</a></p>
+<blockquote>
+<p>Through a variety of ex­per­i­ments, many using functional magnetic
+resonance imaging to measure brain activity,
+[sci­en­tists have] torn the mask off mul­ti­task­ing and revealed its true face,
+which is blank and pale and drawn.</p>
+</blockquote>
+<p>I have a moderately bad case of mul­ti­task­ing myself.</p>
+</li>
+</ul>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/seattle/" rel="tag">seattle</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-02-20">2007-02-20</time>
+        <h1>
+            <a href="/blog/2007/02/20/VimOnWin64Updated.html" rel="bookmark canonical">Vim on Win64 updated</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="//www.georgevreilly.com/vim/"></a>
+<p>I have updated the <a class="reference external" href="/vim/">Win64 port of Vim</a>.
+It now includes a working installer,
+a working "Edit with Vim" shell extension,
+and the first 195 patches for Vim 7.0.
+Get it while it's hot!</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+        <a href="/tag/vim/2/" class="page floatright">
+        Previous &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

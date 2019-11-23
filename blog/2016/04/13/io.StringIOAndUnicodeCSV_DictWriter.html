@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="I like to use `io.StringIO`_ rather than the older..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="python" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -35,60 +36,57 @@
         </h1>
     </header>
     <p>I like to use <a class="reference external" href="https://docs.python.org/2/library/io.html#io.StringIO">io.StringIO</a> rather than the older <a class="reference external" href="https://docs.python.org/2/library/stringio.html#cStringIO.StringIO">cStringIO.StringIO</a>,
-as it&#8217;s Python 3–ready
+as it’s Python 3–ready
 <tt class="docutils literal">io.StringIO</tt> is also a <a class="reference external" href="https://docs.python.org/2/reference/datamodel.html#context-managers">context manager</a>:
 if you use it in a <tt class="docutils literal">with</tt> statement,
-the string buffer is au&shy;to&shy;mat&shy;i&shy;cal&shy;ly <tt class="docutils literal">close</tt>d as you go out of&nbsp;scope.</p>
+the string buffer is au&shy;to&shy;mat&shy;i&shy;cal&shy;ly <tt class="docutils literal">close</tt>d as you go out of scope.</p>
 <p>I tried using <tt class="docutils literal">io.StringIO</tt> with <a class="reference external" href="https://github.com/jdunck/python-unicodecsv">unicodecsv</a>,
 as I wanted to capture the <span class="caps">CSV</span> output into a string buffer
 for use with unit tests.
-<tt class="docutils literal">unicodecsv</tt> is a drop-in re&shy;place&shy;ment for Python&#8217;s built-in <tt class="docutils literal">csv</tt> module,
-which supports Unicode&nbsp;strings.</p>
-
-<pre class="brush: python">
-with io.StringIO() as csv_file:
-    write_csv_rows(csv_file)
-    lines = csv_file.getvalue().split('\r\n')
-    return lines[:-1]  # drop empty line after trailing \r\n
+<tt class="docutils literal">unicodecsv</tt> is a drop-in re&shy;place&shy;ment for Python’s built-in <tt class="docutils literal">csv</tt> module,
+which supports Unicode strings.</p>
+<pre class="code python literal-block">
+<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+    <span class="n">write_csv_rows</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">csv_file</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\r\n</span><span class="s1">'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lines</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># drop empty line after trailing \r\n</span>
 </pre>
-
 <p>It failed horribly with
 <tt class="docutils literal">TypeError: unicode argument expected, got 'str'</tt>.</p>
 <p>I managed to fix it by using <tt class="docutils literal">cStringIO.StringIO</tt> and <a class="reference external" href="https://docs.python.org/2/library/contextlib.html#contextlib.closing">contextlib.closing</a></p>
-
-<pre class="brush: python">
-with contextlib.closing(cStringIO.StringIO()) as csv_file:
-    ...
+<pre class="code python literal-block">
+<span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">closing</span><span class="p">(</span><span class="n">cStringIO</span><span class="o">.</span><span class="n">StringIO</span><span class="p">())</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+    <span class="o">...</span>
 </pre>
-
 <p>Writing this post, however,
 I realized how to fix it properly.
 Use <a class="reference external" href="https://docs.python.org/2/library/io.html#io.BytesIO">io.BytesIO</a>:</p>
-
-<pre class="brush: python">
-with io.BytesIO() as csv_file:
-    ...
+<pre class="code python literal-block">
+<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+    <span class="o">...</span>
 </pre>
-
 <p>I now realize that <tt class="docutils literal">io.StringIO</tt> is expecting a Unicode string,
 while the classic <tt class="docutils literal">cStringIO.StringIO</tt> is expecting a byte string.
 UnicodeCSV implicitly takes care of the character encoding,
-so we have a byte stream that&#8217;s being&nbsp;written.</p>
+so we have a byte stream that’s being written.</p>
 <p>There are examples with the old <tt class="docutils literal">StringIO</tt> in the <tt class="docutils literal">unicodecsv</tt> code,
-but somehow I missed that <tt class="docutils literal">io.BytesIO</tt> is used in <tt class="docutils literal">unicodecsv</tt>&#8216;s GitHub&nbsp;<span class="caps">README</span>.</p>
+but somehow I missed that <tt class="docutils literal">io.BytesIO</tt> is used in <tt class="docutils literal">unicodecsv</tt>‘s GitHub <span class="caps">README</span>.</p>
 <p>cStringIO: “Unlike the StringIO module, this module is not able to accept Unicode strings
-that cannot be encoded as plain <span class="caps">ASCII</span>&nbsp;strings.”</p>
-<p>UnicodeCSV: “Note that unicodecsv expects a bytestream, not&nbsp;unicode.”</p>
+that cannot be encoded as plain <span class="caps">ASCII</span> strings.”</p>
+<p>UnicodeCSV: “Note that unicodecsv expects a bytestream, not unicode.”</p>
 <p>io: “Since this module has been designed primarily for Python 3.x,
 you have to be aware that all uses of “bytes” in this document
 refer to the <tt class="docutils literal">str</tt> type (of which bytes is an alias),
 and all uses of “text” refer to the <tt class="docutils literal">unicode</tt> type.
-Fur&shy;ther&shy;more, those two types are not in&shy;ter&shy;change&shy;able in the io&nbsp;APIs.”</p>
+Fur&shy;ther&shy;more, those two types are not in&shy;ter&shy;change&shy;able in the io APIs.”</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

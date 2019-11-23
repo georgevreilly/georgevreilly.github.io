@@ -13,7 +13,7 @@
     <meta name="description" content="..
 
     (I posted an `earlier version`_ of this in..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="octal, math, go" />
 </head>
 <body>
   <header>
@@ -25,6 +25,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -41,8 +42,8 @@
 (I posted an <a class="reference external" href="https://weblogs.asp.net/george_v_reilly/284388">earlier version</a> of this in December 2004 on my old technical blog.
 A discussion at work last week about 36-bit computers at the <a class="reference external" href="https://livingcomputers.org/">Living Computers Museum</a>
 prompted me to write an updated post with improved ex&shy;pla&shy;na&shy;tions and much better typography.)</blockquote>
-<p>I&#8217;ve been pro&shy;gram&shy;ming in C since 1985 and C++ since 1991,
-but I&#8217;ve never found a use for <a class="reference external" href="https://en.wikipedia.org/wiki/Octal">octal</a> rep&shy;re&shy;sen&shy;ta&shy;tion until [2004],
+<p>I’ve been pro&shy;gram&shy;ming in C since 1985 and C++ since 1991,
+but I’ve never found a use for <a class="reference external" href="https://en.wikipedia.org/wiki/Octal">octal</a> rep&shy;re&shy;sen&shy;ta&shy;tion until [2004],
 aside from the per&shy;mis&shy;sions argument for <a class="reference external" href="http://en.wikipedia.org/wiki/Chmod">chmod</a>.
 Octal has always seemed as vestigial as a human appendix,
 a leftover from the early days of computers,
@@ -51,9 +52,9 @@ when <a class="reference external" href="https://en.wikipedia.org/wiki/Word_(com
 All modern computers use word sizes that are powers of two—16-, 32-, or 64-bits wide—with 8-bit bytes,
 so octal is less useful than hex,
 which evenly subdivides bytes and words.
-I&#8217;ve done a lot of bit twiddling
+I’ve done a lot of bit twiddling
 and hexa&shy;dec&shy;i&shy;mal has always been in&shy;dis&shy;pens&shy;able,
-while octal has remained a&nbsp;curiosity.</p>
+while octal has remained a curiosity.</p>
 <p>The other day [in 2004], a math&shy;e&shy;mati&shy;cian friend described to me a problem
 that he had solved at a previous company.
 They were designing hardware that emulated some old <a class="reference external" href="https://retrocomputing.stackexchange.com/questions/11801/what-was-the-rationale-behind-36-bit-computer-architectures">36-bit computers</a>.
@@ -63,7 +64,7 @@ had to accept an ar&shy;bi&shy;trar&shy;i&shy;ly large shift count, <span class=
 and shift left or right by <span class="formula">(<i>k</i><span class="textrm"> mod </span>36)</span>.
 Now, divisions are not cheap to implement in hardware,
 so they needed to come up with an alternate approach
-to calculate the&nbsp;modulus.</p>
+to calculate the modulus.</p>
 <p>My friend tried to do something with the factors of 36: <span class="formula">4 × 9</span>.
 Four and nine are <a class="reference external" href="https://artofproblemsolving.com/wiki/index.php/Relatively_prime">relatively prime</a>:
 they have no common factors other than one.
@@ -72,7 +73,7 @@ the com&shy;bi&shy;na&shy;tion of <span class="formula"><i>k</i><span class="tex
 and <span class="formula"><i>k</i><span class="textrm"> mod </span>9</span> is enough to uniquely
 determine <span class="formula"><i>k</i><span class="textrm"> mod </span>36</span>.
 By inspection, this is true for the following table of “residues”.
-All the integers in the range <span class="formula">[0, 36)</span> appear exactly&nbsp;once.</p>
+All the integers in the range <span class="formula">[0, 36)</span> appear exactly once.</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="18%"/>
@@ -147,80 +148,72 @@ All the integers in the range <span class="formula">[0, 36)</span> appear exac
 </tbody>
 </table>
 <p>Cal&shy;cu&shy;lat&shy;ing <span class="formula"><i>k</i><span class="textrm"> mod </span>4</span> is easy in hardware:
-it&#8217;s the two least-sig&shy;nif&shy;i&shy;cant&nbsp;bits.</p>
-<p>How to calculate <span class="formula"><i>k</i><span class="textrm"> mod </span>9</span> in hardware is not so&nbsp;obvious.</p>
+it’s the two least-sig&shy;nif&shy;i&shy;cant bits.</p>
+<p>How to calculate <span class="formula"><i>k</i><span class="textrm"> mod </span>9</span> in hardware is not so obvious.</p>
 <div class="section" id="shifting-and-masking">
-<h2>Shifting and&nbsp;Masking</h2>
+<h2>Shifting and Masking</h2>
 <p>Several pro&shy;gram&shy;ming languages now provide a <tt class="docutils literal">0b</tt> prefix for binary literals
 to go along with the <tt class="docutils literal">0x</tt> prefix for hex literals
 and the <tt class="docutils literal">0o</tt> prefix for octal literals.
 (Older languages use a <tt class="docutils literal">0</tt> prefix for octal and have no <tt class="docutils literal">0b</tt> prefix.)
 See the discussion in <a class="reference external" href="https://github.com/golang/proposal/blob/master/design/19308-number-literals.md">Go number literals</a> for more detail on <tt class="docutils literal">0b</tt>,
-including a list of languages that now support this&nbsp;notation.</p>
+including a list of languages that now support this notation.</p>
 <p><span class="formula">2<sup><i>n</i></sup></span>, written in binary, looks like <tt class="docutils literal">1</tt> followed by <span class="formula"><i>n</i></span> <tt class="docutils literal">0</tt>s.
 For example, <span class="formula">2<sup>3</sup> = 1000<sub>2</sub></span>.
-In C-like languages, <span class="formula">2<sup><i>n</i></sup></span> can be written as <tt class="docutils literal">1 &lt;&lt; n</tt>.</p>
-<p>Similarly, <span class="formula">2<sup><i>n</i></sup> − 1</span>, <tt class="docutils literal">(1 &lt;&lt; n) - 1</tt>,
+In C-like languages, <span class="formula">2<sup><i>n</i></sup></span> can be written as <tt class="docutils literal">1 << n</tt>.</p>
+<p>Similarly, <span class="formula">2<sup><i>n</i></sup> − 1</span>, <tt class="docutils literal">(1 << n) - 1</tt>,
 written in binary, looks like <span class="formula"><i>n</i></span> <tt class="docutils literal">1</tt>s.
 For example, <span class="formula">2<sup>5</sup> − 1 = 31<sub>10</sub> = 11111<sub>2</sub></span>.</p>
 <p>We can <strong>multiply</strong> an unsigned integer, <tt class="docutils literal">u</tt>, by <span class="formula">2<sup><i>n</i></sup></span>
-by <strong>shifting</strong> <tt class="docutils literal">u</tt> <strong>left</strong> by <span class="formula"><i>n</i></span> bits, <tt class="docutils literal">u &lt;&lt; n</tt>,
-in&shy;tro&shy;duc&shy;ing <span class="formula"><i>n</i></span>&nbsp;zeroes as the low-order bits.
+by <strong>shifting</strong> <tt class="docutils literal">u</tt> <strong>left</strong> by <span class="formula"><i>n</i></span> bits, <tt class="docutils literal">u << n</tt>,
+in&shy;tro&shy;duc&shy;ing <span class="formula"><i>n</i></span> zeroes as the low-order bits.
 For example, using 8-bit numbers without loss of generality,
-written as modern Go/Rust number&nbsp;literals:</p>
-
-<pre class="brush: rust">
-0b_0001_0101 &lt;&lt; 3 = 0b_1010_1000
+written as modern Go/Rust number literals:</p>
+<pre class="code rust literal-block">
+<span class="mb">0b_0001_0101</span><span class="w"> </span><span class="o"><<</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b_1010_1000</span>
 </pre>
-
 <p>Similarly, we can <strong>divide</strong> by <span class="formula">2<sup><i>n</i></sup></span>
-by <strong>shifting</strong> <tt class="docutils literal">u</tt> <strong>right</strong> by <span class="formula"><i>n</i></span> bits, <tt class="docutils literal">u &gt;&gt;&gt; n</tt>,
+by <strong>shifting</strong> <tt class="docutils literal">u</tt> <strong>right</strong> by <span class="formula"><i>n</i></span> bits, <tt class="docutils literal">u >>> n</tt>,
 which drops the <span class="formula"><i>n</i></span> low-order bits
-and introduces <span class="formula"><i>n</i></span> zeroes as the high-order&nbsp;bits.</p>
-
-<pre class="brush: rust">
-0b_0101_0110 >>> 3 = 0b_0000_1010
+and introduces <span class="formula"><i>n</i></span> zeroes as the high-order bits.</p>
+<pre class="code rust literal-block">
+<span class="mb">0b_0101_0110</span><span class="w"> </span><span class="o">>>></span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b_0000_1010</span>
 </pre>
-
 <p>A sign-extending or arithmetic right shift introduces <span class="formula"><i>n</i></span> copies
 of the sign bit as the high-order bits.
 In some languages, such as Java and JavaScript,
-<tt class="docutils literal">&gt;&gt;</tt>&nbsp;means an arithmetic right shift and
-<tt class="docutils literal">&gt;&gt;&gt;</tt>&nbsp;means a zero-extending right shift.
+<tt class="docutils literal">>></tt> means an arithmetic right shift and
+<tt class="docutils literal">>>></tt> means a zero-extending right shift.
 In other languages, including C, C++, and Go,
-there is only a <tt class="docutils literal">&gt;&gt;</tt> operator and
+there is only a <tt class="docutils literal">>></tt> operator and
 sign-extension generally depends upon the type of the left operand,
 <tt class="docutils literal">signed</tt> or <tt class="docutils literal">unsigned</tt>.
-However, sign extension is not guaranteed in&nbsp;C/C++.</p>
-
-<pre class="brush: rust">
-0b_0101_0110 >> 2 = 0b_0001_0101
-0b_1001_0110 >> 2 = 0b_1110_0101
+However, sign extension is not guaranteed in C/C++.</p>
+<pre class="code rust literal-block">
+<span class="mb">0b_0101_0110</span><span class="w"> </span><span class="o">>></span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b_0001_0101</span><span class="w">
+</span><span class="mb">0b_1001_0110</span><span class="w"> </span><span class="o">>></span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b_1110_0101</span>
 </pre>
-
 <p>Finally, we can find the <strong>remainder</strong> of dividing <tt class="docutils literal">u</tt> by <span class="formula">2<sup><i>n</i></sup></span>
 by <strong>masking</strong> <tt class="docutils literal">u</tt> with <span class="formula">2<sup><i>n</i></sup> − 1</span>,
-bitwise-and with <tt class="docutils literal">(1 &lt;&lt; n) - 1</tt>,
-to extract the <span class="formula"><i>n</i></span> low-order&nbsp;bits:</p>
-
-<pre class="brush: rust">
-0b_0101_0110 <span class="amp">&amp;</span> 0b_0000_0111 = 0b_0000_0110
+bitwise-and with <tt class="docutils literal">(1 << n) - 1</tt>,
+to extract the <span class="formula"><i>n</i></span> low-order bits:</p>
+<pre class="code rust literal-block">
+<span class="mb">0b_0101_0110</span><span class="w"> </span><span class="o">&</span><span class="w"> </span><span class="mb">0b_0000_0111</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b_0000_0110</span>
 </pre>
-
-<p>In other words, <tt class="docutils literal">u % 8 == u <span class="amp">&amp;</span> 7</tt> and <tt class="docutils literal">u / 8 == u &gt;&gt; 3</tt>.</p>
-<p>Read <span class="caps">MDN</span>&#8217;s page on <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators">bitwise operators</a> for more&nbsp;background.</p>
+<p>In other words, <tt class="docutils literal">u % 8 == u <span class="amp">&</span> 7</tt> and <tt class="docutils literal">u / 8 == u >> 3</tt>.</p>
+<p>Read <span class="caps">MDN</span>’s page on <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators">bitwise operators</a> for more background.</p>
 </div>
 <div class="section" id="casting-out-nines">
-<h2>Casting Out&nbsp;Nines</h2>
-<p>There&#8217;s an old trick for checking the results of arithmetic operations,
+<h2>Casting Out Nines</h2>
+<p>There’s an old trick for checking the results of arithmetic operations,
 known as <a class="reference external" href="http://mathworld.wolfram.com/CastingOutNines.html">casting out nines</a> or <a class="reference external" href="http://web.archive.org/web/20060101140519/http://web.mit.edu/mwpstr/www/dropnine.htm">dropping nines</a>.</p>
 <p>Add up the decimal digits of each number.
 Apply the arithmetic operation to these digit sums.
-They should be congruent, modulo&nbsp;9.</p>
+They should be congruent, modulo 9.</p>
 <p>For example, <span class="formula">12, 345 × 8, 765 = 108, 203, 925</span>.</p>
 <p>To check the mul&shy;ti&shy;pli&shy;ca&shy;tion,
 compute the <a class="reference external" href="https://en.wikipedia.org/wiki/Digit_sum">digit sum</a> of each number,
-by adding up each decimal&nbsp;digit:</p>
+by adding up each decimal digit:</p>
 <div class="line-block">
 <div class="line"><span class="formula">1 + 2 + 3 + 4 + 5 = 15 ≡ 6 (<span class="textrm"> mod </span>9)</span></div>
 <div class="line">Note: <span class="formula">12, 345<span class="textrm">  mod </span>9 = 6</span></div>
@@ -230,18 +223,18 @@ by adding up each decimal&nbsp;digit:</p>
 <div class="line"><span class="formula">8 + 7 + 6 + 5 = 26 ≡ 8 (<span class="textrm"> mod </span>9)</span></div>
 <div class="line">Note: <span class="formula">8, 765<span class="textrm">  mod </span>9 = 8</span></div>
 </div>
-<p>Take the first two digit sums, modulo 9, and multiply&nbsp;them:</p>
+<p>Take the first two digit sums, modulo 9, and multiply them:</p>
 <div class="line-block">
 <div class="line"><span class="formula">6 × 8 = 48 ≡ 3 (<span class="textrm"> mod </span>9)</span></div>
 <div class="line">Note: <span class="formula">15 × 26 = 390 ≡ 3 (<span class="textrm"> mod </span>9)</span></div>
 </div>
-<p>Check against the sum of the digits of the&nbsp;product:</p>
+<p>Check against the sum of the digits of the product:</p>
 <div class="line-block">
 <div class="line"><span class="formula">1 + 0 + 8 + 2 + 0 + 3 + 9 + 2 + 5 = 30 ≡ 3 (<span class="textrm"> mod </span>9)</span></div>
 <div class="line">Note: <span class="formula">108, 203, 925<span class="textrm">  mod </span>9 = 3</span></div>
 </div>
 <p>This works because <span class="formula">10<sup><i>n</i></sup> ≡ 1 (<span class="textrm"> mod </span>9)</span>.</p>
-<p>Consider&nbsp;758:</p>
+<p>Consider 758:</p>
 <div class="formula">
 758 = 7 × 100 + 5 × 10 + 8
 </div>
@@ -252,18 +245,18 @@ by adding up each decimal&nbsp;digit:</p>
 758 = 7 × (9<sup>2</sup> + 2 × 9 + 1) + 5 × (9 + 1) + 8
 </div>
 <p>Dropping the nines from each term leaves the digit sum,
-which is <em>congruent</em> to the original number modulo&nbsp;nine:</p>
+which is <em>congruent</em> to the original number modulo nine:</p>
 <div class="formula">
 7 × 1 + 5 × 1 + 8 = 7 + 5 + 8 = 20 ≡ 2 (<span class="textrm"> mod </span>9)
 </div>
 <p>Checking: <span class="formula">758<span class="textrm">  mod </span>9 = 2</span>.</p>
-<p><a class="reference external" href="https://www.math.nyu.edu/faculty/hausner/congruence.pdf">Con&shy;gru&shy;ences</a> have a number of useful&nbsp;properties.</p>
+<p><a class="reference external" href="https://www.math.nyu.edu/faculty/hausner/congruence.pdf">Con&shy;gru&shy;ences</a> have a number of useful properties.</p>
 </div>
 <div class="section" id="casting-out-elevens">
-<h2>Casting Out&nbsp;Elevens</h2>
-<p>Let&#8217;s use 11, instead of 9.
+<h2>Casting Out Elevens</h2>
+<p>Let’s use 11, instead of 9.
 Since <span class="formula">10 = 11 − 1</span>, then <span class="formula">10<sup><i>n</i></sup> ≡  − 1<sup><i>n</i></sup> (<span class="textrm">mod </span>11)</span>.</p>
-<p>Consider&nbsp;5234:</p>
+<p>Consider 5234:</p>
 <div class="formula">
 5234 = 5 × 10<sup>3</sup> + 2 × 10<sup>2</sup> + 3 × 10<sup>1</sup> + 4 × 10<sup>0</sup>
 </div>
@@ -273,11 +266,11 @@ Since <span class="formula">10 = 11 − 1</span>, then <span class="form
 <div class="formula">
 5234 = 5 × (11<sup>3</sup> − 3 × 11<sup>2</sup> × 1 + 3 × 11 × 1<sup>2</sup> − 1<sup>3</sup>) + 2 × (11<sup>2</sup> − 2 × 11 × 1 + 1<sup>2</sup>) + 3 × (11 − 1) + 4
 </div>
-<p>Dropping the elevens from each term leaves the al&shy;ter&shy;nat&shy;ing digit&nbsp;sum:</p>
+<p>Dropping the elevens from each term leaves the al&shy;ter&shy;nat&shy;ing digit sum:</p>
 <div class="formula">
 5 ×  − 1 + 2 × 1 + 3 ×  − 1 + 4 =  − 5 + 2 − 3 + 4 =  − 2 ≡ 9 (<span class="textrm"> mod </span>11)
 </div>
-<p>It&#8217;s more convenient to proceed rightwards from the least sig&shy;nif&shy;i&shy;cant digit,
+<p>It’s more convenient to proceed rightwards from the least sig&shy;nif&shy;i&shy;cant digit,
 <span class="formula">4 − 3 + 2 − 5</span>.</p>
 <p>Checking: <span class="formula">5234<span class="textrm">  mod </span>11 = 9</span>.</p>
 <p>To cast out elevens,
@@ -287,7 +280,7 @@ For more, see <a class="reference external" href="https://artofproblemsolving.co
 and <a class="reference external" href="https://en.wikipedia.org/wiki/Divisibility_rule#Proof_using_basic_algebra">proof for al&shy;ter&shy;nat&shy;ing sum</a>.</p>
 </div>
 <div class="section" id="modulo-9">
-<h2>Modulo&nbsp;9</h2>
+<h2>Modulo 9</h2>
 <p>At last, we turn to base 8, octal.
 Nine bears the same re&shy;la&shy;tion&shy;ship
 to eight in octal,
@@ -299,23 +292,24 @@ and <span class="formula">8<sup><i>n</i></sup> ≡  − 1<sup><i>n</i></
 adding and sub&shy;tract&shy;ing the octal digits, from right to left.
 For example,
 <span class="formula">1234<sub>8</sub><span class="textrm">  mod </span>9 = 4 − 3 + 2 − 1 = 2</span>.
-This gives the right&nbsp;answer.</p>
-<p>Here&#8217;s a simple, albeit incomplete, algorithm in Go.
-We&#8217;re masking and shifting three bits at a time,
+This gives the right answer.</p>
+<p>Here’s a simple, albeit incomplete, algorithm in Go.
+We’re masking and shifting three bits at a time,
 which is tantamount to working with the octal rep&shy;re&shy;sen&shy;ta&shy;tion of <tt class="docutils literal">k</tt>.</p>
-<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">Mod9</span><span class="p">(</span><span class="nx">k</span> <span class="kt">uint</span><span class="p">)</span> <span class="kt">uint</span> <span class="p">{</span>
+<pre class="code go literal-block">
+<span class="kd">func</span> <span class="nx">Mod9</span><span class="p">(</span><span class="nx">k</span> <span class="kt">uint</span><span class="p">)</span> <span class="kt">uint</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">m</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">0</span>
     <span class="nx">sign</span> <span class="o">:=</span> <span class="o">+</span><span class="mi">1</span>
 
-    <span class="k">for</span> <span class="nx">t</span> <span class="o">:=</span> <span class="nx">k</span><span class="p">;</span> <span class="mi">0</span> <span class="o">!=</span> <span class="nx">t</span><span class="p">;</span> <span class="nx">t</span> <span class="o">&gt;&gt;=</span> <span class="mi">3</span> <span class="p">{</span>
-        <span class="nx">r</span> <span class="o">:=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">t</span> <span class="o">&amp;</span> <span class="mi">7</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nx">t</span> <span class="o">:=</span> <span class="nx">k</span><span class="p">;</span> <span class="mi">0</span> <span class="o">!=</span> <span class="nx">t</span><span class="p">;</span> <span class="nx">t</span> <span class="o">>>=</span> <span class="mi">3</span> <span class="p">{</span>
+        <span class="nx">r</span> <span class="o">:=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">t</span> <span class="o">&</span> <span class="mi">7</span><span class="p">)</span>
         <span class="nx">m</span> <span class="o">+=</span> <span class="nx">sign</span> <span class="o">*</span> <span class="nx">r</span>
         <span class="nx">sign</span> <span class="p">=</span> <span class="o">-</span><span class="nx">sign</span>
     <span class="p">}</span>
 
     <span class="k">return</span> <span class="nb">uint</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
 <span class="p">}</span>
-</pre></div>
+</pre>
 <p>What about <span class="formula">617<sub>8</sub></span>?</p>
 <div class="formula">
 7 − 1 + 6 = 12 ≡ 3 (<span class="textrm"> mod </span>9)
@@ -330,7 +324,7 @@ which is tantamount to working with the octal rep&shy;re&shy;sen&shy;ta&shy;tion
 <div class="formula">
 6172<sub>8</sub><span class="textrm">  mod </span>9 = 8
 </div>
-<p>Almost&nbsp;there!</p>
+<p>Almost there!</p>
 <blockquote>
 Casting out “octal-elevens” (<span class="formula">11<sub>8</sub> = 9<sub>10</sub></span>) in octal,
 by an al&shy;ter&shy;nat&shy;ing sum of the base-eight digits,
@@ -342,60 +336,62 @@ but which may be outside the desired range.
 If the in&shy;ter&shy;me&shy;di&shy;ate sum dips below zero or rises above eight,
 we have to add nine or subtract nine re&shy;spec&shy;tive&shy;ly
 to keep the running total in the range <span class="formula">[0, 9)</span>.</p>
-<p>Here&#8217;s a complete algorithm for Modulo 9 in Go,
-computing the al&shy;ter&shy;nat&shy;ing sum of the octal&nbsp;digits:</p>
-<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">Mod9</span><span class="p">(</span><span class="nx">k</span> <span class="kt">uint</span><span class="p">)</span> <span class="kt">uint</span> <span class="p">{</span>
+<p>Here’s a complete algorithm for Modulo 9 in Go,
+computing the al&shy;ter&shy;nat&shy;ing sum of the octal digits:</p>
+<pre class="code go literal-block">
+<span class="kd">func</span> <span class="nx">Mod9</span><span class="p">(</span><span class="nx">k</span> <span class="kt">uint</span><span class="p">)</span> <span class="kt">uint</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">m</span> <span class="kt">int</span> <span class="p">=</span> <span class="mi">0</span>
     <span class="kd">var</span> <span class="nx">negative</span> <span class="kt">bool</span> <span class="p">=</span> <span class="kc">false</span>
 
-    <span class="k">for</span> <span class="nx">t</span> <span class="o">:=</span> <span class="nx">k</span><span class="p">;</span> <span class="mi">0</span> <span class="o">!=</span> <span class="nx">t</span><span class="p">;</span> <span class="nx">t</span> <span class="o">&gt;&gt;=</span> <span class="mi">3</span> <span class="p">{</span>
-        <span class="nx">r</span> <span class="o">:=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">t</span> <span class="o">&amp;</span> <span class="mi">7</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nx">t</span> <span class="o">:=</span> <span class="nx">k</span><span class="p">;</span> <span class="mi">0</span> <span class="o">!=</span> <span class="nx">t</span><span class="p">;</span> <span class="nx">t</span> <span class="o">>>=</span> <span class="mi">3</span> <span class="p">{</span>
+        <span class="nx">r</span> <span class="o">:=</span> <span class="nb">int</span><span class="p">(</span><span class="nx">t</span> <span class="o">&</span> <span class="mi">7</span><span class="p">)</span>
         <span class="k">if</span> <span class="nx">negative</span> <span class="p">{</span>
             <span class="nx">m</span> <span class="o">-=</span> <span class="nx">r</span>
-            <span class="k">if</span> <span class="nx">m</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="nx">m</span> <span class="p"><</span> <span class="mi">0</span> <span class="p">{</span>
                 <span class="nx">m</span> <span class="o">+=</span> <span class="mi">9</span>
             <span class="p">}</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
             <span class="nx">m</span> <span class="o">+=</span> <span class="nx">r</span>
-            <span class="k">if</span> <span class="nx">m</span> <span class="o">&gt;=</span> <span class="mi">9</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="nx">m</span> <span class="o">>=</span> <span class="mi">9</span> <span class="p">{</span>
                 <span class="nx">m</span> <span class="o">-=</span> <span class="mi">9</span>
             <span class="p">}</span>
         <span class="p">}</span>
-        <span class="c1">// assert(0 &lt;= m &amp;&amp; m &lt; 9)</span>
-        <span class="nx">negative</span> <span class="p">=</span> <span class="p">!</span><span class="nx">negative</span>
+        <span class="c1">// assert(0 <= m && m < 9)
+</span>        <span class="nx">negative</span> <span class="p">=</span> <span class="p">!</span><span class="nx">negative</span>
     <span class="p">}</span>
 
     <span class="k">return</span> <span class="nb">uint</span><span class="p">(</span><span class="nx">m</span><span class="p">)</span>
 <span class="p">}</span>
-</pre></div>
+</pre>
 <p>Clearly, this algorithm can be im&shy;ple&shy;ment&shy;ed in much simpler circuitry
-than that required to compute a remainder through full-blown&nbsp;division.</p>
+than that required to compute a remainder through full-blown division.</p>
 </div>
 <div class="section" id="modulo-36">
-<h2>Modulo&nbsp;36</h2>
+<h2>Modulo 36</h2>
 <p>We now have enough to calculate <span class="formula"><i>k</i><span class="textrm"> mod </span>36</span>
-from <tt class="docutils literal">Mod9</tt> and the Chinese Remainder&nbsp;Theorem:</p>
-<div class="highlight"><pre><span></span><span class="kd">func</span> <span class="nx">Mod36</span><span class="p">(</span><span class="nx">k</span> <span class="kt">uint</span><span class="p">)</span> <span class="kt">uint</span> <span class="p">{</span>
+from <tt class="docutils literal">Mod9</tt> and the Chinese Remainder Theorem:</p>
+<pre class="code go literal-block">
+<span class="kd">func</span> <span class="nx">Mod36</span><span class="p">(</span><span class="nx">k</span> <span class="kt">uint</span><span class="p">)</span> <span class="kt">uint</span> <span class="p">{</span>
     <span class="nx">Residues</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">9</span><span class="p">]</span><span class="kt">uint</span><span class="p">{</span>
         <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span>  <span class="mi">4</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span>  <span class="mi">8</span><span class="p">},</span>
         <span class="p">{</span> <span class="mi">9</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">17</span><span class="p">},</span>
         <span class="p">{</span><span class="mi">18</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span>  <span class="mi">6</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">26</span><span class="p">},</span>
         <span class="p">{</span><span class="mi">27</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span> <span class="mi">35</span><span class="p">},</span>
     <span class="p">}</span>
-    <span class="k">return</span> <span class="nx">Residues</span><span class="p">[</span><span class="nx">k</span> <span class="o">&amp;</span> <span class="mi">3</span><span class="p">][</span><span class="nx">Mod9</span><span class="p">(</span><span class="nx">k</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="nx">Residues</span><span class="p">[</span><span class="nx">k</span> <span class="o">&</span> <span class="mi">3</span><span class="p">][</span><span class="nx">Mod9</span><span class="p">(</span><span class="nx">k</span><span class="p">)]</span>
 <span class="p">}</span>
-</pre></div>
+</pre>
 <p>My friend says that he later learned that similar tricks were
-used in classic 36-bit&nbsp;hardware.</p>
+used in classic 36-bit hardware.</p>
 <p>I looked everywhere I could think of to see if I could
 find this algorithm to calculate modulo 9 described.
 I found something that hinted at it in
-Knuth&#8217;s <a class="reference external" href="http://www-cs-faculty.stanford.edu/~knuth/taocp.html">Semi&shy;nu&shy;mer&shy;i&shy;cal Algorithms</a>, §4.4.C,
+Knuth’s <a class="reference external" href="http://www-cs-faculty.stanford.edu/~knuth/taocp.html">Semi&shy;nu&shy;mer&shy;i&shy;cal Algorithms</a>, §4.4.C,
 discussing <a class="reference external" href="https://books.google.com/books?id=Zu-HAwAAQBAJ&amp;pg=PT532&amp;lpg=PT532&amp;dq=octal+cast+out+nines+modulo+36&amp;source=bl&amp;ots=9nglVlTuaU&amp;sig=ACfU3U0_RR51okwrvfY3WwC0xBudfLGhuw&amp;hl=en&amp;sa=X&amp;ved=2ahUKEwih44eUxc_kAhVVo54KHcgKDeEQ6AEwDXoECAgQAg#v=onepage&amp;q=octal%20cast%20out%20nines%20modulo%2036&amp;f=false">converting octal integers to decimal</a> by hand,
 where he mentions using casting out nines in octal and in decimal
 to check the result.
-There was no mention of it in Warren&#8217;s marvelous
-<a class="reference external" href="http://www.informit.com/articles/article.asp?p=28678">Hacker&#8217;s Delight</a> or in <a class="reference external" href="http://home.pipeline.com/~hbaker1/hakmem/hakmem.html"><span class="caps">HAKMEM</span></a>.</p>
+There was no mention of it in Warren’s marvelous
+<a class="reference external" href="http://www.informit.com/articles/article.asp?p=28678">Hacker’s Delight</a> or in <a class="reference external" href="http://home.pipeline.com/~hbaker1/hakmem/hakmem.html"><span class="caps">HAKMEM</span></a>.</p>
 <p>I tried to come up with an analytic way to calculate the
 elements of the <span class="formula">9<i>x</i>4</span> table.
 The best that I found is
@@ -407,32 +403,39 @@ From <a class="reference external" href="http://www-cs-faculty.stanford.edu/~knu
 mod 36 can be derived from mod 4 and mod 9
 by looking at the [0][1] and [1][0] elements of the table:
 <span class="formula">(9 × (<i>k</i><span class="textrm"> mod </span>4) + 28 × (<i>k</i><span class="textrm"> mod </span>9))<span class="textrm">  mod </span>36</span>.
-It works, but it&#8217;s even worse.
-A table lookup is clearly more&nbsp;efficient.</p>
+It works, but it’s even worse.
+A table lookup is clearly more efficient.</p>
 <p>Most, if not all, of the computer ar&shy;chi&shy;tec&shy;tures
 designed in the last forty years
 use a word size that is a power of two.
 Useful re&shy;la&shy;tion&shy;ships like shifting and masking are one big reason
-why non-power-of-two word sizes have gone out of&nbsp;fashion.</p>
+why non-power-of-two word sizes have gone out of fashion.</p>
 <p>Another big reason is the success of C and Unix,
 which have a bias towards 8-bit bytes.
-<a class="reference external" href="http://www.parashift.com/c++-faq-lite/intrinsic-types.html">C doesn&#8217;t require 8-bit bytes</a>,
-but there&#8217;s a lot of software which tacitly assumes that
-<tt class="docutils literal">char</tt> has exactly 8&nbsp;bits.</p>
+<a class="reference external" href="http://www.parashift.com/c++-faq-lite/intrinsic-types.html">C doesn’t require 8-bit bytes</a>,
+but there’s a lot of software which tacitly assumes that
+<tt class="docutils literal">char</tt> has exactly 8 bits.</p>
 <p>On systems with 9-bit bytes,
 like the 36-bit computers,
 octal is useful,
 since a 9-bit byte can hold all values up to <span class="formula">777<sub>8</sub></span>
-and the word size is a multiple of&nbsp;three.</p>
+and the word size is a multiple of three.</p>
 <p>And there you have it: an unexpected use for octal notation.
-It&#8217;s not exactly an important use,
-but then 36-bit computers aren&#8217;t exactly important any more&nbsp;either.</p>
+It’s not exactly an important use,
+but then 36-bit computers aren’t exactly important any more either.</p>
 </div>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/octal/" rel="tag">octal</a>,
+                <a href="/tag/math/" rel="tag">math</a>
+                    and
+                    
+                <a href="/tag/go/" rel="tag">go</a>
+                
+            </p>
         
     </footer>
     <div class="comments">
@@ -470,6 +473,9 @@ but then 36-bit computers aren&#8217;t exactly important any more&nbsp;either.</
         </a>
     
     
+        <a href="/blog/2019/11/22/Dublin2020.html" class="page floatleft">
+        &laquo; Dublin for 2020
+        </a>
 <footer>
     
     

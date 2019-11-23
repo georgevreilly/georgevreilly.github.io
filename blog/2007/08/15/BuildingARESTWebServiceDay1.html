@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: http://upload.wikimedia.org/wikipedia/e..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="cozi, rest, C" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -36,35 +37,42 @@
     </header>
     <a class="reference external image-reference" href="http://rest.blueoxen.net/"><img alt="The REST Triangle" class="right-float" src="http://upload.wikimedia.org/wikipedia/en/thumb/8/89/Resttriangle.svg/273px-Resttriangle.svg.png"/></a>
 <p>My first project at <a class="reference external" href="http://www.cozi.com/">Cozi</a> is to build a simple <a class="reference external" href="http://rest.blueoxen.net/"><span class="caps">REST</span></a>-style Web Service.
-Nobody here has done that&nbsp;before.</p>
-<p>The first thing that I&#8217;m trying to get going is a simple <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms972974.aspx"><span class="caps">URL</span> rewriter</a>,
-using an <span class="caps">ASP</span>.<span class="caps">NET</span>&nbsp;HttpModule.</p>
-<p>I&#8217;m running Vista as my de&shy;vel&shy;op&shy;ment desktop for the first time.
+Nobody here has done that before.</p>
+<p>The first thing that I’m trying to get going is a simple <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms972974.aspx"><span class="caps">URL</span> rewriter</a>,
+using an <span class="caps">ASP</span>.<span class="caps">NET</span> HttpModule.</p>
+<p>I’m running Vista as my de&shy;vel&shy;op&shy;ment desktop for the first time.
 So far, not bad, but there are lots of new quirks to get used to.
-I&#8217;ve been a good boy so far and I&#8217;ve left the User Access Control stuff enabled,
-so that I&#8217;m not running with ad&shy;min&shy;is&shy;tra&shy;tive privileges by&nbsp;default.</p>
-<p>It&#8217;s my first exposure to <span class="caps">IIS</span> 7.
+I’ve been a good boy so far and I’ve left the User Access Control stuff enabled,
+so that I’m not running with ad&shy;min&shy;is&shy;tra&shy;tive privileges by default.</p>
+<p>It’s my first exposure to <span class="caps">IIS</span> 7.
 I must say that the <span class="caps">IIS</span> <span class="caps">UI</span> is much improved
-(a low bar to&nbsp;surmount).</p>
+(a low bar to surmount).</p>
 <p>My first problem was that <a class="reference external" href="/blog/2005/11/17/SkypeAndSSL.html">Skype was squatting on port 80</a>,
 preventing browser requests going to localhost.
 This happens to me about once a year on a new dev machine,
-and I always&nbsp;forget.</p>
+and I always forget.</p>
 <p>To get the HttpModule going, I had to follow
-Mark Rasmussen&#8217;s detailed in&shy;struc&shy;tions on
+Mark Ras&shy;mussen’s detailed in&shy;struc&shy;tions on
 <a class="reference external" href="http://www.improve.dk/blog/2006/12/11/making-url-rewriting-on-iis7-work-like-iis6">making <span class="caps">URL</span> rewriting on <span class="caps">IIS</span> 7 work like <span class="caps">IIS</span> 6</a>.
 The code will be deployed on Windows Server 2003,
-so <span class="caps">IIS</span> 6 com&shy;pat&shy;i&shy;bil&shy;i&shy;ty is more important to me than <span class="caps">IIS</span> 7&nbsp;purity.</p>
+so <span class="caps">IIS</span> 6 com&shy;pat&shy;i&shy;bil&shy;i&shy;ty is more important to me than <span class="caps">IIS</span> 7 purity.</p>
 <p>I was trying to get some debug output appearing in <a class="reference external" href="http://www.microsoft.com/technet/sysinternals/utilities/debugview.mspx">DebugView</a>,
 but my <tt class="docutils literal">Trace.WriteLine</tt>s were not showing up.
 Some Googling eventually showed me that I had to enable
 <tt class="docutils literal">Capture Global Win32</tt>, which I never had to do before.
-Presumably because <span class="caps">ASP</span>.<span class="caps">NET</span> is executing in a different desktop&nbsp;session.</p>
+Presumably because <span class="caps">ASP</span>.<span class="caps">NET</span> is executing in a different desktop session.</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/cozi/" rel="tag">cozi</a>,
+                <a href="/tag/rest/" rel="tag">rest</a>
+                    and
+                    
+                <a href="/tag/c/" rel="tag">C</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

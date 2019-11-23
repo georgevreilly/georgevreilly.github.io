@@ -12,7 +12,7 @@
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: /content/binary/printf.png
     :alt: Pr..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="security, c" />
 </head>
 <body>
   <header>
@@ -24,6 +24,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -37,23 +38,29 @@
     </header>
     <img alt="Printf %n" class="right-float" src="/content/binary/printf.png"/>
 <p>In my post about <a class="reference external" href="/blog/2005/06/02/PrintfTricks.html">Printf Tricks</a> a couple of years ago,
-I mentioned that &quot;<tt class="docutils literal">%n</tt> is dangerous and disabled by default in Visual Studio&nbsp;2005.&quot;</p>
+I mentioned that "<tt class="docutils literal">%n</tt> is dangerous and disabled by default in Visual Studio 2005."</p>
 <p>I got email today from someone who was porting a large codebase to <span class="caps">VS</span> 2005.
 He was getting an assert from <tt class="docutils literal">%n</tt> and he needed a way to get past it.
-He intends to fix the uses of <tt class="docutils literal">%n</tt> when he has a&nbsp;chance.</p>
+He intends to fix the uses of <tt class="docutils literal">%n</tt> when he has a chance.</p>
 <p>I spent several minutes digging around in <span class="caps">MSDN</span> and came up with
-<a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms175782(VS.80).aspx">set_print&shy;f_&shy;coun&shy;t_out&shy;put</a>. Wikipedia&#8217;s <a class="reference external" href="http://en.wikipedia.org/wiki/Format_string_attack">Format string attack</a> page
+<a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms175782(VS.80).aspx">set_print&shy;f_&shy;coun&shy;t_out&shy;put</a>. Wikipedi&shy;a’s <a class="reference external" href="http://en.wikipedia.org/wiki/Format_string_attack">Format string attack</a> page
 led me to <a class="reference external" href="http://julianor.tripod.com/bc/formatstring-1.2.pdf">Exploiting Format String Vul&shy;ner&shy;a&shy;bil&shy;i&shy;ties</a>, which
-describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="docutils literal">%s</tt>) may be&nbsp;exploited.</p>
+describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="docutils literal">%s</tt>) may be exploited.</p>
 <p>In short, if you have <tt class="docutils literal">printf(un&shy;val&shy;i&shy;dat&shy;ed_user_in&shy;put)</tt>,
-instead of <tt class="docutils literal"><span class="pre">printf(&quot;%s&quot;,</span> un&shy;val&shy;i&shy;dat&shy;ed_user_in&shy;put)</tt>,
+instead of <tt class="docutils literal"><span class="pre">printf("%s",</span> un&shy;val&shy;i&shy;dat&shy;ed_user_in&shy;put)</tt>,
 then placing <tt class="docutils literal">%n</tt> into <tt class="docutils literal">un&shy;val&shy;i&shy;dat&shy;ed_user_in&shy;put</tt> can
-lead to <tt class="docutils literal">printf</tt> writing arbitrary data into&nbsp;memory.</p>
+lead to <tt class="docutils literal">printf</tt> writing arbitrary data into memory.</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/security/" rel="tag">security</a>
+                    and
+                    
+                <a href="/tag/c/" rel="tag">c</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

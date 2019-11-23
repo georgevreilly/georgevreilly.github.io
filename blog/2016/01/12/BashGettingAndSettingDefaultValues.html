@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="Bash has some handy syntax for getting and setting..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="bash" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -35,47 +36,46 @@
         </h1>
     </header>
     <p>Bash has some handy syntax for getting and setting default values.
-Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s a collection of punc&shy;tu&shy;a&shy;tion characters,
-which makes it hard to Google when you can&#8217;t quite remember the&nbsp;syntax.</p>
+Un&shy;for&shy;tu&shy;nate&shy;ly, it’s a collection of punc&shy;tu&shy;a&shy;tion characters,
+which makes it hard to Google when you can’t quite remember the syntax.</p>
 <p>Getting a default value using <tt class="docutils literal"><span class="pre">${var:-fallback}</span></tt>:</p>
+<pre class="code bash literal-block">
+<span class="c1"># set $<span class="caps">LOGDIR</span> to $1 if $1 has a value; otherwise set $<span class="caps">LOGDIR</span> to "/var/log"
+</span><span class="nv"><span class="caps">LOGDIR</span></span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/var/log</span><span class="si">}</span><span class="s2">"</span>
 
-<pre class="brush: bash">
-# set $LOGDIR to $1 if $1 has a value; otherwise set $LOGDIR to "/var/log"
-LOGDIR="${1:-/var/log}"
-
-# use $VERSION unless it's empty or unset; fall back to extracting someprog's version num
-build_version=${VERSION:-$(someprog --version | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')}
+<span class="c1"># use $<span class="caps">VERSION</span> unless it's empty or unset; fall back to extracting someprog's version num
+</span><span class="nv">build_version</span><span class="o">=</span><span class="si">${</span><span class="nv"><span class="caps">VERSION</span></span><span class="k">:-$(</span>someprog --version <span class="p">|</span> sed <span class="s1">'s/[^0-9.]*\([0-9.]*\).*/\1/'</span><span class="k">)</span><span class="si">}</span>
 </pre>
-
 <p>The colon-dash con&shy;struc&shy;tion is known as the
-<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog&#8217;s bollocks</a>
-in&nbsp;typography.</p>
+<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog’s bollocks</a>
+in typography.</p>
 <p>Setting a default value, using <tt class="docutils literal"><span class="pre">${var:=fallback}</span></tt>:</p>
-
-<pre class="brush: bash">
-$ echo $HOME
+<pre class="code bash literal-block">
+$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
 /Users/georgevreilly
-$ echo ${HOME:=/tmp}
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
 /Users/georgevreilly
-$ unset HOME
-$ echo ${HOME:=/tmp}
+$ <span class="nb">unset</span> <span class="caps">HOME</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
 /tmp
-$ echo $HOME
+$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
 /tmp
-$ cd; pwd
+$ cd<span class="p">;</span> <span class="nb">pwd</span>
 /tmp
 </pre>
-
 <p>Note: <tt class="docutils literal">:=</tt> uses the new value in two cases.
 First, when the shell variable is not set;
-second, when the variable is set but&nbsp;empty.</p>
-<p>If you want to assign the variable only when it&#8217;s previously unset, omit the colon,
+second, when the variable is set but empty.</p>
+<p>If you want to assign the variable only when it’s previously unset, omit the colon,
 <tt class="docutils literal">${var=fallback}</tt>.</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/bash/" rel="tag">bash</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

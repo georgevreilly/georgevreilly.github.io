@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="I&#39;m writing some C++ code at the moment, after mon..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="tech, c++" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -34,38 +35,44 @@
             <a href="/blog/2006/04/29/AssertResultToStringExpected.html" rel="bookmark canonical">Assert(Result.ToString() == "Expected")</a>
         </h1>
     </header>
-    <p>I&#8217;m writing some C++ code at the moment, after months of C#.
-I&#8217;m trying to be very <a class="reference external" href="http://www.xprogramming.com/xpmag/testFirstGuidelines.htm">Test First</a>,
-writing Red tests, then making them turn&nbsp;Green.</p>
-<p>I&#8217;m also using <a class="reference external" href="http://cppunit.sourceforge.net/cppunit-wiki">CppUnit</a>
-for the first time. It&#8217;s not as easy as
-<a class="reference external" href="http://www.nunit.org/">NUnit</a>. You can&#8217;t just declare
+    <p>I’m writing some C++ code at the moment, after months of C#.
+I’m trying to be very <a class="reference external" href="http://www.xprogramming.com/xpmag/testFirstGuidelines.htm">Test First</a>,
+writing Red tests, then making them turn Green.</p>
+<p>I’m also using <a class="reference external" href="http://cppunit.sourceforge.net/cppunit-wiki">CppUnit</a>
+for the first time. It’s not as easy as
+<a class="reference external" href="http://www.nunit.org/">NUnit</a>. You can’t just declare
 your test method with an attribute, you have to declare the test method
 in a header file, place it inside a macro, and then have the test
-im&shy;ple&shy;men&shy;ta&shy;tion in a .cpp-file. And there&#8217;s no nunit-gui.
-I&#8217;m using a post-build step to run the tests, which makes it
-fairly pain&nbsp;free.</p>
-<p>There was one internal method that I didn&#8217;t have an explicit test for,
+im&shy;ple&shy;men&shy;ta&shy;tion in a .cpp-file. And there’s no nunit-gui.
+I’m using a post-build step to run the tests, which makes it
+fairly pain free.</p>
+<p>There was one internal method that I didn’t have an explicit test for,
 although I had tests for methods that called it. The main obstacle
-was that I didn&#8217;t have a simple way to check the result, as the method
-returned a vector of objects. I didn&#8217;t want to have to construct
-another vector of expected&nbsp;results.</p>
+was that I didn’t have a simple way to check the result, as the method
+returned a vector of objects. I didn’t want to have to construct
+another vector of expected results.</p>
 <p>Then it came to me: I could wrap the vector in a class and write a
 <tt class="docutils literal">ToString()</tt> method for it (as well as a <tt class="docutils literal">ToString()</tt> for the
-contained objects), and compare that to a string&nbsp;constant:</p>
+contained objects), and compare that to a string constant:</p>
 <pre class="literal-block">
 RateList result = creative.GetRates();
-CPPUNIT_ASSERT(result.ToString() == &quot;100_4x3:100_16x9|200_16x9|400_4x3:400_16x9&quot;);
+CPPUNIT_ASSERT(result.ToString() == "100_4x3:100_16x9|200_16x9|400_4x3:400_16x9");
 </pre>
 <p>In retrospect, it should have been obvious. I already have <tt class="docutils literal">ToString()</tt>
-methods for many of my other objects, and I&#8217;m using
+methods for many of my other objects, and I’m using
 <tt class="docutils literal">CP&shy;PUNIT_ASSERT(actual.ToString() == expected)</tt> in many of my unit tests.
-The extra step of writing <tt class="docutils literal">ToString()</tt> for the collection blocked my&nbsp;thinking.</p>
+The extra step of writing <tt class="docutils literal">ToString()</tt> for the collection blocked my thinking.</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/c++/" rel="tag">c++</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

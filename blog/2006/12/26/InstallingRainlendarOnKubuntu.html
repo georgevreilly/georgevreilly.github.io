@@ -12,7 +12,7 @@
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: /content/binary/rainlendar.png
     :alt..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="linux" />
 </head>
 <body>
   <header>
@@ -24,6 +24,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -36,53 +37,53 @@
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.rainlendar.net/"><img alt="Rainlendar" src="/content/binary/rainlendar.png"/></a>
-<p>I&#8217;ve dualbooted my laptop between Linux and Windows since June, spending
+<p>I’ve dualbooted my laptop between Linux and Windows since June, spending
 nearly all of my time in Linux. I started out with <a class="reference external" href="http://www.ubuntu.com/">Ubuntu</a> 6.06 (Dapper Drake),
 but soon switched to <a class="reference external" href="http://www.kubuntu.org/">Kubuntu</a> (the <span class="caps">KDE</span> variant),
-later upgrading to Kubuntu 6.10 (Edgy&nbsp;Eft).</p>
+later upgrading to Kubuntu 6.10 (Edgy Eft).</p>
 <p>To make this useful, certain key ap&shy;pli&shy;ca&shy;tions have to be available in both
 Windows and Linux. <a class="reference external" href="http://www.mozilla.com/en-US/firefox/">Firefox</a> for browsing; <a class="reference external" href="http://www.mozilla.com/en-US/thunderbird/">Thun&shy;der&shy;bird</a> for email;
 <a class="reference external" href="http://www.rainlendar.net/">Rainlendar</a> for calendar; <a class="reference external" href="http://keepass.sourceforge.net/">KeePass</a> and <a class="reference external" href="http://keepassx.sourceforge.net/">KeePassX</a> for password man&shy;age&shy;men&shy;t;
-among&nbsp;others.</p>
-<p>My laptop has four&nbsp;partitions:</p>
+among others.</p>
+<p>My laptop has four partitions:</p>
 <ul class="simple">
-<li>Primary 1, <span class="caps">NTFS</span> - Windows, aka <tt class="docutils literal">/windows</tt> or <tt class="docutils literal">/dev/hda1</tt>.&nbsp;<span class="caps">8GB</span></li>
-<li>Primary 2, Ext3 - Linux system partition, aka <tt class="docutils literal">/</tt> or <tt class="docutils literal">/dev/hda2</tt>.&nbsp;<span class="caps">12GB</span></li>
-<li>Extended 1. Linux swap partition.&nbsp;<span class="caps">2GB</span>.</li>
-<li>Extended 2, Ext3. Shared partition, aka <tt class="docutils literal">/shared</tt>.&nbsp;<span class="caps">15GB</span>.</li>
+<li>Primary 1, <span class="caps">NTFS</span> - Windows, aka <tt class="docutils literal">/windows</tt> or <tt class="docutils literal">/dev/hda1</tt>. <span class="caps">8GB</span></li>
+<li>Primary 2, Ext3 - Linux system partition, aka <tt class="docutils literal">/</tt> or <tt class="docutils literal">/dev/hda2</tt>. <span class="caps">12GB</span></li>
+<li>Extended 1. Linux swap partition. <span class="caps">2GB</span>.</li>
+<li>Extended 2, Ext3. Shared partition, aka <tt class="docutils literal">/shared</tt>. <span class="caps">15GB</span>.</li>
 </ul>
-<p>I&#8217;m using <a class="reference external" href="http://www.ntfs-3g.org/"><span class="caps">NTFS</span>-3G</a> under Kubuntu to read <em>and write</em> the <span class="caps">NTFS</span> partition.
+<p>I’m using <a class="reference external" href="http://www.ntfs-3g.org/"><span class="caps">NTFS</span>-3G</a> under Kubuntu to read <em>and write</em> the <span class="caps">NTFS</span> partition.
 Linux has long had support for reading <span class="caps">NTFS</span> partitions, but only recently
-has good support for writing <span class="caps">NTFS</span> partitions been added. It&#8217;s a user-mode
-only filesystem, so it&#8217;s not possible to run Linux from an <span class="caps">NTFS</span>&nbsp;partition.</p>
-<p>I&#8217;ve installed <a class="reference external" href="http://www.fs-driver.org/">Ext2 <span class="caps">IFS</span></a> (In&shy;stal&shy;lable File System) on Windows,
+has good support for writing <span class="caps">NTFS</span> partitions been added. It’s a user-mode
+only filesystem, so it’s not possible to run Linux from an <span class="caps">NTFS</span> partition.</p>
+<p>I’ve installed <a class="reference external" href="http://www.fs-driver.org/">Ext2 <span class="caps">IFS</span></a> (In&shy;stal&shy;lable File System) on Windows,
 which allows me to read and write Ext3 (and Ext2) partitions.
 I keep cross-platform data, such as my Thun&shy;der&shy;bird mail folders,
 on the Ext3 partition, <tt class="docutils literal">/shared</tt>.
 My <tt class="docutils literal">home</tt> directory is also on the <tt class="docutils literal">/shared</tt> partition,
-so there&#8217;s very little data that I mind losing on the <tt class="docutils literal">/</tt> partition.
-I haven&#8217;t had any problems with Ext2 <span class="caps">IFS</span>, except that I&#8217;ve had no luck with
+so there’s very little data that I mind losing on the <tt class="docutils literal">/</tt> partition.
+I haven’t had any problems with Ext2 <span class="caps">IFS</span>, except that I’ve had no luck with
 external <span class="caps">USB</span> hard drives formatted as Ext3.
-I&#8217;m not about to convert my Windows partition to Ext3,&nbsp;however.</p>
+I’m not about to convert my Windows partition to Ext3, however.</p>
 <p>Rainlendar is a fairly recent addition to the above list of cross-platform
 apps. I was using Mozilla <a class="reference external" href="http://www.mozilla.org/projects/calendar/">Sunbird</a>, but I never liked it very much.
-It&#8217;s very much the poor cousin of Firefox and Thun&shy;der&shy;bird.
+It’s very much the poor cousin of Firefox and Thun&shy;der&shy;bird.
 Sunbird is slow, clunky, and ugly, with very few developers,
 who have taken years just to get it to version 0.3.
-It supports iCal as an export format, but publishing calendars to the web is a&nbsp;bear.</p>
-<p>I discovered <a class="reference external" href="http://www.rainlendar.net/">Rainlendar</a> a couple of months ago. It&#8217;s far slicker, with a
+It supports iCal as an export format, but publishing calendars to the web is a bear.</p>
+<p>I discovered <a class="reference external" href="http://www.rainlendar.net/">Rainlendar</a> a couple of months ago. It’s far slicker, with a
 large set of skins, and more func&shy;tion&shy;al&shy;i&shy;ty. iCal is the native format.
-Rainlendar is based on <a class="reference external" href="http://www.wxwidgets.org/">wxWidgets</a>, so it&#8217;s cross-platform.
+Rainlendar is based on <a class="reference external" href="http://www.wxwidgets.org/">wxWidgets</a>, so it’s cross-platform.
 In&shy;stal&shy;la&shy;tion on Linux consists of extracting
-everything from a compressed tar file. There&#8217;s no <tt class="docutils literal">deb</tt> or <tt class="docutils literal">rpm</tt>
+everything from a compressed tar file. There’s no <tt class="docutils literal">deb</tt> or <tt class="docutils literal">rpm</tt>
 packages to install it into your system menu, alas.
-I&#8217;ve been running it by using
+I’ve been running it by using
 <tt class="docutils literal">Alt+F2</tt> (Run Command) to launch
 <tt class="docutils literal">/shared/georger/rain&shy;len&shy;dar2/rainlendar</tt> (yuck!)</p>
 <p>Earlier today, I ran across the very useful <a class="reference external" href="http://www.arsgeek.com/">ArsGeek</a> site, which has an
 enormous set of useful tips for Ubuntu users. One post on <a class="reference external" href="http://www.arsgeek.com/?p=615">installing
-Songbird</a> inspired me to figure out how to add Rainlendar to the <span class="caps">KDE</span>&nbsp;Menu.</p>
-<p>First, open up a terminal,&nbsp;then:</p>
+Songbird</a> inspired me to figure out how to add Rainlendar to the <span class="caps">KDE</span> Menu.</p>
+<p>First, open up a terminal, then:</p>
 <pre class="literal-block">
 cd /opt
 sudo mkdir rainlendar2
@@ -90,39 +91,42 @@ sudo chown georger:georger rainlendar2
 tar jxvf /shared/Downloads/Rainlendar-Lite-2.0.1.tar.bz2
 </pre>
 <p>Sub&shy;sti&shy;tut&shy;ing your username twice in the <tt class="docutils literal">chown</tt> line.</p>
-<p>You should now be able to run Rainlendar from the command&nbsp;line:</p>
+<p>You should now be able to run Rainlendar from the command line:</p>
 <pre class="literal-block">
-./rainlendar2/rainlendar2 <span class="amp">&amp;</span>
+./rainlendar2/rainlendar2 <span class="amp">&</span>
 </pre>
 <p>At this point, you may want to install a different skin, as the default
 look is over&shy;whelm&shy;ing in my opinion. I use the <a class="reference external" href="http://www.customize.org/details/45956">Vista skin</a>. The older
 skins (<tt class="docutils literal">.zip</tt> files) need to be unzipped into <tt class="docutils literal">rain&shy;len&shy;dar2/skins</tt>;
-newer skins (<tt class="docutils literal">.r2skin</tt> files) merely need to be copied into that&nbsp;directory.</p>
+newer skins (<tt class="docutils literal">.r2skin</tt> files) merely need to be copied into that directory.</p>
 <p>Now to get the Rainlendar icon into <tt class="docutils literal">/usr/share/pixmaps</tt>.
-(Finding the damn icon was the trickiest part of this whole&nbsp;exercise.):</p>
+(Finding the damn icon was the trickiest part of this whole exercise.):</p>
 <pre class="literal-block">
 cd rainlendar2/resources
 unzip -j resources.zrc res/logo-large.png
 sudo mv logo-large.png /usr/share/pixmaps/rainlendar.png
 </pre>
-<p>Finally, let&#8217;s add Rainlendar to the Office menu. ArsGeek gives the
+<p>Finally, let’s add Rainlendar to the Office menu. ArsGeek gives the
 in&shy;struc&shy;tions for using Alacarte under Gnome. For <span class="caps">KDE</span>, click the K-Menu
 button, right-click on Office, and choose Edit Menu, which brings up the
-<span class="caps">KDE</span> Menu Editor. Click New Item, then&nbsp;set:</p>
+<span class="caps">KDE</span> Menu Editor. Click New Item, then set:</p>
 <ul class="simple">
-<li>Name:&nbsp;Rainlendar</li>
-<li>De&shy;scrip&shy;tion:&nbsp;Calendar</li>
-<li>Comment: Manage calendar and&nbsp;todos</li>
-<li>Command:&nbsp;&#8217;/opt/rain&shy;len&shy;dar2/rain&shy;len&shy;dar2&#8217;</li>
+<li>Name: Rainlendar</li>
+<li>De&shy;scrip&shy;tion: Calendar</li>
+<li>Comment: Manage calendar and todos</li>
+<li>Command: ’/opt/rain&shy;len&shy;dar2/rain&shy;len&shy;dar2’</li>
 </ul>
 <p>Click the blank icon button, then Other icons. Choose the rainlendar icon
-and click <span class="caps">OK</span>. Save the new menu&nbsp;entry.</p>
-<p>You should now be able to launch Rainlendar from the Office menu.&nbsp;Enjoy!</p>
+and click <span class="caps">OK</span>. Save the new menu entry.</p>
+<p>You should now be able to launch Rainlendar from the Office menu. Enjoy!</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

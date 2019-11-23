@@ -12,7 +12,7 @@
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: /content/binary/diskutil2.png
     :alt:..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="mac" />
 </head>
 <body>
   <header>
@@ -24,6 +24,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -38,24 +39,24 @@
     <img alt="Disk Utility after de-partitioning" class="right-float" src="/content/binary/diskutil2.png"/>
 <p>I wrote yesterday about <a class="reference external" href="/blog/2009/04/11/NTFS3GTheUniversalFilesystem.html"><span class="caps">NTFS</span>-3G</a> because I was backing my MacBook
 to an external <span class="caps">NTFS</span> drive.
-I was backing up because I wanted to de-partition my&nbsp;Mac.</p>
-<p>When I <a class="reference external" href="/blog/2008/07/16/MacBookMakeover.html">upgraded my MacBook</a> to a bigger drive, more <span class="caps">RAM</span>, and <span class="caps">OS</span>&nbsp;X 10.5,
+I was backing up because I wanted to de-partition my Mac.</p>
+<p>When I <a class="reference external" href="/blog/2008/07/16/MacBookMakeover.html">upgraded my MacBook</a> to a bigger drive, more <span class="caps">RAM</span>, and <span class="caps">OS</span> X 10.5,
 I par&shy;ti&shy;tioned the drive.
 I created two <span class="caps">25GB</span> partitions with the intention of
 putting Windows and Linux on them with BootCamp.
-It turns out that BootCamp doesn&#8217;t like that.
+It turns out that BootCamp doesn’t like that.
 It wants the system drive to have only one partition,
 which it would shrink.
-I never bothered to go any&nbsp;further.</p>
+I never bothered to go any further.</p>
 <p>The disk has been filling up recently and I wanted the extra space back,
 to extend my primary <span class="caps">HFS</span>+ partition by <span class="caps">50GB</span>.
 I found a guide to <a class="reference external" href="http://www.macgeekery.com/tips/cli/nondestructively_resizing_volumes">non&shy;de&shy;struc&shy;tive&shy;ly resizing volumes</a>
 with the command-line <tt class="docutils literal">diskutil</tt> tool.</p>
 <p>With some trep&shy;i&shy;da&shy;tion, I set out to reclaim the end of my drive.
-Happily, it turned out to be both quick and&nbsp;painless.</p>
-<p>Here&#8217;s the old disk&nbsp;layout:</p>
+Happily, it turned out to be both quick and painless.</p>
+<p>Here’s the old disk layout:</p>
 <pre class="literal-block">
-georger&#64;georger-macbook:~$ diskutil list
+georger@georger-macbook:~$ diskutil list
 /dev/disk0
    #:                       TYPE NAME                    SIZE       IDENTIFIER
    0:      GUID_partition_scheme                        *298.1 Gi   disk0
@@ -64,10 +65,10 @@ georger&#64;georger-macbook:~$ diskutil list
    3:       Microsoft Basic Data WINDOWS                 25.0 Gi    disk0s3
    4:       Microsoft Basic Data LINUX                   22.8 Gi    disk0s4
 </pre>
-<p>First, I merged the two <span class="caps">FAT32</span> partitions into one <span class="caps">HFS</span>+&nbsp;partition:</p>
+<p>First, I merged the two <span class="caps">FAT32</span> partitions into one <span class="caps">HFS</span>+ partition:</p>
 <pre class="literal-block">
-georger&#64;georger-macbook:~$ sudo diskutil mergePartitions \
-    &quot;Journaled HFS+&quot; End disk0s3 disk0s4
+georger@georger-macbook:~$ sudo diskutil mergePartitions \
+    "Journaled HFS+" End disk0s3 disk0s4
 The chosen disk does not support resizing, do you wish to format instead? (y/N) y
 Merging partitions into a new partition
      Start partition: disk0s3 WINDOWS
@@ -84,10 +85,10 @@ Finished erase after partitioning on disk disk0s3 End
    2:                  Apple_HFS GeorgeR Mac             250.0 Gi   disk0s2
    3:                  Apple_HFS End                     47.6 Gi    disk0s3
 </pre>
-<p>Then, I merged the two <span class="caps">HFS</span>+&nbsp;partitions:</p>
+<p>Then, I merged the two <span class="caps">HFS</span>+ partitions:</p>
 <pre class="literal-block">
-georger&#64;georger-macbook:~$ sudo diskutil mergePartitions \
-    &quot;Journaled HFS+&quot; End disk0s2 disk0s3
+georger@georger-macbook:~$ sudo diskutil mergePartitions \
+    "Journaled HFS+" End disk0s2 disk0s3
 Merging partitions into a new partition
      Start partition: disk0s2 GeorgeR Mac
      Finish partition: disk0s3 End
@@ -100,20 +101,23 @@ Attempting to change filesystem size from 268435456000 to 319728959488 bytes
    1:                        EFI                         200.0 Mi   disk0s1
    2:                  Apple_HFS GeorgeR Mac             297.8 Gi   disk0s2
 </pre>
-<p>And everything is&nbsp;good:</p>
+<p>And everything is good:</p>
 <pre class="literal-block">
-georger&#64;georger-macbook:~$ df
+georger@georger-macbook:~$ df
 Filesystem    512-blocks      Used     Avail Capacity  Mounted on
 /dev/disk0s2   624470624 508168048 115790576    81%    /
 </pre>
 <p>Disclaimer: back your disk up and
 read the <tt class="docutils literal">diskutil</tt> man page very carefully before using:
-one misstep could ruin the contents of your&nbsp;disk.</p>
+one misstep could ruin the contents of your disk.</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

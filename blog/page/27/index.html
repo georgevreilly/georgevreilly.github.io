@@ -21,9 +21,60 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-01-25">2016-01-25</time>
+        <h1>
+            <a href="/blog/2016/01/25/ReviewTheFullerMemorandum.html" rel="bookmark canonical">Review: The Fuller Memorandum</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/044101867X/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: The Fuller Memorandum</div>
+<div class="line">Author: Charles Stross</div>
+<div class="line">Rating: ★ ★ ★ ★ ☆</div>
+<div class="line">Publisher: Ace</div>
+<div class="line">Copyright: 2010</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/044101867X/?tag=georgvreill-20">044101867X</a></div>
+<div class="line">Pages: 320</div>
+<div class="line">Keywords: Love­craft­ian spy thriller</div>
+<div class="line">Series: <a class="reference external" href="http://www.antipope.org/charlie/blog-static/2016/04/faq-the-laundry-filesseries-ti.html">Laundry Files</a>, vol. 3</div>
+<div class="line">Reading period: 16–18 January, 2016</div>
+</div>
+<p>Bob Howard is a com­pu­ta­tion­al de­mo­nolo­gist working for the secretive British agency
+known as the “Laundry”.
+Some very nasty people are trying to hasten the end of the world,
+there’s a mole in the Laundry,
+and Bob’s superior, the mys­te­ri­ous­ly ageless Angleton, is missing.
+Bob moves back and forth between vicious office politics and es­cha­to­log­i­cal terrors.
+<em>The Fuller Memorandum</em> is fast-paced and darkly humorous. Rec­om­mend­ed.</p>
+<p>Sequel to <a class="reference external" href="/blog/2017/01/28/ReviewTheJenniferMorgue.html">The Jennifer Morgue</a>.
+More at Charlie Stross’s <a class="reference external" href="http://www.antipope.org/charlie/blog-static/2013/07/crib-sheet-the-fuller-memorand.html">Crib Sheet</a> and the <a class="reference external" href="http://thelaundryfiles.wikia.com/wiki/The_Fuller_Memorandum">Laundry Files Wiki</a>.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/25/ReviewTheFullerMemorandum.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/spy/" rel="tag">spy</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
     
         <article>
     <header>
@@ -34,31 +85,32 @@
     </header>
     <a class="reference external image-reference" href="http://nose.readthedocs.org/"></a>
 <p>I figured out why I saw the following error every time I ran <a class="reference external" href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html">Nose</a>:</p>
-
-<pre class="brush: python">
-======================================================================
-ERROR: Failure: TypeError (type() takes 1 or 3 arguments)
-----------------------------------------------------------------------
-Traceback (most recent call last):
-  File ".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py", line 523, in makeTest
-    return self._makeTest(obj, parent)
-  File ".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py", line 582, in _makeTest
-    return MethodTestCase(obj)
-  File ".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/case.py", line 345, in __init__
-    self.inst = self.cls()
-TypeError: type() takes 1 or 3 arguments
+<pre class="code python literal-block">
+<span class="o">======================================================================</span>
+<span class="n"><span class="caps">ERROR</span></span><span class="p">:</span> <span class="n">Failure</span><span class="p">:</span> <span class="ne">TypeError</span> <span class="p">(</span><span class="nb">type</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">3</span> <span class="n">arguments</span><span class="p">)</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">523</span><span class="p">,</span> <span class="ow">in</span> <span class="n">makeTest</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_makeTest</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">582</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_makeTest</span>
+    <span class="k">return</span> <span class="n">MethodTestCase</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/case.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">345</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__init__</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cls</span><span class="p">()</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="nb">type</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">3</span> <span class="n">arguments</span>
 </pre>
-
 <p>It turns out that one module was importing a class called <tt class="docutils literal">TestApi</tt>
-which had a <tt class="docutils literal">class&shy;method</tt> called <tt class="docutils literal">run_in&shy;te&shy;gra&shy;tion_tests</tt>.
-The module itself had no tests; it just declared a class called <tt class="docutils literal">TestO&shy;b&shy;fus&shy;cat&shy;ed&shy;Mix&shy;in</tt>,
+which had a <tt class="docutils literal">class­method</tt> called <tt class="docutils literal">run_in­te­gra­tion_tests</tt>.
+The module itself had no tests; it just declared a class called <tt class="docutils literal">TestO­b­fus­cat­ed­Mix­in</tt>,
 which used some <span>&#8230;<a href="/blog/2016/01/24/NoseTestDiscovery.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/24/NoseTestDiscovery.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -75,26 +127,32 @@ which used some <span>&#8230;<a href="/blog/2016/01/24/NoseTestDiscovery.html" c
     </header>
     <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Sherlock_Holmes_(2010_film)"></a>
 <p>We attended the <a class="reference external" href="http://www.sherlock-seattle.org/">Sherlock Seattle Mini-Convention</a>
-at the Broadway Per&shy;for&shy;mance Hall.
+at the Broadway Per­for­mance Hall.
 It was much more lightly attended than previous
-<a class="reference external" href="/blog/2015/01/10/SherlockSeattle2015.html">previous Sherlock Seattle con&shy;ven&shy;tions</a>.</p>
+<a class="reference external" href="/blog/2015/01/10/SherlockSeattle2015.html">previous Sherlock Seattle con­ven­tions</a>.</p>
 <p>The final event of the evening was
 a <a class="reference external" href="https://en.wikipedia.org/wiki/Mystery_Science_Theater_3000">Mystery Science Theater</a>–style treatment of
 <a class="reference external" href="https://en.wikipedia.org/wiki/Sherlock_Holmes_(2010_film)">Sherlock Holmes (2010 film)</a>
-given by some of the con&#8217;s organizers.
-We had seen <a class="reference external" href="https://en.wikipedia.org/wiki/Young_Sherlock_Holmes">Young Sherlock Holmes</a> get the <span class="caps">MST3K</span> treatment at last year&#8217;s con
+given by some of the con’s organizers.
+We had seen <a class="reference external" href="https://en.wikipedia.org/wiki/Young_Sherlock_Holmes">Young Sherlock Holmes</a> get the <span class="caps">MST3K</span> treatment at last year’s con
 and the show was quite funny.
 This show was also funny,
 but I was appalled at just how bad <em>Sherlock Holmes</em> was.
-(I suppose that&#8217;s the point of getting the <span class="caps">MST3K</span> treat&shy;men&shy;t—the movie stinks and deserves to be heckled.)
-It was totally incoherent and anachro&shy;nis&shy;tic and ineptly&nbsp;made.</p>
+(I suppose that’s the point of getting the <span class="caps">MST3K</span> treat­men­t—the movie stinks and deserves to be heckled.)
+It was totally incoherent and anachro­nis­tic and ineptly made.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/23/ReviewSherlockHolmes2010Film.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/movies/" rel="tag">movies</a>
+                    and
+                    
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -110,14 +168,17 @@ It was totally incoherent and anachro&shy;nis&shy;tic and ineptly&nbsp;made.</p>
         </h1>
     </header>
     <p>New <a class="reference external" href="http://www.metabrite.com/devblog/posts/recursive-generators-in-python-2-and-3/">post</a>
-at the MetaBrite&nbsp;blog.</p>
+at the MetaBrite blog.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/22/PythonRecursiveGenerators.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -148,7 +209,7 @@ at the MetaBrite&nbsp;blog.</p>
 channels <a class="reference external" href="https://en.wikipedia.org/wiki/Raymond_Chandler">Raymond Chandler</a> as he writes a <a class="reference external" href="https://en.wikipedia.org/wiki/Philip_Marlowe">Philip Marlowe</a> novel.
 Robert Parker wrote a couple of books about a quarter-century ago
 with the approval of the Chandler estate.
-Black&#8217;s book is also&nbsp;authorized.</p>
+Black’s book is also authorized.</p>
 <p>The book has all the familiar elements of a Marlowe novel:
 the femme fatale of the title,
 the idle rich,
@@ -157,16 +218,24 @@ cynical cops,
 the baking heat of California,
 beatings and booze,
 Marlowe cracking wise,
-and the trademark Chan&shy;dleresque&nbsp;similes.</p>
+and the trademark Chan­dleresque similes.</p>
 <p>If you like Chandler,
-you&#8217;ll probably like Black&#8217;s con&shy;tri&shy;bu&shy;tion to the&nbsp;canon.</p>
+you’ll probably like Black’s con­tri­bu­tion to the canon.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/21/ReviewTheBlackEyedBlonde.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>,
+                <a href="/tag/mystery/" rel="tag">mystery</a>
+                    and
+                    
+                <a href="/tag/history/" rel="tag">history</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -182,20 +251,26 @@ you&#8217;ll probably like Black&#8217;s con&shy;tri&shy;bu&shy;tion to the&nbsp
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.cbc.ca/news/canada/proposed-legislation-aims-to-settle-date-debate-1.3407640"></a>
-<p>Apparently, there&#8217;s <a class="reference external" href="http://www.cbc.ca/news/canada/proposed-legislation-aims-to-settle-date-debate-1.3407640">no standard for writing dates</a> in Canada.
+<p>Apparently, there’s <a class="reference external" href="http://www.cbc.ca/news/canada/proposed-legislation-aims-to-settle-date-debate-1.3407640">no standard for writing dates</a> in Canada.
 I assumed that Canada used the annoying <span class="caps">US</span>-style convention of <span class="caps">MM</span>/<span class="caps">DD</span>/<span class="caps">YYYY</span>.
-I didn&#8217;t realize that the British-style <span class="caps">DD</span>/<span class="caps">MM</span>/<span class="caps">YYYY</span> is also widespread.
-How&nbsp;ex&shy;as&shy;per&shy;at&shy;ing!</p>
+I didn’t realize that the British-style <span class="caps">DD</span>/<span class="caps">MM</span>/<span class="caps">YYYY</span> is also widespread.
+How ex­as­per­at­ing!</p>
 <p>Personally, I always write <span class="caps">YYYY</span>-<span class="caps">MM</span>-<span class="caps">DD</span> whenever I can get away with it,
 as God and <a class="reference external" href="https://en.wikipedia.org/wiki/ISO_8601"><span class="caps">ISO</span> 8601</a> intended.
-A bill is before the Canadian parliament aiming at stan&shy;dard&shy;iz&shy;ing on year-month-day&nbsp;formats.</p>
+A bill is before the Canadian parliament aiming at stan­dard­iz­ing on year-month-day formats.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/20/MixedUpCanadianDateFormats.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/canada/" rel="tag">canada</a>
+                    and
+                    
+                <a href="/tag/tech/" rel="tag">tech</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -212,24 +287,27 @@ A bill is before the Canadian parliament aiming at stan&shy;dard&shy;iz&shy;ing 
     </header>
     <p>I wanted to clean out my local PostgreSQL database today
 so that I could restore a database dump taken on another system,
-but every time I ran the <a class="reference external" href="http://postgresguide.com/utilities/psql.html">psql</a> utility, I&nbsp;got:</p>
+but every time I ran the <a class="reference external" href="http://postgresguide.com/utilities/psql.html">psql</a> utility, I got:</p>
 <pre class="literal-block">
 psql: could not connect to server: No such file or directory
     Is the server running locally and accepting
-    connections on Unix domain socket &quot;/tmp/.s.PGSQL.5432&quot;?
+    connections on Unix domain socket "/tmp/.s.PGSQL.5432"?
 </pre>
 <p>I tried various things, including restarting Postgres several times,
 but nothing helped.
 Eventually, I thought to look in <tt class="docutils literal">/usr/local/var/postgres/server.log</tt>,
 where I saw several error messages indicating that Postgres 9.5
-couldn&#8217;t read data files created with 9.4.
+couldn’t read data files created with 9.4.
 At that point, I realized that during my most recent <tt class="docutils literal">brew update; <span>&#8230;<a href="/blog/2016/01/19/PsqlCouldNotConnectToServer.html" class="continue">continue</a>.</span></tt></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/19/PsqlCouldNotConnectToServer.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/postgres/" rel="tag">postgres</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -246,24 +324,27 @@ At that point, I realized that during my most recent <tt class="docutils literal
     </header>
     <p>Today is Martin Luther King Day,
 a day that honors the legacy of a great American.
-It&#8217;s a Federal Holiday, but <a class="reference external" href="http://www.cleveland.com/business/index.ssf/2015/01/only_37_of_employers_give_off.html">only 37% of employers give off Martin Luther King Day</a>.
+It’s a Federal Holiday, but <a class="reference external" href="http://www.cleveland.com/business/index.ssf/2015/01/only_37_of_employers_give_off.html">only 37% of employers give off Martin Luther King Day</a>.
 Apparently, 37% is an all-time high for <span class="caps">MLK</span> Day
-and it&#8217;s also higher than the other three holidays
-that most Americans don&#8217;t get,
-Presidents&#8217; Day, Columbus Day [sic], and Veterans&#8217;&nbsp;Day.</p>
-<p>I&#8217;ve worked in America for a quarter century,
+and it’s also higher than the other three holidays
+that most Americans don’t get,
+Pres­i­dents’ Day, Columbus Day [sic], and Veterans’ Day.</p>
+<p>I’ve worked in America for a quarter century,
 but it was only at the first job,
 when I was a Brown University employee,
-that I got those secondary Federal holidays&nbsp;off.</p>
+that I got those secondary Federal holidays off.</p>
 <p>Not only is America one of the least-generous countries for vacation days,
-it&#8217;s also one of the least generous for holidays.
+it’s also one of the least generous for holidays.
 American <span>&#8230;<a href="/blog/2016/01/18/FederalHolidaysInadequatelyObserved.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/18/FederalHolidaysInadequatelyObserved.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/usa/" rel="tag">usa</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -278,32 +359,26 @@ American <span>&#8230;<a href="/blog/2016/01/18/FederalHolidaysInadequatelyObser
             <a href="/blog/2016/01/17/RelativeImportsInAPythonScript.html" rel="bookmark canonical">Relative Imports in a Python Script</a>
         </h1>
     </header>
-    <p>Have you ever attempted a <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">relative import</a> in a Python&nbsp;script?</p>
-
-<pre class="brush: bash">
+    <p>Have you ever attempted a <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">relative import</a> in a Python script?</p>
+<pre class="code bash literal-block">
 $ ./foo/bar/script.py some parameters
-Traceback (most recent call last):
-  File "foo/bar/script.py", line 16, in &lt;module>
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">"foo/bar/script.py"</span>, line <span class="m">16</span>, in <module>
     from .quux import find_vcs
 ValueError: Attempted relative import in non-package
-</pre>
-
+</module>
 <p>I prefer to use <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">absolute imports</a> to minimize ambiguity and confusion,
-and most of my Python modules begin&nbsp;with:</p>
-
-<pre class="brush: python">
-from __future__ import absolute_import, unicode_literals, print_function
+and most of my Python modules begin with:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span>
 </pre>
-
-<p>(Using <a class="reference external" href="https://www.python.org/dev/peps/pep-3112/">uni&shy;code_lit&shy;er&shy;als</a> and <a class="reference external" href="https://www.python.org/dev/peps/pep-3105/">print&shy;_&shy;func&shy;tion</a> makes porting to Python 3&nbsp;easier.)</p>
+<p>(Using <a class="reference external" href="https://www.python.org/dev/peps/pep-3112/">uni­code_lit­er­als</a> and <a class="reference external" href="https://www.python.org/dev/peps/pep-3105/">print­_­func­tion</a> makes porting to Python 3 easier.)</p>
 <p>I recently read the accepted answer to <a class="reference external" href="http://stackoverflow.com/questions/14132789/python-relative-imports-for-the-billionth-time">Python relative imports for the billionth time</a>
 and the solution to the above <tt class="docutils literal">ValueError</tt> occurred to me:
 Use <tt class="docutils literal">python <span class="pre">-m</span> package</tt> instead:</p>
-
-<pre class="brush: bash">
+<pre class="code bash literal-block">
 $ python -m foo.bar.script some parameters
 </pre>
-
 <p>(Assuming that package <tt class="docutils literal">foo</tt> exists.)</p>
 
     <footer>
@@ -311,7 +386,10 @@ $ python -m foo.bar.script some parameters
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/17/RelativeImportsInAPythonScript.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -329,63 +407,32 @@ $ python -m foo.bar.script some parameters
     <p>We deploy on Ubuntu 14.04, the most recent Long Term Support release.
 It comes with Python 2.7.6,
 but we need Python 2.7.9+ to get the some important <span class="caps">SSL</span> fixes
-and work with a recent version of the <a class="reference external" href="http://docs.python-requests.org/en/latest/">Requests</a>&nbsp;library.</p>
+and work with a recent version of the <a class="reference external" href="http://docs.python-requests.org/en/latest/">Requests</a> library.</p>
 <p>Felix Krull maintains a Personal Package Archive for <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes-python2.7">Python 2.7 Updates</a>,
-which makes it straight&shy;for&shy;ward to upgrade to Python 2.7.11
-on supported versions of&nbsp;Ubuntu.</p>
-
-<pre class="brush: bash">
+which makes it straight­for­ward to upgrade to Python 2.7.11
+on supported versions of Ubuntu.</p>
+<pre class="code bash literal-block">
 sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
 sudo apt-get update
 sudo apt-get install python2.7 python2.7-dev
 </pre>
-
-<p>Be sure not to use Felix Krull&#8217;s <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes">other Python <span class="caps">PPA</span></a> by mistake.
-I did that on a colleague&#8217;s machine yesterday.
+<p>Be sure not to use Felix Krull’s <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes">other Python <span class="caps">PPA</span></a> by mistake.
+I did that on a col­league’s machine yesterday.
 In our attempts to figure out why we still had Python 2.7.6,
-we managed to mess up the machine suf&shy;fi&shy;cient&shy;ly
+we managed to mess up the machine suf­fi­cient­ly
 that <span>&#8230;<a href="/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-15">2016-01-15</time>
-        <h1>
-            <a href="/blog/2016/01/15/DVINotConsideredEqual.html" rel="bookmark canonical">DVI Not Considered Equal</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Digital_Visual_Interface"></a>
-<p>We got a new monitor today for one of our <a class="reference external" href="http://www.metabrite.com/devblog/posts/pairing-git/">pairing work&shy;sta&shy;tions</a>.
-At 2560x1600, it was higher resolution than its pre&shy;de&shy;ces&shy;sor.
-I dis&shy;con&shy;nect&shy;ed the <a class="reference external" href="https://en.wikipedia.org/wiki/Digital_Visual_Interface"><span class="caps">DVI</span></a> cable from the old monitor,
-leaving it connected to one of the video ports on the computer,
-and connected it to the new monitor.
-All I could see was static and noise on the screen.
-After trying a variety of other things,
-I eventually thought to use the <span class="caps">DVI</span> cable that came with the new monitor.
-It&nbsp;worked!</p>
-<p>I had assumed that all <span class="caps">DVI</span> cables were in&shy;ter&shy;change&shy;able.
-Reading the <a class="reference external" href="https://en.wikipedia.org/wiki/Digital_Visual_Interface">Wikipedia article</a>, I see that at higher res&shy;o&shy;lu&shy;tions,
-<em>dual link</em> is needed.
-I hadn&#8217;t known such a thing&nbsp;existed.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/15/DVINotConsideredEqual.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>

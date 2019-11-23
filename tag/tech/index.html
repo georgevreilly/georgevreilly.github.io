@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2017-12-30">2017-12-30</time>
+        <h1>
+            <a href="/blog/2017/12/30/BrilliantJerksInEngineering.html" rel="bookmark canonical">Brilliant Jerks in Engineering</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.brendangregg.com/blog/2017-11-13/brilliant-jerks.html"></a>
+<p>Brendan Gregg's <a class="reference external" href="http://www.brendangregg.com/blog/2017-11-13/brilliant-jerks.html">Brilliant Jerks in En­gi­neer­ing</a>
+is an excellent discussion of the "No Asshole Rule"
+applied to software engineers.</p>
+<p>He posits two kinds of brilliant jerks, the selfless and the selfish.
+You might call them unempathic and so­cio­path­ic, re­spec­tive­ly.
+The former, if they develop some emotional in­tel­li­gence, are worth saving.
+The latter are simply toxic and probably need to be fired.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2017-01-31">2017-01-31</time>
+        <h1>
+            <a href="/blog/2017/01/31/NegativeCircledDigits.html" rel="bookmark canonical">Negative Circled Digits</a>
+        </h1>
+    </header>
+    <p>I found something very useful in the <a class="reference external" href="http://graphemica.com/blocks/dingbats">dingbats</a> range of Unicode characters:
+the negative circled san-serif digits, ➊ ➋ ➌ ➍ ➎ ➏ ➐ ➑ ➒ ➓ .</p>
+<p>I've started using them to label points of interest in code.
+They play well with the <tt class="docutils literal"><span class="pre">code-block</span></tt> directive in re­Struc­tured­Text.</p>
+<pre class="code bash literal-block">
+sudo docker images --format <span class="s1">'{{.Repository}}:{{.Tag}}'</span> <span class="se">\ </span>   ➊
+    <span class="p">|</span> grep <span class="nv">$IMAGE_NAME</span> <span class="se">\ </span>                                   ➋
+    </pre><span>&#8230;<a href="/blog/2017/01/31/NegativeCircledDigits.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/writing/" rel="tag">writing</a>,
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/font/" rel="tag">font</a>
+                    and
+                    
+                <a href="/tag/blogging/" rel="tag">blogging</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2017-01-08">2017-01-08</time>
+        <h1>
+            <a href="/blog/2017/01/08/MoreBlogCleanup.html" rel="bookmark canonical">More Blog Cleanup</a>
+        </h1>
+    </header>
+    <p><a class="reference external" href="/blog/2017/01/02/BlogCleanup.html">Last weekend</a>, I restored a number of posts that had appeared
+on the earlier <a class="reference external" href="https://github.com/shanselman/dasblog">dasBlog</a> in­car­na­tion of this blog,
+but had never made it to the <a class="reference external" href="https://posativ.org/acrylamid/">Acrylamid</a> version.</p>
+<p>I added about another 50 posts this weekend,
+taken from the <a class="reference external" href="http://web.archive.org/web">Wayback Machine</a>.
+I think that this is all the posts that are missing.</p>
+<p>That required further fixup.
+I had to turn the HTML back into re­Struc­tured­Text, which I did by hand.</p>
+<p>Some useful tips will follow in future posts.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/personal/" rel="tag">personal</a>
+                    and
+                    
+                <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2017-01-04">2017-01-04</time>
+        <h1>
+            <a href="/blog/2017/01/04/MarkdownLivePreview.html" rel="bookmark canonical">Markdown Live Preview</a>
+        </h1>
+    </header>
+    <p>It's very useful when creating <a class="reference external" href="https://guides.github.com/features/mastering-markdown/">Markdown</a> to be able to preview it live.
+For example, creating a complex pull request or a <tt class="docutils literal">README.md</tt>.
+I usually use the built-in <a class="reference external" href="https://github.com/atom/markdown-preview">Atom Markdown Preview</a> package in <a class="reference external" href="https://atom.io/">Atom</a>.
+Just type <tt class="docutils literal">⌃⇧M</tt> (aka <tt class="docutils literal">Ctrl+Shift+M</tt>) to see a live preview in an adjacent pane.
+I use <a class="reference external" href="https://atom.io/packages/vim-mode-plus">vim-mode-plus</a> to edit in Atom,
+which provides an acceptable emulation of Vim.</p>
+<p>I recently discovered <a class="reference external" href="https://code.visualstudio.com/Docs/languages/markdown">VS Code Markdown Preview</a> in <a class="reference external" href="https://code.visualstudio.com/">Visual Studio Code</a>.
+Type <tt class="docutils literal">⌘K V</tt> (aka <tt class="docutils literal">Ctrl+K V</tt> on Windows or Linux)
+to invoke the side-by-side live preview.
+I use <a class="reference external" href="https://github.com/VSCodeVim/Vim">VSCodeVim</a> to meet my Vim needs.</p>
+<p>Un­for­tu­nate­ly, neither previewer gives identical results to GitHub's Markdown renderer.
+GitHub itself seems to use different <span>&#8230;<a href="/blog/2017/01/04/MarkdownLivePreview.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/writing/" rel="tag">writing</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2017-01-02">2017-01-02</time>
+        <h1>
+            <a href="/blog/2017/01/02/BlogCleanup.html" rel="bookmark canonical">Blog Cleanup</a>
+        </h1>
+    </header>
+    <p>I started this blog 14 years ago, in February 2003,
+on EraBlog, a long-defunct platform.
+Many of my early posts expressed outrage at the imminent Iraq War.
+Within a couple of years,
+I had moved to running <a class="reference external" href="https://github.com/shanselman/dasblog">dasBlog</a> on my own website, hosted at <a class="reference external" href="http://ihost.net/">ihost.net</a>.</p>
+<p>I wrote a lot of posts over the next decade.
+With rare exception, most posts were composed offline as re­Struc­tured­Text
+and saved in a repository.
+There was no formal schema and most posts did not know their permalink.</p>
+<p>In late 2014, I moved to the <a class="reference external" href="https://posativ.org/acrylamid/">Acrylamid</a> static blog generator
+and I hosted <a class="reference external" href="http://www.georgevreilly.com/">www.georgevreil­ly.com</a> at GitHub Pages.
+I migrated most of the dasBlog content into a more <span>&#8230;<a href="/blog/2017/01/02/BlogCleanup.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/blogging/" rel="tag">blogging</a>,
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-08-31">2016-08-31</time>
+        <h1>
+            <a href="/blog/2016/08/31/NewCompressionFormats.html" rel="bookmark canonical">New Compression Formats</a>
+        </h1>
+    </header>
+    <p>You might think that data com­pres­sion is a solved problem, lossless or lossy.
+But, no.
+Gzip and related formats like zlib, Zip, and PNG that use the <a class="reference external" href="https://en.wikipedia.org/wiki/DEFLATE">DEFLATE</a> algorithm
+were great 25 years ago, still do a decent job, and are completely ubiquitous and in­dis­pens­able,
+but there are better, smarter algorithms now.</p>
+<p>Google has announced two new com­pres­sion formats in the last couple of years,
+Zopfli and Brotli.
+<a class="reference external" href="https://en.wikipedia.org/wiki/Zopfli">Zopfli</a> does a better job of generating Deflate-compatible data,
+although it's very slow.
+<a class="reference external" href="https://en.wikipedia.org/wiki/Brotli">Brotli</a> gives ~20% better com­pres­sion than Deflate, but at about the same speed.
+Then there's <a class="reference external" href="https://en.wikipedia.org/wiki/Xz">xz</a>, which grew out of 7-zip, and also works well.</p>
+<p><a class="reference external" href="https://code.facebook.com/posts/1658392934479273/smaller-and-faster-data-compression-with-zstandard/">Zstandard</a> has just been announced <span>&#8230;<a href="/blog/2016/08/31/NewCompressionFormats.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/compression/" rel="tag">compression</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-08-30">2016-08-30</time>
+        <h1>
+            <a href="/blog/2016/08/30/USBChargeOnlyCablesAndCondoms.html" rel="bookmark canonical">USB Charge-Only Cables and Condoms</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/B00T0DW3F8/?tag=georgvreill-20"></a>
+<p>Thanks to <a class="reference external" href="http://everythingsysadmin.com/2016/08/usb-charge-only-cables.html">Tom Limoncelli</a>, I became acutely aware of USB charge-only cables and condoms.
+If you plug your phone into an unknown computer to charge the battery,
+you run the risk of having your phone hijacked by <a class="reference external" href="https://securelist.com/blog/mobile/74804/wired-mobile-charging-is-it-safe/">malware</a>.
+USB transfers data as well as elec­tric­i­ty
+and you're es­sen­tial­ly giving the computer un­re­strict­ed access to your phone.</p>
+<p>Certain USB cables are charge-only and will not pass data.
+There are also “USB condoms”,
+which are inserted between the cable and the computer.
+They not only block data, but they can po­ten­tial­ly charge the battery faster,
+as they can switch the device into a fast-charging mode.
+I've ordered a <a class="reference external" href="https://www.amazon.com/dp/B00T0DW3F8/georgevreill-20">pair</a> from Amazon,
+as we're <span>&#8230;<a href="/blog/2016/08/30/USBChargeOnlyCablesAndCondoms.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/usb/" rel="tag">usb</a>
+                    and
+                    
+                <a href="/tag/security/" rel="tag">security</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-08-23">2016-08-23</time>
+        <h1>
+            <a href="/blog/2016/08/23/FlameGraphsAndFlameCharts.html" rel="bookmark canonical">Flame Graphs and Flame Charts</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://queue.acm.org/detail.cfm?id=2927301"></a>
+<p>I was in­ves­ti­gat­ing the per­for­mance of a web app today,
+and I spent some time looking at the <a class="reference external" href="https://addyosmani.com/blog/devtools-flame-charts/">Flame Chart</a> vi­su­al­iza­tion
+in Chrome's profiling tools, which helped identify some problems.</p>
+<p>Flame Charts are like Brendan Gregg's <a class="reference external" href="http://www.brendangregg.com/flamegraphs.html">Flame Graphs</a>,
+except that the charts are sorted by time,
+while the graphs are sorted al­pha­bet­i­cal­ly.</p>
+<p>Quoting from Gregg's recent <a class="reference external" href="http://queue.acm.org/detail.cfm?id=2927301">ACM Queue article</a>:</p>
+<blockquote>
+<p>A flame graph has the following char­ac­ter­is­tics:</p>
+<ul class="simple">
+<li>A stack trace is rep­re­sent­ed as a column of boxes,
+where each box represents a function (a stack frame).</li>
+<li>The y-axis shows the stack depth,
+ordered from root at the bottom to leaf at the top.
+The top box shows the function
+that was on-CPU when the <span>&#8230;<a href="/blog/2016/08/23/FlameGraphsAndFlameCharts.html" class="continue">continue</a>.</span></li></ul></blockquote>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/performance/" rel="tag">performance</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-08-01">2016-08-01</time>
+        <h1>
+            <a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" rel="bookmark canonical">Creating External SSL Certificates for CloudFront</a>
+        </h1>
+    </header>
+    <p>I needed to create a wildcard SSL cer­tifi­cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/">AWS CloudFront</a> today.</p>
+<p>First, generate a 2048-bit private key. This will prompt you for a passphrase:</p>
+<pre class="literal-block">
+$ openssl genrsa -des3 -out example.key 2048
+</pre>
+<p>Check which signature algorithm was used (SHA-256 is rec­om­mend­ed):</p>
+<pre class="literal-block">
+$ openssl req -in example.csr -noout -text
+</pre>
+<p>Transform the private key to PEM format:</p>
+<pre class="literal-block">
+$ openssl rsa -outform PEM -in example.key -out example.pem
+</pre>
+<p>Generate a Cer­tifi­cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server FQDN:</p>
+<pre class="literal-block">
+$ openssl req -new -key example.key -out example.csr
+
+Country Name (2 letter code) [AU]:US
+State or Province Name (full name) [Some-State]:Washington
+Locality Name (eg, city) []:Seattle
+Organization Name (eg, company) [Internet Widgits Pty </pre><span>&#8230;<a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/ssl/" rel="tag">ssl</a>
+                    and
+                    
+                <a href="/tag/aws/" rel="tag">aws</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-07-19">2016-07-19</time>
+        <h1>
+            <a href="/blog/2016/07/19/UndeletingNotesInEvernote.html" rel="bookmark canonical">Undeleting Notes in Evernote</a>
+        </h1>
+    </header>
+    <p>I ac­ci­den­tal­ly deleted a note that I shouldn't have in Evernote.
+It wasn't obvious how to undelete it.
+I had to resort to the <a class="reference external" href="https://help.evernote.com/hc/en-us/articles/208313438-How-to-recover-deleted-notes">help</a>:</p>
+<ul class="simple">
+<li>Open <em>Notebooks</em></li>
+<li>Scroll all the way to the <em>bottom</em></li>
+<li>Open the <em>Trash</em> notebook, which is unlabeled in the Mac desktop version of Evernote</li>
+<li>Restore the deleted Note</li>
+</ul>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+        <a href="/tag/tech/2/" class="page floatright">
+        Previous &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

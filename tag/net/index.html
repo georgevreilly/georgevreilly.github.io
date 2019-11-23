@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2008-01-20">2008-01-20</time>
+        <h1>
+            <a href="/blog/2008/01/20/OddsAndEnds5.html" rel="bookmark canonical">Odds and Ends #5</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.thesneeze.com/mt-archives/000273.php"></a>
+<p>Mis­cel­la­neous links.</p>
+<ul class="simple">
+<li>Do you see the <a class="reference external" href="http://www.thesneeze.com/mt-archives/000273.php">subliminal arrow</a> in the <a class="reference external" href="http://www.flickr.com/groups/negativespace/discuss/32590/">negative space</a>
+of the FedEx logo at right?
+Neither did I until I read about it at <a class="reference external" href="http://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=0001lB">Edward Tufte's joint</a>.
+Now I can't stop seeing it.</li>
+</ul>
+<ul class="simple">
+<li>One more year to go until the next pres­i­den­tial in­au­gu­ra­tion
+on 2009/01/20.
+Who knows how much more damage Bush can pull off by then?
+Stick­er­Giant.com has <a class="reference external" href="http://www.stickergiant.com/bush%27s-last-day_bushs_last_day_pg1">com­mem­o­ra­tive swag</a>.</li>
+</ul>
+<ul class="simple">
+<li>Im­peach­ment is in the air.
+Watch Rep. <a class="reference external" href="http://thinkprogress.org/2008/01/16/wexler-cheney-impeachment-stronger-than-watergate/">Wexler</a>'s speech before the U.S. House of Rep­re­sen­ta­tives.
+Read about State Sen. <a class="reference external" href="http://www.horsesass.org/?p=4143">Oemig</a>'s hearing in the Washington Leg­is­la­ture.</li>
+</ul>
+<ul class="simple">
+<li>Three days ago, I was sent email by <a class="reference external" href="http://www.draftbloomberg.com/">Draft­Bloomberg.com</a>,
+asking me to sign a petition to draft Mike Bloomberg
+as an in­de­pen­dent candidate for President.
+I <span>&#8230;<a href="/blog/2008/01/20/OddsAndEnds5.html" class="continue">continue</a>.</span></li></ul>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/design/" rel="tag">design</a>,
+                <a href="/tag/politics/" rel="tag">politics</a>
+                    and
+                    
+                <a href="/tag/net/" rel="tag">.NET</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-03-21">2007-03-21</time>
+        <h1>
+            <a href="/blog/2007/03/21/NUnitCallingCppUnit.html" rel="bookmark canonical">NUnit calling CppUnit</a>
+        </h1>
+    </header>
+    
+<p>Over the last few days, I've been adapting an existing native C++ library
+so that it can be called from managed code.
+I had written a large number of unit tests with <a class="reference external" href="http://cppunit.sourceforge.net/">CppUnit</a>
+and I wanted to be able to call the tests from <a class="reference external" href="http://www.nunit.org/">NUnit</a>.</p>
+<p>I suppose that I could have written a new CppUnit <a class="reference external" href="http://cppunit.sourceforge.net/cppunit-wiki/TestRunner">TestRunner</a> so that I
+could call it from NUnit.
+Instead, I took the cheap-n-dirty route, playing with <tt class="docutils literal">#define</tt>
+and include paths.
+It took less time to get working than it did to write this blog post.</p>
+<p>Here's the original native CppUnit test code</p>
+<pre class="code cpp literal-block">
+<span class="c1">//-------------------------------
+// native\FooTest.h
+//-------------------------------
+</span>
+<span class="cp">#include</span> <span class="cpf"><cppunit extensions helpermacros.h></cppunit><span class="cp">
+</span>
+<span class="k">class</span> <span class="nc">FooTest</span> <span class="o">:</span> <span class="k">public</span> <span class="n">CppUnit</span><span class="o">::</span><span class="n">TestFixture</span>
+<span class="p">{</span>
+    <span class="n">CPPUNIT_TEST_SUITE</span><span class="p">(</span> <span class="n">FooTest</span> </span></pre><span>&#8230;<a href="/blog/2007/03/21/NUnitCallingCppUnit.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/net/" rel="tag">.NET</a>
+                    and
+                    
+                <a href="/tag/c++/" rel="tag">C++</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-03-14">2007-03-14</time>
+        <h1>
+            <a href="/blog/2007/03/14/NVelocityLoadingTemplatesFromEmbeddedResources.html" rel="bookmark canonical">NVelocity: loading templates from embedded resources</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.castleproject.org/others/nvelocity/index.html"></a>
+<p>In last week's tip on
+using the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/index.html">NVelocity</a> template formatting engine,
+I described what to set to load a template from
+an <a class="reference external" href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html">absolute path</a>.</p>
+<p>Here's the magic necessary to get NVelocity to load a template from an
+embedded resource:</p>
+<pre class="code csharp literal-block">
+<span class="n">VelocityEngine</span> <span class="n">engine</span> <span class="p">=</span> <span class="k">new</span> <span class="n">VelocityEngine</span><span class="p">();</span>
+<span class="n">ExtendedProperties</span> <span class="n">properties</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ExtendedProperties</span><span class="p">();</span>
+<span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">"resource.loader"</span><span class="p">,</span> <span class="s">"assembly"</span><span class="p">);</span>
+<span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">"assembly.resource.loader.class"</span><span class="p">,</span>
+    <span class="s">"NVelocity.Runtime.Resource.Loader.AssemblyResourceLoader, NVelocity"</span><span class="p">);</span>
+<span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">"assembly.resource.loader.assembly"</span><span class="p">,</span> <span class="s">"StencilFormatter"</span><span class="p">);</span>
+<span class="n">engine</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">properties</span><span class="p">);</span>
+</pre>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/net/" rel="tag">.NET</a>
+                    and
+                    
+                <a href="/tag/c/" rel="tag">c</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-03-07">2007-03-07</time>
+        <h1>
+            <a href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html" rel="bookmark canonical">NVelocity templates and absolute paths</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.castleproject.org/others/nvelocity/index.html"></a>
+<p>We've started using the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/index.html">NVelocity</a> template formatting engine.
+We were absolutely stymied for an hour, trying to figure
+out how to get it working with an absolute path to the template file,
+instead of the relative path shown in the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/usingit.html">doc­u­men­ta­tion</a>.</p>
+<p>The trick is to set <tt class="docutils literal">file.resource.loader.path</tt>.
+Here's how to load <tt class="docutils literal"><span class="pre">C:\foo\bar\­some­file.vm</span></tt>:</p>
+<pre class="code csharp literal-block">
+<span class="n">ExtendedProperties</span> <span class="n">props</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ExtendedProperties</span><span class="p">();</span>
+<span class="n">props</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">"file.resource.loader.path"</span><span class="p">,</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="p">(</span><span class="k">new</span> <span class="kt">string</span><span class="p">[]{</span><span class="s">"."</span><span class="p">,</span> <span class="s">"C:\\"</span><span class="p">}));</span>
+<span class="n">velocity</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">props</span><span class="p">);</span>
+
+<span class="n">template</span> <span class="p">=</span> <span class="n">velocity</span><span class="p">.</span><span class="n">GetTemplate</span><span class="p">(</span><span class="s">"foo\\bar\\somefile.vm"</span><span class="p">);</span>
+</pre>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/net/" rel="tag">.NET</a>
+                    and
+                    
+                <a href="/tag/c/" rel="tag">c</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-09-02">2006-09-02</time>
+        <h1>
+            <a href="/blog/2006/09/02/UpgradeYourInstallationOfNAnt.html" rel="bookmark canonical">Upgrade your installation of NAnt</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://nant.sourceforge.net/release/0.85-rc4/releasenotes.html"></a>
+<p>My colleague, Greg, and I spent all day debugging a build break in
+some unit tests that exercise a webservice interface in legacy .NET 1.1 code.
+Last night, the tests stopped working on our
+<a class="reference external" href="http://ccnet.thoughtworks.com">CruiseC­on­trol.NET</a>
+build server. We couldn't understand it. The tests had been working for
+months. Now we were getting timeouts in SOAP. The tests es­sen­tial­ly
+<a class="reference external" href="http://en.wikipedia.org/wiki/Mock_object">mock</a>
+a SOAP service using the <tt class="docutils literal">soap.inproc</tt> transport and a stub
+im­ple­men­ta­tion that signaled an event to ac­knowl­edge a method being called.</p>
+<p>The only thing that had changed in the code tree was that another
+colleague, Pavel, had discovered that two of our <tt class="docutils literal">.csproj</tt> files somehow
+shared the same GUID, and had repaired <span>&#8230;<a href="/blog/2006/09/02/UpgradeYourInstallationOfNAnt.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>
+                    and
+                    
+                <a href="/tag/net/" rel="tag">.NET</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-08-29">2006-08-29</time>
+        <h1>
+            <a href="/blog/2006/08/29/UsingLog4NetFromACOMApplication.html" rel="bookmark canonical">Using Log4Net from a COM+ Application</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://logging.apache.org/log4net/"></a>
+<p>I spent far too much time on Friday trying to make <a class="reference external" href="https://logging.apache.org/log4net/">log4net</a> work in a COM+ ap­pli­ca­tion.</p>
+<p>Someone else had done part of the work necessary,
+by creating an <a class="reference external" href="http://blogs.msdn.com/florinlazar/archive/2003/12/04/41369.aspx">ap­pli­ca­tion.config</a> for the COM+ ap­pli­ca­tion
+and setting a custom Ap­pli­ca­tion Root Directory.
+This was enough to ensure that most of the managed code in the ap­pli­ca­tion
+got their con­fig­u­ra­tion settings;
+log4net being the exception.</p>
+<p>It took some additional work to realize that we needed to add two assembly attributes:</p>
+<pre class="literal-block">
+[assembly: log4net.Config.Repository("unique-name")]
+[assembly: log4net.Config.XmlConfigurator(ConfigFile="application.config")]
+</pre>
+<p>The repository name just needs to be a unique string.
+We used the name of the assembly.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/net/" rel="tag">.NET</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

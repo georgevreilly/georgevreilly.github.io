@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="I needed to create a wildcard SSL certificate and..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="tech, ssl, aws" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -34,20 +35,20 @@
             <a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" rel="bookmark canonical">Creating External SSL Certificates for CloudFront</a>
         </h1>
     </header>
-    <p>I needed to create a wildcard <span class="caps">SSL</span> cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/"><span class="caps">AWS</span> CloudFront</a>&nbsp;today.</p>
-<p>First, generate a 2048-bit private key. This will prompt you for a&nbsp;passphrase:</p>
+    <p>I needed to create a wildcard <span class="caps">SSL</span> cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/"><span class="caps">AWS</span> CloudFront</a> today.</p>
+<p>First, generate a 2048-bit private key. This will prompt you for a passphrase:</p>
 <pre class="literal-block">
 $ openssl genrsa -des3 -out example.key 2048
 </pre>
-<p>Check which signature algorithm was used (<span class="caps">SHA</span>-256 is&nbsp;rec&shy;om&shy;mend&shy;ed):</p>
+<p>Check which signature algorithm was used (<span class="caps">SHA</span>-256 is rec&shy;om&shy;mend&shy;ed):</p>
 <pre class="literal-block">
 $ openssl req -in example.csr -noout -text
 </pre>
-<p>Transform the private key to <span class="caps">PEM</span>&nbsp;format:</p>
+<p>Transform the private key to <span class="caps">PEM</span> format:</p>
 <pre class="literal-block">
 $ openssl rsa -outform PEM -in example.key -out example.pem
 </pre>
-<p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server&nbsp;<span class="caps">FQDN</span>:</p>
+<p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server <span class="caps">FQDN</span>:</p>
 <pre class="literal-block">
 $ openssl req -new -key example.key -out example.csr
 
@@ -67,7 +68,7 @@ An optional company name []:
 <p>Upload the <span class="caps">CSR</span> to your Cer&shy;tifi&shy;cate Authority and generate a signed cer&shy;tifi&shy;cate.
 We used <a class="reference external" href="https://www.ssl.com/"><span class="caps">SSL</span>.com</a>.</p>
 <p>Be sure to save the keys and cer&shy;tifi&shy;cates in a secure place.
-The private key is a <em>secret</em>: treat it as&nbsp;such.</p>
+The private key is a <em>secret</em>: treat it as such.</p>
 <p>Finally, <a class="reference external" href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs_manage.html#UploadSignedCert">upload the cer&shy;tifi&shy;cate to <span class="caps">IAM</span> (<span class="caps">AWS</span> Identity and Access Management)</a>:</p>
 <pre class="literal-block">
 $ aws iam upload-server-certificate \
@@ -77,14 +78,21 @@ $ aws iam upload-server-certificate \
     --certificate-chain file://ca-chain-amazon.crt \
     --path /cloudfront/production/
 </pre>
-<p>Note the <tt class="docutils literal"><span class="pre">--path</span></tt> argument, which is required for CloudFront&nbsp;dis&shy;tri&shy;b&shy;u&shy;tions.</p>
+<p>Note the <tt class="docutils literal"><span class="pre">--path</span></tt> argument, which is required for CloudFront dis&shy;tri&shy;b&shy;u&shy;tions.</p>
 <p>Bryce Fisher-Fleig has <a class="reference external" href="https://bryce.fisher-fleig.org/blog/setting-up-ssl-on-aws-cloudfront-and-s3/">more</a>.
-(I wish I had discovered his post this&nbsp;morning.)</p>
+(I wish I had discovered his post this morning.)</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/ssl/" rel="tag">ssl</a>
+                    and
+                    
+                <a href="/tag/aws/" rel="tag">aws</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

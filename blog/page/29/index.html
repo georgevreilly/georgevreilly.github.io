@@ -21,9 +21,58 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-01-05">2016-01-05</time>
+        <h1>
+            <a href="/blog/2016/01/05/DecrementingLoops.html" rel="bookmark canonical">Decrementing Loops</a>
+        </h1>
+    </header>
+    <p>The canonical <tt class="docutils literal">for</tt>-loop in C and C++ is written thus,
+counting up <tt class="docutils literal">i = 0</tt>, <tt class="docutils literal">i = 1</tt>, …, <tt class="docutils literal">i = <span class="pre">N-1</span></tt>:</p>
+<pre class="code c++ literal-block">
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o"><</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// loop body
+</span><span class="p">}</span>
+</pre>
+<p>(In C, you have to declare <tt class="docutils literal">int i</tt> before the <tt class="docutils literal">for</tt>-loop.)</p>
+<p>Let’s unpack that <tt class="docutils literal">for</tt>-loop into an equivalent <tt class="docutils literal">while</tt>-loop:</p>
+<pre class="code c++ literal-block">
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o"><</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// loop body
+</span>    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="p">}</span>
+</pre>
+<p>In other words, we initialize <tt class="docutils literal">i</tt> to zero.
+Then, before every execution of either loop,
+we check <tt class="docutils literal">i < N</tt>.
+If <tt class="docutils literal">i</tt> is still within bounds,
+we execute the loop body.
+Then we postin­cre­ment <span>&#8230;<a href="/blog/2016/01/05/DecrementingLoops.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/05/DecrementingLoops.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/c++/" rel="tag">c++</a>
+                    and
+                    
+                <a href="/tag/performance/" rel="tag">performance</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
     
         <article>
     <header>
@@ -33,14 +82,17 @@
         </h1>
     </header>
     <p>New MetaBrite Dev Blog post,
-<a class="reference external" href="http://www.metabrite.com/devblog/posts/python-obfuscate-url-password/">Ob&shy;fus&shy;cat&shy;ing Passwords in URLs in Python</a>.</p>
+<a class="reference external" href="http://www.metabrite.com/devblog/posts/python-obfuscate-url-password/">Ob­fus­cat­ing Passwords in URLs in Python</a>.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -56,21 +108,21 @@
         </h1>
     </header>
     
-<p>The ac&shy;com&shy;pa&shy;ny&shy;ing photo shows most of the books that I&#8217;ve read between late September 2015
-and January&nbsp;2nd:</p>
+<p>The ac­com­pa­ny­ing photo shows most of the books that I’ve read between late September 2015
+and January 2nd:</p>
 <ul class="simple">
-<li>Five <a class="reference external" href="https://en.wikipedia.org/wiki/Inspector_Rebus">Rebus</a> novels by Ian Rankin&nbsp;(unreviewed)</li>
-<li>Nine <a class="reference external" href="https://en.wikipedia.org/wiki/Kurt_Wallander">Wallander</a> novels by Henning Mankell (un&shy;re&shy;viewed; <em>The Fifth Woman</em> was an&nbsp;e-book)</li>
-<li><em>The Seacoast of Bohemia</em> by Nicolas&nbsp;Freeling</li>
-<li><em>The Vault</em> by Peter&nbsp;Lovesey</li>
-<li><em>A German Requiem</em> by Philip&nbsp;Kerr</li>
-<li><a class="reference external" href="/blog/2015/12/04/ReviewStarFall.html">Star&nbsp;Fall</a></li>
-<li><a class="reference external" href="/blog/2015/12/08/ReviewTheAx.html">The&nbsp;Ax</a></li>
-<li>The first seven books of <a class="reference external" href="/blog/2015/12/16/ReviewSaxonTales.html">The Saxon Tales</a> by Bernard&nbsp;Cornwell</li>
-<li><a class="reference external" href="/blog/2015/12/20/ReviewDestinationMorgue.html">Des&shy;ti&shy;na&shy;tion:&nbsp;Morgue</a></li>
-<li><a class="reference external" href="/blog/2015/12/26/ReviewTheMagicians.html">The Magicians</a>, <a class="reference external" href="/blog/2015/12/27/ReviewTheMagicianKing.html">The Magician King</a>, and <a class="reference external" href="/blog/2015/12/31/ReviewTheMagiciansLand.html">The Magician&#8217;s&nbsp;Land</a></li>
-<li><a class="reference external" href="/blog/2016/01/02/ReviewTheRedRoad.html">The Red&nbsp;Road</a></li>
-<li>Some other ebooks, including some technical&nbsp;books</li>
+<li>Five <a class="reference external" href="https://en.wikipedia.org/wiki/Inspector_Rebus">Rebus</a> novels by Ian Rankin (unreviewed)</li>
+<li>Nine <a class="reference external" href="https://en.wikipedia.org/wiki/Kurt_Wallander">Wallander</a> novels by Henning Mankell (un­re­viewed; <em>The Fifth Woman</em> was an e-book)</li>
+<li><em>The Seacoast of Bohemia</em> by Nicolas Freeling</li>
+<li><em>The Vault</em> by Peter Lovesey</li>
+<li><em>A German Requiem</em> by Philip Kerr</li>
+<li><a class="reference external" href="/blog/2015/12/04/ReviewStarFall.html">Star Fall</a></li>
+<li><a class="reference external" href="/blog/2015/12/08/ReviewTheAx.html">The Ax</a></li>
+<li>The first seven books of <a class="reference external" href="/blog/2015/12/16/ReviewSaxonTales.html">The Saxon Tales</a> by Bernard Cornwell</li>
+<li><a class="reference external" href="/blog/2015/12/20/ReviewDestinationMorgue.html">Des­ti­na­tion: Morgue</a></li>
+<li><a class="reference external" href="/blog/2015/12/26/ReviewTheMagicians.html">The Magicians</a>, <a class="reference external" href="/blog/2015/12/27/ReviewTheMagicianKing.html">The Magician King</a>, and <a class="reference external" href="/blog/2015/12/31/ReviewTheMagiciansLand.html">The Magician’s Land</a></li>
+<li><a class="reference external" href="/blog/2016/01/02/ReviewTheRedRoad.html">The Red Road</a></li>
+<li>Some other ebooks, including some technical books</li>
 </ul>
 
     <footer>
@@ -78,7 +130,10 @@ and January&nbsp;2nd:</p>
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/03/2015-Q4-books.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -106,19 +161,26 @@ and January&nbsp;2nd:</p>
 <div class="line">Reading period: 31 December, 2015–2 January, 2016</div>
 </div>
 <p>Glasgow <span class="caps">DI</span> Alex Morrow is trying to put a dangerous criminal back in prison,
-but she can&#8217;t explain how his prints were found at the scene of a recent murder
+but she can’t explain how his prints were found at the scene of a recent murder
 when he was already in custody.
 Fifteen years ago, when Rose Wilson was a sexually abused 14 year old,
-she was re&shy;spon&shy;si&shy;ble for two deaths in one night,
+she was re­spon­si­ble for two deaths in one night,
 but only did time for one culpable homicide.
-Now the lawyer who saved her is dead and coverups are&nbsp;unraveling.</p>
+Now the lawyer who saved her is dead and coverups are unraveling.</p>
 <p>In other hands, this tale <span>&#8230;<a href="/blog/2016/01/02/ReviewTheRedRoad.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/02/ReviewTheRedRoad.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/crime/" rel="tag">crime</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -136,20 +198,23 @@ Now the lawyer who saved her is dead and coverups are&nbsp;unraveling.</p>
     <p>Emma and I have a bargain.
 If one of us cooks a nice dinner, the other cleans up.
 While I can and do cook, Emma does most of the cooking.
-Therefore, I do most of the&nbsp;cleaning.</p>
+Therefore, I do most of the cleaning.</p>
 <p>I always thank Emma during dinner for the meal,
-and Emma invariably thanks me for cleaning when I&#8217;m washing pots and pans.
-I—a lifelong smar&shy;tass—usu&shy;al&shy;ly respond,
-&quot;Thank you for making a&nbsp;mess.&quot;</p>
-<p>So far, she&#8217;s taken this with good grace—prob&shy;a&shy;bly better than I deserve.
-In truth, the cleanup is usually far quicker than the&nbsp;cooking.</p>
+and Emma invariably thanks me for cleaning when I’m washing pots and pans.
+I—a lifelong smar­tass—usu­al­ly respond,
+"Thank you for making a mess."</p>
+<p>So far, she’s taken this with good grace—prob­a­bly better than I deserve.
+In truth, the cleanup is usually far quicker than the cooking.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/01/ThanksForMakingAMess.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/personal/" rel="tag">personal</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -166,7 +231,7 @@ In truth, the cleanup is usually far quicker than the&nbsp;cooking.</p>
     </header>
     <a class="reference external image-reference" href="http://www.amazon.com/dp/0670015679/?tag=georgvreill-20"></a>
 <div class="line-block">
-<div class="line">Title: The Magician&#8217;s Land</div>
+<div class="line">Title: The Magician’s Land</div>
 <div class="line">Author: Lev Grossman</div>
 <div class="line">Rating: ★ ★ ★ ★ ½</div>
 <div class="line">Publisher: Plume</div>
@@ -177,24 +242,31 @@ In truth, the cleanup is usually far quicker than the&nbsp;cooking.</p>
 <div class="line">Reading period: 26–29 December, 2015</div>
 </div>
 <p>[Sequel to <a class="reference external" href="/blog/2015/12/27/ReviewTheMagicianKing.html">The Magician King</a>]</p>
-<p>At the beginning of <a class="reference external" href="https://en.wikipedia.org/wiki/The_Magician%27s_Land">The Magician&#8217;s Land</a>,
+<p>At the beginning of <a class="reference external" href="https://en.wikipedia.org/wiki/The_Magician%27s_Land">The Magician’s Land</a>,
 Quentin Coldwater is in exile from Fillory.
 After a brief sojourn of teaching at Brakebills,
-where he researches an enormously complex spell he found in the Nei&shy;ther&shy;lands,
+where he researches an enormously complex spell he found in the Nei­ther­lands,
 he is fired and Plum, a student, is expelled.
 A mysterious summons draws them into a magical heist, which goes awry.
 Meanwhile, Fillory is dying
-and Eliot, Janet, Josh, and Poppy are trying to save&nbsp;it.</p>
+and Eliot, Janet, Josh, and Poppy are trying to save it.</p>
 <p>Quentin has matured over the trilogy,
-emo&shy;tion&shy;al&shy;ly and as a magician,
+emo­tion­al­ly and as a magician,
 rising to the daunting challenges
-&quot;He was <span>&#8230;<a href="/blog/2015/12/31/ReviewTheMagiciansLand.html" class="continue">continue</a>.</span></p>
+"He was <span>&#8230;<a href="/blog/2015/12/31/ReviewTheMagiciansLand.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/31/ReviewTheMagiciansLand.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/fantasy/" rel="tag">fantasy</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -212,30 +284,29 @@ rising to the daunting challenges
     <p>I wanted to turn a list like
 <tt class="docutils literal"><span class="pre">['*.zip',</span> <span class="pre">'*.pyc',</span> <span class="pre">'*.log']</span></tt> into
 <tt class="docutils literal"><span class="pre">['--exclude',</span> <span class="pre">'*.zip',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.pyc',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.log']</span></tt>.</p>
-<p>A simple list com&shy;pre&shy;hen&shy;sion doesn&#8217;t work as&nbsp;desired:</p>
+<p>A simple list com­pre­hen­sion doesn’t work as desired:</p>
+<pre class="code python literal-block">
+<span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">excludes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
 
-<pre class="brush: python">
-In [1]: excludes = ['*.zip', '*.pyc', '*.log']
-
-In [2]: [('--exclude', e) for e in excludes]
-Out[2]: [('--exclude', '*.zip'), ('--exclude', '*.pyc'), ('--exclude', '*.log')]
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">)]</span>
 </pre>
-
-<p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com&shy;pre&shy;hen&shy;sion</a>:</p>
-
-<pre class="brush: python">
-In [5]: [arg for pattern in excludes
-             for arg in ['--exclude', pattern]]
-Out[5]: ['--exclude', '*.zip', '--exclude', '*.pyc', '--exclude', '*.log']
+<p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com­pre­hen­sion</a>:</p>
+<pre class="code python literal-block">
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="n">arg</span> <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">excludes</span>
+             <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">pattern</span><span class="p">]]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
 </pre>
-
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/30/UseForPythonNestedListComprehensions.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -251,19 +322,22 @@ Out[5]: ['--exclude', '*.zip', '--exclude', '*.pyc', '--exclude', '*.log']
         </h1>
     </header>
     <p>Via <a class="reference external" href="https://news.ycombinator.com/item?id=10810271">Hacker News</a>,
-&quot;All Springer Textbooks More Than 10 Years Old Available for Free Legal&nbsp;Download&quot;.</p>
+"All Springer Textbooks More Than 10 Years Old Available for Free Legal Download".</p>
 <p>This includes books from Apress
-as well as a ton of those im&shy;pen&shy;e&shy;tra&shy;ble gray-and-red
-Lecture Notes in Computer Science&nbsp;books.</p>
+as well as a ton of those im­pen­e­tra­ble gray-and-red
+Lecture Notes in Computer Science books.</p>
 <p><strong>Update 2015-12-30</strong>: No longer available.
-Springer aren&#8217;t commenting. Presumably a&nbsp;mistake.</p>
+Springer aren’t commenting. Presumably a mistake.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/29/FreeEbooksFromSpringer.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -285,12 +359,12 @@ finds droid with a message,
 then hooks up with two rogues in a beat-up ship.
 Young hero starts developing a talent for the Force.
 Dark-side dork with daddy issues slays daddy in death star duel.
-Ace X-wing pilot flies down trench and kills death&nbsp;star.</p>
-<p>Where have I seen this movie&nbsp;before?</p>
-<p>Episode <span class="caps">VII</span> is a distinct im&shy;prove&shy;ment over the last set of Star Wars films,
+Ace X-wing pilot flies down trench and kills death star.</p>
+<p>Where have I seen this movie before?</p>
+<p>Episode <span class="caps">VII</span> is a distinct im­prove­ment over the last set of Star Wars films,
 the Anakin prequels.
 We care more about Rey and Finn than we ever did about Anakin and Padme.
-George Lucas&#8217;s characters were wooden and un&shy;con&shy;vinc&shy;ing;
+George Lucas’s characters were wooden and un­con­vinc­ing;
 Lawrence Kasdan (who wrote <em>The Empire Strikes Back</em> and <em>Return of the Jedi</em>),
 <span class="caps">J.J.</span> Abrams, <span>&#8230;<a href="/blog/2015/12/28/ReviewStarWarsTheForceAwakens.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -298,7 +372,13 @@ Lawrence Kasdan (who wrote <em>The Empire Strikes Back</em> and <em>Return of th
             <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/28/ReviewStarWarsTheForceAwakens.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/movies/" rel="tag">movies</a>
+                    and
+                    
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -327,14 +407,14 @@ Lawrence Kasdan (who wrote <em>The Empire Strikes Back</em> and <em>Return of th
 </div>
 <p>[Sequel to <a class="reference external" href="/blog/2015/12/26/ReviewTheMagicians.html">The Magicians</a>.]</p>
 <p>There are two storylines in <a class="reference external" href="https://en.wikipedia.org/wiki/The_Magician_King">The Magician King</a>,
-the backstory of Julia&#8217;s training as a hedgewitch
-and Quentin&#8217;s quest for the seven golden&nbsp;keys.</p>
+the backstory of Julia’s training as a hedgewitch
+and Quentin’s quest for the seven golden keys.</p>
 <p>Quentin, along with his high school crush, Julia,
-and his fellow Brakebills&#8217; alumni, Eliot and Janet,
+and his fellow Brake­bill­s’ alumni, Eliot and Janet,
 have ruled Fillory for a few years.
 Bored with being King, he sets off on a quest, taking Julia with him.
-Un&shy;ex&shy;pect&shy;ed&shy;ly thrust back to Earth,
-they des&shy;per&shy;ate&shy;ly strive to return to Fillory, eventually succeeding.
+Un­ex­pect­ed­ly thrust back to Earth,
+they des­per­ate­ly strive to return to Fillory, eventually succeeding.
 Magic is leaching out of the universe as the old gods awaken,
 and <span>&#8230;<a href="/blog/2015/12/27/ReviewTheMagicianKing.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -342,51 +422,14 @@ and <span>&#8230;<a href="/blog/2015/12/27/ReviewTheMagicianKing.html" class="co
             <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/27/ReviewTheMagicianKing.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-26">2015-12-26</time>
-        <h1>
-            <a href="/blog/2015/12/26/ReviewTheMagicians.html" rel="bookmark canonical">Review: The Magicians</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0670020559/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Magicians</div>
-<div class="line">Author: Lev Grossman</div>
-<div class="line">Rating: ★ ★ ★ ★ ½</div>
-<div class="line">Publisher: Plume</div>
-<div class="line">Copyright: 2009</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0670020559/?tag=georgvreill-20">0670020559</a></div>
-<div class="line">Pages: 402</div>
-<div class="line">Keywords: adult fantasy</div>
-<div class="line">Reading period: 20–26 December, 2015</div>
-</div>
-<p>Take a heavy dose of <a class="reference external" href="https://en.wikipedia.org/wiki/The_Chronicles_of_Narnia">Narnia</a>,
-add a hefty dollop of <a class="reference external" href="https://en.wikipedia.org/wiki/Harry_Potter">Harry Potter</a>,
-stir in some <a class="reference external" href="https://en.wikipedia.org/wiki/Bret_Easton_Ellis">Bret Easton Ellis</a>
-and a dash of <a class="reference external" href="https://en.wikipedia.org/wiki/The_Catcher_in_the_Rye">The Catcher in the Rye</a>,
-then cook for adults.
-That glib de&shy;scrip&shy;tion short&shy;changes <a class="reference external" href="https://en.wikipedia.org/wiki/The_Magicians_(Grossman_novel)">The Magicians</a>,
-even though Fillory clearly owes a major debt to Narnia
-and the preppy Brakebills College for Magical Pedagogy somewhat resembles&nbsp;Hogwarts.</p>
-<p>Quentin Coldwater is an over&shy;achiev&shy;ing, solitary math nerd from Brooklyn,
-who thinks he&#8217;s attending an entrance interview for Princeton
-but instead gains admittance to Brakebills.
-Magic turns out to be real, but difficult, requiring <span>&#8230;<a href="/blog/2015/12/26/ReviewTheMagicians.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/26/ReviewTheMagicians.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/fantasy/" rel="tag">fantasy</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>

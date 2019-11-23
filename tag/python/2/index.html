@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-03-25">2016-03-25</time>
+        <h1>
+            <a href="/blog/2016/03/25/Profiling.html" rel="bookmark canonical">Profiling</a>
+        </h1>
+    </header>
+    <p>Despite being a <em>bona fide</em> per­for­mance expert—I spent a couple of years as the Per­for­mance Lead
+for Mi­crosoft­'s IIS web server product about 15 years ago—I still forget to measure rather than assume.</p>
+<p>I wrote some code today that imported nearly 300,000 nodes into a graph
+from a 500MB XML file.
+The code was not par­tic­u­lar­ly fast and I assumed that it was the XML parser.
+I had been using the built-in streaming parser, <a class="reference external" href="https://docs.python.org/2/library/xml.etree.elementtree.html#xml.etree.ElementTree.iterparse">cEle­ment­Tree iterparse</a>.
+I assumed that using the <a class="reference external" href="http://lxml.de/api/lxml.etree.iterparse-class.html">lmxl iterparse</a> would make the code faster.
+It didn't.</p>
+<p>Then I had the bright idea of tem­porar­i­ly disabling the per-node processing,
+which left only the XML parsing.
+Instead of <span>&#8230;<a href="/blog/2016/03/25/Profiling.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/performance/" rel="tag">performance</a>
+                    and
+                    
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-03-24">2016-03-24</time>
+        <h1>
+            <a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" rel="bookmark canonical">Raising IOError for 'file not found'</a>
+        </h1>
+    </header>
+    <p>I wanted to raise Python's <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.IOError">IOError</a> for a file-not-found condition,
+but it wasn't obvious what the parameters to the exception should be.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">errno</span> <span class="kn">import</span> <span class="n">ENOENT</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">source_file</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">ENOENT</span><span class="p">,</span> <span class="s1">'Not a file'</span><span class="p">,</span> <span class="n">source_file</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre>
+<p><tt class="docutils literal">IOError</tt> can be in­stan­ti­at­ed with 1, 2, or 3 arguments:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal">IOError(errno, strerror, filename)</tt></dt>
+<dd>These arguments are available
+on the <tt class="docutils literal">errno</tt>, <tt class="docutils literal">strerror</tt>, and <tt class="docutils literal">filename</tt> attributes of the exception object,
+re­spec­tive­ly, in both Python 2 and 3.
+The <tt class="docutils literal">args</tt> attribute contains the verbatim con­struc­tor arguments as a tuple.</dd>
+<dt><tt class="docutils literal">IOError(errno, strerror)</tt></dt>
+<dd>These are available on the <tt class="docutils literal">errno</tt> and <tt class="docutils literal">strerror</tt> attributes of the exception,
+re­spec­tive­ly, in both Python 2 and <span>&#8230;<a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" class="continue">continue</a>.</span></dd></dl>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-03-22">2016-03-22</time>
+        <h1>
+            <a href="/blog/2016/03/22/PuPPyStartupRowPitchNight.html" rel="bookmark canonical">PuPPy Startup Row Pitch Night</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.meetup.com/PSPPython/events/229206293/"></a>
+<p>Last night,
+Adam Porad and I were one of five teams
+pitching our startups at the
+PuPPy-organized <a class="reference external" href="http://www.meetup.com/PSPPython/events/229206293/">PyCon Startup Row Pitch Night</a>:</p>
+<blockquote>
+Techstars Seattle and PuPPy [Puget Sound Pro­gram­ming Python]
+presents PyCon Startup Row Pitch Night.
+The time has come again for you, the members of PuPPy,
+to select Seattle’s startup rep­re­sen­ta­tive to travel
+to <a class="reference external" href="https://us.pycon.org/2016/">PyCon</a> in Portland to represent our Python community and startup scene
+at the annual conference produced by the Python Software Foundation.</blockquote>
+<p>We were pitching <a class="reference external" href="http://www.metabrite.com/">MetaBrite</a>
+and our technology that captures receipts,
+yielding receipt in­for­ma­tion to users and onsumer insights.
+We use Python ex­ten­sive­ly—we've written 120,000 lines of Python code
+for web services, web apps, machine learning, image processing, and <span>&#8230;<a href="/blog/2016/03/22/PuPPyStartupRowPitchNight.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-03-09">2016-03-09</time>
+        <h1>
+            <a href="/blog/2016/03/09/FearOfPublicSpeaking.html" rel="bookmark canonical">Fear of Public Speaking</a>
+        </h1>
+    </header>
+    
+<p>It is often said that people fear public speaking more than they fear death.
+I certainly used to fear getting up in front of a crowd,
+though not to the point of death.
+Tonight I spoke about <a class="reference external" href="http://flyingcloud.readthedocs.org/">Fly­ing­Cloud</a>
+in front of more than 100 people for half an hour
+at the <a class="reference external" href="http://www.meetup.com/PSPPython/events/228878102/">PuPPy Meetup</a>.
+I wasn't nervous beforehand and I wasn't nervous talking to the crowd.</p>
+<p>I've been an active Toast­mas­ter for nearly 15 years
+and I've spoken at Toast­mas­ters hundreds of times.
+I'm used to a room of 15–25 people but not to a larger audience.
+Adam and I put our slides together late last week.
+We ran through it together <span>&#8230;<a href="/blog/2016/03/09/FearOfPublicSpeaking.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/toastmasters/" rel="tag">toastmasters</a>
+                    and
+                    
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-03-07">2016-03-07</time>
+        <h1>
+            <a href="/blog/2016/03/07/FlyingCloud_0_3_0_Released.html" rel="bookmark canonical">FlyingCloud 0.3.0 released</a>
+        </h1>
+    </header>
+    <p>I just <a class="reference external" href="https://groups.google.com/forum/#!topic/flyingcloud-users/eqc9LrNbcXA">announced</a> the release of Fly­ing­Cloud 0.3.0
+on the <tt class="docutils literal"><span class="pre">fly­ing­cloud-users</span></tt> mailing list.
+I'll have more to say about Fly­ing­Cloud in future.
+For now, let's just say it's a tool that we use to build
+<a class="reference external" href="http://docker.com">Docker</a> images using masterless <a class="reference external" href="http://saltstack.com/">SaltStack</a>.</p>
+<p>I'll be speaking about Fly­ing­Cloud at <a class="reference external" href="http://www.meetup.com/PSPPython/events/228878102/">Wednes­day's PuPPy meetup</a>.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/docker/" rel="tag">docker</a>
+                    and
+                    
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-03-06">2016-03-06</time>
+        <h1>
+            <a href="/blog/2016/03/06/psutil-kill.html" rel="bookmark canonical">psutil kill</a>
+        </h1>
+    </header>
+    <p>From Python, I needed to find a process that was performing SSH tunneling on port 8080
+and kill it.</p>
+<p>The following works in Bash:</p>
+<pre class="code bash literal-block">
+ps aux <span class="p">|</span> grep <span class="o">[</span>s<span class="o">]</span>sh.*:8080 <span class="p">|</span> awk <span class="s1">'{print $2}'</span> <span class="p">|</span> xargs <span class="nb">kill</span> -9
+</pre>
+<p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
+won't make it through to <tt class="docutils literal">awk</tt>.</p>
+<p>Here's what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
+<pre class="code python literal-block">
+<span class="k">def</span> <span class="nf">kill_port_forwarding</span><span class="p">(</span><span class="n">host_port</span><span class="p">):</span>
+    <span class="n">ssh_args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"-f"</span><span class="p">,</span> <span class="s2">"-N"</span><span class="p">,</span> <span class="s2">"-L"</span><span class="p">,</span> <span class="s2">"{0}:localhost:{0}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host_port</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">process_iter</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'ssh'</span><span class="p">):</span>
+      </pre><span>&#8230;<a href="/blog/2016/03/06/psutil-kill.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-03-02">2016-03-02</time>
+        <h1>
+            <a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" rel="bookmark canonical">Python: Import subclass from dynamic path</a>
+        </h1>
+    </header>
+    <p>I needed to import some plugin code written in Python
+from a directory whose path isn't known until runtime.
+Further, I needed a class object that was a subclass of the plugin base class.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">somewhere</span> <span class="kn">import</span> <span class="n">PluginBase</span>
+
+<span class="k">class</span> <span class="nc">SomePlugin</span><span class="p">(</span><span class="n">PluginBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">f2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+</pre>
+<p>You can use the <a class="reference external" href="https://pymotw.com/2/imp/">imp</a> module to actually load the module from <tt class="docutils literal">impl_dir</tt>.
+Note that <tt class="docutils literal">impl_dir</tt> needs to be tem­porar­i­ly prepended to <tt class="docutils literal">sys.path</tt>.
+Then you can find the plugin subclass using <a class="reference external" href="https://docs.python.org/2/library/functions.html#dir">dir</a> and <a class="reference external" href="https://docs.python.org/2/library/functions.html#issubclass">issubclass</a>.</p>
+<pre class="code python literal-block">
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">imp</span>
+
+<span class="k">def</span> <span class="nf">import_class</span><span class="p">(</span><span class="n">implementation_filename</span><span class="p">,</span> <span class="n">base_class</span><span class="p">):</span>
+    <span class="n">impl_dir</span><span class="p">,</span> <span class="n">impl_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">implementation_filename</span><span class="p">)</span>
+    <span class="n">module_name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">impl_filename</span><span class="p">)</span>
+
+    </pre><span>&#8230;<a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-02-16">2016-02-16</time>
+        <h1>
+            <a href="/blog/2016/02/16/SortingPythonDictionariesByValue.html" rel="bookmark canonical">Sorting Python Dictionaries by Value</a>
+        </h1>
+    </header>
+    <p>New <a class="reference external" href="http://www.metabrite.com/devblog/posts/sorting-python-dictionaries-by-value/">post</a>
+at the MetaBrite Dev Blog.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-24">2016-01-24</time>
+        <h1>
+            <a href="/blog/2016/01/24/NoseTestDiscovery.html" rel="bookmark canonical">Nose Test Discovery</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://nose.readthedocs.org/"></a>
+<p>I figured out why I saw the following error every time I ran <a class="reference external" href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html">Nose</a>:</p>
+<pre class="code python literal-block">
+<span class="o">======================================================================</span>
+<span class="n">ERROR</span><span class="p">:</span> <span class="n">Failure</span><span class="p">:</span> <span class="ne">TypeError</span> <span class="p">(</span><span class="nb">type</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">3</span> <span class="n">arguments</span><span class="p">)</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">523</span><span class="p">,</span> <span class="ow">in</span> <span class="n">makeTest</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_makeTest</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">582</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_makeTest</span>
+    <span class="k">return</span> <span class="n">MethodTestCase</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/case.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">345</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__init__</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cls</span><span class="p">()</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="nb">type</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">3</span> <span class="n">arguments</span>
+</pre>
+<p>It turns out that one module was importing a class called <tt class="docutils literal">TestApi</tt>
+which had a <tt class="docutils literal">class­method</tt> called <tt class="docutils literal">run_in­te­gra­tion_tests</tt>.
+The module itself had no tests; it just declared a class called <tt class="docutils literal">TestO­b­fus­cat­ed­Mix­in</tt>,
+which used some <span>&#8230;<a href="/blog/2016/01/24/NoseTestDiscovery.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-22">2016-01-22</time>
+        <h1>
+            <a href="/blog/2016/01/22/PythonRecursiveGenerators.html" rel="bookmark canonical">Recursive Generators in Python 2 and 3</a>
+        </h1>
+    </header>
+    <p>New <a class="reference external" href="http://www.metabrite.com/devblog/posts/recursive-generators-in-python-2-and-3/">post</a>
+at the MetaBrite blog.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+        <a href="/tag/python/3/" class="page floatright">
+        Previous &raquo;
+        </a>
+    
+    
+        <a href="/tag/python/" class="page floatleft">
+        &laquo; Next
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

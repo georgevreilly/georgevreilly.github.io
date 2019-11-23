@@ -21,9 +21,49 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-04-04">2016-04-04</time>
+        <h1>
+            <a href="/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html" rel="bookmark canonical">Lugging CRT Monitors to Montréal</a>
+        </h1>
+    </header>
+    
+<p>My most recent trip to Montréal was a year ago this week for PyCon 2015,
+following another trip there two years ago this week for PyCon 2014.</p>
+<p>My first trip to Montréal was a very long business trip in 1995.
+Four colleagues and I spent five or six weeks in Montréal,
+just before the <a class="reference external" href="https://en.wikipedia.org/wiki/Quebec_referendum,_1995">Quebec in­de­pen­dence referendum</a>,
+working onsite for our client,
+in­te­grat­ing the <span class="caps">UI</span> we had written into the rest of their software.</p>
+<p>We had to bring our own computers, as they declined to provide us with any equipment.
+In 1995, this meant shipping our desktop systems <em>and</em> our heavy <span class="caps">CRT</span> monitors.
+Through Canadian Customs.
+And back through <span class="caps">US</span> Customs when <span>&#8230;<a href="/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/personal/" rel="tag">personal</a>,
+                <a href="/tag/canada/" rel="tag">canada</a>
+                    and
+                    
+                <a href="/tag/tech/" rel="tag">tech</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
     
         <article>
     <header>
@@ -35,15 +75,13 @@
     <p>I needed to track down a remote branch created a couple of months ago
 on another machine.
 I knew which file had been changed,
-but none of the far-too-many remote branches&#8217; names rang a&nbsp;bell.</p>
-<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch &#8211;contains</a> in the right way finds all the relevant&nbsp;branches.</p>
-
-<pre class="brush: bash">
-git log --all --format=%H FILENAME \
-    | while read f; do git branch --remotes --contains $f; done \
-    | sort -u
+but none of the far-too-many remote branches’ names rang a bell.</p>
+<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch –contains</a> in the right way finds all the relevant branches.</p>
+<pre class="code bash literal-block">
+git log --all --format<span class="o">=</span>%H <span class="caps">FILENAME</span> <span class="se">\
+</span>    <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> f<span class="p">;</span> <span class="k">do</span> git branch --remotes --contains <span class="nv">$f</span><span class="p">;</span> <span class="k">done</span> <span class="se">\
+</span>    <span class="p">|</span> sort -u
 </pre>
-
 <p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> <span class="caps">FILENAME</span></tt>,
 lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal"><span class="caps">FILENAME</span></tt>.
 The second finds all the branches that contain those hashes
@@ -54,7 +92,10 @@ The third <span>&#8230;<a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeTo
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/git/" rel="tag">git</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -74,7 +115,7 @@ The third <span>&#8230;<a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeTo
 <div class="line">Title: The Mercy of the Night</div>
 <div class="line">Author: David Corbett</div>
 <div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Thomas <span class="amp">&amp;</span> Mercer</div>
+<div class="line">Publisher: Thomas <span class="amp">&</span> Mercer</div>
 <div class="line">Copyright: 2015</div>
 <div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/B00NVOJY36/?tag=georgvreill-20"><span class="caps">B00NVOJY36</span></a></div>
 <div class="line">Pages: 431</div>
@@ -83,11 +124,11 @@ The third <span>&#8230;<a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeTo
 </div>
 <p>Jacqi Garza was abducted when she was eight.
 She got away but her life has gone far off course in decade since.
-Now she&#8217;s the prime witness to a murder.
+Now she’s the prime witness to a murder.
 Phelan Tierney, a former lawyer, has taken her under his wing,
-but she&#8217;s not easy to&nbsp;help.</p>
+but she’s not easy to help.</p>
 <p>This is dark and disturbing, if ultimately hopeful.
-It&#8217;s a portrait of a town in distress
+It’s a portrait of a town in distress
 and of some of its citizens.
 Some are still trying to make a difference,
 while others are too lost in their own pain and <span>&#8230;<a href="/blog/2016/04/02/ReviewTheMercyOfTheNight.html" class="continue">continue</a>.</span></p>
@@ -96,7 +137,14 @@ while others are too lost in their own pain and <span>&#8230;<a href="/blog/2016
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/02/ReviewTheMercyOfTheNight.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/thriller/" rel="tag">thriller</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -115,12 +163,12 @@ while others are too lost in their own pain and <span>&#8230;<a href="/blog/2016
 <p>I moved to Seattle in 1992 and spent the next 13 years commuting to the Eastside,
 largely across the <span class="caps">SR</span>-520 Floating Bridge.
 Ten of those years were at Microsoft; the rest, elsewhere in Redmond and Bothell.
-It was im&shy;me&shy;di&shy;ate&shy;ly obvious that 520 needed more capacity.
+It was im­me­di­ate­ly obvious that 520 needed more capacity.
 Only now, 24 years later, are we getting that extra capacity:
-a new bridge that will replace the old, worn-out&nbsp;bridge.</p>
-<p>The old bridge has only two lanes in either direction and there&#8217;s no shoulder.
+a new bridge that will replace the old, worn-out bridge.</p>
+<p>The old bridge has only two lanes in either direction and there’s no shoulder.
 If anything happens, like a flat tire or a stalled car,
-one lane im&shy;me&shy;di&shy;ate&shy;ly grinds to a halt.
+one lane im­me­di­ate­ly grinds to a halt.
 The second lane promptly jams up as everyone merges into it.
 The oncoming <span>&#8230;<a href="/blog/2016/04/01/New520FloatingBridge.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -128,7 +176,10 @@ The oncoming <span>&#8230;<a href="/blog/2016/04/01/New520FloatingBridge.html" c
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/01/New520FloatingBridge.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/seattle/" rel="tag">seattle</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -143,24 +194,27 @@ The oncoming <span>&#8230;<a href="/blog/2016/04/01/New520FloatingBridge.html" c
             <a href="/blog/2016/03/31/Acne.html" rel="bookmark canonical">Acne</a>
         </h1>
     </header>
-    <p>Ad&shy;ver&shy;tis&shy;ing would make you think that acne is a problem only for teenagers.
+    <p>Ad­ver­tis­ing would make you think that acne is a problem only for teenagers.
 Not true.
-It&#8217;s never entirely gone away for me.
+It’s never entirely gone away for me.
 I often find spots on my nose.
 Less often, on my chin or forehead.
-I&#8217;ve even had a few spots inside my&nbsp;ears.</p>
+I’ve even had a few spots inside my ears.</p>
 <p>For some reason, I woke up with three spots this morning:
 on the side of my nose;
 under my jawline, hidden by my beard;
 and on the back of my neck, near the hairline.
-Go&nbsp;figure.</p>
+Go figure.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/31/Acne.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/personal/" rel="tag">personal</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -176,15 +230,15 @@ Go&nbsp;figure.</p>
         </h1>
     </header>
     <p>I got a new MacBook Pro on Monday:
-a 13&quot; Retina with <span class="caps">16GB</span> <span class="caps">RAM</span> and <span class="caps">500GB</span> <span class="caps">SSD</span>,
+a 13" Retina with <span class="caps">16GB</span> <span class="caps">RAM</span> and <span class="caps">500GB</span> <span class="caps">SSD</span>,
 which doubles both the <span class="caps">RAM</span> and the disk capacity
-of its late-2013 pre&shy;de&shy;ces&shy;sor.
-<span class="caps">8GB</span> wasn&#8217;t really enough for software de&shy;vel&shy;op&shy;ment.
+of its late-2013 pre­de­ces­sor.
+<span class="caps">8GB</span> wasn’t really enough for software de­vel­op­ment.
 By the time you run Chrome and PyCharm and Docker,
-you don&#8217;t have much <span class="caps">RAM</span> left.
-And I was constantly having to run <a class="reference external" href="http://grandperspectiv.sourceforge.net/">Grand Per&shy;spec&shy;tive</a>
-to clean up disk&nbsp;space.</p>
-<p>For the first time, I used the <a class="reference external" href="https://support.apple.com/en-us/HT204350">Migration Assistant</a> and a Thun&shy;der&shy;bolt cable
+you don’t have much <span class="caps">RAM</span> left.
+And I was constantly having to run <a class="reference external" href="http://grandperspectiv.sourceforge.net/">Grand Per­spec­tive</a>
+to clean up disk space.</p>
+<p>For the first time, I used the <a class="reference external" href="https://support.apple.com/en-us/HT204350">Migration Assistant</a> and a Thun­der­bolt cable
 to transfer settings from the old laptop to the new.
 I was pleasantly surprised at how well it worked.
 In one hour, the new machine had all the files and just about all <span>&#8230;<a href="/blog/2016/03/30/MigratingToANewMac.html" class="continue">continue</a>.</span></p>
@@ -193,7 +247,10 @@ In one hour, the new machine had all the files and just about all <span>&#8230;<
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/30/MigratingToANewMac.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -211,7 +268,7 @@ In one hour, the new machine had all the files and just about all <span>&#8230;<
     <a class="reference external image-reference" href="http://www.amazon.com/dp/B00BBPW90C/?tag=georgvreill-20"></a>
 <div class="line-block">
 <div class="line">Title: Trap Line</div>
-<div class="line">Author: Carl Hiaasen <span class="amp">&amp;</span> Bill Montalbano</div>
+<div class="line">Author: Carl Hiaasen <span class="amp">&</span> Bill Montalbano</div>
 <div class="line">Rating: ★ ★ ★ ★</div>
 <div class="line">Publisher: Open Road Media</div>
 <div class="line">Copyright: 1982</div>
@@ -220,14 +277,14 @@ In one hour, the new machine had all the files and just about all <span>&#8230;<
 <div class="line">Keywords: crime</div>
 <div class="line">Reading period: 10–17 March, 2016</div>
 </div>
-<p>The drug smugglers who bring their mer&shy;chan&shy;dise in through the Florida Keys
+<p>The drug smugglers who bring their mer­chan­dise in through the Florida Keys
 need some local expertise and decide that Breeze Albury is their man.
 Although he has no desire to be involved,
 they force him to take part.
 When they need a convenient fall guy and set him up,
 he turns on The Machine and on the corrupt local cops.
-Revenge is&nbsp;sweet.</p>
-<p>Although it&#8217;s set in Florida,
+Revenge is sweet.</p>
+<p>Although it’s set in Florida,
 this early Hiaasen novel lacks the humor of his more famous books.
 Still, Breeze is an engaging character and the <span>&#8230;<a href="/blog/2016/03/29/ReviewTrapLine.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -235,7 +292,14 @@ Still, Breeze is an engaging character and the <span>&#8230;<a href="/blog/2016/
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/29/ReviewTrapLine.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/crime/" rel="tag">crime</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -263,21 +327,28 @@ Still, Breeze is an engaging character and the <span>&#8230;<a href="/blog/2016/
 <div class="line">Reading period: 13 March, 2016</div>
 </div>
 <p>Sequel to <a class="reference external" href="/blog/2016/03/21/ReviewAkaJane.html"><span class="caps">A.K.A.</span> Jane</a>.</p>
-<p>Jane Nichols&#8217; parents were murdered in front of her on a Greek hillside
+<p>Jane Nichols’ parents were murdered in front of her on a Greek hillside
 when she was six.
 An <span class="caps">MI5</span> operation triggers some dormant memories
-and she starts to suspect who was re&shy;spon&shy;si&shy;ble.
-An attempt on her life confirms that she&#8217;s not imagining it.
-She returns to her life in Savannah to lay a&nbsp;trap.</p>
-<p>Another en&shy;ter&shy;tain&shy;ing entry in the Jane series.
-The last, presumably, since it&#8217;s nearly 20 years&nbsp;old.</p>
+and she starts to suspect who was re­spon­si­ble.
+An attempt on her life confirms that she’s not imagining it.
+She returns to her life in Savannah to lay a trap.</p>
+<p>Another en­ter­tain­ing entry in the Jane series.
+The last, presumably, since it’s nearly 20 years old.</p>
 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/28/ReviewRunJaneRun.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/thriller/" rel="tag">thriller</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -295,15 +366,15 @@ The last, presumably, since it&#8217;s nearly 20 years&nbsp;old.</p>
     <p>Bloomsday is less than three months away
 and the <a class="reference external" href="http://www.wildgeeseseattle.org/">Wild Geese Players</a> need to start rehearsing soon.
 I made a start on the script at the end of January,
-but didn&#8217;t pick it up again until&nbsp;today.</p>
+but didn’t pick it up again until today.</p>
 <p>Three years ago, we completed <em>Ulysses</em>, having started in 1998.
 Two years ago, we started over,
-reading chapters 1 and 4 in&shy;ter&shy;leaved.
+reading chapters 1 and 4 in­ter­leaved.
 In Chapter 1 (Telemachus), Stephen Dedalus arises in the Martello Tower at Sandymount
 and feuds with Buck Mulligan.
 Chapter 4 (Calypso) takes place at the same time as Chapter 1,
-wherein Leopold Bloom breaks his&nbsp;fast.</p>
-<p>Last year, we in&shy;ter&shy;twined chapters 2 and 5.
+wherein Leopold Bloom breaks his fast.</p>
+<p>Last year, we in­ter­twined chapters 2 and 5.
 Chapter 2 (Nestor) takes place at the school where Stephen teaches;
 he <span>&#8230;<a href="/blog/2016/03/27/PreparingBloomsdayScripts.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -311,7 +382,10 @@ he <span>&#8230;<a href="/blog/2016/03/27/PreparingBloomsdayScripts.html" class=
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/27/PreparingBloomsdayScripts.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/jamesjoyce/" rel="tag">jamesjoyce</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>
@@ -328,56 +402,28 @@ he <span>&#8230;<a href="/blog/2016/03/27/PreparingBloomsdayScripts.html" class=
     </header>
     
 <p>The Washington state Democratic Caucus was held today.
-The final totals aren&#8217;t in yet but Bernie Sanders beat Hillary Clinton
+The final totals aren’t in yet but Bernie Sanders beat Hillary Clinton
 by a nearly 3:1 margin around the state.
 Our own precinct, <span class="caps">SEA</span> 11-1945, had Sanders 41, Clinton 26, Undecided 2.
 That translates to 4 Sanders delegates and 2 Clinton delegates
-in the next level of&nbsp;caucusing.</p>
+in the next level of caucusing.</p>
 <p>Emma and I both voted for Sanders.
 We believe that Sanders represents much-needed change
 in the party and in the nation.
-Clinton is un&shy;doubt&shy;ed&shy;ly one of the most qualified candidates ever,
-with an ex&shy;tra&shy;or&shy;di&shy;nary résumé and a high degree of competence.
-She&#8217;s also too tied to the status quo for my&nbsp;liking.</p>
+Clinton is un­doubt­ed­ly one of the most qualified candidates ever,
+with an ex­tra­or­di­nary résumé and a high degree of competence.
+She’s also too tied to the status quo for my liking.</p>
 <p>However, unlike some Sanders partisans,
-we&#8217;ll readily <span>&#8230;<a href="/blog/2016/03/26/Caucus2016.html" class="continue">continue</a>.</span></p>
+we’ll readily <span>&#8230;<a href="/blog/2016/03/26/Caucus2016.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/26/Caucus2016.html#disqus_thread">Comment</a>
         
         
-            <p>untagged</p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-03-25">2016-03-25</time>
-        <h1>
-            <a href="/blog/2016/03/25/Profiling.html" rel="bookmark canonical">Profiling</a>
-        </h1>
-    </header>
-    <p>Despite being a <em>bona fide</em> per&shy;for&shy;mance expert—I spent a couple of years as the Per&shy;for&shy;mance Lead
-for Microsoft&#8217;s <span class="caps">IIS</span> web server product about 15 years ago—I still forget to measure rather than&nbsp;assume.</p>
-<p>I wrote some code today that imported nearly 300,000 nodes into a graph
-from a <span class="caps">500MB</span> <span class="caps">XML</span> file.
-The code was not par&shy;tic&shy;u&shy;lar&shy;ly fast and I assumed that it was the <span class="caps">XML</span> parser.
-I had been using the built-in streaming parser, <a class="reference external" href="https://docs.python.org/2/library/xml.etree.elementtree.html#xml.etree.ElementTree.iterparse">cEle&shy;ment&shy;Tree iterparse</a>.
-I assumed that using the <a class="reference external" href="http://lxml.de/api/lxml.etree.iterparse-class.html">lmxl iterparse</a> would make the code faster.
-It&nbsp;didn&#8217;t.</p>
-<p>Then I had the bright idea of tem&shy;porar&shy;i&shy;ly disabling the per-node processing,
-which left only the <span class="caps">XML</span> parsing.
-Instead of handling 200 <span>&#8230;<a href="/blog/2016/03/25/Profiling.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/25/Profiling.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/politics/" rel="tag">politics</a>
+                
+            </p>
         
     </footer>
     <div class="comments"></div>

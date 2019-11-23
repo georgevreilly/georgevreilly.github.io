@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="On Mac/Linux, `os.path.join`__ is an alias for ``p..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="python" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -39,94 +40,91 @@ which always joins path segments with <tt class="docutils literal">/</tt>.
 On Windows, <tt class="docutils literal">os.path.join</tt> is an alias for <tt class="docutils literal">ntpath.join</tt>,
 which always uses <tt class="docutils literal">\</tt>.
 When dealing with URLs, we always want forward slashes,
-regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build <span class="caps">URL</span>&nbsp;paths.</p>
+regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build <span class="caps">URL</span> paths.</p>
 <p>Running:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-<pre class="brush: python">
-from __future__ import print_function
+<span class="kn">from</span> <span class="nn">six.moves.urllib_parse</span> <span class="kn">import</span> <span class="n">urljoin</span> <span class="k">as</span> <span class="n">abs_urljoin</span>
+<span class="kn">from</span> <span class="nn">posixpath</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">path_urljoin</span>
 
-from six.moves.urllib_parse import urljoin as abs_urljoin
-from posixpath import join as path_urljoin
+<span class="k">def</span> <span class="nf">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">abs_urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 
-def urljoin(site, path):
-    return abs_urljoin(site, path)
+<span class="k">def</span> <span class="nf">test_join</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">"'{0}' + '{1}'</span><span class="se">\n\t</span><span class="s2">-> '{2}'"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">result</span>
 
-def test_join(site, path):
-    result = urljoin(site, path)
-    print("'{0}' + '{1}'\n\t-> '{2}'".format(site, path, result))
-    return result
+<span class="n">local_path</span> <span class="o">=</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="s1">'2016'</span><span class="p">,</span> <span class="s1">'07'</span><span class="p">,</span> <span class="s1">'12'</span><span class="p">,</span> <span class="s1">'release'</span><span class="p">,</span> <span class="s1">'index.html'</span><span class="p">)</span>
 
-local_path = path_urljoin('2016', '07', '12', 'release', 'index.html')
-
-test_join('https://www.example.com', 'foo/bar/quux.js')
-test_join('https://www.example.com', local_path)
-test_join('https://www.example.com/', local_path)
-test_join('https://www.example.com/prefix', local_path)
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="s1">'foo/bar/quux.js'</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/prefix'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
 </pre>
-
 <p>Yields:</p>
 <pre class="literal-block">
 'https://www.example.com' + 'foo/bar/quux.js'
-        -&gt; 'https://www.example.com/foo/bar/quux.js'
+        -> 'https://www.example.com/foo/bar/quux.js'
 'https://www.example.com' + '2016/07/12/release/index.html'
-        -&gt; 'https://www.example.com/2016/07/12/release/index.html'
+        -> 'https://www.example.com/2016/07/12/release/index.html'
 'https://www.example.com/' + '2016/07/12/release/index.html'
-        -&gt; 'https://www.example.com/2016/07/12/release/index.html'
+        -> 'https://www.example.com/2016/07/12/release/index.html'
 'https://www.example.com/pre/fix' + '2016/07/12/release/index.html'
-        -&gt; 'https://www.example.com/2016/07/12/release/index.html'
+        -> 'https://www.example.com/2016/07/12/release/index.html'
 </pre>
 <p>The last one is a problem,
-as the path after the hostname, <tt class="docutils literal">/pre/fix</tt>, is&nbsp;lost.</p>
-<p>We can fix it using <a class="reference external" href="https://docs.python.org/2/library/urlparse.html#urlparse.urlparse">urlparse</a> to separate that path from the&nbsp;hostname:</p>
+as the path after the hostname, <tt class="docutils literal">/pre/fix</tt>, is lost.</p>
+<p>We can fix it using <a class="reference external" href="https://docs.python.org/2/library/urlparse.html#urlparse.urlparse">urlparse</a> to separate that path from the hostname:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">six.moves.urllib_parse</span> <span class="kn">import</span> <span class="n">urljoin</span> <span class="k">as</span> <span class="n">abs_urljoin</span><span class="p">,</span> <span class="n">urlparse</span>
 
-<pre class="brush: python">
-from six.moves.urllib_parse import urljoin as abs_urljoin, urlparse
-
-def urljoin(site, path):
-    return abs_urljoin(site, path_urljoin(urlparse(site).path, path))
+<span class="k">def</span> <span class="nf">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">abs_urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="n">urlparse</span><span class="p">(</span><span class="n">site</span><span class="p">)</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span>
 </pre>
-
-<p>which&nbsp;yields:</p>
+<p>which yields:</p>
 <pre class="literal-block">
 'https://www.example.com' + 'foo/bar/quux.js'
-        -&gt; 'https://www.example.com/foo/bar/quux.js'
+        -> 'https://www.example.com/foo/bar/quux.js'
 'https://www.example.com' + '2016/07/12/release/index.html'
-        -&gt; 'https://www.example.com/2016/07/12/release/index.html'
+        -> 'https://www.example.com/2016/07/12/release/index.html'
 'https://www.example.com/' + '2016/07/12/release/index.html'
-        -&gt; 'https://www.example.com/2016/07/12/release/index.html'
+        -> 'https://www.example.com/2016/07/12/release/index.html'
 'https://www.example.com/pre/fix' + '2016/07/12/release/index.html'
-        -&gt; 'https://www.example.com/pre/fix/2016/07/12/release/index.html'
+        -> 'https://www.example.com/pre/fix/2016/07/12/release/index.html'
 </pre>
 <p>Note that if the <tt class="docutils literal">path</tt> argument to my <tt class="docutils literal">urljoin</tt> function is absolute,
-any path suffix to <tt class="docutils literal">site</tt> is&nbsp;discarded:</p>
+any path suffix to <tt class="docutils literal">site</tt> is discarded:</p>
 <pre class="literal-block">
 'https://www.example.com/pre/fix' + '/abs/path'
-        -&gt; 'https://www.example.com/abs/path'
+        -> 'https://www.example.com/abs/path'
 </pre>
 <p>That in turn can be fixed by using <tt class="docutils literal"><span class="pre">str.split('/')</span></tt>
-and discarding any empty&nbsp;segments.</p>
-
-<pre class="brush: python">
-def urljoin(site, path):
-    if isinstance(path, six.string_types):
-        segments = [s for s in path.split('/') if s]
-    else:
-        segments = path  # assume list or tuple
-    return abs_urljoin(site, path_urljoin(urlparse(site).path, *segments))
+and discarding any empty segments.</p>
+<pre class="code python literal-block">
+<span class="k">def</span> <span class="nf">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">six</span><span class="o">.</span><span class="n">string_types</span><span class="p">):</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span> <span class="k">if</span> <span class="n">s</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">segments</span> <span class="o">=</span> <span class="n">path</span>  <span class="c1"># assume list or tuple</span>
+    <span class="k">return</span> <span class="n">abs_urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="n">urlparse</span><span class="p">(</span><span class="n">site</span><span class="p">)</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="o">*</span><span class="n">segments</span><span class="p">))</span>
 </pre>
-
 <p>Thus:</p>
 <pre class="literal-block">
 'https://www.example.com/pre/fix' + '/abs/path'
-    -&gt; 'https://www.example.com/pre/fix/abs/path'
+    -> 'https://www.example.com/pre/fix/abs/path'
 'https://www.example.com/pre/fix' + '('one', 'two', 'three')'
-    -&gt; 'https://www.example.com/pre/fix/one/two/three'
+    -> 'https://www.example.com/pre/fix/one/two/three'
 </pre>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

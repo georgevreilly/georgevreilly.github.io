@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-10-16">2009-10-16</time>
+        <h1>
+            <a href="/blog/2009/10/16/ThirdPartyCookies.html" rel="bookmark canonical">Third-Party Cookies</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://lifehacker.com/5334984/web-sites-using-flash-instead-of-browser-cookies-to-track-your-activity"></a>
+<p>Over the last few weeks,
+I built a PHP ap­pli­ca­tion that <a class="reference external" href="http://approvereferendum71.org/create-a-profile-picture">overlays Approve 71 banners on profile pictures</a>.
+The actual ap­pli­ca­tion is hosted in an iframe
+and lives on a server in a different domain, <tt class="docutils literal">eq.dm</tt>,
+than the main server at <tt class="docutils literal">ap­proveref­er­en­dum71.org</tt>.</p>
+<p>This works fine in most browsers.
+Then we started getting reports that it wasn't working in IE8 on Win7 RC1.
+The iframe content was blank.</p>
+<p>Poking around, I found the problem with the <a class="reference external" href="http://www.fiddler2.com/fiddler2/">Fiddler proxy</a>.
+The landing page on <tt class="docutils literal">eq.dm</tt> was supposed to stick some in­for­ma­tion into the PHP session,
+then redirect to a second page at the same site.
+The second page was in an endless loop, redi­rect­ing <span>&#8230;<a href="/blog/2009/10/16/ThirdPartyCookies.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/web/" rel="tag">web</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-01-10">2008-01-10</time>
+        <h1>
+            <a href="/blog/2008/01/10/ReviewDefensiveDesignForTheWeb.html" rel="bookmark canonical">Review: Defensive Design for the Web</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=073571410X"></a>
+<div class="line-block">
+<div class="line">Title: Defensive Design for the Web</div>
+<div class="line">Author: 37 Signals</div>
+<div class="line">Rating: ★ ★ ★ ½</div>
+<div class="line">Publisher: New Riders</div>
+<div class="line">Copyright: 2004</div>
+<div class="line">ISBN: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=073571410X">073571410X</a></div>
+<div class="line">Pages: 246</div>
+<div class="line">Keywords: pro­gram­ming, web</div>
+<div class="line">Reading period: 23 December, 2007 - 9 January, 2008</div>
+</div>
+<p>This book contains 40 usability guidelines for websites,
+ranging from
+<em>Eliminate the Reset button and
+disable the Submit button after it's clicked</em> to
+<em>Give an error message that's noticeable at a glance</em> to
+<em>Be upfront about item un­avail­abi­ity</em>.
+The topics include error messages, clear in­struc­tions,
+friendly forms, overcoming missing pages, helpful help,
+obstacles to conversion, and search.</p>
+<p>When I state them that baldly, they sound obvious.
+But they're not.
+The 37 Signals guys have amply il­lus­trat­ed each guideline
+with examples of sites that violated the guideline,
+and <span>&#8230;<a href="/blog/2008/01/10/ReviewDefensiveDesignForTheWeb.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>,
+                <a href="/tag/programming/" rel="tag">programming</a>
+                    and
+                    
+                <a href="/tag/web/" rel="tag">web</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

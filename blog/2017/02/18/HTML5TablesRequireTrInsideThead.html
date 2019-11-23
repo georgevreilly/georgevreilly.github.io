@@ -12,7 +12,7 @@
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="When I learned HTML tables back in the 90s,
 at som..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="html" />
 </head>
 <body>
   <header>
@@ -24,6 +24,7 @@ at som..." />
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -36,43 +37,48 @@ at som..." />
         </h1>
     </header>
     <p>When I learned <span class="caps">HTML</span> tables back in the 90s,
-at some point I discovered the <tt class="docutils literal">&lt;thead&gt;</tt> element
-for grouping the <tt class="docutils literal">&lt;th&gt;</tt> column headers.
-What I missed was there should be a <tt class="docutils literal">&lt;tr&gt;</tt> element between the two.
-In other words, a well-formed <span class="caps">HTML</span> table with a header looks like&nbsp;this:</p>
-<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">thead</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Value<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Date<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">thead</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">tbody</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span><span class="caps">USERNAME</span><span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>John.Smith<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">td</span><span class="p">&gt;</span>2017-02-18T23:47<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">tbody</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
-</pre></div>
-<p>and&nbsp;not:</p>
-<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">thead</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Value<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+at some point I discovered the <tt class="docutils literal"><thead></tt> element
+for grouping the <tt class="docutils literal"><th></tt> column headers.
+What I missed was there should be a <tt class="docutils literal"><tr></tt> element between the two.
+In other words, a well-formed <span class="caps">HTML</span> table with a header looks like this:</p>
+<pre class="code html literal-block">
+<span class="p"><</span><span class="nt">table</span><span class="p">></span>
+    <span class="p"><</span><span class="nt">thead</span><span class="p">></span>
+        <span class="p"><</span><span class="nt">tr</span><span class="p">></span>
+            <span class="p"><</span><span class="nt">th</span><span class="p">></span>Name<span class="p"></</span><span class="nt">th</span><span class="p">></span>
+            <span class="p"><</span><span class="nt">th</span><span class="p">></span>Value<span class="p"></</span><span class="nt">th</span><span class="p">></span>
+            <span class="p"><</span><span class="nt">th</span><span class="p">></span>Date<span class="p"></</span><span class="nt">th</span><span class="p">></span>
+        <span class="p"></</span><span class="nt">tr</span><span class="p">></span>
+    <span class="p"></</span><span class="nt">thead</span><span class="p">></span>
+    <span class="p"><</span><span class="nt">tbody</span><span class="p">></span>
+        <span class="p"><</span><span class="nt">tr</span><span class="p">></span>
+            <span class="p"><</span><span class="nt">td</span><span class="p">></span><span class="caps">USERNAME</span><span class="p"></</span><span class="nt">td</span><span class="p">></span>
+            <span class="p"><</span><span class="nt">td</span><span class="p">></span>John.Smith<span class="p"></</span><span class="nt">td</span><span class="p">></span>
+            <span class="p"><</span><span class="nt">td</span><span class="p">></span>2017-02-18T23:47<span class="p"></</span><span class="nt">td</span><span class="p">></span>
+        <span class="p"></</span><span class="nt">tr</span><span class="p">></span>
+    <span class="p"></</span><span class="nt">tbody</span><span class="p">></span>
+<span class="p"></</span><span class="nt">table</span><span class="p">></span>
+</pre>
+<p>and not:</p>
+<pre class="code html literal-block">
+<span class="p"><</span><span class="nt">table</span><span class="p">></span>
+    <span class="p"><</span><span class="nt">thead</span><span class="p">></span>
+        <span class="p"><</span><span class="nt">th</span><span class="p">></span>Name<span class="p"></</span><span class="nt">th</span><span class="p">></span>
+        <span class="p"><</span><span class="nt">th</span><span class="p">></span>Value<span class="p"></</span><span class="nt">th</span><span class="p">></span>
         …
-</pre></div>
-<p>The latter form—<tt class="docutils literal">&lt;thead&gt;</tt> directly enclosing <tt class="docutils literal">&lt;th&gt;</tt>s—had always worked for me.
+</pre>
+<p>The latter form—<tt class="docutils literal"><thead></tt> directly enclosing <tt class="docutils literal"><th></tt>s—had always worked for me.
 Until yesterday when I ran afoul of an <span class="caps">HTML5</span> validator on a remote <span class="caps">API</span>,
-which simply would not let me proceed until I wrapped my <tt class="docutils literal">&lt;th&gt;</tt> cells with a <tt class="docutils literal">&lt;tr&gt;</tt>.</p>
-<p>Who&nbsp;knew?</p>
+which simply would not let me proceed until I wrapped my <tt class="docutils literal"><th></tt> cells with a <tt class="docutils literal"><tr></tt>.</p>
+<p>Who knew?</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/html/" rel="tag">html</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

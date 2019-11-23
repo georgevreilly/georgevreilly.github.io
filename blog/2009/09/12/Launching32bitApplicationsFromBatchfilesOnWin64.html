@@ -12,7 +12,7 @@
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: /content/binary/win64-biticon.gif
     :..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="windows, cmd" />
 </head>
 <body>
   <header>
@@ -24,6 +24,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -36,17 +37,17 @@
         </h1>
     </header>
     <img alt="Win64" class="right-float" src="/content/binary/win64-biticon.gif"/>
-<p>I&#8217;ve been running the <a class="reference external" href="/blog/2009/06/20/WhenVideoCardsGoBad.html">64-bit version of Windows 7 <span class="caps">RC</span></a> since June.
-It&#8217;s been quite painless on the&nbsp;whole.</p>
+<p>I’ve been running the <a class="reference external" href="/blog/2009/06/20/WhenVideoCardsGoBad.html">64-bit version of Windows 7 <span class="caps">RC</span></a> since June.
+It’s been quite painless on the whole.</p>
 <p>One wrinkle that I ran into was with some batchfiles which
-launch ap&shy;pli&shy;ca&shy;tions in <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> (normally <tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files</span></tt>).
+launch ap&shy;pli&shy;ca&shy;tions in <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> (normally <tt class="docutils literal"><span class="pre">C:\Program Files</span></tt>).
 Due to the magic <a class="reference external" href="http://blogs.msdn.com/craigmcmurtry/archive/2004/12/14/301155.aspx"><span class="caps">WOW64</span> redirector</a>, 32-bit ap&shy;pli&shy;ca&shy;tions
-are actually installed into <tt class="docutils literal">%Pro&shy;gram&shy;Files(x86)%</tt>—normally <tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files&nbsp;(x86)</span></tt>—instead of <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt>.
+are actually installed into <tt class="docutils literal">%Pro&shy;gram&shy;Files(x86)%</tt>—normally <tt class="docutils literal"><span class="pre">C:\Program Files (x86)</span></tt>—instead of <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt>.
 This is trans&shy;par&shy;ent to the 32-bit ap&shy;pli&shy;ca&shy;tions,
-which think they&#8217;re running in <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> (<tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files</span></tt>).</p>
+which think they’re running in <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> (<tt class="docutils literal"><span class="pre">C:\Program Files</span></tt>).</p>
 <p>However, the cmd.exe shell is 64-bit
 (unless you make a special effort to run the 32-bit cmd.exe in SysWOW64),
-so batchfiles see the 64-bit <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> which contains 64-bit&nbsp;ap&shy;pli&shy;ca&shy;tions.</p>
+so batchfiles see the 64-bit <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> which contains 64-bit ap&shy;pli&shy;ca&shy;tions.</p>
 <p>Hence, a batchfile that launches an installed 32-bit ap&shy;pli&shy;ca&shy;tion on Win64
 must use <tt class="docutils literal">%Pro&shy;gram&shy;Files(x86)%</tt>, not <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt>.</p>
 <p>It sounds trivial to have a batchfile detect
@@ -54,22 +55,29 @@ which flavor of <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> it sh
 but the paren&shy;the&shy;ses in the en&shy;vi&shy;ron&shy;ment variable name make it <a class="reference external" href="http://marsbox.com/blog/howtos/batch-file-programfiles-x86-parenthesis-anomaly/">tricky</a> to parse.
 On earlier versions of Win64, the en&shy;vi&shy;ron&shy;ment variable was called <tt class="docutils literal">%Pro&shy;gram&shy;Filesx86%</tt>.
 Presumably they added the strange paren&shy;the&shy;ses into the variable name
-because the directory name always included&nbsp;them.</p>
-<p>Here&#8217;s a tiny batchfile that will launch the 32-bit <a class="reference external" href="http://www.sourcegear.com/diffmerge/">DiffMerge</a>
-correctly on both Win64 and Win32&nbsp;platforms.</p>
-<div class="highlight"><pre><span></span><span class="p">@</span><span class="k">setlocal</span>
+because the directory name always included them.</p>
+<p>Here’s a tiny batchfile that will launch the 32-bit <a class="reference external" href="http://www.sourcegear.com/diffmerge/">DiffMerge</a>
+correctly on both Win64 and Win32 platforms.</p>
+<pre class="code bat literal-block">
+<span class="p">@</span><span class="k">setlocal</span>
 <span class="p">@</span><span class="k">set</span> <span class="nv">_pf</span><span class="p">=</span><span class="nv">%ProgramFiles%</span>
-<span class="p">@</span><span class="k">if</span> <span class="k">not</span> <span class="s2">&quot;[</span><span class="nv">%ProgramFiles(x86)%</span><span class="s2">]&quot;</span><span class="o">==</span><span class="s2">&quot;[]&quot;</span> <span class="k">set</span> <span class="nv">_pf</span><span class="p">=</span><span class="nv">%ProgramFiles(x86)%</span>
-<span class="p">@</span><span class="k">start</span> <span class="s2">&quot;&quot;</span> /b <span class="s2">&quot;</span><span class="nv">%_pf%</span><span class="s2">\SourceGear\DiffMerge\DiffMerge.exe&quot;</span> <span class="nv">%*</span>
-</pre></div>
+<span class="p">@</span><span class="k">if</span> <span class="k">not</span> <span class="s2">"[</span><span class="nv">%ProgramFiles(x86)%</span><span class="s2">]"</span><span class="o">==</span><span class="s2">"[]"</span> <span class="k">set</span> <span class="nv">_pf</span><span class="p">=</span><span class="nv">%ProgramFiles(x86)%</span>
+<span class="p">@</span><span class="k">start</span> <span class="s2">""</span> /b <span class="s2">"</span><span class="nv">%_pf%</span><span class="s2">\SourceGear\DiffMerge\DiffMerge.exe"</span> <span class="nv">%*</span>
+</pre>
 <p>I long ago found that the safest way to test en&shy;vi&shy;ron&shy;ment variables
 whose values may include spaces, is to surround them with
-both double quotes and square&nbsp;brackets.</p>
+both double quotes and square brackets.</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/windows/" rel="tag">windows</a>
+                    and
+                    
+                <a href="/tag/cmd/" rel="tag">cmd</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

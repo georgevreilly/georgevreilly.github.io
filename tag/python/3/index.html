@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-01-17">2016-01-17</time>
+        <h1>
+            <a href="/blog/2016/01/17/RelativeImportsInAPythonScript.html" rel="bookmark canonical">Relative Imports in a Python Script</a>
+        </h1>
+    </header>
+    <p>Have you ever attempted a <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">relative import</a> in a Python script?</p>
+<pre class="code bash literal-block">
+$ ./foo/bar/script.py some parameters
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">"foo/bar/script.py"</span>, line <span class="m">16</span>, in <module>
+    from .quux import find_vcs
+ValueError: Attempted relative import in non-package
+</module>
+<p>I prefer to use <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">absolute imports</a> to minimize ambiguity and confusion,
+and most of my Python modules begin with:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span>
+</pre>
+<p>(Using <a class="reference external" href="https://www.python.org/dev/peps/pep-3112/">uni­code_lit­er­als</a> and <a class="reference external" href="https://www.python.org/dev/peps/pep-3105/">print­_­func­tion</a> makes porting to Python 3 easier.)</p>
+<p>I recently read the accepted answer to <a class="reference external" href="http://stackoverflow.com/questions/14132789/python-relative-imports-for-the-billionth-time">Python relative imports for the billionth time</a>
+and the solution to the above <tt class="docutils literal">ValueError</tt> occurred to me:
+Use <tt class="docutils literal">python <span class="pre">-m</span> package</tt> instead:</p>
+<pre class="code bash literal-block">
+$ python -m foo.bar.script some parameters
+</pre>
+<p>(Assuming that </p></pre><span>&#8230;<a href="/blog/2016/01/17/RelativeImportsInAPythonScript.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-16">2016-01-16</time>
+        <h1>
+            <a href="/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html" rel="bookmark canonical">Installing Python 2.7.11 on Ubuntu</a>
+        </h1>
+    </header>
+    <p>We deploy on Ubuntu 14.04, the most recent Long Term Support release.
+It comes with Python 2.7.6,
+but we need Python 2.7.9+ to get the some important SSL fixes
+and work with a recent version of the <a class="reference external" href="http://docs.python-requests.org/en/latest/">Requests</a> library.</p>
+<p>Felix Krull maintains a Personal Package Archive for <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes-python2.7">Python 2.7 Updates</a>,
+which makes it straight­for­ward to upgrade to Python 2.7.11
+on supported versions of Ubuntu.</p>
+<pre class="code bash literal-block">
+sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
+sudo apt-get update
+sudo apt-get install python2.7 python2.7-dev
+</pre>
+<p>Be sure not to use Felix Krull's <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes">other Python PPA</a> by mistake.
+I did that on a col­league's machine yesterday.
+In our attempts to figure out why we still had Python 2.7.6,
+we managed to mess up the <span>&#8230;<a href="/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-14">2016-01-14</time>
+        <h1>
+            <a href="/blog/2016/01/14/PythonBaseClassOrder.html" rel="bookmark canonical">Python Base Class Order</a>
+        </h1>
+    </header>
+    <p>When I declare a derived class that inherits
+from both a base class and some mixins,
+I am always tempted to write:</p>
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">Mixin1</span><span class="p">,</span> <span class="n">Mixin2</span><span class="p">):</span>
+    <span class="s2">"Some class"</span>
+</pre>
+<p>My reasoning is that <tt class="docutils literal">Derived</tt> is a <tt class="docutils literal">Base</tt>
+with some <tt class="docutils literal">Mixin1</tt> and <tt class="docutils literal">Mixin2</tt> goodness sprinkled on.
+Generally, that's fine.
+The exception is when I want one of the mixins to override
+a method or attribute that's defined in <tt class="docutils literal">Base</tt>.
+Because the <a class="reference external" href="http://python-history.blogspot.com/2010/06/method-resolution-order.html">Method Resolution Order</a> is left-to-right,
+then <tt class="docutils literal">Base</tt>'s im­ple­men­ta­tion will always be found first.</p>
+<p>To get the desired behavior of the mixin overriding the base,
+<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in­her­i­tance list.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="k">class</span> <span class="nc">Useful</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    </pre><span>&#8230;<a href="/blog/2016/01/14/PythonBaseClassOrder.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-04">2016-01-04</time>
+        <h1>
+            <a href="/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html" rel="bookmark canonical">Obfuscating Passwords in URLs in Python</a>
+        </h1>
+    </header>
+    <p>New MetaBrite Dev Blog post,
+<a class="reference external" href="http://www.metabrite.com/devblog/posts/python-obfuscate-url-password/">Ob­fus­cat­ing Passwords in URLs in Python</a>.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-12-30">2015-12-30</time>
+        <h1>
+            <a href="/blog/2015/12/30/UseForPythonNestedListComprehensions.html" rel="bookmark canonical">Python: a use for nested list comprehensions</a>
+        </h1>
+    </header>
+    <p>I wanted to turn a list like
+<tt class="docutils literal"><span class="pre">['*.zip',</span> <span class="pre">'*.pyc',</span> <span class="pre">'*.log']</span></tt> into
+<tt class="docutils literal"><span class="pre">['--exclude',</span> <span class="pre">'*.zip',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.pyc',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.log']</span></tt>.</p>
+<p>A simple list com­pre­hen­sion doesn't work as desired:</p>
+<pre class="code python literal-block">
+<span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">excludes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">)]</span>
+</pre>
+<p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com­pre­hen­sion</a>:</p>
+<pre class="code python literal-block">
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="n">arg</span> <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">excludes</span>
+             <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">pattern</span><span class="p">]]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
+</pre>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-12-23">2015-12-23</time>
+        <h1>
+            <a href="/blog/2015/12/23/ParseMinVerBash.html" rel="bookmark canonical">Checking minimum version numbers in Bash</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://cube-drone.com/comics/c/version-sacrifice"></a>
+<p>I worked on a Bash script today that sets up various pre­req­ui­sites for our build.
+We need a recent version of Docker
+but our <a class="reference external" href="https://www.atlassian.com/software/bamboo/">Bamboo</a> build agents are running on Ubuntu 14.04,
+which has a very old version of Docker.
+The script upgrades Docker when it's first run.
+The script may be run more than once during the lifetime of the agent,
+so the second and subsequent calls should not upgrade Docker.</p>
+<p>Basically, I wanted</p>
+<pre class="code bash literal-block">
+<span class="k">if</span> <span class="nv">$DOCKER_VERSION</span> < <span class="m">1</span>.9<span class="p">;</span> <span class="k">then</span> upgrade_docker<span class="p">;</span> <span class="k">fi</span>
+</pre>
+<p>Un­for­tu­nate­ly, it's not that easy in Bash.
+Here's what I came up with.</p>
+<pre class="code bash literal-block">
+install_latest_docker<span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> docker --version <span class="p">|</span> python -c <span class="s2">"min=[1, 9]; import sys; ↩
+v=[int(x) </span></pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/bash/" rel="tag">bash</a>
+                    and
+                    
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-12-21">2015-12-21</time>
+        <h1>
+            <a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" rel="bookmark canonical">Including Data Files in Python Packages</a>
+        </h1>
+    </header>
+    <p>New post at the MetaBrite Dev Blog:
+<a class="reference external" href="http://www.metabrite.com/devblog/posts/including-data-files-in-python-packages/">Including Data Files in Python Packages</a></p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-12-15">2015-12-15</time>
+        <h1>
+            <a href="/blog/2015/12/15/PythonFStrings.html" rel="bookmark canonical">Python f-strings</a>
+        </h1>
+    </header>
+    <p>At this month's <a class="reference external" href="http://www.meetup.com/PSPPython/">PuPPy (Puget Sound Pro­gram­ming Python) Meetup</a>,
+I heard a brief mention of <a class="reference external" href="https://www.python.org/dev/peps/pep-0498/">Python f-strings</a>
+as a new feature coming in Python 3.6.</p>
+<p>In essence, they offer a simpler, more versatile method
+of string formatting and in­ter­po­la­tion
+over existing methods.
+F-strings can include not only symbol names
+but Python <em>ex­pres­sions</em> within strings.
+With <a class="reference external" href="https://docs.python.org/3/library/string.html#formatstrings">str.format</a>, you can write
+<tt class="docutils literal">'Hello, <span class="pre">{name}'.format(name=some_name)</span></tt>.
+You can control various aspects of how <tt class="docutils literal">name</tt> is formatted,
+such as being centered within a field—see <a class="reference external" href="https://pyformat.info/">PyFormat</a> and <a class="reference external" href="https://mkaz.github.io/2012/10/10/python-string-format/">Python String Format Cookbook</a>
+for ex­am­ples—but no more complex expression is allowed between the braces.</p>
+<p>Herewith some examples of f-string ex­pres­sions
+drawn from <a class="reference external" href="https://www.python.org/dev/peps/pep-0498/">PEP 0498</a>:</p>
+<pre class="code python literal-block">
+<span class="o">>>></span> <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1991</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="o">>>></span> <span class="n">f</span><span class="s1">'{date} was on a </span></pre><span>&#8230;<a href="/blog/2015/12/15/PythonFStrings.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-12-05">2015-12-05</time>
+        <h1>
+            <a href="/blog/2015/12/05/python-print-formatting.html" rel="bookmark canonical">Python Print Formatting</a>
+        </h1>
+    </header>
+    <p>On Stack­Over­flow, someone wanted to
+<a class="reference external" href="http://stackoverflow.com/questions/34109838/for-while-loops-to-make-triangles">print triangles in Python</a>
+in an M-shape.
+Various clumsy solutions were offered.</p>
+<p>Here's mine which uses the left- and right-jus­ti­fi­ca­tion features of
+<a class="reference external" href="https://docs.python.org/2/library/string.html#formatstrings">str.format</a>.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">"{0}+++{0}".format('Hello!')</span></tt> produces two copies of the zeroth argument to <tt class="docutils literal">format</tt>
+(here <tt class="docutils literal">'Hello!'</tt>), separated by three plusses: <tt class="docutils literal"><span class="pre">Hello!+++Hello!</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">"{:<4}".format('x')</span></tt> left-justifies <tt class="docutils literal">'x'</tt> in a 4-character field; i.e., <tt class="docutils literal">'x   '</tt>.</li>
+<li><tt class="docutils literal"><span class="pre">"{:>4}".format('x')</span></tt> right-justifies <tt class="docutils literal">'x'</tt> in a 4-character field; i.e., <tt class="docutils literal">'   x'</tt>.</li>
+<li><tt class="docutils literal"><span class="pre">"{:>{}}".format('x',</span> width)</tt> right-justifies <tt class="docutils literal">'x'</tt> in a <tt class="docutils literal">width</tt>-character field.</li>
+<li><tt class="docutils literal">'ab' * 4</tt> yields 4 copies of <tt class="docutils literal">'ab'</tt>; i.e., <tt class="docutils literal">'abababab'</tt>.</li>
+</ul>
+<p>Putting them together:</p>
+<pre class="literal-block">
+>>> WIDTH = 4
+>>>
+>>> for a in range(1, WIDTH+1):
+...     print("{0:<{1}}{0:>{1}}".format('*' * a, WIDTH))
+...
+*      *
+**    **
+*** </pre><span>&#8230;<a href="/blog/2015/12/05/python-print-formatting.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-12-01">2015-12-01</time>
+        <h1>
+            <a href="/blog/2015/12/01/ExplainingEpilogFnmatchTranslate.html" rel="bookmark canonical">Explaining the epilog of fnmatch.translate, \Z(?ms)</a>
+        </h1>
+    </header>
+    <p>I was debugging a <a class="reference external" href="http://stackoverflow.com/a/5141829/6364">filtering directory walker</a>
+(on which, more to follow)
+and I was trying to figure out
+the mysterious suffix that
+<a class="reference external" href="https://docs.python.org/2/library/fnmatch.html#fnmatch.translate">fnmatch.translate</a>
+appends to its result,
+<tt class="docutils literal"><span class="pre">\Z(?ms)</span></tt>.</p>
+<p><tt class="docutils literal">fnmatch.translate</tt> takes a Unix-style glob,
+like <tt class="docutils literal">*.py</tt> or <tt class="docutils literal"><span class="pre">test_*.py[cod]</span></tt>,
+and translates it character-by-character into a regular expression.
+It then appends <tt class="docutils literal"><span class="pre">\Z(?ms)</span></tt>.
+Hence the latter glob becomes <tt class="docutils literal"><span class="pre">r'test\_.*\.py[cod]\Z(?ms)'</span></tt>,
+using Python's raw string notation to avoid the
+<a class="reference external" href="https://docs.python.org/2/howto/regex.html#the-backslash-plague">backslash plague</a>.
+Also, the <tt class="docutils literal">?</tt> wildcard character becomes the <tt class="docutils literal">.</tt> regex special character,
+while the <tt class="docutils literal">*</tt> wildcard becomes the <tt class="docutils literal">.*</tt> greedy regex.</p>
+<p>A <a class="reference external" href="http://stackoverflow.com/a/11998653/6364">Stack­Over­flow answer partially explains</a>,
+which set me on the right track.
+<tt class="docutils literal"><span class="pre">(?ms)</span></tt> is equivalent to compiling the regex with <tt class="docutils literal">re.MULTILINE | re.DOTALL</tt>.
+The <tt class="docutils literal">re.DOTALL</tt> modifier makes the <tt class="docutils literal">.</tt> special character match <em>any</em> <span>&#8230;<a href="/blog/2015/12/01/ExplainingEpilogFnmatchTranslate.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+        <a href="/tag/python/4/" class="page floatright">
+        Previous &raquo;
+        </a>
+    
+    
+        <a href="/tag/python/2/" class="page floatleft">
+        &laquo; Next
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

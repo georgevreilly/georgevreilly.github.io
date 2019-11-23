@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2017-01-31">2017-01-31</time>
+        <h1>
+            <a href="/blog/2017/01/31/NegativeCircledDigits.html" rel="bookmark canonical">Negative Circled Digits</a>
+        </h1>
+    </header>
+    <p>I found something very useful in the <a class="reference external" href="http://graphemica.com/blocks/dingbats">dingbats</a> range of Unicode characters:
+the negative circled san-serif digits, ➊ ➋ ➌ ➍ ➎ ➏ ➐ ➑ ➒ ➓ .</p>
+<p>I've started using them to label points of interest in code.
+They play well with the <tt class="docutils literal"><span class="pre">code-block</span></tt> directive in re­Struc­tured­Text.</p>
+<pre class="code bash literal-block">
+sudo docker images --format <span class="s1">'{{.Repository}}:{{.Tag}}'</span> <span class="se">\ </span>   ➊
+    <span class="p">|</span> grep <span class="nv">$IMAGE_NAME</span> <span class="se">\ </span>                                   ➋
+    </pre><span>&#8230;<a href="/blog/2017/01/31/NegativeCircledDigits.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/writing/" rel="tag">writing</a>,
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/font/" rel="tag">font</a>
+                    and
+                    
+                <a href="/tag/blogging/" rel="tag">blogging</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2017-01-02">2017-01-02</time>
+        <h1>
+            <a href="/blog/2017/01/02/BlogCleanup.html" rel="bookmark canonical">Blog Cleanup</a>
+        </h1>
+    </header>
+    <p>I started this blog 14 years ago, in February 2003,
+on EraBlog, a long-defunct platform.
+Many of my early posts expressed outrage at the imminent Iraq War.
+Within a couple of years,
+I had moved to running <a class="reference external" href="https://github.com/shanselman/dasblog">dasBlog</a> on my own website, hosted at <a class="reference external" href="http://ihost.net/">ihost.net</a>.</p>
+<p>I wrote a lot of posts over the next decade.
+With rare exception, most posts were composed offline as re­Struc­tured­Text
+and saved in a repository.
+There was no formal schema and most posts did not know their permalink.</p>
+<p>In late 2014, I moved to the <a class="reference external" href="https://posativ.org/acrylamid/">Acrylamid</a> static blog generator
+and I hosted <a class="reference external" href="http://www.georgevreilly.com/">www.georgevreil­ly.com</a> at GitHub Pages.
+I migrated most of the dasBlog content into a more <span>&#8230;<a href="/blog/2017/01/02/BlogCleanup.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/blogging/" rel="tag">blogging</a>,
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-04-10">2016-04-10</time>
+        <h1>
+            <a href="/blog/2016/04/10/TufteMakeover.html" rel="bookmark canonical">Tufte Makeover</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.linotype.com/1118/bembo.html"></a>
+<p>I've long been a fan of <a class="reference external" href="https://www.edwardtufte.com/tufte/">Edward Tufte</a>'s work.
+I'm also a fan of <a class="reference external" href="https://en.wikipedia.org/wiki/Serif#Old-style">old-style serif fonts</a>, such as <a class="reference external" href="https://en.wikipedia.org/wiki/Bembo">Bembo</a>.</p>
+<p>I happened across the <a class="reference external" href="http://rstudio.github.io/tufte/">R Studio Tufte Handout Style</a> yesterday,
+and I was im­me­di­ate­ly struck by how much it resembles Tufte's books.
+It uses <a class="reference external" href="http://edwardtufte.github.io/tufte-css/">Tufte CSS</a> and the open-source <a class="reference external" href="https://github.com/edwardtufte/et-book">Tufte Book Font</a>.
+ETBook is a “computer version” of Bembo that Tufte con­struct­ed
+for the more recent editions of his books,
+sup­plant­i­ng the lead type of the earlier editions.</p>
+<p>I've adapted this blog's stylesheet to use ETBook
+and some of the other settings from tufte.css.
+It's not completely faithful;
+e.g., headings are bold, not italic.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/font/" rel="tag">font</a>,
+                <a href="/tag/design/" rel="tag">design</a>
+                    and
+                    
+                <a href="/tag/blogging/" rel="tag">blogging</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-11-30">2015-11-30</time>
+        <h1>
+            <a href="/blog/2015/11/30/OnBlogging.html" rel="bookmark canonical">On Blogging</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://litreactor.com/columns/blogging-an-extension-of-craft"></a>
+<p>Blogging has been on my mind lately,
+as I've just set up an <a class="reference external" href="http://www.metabrite.com/devblog/">en­gi­neer­ing blog</a> at work.</p>
+<p>I gave a speech about blogging earlier tonight
+to my club, <a class="reference external" href="http://freelyspeaking.org/">Freely Speaking Toast­mas­ters</a>.
+I no longer write speeches be­fore­hand;
+I ex­tem­po­rized my speech from a
+<a class="reference external" href="/blog/2007/01/09/MindMappingSpeech.html">mindmap</a>
+that I had prepared yesterday.
+This post is a more coherent and expanded rendition of my points.</p>
+<p>As Toast­mas­ters, we give speeches about topics that interest us,
+when we want to share or inform or entertain.
+A live, in-person speech reaches a direct audience at one point in time.
+A written blog post can reach a much larger audience.
+Toast­mas­ters have something to say, whether in person or in <span>&#8230;<a href="/blog/2015/11/30/OnBlogging.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/blogging/" rel="tag">blogging</a>,
+                <a href="/tag/writing/" rel="tag">writing</a>
+                    and
+                    
+                <a href="/tag/toastmasters/" rel="tag">toastmasters</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2014-12-30">2014-12-30</time>
+        <h1>
+            <a href="/blog/2014/12/30/Blog2014.html" rel="bookmark canonical">Blog 2014</a>
+        </h1>
+    </header>
+    <p>My DasBlog-based blog at <a class="reference external" href="http://www.georgevreilly.com/blog/">http://www.georgevreil­ly.com/blog/</a>
+has been out of commission for months.
+I've been meaning to replace it for a long time,
+but I only just got around to making a serious effort,
+as I realized that otherwise I would have no posts at all for 2014.
+I received only a handful of complaints about its absence;
+if there had been more, I would have fixed it sooner.</p>
+<p><a class="reference external" href="http://dasblog.codeplex.com/">DasBlog</a> is a fairly light­weight blogging engine that runs on ASP.NET.
+It doesn't require a database,
+but it does require the ability to write XML blogpost entries to the local filesystem.
+That's a non-standard con­fig­u­ra­tion for ASP.NET and IIS websites,
+which inevitably causes <span>&#8230;<a href="/blog/2014/12/30/Blog2014.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/blogging/" rel="tag">blogging</a>,
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2013-01-20">2013-01-20</time>
+        <h1>
+            <a href="/blog/2013/01/20/StaticWebsiteConversions.html" rel="bookmark canonical">Static Website Conversions</a>
+        </h1>
+    </header>
+    
+
+<p>I've spent time over the last three weeks
+working on a new website for the <a class="reference external" href="http://nwcpp.org/">Northwest C++ Users' Group</a>.
+I blogged about the <a class="reference external" href="http://nwcpp.org/2013-website-refresh.html">NWCPP website refresh</a> over there.
+In brief, I moved the website
+from an instance of the <a class="reference external" href="http://www.joomla.org/">Joomla</a> Content Management System at <a class="reference external" href="http://www.justhost.com/">Just Host</a>
+to a static website generated by <a class="reference external" href="http://blog.getpelican.com/">Pelican</a> and hosted at <a class="reference external" href="http://pages.github.com/">Github Pages</a>,
+and I'm happy with the results.</p>
+<p>Not only am I the Webmaster (and Secretary) of NWCPP,
+I am also the webmaster for several other or­ga­ni­za­tions:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.wildgeeseseattle.org/">Wild Geese Players of Seattle</a>,
+a static HTML site badly in need of a makeover
+(I'm the Director, Dramaturg, and Webmaster).</li>
+<li><a class="reference external" href="http://www.freelyspeaking.org/">Freely Speaking Toast­mas­ters</a>,
+a dynamic site based on the <span>&#8230;<a href="/blog/2013/01/20/StaticWebsiteConversions.html" class="continue">continue</a>.</span></li></ul>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/blogging/" rel="tag">blogging</a>
+                    and
+                    
+                <a href="/tag/tech/" rel="tag">tech</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-12-09">2008-12-09</time>
+        <h1>
+            <a href="/blog/2008/12/09/TheTubesHaveEars.html" rel="bookmark canonical">The Tubes Have Ears</a>
+        </h1>
+    </header>
+    
+<p>Be careful what you say:
+you might trigger a Google Alert.</p>
+<p>Eric had the temerity last week to <a class="reference external" href="http://offby1-whining.blogspot.com/2008/12/pentaho.html">gripe</a> on his blog
+about a certain open source business in­tel­li­gence product,
+and got swarmed by irate defenders.
+Apparently he showed up in their Google Alerts.
+Some of the posters were helpful,
+but the <em>ad hominem</em> attackers were more en­ter­tain­ing:</p>
+<blockquote>
+Your blog has had 22 posts in the past year, and your blogroll includes
+absolutely no one of note in the open source world. So I think it’s
+safe to say that while you are pointing out a perception that they
+should address in some way, that your opinion isn’t worth much.</blockquote>
+<p>I'm in <span>&#8230;<a href="/blog/2008/12/09/TheTubesHaveEars.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/blogging/" rel="tag">blogging</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-12-08">2008-12-08</time>
+        <h1>
+            <a href="/blog/2008/12/08/NaBloPoMo.html" rel="bookmark canonical">NaBloPoMo</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.nablopomo.com/"></a>
+<p>In a footnote to the post about <a class="reference external" href="/blog/2008/11/08/NoOnProposition8.html">Propo­si­tion 8</a> on November 7th,
+I said that it was the first in a series of daily posts for <a class="reference external" href="http://nablopomo.ning.com/">NaBloPoMo</a>,
+the National Blog Posting Month, which I had just found out about.</p>
+<p>Here I am a month later, having posted something every single evening.
+I covered humor; movie and book reviews; being the #1 tech blog (now #2);
+politics; Thanks­giv­ing; food; personal stuff; and even some technical posts.
+Whew!</p>
+<p>Why bother? As with the two-year-old exercise in book reviews,
+it was a personal challenge to come up with a post every single evening
+for a month.
+Sometimes, the events of the day made <span>&#8230;<a href="/blog/2008/12/08/NaBloPoMo.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/personal/" rel="tag">personal</a>,
+                <a href="/tag/writing/" rel="tag">writing</a>
+                    and
+                    
+                <a href="/tag/blogging/" rel="tag">blogging</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-11-19">2008-11-19</time>
+        <h1>
+            <a href="/blog/2008/11/19/1TechnicalBlogRevisited.html" rel="bookmark canonical">#1 Technical Blog, revisited</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="/content/binary/technical-blog-google-2.jpg"></a>
+<p>A week ago, I said that my <a class="reference external" href="http://weblogs.asp.net/george_v_reilly/">technical blog</a> somehow comes up as
+<a class="reference external" href="/blog/2008/11/12/1TechnicalBlog.html">#1 technical blog</a> on Google.</p>
+<p>Several people pointed out that in my screenshot,
+I was logged in to Google.
+As you can see if you click on this screenshot,
+I can reproduce this result even when I'm not signed in.</p>
+<p>I'm still confounded by that ranking.
+My content is good, but largely un­re­mark­able—though
+I'm unduly fond of <a class="reference external" href="http://weblogs.asp.net/george_v_reilly/archive/2004/12/13/284388.aspx">A Use for Octal</a>;
+my style is un­der­stat­ed;
+my traffic is un­con­gest­ed;
+and my top billing is undeserved.</p>
+<p>But none of the technical blogs listed on that first page
+are of the first order, except <a class="reference external" href="http://blogs.technet.com/markrussinovich/">Mark Russi­novich</a>'s.</p>
+<p>If I thought it made sense, I'd <span>&#8230;<a href="/blog/2008/11/19/1TechnicalBlogRevisited.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/blogging/" rel="tag">blogging</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-11-12">2008-11-12</time>
+        <h1>
+            <a href="/blog/2008/11/12/1TechnicalBlog.html" rel="bookmark canonical">#1 Technical Blog</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.google.com/search?q=technical+blog"></a>
+<p>A friend whom I haven't heard from in a few years
+googled for <tt class="docutils literal">technical blog</tt> this evening,
+and my <a class="reference external" href="http://weblogs.asp.net/george_v_reilly/">technical blog</a> somehow came up as the very first hit!</p>
+<p>I have no idea how I achieved such high page rank,
+nor how I eclipsed <a class="reference external" href="http://blogs.technet.com/markrussinovich/">Mark Russi­novich</a>.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/blogging/" rel="tag">blogging</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+        <a href="/tag/blogging/2/" class="page floatright">
+        Previous &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

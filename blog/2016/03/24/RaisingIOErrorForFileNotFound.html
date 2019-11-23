@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="I wanted to raise Python&#39;s IOError_ for a file-not..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="python" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -34,25 +35,23 @@
             <a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" rel="bookmark canonical">Raising IOError for 'file not found'</a>
         </h1>
     </header>
-    <p>I wanted to raise Python&#8217;s <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.IOError">IOError</a> for a file-not-found condition,
-but it wasn&#8217;t obvious what the parameters to the exception should&nbsp;be.</p>
+    <p>I wanted to raise Python’s <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.IOError">IOError</a> for a file-not-found condition,
+but it wasn’t obvious what the parameters to the exception should be.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">errno</span> <span class="kn">import</span> <span class="n"><span class="caps">ENOENT</span></span>
 
-<pre class="brush: python">
-from errno import ENOENT
-
-if not os.path.isfile(source_file):
-    raise IOError(ENOENT, 'Not a file', source_file)
-with open(source_file) as fp:
-    return fp.read()
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">source_file</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n"><span class="caps">ENOENT</span></span><span class="p">,</span> <span class="s1">'Not a file'</span><span class="p">,</span> <span class="n">source_file</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </pre>
-
-<p><tt class="docutils literal">IOError</tt> can be in&shy;stan&shy;ti&shy;at&shy;ed with 1, 2, or 3&nbsp;arguments:</p>
+<p><tt class="docutils literal">IOError</tt> can be in&shy;stan&shy;ti&shy;at&shy;ed with 1, 2, or 3 arguments:</p>
 <dl class="docutils">
 <dt><tt class="docutils literal">IOError(errno, strerror, filename)</tt></dt>
 <dd>These arguments are available
 on the <tt class="docutils literal">errno</tt>, <tt class="docutils literal">strerror</tt>, and <tt class="docutils literal">filename</tt> attributes of the exception object,
 re&shy;spec&shy;tive&shy;ly, in both Python 2 and 3.
-The <tt class="docutils literal">args</tt> attribute contains the verbatim con&shy;struc&shy;tor arguments as a&nbsp;tuple.</dd>
+The <tt class="docutils literal">args</tt> attribute contains the verbatim con&shy;struc&shy;tor arguments as a tuple.</dd>
 <dt><tt class="docutils literal">IOError(errno, strerror)</tt></dt>
 <dd>These are available on the <tt class="docutils literal">errno</tt> and <tt class="docutils literal">strerror</tt> attributes of the exception,
 re&shy;spec&shy;tive&shy;ly, in both Python 2 and 3,
@@ -68,18 +67,21 @@ The <tt class="docutils literal">errno</tt>, <tt class="docutils literal">strerr
 You can obtain all the <tt class="docutils literal">errno</tt> error codes and de&shy;scrip&shy;tions with
 <tt class="docutils literal">[(k,v, os.strerror(k)) for k,v in <span class="pre">os.errno.errorcode.items()]</span></tt>.</p>
 <p>You may object that opening a file only after checking for its existence
-is fragile because there&#8217;s a small window between checking and opening
+is fragile because there’s a small window between checking and opening
 where the file could be removed by another process.
-You&#8217;d be right.
+You’d be right.
 In such a case, <tt class="docutils literal">open(filename)</tt> will raise
-<tt class="docutils literal">IOError(<span class="caps">ENOENT</span>, &quot;No such file or directory&quot;, filename)</tt>.
-Still, there are other cases where it&#8217;s useful to raise the 2- or 3-argument
+<tt class="docutils literal">IOError(<span class="caps">ENOENT</span>, "No such file or directory", filename)</tt>.
+Still, there are other cases where it’s useful to raise the 2- or 3-argument
 form of <tt class="docutils literal">IOError</tt>.</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

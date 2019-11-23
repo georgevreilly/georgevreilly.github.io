@@ -12,7 +12,7 @@
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: /content/binary/5star0.gif
     :alt: 0..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="programming" />
 </head>
 <body>
   <header>
@@ -24,6 +24,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -39,30 +40,33 @@
 <img alt="3.5 stars out of 5" src="/content/binary/5star3.5.gif"/>
 <img alt="5 stars out of 5" src="/content/binary/5star5.gif"/>
 <p>I want to be able to write some reviews and graph&shy;i&shy;cal&shy;ly rate them with stars.
-I put together some trans&shy;par&shy;ent stars in Gimp and added a macro to&nbsp;dasBlog.</p>
-<p>I&#8217;m going to rate this&nbsp;effort:</p>
+I put together some trans&shy;par&shy;ent stars in Gimp and added a macro to dasBlog.</p>
+<p>I’m going to rate this effort:</p>
 <p>$stars(4.5)</p>
 <p>To get this effect, I simply wrote <tt class="docutils literal">$</tt><tt class="docutils literal">stars(4.5)</tt>.</p>
 <p>(And I had to carefully construct the previous sentence so
-that dasBlog wouldn&#8217;t invoke the <tt class="docutils literal">stars</tt> macro.)</p>
-<p>I&#8217;m hardnosed. I rarely give 5/5 to anything. I don&#8217;t really expect to need
-the half stars, but I may want that fine control at some&nbsp;point.</p>
-<p>To use this in your own blog, download the <a class="reference external" href="/content/binary/5stars.zip">zipfile</a> of star&nbsp;images.</p>
-<p>Copy <tt class="docutils literal"><span class="pre">5star*.gif</span></tt> to your blog&#8217;s <tt class="docutils literal">images</tt> directory.
-The <tt class="docutils literal">*.xcf</tt> files are Gimp source&nbsp;files.</p>
-<p>Add the following line to the <tt class="docutils literal">&lt;Con&shy;tent&shy;Fil&shy;ters&gt;</tt> section of your blog&#8217;s&nbsp;site.config:</p>
+that dasBlog wouldn’t invoke the <tt class="docutils literal">stars</tt> macro.)</p>
+<p>I’m hardnosed. I rarely give 5/5 to anything. I don’t really expect to need
+the half stars, but I may want that fine control at some point.</p>
+<p>To use this in your own blog, download the <a class="reference external" href="/content/binary/5stars.zip">zipfile</a> of star images.</p>
+<p>Copy <tt class="docutils literal"><span class="pre">5star*.gif</span></tt> to your blog’s <tt class="docutils literal">images</tt> directory.
+The <tt class="docutils literal">*.xcf</tt> files are Gimp source files.</p>
+<p>Add the following line to the <tt class="docutils literal"><Con&shy;tent&shy;Fil&shy;ter&shy;s></tt> section of your blog’s site.config:</p>
 <pre class="literal-block">
-&lt;ContentFilter
-  find=&quot;\$stars\((?&amp;lt;expr&amp;gt;[\d.]+)\)&quot;
-  replace=&quot;&amp;lt;div&amp;gt;&amp;lt;img src=&amp;quot;images/5star${expr}.gif&amp;quot; /&amp;gt; ${expr} stars out of 5&amp;lt;/div&amp;gt;&quot;
-  isregex=&quot;true&quot; /&gt;
+<ContentFilter
+  find="\$stars\((?&lt;expr&gt;[\d.]+)\)"
+  replace="&lt;div&gt;&lt;img src=&quot;images/5star${expr}.gif&quot; /&gt; ${expr} stars out of 5&lt;/div&gt;"
+  isregex="true" />
 </pre>
 <p>Enjoy!</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

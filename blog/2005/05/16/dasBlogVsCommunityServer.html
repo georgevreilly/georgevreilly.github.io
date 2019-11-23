@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="I&#39;ve set up a new personal blog at `www.georgevrei..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="dasblog" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -34,76 +35,79 @@
             <a href="/blog/2005/05/16/dasBlogVsCommunityServer.html" rel="bookmark canonical">dasBlog vs. Community Server</a>
         </h1>
     </header>
-    <p>I&#8217;ve set up a new personal blog at <a class="reference external" href="http://www.georgevreilly.com/blog/">www.georgevreil&shy;ly.com/blog</a>.
-I&#8217;ll be posting non-technical stuff there
-and I&#8217;ll be cross-posting on technical matters to Weblogs &#64; <span class="caps">ASP</span>.net.
-Here&#8217;s how I ended up running dasBlog on the new&nbsp;blog.</p>
+    <p>I’ve set up a new personal blog at <a class="reference external" href="http://www.georgevreilly.com/blog/">www.georgevreil&shy;ly.com/blog</a>.
+I’ll be posting non-technical stuff there
+and I’ll be cross-posting on technical matters to Weblogs @ <span class="caps">ASP</span>.net.
+Here’s how I ended up running dasBlog on the new blog.</p>
 <p>In the spring of last year, I attempted
 to install both <a class="reference external" href="http://scottwater.com/blog">.Text</a> and <a class="reference external" href="https://github.com/shanselman/dasblog">dasBlog</a> on my <span class="caps">XP</span> Pro laptop.
 I failed, signally, to get either one working.
 The details have mercifully faded with time,
-leaving me only with a residue of&nbsp;frus&shy;tra&shy;tion.</p>
-<p>I&#8217;ve been meaning to put some photos of mine up on the web for a while.
+leaving me only with a residue of frus&shy;tra&shy;tion.</p>
+<p>I’ve been meaning to put some photos of mine up on the web for a while.
 A week ago, I went to download <a class="reference external" href="http://www.ngallery.org/">nGallery</a>,
 as I remembered hearing good things about it in the past.
 I learned that nGallery is now part of <a class="reference external" href="http://www.communityserver.org/">Community Server</a> (as is .Text).
 After navigating through the somewhat confusing portal,
-I downloaded a copy of Community Server&nbsp;1.0.</p>
+I downloaded a copy of Community Server 1.0.</p>
 <p>Then I spent several frus&shy;trat&shy;ing hours trying to get it running on my laptop.
 Community Server requires a <span class="caps">SQL</span> Server back-end,
 but you can also use <a class="reference external" href="http://www.asp.net/msde/default.aspx"><span class="caps">MSDE</span></a>, the standalone Microsoft <span class="caps">SQL</span> Desktop Engine,
 which comes without a <span class="caps">GUI</span>.
 I downloaded <span class="caps">MSDE</span> and the <a class="reference external" href="http://www.microsoft.com/downloads/details.aspx?FamilyID=C039A798-C57A-419E-ACBC-2A332CB7F959&amp;displaylang=en"><span class="caps">SQL</span> Web Data Ad&shy;min&shy;is&shy;tra&shy;tor</a>, as well as <a class="reference external" href="http://www.msde.biz/msdequery/download.htm"><span class="caps">MSDE</span> Query</a>.
-I can spell &quot;<span class="caps">SQL</span>&quot;, but that&#8217;s about where my knowledge of <span class="caps">SQL</span> stops.
+I can spell "<span class="caps">SQL</span>", but that’s about where my knowledge of <span class="caps">SQL</span> stops.
 I tried to follow the in&shy;struc&shy;tions to create the database tables.
 I did manage to create the master table,
 but I could not figure out how to set the various per&shy;mis&shy;sions that the in&shy;struc&shy;tions demanded.
 I googled ex&shy;ten&shy;sive&shy;ly and looked through the archived forums
-at Com&shy;mu&shy;ni&shy;ty&shy;Serv&shy;er.org and <a class="reference external" href="http://www.sqljunkies.com/Forums/ShowForum.aspx?ForumID=140">SqlJunkies.com</a>, to no&nbsp;avail.</p>
+at Com&shy;mu&shy;ni&shy;ty&shy;Serv&shy;er.org and <a class="reference external" href="http://www.sqljunkies.com/Forums/ShowForum.aspx?ForumID=140">SqlJunkies.com</a>, to no avail.</p>
 <p>Really!
-If I can&#8217;t figure this stuff out,
+If I can’t figure this stuff out,
 most people are never going to get Community Server running on their own systems.
-Don&#8217;t get me wrong.
+Don’t get me wrong.
 Community Server/.Text is a good blogging system,
 if you can surmount the barriers to entry.
-I&#8217;m a competent, skilled developer,
-but I&#8217;ve never needed to learn <span class="caps">SQL</span>,
-and I wasn&#8217;t motivated enough to dig&nbsp;further.</p>
-<p>(I&#8217;ve since realized that my hosting package at <a class="reference external" href="http://www.ihostsites.net/">iHostSites</a>
+I’m a competent, skilled developer,
+but I’ve never needed to learn <span class="caps">SQL</span>,
+and I wasn’t motivated enough to dig further.</p>
+<p>(I’ve since realized that my hosting package at <a class="reference external" href="http://www.ihostsites.net/">iHostSites</a>
 includes MySql, but not <span class="caps">SQL</span> Server,
 so this would have been all for naught.
 I think.
-Double&nbsp;aargh!)</p>
+Double aargh!)</p>
 <p>I gave up on Community Server in frus&shy;tra&shy;tion, and decided to fall back to nGallery.
 I got nGallery installed and running easily enough.
 Alas, it was flaky and it was all too easy
 to get <span class="caps">ASP</span>.net throwing unhandled exceptions back at me.
-spend too much of my life trou&shy;bleshoot&shy;ing other people&#8217;s bugs,
-and I wasn&#8217;t prepared to invest any more time on this&nbsp;avenue.</p>
-<p>At this point, I googled for &quot;web album software&quot; and came up with <a class="reference external" href="http://jalbum.net/">JAlbum</a>.
-I&#8217;m much happier with JAlbum.
-It worked flawlessly as soon as I ran it and it&#8217;s versatile.
-Photos will start appearing on my personal website, www.GeorgeVReil&shy;ly.com,&nbsp;soon.</p>
+spend too much of my life trou&shy;bleshoot&shy;ing other people’s bugs,
+and I wasn’t prepared to invest any more time on this avenue.</p>
+<p>At this point, I googled for "web album software" and came up with <a class="reference external" href="http://jalbum.net/">JAlbum</a>.
+I’m much happier with JAlbum.
+It worked flawlessly as soon as I ran it and it’s versatile.
+Photos will start appearing on my personal website, www.GeorgeVReil&shy;ly.com, soon.</p>
 <p>Yesterday, I decided to give dasBlog another try.
 That was altogether more successful.
 I did not manage to get it running on my laptop,
 but I did get it running on a <span class="caps">XP</span> Pro desktop system,
 as well as on my public website.
 did have a little difficulty getting it to run on my desktop system,
-but that went away as soon as I ran asp&shy;net_regi&shy;is -i to reset&nbsp;<span class="caps">ASP</span>.net.</p>
-<p>I&#8217;m not sure why it doesn&#8217;t run on my laptop,
-but the enormous amount of stuff that I&#8217;ve installed on this system
+but that went away as soon as I ran asp&shy;net_regi&shy;is -i to reset <span class="caps">ASP</span>.net.</p>
+<p>I’m not sure why it doesn’t run on my laptop,
+but the enormous amount of stuff that I’ve installed on this system
 surely plays a role.
 Indeed that may have been the reason why nGallery puked on my laptop.
-Someday, I&#8217;m going to have to flatten the system and reinstall only the important&nbsp;stuff.</p>
-<p>Net&nbsp;results:</p>
-<p>Album software: JAlbum 1, nGallery&nbsp;0.</p>
-<p>Blogging software: dasBlog 1, Community Server&nbsp;0.</p>
+Someday, I’m going to have to flatten the system and reinstall only the important stuff.</p>
+<p>Net results:</p>
+<p>Album software: JAlbum 1, nGallery 0.</p>
+<p>Blogging software: dasBlog 1, Community Server 0.</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/dasblog/" rel="tag">dasblog</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

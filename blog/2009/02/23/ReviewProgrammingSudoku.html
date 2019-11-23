@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: http://images.amazon.com/images/P/15905..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="books, reviews, programming" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -46,18 +47,18 @@
 <div class="line">Keywords: pro&shy;gram&shy;ming, in&shy;tro&shy;duc&shy;to&shy;ry</div>
 <div class="line">Reading period: 22 February, 2009</div>
 </div>
-<p>I was Toast&shy;mas&shy;ter of the Day at this evening&#8217;s meeting of
+<p>I was Toast&shy;mas&shy;ter of the Day at this evening’s meeting of
 <a class="reference external" href="http://www.FreelySpeaking.org/">Freely Speaking Toast&shy;mas&shy;ters</a>.
 My theme was software de&shy;vel&shy;op&shy;ment and I wanted to give the non-developer audience
-a taste for what it&#8217;s like to write a program.
-I talked about writing a simple Sudoku&nbsp;game.</p>
+a taste for what it’s like to write a program.
+I talked about writing a simple Sudoku game.</p>
 <p>Yesterday, I read <em>Pro&shy;gram&shy;ming Sudoku</em> for background.
-I bought this book for Emma after reading about it on <a class="reference external" href="http://www.hanselman.com/blog/ProgrammingSudoku.aspx">Scott Hanselman&#8217;s blog</a>.
-It&#8217;s targeted at beginning pro&shy;gram&shy;mers and
+I bought this book for Emma after reading about it on <a class="reference external" href="http://www.hanselman.com/blog/ProgrammingSudoku.aspx">Scott Hansel&shy;man’s blog</a>.
+It’s targeted at beginning pro&shy;gram&shy;mers and
 walks them through building a Sudoku game and solver.
 I was hoping to get Emma more interested in pro&shy;gram&shy;ming—un&shy;suc&shy;cess&shy;ful&shy;ly.
 She found it rep&shy;e&shy;ti&shy;tious and a little confusing,
-and she found some typos in the&nbsp;code.</p>
+and she found some typos in the code.</p>
 <p>Ped&shy;a&shy;gog&shy;i&shy;cal&shy;ly, the book is good.
 It starts by creating a simple WinForms ap&shy;pli&shy;ca&shy;tion
 in Visual Basic to play a Sudoku game.
@@ -66,41 +67,48 @@ and refines the solver to handle harder games.
 Next, it adds a puzzle generator.
 It concludes with a brief chapter on a similar game, Kakuro.
 The ex&shy;pla&shy;na&shy;tion of gameplay is clear;
-the approach seems&nbsp;reasonable.</p>
+the approach seems reasonable.</p>
 <p>The code, however, is horrible.
-It&#8217;s ugly, it&#8217;s verbose, and it&#8217;s repetitive.
+It’s ugly, it’s verbose, and it’s repetitive.
 Consider that the code for doing some operation to a row is
 almost identical to doing the same operation to a column,
-but no attempt is made to abstract such operations into helper&nbsp;functions.</p>
+but no attempt is made to abstract such operations into helper functions.</p>
 <p>Or how about this un&shy;ex&shy;plained fragment to see if a column is complete,
-which is repeated often, with minor&nbsp;variations:</p>
+which is repeated often, with minor variations:</p>
 <pre class="literal-block">
-pattern = &quot;123456789&quot;
+pattern = "123456789"
 For r = 1 To 9
     pattern = pattern.Replace(actual(c,r).ToString(), String.Empty)
 Next
-If pattern.Length &gt; 0 Then
+If pattern.Length > 0 Then
     Return False
 End If
 </pre>
-<p>To me, it&#8217;s obvious that this is a poor man&#8217;s set difference operation.
-To a novice programmer, I doubt&nbsp;it.</p>
+<p>To me, it’s obvious that this is a poor man’s set difference operation.
+To a novice programmer, I doubt it.</p>
 <p>Examples should be exemplary and held to a higher standard
 than code that is not intended for public view.
 All too often, sample code ends up in production.
 When I wrote <a class="reference external" href="https://github.com/georgevreilly/sample-ASP-components">samples for classic <span class="caps">ASP</span></a>,
-I took care to make them good&nbsp;code.</p>
+I took care to make them good code.</p>
 <p>The book is short.
 The author could have shown some ugly code as an initial solution,
 then cleaned it up and explained why the new code was better.
-That would have done his readers a greater&nbsp;service.</p>
+That would have done his readers a greater service.</p>
 <p>I cannot recommend this book to novices:
-they won&#8217;t learn good habits from&nbsp;it.</p>
+they won’t learn good habits from it.</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/programming/" rel="tag">programming</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

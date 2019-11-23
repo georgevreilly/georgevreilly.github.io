@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="Ever wonder what the six-digit file modes are in a..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="git" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -36,19 +37,20 @@
     </header>
     <p>Ever wonder what the six-digit file modes are in a Git commit?
 The mysterious <tt class="docutils literal">100644</tt> and <tt class="docutils literal">100755</tt> modes?</p>
-<div class="highlight"><pre><span></span><span class="gh">diff --git a/foo/bar.py b/foo/bar.py</span>
-old mode 100644
+<pre class="code diff literal-block">
+<span class="gh">diff --git a/foo/bar.py b/foo/bar.py
+</span>old mode 100644
 new mode 100755
-<span class="gh">index b829edea4..ee6bda024</span>
-<span class="gd">--- a/foo/bar.py</span>
-<span class="gi">+++ b/foo/bar.py</span>
-<span class="gu">@@ -1,3 +1,4 @@</span>
-...
-</pre></div>
+<span class="gh">index b829edea4..ee6bda024
+</span><span class="gd">--- a/foo/bar.py
+</span><span class="gi">+++ b/foo/bar.py
+</span><span class="gu">@@ -1,3 +1,4 @@
+</span>...
+</pre>
 <p>I had made <tt class="docutils literal">foo/bar.py</tt> executable by using <tt class="docutils literal">chmod +x</tt>
 and adding a <tt class="docutils literal"><span class="pre">#!/usr/bin/env</span> python</tt> shebang.
 The last three digits are obviously the same <a class="reference external" href="http://weblogs.asp.net/george_v_reilly/archive/2004/12/13/284388.aspx">octal</a> digits that you can use with <tt class="docutils literal">chmod</tt>.
-But what&#8217;s that <tt class="docutils literal">100</tt> prefix?</p>
+But what’s that <tt class="docutils literal">100</tt> prefix?</p>
 <p>The ex&shy;pla&shy;na&shy;tion can be found in a <a class="reference external" href="http://stackoverflow.com/a/8347325/6364">Stack&shy;Over&shy;flow answer</a>:</p>
 <pre class="literal-block">
 100644₈  regular file (non-executable)  S_IFREG | S_IRUSR | S_IWUSR
@@ -62,12 +64,15 @@ But what&#8217;s that <tt class="docutils literal">100</tt> prefix?</p>
 040000₈  directory                      S_IFDIR
 </pre>
 <p>A <a class="reference external" href="https://www.kernel.org/pub/software/scm/git/docs/git-fast-import.html#_tt_filemodify_tt">gitlink</a> is used to refer to a commit in another repos&shy;i&shy;to&shy;ry;
-it&#8217;s how submodules are&nbsp;im&shy;ple&shy;ment&shy;ed.</p>
+it’s how submodules are im&shy;ple&shy;ment&shy;ed.</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/git/" rel="tag">git</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

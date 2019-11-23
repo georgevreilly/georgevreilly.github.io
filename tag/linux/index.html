@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-04-29">2016-04-29</time>
+        <h1>
+            <a href="/blog/2016/04/29/UnixFileCommand.html" rel="bookmark canonical">The Unix file Command</a>
+        </h1>
+    </header>
+    <p>I had forgotten all about the <a class="reference external" href="https://en.wikipedia.org/wiki/File_(command)">file command</a>
+until it was mentioned in a Stack­Over­flow answer today.
+If you run <tt class="docutils literal">file some.iso</tt>, it will display the label embedded in the disk image.
+More generally, you can run <tt class="docutils literal">file</tt> on many different kinds of files
+and it will do a decent job of iden­ti­fy­ing the type of data.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-16">2016-01-16</time>
+        <h1>
+            <a href="/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html" rel="bookmark canonical">Installing Python 2.7.11 on Ubuntu</a>
+        </h1>
+    </header>
+    <p>We deploy on Ubuntu 14.04, the most recent Long Term Support release.
+It comes with Python 2.7.6,
+but we need Python 2.7.9+ to get the some important SSL fixes
+and work with a recent version of the <a class="reference external" href="http://docs.python-requests.org/en/latest/">Requests</a> library.</p>
+<p>Felix Krull maintains a Personal Package Archive for <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes-python2.7">Python 2.7 Updates</a>,
+which makes it straight­for­ward to upgrade to Python 2.7.11
+on supported versions of Ubuntu.</p>
+<pre class="code bash literal-block">
+sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
+sudo apt-get update
+sudo apt-get install python2.7 python2.7-dev
+</pre>
+<p>Be sure not to use Felix Krull's <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes">other Python PPA</a> by mistake.
+I did that on a col­league's machine yesterday.
+In our attempts to figure out why we still had Python 2.7.6,
+we managed to mess up the <span>&#8230;<a href="/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-12-09">2015-12-09</time>
+        <h1>
+            <a href="/blog/2015/12/09/USB3DriversLenovoE545.html" rel="bookmark canonical">USB 3 Drivers on a Lenovo E545</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/USB_3.0"></a>
+<p>Emma's been com­plain­ing for some time that USB devices only worked in one port
+on her Lenovo E545 laptop.
+The USB 2 port worked;
+the <a class="reference external" href="https://en.wikipedia.org/wiki/USB_3.0">USB 3</a> ports didn't.</p>
+<p>I took a look at <a class="reference external" href="http://www.howtogeek.com/167094/how-to-use-the-windows-device-manager-for-troubleshooting/">Device Manager</a>,
+and I noticed that most of the USB nodes looked wrong.
+She went to the Lenovo website and downloaded two USB-related drivers,
+the AMD USB Filter Driver and the AMD USB 3.0 Driver.
+Between them, they fixed the problem and she now has all ports working.</p>
+<p>This machine is running Windows 7.
+At some point, she wiped the machine to get rid of Lenovo crapware,
+and installed a clean copy of Windows 7.
+She downloaded a <span>&#8230;<a href="/blog/2015/12/09/USB3DriversLenovoE545.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-04-25">2009-04-25</time>
+        <h1>
+            <a href="/blog/2009/04/25/UbuntuNetbookRemix904.html" rel="bookmark canonical">Ubuntu Netbook Remix 9.04</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.jpierre.com/2009/04/installing-ubuntu-netbook-remix-904-jaunty-jackelope-on-eee-pc-the-howto-guide/"></a>
+<p>I spent much of today playing around with
+the brand-new Jaunty/9.04 release of the <a class="reference external" href="http://www.canonical.com/projects/ubuntu/unr">Ubuntu Netbook Remix</a>
+on my <a class="reference external" href="/blog/2008/11/26/Eee.html">Eee 1000H netbook</a>.
+Previously I had run the Hardy/8.04 version of <a class="reference external" href="http://www.ubuntu-eee.com/">Ubuntu Eee</a> on this system.
+I had never bothered to update to Intrepid/8.10,
+but now that UNR is fully supported by Canonical,
+I thought it was time to try it out.</p>
+<p>I <a class="reference external" href="http://www.ubuntu.com/getubuntu/download-netbook">downloaded</a> the UNR image last night onto my Mac,
+and trans­ferred the image to a 1GB USB stick this morning.
+(The <a class="reference external" href="https://help.ubuntu.com/community/Installation/FromImgFiles/#Mac%20OS%20X">Mac in­struc­tions</a> required a little tweaking.)</p>
+<p>I spent some time running the Live Image first, before clean installing.
+Everything worked seamlessly except the <a class="reference external" href="https://bugs.launchpad.net/ubuntu/+source/pulseaudio/+bug/354620">microphone</a>.
+WiFi worked, the webcam worked, <span>&#8230;<a href="/blog/2009/04/25/UbuntuNetbookRemix904.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-04-11">2009-04-11</time>
+        <h1>
+            <a href="/blog/2009/04/11/NTFS3GTheUniversalFilesystem.html" rel="bookmark canonical">NTFS-3G: the universal filesystem</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.ntfs-3g.org/"></a>
+<p>After I started running Linux and then Mac OS X, in addition to Windows,
+I started on a quest to find the universal filesystem.
+I had multiboot systems and external drives where I wanted to
+to be able to read and write disks under multiple operating systems.</p>
+<p>The obvious choice is <a class="reference external" href="http://en.wikipedia.org/wiki/File_Allocation_Table#FAT32">FAT32</a>,
+the ubiquitous, lowest-common de­nom­i­na­tor filesystem.
+FAT32 is supported out-of-the-box by
+all major operating systems, digital cameras, and PDAs,
+so that's a huge advantage.
+FAT32 also has major short­com­ings:</p>
+<ul class="simple">
+<li>Maximum file size is 4GB. I have ISOs, MPEGs, and other large files exceeding this limit.</li>
+<li>Frag­men­ta­tion happens too easily.</li>
+<li>Timestamps: accurate only to 2-second resolution. No notion of timezones or UTC.</li>
+<li>Journaling: <span>&#8230;<a href="/blog/2009/04/11/NTFS3GTheUniversalFilesystem.html" class="continue">continue</a>.</span></li></ul>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/windows/" rel="tag">windows</a>,
+                <a href="/tag/linux/" rel="tag">linux</a>
+                    and
+                    
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-02-12">2009-02-12</time>
+        <h1>
+            <a href="/blog/2009/02/12/CommandlineToolsForTheClipboard.html" rel="bookmark canonical">Command-line Tools for the Clipboard</a>
+        </h1>
+    </header>
+    
+<p>I mentioned in my post on <a class="reference external" href="/blog/2008/11/24/reStructuredText.html">re­Struc­tured­Text</a> that I use a little command-line tool,
+<a class="reference external" href="http://sigpipe.macromates.com/2005/10/11/clipboard-access-from-shell-utf-8/">pbcopy</a>, to pipe the output into the clipboard.
+I finally found a similar tool for Linux, <a class="reference external" href="http://www.vergenet.net/~conrad/software/xsel/">xsel</a>.</p>
+<ul class="simple">
+<li>Mac: <a class="reference external" href="http://sigpipe.macromates.com/2005/10/11/clipboard-access-from-shell-utf-8/">pbcopy</a> (UTF-8 aware, unlike the built-in version of pbcopy)
+copies its input to the pasteboard (Mac name for the clipboard);
+pbpaste writes the pasteboard to stdout.</li>
+<li>Linux: <a class="reference external" href="http://www.vergenet.net/~conrad/software/xsel/">xsel</a> gets and sets the X selection.</li>
+<li>Windows: <a class="reference external" href="http://www.dmst.aueb.gr/dds/sw/outwit/winclip.html">winclip</a> reads and writes the clipboard in a variety of formats.
+Use <tt class="docutils literal"><span class="pre">-m</span></tt> for UTF-8 text.
+The winclip binary is available as part of the <a class="reference external" href="http://www.dmst.aueb.gr/dds/sw/outwit/">outwit</a> package.</li>
+</ul>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/windows/" rel="tag">windows</a>,
+                <a href="/tag/linux/" rel="tag">linux</a>
+                    and
+                    
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-11-26">2008-11-26</time>
+        <h1>
+            <a href="/blog/2008/11/26/Eee.html" rel="bookmark canonical">Eee</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.ubuntu-eee.com/"></a>
+<p>I've been very happy with my <a class="reference external" href="/blog/2008/07/16/MacBookMakeover.html">MacBook Pro</a>.
+It's my primary home machine,
+sitting on the living room coffee table,
+and getting far more use than the desktop system
+in my office upstairs.</p>
+<p>But it rarely leaves the house.
+It's big–a 17" screen–and it's heavy.
+I seldom carry it anywhere and I hardly ever bring it to a coffee shop.</p>
+<p>I bought myself a <a class="reference external" href="http://blog.wired.com/gadgets/2008/09/netbooks-evolvi.html">netbook</a> last month, an <a class="reference external" href="http://www.laptopmag.com/review/laptops/asus-eee-pc-100h.aspx">Asus Eee 1000H</a>:
+10" screen, 1024x600, 1.6GHz dual core <a class="reference external" href="http://www.shahine.com/omar/WelcomeToANewEraOfComputingNetbookAndAtom.aspx">Atom</a>,
+1GB RAM, 160GB hard disk, 3lbs, $479.
+Look at how much bigger the MacBook is in the photo!
+For reference, the Eee 1000H is the same size as a magazine.
+It's small enough and light <span>&#8230;<a href="/blog/2008/11/26/Eee.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-05-14">2008-05-14</time>
+        <h1>
+            <a href="/blog/2008/05/14/SharingDotfilesBetweenWindowsAndNix.html" rel="bookmark canonical">Sharing Dotfiles between Windows and \*nix</a>
+        </h1>
+    </header>
+    
+<p>Tomas Restrepo wrote a post about
+<a class="reference external" href="http://www.winterdom.com/weblog/2008/05/09/SharingDotfilesBetweenWindowsAndUbuntu.aspx">sharing dotfiles between Windows and Ubuntu</a>,
+specif­i­cal­ly about sharing <tt class="docutils literal">.vimrc</tt> (Linux) and <tt class="docutils literal">_vimrc</tt> (Windows)
+and the <tt class="docutils literal">.vim</tt> (Linux) and <tt class="docutils literal">vimfiles</tt> (Windows) di­rec­to­ries.</p>
+<p>I have a different solution.
+On Windows, my <tt class="docutils literal"><span class="pre">C:\AutoExec.bat</span></tt> includes:</p>
+<pre class="literal-block">
+set HOME=C:\gvr
+set VIM=C:\Vim
+set VIMDIR=%VIM%\vim71
+set EDITOR=%VIMDIR%\gvim.exe
+set PATH=%PATH%;C:\Win32app;C:\GnuWin32\bin;C:\UnxUtils;C:\SysInternals;C:\Python25\Scripts
+</pre>
+<p><tt class="docutils literal">%HOME%</tt> (<tt class="docutils literal"><span class="pre">C:\gvr</span></tt>) contains <tt class="docutils literal">_vimrc</tt>, <tt class="docutils literal">vimfiles</tt>,
+and other stuff ac­cu­mu­lat­ed over many years.
+This directory is stored in a personal Subversion repository at <a class="reference external" href="http://www.devjavu.com/">DevjaVu</a>.
+All my Vim files are stored with Unix LF endings, not Windows CR-LFs,
+so that they'll work on my Mac OS X and Linux boxen.
+I play some games with <tt class="docutils literal">if <span class="pre">has("win32")</span></tt> and
+<tt class="docutils literal">if <span class="pre">has('gui_­macvim')</span></tt> to ensure that my <tt class="docutils literal">_vimrc</tt>
+works cross-platform.</p>
+<p>On my *nix boxes, the <tt class="docutils literal">gvr</tt> <span>&#8230;<a href="/blog/2008/05/14/SharingDotfilesBetweenWindowsAndNix.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>,
+                <a href="/tag/windows/" rel="tag">windows</a>,
+                <a href="/tag/linux/" rel="tag">linux</a>
+                    and
+                    
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-12-26">2006-12-26</time>
+        <h1>
+            <a href="/blog/2006/12/26/InstallingRainlendarOnKubuntu.html" rel="bookmark canonical">Installing Rainlendar on Kubuntu</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.rainlendar.net/"></a>
+<p>I've dualbooted my laptop between Linux and Windows since June, spending
+nearly all of my time in Linux. I started out with <a class="reference external" href="http://www.ubuntu.com/">Ubuntu</a> 6.06 (Dapper Drake),
+but soon switched to <a class="reference external" href="http://www.kubuntu.org/">Kubuntu</a> (the KDE variant),
+later upgrading to Kubuntu 6.10 (Edgy Eft).</p>
+<p>To make this useful, certain key ap­pli­ca­tions have to be available in both
+Windows and Linux. <a class="reference external" href="http://www.mozilla.com/en-US/firefox/">Firefox</a> for browsing; <a class="reference external" href="http://www.mozilla.com/en-US/thunderbird/">Thun­der­bird</a> for email;
+<a class="reference external" href="http://www.rainlendar.net/">Rainlendar</a> for calendar; <a class="reference external" href="http://keepass.sourceforge.net/">KeePass</a> and <a class="reference external" href="http://keepassx.sourceforge.net/">KeePassX</a> for password man­age­men­t;
+among others.</p>
+<p>My laptop has four partitions:</p>
+<ul class="simple">
+<li>Primary 1, NTFS - Windows, aka <tt class="docutils literal">/windows</tt> or <tt class="docutils literal">/dev/hda1</tt>. 8GB</li>
+<li>Primary 2, Ext3 - Linux system partition, aka <tt class="docutils literal">/</tt> or <tt class="docutils literal">/dev/hda2</tt>. 12GB</li>
+<li>Extended 1. Linux swap partition. 2GB.</li>
+<li>Extended 2, Ext3. Shared partition, <span>&#8230;<a href="/blog/2006/12/26/InstallingRainlendarOnKubuntu.html" class="continue">continue</a>.</span></li></ul>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-10-27">2006-10-27</time>
+        <h1>
+            <a href="/blog/2006/10/27/NoSecurityUpdatesToday.html" rel="bookmark canonical">No security updates today</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://lwn.net/Articles/206045/"></a>
+<p>Windows deservedly gets a lot of bad press about the unending stream of
+security updates. But Linux, despite all of the propaganda about it being
+more secure than Windows, has its own security problems.</p>
+<p>Take this post from <a class="reference external" href="http://lwn.net/">LWN.net</a> yesterday:</p>
+<blockquote>
+<div class="line-block">
+<div class="line"><a class="reference external" href="http://lwn.net/Articles/206045/">No security updates today</a></div>
+<div class="line">[Posted October 25, 2006 by corbet]</div>
+</div>
+<p>It is sad that this is worthy of note, but it is: on this day, Wednesday,
+October 25, we have not received a single security update for any Linux dis­tri­b­u­tion.</p>
+</blockquote>
+<p>(This post was composed on a laptop running Kubuntu 6.06.)</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

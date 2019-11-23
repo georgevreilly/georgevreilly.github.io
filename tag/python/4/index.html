@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2015-09-20">2015-09-20</time>
+        <h1>
+            <a href="/blog/2015/09/20/RunSnakeRun-WxPython-Brew-Virtualenv.html" rel="bookmark canonical">RunSnakeRun (wxPython) apps in a Brew Virtualenv</a>
+        </h1>
+    </header>
+    
+<p>I'm doing some Python profiling
+and I wanted to use the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run­SnakeRun</a> utility to view the profile data.
+Un­for­tu­nate­ly, that's not straight­for­ward on Mac OS X if you use a <a class="reference external" href="https://virtualenv.pypa.io/en/latest/">virtualenv</a>,
+and it's even less easy if you're using the Python
+installed by the <a class="reference external" href="http://brew.sh/">Homebrew</a> (<tt class="docutils literal">brew</tt>) package manager.</p>
+<p>There are several problems:</p>
+<ul class="simple">
+<li>Installing <a class="reference external" href="http://www.wxpython.org/">wxPython</a> on OS X 10.10.
+This is the cross-platform GUI API toolkit used by Run­SnakeRun.</li>
+<li>Getting wxPython installed in a virtualenv</li>
+<li>Running wxPython apps in a virtualenv on the Mac.</li>
+</ul>
+<div class="section" id="installing-wxpython">
+<h2>Installing wxPython</h2>
+<p>I downloaded <tt class="docutils literal"><span class="pre">wxPython3.0-osx-3.0.2.0-cocoa-py2.7.dmg</span></tt>,
+released in November 2014.</p>
+<p>If you open the DMG and attempt to run the PKG,
+you will likely get a misleading error message from OS X:</p>
+<blockquote>
+“wxPython3.0-osx-cocoa-py2.7.pkg” <span>&#8230;<a href="/blog/2015/09/20/RunSnakeRun-WxPython-Brew-Virtualenv.html" class="continue">continue</a>.</span></blockquote></div>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-03-02">2015-03-02</time>
+        <h1>
+            <a href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html" rel="bookmark canonical">Nosetests won't discover tests in executable files</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://nose.readthedocs.org/"></a>
+<p>We use <a class="reference external" href="http://nose.readthedocs.org/">Nose</a> to run unit tests.
+I noticed that we had some tests that weren't being run,
+and it took me some time to work out why.
+Eventually, I found this <a class="reference external" href="https://www.hyperink.com/blog/?p=22">checklist</a>,
+which told me to "make sure the files in your tests directory are not ex­e­cutable".</p>
+<p>A quick <tt class="docutils literal">chmod <span class="pre">-x</span> *.py</tt> later and <tt class="docutils literal">nosetests project/tests</tt> suddenly found all the tests.</p>
+<p>Now that I know what to look for, I found this in the Nose docs:</p>
+<blockquote>
+<p>It is important to note that the default behavior of nose
+is to not include tests from files which are executable.</p>
+<p><tt class="docutils literal"><span class="pre">--exe</span></tt>: Look for tests in python modules that are executable.
+Normal behavior <span>&#8230;<a href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-01-28">2015-01-28</time>
+        <h1>
+            <a href="/blog/2015/01/28/PythonEggCache.html" rel="bookmark canonical">Python Egg Cache</a>
+        </h1>
+    </header>
+    <p>Every so often, one of our <a class="reference external" href="https://www.atlassian.com/software/bamboo">Bamboo</a> builds would break thus:</p>
+<pre class="literal-block">
+pkg_resources.ExtractionError: Can't extract file(s) to egg cache
+
+The following error occurred while trying to extract file(s) to the Python egg
+cache:
+
+  [Errno 17] File exists: '/home/bamboo/.python-eggs'
+
+The Python egg cache directory is currently set to:
+
+  /home/bamboo/.python-eggs
+
+Perhaps your account does not have write access to this directory?  You can
+change the cache directory by setting the PYTHON_EGG_CACHE environment
+variable to point to an accessible directory.
+</pre>
+<p>This occurred while trying to make use of <a class="reference external" href="http://pycrypto.org">PyCrypto</a>.</p>
+<p>After a little <a class="reference external" href="http://stackoverflow.com/questions/2192323/what-is-the-python-egg-cache-python-egg-cache">research</a>, I decided that instead of installing PyCrypto
+as a zipped egg (as it does by default) into the <span>&#8230;<a href="/blog/2015/01/28/PythonEggCache.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-01-25">2015-01-25</time>
+        <h1>
+            <a href="/blog/2015/01/25/PyCharmYosemite.html" rel="bookmark canonical">Running PyCharm on Yosemite</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.jetbrains.com/pycharm/"></a>
+<p>I did a <a class="reference external" href="/blog/2015/01/17/YosemiteCleanInstall.html">clean install of OS X 10.10</a> on my home laptop a week ago.
+I tried to launch <a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a> 4.0.4 on it today.
+It im­me­di­ate­ly failed. Every time.</p>
+<p>When I looked in the System Console, I saw:</p>
+<pre class="literal-block">
+1/25/15 7:46:00.557 PM pycharm[1160]: No matching VM found.
+1/25/15 7:46:00.711 PM com.apple.xpc.launchd[1]: (com.jetbrains.pycharm.58252[1160]) Service exited with abnormal code: 1
+</pre>
+<p>The JetBrains website wasn't very helpful when I looked there.
+In time, I found a <a class="reference external" href="http://stackoverflow.com/questions/26438628/crash-jetbrains-ide-with-yosemite-mac-osx-webstorm-intellij">Stack­Over­flow answer</a> that put me on the right track
+(and reminded me that I had previously solved this problem about a year ago, at work).
+PyCharm and some of the other JetBrains IDEs require JDK 1.6,
+as <span>&#8230;<a href="/blog/2015/01/25/PyCharmYosemite.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/mac/" rel="tag">mac</a>
+                    and
+                    
+                <a href="/tag/vim/" rel="tag">vim</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2014-12-30">2014-12-30</time>
+        <h1>
+            <a href="/blog/2014/12/30/Blog2014.html" rel="bookmark canonical">Blog 2014</a>
+        </h1>
+    </header>
+    <p>My DasBlog-based blog at <a class="reference external" href="http://www.georgevreilly.com/blog/">http://www.georgevreil­ly.com/blog/</a>
+has been out of commission for months.
+I've been meaning to replace it for a long time,
+but I only just got around to making a serious effort,
+as I realized that otherwise I would have no posts at all for 2014.
+I received only a handful of complaints about its absence;
+if there had been more, I would have fixed it sooner.</p>
+<p><a class="reference external" href="http://dasblog.codeplex.com/">DasBlog</a> is a fairly light­weight blogging engine that runs on ASP.NET.
+It doesn't require a database,
+but it does require the ability to write XML blogpost entries to the local filesystem.
+That's a non-standard con­fig­u­ra­tion for ASP.NET and IIS websites,
+which inevitably causes <span>&#8230;<a href="/blog/2014/12/30/Blog2014.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/blogging/" rel="tag">blogging</a>,
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2013-11-11">2013-11-11</time>
+        <h1>
+            <a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" rel="bookmark canonical">Turn off Windows Defender on your builds</a>
+        </h1>
+    </header>
+    <p>I've spent some time this evening profiling a Python ap­pli­ca­tion on Windows,
+trying to find out why it was so much slower than on Mac or Linux.
+The ap­pli­ca­tion is an in-house build tool which reads a number of config files,
+then writes some output files.</p>
+<p>Using the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run­SnakeRun</a> Python profile viewer on Windows,
+two things im­me­di­ate­ly leapt out at me:
+we were running <tt class="docutils literal">os.stat</tt> a lot
+and <tt class="docutils literal">file.close</tt> was really expensive.</p>
+<p>A quick test convinced me that we were <a class="reference external" href="http://docs.python.org/2/library/stat.html">stat-ing</a> the same files over and over.
+It was a com­bi­na­tion of explicit checks and implicit code,
+like <tt class="docutils literal">os.walk</tt> calling <tt class="docutils literal">os.path.isdir</tt>.
+I wrote a little cache that memoizes the results,
+which brought <span>&#8230;<a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/windows/" rel="tag">windows</a>
+                    and
+                    
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2010-04-04">2010-04-04</time>
+        <h1>
+            <a href="/blog/2010/04/04/SQLAlchemySharding.html" rel="bookmark canonical">SQLAlchemy Sharding</a>
+        </h1>
+    </header>
+    
+<p>I wrote up some lessons that I learned about
+<a class="reference external" href="http://blogs.cozi.com/tech/2010/04/sqlalchemy-sharding.html">SQLAlchemy Sharding</a>
+at the Cozi Tech Blog.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-04-23">2009-04-23</time>
+        <h1>
+            <a href="/blog/2009/04/23/PythonStringFormatting.html" rel="bookmark canonical">Python String Formatting</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://docs.python.org/library/string.html#format-string-syntax"></a>
+<p>Python has long had a string in­ter­po­la­tion operator, <tt class="docutils literal">%</tt>.</p>
+<p>Python 2.6 and 3.0 introduced a new, richer set of <a class="reference external" href="http://docs.python.org/library/string.html#format-string-syntax">string formatting operations</a>.
+See <a class="reference external" href="http://www.python.org/dev/peps/pep-3101/">PEP 3101</a> for the rationale.</p>
+<p>One trick that I liked with the old way of formatting was
+to put the <a class="reference external" href="http://docs.python.org/library/functions.html#locals">locals()</a> dictionary or <tt class="docutils literal">self.__dict__</tt>
+on the right-hand side</p>
+<pre class="code python literal-block">
+<span class="o">>>></span> <span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="o">...</span>  <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
+<span class="o">...</span>  <span class="k">return</span> <span class="s2">"</span><span class="si">%(a)s</span><span class="s2">, </span><span class="si">%(b)s</span><span class="s2">, </span><span class="si">%(c)s</span><span class="s2">, </span><span class="si">%(d)s</span><span class="s2">"</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="o">>>></span> <span class="n">stuff</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
+<span class="s1">'3, 17, 20, -14'</span>
+</pre>
+<p>It took me a few minutes to figure out how to do the equivalent with <tt class="docutils literal">string.format</tt>:
+use the <tt class="docutils literal">**</tt> syntax to unpack the dict into <tt class="docutils literal">kwargs</tt>.</p>
+<pre class="code python literal-block">
+<span class="o">>>></span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="o">...</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+<span class="o">...</span> </pre><span>&#8230;<a href="/blog/2009/04/23/PythonStringFormatting.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-31">2009-03-31</time>
+        <h1>
+            <a href="/blog/2009/03/31/AugmentingPythonsStrftime.html" rel="bookmark canonical">Augmenting Python's strftime</a>
+        </h1>
+    </header>
+    
+<p>The Cozi Tech Blog needed some love,
+so I wrote a post on <a class="reference external" href="http://blogs.cozi.com/tech/2009/03/augmenting-pythons-strftime.html">augmenting Python's strftime</a>.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-20">2009-03-20</time>
+        <h1>
+            <a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" rel="bookmark canonical">Flattening List Comprehensions in Python</a>
+        </h1>
+    </header>
+    
+<p>Python has <a class="reference external" href="http://docs.python.org/tutorial/datastructures.html#list-comprehensions">list com­pre­hen­sions</a>,
+syntactic sugar for building lists from an expression.</p>
+<pre class="code python literal-block">
+<span class="o">>>></span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">22</span><span class="p">]</span>
+</pre>
+<p>This doesn't work so well when the com­pre­hen­sion expression
+is itself a list: you end up with a list of lists.</p>
+<pre class="code python literal-block">
+<span class="o">>>></span> <span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
+<span class="o">...</span>     <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]:</span>
+<span class="o">...</span>         <span class="k">yield</span> <span class="n">l</span>
+<span class="o">...</span>
+<span class="o">>>></span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()]</span>
+<span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]</span>
+</pre>
+<p>This is ugly. Here's one way to build a flattened list,
+but it's less elegant than the com­pre­hen­sion.</p>
+<pre class="code python literal-block">
+<span class="o">>>></span> <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="o">>>></span> <span class="k">for</span> </pre><span>&#8230;<a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+        <a href="/tag/python/5/" class="page floatright">
+        Previous &raquo;
+        </a>
+    
+    
+        <a href="/tag/python/3/" class="page floatleft">
+        &laquo; Next
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

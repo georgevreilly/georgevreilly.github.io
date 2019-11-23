@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="Various Bash guides recommend putting quotes aroun..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="bash" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -35,45 +36,42 @@
         </h1>
     </header>
     <p>Various Bash guides recommend putting quotes around just about everything.
-I had a script that contained this&nbsp;line:</p>
-
-<pre class="brush: bash">
-sudo apt-get install --yes $(cat "$BUILD/install_on_aws_ubuntu.txt")
+I had a script that contained this line:</p>
+<pre class="code bash literal-block">
+sudo apt-get install --yes <span class="k">$(</span>cat <span class="s2">"</span><span class="nv">$<span class="caps">BUILD</span></span><span class="s2">/install_on_aws_ubuntu.txt"</span><span class="k">)</span>
 </pre>
-
 <p>While refac&shy;tor&shy;ing, I put another set of quotes around the <tt class="docutils literal">$(cat <span class="pre">...)</span></tt>
-out of an abundance of&nbsp;caution:</p>
-
-<pre class="brush: bash">
-sudo apt-get install --yes "$(cat "$BUILD/install_on_aws_ubuntu.txt")"
+out of an abundance of caution:</p>
+<pre class="code bash literal-block">
+sudo apt-get install --yes <span class="s2">"</span><span class="k">$(</span>cat <span class="s2">"</span><span class="nv">$<span class="caps">BUILD</span></span><span class="s2">/install_on_aws_ubuntu.txt"</span><span class="k">)</span><span class="s2">"</span>
 </pre>
-
-<p>Several other changes later, I couldn&#8217;t figure out why my script had stopped&nbsp;working.</p>
-<p>Here&#8217;s what&nbsp;happened:</p>
-
-<pre class="brush: bash">
-$ cat $HOME/tmp/demo.txt
+<p>Several other changes later, I couldn’t figure out why my script had stopped working.</p>
+<p>Here’s what happened:</p>
+<pre class="code bash literal-block">
+$ cat <span class="nv">$<span class="caps">HOME</span></span>/tmp/demo.txt
 foo
 bar
 quux
 
-$ echo $(cat "$HOME/tmp/demo.txt")
+$ <span class="nb">echo</span> <span class="k">$(</span>cat <span class="s2">"</span><span class="nv">$<span class="caps">HOME</span></span><span class="s2">/tmp/demo.txt"</span><span class="k">)</span>
 foo bar quux
 
-$ echo "$(cat $HOME/tmp/demo.txt)"
+$ <span class="nb">echo</span> <span class="s2">"</span><span class="k">$(</span>cat <span class="nv">$<span class="caps">HOME</span></span>/tmp/demo.txt<span class="k">)</span><span class="s2">"</span>
 foo
 bar
 quux
 </pre>
-
 <p>The new outer quotes retained the newlines;
-the original replaced newlines with&nbsp;spaces.</p>
+the original replaced newlines with spaces.</p>
 <p>The <a class="reference external" href="http://mywiki.wooledge.org/BashFAQ">Bash <span class="caps">FAQ</span></a> has more: specif&shy;i&shy;cal&shy;ly <a class="reference external" href="http://mywiki.wooledge.org/CommandSubstitution">Command Substition</a> and <a class="reference external" href="http://mywiki.wooledge.org/WordSplitting">Word Splitting</a>.</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/bash/" rel="tag">bash</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

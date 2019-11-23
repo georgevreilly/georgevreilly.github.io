@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: http://www.lostechies.com/cfs-filesyste..." />
-    <meta name="keywords" content="" />
+    <meta name="keywords" content="programming" />
 </head>
 <body>
   <header>
@@ -23,6 +23,7 @@
         <li><a href="/atom/" rel="alternate">atom</a></li>
         <li><a href="/rss/" rel="alternate">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
     </nav>
   </header>
@@ -39,18 +40,18 @@
 to illustrate the <a class="reference external" href="http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod"><span class="caps">SOLID</span> principles</a>.
 <span class="caps">SOLID</span> is a set of principles that help guide <span class="caps">OO</span> code
 towards greater <a class="reference external" href="http://blog.scottbellware.com/2009/01/good-design-is-easily-learned.html">testa&shy;bil&shy;i&shy;ty</a>.
-They increase <a class="reference external" href="http://en.wikipedia.org/wiki/Cohesion_(computer_science)http://www.appistry.com/blogs/michael/openclose-principle-and-dependency-inversion-principle-ndash-two-sides-same-coin">cohesion</a> and reduce de&shy;pen&shy;den&shy;cies, hence,&nbsp;coupling.</p>
+They increase <a class="reference external" href="http://en.wikipedia.org/wiki/Cohesion_(computer_science)http://www.appistry.com/blogs/michael/openclose-principle-and-dependency-inversion-principle-ndash-two-sides-same-coin">cohesion</a> and reduce de&shy;pen&shy;den&shy;cies, hence, coupling.</p>
 <br style="clear: both"/><a class="reference external image-reference" href="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/SingleResponsibilityPrinciple2_5F00_71060858.jpg"><img alt="Single Responsibility Principle — A class should have one, and only one, reason to change" class="left-float" src="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/SingleResponsibilityPrinciple2_5F00_71060858.jpg" style="width: 300px;"/></a>
-<p><strong>Single Re&shy;spon&shy;si&shy;bil&shy;i&shy;ty Principle</strong> — A class should have one, and only one, reason to&nbsp;change</p>
+<p><strong>Single Re&shy;spon&shy;si&shy;bil&shy;i&shy;ty Principle</strong> — A class should have one, and only one, reason to change</p>
 <p>Ideally, a class or a function will do only one thing and do it well,
-in only a few&nbsp;lines.</p>
+in only a few lines.</p>
 <p>Recently, I refactored two large functions.
 One function proxied an <span class="caps">HTTP</span> request: it had to
 se&shy;lec&shy;tive&shy;ly copy request headers, construct other headers,
 copy the request body, make the request, handle exceptions,
 se&shy;lec&shy;tive&shy;ly copy response headers, construct other headers,
 and copy the request body.
-The preceding sentence tells you what the resulting functions looked&nbsp;like.</p>
+The preceding sentence tells you what the resulting functions looked like.</p>
 <p>The other function made a series of related database queries,
 con&shy;struct&shy;ed some in&shy;ter&shy;me&shy;di&shy;ate data structures,
 then performed some joins,
@@ -58,34 +59,37 @@ to build an object graph.
 Each query got its own function
 as did each builder of an in&shy;ter&shy;me&shy;di&shy;ate data structure.
 The top-level function became eight simple lines
-and is now&nbsp;com&shy;pre&shy;hen&shy;si&shy;ble.</p>
+and is now com&shy;pre&shy;hen&shy;si&shy;ble.</p>
 <br style="clear: both"/><a class="reference external image-reference" href="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/OpenClosedPrinciple2_5F00_2C596E17.jpg"><img alt="Open-Closed Principle — You should be able to extend a class's behavior, without modifying it" class="right-float" src="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/OpenClosedPrinciple2_5F00_2C596E17.jpg" style="width: 300px;"/></a>
-<p><strong>Open-Closed Principle</strong> — You should be able to extend a class&#8217;s behavior, without modifying&nbsp;it</p>
-<p>The classic for&shy;mu&shy;la&shy;tion of the Open-Closed Principle&nbsp;is:</p>
+<p><strong>Open-Closed Principle</strong> — You should be able to extend a class’s behavior, without modifying it</p>
+<p>The classic for&shy;mu&shy;la&shy;tion of the Open-Closed Principle is:</p>
 <blockquote>
 Software Entities (classes, modules, functions, etc.)
 should be Open for Extension, but Closed for Mod&shy;i&shy;fi&shy;ca&shy;tion.</blockquote>
-<p>That&#8217;s pithy—and confusing.
+<p>That’s pithy—and confusing.
 Let me try restating it:
-don&#8217;t change existing code when you want to add new&nbsp;code.</p>
-<p>If you&#8217;ve designed your system with abstract base classes and interfaces,
-then it&#8217;s generally possible to achieve this.
+don’t change existing code when you want to add new code.</p>
+<p>If you’ve designed your system with abstract base classes and interfaces,
+then it’s generally possible to achieve this.
 If you have to add new if-clauses or adjust <tt class="docutils literal">switch</tt> statements
 in existing code,
-your code is not closed for&nbsp;mod&shy;i&shy;fi&shy;ca&shy;tion.</p>
-<p>Think “plug&shy;gable” or the <a class="reference external" href="http://en.wikipedia.org/wiki/Template_method_pattern">Template Method</a> and <a class="reference external" href="http://en.wikipedia.org/wiki/Strategy_pattern">Strategy</a>&nbsp;patterns.</p>
+your code is not closed for mod&shy;i&shy;fi&shy;ca&shy;tion.</p>
+<p>Think “plug&shy;gable” or the <a class="reference external" href="http://en.wikipedia.org/wiki/Template_method_pattern">Template Method</a> and <a class="reference external" href="http://en.wikipedia.org/wiki/Strategy_pattern">Strategy</a> patterns.</p>
 <br style="clear: both"/><a class="reference external image-reference" href="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/LiskovSubtitutionPrinciple_5F00_52BB5162.jpg"><img alt="Liskov Substitution Principle — Derived classes must be substitutable for their base classes" class="left-float" src="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/LiskovSubtitutionPrinciple_5F00_52BB5162.jpg" style="width: 300px;"/></a>
-<p><strong>Liskov Sub&shy;sti&shy;tu&shy;tion Principle</strong> — Derived classes must be sub&shy;sti&shy;tutable for their base&nbsp;classes</p>
+<p><strong>Liskov Sub&shy;sti&shy;tu&shy;tion Principle</strong> — Derived classes must be sub&shy;sti&shy;tutable for their base classes</p>
 <br style="clear: both"/><a class="reference external image-reference" href="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/InterfaceSegregationPrinciple_5F00_60216468.jpg"><img alt="Interface Segregation Principle — Make fine grained interfaces that are client specific" class="clear-both right-float" src="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/InterfaceSegregationPrinciple_5F00_60216468.jpg" style="width: 300px;"/></a>
-<p><strong>Interface Seg&shy;re&shy;ga&shy;tion Principle</strong> — Make fine grained interfaces that are client&nbsp;specific</p>
+<p><strong>Interface Seg&shy;re&shy;ga&shy;tion Principle</strong> — Make fine grained interfaces that are client specific</p>
 <p><em>italic</em></p>
 <br style="clear: both"/><a class="reference external image-reference" href="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/DependencyInversionPrinciple_5F00_0278F9E2.jpg"><img alt="Dependency Inversion Principle — Depend on abstractions, not on concretions" class="left-float" src="http://www.lostechies.com/cfs-filesystemfile.ashx/__key/CommunityServer.Blogs.Components.WeblogFiles/derickbailey/DependencyInversionPrinciple_5F00_0278F9E2.jpg" style="width: 300px;"/></a>
-<p><strong>Dependency Inversion Principle</strong> — Depend on ab&shy;strac&shy;tions, not on&nbsp;con&shy;cre&shy;tions</p>
+<p><strong>Dependency Inversion Principle</strong> — Depend on ab&shy;strac&shy;tions, not on con&shy;cre&shy;tions</p>
 
     <footer>
         
         
-            <p>untagged</p>
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>
+                
+            </p>
         
     </footer>
     <div class="comments">

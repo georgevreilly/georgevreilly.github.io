@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2007-02-11">2007-02-11</time>
+        <h1>
+            <a href="/blog/2007/02/11/ShellExtensionThrowingR6034Errors.html" rel="bookmark canonical">Shell extension throwing R6034 errors</a>
+        </h1>
+    </header>
+    
+<p>I have been cleaning up some issues with the <a class="reference external" href="/blog/2006/04/22/Win64PortOfVim.html">Win64 port of Vim</a>,
+including the <em>Edit with Vim</em> shell extension not working very well.
+When I built the shell extension with VS 2005 on x86, I would
+get the following whenever I right-clicked in Explorer:</p>
+<blockquote>
+<p>Microsoft Visual C++ Runtime Library</p>
+<p>Runtime Error!</p>
+<p>Program: C:WIN­DOW­S­Ex­plor­er.EXE</p>
+<p>R6034</p>
+<p>An ap­pli­ca­tion has made an attempt to load the C runtime library in­cor­rect­ly.
+Please contact the ap­pli­ca­tion's support team for more in­for­ma­tion.</p>
+</blockquote>
+<p>There was no mention of which ap­pli­ca­tion was at fault,
+though it was obvious in this case.
+I have also seen some mention of <tt class="docutils literal">verclsid</tt> in the error dialog,
+though not when I took this snapshot.</p>
+<p>The <span>&#8230;<a href="/blog/2007/02/11/ShellExtensionThrowingR6034Errors.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-05-11">2006-05-11</time>
+        <h1>
+            <a href="/blog/2006/05/11/Vim70IsOut.html" rel="bookmark canonical">Vim 7.0 is out</a>
+        </h1>
+    </header>
+    <p>More than two years in the making, Vim-7.0 is finally
+<a class="reference external" href="http://groups.yahoo.com/group/vimannounce/message/161">out</a>!</p>
+<a class="reference external image-reference" href="http://www.vim.org/"></a>
+<p>(Vim is Vi IMproved, an enormously enhanced version of the classic Unix
+editor, <tt class="docutils literal">vi</tt>.)</p>
+<p>The main features of the 7.0 release are:</p>
+<ul class="simple">
+<li>Spell checking</li>
+<li>Omni-completion (In­tel­lisense-like)</li>
+<li>Tabbed pages</li>
+<li>VimL script language now supports Lists and Dic­tio­nar­ies</li>
+</ul>
+<p>I'm going to take credit for some minor features of Vim 7:</p>
+<ul class="simple">
+<li>Making Vim build with <a class="reference external" href="/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html">VC5-VC8</a></li>
+<li>The <a class="reference external" href="/blog/2006/04/22/Win64PortOfVim.html">Win64 port</a></li>
+<li>Syntax high­light­ing for <a class="reference external" href="/blog/2006/05/04/VimSyntaxHighlightingForFlexWiki.html">FlexWiki</a></li>
+</ul>
+<p>WikiPedia summarizes the <a class="reference external" href="http://en.wikipedia.org/wiki/Vim_%28text_editor%29#History">history of Vim</a>.
+This enabled me to pinpoint when I first became a con­trib­u­tor to Vim,
+back in December 1995. I cleaned up the original, rather buggy
+port of <a class="reference external" href="http://groups.google.com/group/comp.editors/browse_thread/thread/a3fad9455d7a23cf/13c6939208787c22">Vim-3.0 to NT</a>,
+and posted it to the <a class="reference external" href="news://news.readfreenews.net/comp.editors">comp.editors</a> newsgroup.
+Bram invited me to merge <span>&#8230;<a href="/blog/2006/05/11/Vim70IsOut.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-05-04">2006-05-04</time>
+        <h1>
+            <a href="/blog/2006/05/04/VimSyntaxHighlightingForFlexWiki.html" rel="bookmark canonical">Vim Syntax Highlighting for FlexWiki</a>
+        </h1>
+    </header>
+    <p>We use <a class="reference external" href="http://www.flexwiki.com/">FlexWiki</a> at work. It's an
+ASP.NET-based <a class="reference external" href="http://wiki.org/wiki.cgi?WhatIsWiki">wiki</a>,
+a low-overhead, organic way of sharing knowledge.</p>
+
+<p>The only built-in means of editing a page in FlexWiki is to
+type into an HTML textbox, which is a horrendous user experience.
+There's no WYSIWYG feedback showing you whether you've got the wiki markup
+right.</p>
+<p>Back in December, Emma and I went to the Oregon coast for a week.
+We had no Internet access and long dark evenings, so I spent quite a bit of
+time on my laptop, working on a couple of projects. One was a new theme
+(skin) for DasBlog, which I didn't finish to my sat­is­fac­tion. I really
+ought to <span>&#8230;<a href="/blog/2006/05/04/VimSyntaxHighlightingForFlexWiki.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-04-22">2006-04-22</time>
+        <h1>
+            <a href="/blog/2006/04/22/Win64PortOfVim.html" rel="bookmark canonical">Win64 port of Vim</a>
+        </h1>
+    </header>
+    <p>I've ported Vim to Win64. Native binaries for AMD64 can be found on my
+<a class="reference external" href="//www.georgevreilly.com/vim/">Vim page</a>.</p>
+<p>In the end, it wasn't all that hard. Last weekend, I fixed ap­prox­i­mate­ly
+400 warnings that were thrown up by the x86_amd64 cross compiler.
+Most of them were due to the widening of <tt class="docutils literal">size_t</tt> (especially the value
+returned from <tt class="docutils literal">strlen()</tt>) and <tt class="docutils literal">ptrdiff_t</tt> to 64-bits.
+Several years ago, I went through a similar exercise in fixing these
+warnings for Vim6, but I never finished the port.</p>
+<p>This week, I scrounged access to an AMD64 box at work. Today, I turned on
+the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/yt4xw8fh(VS.80).aspx">/Wp64 flag</a>,
+which found several new, subtler problems, where pointers where being
+truncated to <span>&#8230;<a href="/blog/2006/04/22/Win64PortOfVim.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-04-09">2006-04-09</time>
+        <h1>
+            <a href="/blog/2006/04/09/ViEmuAViAndVimEmulatorForVisualStudio.html" rel="bookmark canonical">ViEmu: a vi and Vim emulator for Visual Studio</a>
+        </h1>
+    </header>
+    <div class="section" id="vim-vs-visual-studio">
+<h2>Vim vs. Visual Studio</h2>
+<p>I've been an <a class="reference external" href="/blog/2005/12/30/20YearsOfVi.html">obsessive vi user</a>
+for more than 20 years. Vi keystrokes are indelibly burned into my
+<a class="reference external" href="http://www.oreilly.com/news/zenclavier_1299.html">muscle memory</a>.
+When I have to use Notepad or Word or Visual Studio, I feel crippled.
+I have to work harder to do simple things; I have to type too many chords
+with Alt and Ctrl; I have to take my hands off the home keys to use the
+cursor keys and the mouse.</p>
+<p>In the mid-90s, I adopted <a class="reference external" href="http://www.vim.org">Vim</a> (Vi IMproved)
+to the point where I became a sig­nif­i­cant con­trib­u­tor, writing a big chunk of the
+<a class="reference external" href="/blog/2005/12/30/20YearsOfVi.html">Win32 code</a>.</p>
+<p>While I was at Microsoft, I hardly ever used Visual <span>&#8230;<a href="/blog/2006/04/09/ViEmuAViAndVimEmulatorForVisualStudio.html" class="continue">continue</a>.</span></p></div>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-01-22">2006-01-22</time>
+        <h1>
+            <a href="/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html" rel="bookmark canonical">Compiling Vim with Visual C++ 2003 Toolkit</a>
+        </h1>
+    </header>
+    <p>I've been trying to make <a class="reference external" href="http://www.vim.org/develop.php">Vim 7</a>
+compile with the
+<a class="reference external" href="http://msdn.microsoft.com/visualc/vctoolkit2003/">Microsoft Visual C++ 2003 Toolkit</a>,
+as a favor to Bram Moolenaar, the primary author of Vim.
+He wants to be able to use the free compiler as the
+primary build tool for the Win32 version of Vim.</p>
+<p>Oh. My. God.</p>
+<p>The VC2003 toolkit may include a full optimizing compiler,
+but it's certainly far from a complete system for building
+Windows binaries.</p>
+<p>First, I discovered that it came only with the C library headers,
+but not the Windows headers. That was easily rectified. Download the
+<a class="reference external" href="http://www.microsoft.com/msdownload/platformsdk/sdkupdate/">Platform SDK</a>.
+Just the Windows Core SDK subset. This also got me nmake.</p>
+<p>At this point, I was able to <span>&#8230;<a href="/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/c++/" rel="tag">c++</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2005-12-30">2005-12-30</time>
+        <h1>
+            <a href="/blog/2005/12/30/20YearsOfVi.html" rel="bookmark canonical">20 Years of Vi</a>
+        </h1>
+    </header>
+    <p><a class="reference external" href="http://en.wikipedia.org/wiki/Vi">vi</a>.
+Vee-eye. My text editor of choice for 20 years. Half my life.</p>
+<p>Why? Because I
+<a class="reference external" href="http://en.wikipedia.org/wiki/Filial_imprinting">imprinted</a>
+on vi, like a duckling on its mother.
+Vi's keystrokes are bound into my
+<a class="reference external" href="http://en.wikipedia.org/wiki/Muscle_memory">muscle memory</a>.
+My fingers re­flex­ive­ly use vi keystrokes to move around,
+to delete text, to move blocks, to find patterns.
+I don't have to think about using <tt class="docutils literal">dw</tt> to delete a word,
+or <tt class="docutils literal">n</tt> to find the next match of a pattern,
+or <tt class="docutils literal">yG</tt> to yank the rest of a file,
+or <tt class="docutils literal">j</tt> to move down a line,
+or <tt class="docutils literal">.</tt> to repeat the last mod­i­fi­ca­tion.
+My sub­con­cious does it for me.</p>
+<p>I don't even have to think much about more complex commands,
+like <tt class="docutils literal">ct)</tt> to <span>&#8230;<a href="/blog/2005/12/30/20YearsOfVi.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+        <a href="/tag/vim/" class="page floatleft">
+        &laquo; Next
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/de/" rel="copyright license">
+        <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
