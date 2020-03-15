@@ -5,9 +5,9 @@ from __future__ import print_function, unicode_literals, absolute_import
 
 import six
 import argparse
-import codecs
 import fnmatch
 import hashlib
+import io
 import json
 import os
 import re
@@ -97,13 +97,13 @@ def walk_tree(dir, includes, excludes=None):
     for top, dirs, files in os.walk(dir, topdown=True):
         # exclude directories by mutating `dirs`
         dirs[:] = sorted([d for d in dirs if not excludes_re.search(os.path.join(top, d))],
-                         key=str.lower)
+                         key=six.text_type.lower)
 
         # exclude/include files
         files = [os.path.join(top, f) for f in files]
         files = [f for f in files if not excludes_re.search(f)]
         files = [f for f in files if includes_re.search(f)]
-        files = sorted(files, key=str.lower)
+        files = sorted(files, key=six.text_type.lower)
 
         for fname in files:
             yield fname
@@ -132,7 +132,7 @@ def tail(fp, window=20):
             # only read what was not read
             line_bytes = fp.read(byte_count)
         data.insert(0, line_bytes)
-        lines_found = line_bytes.count(ord('\n'))
+        lines_found = len([c for c in line_bytes if c == b'\n'])
         size -= lines_found
         byte_count -= BUFSIZ
         block -= 1
@@ -196,7 +196,7 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
     target_file = os.path.join(subdirs, os.path.splitext(os.path.split(fname)[1])[0])
 
     data, title, tags, matcher = [], None, None, ReMatcher()
-    with codecs.open(source_file, "r", encoding="utf8") as fp:
+    with io.open(source_file, "r", encoding="utf8") as fp:
         while True:
             line = fp.readline()
             if not line:
@@ -235,8 +235,8 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
         write = True
     else:
         new_md5 = hashlib.md5(target_data).hexdigest()
-        with open(target_file) as fp:
-            old_data = fp.read().encode("utf-8")
+        with open(target_file, "rb") as fp:
+            old_data = fp.read()
         old_md5 = hashlib.md5(old_data).hexdigest()
         write = (old_md5 != new_md5)
 #       if not write:
@@ -245,7 +245,7 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
     if write:
         print("'{0}' -> '{1}' ({2})".format(source_file, target_file, permalink))
 
-        with codecs.open(target_file, "w", encoding="utf8") as fp:
+        with io.open(target_file, "w", encoding="utf8") as fp:
             fp.write(prolog)
             for line in data:
                 fp.write(line)
@@ -267,7 +267,7 @@ def migrate_files(args, filename_links):
 
 if __name__ == '__main__':
     args = parse_args()
-    with codecs.open(os.path.join(os.path.dirname(__file__), "permalinks.json"), "r", encoding="utf8") as fp:
+    with io.open(os.path.join(os.path.dirname(__file__), "permalinks.json"), "r", encoding="utf8") as fp:
         permalink_titles = json.load(fp)
 
     filename_links = {}
