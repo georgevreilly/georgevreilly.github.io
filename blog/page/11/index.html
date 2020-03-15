@@ -28,26 +28,74 @@
     
         <article>
     <header>
+        <time datetime="2016-07-07">2016-07-07</time>
+        <h1>
+            <a href="/blog/2016/07/07/ReviewTheTailorOfPanama.html" rel="bookmark canonical">Review: The Tailor of Panama</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/The_Tailor_of_Panama_(film)"></a>
+<div class="line-block">
+<div class="line">Title: The Tailor of Panama</div>
+<div class="line">Director: John Boorman</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Released: 2001</div>
+<div class="line">Keywords: spy thriller, satire</div>
+<div class="line">Watched: 7 July, 2016</div>
+</div>
+<p>Andy Osnard (Pierce Brosnan) is a disgraced <span class="caps">MI6</span> officer, packed off to Panama,
+where he recruits Harry Pendel (Geoffrey Rush), the eponymous tailor.
+Osnard is an un&shy;scrupu&shy;lous dirtbag;
+Pendel is a fabulist in need of money;
+they&#8217;re made for each other.
+Panama is “Casablan&shy;ca without the heroes”
+and Pendel spins tall tales that make their way back to London.
+Eventually, he outdoes himself, claiming that the Canal is to be sold to the Chinese.
+Osnard manages to procure $15 million to fund a revolution,
+which he plans to abscond&nbsp;with.</p>
+<p>Brosnan plays against type <span>&#8230;<a href="/blog/2016/07/07/ReviewTheTailorOfPanama.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/07/ReviewTheTailorOfPanama.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/movies/" rel="tag">movies</a>
+                    and
+                    
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-07-06">2016-07-06</time>
         <h1>
             <a href="/blog/2016/07/06/BashBulkRenaming.html" rel="bookmark canonical">Bash: Bulk Renaming</a>
         </h1>
     </header>
     <p>I had to rename several hundred thousand files today.
-Thanks to a botched invocation of Im­ageMag­ick,
-they all looked like <tt class="docutils literal">unique_pre­fix.png.jpg</tt>,
-whereas we simply wanted <tt class="docutils literal">unique_pre­fix.jpg</tt>.</p>
-<p>I found a <a class="reference external" href="http://unix.stackexchange.com/a/102653/4060">suitable answer at the Unix Stack­Ex­change</a>.
-As one of the many variants of <a class="reference external" href="http://tldp.org/LDP/abs/html/parameter-substitution.html">parameter sub­sti­tu­tion</a>,
-Bash supports <tt class="docutils literal">${var/Pattern/Re­place­men­t}</tt>:
-“first match of <tt class="docutils literal">Pattern</tt> within <tt class="docutils literal">var</tt> replaced with <tt class="docutils literal">Re­place­ment</tt>.”</p>
-<pre class="code bash literal-block">
-<span class="k">for</span> f in *.png.jpg<span class="p">;</span>
-<span class="k">do</span>
-    mv <span class="nv">$f</span> <span class="s2">"</span><span class="si">${</span><span class="nv">f</span><span class="p">/.png</span><span class="si">}</span><span class="s2">"</span>
-<span class="k">done</span>
+Thanks to a botched invocation of Im&shy;ageMag&shy;ick,
+they all looked like <tt class="docutils literal">unique_pre&shy;fix.png.jpg</tt>,
+whereas we simply wanted <tt class="docutils literal">unique_pre&shy;fix.jpg</tt>.</p>
+<p>I found a <a class="reference external" href="http://unix.stackexchange.com/a/102653/4060">suitable answer at the Unix Stack&shy;Ex&shy;change</a>.
+As one of the many variants of <a class="reference external" href="http://tldp.org/LDP/abs/html/parameter-substitution.html">parameter sub&shy;sti&shy;tu&shy;tion</a>,
+Bash supports <tt class="docutils literal">${var/Pattern/Re&shy;place&shy;men&shy;t}</tt>:
+“first match of <tt class="docutils literal">Pattern</tt> within <tt class="docutils literal">var</tt> replaced with <tt class="docutils literal">Re&shy;place&shy;ment</tt>.”</p>
+
+<pre class="brush: bash">
+for f in *.png.jpg;
+do
+    mv $f "${f/.png}"
+done
 </pre>
-<p>The target expression could also have been written as <tt class="docutils literal"><span class="pre">"${f/.png.jpg/.jpg}"</span></tt></p>
+
+<p>The target expression could also have been written as <tt class="docutils literal"><span class="pre">&quot;${f/.png.jpg/.jpg}&quot;</span></tt></p>
 
     <footer>
         
@@ -74,7 +122,7 @@ Bash supports <tt class="docutils literal">${var/Pattern/Re­place­men­t}</tt>
     </header>
     <a class="reference external image-reference" href="http://www.amazon.com/dp/0452264898/?tag=georgvreill-20"></a>
 <div class="line-block">
-<div class="line">Title: Flashman’s Lady</div>
+<div class="line">Title: Flashman&#8217;s Lady</div>
 <div class="line">Author: George MacDonald Fraser</div>
 <div class="line">Rating: ★ ★ ★ ★</div>
 <div class="line">Publisher: Plume</div>
@@ -85,15 +133,15 @@ Bash supports <tt class="docutils literal">${var/Pattern/Re­place­men­t}</tt>
 <div class="line">Reading period: 24–29 June, 2016</div>
 <div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> <span class="caps">VI</span>: 1842–45</div>
 </div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman%27s_Lady">Flashman’s Lady</a> takes place between the two parts of <a class="reference external" href="/blog/2016/06/26/ReviewRoyalFlash.html">Royal Flash</a>,
-making it the third book chrono­log­i­cal­ly of the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>
-and the sixth book published.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman%27s_Lady">Flashman&#8217;s Lady</a> takes place between the two parts of <a class="reference external" href="/blog/2016/06/26/ReviewRoyalFlash.html">Royal Flash</a>,
+making it the third book chrono&shy;log&shy;i&shy;cal&shy;ly of the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>
+and the sixth book&nbsp;published.</p>
 <p>Flashman and his wife, Elspeth, become friendly with Don Solomon Haslam,
 a rich merchant from the East Indies.
 Losing a wager to Haslam, who is smitten with Elspeth,
 Flashy has to let Haslam take Elspeth and her father on a trip to Singapore.
 As things have become hot for him in England, he sails east with them.
-Haslam’s feelings for <span>&#8230;<a href="/blog/2016/07/05/ReviewFlashmansLady.html" class="continue">continue</a>.</span></p>
+Haslam&#8217;s feelings for <span>&#8230;<a href="/blog/2016/07/05/ReviewFlashmansLady.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/05/ReviewFlashmansLady.html#disqus_thread">Comment</a>
@@ -126,15 +174,15 @@ Haslam’s feelings for <span>&#8230;<a href="/blog/2016/07/05/ReviewFlashmansLa
     
 <p>I have an ambivalent relation to the notion of patriotism
 because all too often those who most loudly proclaim themselves to be patriots
-are the worst sort of jingoistic, know-nothing, blowhard­s—be they Trump supporters, Brexiters, or Irish na­tion­al­ists.</p>
+are the worst sort of jingoistic, know-nothing, blowhard&shy;s—be they Trump supporters, Brexiters, or Irish&nbsp;na&shy;tion&shy;al&shy;ists.</p>
 <p>And yet, for all the flaws and failures of the American Experiment,
 there are still things to celebrate.
-America’s optimism and can-do spirit,
+America&#8217;s optimism and can-do spirit,
 although much abraded in recent years, is still exemplary.
-Millions continue to flock here, drawn to the land of op­por­tu­ni­ty.
+Millions continue to flock here, drawn to the land of op&shy;por&shy;tu&shy;ni&shy;ty.
 The Founding Fathers created a great and lasting democracy,
 albeit with a franchise and a set of rights that had to be widened several times.
-The world can’t get enough <span>&#8230;<a href="/blog/2016/07/04/IndependenceDay.html" class="continue">continue</a>.</span></p>
+The world can&#8217;t get enough <span>&#8230;<a href="/blog/2016/07/04/IndependenceDay.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/04/IndependenceDay.html#disqus_thread">Comment</a>
@@ -159,13 +207,13 @@ The world can’t get enough <span>&#8230;<a href="/blog/2016/07/04/Independence
         </h1>
     </header>
     <a class="reference external image-reference" href="https://eshop.macsales.com/shop/internal_storage/Data_Doubler"></a>
-<p>My mid-2012 15" MacBook Pro has been getting ever slower.
+<p>My mid-2012 15&quot; MacBook Pro has been getting ever slower.
 My last two work laptops came with SSDs, but this older machine has a <span class="caps">768GB</span> hard disk drive.
 It was time to get a solid-state drive, which are far more affordable now than four years ago.
 Rather than replace the <span class="caps">HDD</span>, I bought a <a class="reference external" href="https://eshop.macsales.com/shop/internal_storage/Data_Doubler">Data Doubler</a> kit and a <span class="caps">480GB</span> <span class="caps">SSD</span>.
 I removed the optical drive and installed the Data Doubler with <span class="caps">SSD</span> in that space.
-I rarely used the <span class="caps">DVD</span> drive, so I won’t miss it.</p>
-<p>The Data Doubler kit came with a set of screw­drivers and
+I rarely used the <span class="caps">DVD</span> drive, so I won&#8217;t miss&nbsp;it.</p>
+<p>The Data Doubler kit came with a set of screw&shy;drivers and
 a detailed manual that covered multiple MacBook models.
 The manual had <span>&#8230;<a href="/blog/2016/07/03/SSDUpgradeFor2012MacBook.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -193,22 +241,22 @@ The manual had <span>&#8230;<a href="/blog/2016/07/03/SSDUpgradeFor2012MacBook.h
     </header>
     <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Tomorrowland_(film)"></a>
 <div class="line-block">
-<div class="line">Title: To­mor­row­land</div>
+<div class="line">Title: To&shy;mor&shy;row&shy;land</div>
 <div class="line">Director: Brad Bird</div>
 <div class="line">Rating: ★ ★ ★ ½</div>
 <div class="line">Released: 2015</div>
 <div class="line">Keywords: sf</div>
 <div class="line">Watched: 2 July, 2016</div>
 </div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Tomorrowland_(film)">To­mor­row­land</a> is a story of dashed dreams and recovered optimism.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Tomorrowland_(film)">To&shy;mor&shy;row&shy;land</a> is a story of dashed dreams and recovered&nbsp;optimism.</p>
 <p>In 1964, eleven-year-old Frank Walker meets a girl called Athena
-who takes him from the World’s Fair into a futuristic city called To­mor­row­land.
+who takes him from the World&#8217;s Fair into a futuristic city called To&shy;mor&shy;row&shy;land.
 In the present day, where doom and gloom reign,
-a teenager called Casey hasn’t given up hope of a better future.
-She is recruited by Athena—­some­how no older—to save the world.
+a teenager called Casey hasn&#8217;t given up hope of a better future.
+She is recruited by Athena—&shy;some&shy;how no older—to save the world.
 Casey finds Frank, who is embittered at having been cast out of paradise decades ago.
-They find their way back into the now-desolate To­mor­row­land
-and destroy the machine that’s casting a pall of <span>&#8230;<a href="/blog/2016/07/02/ReviewTomorrowland.html" class="continue">continue</a>.</span></p>
+They find their way back into the now-desolate To&shy;mor&shy;row&shy;land
+and destroy the machine that&#8217;s casting a pall of <span>&#8230;<a href="/blog/2016/07/02/ReviewTomorrowland.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/02/ReviewTomorrowland.html#disqus_thread">Comment</a>
@@ -237,25 +285,25 @@ and destroy the machine that’s casting a pall of <span>&#8230;<a href="/blog/2
     </header>
     <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Jimmy%27s_Hall"></a>
 <div class="line-block">
-<div class="line">Title: Jimmy’s Hall</div>
+<div class="line">Title: Jimmy&#8217;s Hall</div>
 <div class="line">Director: Ken Loach</div>
 <div class="line">Rating: ★ ★ ★ ★</div>
 <div class="line">Released: 2014</div>
 <div class="line">Keywords: irish, historical</div>
 <div class="line">Watched: 1 July, 2016</div>
 </div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Jimmy%27s_Hall">Jimmy’s Hall</a> tells how Jimmy Gralton
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Jimmy%27s_Hall">Jimmy&#8217;s Hall</a> tells how Jimmy Gralton
 became the only Irishman ever deported from Ireland.
 Gralton returns to rural Ireland from the <span class="caps">US</span> in 1932,
-after being run out ten years’ earlier
+after being run out ten years&#8217; earlier
 during the Irish Civil War for Communist activity.
 He revives the dance hall he had built previously,
 as it is a much-needed outlet for the young to dance, study, and talk,
-and im­me­di­ate­ly runs afoul of the local powers,
-par­tic­u­lar­ly the parish priest.
-Tensions escalate, cul­mi­nat­ing in his de­por­ta­tion.</p>
+and im&shy;me&shy;di&shy;ate&shy;ly runs afoul of the local powers,
+par&shy;tic&shy;u&shy;lar&shy;ly the parish priest.
+Tensions escalate, cul&shy;mi&shy;nat&shy;ing in his&nbsp;de&shy;por&shy;ta&shy;tion.</p>
 <p>Ken Loach is never subtle about his own socialist beliefs.
-<em>Jimmy’s Hall</em> is a polemic about
+<em>Jimmy&#8217;s Hall</em> is a polemic about
 the struggle between <span>&#8230;<a href="/blog/2016/07/01/ReviewJimmysHall.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -283,13 +331,13 @@ the struggle between <span>&#8230;<a href="/blog/2016/07/01/ReviewJimmysHall.htm
             <a href="/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html" rel="bookmark canonical">reStructuredText Anonymous Hyperlinks</a>
         </h1>
     </header>
-    <p>While re­search­ing <a class="reference external" href="/blog/2016/06/29/reStructuredTextNestedMarkup.html">yes­ter­day’s post</a> about nested markup in Re­Struc­tured­Text,
+    <p>While re&shy;search&shy;ing <a class="reference external" href="/blog/2016/06/29/reStructuredTextNestedMarkup.html">yesterday&#8217;s post</a> about nested markup in Re&shy;Struc&shy;tured&shy;Text,
 I finally learned how to use <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#anonymous-hyperlinks">anonymous hyperlinks</a>.</p>
-<p>Hitherto, I used one of these three forms for hyperlinks:</p>
+<p>Hitherto, I used one of these three forms for&nbsp;hyperlinks:</p>
 <pre class="literal-block">
 1. The central conceit of the fictional `Flashman Papers`_ is that Flashy
 2. besieging Breda_ in 1625.
-3. my club, `Freely Speaking Toastmasters <http: freelyspeaking.org/>`_.
+3. my club, `Freely Speaking Toastmasters &lt;http://freelyspeaking.org/&gt;`_.
 
 .. _Flashman Papers:
     https://en.wikipedia.org/wiki/The_Flashman_Papers
@@ -299,8 +347,8 @@ I finally learned how to use <a class="reference external" href="http://docutils
 which refers to an <em>external hyperlink target</em>, <tt class="docutils literal">.. _Flashman Papers: <span class="caps">URI</span></tt>.
 Note that the reference name starts with a backquote, <tt class="docutils literal">`</tt>,
 and ends with backquote-underscore, <tt class="docutils literal">`_</tt>.</p>
-<p>The second, <tt class="docutils literal">Breda_</tt>, is a <em>simple reference name</em>—the backquotes are optional.</p>
-<p><tt class="docutils literal">`Freely Speaking Toast­mas­ters <span class="pre"><http: freelyspeak&shy;ing.org/>`_</span></tt>,
+<p>The second, <tt class="docutils literal">Breda_</tt>, is a <em>simple reference name</em>—the backquotes are&nbsp;optional.</p>
+<p><tt class="docutils literal">`Freely Speaking Toast&shy;mas&shy;ters <span class="pre">&lt;http://freelyspeak&shy;ing.org/&gt;`_</span></tt>,
 is an <em>embedded <span class="caps">URI</span></em>.
 The syntax <span>&#8230;<a href="/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -326,12 +374,12 @@ The syntax <span>&#8230;<a href="/blog/2016/06/30/ReStructuredTextAnonymousHyper
             <a href="/blog/2016/06/29/reStructuredTextNestedMarkup.html" rel="bookmark canonical">reStructuredText Nested Markup</a>
         </h1>
     </header>
-    <p>I use <a class="reference external" href="https://en.wikipedia.org/wiki/ReStructuredText">re­Struc­tured­Text</a> for both this blog and the <a class="reference external" href="http://www.metabrite.com/devblog/">MetaBrite DevBlog</a>.
+    <p>I use <a class="reference external" href="https://en.wikipedia.org/wiki/ReStructuredText">re&shy;Struc&shy;tured&shy;Text</a> for both this blog and the <a class="reference external" href="http://www.metabrite.com/devblog/">MetaBrite DevBlog</a>.
 This blog is built with <a class="reference external" href="https://posativ.org/acrylamid/">Acrylamid</a>, while the MetaBrite blog is built with <a class="reference external" href="https://getnikola.com/">Nikola</a>.</p>
 <p><a class="reference external" href="/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html">Yesterday</a> I used a link (<a class="reference external" href="https://blog.sleeplessbeastie.eu/2014/03/23/how-to-non-interactively-provide-password-for-the-postgresql-interactive-terminal/"><tt class="docutils literal"><span class="pre">~/.pgpass</span></tt></a>) that styled the link as an <em>inline literal</em>;
 i.e., in the <tt class="docutils literal">code</tt> font.
-Re­Struc­tured­Text doesn’t support nested markup,
-but you can <a class="reference external" href="http://stackoverflow.com/a/4836544/6364">pull it together</a> with a two-step <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#substitution-references">sub­sti­tu­tion reference</a>:</p>
+Re&shy;Struc&shy;tured&shy;Text doesn&#8217;t support nested markup,
+but you can <a class="reference external" href="http://stackoverflow.com/a/4836544/6364">pull it together</a> with a two-step <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#substitution-references">sub&shy;sti&shy;tu&shy;tion reference</a>:</p>
 <pre class="literal-block">
 Here you have |optparse.OptionParser|_.
 
@@ -339,8 +387,8 @@ Here you have |optparse.OptionParser|_.
 .. _optparse.OptionParser: http://docs.python.org/library/optparse.html
 </pre>
 <p>This is tedious as you have to create a pair of directives
-for every such link that you wish to style.</p>
-<p>Nested inline markup has been on the todo list for 15 years—it ain’t happening.</p>
+for every such link that you wish to&nbsp;style.</p>
+<p>Nested inline markup has been on the todo list for 15 years—it ain&#8217;t&nbsp;happening.</p>
 
     <footer>
         
@@ -367,17 +415,17 @@ for every such link that you wish to style.</p>
     </header>
     <p>Many of us are guilty of saying “database” when we mean a database server or a <span class="caps">DBMS</span>.
 A database is a collection of tables storing related data,
-schemas, stored procs, and per­mis­sions.
-Most database servers are capable of managing many databases si­mul­ta­ne­ous­ly.</p>
-<p>I needed to create a new PostgreSQL database at Amazon’s <span class="caps">RDS</span> last week.
+schemas, stored procs, and per&shy;mis&shy;sions.
+Most database servers are capable of managing many databases&nbsp;si&shy;mul&shy;ta&shy;ne&shy;ous&shy;ly.</p>
+<p>I needed to create a new PostgreSQL database at Amazon&#8217;s <span class="caps">RDS</span> last week.
 I already had an <span class="caps">RDS</span> instance; I needed a new database on that instance.
-My Google searches turned up various recipes for creating a new <span class="caps">RDS</span> instance.</p>
-<p>The following worked for me:</p>
+My Google searches turned up various recipes for creating a new <span class="caps">RDS</span>&nbsp;instance.</p>
+<p>The following worked for&nbsp;me:</p>
 <ul>
 <li><p class="first"><span class="caps">SSH</span> to an <span class="caps">EC2</span> instance inside our <span class="caps">VPC</span>,
 so that I could connect to the <span class="caps">RDS</span> instance using <a class="reference external" href="http://postgresguide.com/utilities/psql.html">psql</a>.</p>
 </li>
-<li><p class="first">Then run:</p>
+<li><p class="first">Then&nbsp;run:</p>
 <pre class="literal-block">
 psql --host=SOME-DBMS-HOST --dbname EXISTING_DB \
    </pre><span>&#8230;<a href="/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html" class="continue">continue</a>.</span></li></ul>
@@ -391,57 +439,6 @@ psql --host=SOME-DBMS-HOST --dbname EXISTING_DB \
                     and
                     
                 <a href="/tag/aws/" rel="tag">aws</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-06-27">2016-06-27</time>
-        <h1>
-            <a href="/blog/2016/06/27/ReviewThePrisonerOfZenda.html" rel="bookmark canonical">Review: The Prisoner of Zenda</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/1533583595/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Prisoner of Zenda</div>
-<div class="line">Author: Anthony Hope</div>
-<div class="line">Rating: ★ ★ ★ ½</div>
-<div class="line">Copyright: 1894</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/1533583595/?tag=georgvreill-20">1533583595</a></div>
-<div class="line">Pages: 156</div>
-<div class="line">Keywords: adventure</div>
-<div class="line">Reading period: 23–24 June, 2016</div>
-</div>
-<p>Having read <a class="reference external" href="/blog/2016/06/26/ReviewRoyalFlash.html">Royal Flash</a>,
-I also read its in­spi­ra­tion, <a class="reference external" href="https://en.wikipedia.org/wiki/The_Prisoner_of_Zenda">The Prisoner of Zenda</a>,
-Anthony Hope’s classic adventure novel.
-Rudolf Rassendyll, a young British aristocrat,
-decides to visit Ruritania,
-where his distant cousin and dop­pel­gänger, the dissipated Rudolf Elphberg,
-is about to be crowned king.
-The future king has a half brother, “Black” Michael,
-who begrudges him the throne and also covets his fiancée, Princess Flavia.
-Michael kidnaps the king and the king’s friends,
-in a desperate attempt to preserve political peace,
-persuade Rassendyll to im­per­son­ate the king.
-The imposture is successful and a stalemate <span>&#8230;<a href="/blog/2016/06/27/ReviewThePrisonerOfZenda.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/06/27/ReviewThePrisonerOfZenda.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/thriller/" rel="tag">thriller</a>
                 
             </p>
         

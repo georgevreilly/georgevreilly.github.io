@@ -37,28 +37,28 @@ I..." />
         </h1>
     </header>
     <p>Despite being a <em>bona fide</em> per&shy;for&shy;mance expert—I spent a couple of years as the Per&shy;for&shy;mance Lead
-for Mi&shy;crosoft&shy;’s <span class="caps">IIS</span> web server product about 15 years ago—I still forget to measure rather than assume.</p>
+for Microsoft&#8217;s <span class="caps">IIS</span> web server product about 15 years ago—I still forget to measure rather than&nbsp;assume.</p>
 <p>I wrote some code today that imported nearly 300,000 nodes into a graph
 from a <span class="caps">500MB</span> <span class="caps">XML</span> file.
 The code was not par&shy;tic&shy;u&shy;lar&shy;ly fast and I assumed that it was the <span class="caps">XML</span> parser.
 I had been using the built-in streaming parser, <a class="reference external" href="https://docs.python.org/2/library/xml.etree.elementtree.html#xml.etree.ElementTree.iterparse">cEle&shy;ment&shy;Tree iterparse</a>.
 I assumed that using the <a class="reference external" href="http://lxml.de/api/lxml.etree.iterparse-class.html">lmxl iterparse</a> would make the code faster.
-It didn’t.</p>
+It&nbsp;didn&#8217;t.</p>
 <p>Then I had the bright idea of tem&shy;porar&shy;i&shy;ly disabling the per-node processing,
 which left only the <span class="caps">XML</span> parsing.
 Instead of handling 200 nodes per second, I was now parsing more than 10,000 nodes per second.
-Clearly it was the processing, not the parsing, despite my as&shy;sump&shy;tions.</p>
-<p>Time to profile.</p>
+Clearly it was the processing, not the parsing, despite my&nbsp;as&shy;sump&shy;tions.</p>
+<p>Time to&nbsp;profile.</p>
 <p>I used <a class="reference external" href="https://pymotw.com/2/profile/">cProfile</a> to gather some actual data on where time was being spent.
 The first thing that leaped out at me was
 that I was spending nearly all the time in <tt class="docutils literal">str.lower</tt>.
 I cached the result of <tt class="docutils literal">lower</tt> for each node;
-instead of making 20 million calls, I was now making only 32,000.</p>
+instead of making 20 million calls, I was now making only&nbsp;32,000.</p>
 <p>The hot spot then moved to a function where I was doing a linear search
 through an unordered list.
 I introduced a dictionary and the cumulative time spent in that function
-dropped from 1,500 seconds to 0.56 seconds.</p>
-<p>So much for my intuition.</p>
+dropped from 1,500 seconds to 0.56&nbsp;seconds.</p>
+<p>So much for my&nbsp;intuition.</p>
 
     <footer>
         

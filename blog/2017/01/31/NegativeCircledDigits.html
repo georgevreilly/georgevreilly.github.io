@@ -36,23 +36,22 @@
         </h1>
     </header>
     <p>I found something very useful in the <a class="reference external" href="http://graphemica.com/blocks/dingbats">dingbats</a> range of Unicode characters:
-the negative circled san-serif digits, ➊ ➋ ➌ ➍ ➎ ➏ ➐ ➑ ➒ ➓ .</p>
-<p>I’ve started using them to label points of interest in code.
-They play well with the <tt class="docutils literal"><span class="pre">code-block</span></tt> directive in re&shy;Struc&shy;tured&shy;Text.</p>
-<pre class="code bash literal-block">
-sudo docker images --format <span class="s1">'{{.Repository}}:{{.Tag}}'</span> <span class="se">\ </span>   ➊
+the negative circled san-serif digits, ➊ ➋ ➌ ➍ ➎ ➏ ➐ ➑ ➒ ➓&nbsp;.</p>
+<p>I&#8217;ve started using them to label points of interest in code.
+They play well with the <tt class="docutils literal"><span class="pre">code-block</span></tt> directive in&nbsp;re&shy;Struc&shy;tured&shy;Text.</p>
+<div class="highlight"><pre><span></span>sudo docker images --format <span class="s1">&#39;{{.Repository}}:{{.Tag}}&#39;</span> <span class="se">\ </span>   ➊
     <span class="p">|</span> grep <span class="nv">$IMAGE_NAME</span> <span class="se">\ </span>                                   ➋
     <span class="p">|</span> grep -v latest <span class="se">\ </span>                                     ➌
     <span class="p">|</span> head -1                                               ➍
-</pre>
+</pre></div>
 <ol class="arabic simple">
-<li>A Golang Template format string for image-name and tag</li>
-<li>Match some Docker image name</li>
+<li>A Golang Template format string for image-name and&nbsp;tag</li>
+<li>Match some Docker image&nbsp;name</li>
 <li>Exclude the <tt class="docutils literal">latest</tt> tag</li>
-<li>Take only the first</li>
+<li>Take only the&nbsp;first</li>
 </ol>
 <p>Because these characters are extra-wide even in a monospaced font,
-Vim doesn’t render them properly unless they’re followed by a space.</p>
+Vim doesn&#8217;t render them properly unless they&#8217;re followed by a&nbsp;space.</p>
 
     <footer>
         

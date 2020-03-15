@@ -37,17 +37,17 @@
     </header>
     <p>I complained <a class="reference external" href="../17/DeployingDockerContainersOnAWSPart2.html">yesterday</a> about my dif&shy;fi&shy;cul&shy;ties in deploying Docker containers on <span class="caps">AWS</span>.
 I have since succeeded in getting my app to deploy on Elas&shy;ticBeanstalk,
-though I have not quite ironed out all the problems.</p>
-<p>I found several problems:</p>
+though I have not quite ironed out all the&nbsp;problems.</p>
+<p>I found several&nbsp;problems:</p>
 <blockquote>
 <ul class="simple">
 <li>I had to revert from a Multi-Container Docker en&shy;vi&shy;ron&shy;ment
 to a Single-Container Docker en&shy;vi&shy;ron&shy;ment
-because <span class="caps">ECS</span> wasn’t starting in the multi-container en&shy;vi&shy;ron&shy;ment.
+because <span class="caps">ECS</span> wasn&#8217;t starting in the multi-container en&shy;vi&shy;ron&shy;ment.
 That meant I had to revert to a v1 <tt class="docutils literal">Dockerrun.aws.json</tt>.</li>
 <li>I had to ensure that the Instance Profile had the
 Ama&shy;zonEC2&shy;Con&shy;tain&shy;erReg&shy;istryRead&shy;On&shy;ly policy attached,
-so that I could pull from the <span class="caps">EC2</span> Container Repository.</li>
+so that I could pull from the <span class="caps">EC2</span> Container&nbsp;Repository.</li>
 </ul>
 </blockquote>
 

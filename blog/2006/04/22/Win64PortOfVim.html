@@ -35,88 +35,88 @@
             <a href="/blog/2006/04/22/Win64PortOfVim.html" rel="bookmark canonical">Win64 port of Vim</a>
         </h1>
     </header>
-    <p>I’ve ported Vim to Win64. Native binaries for <span class="caps">AMD64</span> can be found on my
+    <p>I&#8217;ve ported Vim to Win64. Native binaries for <span class="caps">AMD64</span> can be found on my
 <a class="reference external" href="//www.georgevreilly.com/vim/">Vim page</a>.</p>
-<p>In the end, it wasn’t all that hard. Last weekend, I fixed ap&shy;prox&shy;i&shy;mate&shy;ly
+<p>In the end, it wasn&#8217;t all that hard. Last weekend, I fixed ap&shy;prox&shy;i&shy;mate&shy;ly
 400 warnings that were thrown up by the x86_amd64 cross compiler.
 Most of them were due to the widening of <tt class="docutils literal">size_t</tt> (especially the value
 returned from <tt class="docutils literal">strlen()</tt>) and <tt class="docutils literal">ptrdiff_t</tt> to 64-bits.
 Several years ago, I went through a similar exercise in fixing these
-warnings for Vim6, but I never finished the port.</p>
+warnings for Vim6, but I never finished the&nbsp;port.</p>
 <p>This week, I scrounged access to an <span class="caps">AMD64</span> box at work. Today, I turned on
 the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/yt4xw8fh(VS.80).aspx">/Wp64 flag</a>,
 which found several new, subtler problems, where pointers where being
 truncated to <tt class="docutils literal">__int32</tt>s or conversely
 <tt class="docutils literal">__int32</tt>s were being widened to
 pointers. Judicious in&shy;tro&shy;duc&shy;tion of (the equivalent of) <tt class="docutils literal">(INT_PTR)</tt> casts
-fixed most of those.</p>
+fixed most of&nbsp;those.</p>
 <p>At that point, I tried running the binary. It refused to start!
 After a few detours, I had <a class="reference external" href="http://www.microsoft.com/whdc/devtools/debugging/default.mspx">WinDbg</a>
 installed, and ran gvim under WinDbg. That showed that the error was 14001
-(ER&shy;ROR_SXS_&shy;CAN&shy;T_&shy;GEN_ACTC&shy;TX, "The ap&shy;pli&shy;ca&shy;tion has failed to start because its
+(ER&shy;ROR_SXS_&shy;CAN&shy;T_&shy;GEN_ACTC&shy;TX, &quot;The ap&shy;pli&shy;ca&shy;tion has failed to start because its
 side-by-side con&shy;fig&shy;u&shy;ra&shy;tion is incorrect. Please see the ap&shy;pli&shy;ca&shy;tion event
-log for more detail.") The event log showed nothing.</p>
-<p>After more in&shy;ves&shy;ti&shy;ga&shy;tion, I found a WinSxS manifest for the Windows Common Controls:</p>
+log for more detail.&quot;) The event log showed&nbsp;nothing.</p>
+<p>After more in&shy;ves&shy;ti&shy;ga&shy;tion, I found a WinSxS manifest for the Windows Common&nbsp;Controls:</p>
 <pre class="literal-block">
 .. code:: xml
 </pre>
 <blockquote>
-<p><?xml version="1.0" encoding="<span class="caps">UTF</span>-8" standalone="yes"?>
-<assembly xmlns="<a class="reference external" href="urn:schemas-microsoft-com:asm.v1">urn:schemas-microsoft-com:asm.v1</a>" man&shy;i&shy;festVer&shy;sion="1.0"></p>
+<p>&lt;?xml version=&quot;1.0&quot; encoding=&quot;<span class="caps">UTF</span>-8&quot; standalone=&quot;yes&quot;?&gt;
+&lt;assembly xmlns=&quot;<a class="reference external" href="urn:schemas-microsoft-com:asm.v1">urn:schemas-microsoft-com:asm.v1</a>&quot;&nbsp;man&shy;i&shy;festVer&shy;sion=&quot;1.0&quot;&gt;</p>
 <div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">ERROR</span>/3 (<tt class="docutils"><string></tt>, line 34)</p>
+<p class="system-message-title">System Message: <span class="caps">ERROR</span>/3 (<tt class="docutils">&lt;string&gt;</tt>, line&nbsp;34)</p>
 Unexpected in&shy;den&shy;ta&shy;tion.</div>
 <blockquote>
 <dl class="docutils">
-<dt><assem&shy;blyI&shy;den&shy;ti&shy;ty</dt>
-<dd>proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture="X86"
-version="6.2.0.0"
-type="win32" name="Vim"</dd>
+<dt>&lt;as&shy;sem&shy;blyI&shy;den&shy;ti&shy;ty</dt>
+<dd>proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture=&quot;X86&quot;
+version=&quot;6.2.0.0&quot;
+type=&quot;win32&quot;&nbsp;name=&quot;Vim&quot;</dd>
 </dl>
 <div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils"><string></tt>, line 39)</p>
+<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils">&lt;string&gt;</tt>, line&nbsp;39)</p>
 Definition list ends without a blank line; unexpected unindent.</div>
-<p>/>
-<de&shy;scrip&shy;tion>Vi Improved - A Text Editor</de&shy;scrip&shy;tion> <de&shy;pen&shy;den&shy;cy></p>
+<p>/&gt;
+&lt;de&shy;scrip&shy;tion&gt;Vi Improved - A Text Editor&lt;/de&shy;scrip&shy;tion&gt;&nbsp;&lt;dependency&gt;</p>
 <div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">ERROR</span>/3 (<tt class="docutils"><string></tt>, line 42)</p>
+<p class="system-message-title">System Message: <span class="caps">ERROR</span>/3 (<tt class="docutils">&lt;string&gt;</tt>, line&nbsp;42)</p>
 Unexpected in&shy;den&shy;ta&shy;tion.</div>
 <blockquote>
 <dl class="docutils">
-<dt><de&shy;pen&shy;den&shy;tAssem&shy;bly></dt>
+<dt>&lt;de&shy;pen&shy;den&shy;tAssem&shy;bly&gt;</dt>
 <dd><dl class="first docutils">
-<dt><assem&shy;blyI&shy;den&shy;ti&shy;ty</dt>
-<dd>type="win32"
-name="Microsoft.Windows.Common-Controls"
-version="6.0.0.0"
-pub&shy;licK&shy;ey&shy;To&shy;ken="6595b64144c&shy;cf1d&shy;f"
-language="*" proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture="X86"</dd>
+<dt>&lt;as&shy;sem&shy;blyI&shy;den&shy;ti&shy;ty</dt>
+<dd>type=&quot;win32&quot;
+name=&quot;Microsoft.Windows.Common-Controls&quot;
+version=&quot;6.0.0.0&quot;
+pub&shy;licK&shy;ey&shy;To&shy;ken=&quot;6595b64144c&shy;cf1df&quot;
+language=&quot;*&quot;&nbsp;proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture=&quot;X86&quot;</dd>
 </dl>
 <div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils"><string></tt>, line 50)</p>
+<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils">&lt;string&gt;</tt>, line&nbsp;50)</p>
 Definition list ends without a blank line; unexpected unindent.</div>
-<p class="last">/></p>
+<p class="last">/&gt;</p>
 </dd>
 </dl>
 <div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils"><string></tt>, line 51)</p>
+<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils">&lt;string&gt;</tt>, line&nbsp;51)</p>
 Definition list ends without a blank line; unexpected unindent.</div>
-<p></de&shy;pen&shy;den&shy;tAssem&shy;bly></p>
+<p>&lt;/de&shy;pen&shy;den&shy;tAssem&shy;bly&gt;</p>
 </blockquote>
 <div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils"><string></tt>, line 52)</p>
+<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils">&lt;string&gt;</tt>, line&nbsp;52)</p>
 Block quote ends without a blank line; unexpected unindent.</div>
-<p></de&shy;pen&shy;den&shy;cy></p>
+<p>&lt;/dependency&gt;</p>
 </blockquote>
 <div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils"><string></tt>, line 53)</p>
+<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils">&lt;string&gt;</tt>, line&nbsp;53)</p>
 Block quote ends without a blank line; unexpected unindent.</div>
-<p></assembly></p>
+<p>&lt;/assembly&gt;</p>
 </blockquote>
-<p>Once the two instances of <tt class="docutils literal"><span class="pre">proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture="X86"</span></tt> were set to
-<tt class="docutils literal"><span class="pre">proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture="<span class="caps">AMD64</span>"</span></tt>, Vim started working without a hitch.
+<p>Once the two instances of <tt class="docutils literal"><span class="pre">proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture=&quot;X86&quot;</span></tt> were set to
+<tt class="docutils literal"><span class="pre">proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture=&quot;<span class="caps">AMD64</span>&quot;</span></tt>, Vim started working without a hitch.
 Despite my naïve ex&shy;pec&shy;ta&shy;tions, none of the other fields in the comctl32
-assembly needed to be changed.</p>
+assembly needed to be&nbsp;changed.</p>
 
     <footer>
         

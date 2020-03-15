@@ -38,24 +38,26 @@
     <p>I needed to track down a remote branch created a couple of months ago
 on another machine.
 I knew which file had been changed,
-but none of the far-too-many remote branches’ names rang a bell.</p>
-<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch –contains</a> in the right way finds all the relevant branches.</p>
-<pre class="code bash literal-block">
-git log --all --format<span class="o">=</span>%H <span class="caps">FILENAME</span> <span class="se">\
-</span>    <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> f<span class="p">;</span> <span class="k">do</span> git branch --remotes --contains <span class="nv">$f</span><span class="p">;</span> <span class="k">done</span> <span class="se">\
-</span>    <span class="p">|</span> sort -u
+but none of the far-too-many remote branches&#8217; names rang a&nbsp;bell.</p>
+<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch &#8211;contains</a> in the right way finds all the relevant&nbsp;branches.</p>
+
+<pre class="brush: bash">
+git log --all --format=%H FILENAME \
+    | while read f; do git branch --remotes --contains $f; done \
+    | sort -u
 </pre>
+
 <p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> <span class="caps">FILENAME</span></tt>,
 lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal"><span class="caps">FILENAME</span></tt>.
 The second finds all the branches that contain those hashes
 (I added <tt class="docutils literal"><span class="pre">--remotes</span></tt>).
-The third uniquifies the results.</p>
+The third uniquifies the&nbsp;results.</p>
 <p>The <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">original answer</a> goes on to suggest using
 <tt class="docutils literal">gitk <span class="pre">--all</span> <span class="pre">--date-order</span> <span class="pre">--</span> <span class="caps">FILENAME</span></tt>
 to manually inspect all branches.
-However, gitk complains <tt class="docutils literal">unknown color name "lime"</tt> on my new Mac.
+However, gitk complains <tt class="docutils literal">unknown color name &quot;lime&quot;</tt> on my new Mac.
 I must have hit this before, on an earlier in&shy;stal&shy;la&shy;tion of Git,
-because the <a class="reference external" href="http://stackoverflow.com/questions/34637896/gitk-will-not-start-on-mac-unknown-color-name-lime">Stack&shy;Over&shy;flow answer</a> contains an edit from me.</p>
+because the <a class="reference external" href="http://stackoverflow.com/questions/34637896/gitk-will-not-start-on-mac-unknown-color-name-lime">Stack&shy;Over&shy;flow answer</a> contains an edit from&nbsp;me.</p>
 
     <footer>
         

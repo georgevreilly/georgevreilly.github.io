@@ -38,52 +38,58 @@ from..." />
     </header>
     <p>When I declare a derived class that inherits
 from both a base class and some mixins,
-I am always tempted to write:</p>
-<pre class="code python literal-block">
-<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">Mixin1</span><span class="p">,</span> <span class="n">Mixin2</span><span class="p">):</span>
-    <span class="s2">"Some class"</span>
+I am always tempted to&nbsp;write:</p>
+
+<pre class="brush: python">
+class Derived(Base, Mixin1, Mixin2):
+    "Some class"
 </pre>
+
 <p>My reasoning is that <tt class="docutils literal">Derived</tt> is a <tt class="docutils literal">Base</tt>
 with some <tt class="docutils literal">Mixin1</tt> and <tt class="docutils literal">Mixin2</tt> goodness sprinkled on.
-Generally, that’s fine.
+Generally, that&#8217;s fine.
 The exception is when I want one of the mixins to override
-a method or attribute that’s defined in <tt class="docutils literal">Base</tt>.
+a method or attribute that&#8217;s defined in <tt class="docutils literal">Base</tt>.
 Because the <a class="reference external" href="http://python-history.blogspot.com/2010/06/method-resolution-order.html">Method Resolution Order</a> is left-to-right,
-then <tt class="docutils literal">Base</tt>‘s im&shy;ple&shy;men&shy;ta&shy;tion will always be found first.</p>
+then <tt class="docutils literal">Base</tt>&#8216;s im&shy;ple&shy;men&shy;ta&shy;tion will always be found&nbsp;first.</p>
 <p>To get the desired behavior of the mixin overriding the base,
-<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance list.</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance&nbsp;list.</p>
 
-<span class="k">class</span> <span class="nc">Useful</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">"{0}: {1}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">msg</span><span class="p">))</span>
+<pre class="brush: python">
+from __future__ import print_function
 
-    <span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">"useful"</span><span class="p">)</span>
+class Useful(object):
+    def __init__(self, msg):
+        print("{0}: {1}".format(self.__class__.__name__, msg))
 
-<span class="k">class</span> <span class="nc">Mixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">"mixin"</span><span class="p">)</span>
+    def stuff(self):
+        print("useful")
 
-<span class="k">class</span> <span class="nc">UsefulThenMixin</span><span class="p">(</span><span class="n">Useful</span><span class="p">,</span> <span class="n">Mixin</span><span class="p">):</span>
-    <span class="k">pass</span>
+class Mixin(object):
+    def stuff(self):
+        print("mixin")
 
-<span class="k">class</span> <span class="nc">MixinThenUseful</span><span class="p">(</span><span class="n">Mixin</span><span class="p">,</span> <span class="n">Useful</span><span class="p">):</span>
-    <span class="k">pass</span>
+class UsefulThenMixin(Useful, Mixin):
+    pass
 
-<span class="n">UsefulThenMixin</span><span class="p">(</span><span class="s1">'base first'</span><span class="p">)</span><span class="o">.</span><span class="n">stuff</span><span class="p">()</span>
-<span class="k">print</span><span class="p">(</span><span class="s1">''</span><span class="p">)</span>
-<span class="n">MixinThenUseful</span><span class="p">(</span><span class="s1">'base last'</span><span class="p">)</span><span class="o">.</span><span class="n">stuff</span><span class="p">()</span>
+class MixinThenUseful(Mixin, Useful):
+    pass
+
+UsefulThenMixin('base first').stuff()
+print('')
+MixinThenUseful('base last').stuff()
 </pre>
-<p>Running yields:</p>
-<pre class="code bash literal-block">
+
+<p>Running&nbsp;yields:</p>
+
+<pre class="brush: bash">
 UsefulThenMixin: base first
 useful
 
 MixinThenUseful: base last
 mixin
 </pre>
+
 
     <footer>
         

@@ -12,7 +12,7 @@
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: /content/binary/infinite-loop.jpg
     :..." />
-    <meta name="keywords" content="c" />
+    <meta name="keywords" content="c#, windows" />
 </head>
 <body>
   <header>
@@ -40,63 +40,68 @@
 <p>I ran into a problem installing some <span class="caps">COM</span>+ components today. The installer
 was using <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/04za0hca.aspx">Regsvcs.exe</a>
 to register each <span class="caps">COM</span>+ component. I noticed after a while that the installer
-wasn’t making any progress and that my dual-proc system was stuck at 50%
+wasn&#8217;t making any progress and that my dual-proc system was stuck at 50%
 <span class="caps">CPU</span> uti&shy;liza&shy;tion. I attached a debugger to the offending process, regsvcs,
 and found that it was stuck in the following infinite loop
 (dis&shy;as&shy;sem&shy;bly courtesy of <a class="reference external" href="http://www.aisto.com/roeder/dotnet/">Reflector</a>):</p>
 <!-- RegistryKey key1 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\CLSID"); -->
-<pre class="code csharp literal-block">
-<span class="k">internal</span> <span class="k">void</span> <span class="n">System</span><span class="p">.</span><span class="n">EnterpriseServices</span><span class="p">.</span><span class="n">CatalogSync</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">_set</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">RegistryKey</span> <span class="n">key1</span>
-      <span class="p">=</span> <span class="n">Registry</span><span class="p">.</span><span class="n">LocalMachine</span><span class="p">.</span><span class="n">OpenSubKey</span><span class="p">(</span><span class="s">@"<span class="caps">SOFTWARE</span>\Classes\<span class="caps">CLSID</span>"</span><span class="p">);</span>
-    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
-    <span class="p">{</span>
-      <span class="kt">int</span> <span class="n">num1</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">key1</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="s">"CLBVersion"</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">num1</span> <span class="p">!=</span> <span class="k">this</span><span class="p">.</span><span class="n">_version</span><span class="p">)</span>
-      <span class="p">{</span>
-        <span class="k">break</span><span class="p">;</span>
-      <span class="p">}</span>
-      <span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">this</span><span class="p">.</span><span class="n">_set</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+
+<pre class="brush: csharp">
+internal void System.EnterpriseServices.CatalogSync.Wait()
+{
+  if (this._set)
+  {
+    RegistryKey key1
+      = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\CLSID");
+    while (true)
+    {
+      int num1 = (int) key1.GetValue("CLBVersion", 0);
+      if (num1 != this._version)
+      {
+        break;
+      }
+      Thread.Sleep(0);
+    }
+    this._set = false;
+  }
+}
 </pre>
-<p>There are two severe problems with this code.</p>
+
+<p>There are two severe problems with this&nbsp;code.</p>
 <ol class="arabic simple">
 <li><dl class="first docutils">
-<dt>The loop should time out. There must be some reasonable limit after</dt>
+<dt>The loop should time out. There must be some reasonable limit&nbsp;after</dt>
 <dd>which you can in&shy;con&shy;tro&shy;vert&shy;ibly say that something must have gone wrong,
-and throw an exception. There has to be some way to terminate a loop.</dd>
+and throw an exception. There has to be some way to terminate a&nbsp;loop.</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
-<dt>Never use <tt class="docutils literal">Sleep(0)</tt> in a loop. <tt class="docutils literal">Sleep(0)</tt> yields the processor only</dt>
-<dd>if there’s a runnable thread. If there isn’t, <tt class="docutils literal">Sleep(0)</tt> will return
+<dt>Never use <tt class="docutils literal">Sleep(0)</tt> in a loop. <tt class="docutils literal">Sleep(0)</tt> yields the processor&nbsp;only</dt>
+<dd>if there&#8217;s a runnable thread. If there isn&#8217;t, <tt class="docutils literal">Sleep(0)</tt> will return
 im&shy;me&shy;di&shy;ate&shy;ly. If the code is sitting in a tight loop, the net effect is
-that it will maximize the <span class="caps">CPU</span> until the thread’s quantum is exhausted.
+that it will maximize the <span class="caps">CPU</span> until the thread&#8217;s quantum is exhausted.
 There are no other runnable threads, so the scheduler im&shy;me&shy;di&shy;ate&shy;ly
-starts this thread again. This code will run until your <span class="caps">CPU</span> burns out.</dd>
+starts this thread again. This code will run until your <span class="caps">CPU</span> burns&nbsp;out.</dd>
 </dl>
 </li>
 </ol>
-<p>(And, yes, I have committed both of these sins in shipping code. Why do you ask?)</p>
-<p>I don’t know what the calling code is doing or why <tt class="docutils literal">CLBVersion</tt> isn’t
+<p>(And, yes, I have committed both of these sins in shipping code. Why do you&nbsp;ask?)</p>
+<p>I don&#8217;t know what the calling code is doing or why <tt class="docutils literal">CLBVersion</tt> isn&#8217;t
 being altered by some other thread or process. I had to use RegEdit to
 modify this value to get the loop to terminate, whereupon RegSvcs
 im&shy;me&shy;di&shy;ate&shy;ly did its work and terminated. And then it started all over
 again, with the next invocation of RegSvcs on another <span class="caps">COM</span>+ component.
-I don’t know if the components are really installed properly. I had to
-leave at that point.</p>
+I don&#8217;t know if the components are really installed properly. I had to
+leave at that&nbsp;point.</p>
 
     <footer>
         
         
             <p>tagged as
-                <a href="/tag/c/" rel="tag">c</a>
+                <a href="/tag/c/" rel="tag">c#</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
                 
             </p>
         

@@ -28,6 +28,55 @@
     
         <article>
     <header>
+        <time datetime="2016-08-01">2016-08-01</time>
+        <h1>
+            <a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" rel="bookmark canonical">Creating External SSL Certificates for CloudFront</a>
+        </h1>
+    </header>
+    <p>I needed to create a wildcard <span class="caps">SSL</span> cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/"><span class="caps">AWS</span> CloudFront</a>&nbsp;today.</p>
+<p>First, generate a 2048-bit private key. This will prompt you for a&nbsp;passphrase:</p>
+<pre class="literal-block">
+$ openssl genrsa -des3 -out example.key 2048
+</pre>
+<p>Check which signature algorithm was used (<span class="caps">SHA</span>-256 is&nbsp;rec&shy;om&shy;mend&shy;ed):</p>
+<pre class="literal-block">
+$ openssl req -in example.csr -noout -text
+</pre>
+<p>Transform the private key to <span class="caps">PEM</span>&nbsp;format:</p>
+<pre class="literal-block">
+$ openssl rsa -outform PEM -in example.key -out example.pem
+</pre>
+<p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server&nbsp;<span class="caps">FQDN</span>:</p>
+<pre class="literal-block">
+$ openssl req -new -key example.key -out example.csr
+
+Country Name (2 letter code) [AU]:US
+State or Province Name (full name) [Some-State]:Washington
+Locality Name (eg, city) []:Seattle
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:Example GmbH
+Organizational Unit Name (eg, </pre><span>&#8230;<a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/ssl/" rel="tag">ssl</a>
+                    and
+                    
+                <a href="/tag/aws/" rel="tag">aws</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-07-31">2016-07-31</time>
         <h1>
             <a href="/blog/2016/07/31/ReviewCymbeline.html" rel="bookmark canonical">Review: Cymbeline</a>
@@ -39,24 +88,24 @@
 <div class="line">Director: Vince Brady</div>
 <div class="line">Rating: ★ ★ ★ ★</div>
 <div class="line">Released: 2016</div>
-<div class="line">Keywords: Shake­speare, comedy</div>
+<div class="line">Keywords: Shake&shy;speare, comedy</div>
 <div class="line">Watched: 31 July, 2016</div>
 </div>
-<p>I’m familiar with most of Shake­speare’s plays,
+<p>I&#8217;m familiar with most of Shake&shy;speare&#8217;s plays,
 but not only had I never seen <a class="reference external" href="https://en.wikipedia.org/wiki/Cymbeline">Cymbeline</a> before today,
 I knew nothing about it.
-While the per­for­mance we saw was enjoyable,
-I began to see why it’s one of the lesser-known plays.
-It’s one of Shake­speare’s later, minor comedies,
+While the per&shy;for&shy;mance we saw was enjoyable,
+I began to see why it&#8217;s one of the lesser-known plays.
+It&#8217;s one of Shake&shy;speare&#8217;s later, minor comedies,
 with such familiar elements as
-a cross­dress­ing heroine,
+a cross&shy;dress&shy;ing heroine,
 confused and separated lovers,
-false ac­cu­sa­tions of infidelity,
+false ac&shy;cu&shy;sa&shy;tions of infidelity,
 stolen princes,
-a knavish villain who gets his come­up­pance,
+a knavish villain who gets his come&shy;up&shy;pance,
 and a loyal servant.
-It’s easy to see a tired Shake­speare
-trotting out yet another comedy to amuse the groundlings.</p>
+It&#8217;s easy to see a tired Shake&shy;speare
+trotting out yet another comedy to amuse the&nbsp;groundlings.</p>
 <p>We saw the <a class="reference external" href="http://greenstage.org/cymbeline/">Greenstage</a> production at the scenic Lake Wilderness Park <span>&#8230;<a href="/blog/2016/07/31/ReviewCymbeline.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -97,10 +146,10 @@ trotting out yet another comedy to amuse the groundlings.</p>
 <p>Three bomb disposal techs in Iraq are the subject of <a class="reference external" href="https://en.wikipedia.org/wiki/The_Hurt_Locker">The Hurt Locker</a>:
 Sgt James (Jeremy Renner), Sgt Sanborn (Anthony Mackie), and Spec Eldridge (Brian Geraghty).
 James has grown addicted to war and he is reckless and cavalier about disarming bombs,
-while Sanborn is in­creas­ing­ly angry at James’ en­dan­ger­ment of them all
+while Sanborn is in&shy;creas&shy;ing&shy;ly angry at James&#8217; en&shy;dan&shy;ger&shy;ment of them all
 and Eldridge grows ever more terrified and fatalistic.
 <em>The Hurt Locker</em> is a gritty and visceral war film.
-We have no idea what’s going to happen next
+We have no idea what&#8217;s going to happen next
 and anyone could be blown up or shot at any time.
 The bomb makers <span>&#8230;<a href="/blog/2016/07/30/ReviewTheHurtLocker.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -131,21 +180,21 @@ The bomb makers <span>&#8230;<a href="/blog/2016/07/30/ReviewTheHurtLocker.html"
     </header>
     <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Ghostbusters_(2016_film)"></a>
 <div class="line-block">
-<div class="line">Title: Ghost­busters</div>
+<div class="line">Title: Ghost&shy;busters</div>
 <div class="line">Director: Paul Feig</div>
 <div class="line">Rating: ★ ★ ★ ★</div>
 <div class="line">Released: 2016</div>
-<div class="line">Keywords: su­per­nat­ur­al comedy</div>
+<div class="line">Keywords: su&shy;per&shy;nat&shy;ur&shy;al comedy</div>
 <div class="line">Watched: 29 July, 2016</div>
 </div>
-<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Ghostbusters_(2016_film)">Ghost­busters</a> remake is a light­weight but enjoyable summer comedy and a lot of fun.
-Four women, mostly dis­cred­it­ed scientists, fight an increasing number of paranormal incursions
-and kick some as­s—with­out wearing skintight clothing or being adjuncts to male leads.
-Internet trolls may be outraged but the non-tra­di­tion­al casting works.
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Ghostbusters_(2016_film)">Ghost&shy;busters</a> remake is a light&shy;weight but enjoyable summer comedy and a lot of fun.
+Four women, mostly dis&shy;cred&shy;it&shy;ed scientists, fight an increasing number of paranormal incursions
+and kick some as&shy;s—with&shy;out wearing skintight clothing or being adjuncts to male leads.
+Internet trolls may be outraged but the non-tra&shy;di&shy;tion&shy;al casting works.
 Melissa McCarthy, Kristen Wiig, Kate McKinnon, and Leslie Jones are funny and jell together.
-And Chris Hemsworth as the hunky but dim re­cep­tion­ist is an amusing bit of reverse casting,
-while Kate McKinnon seems to have become a <a class="reference external" href="http://the-orbit.net/teacosy/2016/07/21/jillian-holtzmann-is-queer-as-a-salty-parabola-and-not-here-for-the-straight-people/">queer icon</a> overnight.</p>
-<p>I dislike Hol­ly­wood’s lazy <span>&#8230;<a href="/blog/2016/07/29/ReviewGhostbusters.html" class="continue">continue</a>.</span></p>
+And Chris Hemsworth as the hunky but dim re&shy;cep&shy;tion&shy;ist is an amusing bit of reverse casting,
+while Kate McKinnon seems to have become a <a class="reference external" href="http://the-orbit.net/teacosy/2016/07/21/jillian-holtzmann-is-queer-as-a-salty-parabola-and-not-here-for-the-straight-people/">queer icon</a>&nbsp;overnight.</p>
+<p>I dislike Hollywood&#8217;s lazy <span>&#8230;<a href="/blog/2016/07/29/ReviewGhostbusters.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/29/ReviewGhostbusters.html#disqus_thread">Comment</a>
@@ -174,11 +223,11 @@ while Kate McKinnon seems to have become a <a class="reference external" href="h
     </header>
     <p>History was made tonight as Hillary Clinton became the first woman
 nominated by a major party to run for President of the <span class="caps">US</span>.
-It’s a watershed moment for women’s equality and it was long overdue.</p>
+It&#8217;s a watershed moment for women&#8217;s equality and it was long&nbsp;overdue.</p>
 <p>I was a Bernie Sanders supporter in the earlier stages of the campaign,
 as his message resonated more with me.
 But I was always ready and willing to support Clinton.
-I can’t think of a nominee with a more impressive résumé who’s run for President:
+I can&#8217;t think of a nominee with a more impressive résumé who&#8217;s run for President:
 first lady of Arkansas for more than a decade,
 First Lady of the <span class="caps">US</span> for two terms,
 <span class="caps">US</span> Senator for New York state for eight years,
@@ -208,10 +257,10 @@ and Secretary of State for <span>&#8230;<a href="/blog/2016/07/28/ImWithHer.html
     </header>
     <a class="reference external image-reference" href="http://www.amazon.com/dp/B00BCPEWQU/?tag=georgvreill-20"></a>
 <div class="line-block">
-<div class="line">Title: The King’s Hounds</div>
+<div class="line">Title: The King&#8217;s Hounds</div>
 <div class="line">Author: Martin Jensen</div>
 <div class="line">Rating: ★ ★ ★ ½</div>
-<div class="line">Publisher: Ama­zon­Cross­ing</div>
+<div class="line">Publisher: Ama&shy;zon&shy;Cross&shy;ing</div>
 <div class="line">Copyright: 2013</div>
 <div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/B00BCPEWQU/?tag=georgvreill-20"><span class="caps">B00BCPEWQU</span></a></div>
 <div class="line">Pages: 274</div>
@@ -220,13 +269,13 @@ and Secretary of State for <span>&#8230;<a href="/blog/2016/07/28/ImWithHer.html
 </div>
 <p><span class="caps">1018AD</span>. King Cnut of Denmark (aka <a class="reference external" href="https://en.wikipedia.org/wiki/Cnut_the_Great">Canute</a>) has recently conquered England,
 and now must broker peace between the Saxons and the Danes at Oxford.
-Also in Oxford are Winston, a talented il­lu­mi­na­tor of man­u­scripts,
+Also in Oxford are Winston, a talented il&shy;lu&shy;mi&shy;na&shy;tor of man&shy;u&shy;scripts,
 and Halfdan, a roguish half-Danish half-Saxon landless noble.
-A prominent Saxon has been murdered and Cnut commands Winston and Halfdan to in­ves­ti­gate.</p>
+A prominent Saxon has been murdered and Cnut commands Winston and Halfdan to&nbsp;in&shy;ves&shy;ti&shy;gate.</p>
 <p>While the mystery was reasonably while done,
-I found the anachro­nis­tic speech patterns quite jarring.
+I found the anachro&shy;nis&shy;tic speech patterns quite jarring.
 The book is translated from Danish;
-I presume this is also true in the original.</p>
+I presume this is also true in the&nbsp;original.</p>
 
     <footer>
         
@@ -266,13 +315,13 @@ I presume this is also true in the original.</p>
 <div class="line">Watched: 24 July, 2016</div>
 </div>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/Star_Trek_Beyond">Star Trek Beyond</a> is the best of the <a class="reference external" href="http://screenrant.com/star-trek-jj-abrams-kelvin-timeline/">Kelvin timeline</a> Trek movies,
-easily surpassing the two previous episodes in the reboot.</p>
+easily surpassing the two previous episodes in the&nbsp;reboot.</p>
 <p>The <em>Enterprise</em> is lured into an ambush where the ship is destroyed by Krall,
-a mega­lo­ma­ni­ac who has a grudge against the Federation.
+a mega&shy;lo&shy;ma&shy;ni&shy;ac who has a grudge against the Federation.
 Most of the crew are captured,
-leaving only a few of the officers at large to run around fre­net­i­cal­ly.
+leaving only a few of the officers at large to run around fre&shy;net&shy;i&shy;cal&shy;ly.
 They find an ancient Federation ship, free the crew,
-and stop Krall before he can destroy a giant starbase.</p>
+and stop Krall before he can destroy a giant&nbsp;starbase.</p>
 <p>I thought that this was the best of the three Kelvin movies
 and the <span>&#8230;<a href="/blog/2016/07/26/ReviewStarTrekBeyond.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -302,14 +351,14 @@ and the <span>&#8230;<a href="/blog/2016/07/26/ReviewStarTrekBeyond.html" class=
         </h1>
     </header>
     
-<p>We’re in Los Angeles for the weekend to attend a wedding and it’s scorch­ing­ly hot.
-I took this photo of the car’s dashboard while we were at a stop light in Topanga Canyon.
+<p>We&#8217;re in Los Angeles for the weekend to attend a wedding and it&#8217;s scorch&shy;ing&shy;ly hot.
+I took this photo of the car&#8217;s dashboard while we were at a stop light in Topanga Canyon.
 It reads 109°F (43°C).
-I actually saw the tem­per­a­ture briefly reach 111°F.
-I’ve ex­pe­ri­enced the low hundreds before, but I don’t think I’ve ever felt 109°F.</p>
-<p>June was the <a class="reference external" href="https://www.theguardian.com/environment/2016/jul/20/june-2016-14th-consecutive-month-of-record-breaking-heat-says-us-agencies">14th con­sec­u­tive month of record-breaking global tem­per­a­tures</a>.
+I actually saw the tem&shy;per&shy;a&shy;ture briefly reach 111°F.
+I&#8217;ve ex&shy;pe&shy;ri&shy;enced the low hundreds before, but I don&#8217;t think I&#8217;ve ever felt&nbsp;109°F.</p>
+<p>June was the <a class="reference external" href="https://www.theguardian.com/environment/2016/jul/20/june-2016-14th-consecutive-month-of-record-breaking-heat-says-us-agencies">14th con&shy;sec&shy;u&shy;tive month of record-breaking global tem&shy;per&shy;a&shy;tures</a>.
 Even Ireland is getting in on the act,
-with tem­per­a­tures <a class="reference external" href="http://www.irishtimes.com/news/environment/roscommon-hottest-spot-with-temperatures-over-30-degrees-1.2727357">soaring to 30°C (86°F)</a> the other day.</p>
+with tem&shy;per&shy;a&shy;tures <a class="reference external" href="http://www.irishtimes.com/news/environment/roscommon-hottest-spot-with-temperatures-over-30-degrees-1.2727357">soaring to 30°C (86°F)</a> the other&nbsp;day.</p>
 
     <footer>
         
@@ -337,18 +386,18 @@ with tem­per­a­tures <a class="reference external" href="http://www.irishtime
     <a class="reference external image-reference" href="http://web.archive.org/web/20070111015720/http://readymademag.com/feature_14_foldem.php"></a>
 <a class="reference external image-reference" href="http://web.archive.org/web/20070111015720/http://readymademag.com/feature_14_foldem.php"></a>
 <p>Via <a class="reference external" href="http://www.minicubby.com/blog/2004/10/shirt-folding-trick.html">carrots are orange</a> and <a class="reference external" href="http://web.archive.org/web/20070111015720/http://readymademag.com/feature_14_foldem.php">ReadyMade</a>,
-here’s how to fold a t-shirt:</p>
+here&#8217;s how to fold a&nbsp;t-shirt:</p>
 <ol class="arabic simple">
 <li>Lay shirt face-up on a smooth surface, long side facing you,
 with the neck on your left.
 With the edge of your hand, draw an imaginary line from shoulder to hem on the far side.
 Along this line, pinch the shirt with your left hand at the shoulder
-and with your right at the middle of the chest.</li>
+and with your right at the middle of the&nbsp;chest.</li>
 <li>Fold the shoulder over, crossing left hand over right,
 to meet the hem along this line.
-Now pinch the hem and shoulder together with your left fingers.</li>
+Now pinch the hem and shoulder together with your left&nbsp;fingers.</li>
 <li>Lift the shirt and uncross your hands, pulling the shirt taut.
-Give it a shake.</li>
+Give it a&nbsp;shake.</li>
 <li>Lay the shirt down <span>&#8230;<a href="/blog/2016/07/21/TShirtFolding.html" class="continue">continue</a>.</span></li></ol>
     <footer>
         
@@ -373,14 +422,14 @@ Give it a shake.</li>
             <a href="/blog/2016/07/19/UndeletingNotesInEvernote.html" rel="bookmark canonical">Undeleting Notes in Evernote</a>
         </h1>
     </header>
-    <p>I ac­ci­den­tal­ly deleted a note that I shouldn’t have in Evernote.
-It wasn’t obvious how to undelete it.
+    <p>I ac&shy;ci&shy;den&shy;tal&shy;ly deleted a note that I shouldn&#8217;t have in Evernote.
+It wasn&#8217;t obvious how to undelete it.
 I had to resort to the <a class="reference external" href="https://help.evernote.com/hc/en-us/articles/208313438-How-to-recover-deleted-notes">help</a>:</p>
 <ul class="simple">
 <li>Open <em>Notebooks</em></li>
 <li>Scroll all the way to the <em>bottom</em></li>
-<li>Open the <em>Trash</em> notebook, which is unlabeled in the Mac desktop version of Evernote</li>
-<li>Restore the deleted Note</li>
+<li>Open the <em>Trash</em> notebook, which is unlabeled in the Mac desktop version of&nbsp;Evernote</li>
+<li>Restore the deleted&nbsp;Note</li>
 </ul>
 
     <footer>
@@ -390,55 +439,6 @@ I had to resort to the <a class="reference external" href="https://help.evernote
         
             <p>tagged as
                 <a href="/tag/tech/" rel="tag">tech</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-18">2016-07-18</time>
-        <h1>
-            <a href="/blog/2016/07/18/ReviewTheSilentTwin.html" rel="bookmark canonical">Review: The Silent Twin</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/B01BLU0U6G/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Silent Twin</div>
-<div class="line">Author: Caroline Mitchell</div>
-<div class="line">Rating: ★ ★ ★ ½</div>
-<div class="line">Publisher: Bookouture</div>
-<div class="line">Copyright: 2016</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/B01BLU0U6G/?tag=georgvreill-20"><span class="caps">B01BLU0U6G</span></a></div>
-<div class="line">Pages: 344</div>
-<div class="line">Keywords: police, paranormal</div>
-<div class="line">Reading period: 3 June–10 July, 2016</div>
-</div>
-<p>Abigail has gone missing from creepy Blackwater Farm days before her tenth birthday.
-Her twin Olivia has been mute ever since.
-Their strange mother is not helping matters and the father is acting oddly too.
-<span class="caps">DC</span> Jennifer Knight, who belongs to a secret psychic police task force,
-is the family liaison officer.
-She must convince Olivia to break her silence and reveal what she knows
-before time runs out for Abigail.</p>
-<p>This was a reasonably good thriller that I think would have been better
-without the su­per­nat­ur­al elements.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/18/ReviewTheSilentTwin.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/thriller/" rel="tag">thriller</a>
                 
             </p>
         

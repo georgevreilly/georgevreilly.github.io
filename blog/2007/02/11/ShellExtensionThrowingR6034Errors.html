@@ -40,23 +40,23 @@
 <p>I have been cleaning up some issues with the <a class="reference external" href="/blog/2006/04/22/Win64PortOfVim.html">Win64 port of Vim</a>,
 including the <em>Edit with Vim</em> shell extension not working very well.
 When I built the shell extension with <span class="caps">VS</span> 2005 on x86, I would
-get the following whenever I right-clicked in Explorer:</p>
+get the following whenever I right-clicked in&nbsp;Explorer:</p>
 <blockquote>
-<p>Microsoft Visual C++ Runtime Library</p>
-<p>Runtime Error!</p>
-<p>Program: C:WIN&shy;DOW&shy;S&shy;Ex&shy;plor&shy;er.<span class="caps">EXE</span></p>
+<p>Microsoft Visual C++ Runtime&nbsp;Library</p>
+<p>Runtime&nbsp;Error!</p>
+<p>Program:&nbsp;C:WIN&shy;DOW&shy;S&shy;Ex&shy;plor&shy;er.<span class="caps">EXE</span></p>
 <p>R6034</p>
 <p>An ap&shy;pli&shy;ca&shy;tion has made an attempt to load the C runtime library in&shy;cor&shy;rect&shy;ly.
-Please contact the ap&shy;pli&shy;ca&shy;tion’s support team for more in&shy;for&shy;ma&shy;tion.</p>
+Please contact the ap&shy;pli&shy;ca&shy;tion&#8217;s support team for more&nbsp;in&shy;for&shy;ma&shy;tion.</p>
 </blockquote>
 <p>There was no mention of which ap&shy;pli&shy;ca&shy;tion was at fault,
 though it was obvious in this case.
 I have also seen some mention of <tt class="docutils literal">verclsid</tt> in the error dialog,
-though not when I took this snapshot.</p>
+though not when I took this&nbsp;snapshot.</p>
 <p>The underlying problem relates to SxS, Fusion, and all that good stuff.
 By far the simplest fix was for me to statically link with <tt class="docutils literal">libcmt.lib</tt>,
 instead of <tt class="docutils literal">msvcrt.lib</tt>, rather than figure out the necessary
-manifest magic.</p>
+manifest&nbsp;magic.</p>
 
     <footer>
         

@@ -28,19 +28,57 @@
     
         <article>
     <header>
+        <time datetime="2006-03-07">2006-03-07</time>
+        <h1>
+            <a href="/blog/2006/03/07/Photoblogging.html" rel="bookmark canonical">Photoblogging</a>
+        </h1>
+    </header>
+    <p>Awww! Ain&#8217;t he&nbsp;cute!</p>
+
+<p>Via Emma, from <a class="reference external" href="http://www.cuteoverload.com/">Cu&shy;teOver&shy;load.com</a>,
+a cornucopia of terminally cute animal&nbsp;photos.</p>
+<p>A couple of months ago, the Science Times section of the New York Times
+had an article on <a class="reference external" href="http://www.nytimes.com/2006/01/03/science/03cute.html?ex=1293944400&amp;en=652bf63611f1211e&amp;ei=5088&amp;partner=rssnyt&amp;emc=rss">the Cute Factor</a>.</p>
+<blockquote>
+<p>Scientists who study the evolution of visual signaling have identified a
+wide and still expanding assortment of features and behaviors that make
+something look cute: bright forward-facing eyes set low on a big round
+face, a pair of big round ears, floppy limbs and a side-to-side,
+teeter-totter gait, among many&nbsp;others.</p>
+<p>Cute cues are those that indicate extreme youth, vul&shy;ner&shy;a&shy;bil&shy;i&shy;ty,
+harm&shy;less&shy;ness and need, scientists say, and attending to them closely makes
+good Darwinian sense. As a species whose youngest <span>&#8230;<a href="/blog/2006/03/07/Photoblogging.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/03/07/Photoblogging.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/photography/" rel="tag">photography</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-03-02">2006-03-02</time>
         <h1>
             <a href="/blog/2006/03/02/ATalibAtYale.html" rel="bookmark canonical">A Talib at Yale</a>
         </h1>
     </header>
-    <p>A very in­ter­est­ing piece in last Sunday’s New York Times magazine:
+    <p>A very in&shy;ter&shy;est&shy;ing piece in last Sunday&#8217;s New York Times magazine:
 <a class="reference external" href="http://www.nytimes.com/2006/02/26/magazine/26taliban.html">A Talib at Yale</a>.
-Sayed Rah­mat­ul­lah Hashemi is the former "roving am­bas­sador" for the
+Sayed Rah&shy;mat&shy;ul&shy;lah Hashemi is the former &quot;roving ambassador&quot; for the
 Taliban, now studying at Yale.
-An in­ter­est­ing and improbable life story.</p>
-<p>The right-wing bl­o­gos­phere is furious about it. I say it’s better to co-opt
-moderate former Talibs than to freeze them out.</p>
-<p>Besides, his B-grades at Yale are better than George Bush’s "Gentle­man’s-C".</p>
+An in&shy;ter&shy;est&shy;ing and improbable life&nbsp;story.</p>
+<p>The right-wing bl&shy;o&shy;gos&shy;phere is furious about it. I say it&#8217;s better to co-opt
+moderate former Talibs than to freeze them&nbsp;out.</p>
+<p>Besides, his B-grades at Yale are better than George Bush&#8217;s&nbsp;&quot;Gentleman&#8217;s-C&quot;.</p>
 
     <footer>
         
@@ -65,22 +103,21 @@ moderate former Talibs than to freeze them out.</p>
             <a href="/blog/2006/03/02/ThrowingFromXSLT.html" rel="bookmark canonical">Throwing from XSLT</a>
         </h1>
     </header>
-    <p>I needed to add some de­clar­a­tive error checking to some <span class="caps">XSLT</span> templates
-recently. Specif­i­cal­ly, I wanted to throw an error if my selects yielded an
-empty string, indicating that the input <span class="caps">XML</span> was wrong.</p>
-<p>Un­for­tu­nate­ly, there seems to be no easy way of doing this in <span class="caps">XSLT</span>, nor in
-<tt class="docutils literal">XslTrans­form</tt>. The approved way is to validate against an <span class="caps">XSD</span> schema,
-but for various reasons, I didn’t want to go to the hassle of creating one.</p>
+    <p>I needed to add some de&shy;clar&shy;a&shy;tive error checking to some <span class="caps">XSLT</span> templates
+recently. Specif&shy;i&shy;cal&shy;ly, I wanted to throw an error if my selects yielded an
+empty string, indicating that the input <span class="caps">XML</span> was&nbsp;wrong.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, there seems to be no easy way of doing this in <span class="caps">XSLT</span>, nor in
+<tt class="docutils literal">XslTrans&shy;form</tt>. The approved way is to validate against an <span class="caps">XSD</span> schema,
+but for various reasons, I didn&#8217;t want to go to the hassle of creating&nbsp;one.</p>
 <p>I found a partial solution using <tt class="docutils literal">xsl:message</tt> with the
-<tt class="docutils literal"><span class="pre">terminate="yes"</span></tt> attribute. Under <tt class="docutils literal">XslTrans­form.Transform()</tt> the
-following code throws an exception if the XPath expression is empty.</p>
-<pre class="code xslt literal-block">
-<span class="k"><xsl:if< span> <span class="na">test=</span><span class="s">"not(/some/xpath/expression)"</span><span class="nt">></span>
-    <span class="k"><xsl:message< span> <span class="na">terminate=</span><span class="s">"yes"</span><span class="nt">></span>Missing expression<span class="k"></span></xsl:message<>
-<span class="k"></span></span>
-<span class="k"><xsl:value-of< span> <span class="na">select=</span><span class="s">"/some/xpath/expression"</span> <span class="nt">/></span>
-</xsl:value-of<>
-<p>It doesn’t do </p></span></xsl:if<></span></pre><span>&#8230;<a href="/blog/2006/03/02/ThrowingFromXSLT.html" class="continue">continue</a>.</span>
+<tt class="docutils literal"><span class="pre">terminate=&quot;yes&quot;</span></tt> attribute. Under <tt class="docutils literal">XslTrans&shy;form.Transform()</tt> the
+following code throws an exception if the XPath expression is&nbsp;empty.</p>
+<div class="highlight"><pre><span></span><span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:message</span> <span class="na">terminate=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>Missing expression<span class="k">&lt;/xsl:message&gt;</span>
+<span class="k">&lt;/xsl:if&gt;</span>
+<span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;/some/xpath/expression&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+<p>It doesn&#8217;t do <span>&#8230;<a href="/blog/2006/03/02/ThrowingFromXSLT.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2006/03/02/ThrowingFromXSLT.html#disqus_thread">Comment</a>
@@ -105,14 +142,14 @@ following code throws an exception if the XPath expression is empty.</p>
         </h1>
     </header>
     <p>Anyone who knows me, knows that I have no use for organized sports.
-Watching baseball or basketball bores me. I seem to be con­sti­tu­tion­al­ly
-incapable of being a sports fan. I’m too much of a watchful outsider to
-want to throw myself into rooting for a team.</p>
+Watching baseball or basketball bores me. I seem to be con&shy;sti&shy;tu&shy;tion&shy;al&shy;ly
+incapable of being a sports fan. I&#8217;m too much of a watchful outsider to
+want to throw myself into rooting for a&nbsp;team.</p>
 <p>I actively despise American football. It reminds me far too much of the
 rugby of my youth. I spent 11 years at an <a class="reference external" href="http://www.stmaryscollegecssp.ie/">Irish rugger-bugger school</a>, so I come by it honestly.
 The ugly jock culture that permeates football repels me. The veneration of
 football in small-town America annoys me. The fans are obnoxious; the
-players, thugs.</p>
+players,&nbsp;thugs.</p>
 <p>I exaggerate, of course. There are plenty <span>&#8230;<a href="/blog/2006/02/19/OlympicsRazorthinMargins.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -141,25 +178,25 @@ players, thugs.</p>
         </h1>
     </header>
     <p>A friend sent me a Word document with a parody of the Department of
-Homeland Security’s <a class="reference external" href="http://www.ready.gov">Ready.Gov</a> website.
+Homeland Security&#8217;s <a class="reference external" href="http://www.ready.gov">Ready.Gov</a> website.
 I googled and found an <span class="caps">HTML</span> copy of the parody
 <a class="reference external" href="http://www.msxnet.org/humour/terror_alert">here</a>.</p>
 
-<p>Seriously, there is some useful in­for­ma­tion on <a class="reference external" href="http://www.ready.gov">Ready.Gov</a>.
+<p>Seriously, there is some useful in&shy;for&shy;ma&shy;tion on <a class="reference external" href="http://www.ready.gov">Ready.Gov</a>.
 Which reminds me that Emma and I are long overdue in putting together some
-disaster planning.</p>
-<p>Here are some links that I put together a while back:</p>
+disaster&nbsp;planning.</p>
+<p>Here are some links that I put together a while&nbsp;back:</p>
 <blockquote>
 <ul class="simple">
-<li>Al­phaGeek’s <a class="reference external" href="http://www.dailykos.com/story/2005/9/9/161748/9747">5-part series on disaster pre­pared­ness at DailyKos</a></li>
-<li><a class="reference external" href="http://www.3days3ways.org">3 days, 3 ways</a></li>
-<li><a class="reference external" href="http://www.cityofseattle.net/html/citizen/emergency_resources.htm">City of Seattle Emergency Resources</a></li>
-<li><a class="reference external" href="http://www.hanselman.com/blog/2006ResolutionPrepare.aspx">Scott Hansel­man’s 2006 resolution</a></li>
-<li><a class="reference external" href="http://www.snopes.com/crime/prevent/icephone.asp"><span class="caps">ICE</span> (In Case of Emergency) entries in your cellphone address book</a></li>
+<li>AlphaGeek&#8217;s <a class="reference external" href="http://www.dailykos.com/story/2005/9/9/161748/9747">5-part series on disaster pre&shy;pared&shy;ness at&nbsp;DailyKos</a></li>
+<li><a class="reference external" href="http://www.3days3ways.org">3 days, 3&nbsp;ways</a></li>
+<li><a class="reference external" href="http://www.cityofseattle.net/html/citizen/emergency_resources.htm">City of Seattle Emergency&nbsp;Resources</a></li>
+<li><a class="reference external" href="http://www.hanselman.com/blog/2006ResolutionPrepare.aspx">Scott Hanselman&#8217;s 2006&nbsp;resolution</a></li>
+<li><a class="reference external" href="http://www.snopes.com/crime/prevent/icephone.asp"><span class="caps">ICE</span> (In Case of Emergency) entries in your cellphone address&nbsp;book</a></li>
 </ul>
 </blockquote>
-<p>If there’s any lesson that should be learned from Katrina, it’s that
-you need to have your own disaster plan in place.</p>
+<p>If there&#8217;s any lesson that should be learned from Katrina, it&#8217;s that
+you need to have your own disaster plan in&nbsp;place.</p>
 
     <footer>
         
@@ -187,8 +224,8 @@ you need to have your own disaster plan in place.</p>
             <a href="/blog/2006/02/16/CheneyPlayingFolsomPrison.html" rel="bookmark canonical">Cheney playing Folsom Prison</a>
         </h1>
     </header>
-    <p>Via <a class="reference external" href="http://www.dependablerenegade.com/">Dependable Renegade</a>, it’s <a class="reference external" href="http://web.archive.org/web/20090918232243/http://cheneyplaysfolsom.cf.huffingtonpost.com/">Cheney playing Folsom Prison</a>.
-(Not work-safe.)</p>
+    <p>Via <a class="reference external" href="http://www.dependablerenegade.com/">Dependable Renegade</a>, it&#8217;s <a class="reference external" href="http://web.archive.org/web/20090918232243/http://cheneyplaysfolsom.cf.huffingtonpost.com/">Cheney playing Folsom Prison</a>.
+(Not&nbsp;work-safe.)</p>
 
     <footer>
         
@@ -213,8 +250,8 @@ you need to have your own disaster plan in place.</p>
             <a href="/blog/2006/02/16/WindowsDefenderBeta2IsOut.html" rel="bookmark canonical">Windows Defender beta 2 is out</a>
         </h1>
     </header>
-    <p>I’ve been using Beta-1 of Mi­crosoft­’s An­ti­Spy­ware for the last year.
-Beta-2 is finally out, and it’s now known as Defender.</p>
+    <p>I&#8217;ve been using Beta-1 of Microsoft&#8217;s An&shy;ti&shy;Spy&shy;ware for the last year.
+Beta-2 is finally out, and it&#8217;s now known as&nbsp;Defender.</p>
 <p>Paul Thurrot has a favorable <a class="reference external" href="http://www.winsupersite.com/reviews/windefender_beta2.asp">review</a>.</p>
 <p>Download <a class="reference external" href="http://www.microsoft.com/athome/security/spyware/software/default.mspx">Defender</a>.</p>
 
@@ -241,18 +278,18 @@ Beta-2 is finally out, and it’s now known as Defender.</p>
             <a href="/blog/2006/02/10/UsabilityTestingDasBlogInstallation.html" rel="bookmark canonical">Usability testing dasBlog installation</a>
         </h1>
     </header>
-    <p>I’ve been hanging out on the dasBlog de­vel­op­er­s’ mailing list for the last
-couple of months, and I’ve made some minor con­tri­bu­tions to the code.</p>
-<p>I sent the following email to the de­vel­op­er­s’ list last night.</p>
+    <p>I&#8217;ve been hanging out on the dasBlog developers&#8217; mailing list for the last
+couple of months, and I&#8217;ve made some minor con&shy;tri&shy;bu&shy;tions to the&nbsp;code.</p>
+<p>I sent the following email to the developers&#8217; list last&nbsp;night.</p>
 <hr class="docutils"/>
 <p>My wife has decided to start a blog for
 <a class="reference external" href="http://thewheel.biz/TeamIreland">Team Ireland</a> in the
 <a class="reference external" href="http://www.yarnharlot.ca/blog/olympics2006.html">2006 Knitting Olympics</a>,
 and she asked me to install <a class="reference external" href="http://dasblog.info">dasBlog</a> on her site.
-I decided that this was an excellent op­por­tu­ni­ty to do some usability testing
-on the in­stal­la­tion in­struc­tions for dasBlog. I asked her to try installing
+I decided that this was an excellent op&shy;por&shy;tu&shy;ni&shy;ty to do some usability testing
+on the in&shy;stal&shy;la&shy;tion in&shy;struc&shy;tions for dasBlog. I asked her to try installing
 dasBlog, while I watched. I promised that I would bail her out if she got
-mired too deeply.</p>
+mired too&nbsp;deeply.</p>
 <p>Emma has worked as a black-box software tester for <span>&#8230;<a href="/blog/2006/02/10/UsabilityTestingDasBlogInstallation.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -281,21 +318,21 @@ mired too deeply.</p>
         </h1>
     </header>
     <p>I installed <a class="reference external" href="http://dasblog.info">dasBlog</a>
-at Emma’s <a class="reference external" href="http://thewheel.biz">The Wheel</a> site,
+at Emma&#8217;s <a class="reference external" href="http://thewheel.biz">The Wheel</a> site,
 so that she and the other knitters
 in <a class="reference external" href="http://thewheel.biz/TeamIreland">Team Ireland</a>
 can blog during the <a class="reference external" href="http://www.yarnharlot.ca/blog/olympics2006.html">2006 Knitting Olympics</a>.
 What an ordeal that was!
-But that’s a post for another time.
-(It’s not working yet, due to per­mis­sions issues that require
-the in­ter­ven­tion of support at our
+But that&#8217;s a post for another time.
+(It&#8217;s not working yet, due to per&shy;mis&shy;sions issues that require
+the in&shy;ter&shy;ven&shy;tion of support at our
 <a class="reference external" href="http://www.ihostsites.net">hosting site</a>.)</p>
 <p>I decided today to create a favicon for The Wheel,
 based on the logo that I drew last year with <a class="reference external" href="http://www.inkscape.org">Inkscape</a>.</p>
 
 <p>A favicon is a 16x16 icon which shows up in the tab in a tabbed browser,
 such as FireFox or <span class="caps">IE</span> with <span class="caps">MSN</span> Search.
-For example, the little <cite>gvr</cite> icon that shows up if you’re reading this on <span>&#8230;<a href="/blog/2006/02/09/FavIconCreation.html" class="continue">continue</a>.</span></p>
+For example, the little <cite>gvr</cite> icon that shows up if you&#8217;re reading this on <span>&#8230;<a href="/blog/2006/02/09/FavIconCreation.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2006/02/09/FavIconCreation.html#disqus_thread">Comment</a>
@@ -321,12 +358,12 @@ For example, the little <cite>gvr</cite> icon that shows up if you’re reading 
     </header>
     <p>I consider myself to be an expert WinDbg user,
 when it comes to debugging unmanaged x86 code.
-I haven’t used WinDbg much on managed code,
-and when I did, I found it quite painful.</p>
-<p>Via <a class="reference external" href="http://weblogs.asp.net/scottgu/">Scott Guthrie’s blog</a>, I discovered <a class="reference external" href="http://blogs.msdn.com/b/tess/">Tess Fer­ran­dez’s blog</a>.
-Tess is an escalation engineer in <span class="caps">PSS</span> who spe­cial­izes in <span class="caps">ASP</span>.<span class="caps">NET</span> and a WinDbg virtuoso.
+I haven&#8217;t used WinDbg much on managed code,
+and when I did, I found it quite&nbsp;painful.</p>
+<p>Via <a class="reference external" href="http://weblogs.asp.net/scottgu/">Scott Guthrie&#8217;s blog</a>, I discovered <a class="reference external" href="http://blogs.msdn.com/b/tess/">Tess Ferrandez&#8217;s blog</a>.
+Tess is an escalation engineer in <span class="caps">PSS</span> who spe&shy;cial&shy;izes in <span class="caps">ASP</span>.<span class="caps">NET</span> and a WinDbg virtuoso.
 Scott has a list of her <a class="reference external" href="http://weblogs.asp.net/scottgu/archive/2006/02/02/437231.aspx">best posts</a>.
-Mind-blowing stuff, but not for the faint of heart.</p>
+Mind-blowing stuff, but not for the faint of&nbsp;heart.</p>
 
     <footer>
         
@@ -335,41 +372,6 @@ Mind-blowing stuff, but not for the faint of heart.</p>
         
             <p>tagged as
                 <a href="/tag/windows/" rel="tag">windows</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-02-06">2006-02-06</time>
-        <h1>
-            <a href="/blog/2006/02/06/200KeePassEntries.html" rel="bookmark canonical">200 KeePass entries</a>
-        </h1>
-    </header>
-    <p>I <a class="reference external" href="http://weblogs.asp.net/george_v_reilly/archive/2004/08/24/219896.aspx">blogged before</a> about <a class="reference external" href="http://keepass.info/">KeePass</a>, a free password manager utility.
-A few minutes ago, I added the 200th entry to my password database,
-when I registered to download <a class="reference external" href="http://www.vmware.com/products/server/overview.html">VMware Server</a>.</p>
-<p>200 entries!
-At one point or another, I’ve registered on a hell of a lot of websites.
-I also use KeePass to keep track of credit card numbers,
-software reg­is­tra­tion keys, and so on.
-KeePass not only lets me use distinct, strong passwords for each site,
-but it also lets me remember which sites I’ve registered on.
-Some sites want me to use my email address;
-others prefer an al­phanu­mer­ic username.</p>
-<p>One friend reliably informs me that KeePass runs just fine under <span>&#8230;<a href="/blog/2006/02/06/200KeePassEntries.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/02/06/200KeePassEntries.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/security/" rel="tag">security</a>
                 
             </p>
         

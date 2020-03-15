@@ -28,6 +28,53 @@
     
         <article>
     <header>
+        <time datetime="2006-05-16">2006-05-16</time>
+        <h1>
+            <a href="/blog/2006/05/16/0xFFFF100x1999.html" rel="bookmark canonical">0xFF...FF / 10 == 0x19...99</a>
+        </h1>
+    </header>
+    
+<p>A few weeks ago, I wrote a C++ routine to parse decimal numbers using the
+overflow detection principles of
+<a class="reference external" href="http://msdn.microsoft.com/library/en-us/dncode/html/secure01142004.asp">SafeInt</a>.
+I couldn&#8217;t find anything in the libraries that actually did a good job of checking
+for&nbsp;overflow.</p>
+<p>Briefly, to see if <tt class="docutils literal">unsigned</tt> values <tt class="docutils literal">A+B</tt> overflow, check
+<tt class="docutils literal">if (A &gt; MAX_UINT - B)</tt>. Similarly, <tt class="docutils literal">A*B</tt> will overflow
+<tt class="docutils literal">if (A &gt; MAX_UINT / B)</tt>.</p>
+
+<pre class="brush: cpp">
+// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
+bool
+StringToUnsigned(
+    const string& str,
+    unsigned&     rUint)
+{
+    rUint = 0;
+
+    if (str.empty())
+        return </pre><span>&#8230;<a href="/blog/2006/05/16/0xFFFF100x1999.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/05/16/0xFFFF100x1999.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/c++/" rel="tag">c++</a>
+                    and
+                    
+                <a href="/tag/octal/" rel="tag">octal</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-05-15">2006-05-15</time>
         <h1>
             <a href="/blog/2006/05/15/WritingClearly.html" rel="bookmark canonical">Writing Clearly</a>
@@ -37,13 +84,13 @@
 <p>I sometimes joke that I must be adopted because my parents have no aptitude
 for computers. I could make a similar joke about writing. Many of my
 immediate family, despite decent educations, seem to be incapable of
-writing a simple English sentence, much less a coherent paragraph.</p>
-<p>One relative writes emails that are bereft of punc­tu­a­tion: neither a comma
+writing a simple English sentence, much less a coherent&nbsp;paragraph.</p>
+<p>One relative writes emails that are bereft of punc&shy;tu&shy;a&shy;tion: neither a comma
 nor a full stop (period) is to be found. Capital letters occur, but too
 randomly for my liking. And everything is linked into one paragraph, no
-matter how long or disjointed. Yet, I’ve received adequately punctuated
-hand­writ­ten letters and postcards from him. I attribute his email
-sloven­li­ness to a com­bi­na­tion of <span>&#8230;<a href="/blog/2006/05/15/WritingClearly.html" class="continue">continue</a>.</span></p>
+matter how long or disjointed. Yet, I&#8217;ve received adequately punctuated
+hand&shy;writ&shy;ten letters and postcards from him. I attribute his email
+sloven&shy;li&shy;ness to a com&shy;bi&shy;na&shy;tion of <span>&#8230;<a href="/blog/2006/05/15/WritingClearly.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2006/05/15/WritingClearly.html#disqus_thread">Comment</a>
@@ -68,7 +115,7 @@ sloven­li­ness to a com­bi­na­tion of <span>&#8230;<a href="/blog/2006/05/1
         </h1>
     </header>
     <a class="reference external image-reference" href="http://dneiwert.blogspot.com/2006/05/deciderata.html"></a>
-<p>David Neiwert writes:</p>
+<p>David Neiwert&nbsp;writes:</p>
 <blockquote>
 <div class="line-block">
 <div class="line">Go smugly amid the noise and haste,</div>
@@ -111,7 +158,7 @@ sloven­li­ness to a com­bi­na­tion of <span>&#8230;<a href="/blog/2006/05/1
     </header>
     <a class="reference external image-reference" href="http://www.crooksandliars.com/2006/05/14.html#a8280"></a>
 <p>President Al Gore on <a class="reference external" href="http://www.crooksandliars.com/2006/05/14.html#a8280">Saturday Night Live</a>,
-spoofing the disastrous six years of Bush.</p>
+spoofing the disastrous six years of&nbsp;Bush.</p>
 
     <footer>
         
@@ -143,33 +190,33 @@ spoofing the disastrous six years of Bush.</p>
 <p>I first started blogging at
 <a class="reference external" href="http://erablog.net/blogs/george_v_reilly/">EraBlog</a> in February 2003,
 during the run-up to the Iraq war. EraBlog never really took off and now
-seems to be ex­pe­ri­enc­ing technical problems.</p>
-<p>I’m reposting all of my original posts. I’ve cleaned up the links, where
+seems to be ex&shy;pe&shy;ri&shy;enc&shy;ing technical&nbsp;problems.</p>
+<p>I&#8217;m reposting all of my original posts. I&#8217;ve cleaned up the links, where
 possible, and added an image at the top of each one, but have not otherwise
-modified the posts.</p>
+modified the&nbsp;posts.</p>
 <p>As you can see, Iraq weighed on my mind. And I was fucking right!
 Going to war was wrong, and even then I (like many others) could see that
-the case for war was lacking.</p>
+the case for war was&nbsp;lacking.</p>
 <p>2003/02/07:
-<a class="reference external" href="/blog/2003/02/08/CasusBelli.html">Casus Belli</a></p>
+<a class="reference external" href="/blog/2003/02/08/CasusBelli.html">Casus&nbsp;Belli</a></p>
 <p>2003/02/07:
-<a class="reference external" href="/blog/2003/02/08/PencilCarvings.html">Pencil Carvings</a></p>
+<a class="reference external" href="/blog/2003/02/08/PencilCarvings.html">Pencil&nbsp;Carvings</a></p>
 <p>2003/02/07:
-<a class="reference external" href="/blog/2003/02/08/StateOfTheUnion.html">State of the Union</a></p>
+<a class="reference external" href="/blog/2003/02/08/StateOfTheUnion.html">State of the&nbsp;Union</a></p>
 <p>2003/02/07:
-<a class="reference external" href="/blog/2003/02/08/HasbiansBiForNow.html">Hasbians: Bi for Now</a></p>
+<a class="reference external" href="/blog/2003/02/08/HasbiansBiForNow.html">Hasbians: Bi for&nbsp;Now</a></p>
 <p>2003/02/07:
-<a class="reference external" href="/blog/2003/02/08/BarbaraLeePublicEnemyNumberOne.html">Barbara Lee: Public Enemy Number One?</a></p>
+<a class="reference external" href="/blog/2003/02/08/BarbaraLeePublicEnemyNumberOne.html">Barbara Lee: Public Enemy Number&nbsp;One?</a></p>
 <p>2003/02/08:
-<a class="reference external" href="/blog/2003/02/09/BushIraqParodyOfNigerianSpamScam.html">Bush-Iraq parody of Nigerian spam scam</a></p>
+<a class="reference external" href="/blog/2003/02/09/BushIraqParodyOfNigerianSpamScam.html">Bush-Iraq parody of Nigerian spam&nbsp;scam</a></p>
 <p>2003/02/09:
-<a class="reference external" href="/blog/2003/02/10/CasusBelliII.html">Casus Belli <span class="caps">II</span></a></p>
+<a class="reference external" href="/blog/2003/02/10/CasusBelliII.html">Casus Belli&nbsp;<span class="caps">II</span></a></p>
 <p>2003/02/09:
 <a class="reference external" href="/blog/2003/02/10/TiVo.html">TiVo</a></p>
 <p>2003/02/09:
-<a class="reference external" href="/blog/2003/02/10/PowellAtTheUN.html">Powell at the <span class="caps">UN</span></a></p>
+<a class="reference external" href="/blog/2003/02/10/PowellAtTheUN.html">Powell at the&nbsp;<span class="caps">UN</span></a></p>
 <p>2003/02/14:
-<a class="reference external" href="/blog/2003/02/14/PatriotActII.html">Patriot Act <span class="caps">II</span></a></p>
+<a class="reference external" href="/blog/2003/02/14/PatriotActII.html">Patriot Act&nbsp;<span class="caps">II</span></a></p>
 <p>2003/02/14:
 <a class="reference external" href="/blog/2003/02/14/HansBlixReportsToTheUN.html">Hans Blix </a><span>&#8230;<a href="/blog/2006/05/14/BlastFromThePastI.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -197,20 +244,20 @@ the case for war was lacking.</p>
     </header>
     <a class="reference external image-reference" href="http://maps.google.co.uk"></a>
 <p>I remember about two years ago, before a trip across the Atlantic, trying
-to find websites that had street maps for London and Dublin – and coming
-up nearly empty.</p>
+to find websites that had street maps for London and Dublin &#8211; and coming
+up nearly&nbsp;empty.</p>
 <p>Now, a year after it became available, I notice that Google Maps
 covers <a class="reference external" href="http://maps.google.co.uk">Ireland and the <span class="caps">UK</span></a>.
-Un­for­tu­nate­ly, it does a piss-poor job of finding locations:
-try typing anything more specific than <em>Dublin</em> into the search box.</p>
+Un&shy;for&shy;tu&shy;nate&shy;ly, it does a piss-poor job of finding locations:
+try typing anything more specific than <em>Dublin</em> into the search&nbsp;box.</p>
 <p>Google Maps now provides a basic ability to get directions
 <a class="reference external" href="http://www.spatialireland.com/archives/20060425-google-maps-adds-basic-directions-for-the-republic/">between cities</a>.</p>
-<p>Some other map links:</p>
+<p>Some other map&nbsp;links:</p>
 <ul class="simple">
-<li><a class="reference external" href="http://maps.frommars.org/ireland/">Irish sight­see­ing</a></li>
-<li><a class="reference external" href="http://en.wikipedia.org/wiki/Maps_of_the_UK_and_Ireland">Maps of Ireland and the <span class="caps">UK</span></a></li>
+<li><a class="reference external" href="http://maps.frommars.org/ireland/">Irish&nbsp;sight&shy;see&shy;ing</a></li>
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Maps_of_the_UK_and_Ireland">Maps of Ireland and the&nbsp;<span class="caps">UK</span></a></li>
 <li><a class="reference external" href="http://www.viamichelin.com/viamichelin/gbr/tpl/hme/MaHomePage.htm">Via Michelin</a>:
-driving directions</li>
+driving&nbsp;directions</li>
 </ul>
 
     <footer>
@@ -236,8 +283,8 @@ driving directions</li>
             <a href="/blog/2006/05/13/HeWillSurvive.html" rel="bookmark canonical">He Will Survive</a>
         </h1>
     </header>
-    <p>Via <a class="reference external" href="http://bonhom.ie/">Bootboy</a>, a video of "Jesus" singing Gloria
-Gaynor’s <em>I Will Survive</em>.</p>
+    <p>Via <a class="reference external" href="http://bonhom.ie/">Bootboy</a>, a video of &quot;Jesus&quot; singing Gloria
+Gaynor&#8217;s <em>I Will Survive</em>.</p>
 <a class="reference external image-reference" href="http://video.google.com/videoplay?docid=-2566269671806009973"></a>
 
     <footer>
@@ -271,21 +318,21 @@ Gaynor’s <em>I Will Survive</em>.</p>
 <a class="reference external image-reference" href="http://www.vim.org/"></a>
 <p>(Vim is Vi IMproved, an enormously enhanced version of the classic Unix
 editor, <tt class="docutils literal">vi</tt>.)</p>
-<p>The main features of the 7.0 release are:</p>
+<p>The main features of the 7.0 release&nbsp;are:</p>
 <ul class="simple">
-<li>Spell checking</li>
-<li>Omni-completion (In­tel­lisense-like)</li>
-<li>Tabbed pages</li>
-<li>VimL script language now supports Lists and Dic­tio­nar­ies</li>
+<li>Spell&nbsp;checking</li>
+<li>Omni-completion&nbsp;(In&shy;tel&shy;lisense-like)</li>
+<li>Tabbed&nbsp;pages</li>
+<li>VimL script language now supports Lists and&nbsp;Dic&shy;tio&shy;nar&shy;ies</li>
 </ul>
-<p>I’m going to take credit for some minor features of Vim 7:</p>
+<p>I&#8217;m going to take credit for some minor features of Vim&nbsp;7:</p>
 <ul class="simple">
 <li>Making Vim build with <a class="reference external" href="/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html"><span class="caps">VC5</span>-<span class="caps">VC8</span></a></li>
-<li>The <a class="reference external" href="/blog/2006/04/22/Win64PortOfVim.html">Win64 port</a></li>
-<li>Syntax high­light­ing for <a class="reference external" href="/blog/2006/05/04/VimSyntaxHighlightingForFlexWiki.html">FlexWiki</a></li>
+<li>The <a class="reference external" href="/blog/2006/04/22/Win64PortOfVim.html">Win64&nbsp;port</a></li>
+<li>Syntax high&shy;light&shy;ing for <a class="reference external" href="/blog/2006/05/04/VimSyntaxHighlightingForFlexWiki.html">FlexWiki</a></li>
 </ul>
 <p>WikiPedia summarizes the <a class="reference external" href="http://en.wikipedia.org/wiki/Vim_%28text_editor%29#History">history of Vim</a>.
-This enabled me to pinpoint when I first became a con­trib­u­tor to Vim,
+This enabled me to pinpoint when I first became a con&shy;trib&shy;u&shy;tor to Vim,
 back in December 1995. I cleaned up the original, rather buggy
 port of <a class="reference external" href="http://groups.google.com/group/comp.editors/browse_thread/thread/a3fad9455d7a23cf/13c6939208787c22">Vim-3.0 to <span class="caps">NT</span></a>,
 and posted it to the <a class="reference external" href="news://news.readfreenews.net/comp.editors">comp.editors</a> newsgroup.
@@ -322,19 +369,19 @@ Bram invited me to merge my changes into Vim-4.0, which was then <span>&#8230;<a
 
 <p>I saw a video clip of so-called
 <a class="reference external" href="http://www.ifilm.com/ifilmdetail/2684760?htv=12">Russian Climbing</a>
-at work today. It turns out that it’s an extreme sport of French origin
+at work today. It turns out that it&#8217;s an extreme sport of French origin
 called <a class="reference external" href="http://parkour.net/index.php?sel_lang=english">Parkour</a> or
 <a class="reference external" href="http://www.urbanfreeflow.com/fundamentals/fundamentals.htm">Free Running</a>.</p>
-<p>Parkour is "the art of forward motion in spite of obstacles". Its
-prac­ti­tion­ers (traceurs) run around urban landscapes, performing Jacky
-Chan-like leaps, rolls, stunts, jumps, and flips.</p>
-<p>The excellent <a class="reference external" href="http://www.howstuffworks.com/">How­Stuff­Works.com</a>
-has a good <a class="reference external" href="http://entertainment.howstuffworks.com/parkour.htm">in­tro­duc­to­ry piece on Parkour</a>.</p>
+<p>Parkour is &quot;the art of forward motion in spite of obstacles&quot;. Its
+prac&shy;ti&shy;tion&shy;ers (traceurs) run around urban landscapes, performing Jacky
+Chan-like leaps, rolls, stunts, jumps, and&nbsp;flips.</p>
+<p>The excellent <a class="reference external" href="http://www.howstuffworks.com/">How&shy;Stuff&shy;Works.com</a>
+has a good <a class="reference external" href="http://entertainment.howstuffworks.com/parkour.htm">in&shy;tro&shy;duc&shy;to&shy;ry piece on Parkour</a>.</p>
 <p>There is a local group of traceurs, who are written up in a
 <a class="reference external" href="http://seattlepi.nwsource.com/local/252602_parkour19.html">P-I article</a>.
 Their website is <a class="reference external" href="http://washingtonparkour.com/">Washington Parkour</a>.
-It seems there’s a "jam" every Sunday at noon at Seattle’s Freeway Park.
-It sounds like a photo-op to me.</p>
+It seems there&#8217;s a &quot;jam&quot; every Sunday at noon at Seattle&#8217;s Freeway Park.
+It sounds like a photo-op to&nbsp;me.</p>
 
     <footer>
         
@@ -362,15 +409,15 @@ It sounds like a photo-op to me.</p>
     <a class="reference external image-reference" href="http://www.cirquedusoleil.com/CirqueDuSoleil/en/showstickets/varekai/TicketsGeneral/Seattle.htm"></a>
 <p>Three years ago, one of our must-watch shows was
 <a class="reference external" href="http://www.cirquedusoleil.com/CirqueDuSoleil/en/OnScreen/TVShows/FireWithin.htm">Fire Within</a>,
-a doc­u­men­tary on the making of Cirque du Soleil’s <em>Varekai</em> show.
+a doc&shy;u&shy;men&shy;tary on the making of Cirque du Soleil&#8217;s <em>Varekai</em> show.
 It followed a set of would-be performers in the eight months leading up to
-the premiere of <em>Varekai</em>, as they train at the Cirque’s school in
-Montreal, developing potential acts. Some of them make it, some fall by the wayside.</p>
+the premiere of <em>Varekai</em>, as they train at the Cirque&#8217;s school in
+Montreal, developing potential acts. Some of them make it, some fall by the&nbsp;wayside.</p>
 <p><em>Varekai</em> has been on tour ever since, and it just opened in <a class="reference external" href="http://www.cirquedusoleil.com/CirqueDuSoleil/en/showstickets/varekai/TicketsGeneral/Seattle.htm">Seattle</a>.
 We saw it tonight.
 Very little of the original show survives;
-mostly, the aerial strap act with the twins, Kevin and Andrew.</p>
-<p>I recommend it. <em>Varekai</em> is a visual spec­tac­u­lar,
+mostly, the aerial strap act with the twins, Kevin and&nbsp;Andrew.</p>
+<p>I recommend it. <em>Varekai</em> is a visual spec&shy;tac&shy;u&shy;lar,
 with all the familiar elements of incredible acrobatics,
 clown <span>&#8230;<a href="/blog/2006/05/10/Varekai.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -383,45 +430,6 @@ clown <span>&#8230;<a href="/blog/2006/05/10/Varekai.html" class="continue">cont
                     and
                     
                 <a href="/tag/circus/" rel="tag">circus</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-05-09">2006-05-09</time>
-        <h1>
-            <a href="/blog/2006/05/09/AntiWarMusicAndVideos.html" rel="bookmark canonical">Anti-War Music and Videos</a>
-        </h1>
-    </header>
-    <p>A lot of anti-war music and videos are appearing of late,
-and about time too.</p>
-<p>Via <a class="reference external" href="http://www.americablog.com/">Amer­i­ca­Blog</a>, I learn today of
-Jackson Browne’s new anti-war video, <a class="reference external" href="http://videos.digett.net/jacksonbrowne/lives/lives_in_the_balance.wmv">Lives in the Balance</a>.</p>
-<a class="reference external image-reference" href="http://videos.digett.net/jacksonbrowne/lives/lives_in_the_balance.wmv"></a>
-<p>There’s also Pink’s song
-<a class="reference external" href="http://www.youtube.com/watch?v=9eDJ3cuXKV4">Dear Mr. President</a>.</p>
-<a class="reference external image-reference" href="http://www.youtube.com/watch?v=9eDJ3cuXKV4"></a>
-<p>Not to mention <a class="reference external" href="http://www.neilyoung.com/">Neil Young’s</a>
-new album, <a class="reference external" href="http://livingwithwar.blogspot.com/">Living with War</a>. You can listen to the
-<a class="reference external" href="http://www.hyfntrak.com/neilyoung2/AFF23130/">entire album</a> online.</p>
-<a class="reference external image-reference" href="http://www.hyfntrak.com/neilyoung2/AFF23130/"></a>
-<p>And the <a class="reference external" href="http://www.dixiechicks.com/">Dixie Chicks’</a> forth­com­ing album,
-<a class="reference external" href="http://www.dixiechicks.com/06_longway.asp">Taking the Long Way</a>.</p>
-<a class="reference external image-reference" href="http://www.dixiechicks.com/"></a>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/05/09/AntiWarMusicAndVideos.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/politics/" rel="tag">politics</a>
                 
             </p>
         

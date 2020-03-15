@@ -41,13 +41,13 @@
 There were about 50 people present, with a few out-of-town visitors from
 Portland and Vancouver BC.</p>
 <p>It was a mixed bag.
-I found the afternoon sessions more in­ter­est­ing than the morning ones.</p>
+I found the afternoon sessions more in&shy;ter&shy;est&shy;ing than the morning ones.</p>
 <p>The morning talks started with a set of five-minute lightning talks, including:</p>
 <ul class="simple">
 <li><a class="reference external" href="http://docs.python.org/library/ctypes.html">ctypes</a> being used to crack open a raw binary file with arbitrary bit alignment.</li>
-<li><a class="reference external" href="http://werkzeug.pocoo.org/">Werkzeug</a>: a set of WSGI utilities. Debugger sounds par­tic­u­lar­ly useful.</li>
-<li><a class="reference external" href="http://buildbot.net/trac">BuildBot</a>: Eric talked about using it for Continuous In­te­gra­tion and
-how easy it was to configure and extend, compared to <a class="reference external" href="http://ccnet.thoughtworks.com/">CruiseC­on­trol.NET</a>.</li>
+<li><a class="reference external" href="http://werkzeug.pocoo.org/">Werkzeug</a>: a set of WSGI utilities. Debugger sounds par&shy;tic&shy;u&shy;lar&shy;ly useful.</li>
+<li><a class="reference external" href="http://buildbot.net/trac">BuildBot</a>: Eric talked about using it for Continuous In&shy;te&shy;gra&shy;tion and
+how easy it was to configure and extend, compared to <a class="reference external" href="http://ccnet.thoughtworks.com/">CruiseC&shy;on&shy;trol.NET</a>.</li>
 </ul>
 <p><em>Browser Interface, Local </em><span>&#8230;<a href="/blog/2009/02/01/NorthwestPythonDay2009.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -97,6 +97,41 @@ I wrote up a few hard-won tips on using the <a class="reference external" href="
     
         <article>
     <header>
+        <time datetime="2007-06-09">2007-06-09</time>
+        <h1>
+            <a href="/blog/2007/06/09/Multilingual.html" rel="bookmark canonical">Multilingual</a>
+        </h1>
+    </header>
+    
+<p>This week, I have written code in C#, C++, Managed C++, C, WiX, NAnt,
+Ac&shy;tion&shy;Script, VBScript, JScript, cmd batch, NMake, HTML,
+XSLT, and Ruby. And I will probably get some Python in before the weekend
+is over. &lt;boggle/&gt;</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>,
+                <a href="/tag/javascript/" rel="tag">javascript</a>,
+                <a href="/tag/c++/" rel="tag">c++</a>,
+                <a href="/tag/c/" rel="tag">c#</a>,
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/ruby/" rel="tag">ruby</a>
+                    and
+                    
+                <a href="/tag/html/" rel="tag">html</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2007-01-13">2007-01-13</time>
         <h1>
             <a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" rel="bookmark canonical">Python Batchfile Wrapper, Redux</a>
@@ -105,25 +140,26 @@ I wrote up a few hard-won tips on using the <a class="reference external" href="
     
 <div class="section" id="batchfile-wrapper">
 <h2>Batchfile Wrapper</h2>
-<p>I've made some sig­nif­i­cant changes to my <a class="reference external" href="/blog/2006/12/29/PythonBatchfileWrapper.html">Python Batchfile Wrapper</a>.
+<p>I've made some sig&shy;nif&shy;i&shy;cant changes to my <a class="reference external" href="/blog/2006/12/29/PythonBatchfileWrapper.html">Python Batchfile Wrapper</a>.
 The main virtue of this wrapper is that it finds python.exe and
 invokes it on the associated Python script,
-ensuring that <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi­rec­tion</a> works.</p>
+ensuring that <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi&shy;rec&shy;tion</a> works.</p>
 <p>I've also adapted <a class="reference external" href="http://mail.python.org/pipermail/python-list/2000-January/019450.html">py2bat</a> to work with my wrapper.
 I'm calling my version <a class="reference external" href="/Python/py2cmd/">py2cmd</a>.</p>
-<p>Here's my latest batch file, which is shorter than its pre­de­ces­sor.</p>
+<p>Here's my latest batch file, which is shorter than its pre&shy;de&shy;ces&shy;sor.</p>
 <p>To use it, place it in the same directory as the Python script
 you want to run and give it the same basename;
-i.e., <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth­er\ex­am­ple.cmd</tt>
-will run <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth­er\ex­am­ple.py</tt>.</p>
-<pre class="code batch literal-block">
-<span class="p">@</span><span class="k">echo</span> off
-<span class="k">setlocal</span>
-<span class="k">set</span> <span class="nv">PythonExe</span><span class="p">=</span>
-<span class="k">set</span> <span class="nv">PythonExeFlags</span><span class="p">=</span>-u
+i.e., <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.cmd</tt>
+will run <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.py</tt>.</p>
 
-<span class="k">for</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span>cmd bat exe<span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
-    <span class="k">for</span> <span class="se">%%</span>j <span class="k">in</span> <span class="p">(</span>python.<span class="se">%%</span>i<span class="p">)</span> <span class="k">do</span> </pre><span>&#8230;<a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" class="continue">continue</a>.</span></div>
+<pre class="brush: batch">
+@echo off
+setlocal
+set PythonExe=
+set PythonExeFlags=-u
+
+for %%i in (cmd bat exe) do (
+    for %%j in (python.%%i) do </pre><span>&#8230;<a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" class="continue">continue</a>.</span></div>
     <footer>
         
         
@@ -149,13 +185,13 @@ will run <tt class="docutils literal"><span class="pre">d:\some\path</span> or o
         </h1>
     </header>
     
-<p>I've been getting into Python lately. One problem that I've en­coun­tered
-under Windows, is that input redi­rec­tion doesn't work if you use
-the <tt class="docutils literal">.py</tt> file as­so­ci­a­tion to run the script; e.g.:</p>
+<p>I've been getting into Python lately. One problem that I've en&shy;coun&shy;tered
+under Windows, is that input redi&shy;rec&shy;tion doesn't work if you use
+the <tt class="docutils literal">.py</tt> file as&shy;so&shy;ci&shy;a&shy;tion to run the script; e.g.:</p>
 <pre class="literal-block">
-C:\> foo.py < input.txt
+C:\&gt; foo.py &lt; input.txt
 </pre>
-<p>There's a well-known <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi­rec­tion bug</a>. The fix is to explicitly use
+<p>There's a well-known <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi&shy;rec&shy;tion bug</a>. The fix is to explicitly use
 <tt class="docutils literal">python.exe</tt> to run the script.</p>
 <p>A related problem for me was that <tt class="docutils literal">stdin</tt> was opened as a <em>text</em> file,
 not a <em>binary</em> file, so <tt class="docutils literal">\r</tt> bytes were being discarded from binary input

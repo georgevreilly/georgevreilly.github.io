@@ -35,28 +35,32 @@
             <a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" rel="bookmark canonical">Doctests, Unicode Literals, and Python 2/3 Compatibility</a>
         </h1>
     </header>
-    <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses them.</p>
+    <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses&nbsp;them.</p>
 <p>Although I still mostly write Python 2,
-I usually import several features of Python 3:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+I usually import several features of Python&nbsp;3:</p>
+
+<pre class="brush: python">
+from __future__ import unicode_literals, print_function, absolute_import
 </pre>
-<p>Un&shy;for&shy;tu&shy;nate&shy;ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni&shy;code_lit&shy;er&shy;als</a> doesn’t play well with doctests.</p>
+
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni&shy;code_lit&shy;er&shy;als</a> doesn&#8217;t play well with&nbsp;doctests.</p>
 <p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
 but not with <tt class="docutils literal">python3</tt>:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
 
-<span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-    <span class="sd">"""
+<pre class="brush: python">
+from __future__ import unicode_literals, print_function, absolute_import
+
+def upper(s):
+    """
     Convert `s` to upper case.
 
     >>> upper('Hello!')
-    u'<span class="caps">HELLO</span>!'
-    """</span>
-    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    u'HELLO!'
+    """
+    return s.upper()
 </pre>
-<p>Python 3 complains:</p>
+
+<p>Python 3&nbsp;complains:</p>
 <pre class="literal-block">
 Failed example:
     upper('Hello!')
@@ -65,33 +69,35 @@ Expected:
 Got:
     'HELLO!'
 </pre>
-<p>The problem is that Python 2’s <tt class="docutils literal">repr</tt> for a Unicode string
+<p>The problem is that Python 2&#8217;s <tt class="docutils literal">repr</tt> for a Unicode string
 prefixes the string with <tt class="docutils literal">u</tt>,
-while Python 3’s repr does not
-(all strings are Unicode).</p>
+while Python 3&#8217;s repr does not
+(all strings are&nbsp;Unicode).</p>
 <p>The test can be made to pass by removing <tt class="docutils literal">uni&shy;code_lit&shy;er&shy;als</tt>
 from the <tt class="docutils literal">from __future__ import</tt>,
-but this also removes the benefit of implicitly forcing all string literals to be Unicode.</p>
-<p>Another workaround is to use <a class="reference external" href="https://pythonhosted.org/six/">six</a> thus:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+but this also removes the benefit of implicitly forcing all string literals to be&nbsp;Unicode.</p>
+<p>Another workaround is to use <a class="reference external" href="https://pythonhosted.org/six/">six</a>&nbsp;thus:</p>
 
-<span class="kn">import</span> <span class="nn">six</span>
+<pre class="brush: python">
+from __future__ import unicode_literals, print_function, absolute_import
 
-<span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-    <span class="sd">"""
+import six
+
+def upper(s):
+    """
     Convert `s` to upper case.
 
-    >>> upper('Hello!') == six.text_type(u'<span class="caps">HELLO</span>!')
+    >>> upper('Hello!') == six.text_type(u'HELLO!')
     True
-    """</span>
-    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    """
+    return s.upper()
 </pre>
+
 <p>This works, but is less clear.
 If the assertion fails,
-com&shy;plain&shy;ing about <tt class="docutils literal">True</tt> instead of <tt class="docutils literal"><span class="caps">HELLO</span>!</tt> is far less clear.</p>
+com&shy;plain&shy;ing about <tt class="docutils literal">True</tt> instead of <tt class="docutils literal"><span class="caps">HELLO</span>!</tt> is far less&nbsp;clear.</p>
 <p>Lennart Regebro has a good discussion of other <a class="reference external" href="http://python3porting.com/problems.html#running-doctests">doctest migration problems</a>.
-If you’re willing to use a more so&shy;phis&shy;ti&shy;cat&shy;ed method of running doctests,
+If you&#8217;re willing to use a more so&shy;phis&shy;ti&shy;cat&shy;ed method of running doctests,
 you can try a <a class="reference external" href="https://dirkjan.ochtman.nl/writing/2014/07/06/single-source-python-23-doctests.html">doctest output checker</a> or a <a class="reference external" href="https://github.com/gnublade/doctest-ignore-unicode">nose plugin</a>.</p>
 
     <footer>

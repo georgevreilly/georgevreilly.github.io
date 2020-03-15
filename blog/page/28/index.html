@@ -28,25 +28,70 @@
     
         <article>
     <header>
+        <time datetime="2016-01-16">2016-01-16</time>
+        <h1>
+            <a href="/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html" rel="bookmark canonical">Installing Python 2.7.11 on Ubuntu</a>
+        </h1>
+    </header>
+    <p>We deploy on Ubuntu 14.04, the most recent Long Term Support release.
+It comes with Python 2.7.6,
+but we need Python 2.7.9+ to get the some important <span class="caps">SSL</span> fixes
+and work with a recent version of the <a class="reference external" href="http://docs.python-requests.org/en/latest/">Requests</a>&nbsp;library.</p>
+<p>Felix Krull maintains a Personal Package Archive for <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes-python2.7">Python 2.7 Updates</a>,
+which makes it straight&shy;for&shy;ward to upgrade to Python 2.7.11
+on supported versions of&nbsp;Ubuntu.</p>
+
+<pre class="brush: bash">
+sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
+sudo apt-get update
+sudo apt-get install python2.7 python2.7-dev
+</pre>
+
+<p>Be sure not to use Felix Krull&#8217;s <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes">other Python <span class="caps">PPA</span></a> by mistake.
+I did that on a colleague&#8217;s machine yesterday.
+In our attempts to figure out why we still had Python 2.7.6,
+we managed to mess up the machine suf&shy;fi&shy;cient&shy;ly
+that <span>&#8230;<a href="/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-15">2016-01-15</time>
         <h1>
             <a href="/blog/2016/01/15/DVINotConsideredEqual.html" rel="bookmark canonical">DVI Not Considered Equal</a>
         </h1>
     </header>
     <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Digital_Visual_Interface"></a>
-<p>We got a new monitor today for one of our <a class="reference external" href="http://www.metabrite.com/devblog/posts/pairing-git/">pairing work­sta­tions</a>.
-At 2560x1600, it was higher resolution than its pre­de­ces­sor.
-I dis­con­nect­ed the <a class="reference external" href="https://en.wikipedia.org/wiki/Digital_Visual_Interface"><span class="caps">DVI</span></a> cable from the old monitor,
+<p>We got a new monitor today for one of our <a class="reference external" href="http://www.metabrite.com/devblog/posts/pairing-git/">pairing work&shy;sta&shy;tions</a>.
+At 2560x1600, it was higher resolution than its pre&shy;de&shy;ces&shy;sor.
+I dis&shy;con&shy;nect&shy;ed the <a class="reference external" href="https://en.wikipedia.org/wiki/Digital_Visual_Interface"><span class="caps">DVI</span></a> cable from the old monitor,
 leaving it connected to one of the video ports on the computer,
 and connected it to the new monitor.
 All I could see was static and noise on the screen.
 After trying a variety of other things,
 I eventually thought to use the <span class="caps">DVI</span> cable that came with the new monitor.
-It worked!</p>
-<p>I had assumed that all <span class="caps">DVI</span> cables were in­ter­change­able.
-Reading the <a class="reference external" href="https://en.wikipedia.org/wiki/Digital_Visual_Interface">Wikipedia article</a>, I see that at higher res­o­lu­tions,
+It&nbsp;worked!</p>
+<p>I had assumed that all <span class="caps">DVI</span> cables were in&shy;ter&shy;change&shy;able.
+Reading the <a class="reference external" href="https://en.wikipedia.org/wiki/Digital_Visual_Interface">Wikipedia article</a>, I see that at higher res&shy;o&shy;lu&shy;tions,
 <em>dual link</em> is needed.
-I hadn’t known such a thing existed.</p>
+I hadn&#8217;t known such a thing&nbsp;existed.</p>
 
     <footer>
         
@@ -73,25 +118,28 @@ I hadn’t known such a thing existed.</p>
     </header>
     <p>When I declare a derived class that inherits
 from both a base class and some mixins,
-I am always tempted to write:</p>
-<pre class="code python literal-block">
-<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">Mixin1</span><span class="p">,</span> <span class="n">Mixin2</span><span class="p">):</span>
-    <span class="s2">"Some class"</span>
+I am always tempted to&nbsp;write:</p>
+
+<pre class="brush: python">
+class Derived(Base, Mixin1, Mixin2):
+    "Some class"
 </pre>
+
 <p>My reasoning is that <tt class="docutils literal">Derived</tt> is a <tt class="docutils literal">Base</tt>
 with some <tt class="docutils literal">Mixin1</tt> and <tt class="docutils literal">Mixin2</tt> goodness sprinkled on.
-Generally, that’s fine.
+Generally, that&#8217;s fine.
 The exception is when I want one of the mixins to override
-a method or attribute that’s defined in <tt class="docutils literal">Base</tt>.
+a method or attribute that&#8217;s defined in <tt class="docutils literal">Base</tt>.
 Because the <a class="reference external" href="http://python-history.blogspot.com/2010/06/method-resolution-order.html">Method Resolution Order</a> is left-to-right,
-then <tt class="docutils literal">Base</tt>‘s im­ple­men­ta­tion will always be found first.</p>
+then <tt class="docutils literal">Base</tt>&#8216;s im&shy;ple&shy;men&shy;ta&shy;tion will always be found&nbsp;first.</p>
 <p>To get the desired behavior of the mixin overriding the base,
-<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in­her­i­tance list.</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance&nbsp;list.</p>
 
-<span class="k">class</span> <span class="nc">Useful</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+<pre class="brush: python">
+from __future__ import print_function
+
+class Useful(object):
+    def __init__(self, msg):
  </pre><span>&#8230;<a href="/blog/2016/01/14/PythonBaseClassOrder.html" class="continue">continue</a>.</span>
     <footer>
         
@@ -129,14 +177,14 @@ then <tt class="docutils literal">Base</tt>‘s im­ple­men­ta­tion will alwa
 <div class="line">Reading period: 11–12 January, 2016</div>
 </div>
 <p>Dr. Cherijo Grey Veil flees Earth to the remote planet of Kevarzanga-2,
-seeking to get away from her dom­i­neer­ing father
+seeking to get away from her dom&shy;i&shy;neer&shy;ing father
 and the xenophobic Terrans.
-She finds in­ter­est­ing challenges and romance
+She finds in&shy;ter&shy;est&shy;ing challenges and romance
 working with a variety of alien species at the FreeClinic.
 Then a plague strikes that kills thousands.
-When that’s resolved, the news comes that her father really, really wants her back,
-and is bringing enormous resources to make that happen.</p>
-<p>I didn’t like the book at first, but it grew on me as I read more of it
+When that&#8217;s resolved, the news comes that her father really, really wants her back,
+and is bringing enormous resources to make that&nbsp;happen.</p>
+<p>I didn&#8217;t like the book at first, but it grew on me as I read more of it
 and I got caught up <span>&#8230;<a href="/blog/2016/01/13/ReviewStarDoc.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -166,33 +214,37 @@ and I got caught up <span>&#8230;<a href="/blog/2016/01/13/ReviewStarDoc.html" c
         </h1>
     </header>
     <p>Bash has some handy syntax for getting and setting default values.
-Un­for­tu­nate­ly, it’s a collection of punc­tu­a­tion characters,
-which makes it hard to Google when you can’t quite remember the syntax.</p>
+Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s a collection of punc&shy;tu&shy;a&shy;tion characters,
+which makes it hard to Google when you can&#8217;t quite remember the&nbsp;syntax.</p>
 <p>Getting a default value using <tt class="docutils literal"><span class="pre">${var:-fallback}</span></tt>:</p>
-<pre class="code bash literal-block">
-<span class="c1"># set $<span class="caps">LOGDIR</span> to $1 if $1 has a value; otherwise set $<span class="caps">LOGDIR</span> to "/var/log"
-</span><span class="nv"><span class="caps">LOGDIR</span></span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/var/log</span><span class="si">}</span><span class="s2">"</span>
 
-<span class="c1"># use $<span class="caps">VERSION</span> unless it's empty or unset; fall back to extracting someprog's version num
-</span><span class="nv">build_version</span><span class="o">=</span><span class="si">${</span><span class="nv"><span class="caps">VERSION</span></span><span class="k">:-$(</span>someprog --version <span class="p">|</span> sed <span class="s1">'s/[^0-9.]*\([0-9.]*\).*/\1/'</span><span class="k">)</span><span class="si">}</span>
+<pre class="brush: bash">
+# set $LOGDIR to $1 if $1 has a value; otherwise set $LOGDIR to "/var/log"
+LOGDIR="${1:-/var/log}"
+
+# use $VERSION unless it's empty or unset; fall back to extracting someprog's version num
+build_version=${VERSION:-$(someprog --version | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')}
 </pre>
-<p>The colon-dash con­struc­tion is known as the
-<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog’s bollocks</a>
-in typography.</p>
+
+<p>The colon-dash con&shy;struc&shy;tion is known as the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog&#8217;s bollocks</a>
+in&nbsp;typography.</p>
 <p>Setting a default value, using <tt class="docutils literal"><span class="pre">${var:=fallback}</span></tt>:</p>
-<pre class="code bash literal-block">
-$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
+
+<pre class="brush: bash">
+$ echo $HOME
 /Users/georgevreilly
-$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
+$ echo ${HOME:=/tmp}
 /Users/georgevreilly
-$ <span class="nb">unset</span> <span class="caps">HOME</span>
-$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
+$ unset HOME
+$ echo ${HOME:=/tmp}
 /tmp
-$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
+$ echo $HOME
 /tmp
-$ cd<span class="p">;</span> <span class="nb">pwd</span>
+$ cd; pwd
 /tmp
 </pre>
+
 <p>Note: <tt class="docutils literal">:=</tt> uses the new value in two cases.
 First, when the shell <span>&#8230;<a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -232,13 +284,13 @@ First, when the shell <span>&#8230;<a href="/blog/2016/01/12/BashGettingAndSetti
 </div>
 <p>The first in a series about <a class="reference external" href="https://en.wikipedia.org/wiki/John_Fielding">Sir John Fielding</a>,
 the blind magistrate who founded the Bow Street Runners,
-London’s first pro­fes­sion­al police force in 1749.
-Jeremy Proctor, a newly orphaned 13-year-old, is taken under Sir John’s wing
-and assists him in dis­cov­er­ing how the rakish Lord Goodhope
-was murdered in a locked room.</p>
+London&#8217;s first pro&shy;fes&shy;sion&shy;al police force in 1749.
+Jeremy Proctor, a newly orphaned 13-year-old, is taken under Sir John&#8217;s wing
+and assists him in dis&shy;cov&shy;er&shy;ing how the rakish Lord Goodhope
+was murdered in a locked&nbsp;room.</p>
 <p>Although I figured out the murderer halfway through,
 I still enjoyed both the plot and the characters.
-Alexander vividly brings Georgian London to life.</p>
+Alexander vividly brings Georgian London to&nbsp;life.</p>
 
     <footer>
         
@@ -283,12 +335,12 @@ Alexander vividly brings Georgian London to life.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/A_Dedicated_Man">A Dedicated Man</a> is the second novel in the <a class="reference external" href="https://en.wikipedia.org/wiki/Inspector_Alan_Banks">Inspector Banks</a> series.
 A local historian has been murdered in the Yorkshire Dales.
 He was well-liked and there seems to be no obvious motives or suspects.
-Banks must dig into the dead man’s past if there are no leads in the present.</p>
+Banks must dig into the dead man&#8217;s past if there are no leads in the&nbsp;present.</p>
 <p>Like <a class="reference external" href="/blog/2009/11/21/ReviewTheHangingValley.html">other</a> <a class="reference external" href="/blog/2015/05/31/ReviewBadBoy.html">books</a> in the series,
 this is a competent well-written police procedural,
-partly seen through Banks’ eyes
+partly seen through Banks&#8217; eyes
 and partly through the eyes of some of the locals.
-Robinson is an expatriate York­shire­man
+Robinson is an expatriate York&shy;shire&shy;man
 with a fondness for his homeland and <span>&#8230;<a href="/blog/2016/01/10/ReviewADedicatedMan.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -332,11 +384,11 @@ with a fondness for his homeland and <span>&#8230;<a href="/blog/2016/01/10/Revi
 <p>Occupied France, January 1943.
 Detectives Jean-Louis St-Cyr and Hermann Kohler are sent
 to the German <a class="reference external" href="https://en.wikipedia.org/wiki/Keroman_Submarine_Base">submarine base</a> at Lorient in Brittany
-to in­ves­ti­gate a murder.
+to in&shy;ves&shy;ti&shy;gate a murder.
 The Gross-Admiral wants a quick resolution to the case
 since the prime suspect is a U-Boat captain known as the Dollmaker,
-whose crew are de­mor­al­ized after many months of punishing cruises
-and who won’t go back to sea without him.</p>
+whose crew are de&shy;mor&shy;al&shy;ized after many months of punishing cruises
+and who won&#8217;t go back to sea without&nbsp;him.</p>
 <p>St-Cyr and Kohler are unlikely partners,
 a Chief Inspector from the Sûreté in Paris
 and a longtime criminal policeman now in the Gestapo.
@@ -370,19 +422,19 @@ Both are astute <span>&#8230;<a href="/blog/2016/01/09/ReviewDollmaker.html" cla
         </h1>
     </header>
     <a class="reference external image-reference" href="http://anjinanhut.deviantart.com/art/time-to-die-roy-batty-108197743"></a>
-<p></p>
+
 <blockquote>
-<p>I’ve seen things you people wouldn’t believe.
+<p>I&#8217;ve seen things you people wouldn&#8217;t believe.
 Attack ships on fire off the shoulder of Orion.
 I watched C-beams glitter in the dark near the Tannhäuser Gate.
 All those moments will be lost in time, like tears…in…rain.
-Time to die.</p>
-<p class="attribution">—Roy Batty, the <a class="reference external" href="https://en.wikipedia.org/wiki/Tears_in_rain_monologue">Tears in Rain</a> monologue</p>
+Time to&nbsp;die.</p>
+<p class="attribution">&mdash;Roy Batty, the <a class="reference external" href="https://en.wikipedia.org/wiki/Tears_in_rain_monologue">Tears in Rain</a>&nbsp;monologue</p>
 </blockquote>
 <p>According to <a class="reference external" href="https://en.wikipedia.org/wiki/Blade_Runner">Blade Runner</a>,
-the replicant Roy Batty’s incept date is January 8th, 2016.
-The <a class="reference external" href="http://www.smh.com.au/entertainment/movies/blade-runner-fans-its-roy-battys-birthday-20160107-gm19z8.html">Sydney Morning Herald</a> has an article.</p>
-<p>In honor of which, we watched Blade Runner tonight.</p>
+the replicant Roy Batty&#8217;s incept date is January 8th, 2016.
+The <a class="reference external" href="http://www.smh.com.au/entertainment/movies/blade-runner-fans-its-roy-battys-birthday-20160107-gm19z8.html">Sydney Morning Herald</a> has an&nbsp;article.</p>
+<p>In honor of which, we watched Blade Runner&nbsp;tonight.</p>
 
     <footer>
         
@@ -412,19 +464,19 @@ The <a class="reference external" href="http://www.smh.com.au/entertainment/movi
     </header>
     <a class="reference external image-reference" href="https://lastpass.com/"></a>
 <p>My <a class="reference external" href="https://lastpass.com/">LastPass</a> browser plugin just upgraded itself to v4.0.
-For several years, I’ve been using LastPass to manage all of my passwords.
+For several years, I&#8217;ve been using LastPass to manage all of my passwords.
 I have literally hundreds of passwords.
-I can’t even remember half the sites, much less the usernames.
+I can&#8217;t even remember half the sites, much less the usernames.
 With LastPass, I can maintain a strong, distinct password for each site,
 which is robustly encrypted and backed up in the cloud,
-and I get good browser in­te­gra­tion and adequate Android in­te­gra­tion.
+and I get good browser in&shy;te&shy;gra&shy;tion and adequate Android in&shy;te&shy;gra&shy;tion.
 We also use LastPass at work for our individual use
-and to share cre­den­tials.</p>
+and to share&nbsp;cre&shy;den&shy;tials.</p>
 <p>There are still a handful of passwords that I have to remember and type,
 including the master password for my LastPass account,
 laptop passwords,
-and <span class="caps">GPG</span> passphras­es.</p>
-<p>I’ve long used <span>&#8230;<a href="/blog/2016/01/07/DicewareAndLastpass.html" class="continue">continue</a>.</span></p>
+and <span class="caps">GPG</span>&nbsp;passphras&shy;es.</p>
+<p>I&#8217;ve long used <span>&#8230;<a href="/blog/2016/01/07/DicewareAndLastpass.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/07/DicewareAndLastpass.html#disqus_thread">Comment</a>
@@ -435,56 +487,6 @@ and <span class="caps">GPG</span> passphras­es.</p>
                     and
                     
                 <a href="/tag/security/" rel="tag">security</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-06">2016-01-06</time>
-        <h1>
-            <a href="/blog/2016/01/06/ReviewHideMeAmongTheGraves.html" rel="bookmark canonical">Review: Hide Me Among The Graves</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0062210807/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Hide Me Among The Graves</div>
-<div class="line">Author: Tim Powers</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: William Morrow</div>
-<div class="line">Copyright: 2012</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0062210807/?tag=georgvreill-20">0062210807</a></div>
-<div class="line">Pages: 544</div>
-<div class="line">Keywords: fantasy, secret history</div>
-<div class="line">Reading period: 2 December, 2015–6 January, 2016</div>
-</div>
-<p>The Rosetti siblings, <a class="reference external" href="https://en.wikipedia.org/wiki/Christina_Rossetti">Christina</a>, <a class="reference external" href="https://en.wikipedia.org/wiki/Dante_Gabriel_Rossetti">Dante (Gabriel)</a>, Maria, and William,
-are haunted by the vampire who was once their uncle, <a class="reference external" href="https://en.wikipedia.org/wiki/John_William_Polidori">John Polidori</a>.
-The vampires pos­ses­sive­ly love certain humans
-and grant those humans great powers of creativity.
-Christina both loves her uncle and yearns to be free of him.
-The other humans who receive the attentions of the vampires
-likewise feel both a forbidden attraction
-and a horrified repulsion at their own potential damnation.</p>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Tim_Powers">Tim Powers</a> is known for his “<a class="reference external" href="https://en.wikipedia.org/wiki/Secret_history">secret histories</a>”,
-wherein he takes historical events <span>&#8230;<a href="/blog/2016/01/06/ReviewHideMeAmongTheGraves.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/06/ReviewHideMeAmongTheGraves.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/fantasy/" rel="tag">fantasy</a>
-                    and
-                    
-                <a href="/tag/history/" rel="tag">history</a>
                 
             </p>
         

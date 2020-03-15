@@ -28,6 +28,45 @@
     
         <article>
     <header>
+        <time datetime="2006-04-29">2006-04-29</time>
+        <h1>
+            <a href="/blog/2006/04/29/AssertResultToStringExpected.html" rel="bookmark canonical">Assert(Result.ToString() == "Expected")</a>
+        </h1>
+    </header>
+    <p>I&#8217;m writing some C++ code at the moment, after months of C#.
+I&#8217;m trying to be very <a class="reference external" href="http://www.xprogramming.com/xpmag/testFirstGuidelines.htm">Test First</a>,
+writing Red tests, then making them turn&nbsp;Green.</p>
+<p>I&#8217;m also using <a class="reference external" href="http://cppunit.sourceforge.net/cppunit-wiki">CppUnit</a>
+for the first time. It&#8217;s not as easy as
+<a class="reference external" href="http://www.nunit.org/">NUnit</a>. You can&#8217;t just declare
+your test method with an attribute, you have to declare the test method
+in a header file, place it inside a macro, and then have the test
+im&shy;ple&shy;men&shy;ta&shy;tion in a .cpp-file. And there&#8217;s no nunit-gui.
+I&#8217;m using a post-build step to run the tests, which makes it
+fairly pain&nbsp;free.</p>
+<p>There was one internal method that I didn&#8217;t have an explicit test for,
+although I had tests for methods <span>&#8230;<a href="/blog/2006/04/29/AssertResultToStringExpected.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/04/29/AssertResultToStringExpected.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/c++/" rel="tag">c++</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-04-24">2006-04-24</time>
         <h1>
             <a href="/blog/2006/04/24/SubversiveActivity.html" rel="bookmark canonical">Subversive activity</a>
@@ -35,22 +74,22 @@
     </header>
     <p><a class="reference external" href="http://svn.sourceforge.net/viewcvs.cgi/vim/">Vim</a>
 and <a class="reference external" href="http://svn.sourceforge.net/viewcvs.cgi/dasblogce/">DasBlog</a>,
-two open source projects that I’m associated with,
+two open source projects that I&#8217;m associated with,
 have both switched over to using the
 <a class="reference external" href="http://subversion.tigris.org/">Subversion</a>
 source code control system in the last week.
 In both cases, the prolonged problems with
-<a class="reference external" href="http://sourceforge.net/docman/display_doc.php?docid=2352&amp;group_id=1">anonymous <span class="caps">CVS</span> access at Source­Forge</a>
+<a class="reference external" href="http://sourceforge.net/docman/display_doc.php?docid=2352&amp;group_id=1">anonymous <span class="caps">CVS</span> access at Source&shy;Forge</a>
 proved the final straw.
 And I provided the impetus, by bringing up the need for a change on the
 <a class="reference external" href="http://marc.theaimsgroup.com/?l=vim-dev&amp;m=114527322425296&amp;w=2">vim-dev</a>
 and <a class="reference external" href="http://sourceforge.net/mailarchive/forum.php?thread_id=10191521&amp;forum_id=43543">dasblogce-developers</a>
 mailing lists.
 I take no credit for doing the work, however,
-as that was done by others.</p>
-<p>(Vim’s primary repository continues to be <span class="caps">CVS</span>, with Subversion acting as
-a mirror for anonymous access. Bram didn’t want to change over until
-after Vim-7 ships.)</p>
+as that was done by&nbsp;others.</p>
+<p>(Vim&#8217;s primary repository continues to be <span class="caps">CVS</span>, with Subversion acting as
+a mirror for anonymous access. Bram didn&#8217;t want to change over until
+after Vim-7&nbsp;ships.)</p>
 <p>Earlier this year, we switched over to Subversion at work, after years of
 using Visual SourceSafe. It <span>&#8230;<a href="/blog/2006/04/24/SubversiveActivity.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -76,14 +115,14 @@ using Visual SourceSafe. It <span>&#8230;<a href="/blog/2006/04/24/SubversiveAct
             <a href="/blog/2006/04/22/Win64PortOfVim.html" rel="bookmark canonical">Win64 port of Vim</a>
         </h1>
     </header>
-    <p>I’ve ported Vim to Win64. Native binaries for <span class="caps">AMD64</span> can be found on my
+    <p>I&#8217;ve ported Vim to Win64. Native binaries for <span class="caps">AMD64</span> can be found on my
 <a class="reference external" href="//www.georgevreilly.com/vim/">Vim page</a>.</p>
-<p>In the end, it wasn’t all that hard. Last weekend, I fixed ap­prox­i­mate­ly
+<p>In the end, it wasn&#8217;t all that hard. Last weekend, I fixed ap&shy;prox&shy;i&shy;mate&shy;ly
 400 warnings that were thrown up by the x86_amd64 cross compiler.
 Most of them were due to the widening of <tt class="docutils literal">size_t</tt> (especially the value
 returned from <tt class="docutils literal">strlen()</tt>) and <tt class="docutils literal">ptrdiff_t</tt> to 64-bits.
 Several years ago, I went through a similar exercise in fixing these
-warnings for Vim6, but I never finished the port.</p>
+warnings for Vim6, but I never finished the&nbsp;port.</p>
 <p>This week, I scrounged access to an <span class="caps">AMD64</span> box at work. Today, I turned on
 the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/yt4xw8fh(VS.80).aspx">/Wp64 flag</a>,
 which found several new, subtler problems, where pointers where being
@@ -116,17 +155,17 @@ truncated to <tt class="docutils literal">__int32</tt>s <span>&#8230;<a href="/b
     </header>
     <p>One of my favorite shows is back on the TiVo.
 <a class="reference external" href="http://www.bbqu.net/">Barbecue University</a> is
-Steven Raichlen’s show about all kinds of
-grilling and barbecue techniques and recipes.</p>
+Steven Raichlen&#8217;s show about all kinds of
+grilling and barbecue techniques and&nbsp;recipes.</p>
 <a href="http://splendidtable.publicradio.org/recipes/main_beercan.shtml" title="Beer Can Chicken">
      
 </a><p>I <em>love</em> this recipe for
 <a class="reference external" href="http://www.recipecircus.com/recipes/Magnolias/BBQ/Afghan-Style_Game_Hens.html">Afghan Game Hens</a>,
 although I always substitute chicken(s) for the game hens.
 This recipe convinced me to buy a rotisserie.
-It’s been a huge hit whenever I’ve served it up.
-It’s not the easiest meal to prepare, so I don’t do it often.
-Note: I cook the marinaded onions in a pan and serve them with the chicken. Yum!</p>
+It&#8217;s been a huge hit whenever I&#8217;ve served it up.
+It&#8217;s not the easiest meal to prepare, so I don&#8217;t do it often.
+Note: I cook the marinaded onions in a pan and serve them with the chicken.&nbsp;Yum!</p>
 <p><a class="reference external" href="http://splendidtable.publicradio.org/recipes/main_beercan.shtml">Beer Can Chicken</a>,
 on the other hand, is very easy.
 It also works well in the oven.
@@ -154,10 +193,10 @@ Last year, I found <span>&#8230;<a href="/blog/2006/04/19/BarbecueUniversity.htm
             <a href="/blog/2006/04/18/TheBigotsphere.html" rel="bookmark canonical">The Bigotsphere</a>
         </h1>
     </header>
-    <p>Over at <a class="reference external" href="http://www.firedoglake.com/">Fire­DogLake</a>,
-they’ve put together an impressive (and depressing) <a class="reference external" href="http://www.firedoglake.com/2006/04/16/late-nite-fdl-dear-wolfie-can-you-tell-the-difference-yet/">series</a>
-on the "racist freak show" that con­sti­tutes so many right-wing blogs.</p>
-<p>En­light­en­ing, if dis­taste­ful.</p>
+    <p>Over at <a class="reference external" href="http://www.firedoglake.com/">Fire&shy;DogLake</a>,
+they&#8217;ve put together an impressive (and depressing) <a class="reference external" href="http://www.firedoglake.com/2006/04/16/late-nite-fdl-dear-wolfie-can-you-tell-the-difference-yet/">series</a>
+on the &quot;racist freak show&quot; that con&shy;sti&shy;tutes so many right-wing&nbsp;blogs.</p>
+<p>En&shy;light&shy;en&shy;ing, if&nbsp;dis&shy;taste&shy;ful.</p>
 
     <footer>
         
@@ -182,14 +221,14 @@ on the "racist freak show" that con­sti­tutes so many right-wing blogs.</p>
             <a href="/blog/2006/04/18/SupportJimMcDermott.html" rel="bookmark canonical">Jim McDermott needs money</a>
         </h1>
     </header>
-    <p>I’m a lot happier in my <span class="caps">U.S.</span> con­gress­man, Jim McDermott, than I am in my
-senators, Patty Murray and Maria Cantwell. (Especially Cantwell.)</p>
-<p>Jim has been a strong pro­gres­sive voice in Congress for years.
-His early opposition to the Iraq War led to him being dubbed ‘Baghdad Jim’
-by infuriated Re­pub­li­cans. He was one of the first national politi­cians
-to support Howard Dean’s bid for the presidency. He had a big role in
+    <p>I&#8217;m a lot happier in my <span class="caps">U.S.</span> con&shy;gress&shy;man, Jim McDermott, than I am in my
+senators, Patty Murray and Maria Cantwell. (Especially&nbsp;Cantwell.)</p>
+<p>Jim has been a strong pro&shy;gres&shy;sive voice in Congress for years.
+His early opposition to the Iraq War led to him being dubbed &#8216;Baghdad Jim&#8217;
+by infuriated Re&shy;pub&shy;li&shy;cans. He was one of the first national politi&shy;cians
+to support Howard Dean&#8217;s bid for the presidency. He had a big role in
 Fahrenheit 9/11. And he reads the role of Leopold Bloom for the
-<a class="reference external" href="http://wildgeeseseattle.org/Joyce/Bloomsday/">Wild Geese Players of Seattle’s readings of *Ulysses*</a>.</p>
+<a class="reference external" href="http://wildgeeseseattle.org/Joyce/Bloomsday/">Wild Geese Players of Seattle&#8217;s readings of *Ulysses*</a>.</p>
 <a href="http://wildgeeseseattle.org/Joyce/Bloomsday/" title="Jim McDermott and others rehearsing Ulysses">
      
 </a><p>For a decade, Jim has been fighting a legal battle for <span>&#8230;<a href="/blog/2006/04/18/SupportJimMcDermott.html" class="continue">continue</a>.</span></p>
@@ -222,9 +261,9 @@ Fahrenheit 9/11. And he reads the role of Leopold Bloom for the
     <p>Via <a class="reference external" href="http://groups.yahoo.com/group/win_tech_off_topic">Win Tech Off Topic</a>,
 an amazing collection of
 <a class="reference external" href="http://www.pistolwimp.com/media/44210/">Rube Goldberg devices</a>
-from a Japanese children’s <span class="caps">TV</span> show. 13 minutes.</p>
+from a Japanese children&#8217;s <span class="caps">TV</span> show. 13&nbsp;minutes.</p>
 <p>It reminds me of the famous
-<a class="reference external" href="http://www.snopes.com/autos/business/hondacog.asp">Honda ‘Cog’ Ad</a>,
+<a class="reference external" href="http://www.snopes.com/autos/business/hondacog.asp">Honda &#8216;Cog&#8217; Ad</a>,
 which can be viewed
 <a class="reference external" href="http://www.ebaumsworld.com/flash/honda-ad.html">here</a>.</p>
 
@@ -251,18 +290,18 @@ which can be viewed
             <a href="/blog/2006/04/11/YourPresidentSpeaks.html" rel="bookmark canonical">Your President Speaks</a>
         </h1>
     </header>
-    <p>It’s no secret that Bush is ap­palling­ly vacuous and incoherent whenever he
-has to answer a question that he hasn’t been prepped for. Here are a few
+    <p>It&#8217;s no secret that Bush is ap&shy;palling&shy;ly vacuous and incoherent whenever he
+has to answer a question that he hasn&#8217;t been prepped for. Here are a few
 excerpts from his recent <a class="reference external" href="http://www.whitehouse.gov/news/releases/2006/04/20060410-1.html">appearance at Johns Hopkins University</a>:</p>
 <blockquote>
-<p><strong>The Presidency Is No Place for a Smart person</strong></p>
+<p><strong>The Presidency Is No Place for a Smart&nbsp;person</strong></p>
 <blockquote>
-We’re a in­flu­en­tial nation, and so, therefore, many problems come
-to the Oval Office. And you don’t know what those problems are
+We&#8217;re a in&shy;flu&shy;en&shy;tial nation, and so, therefore, many problems come
+to the Oval Office. And you don&#8217;t know what those problems are
 going to be, which then argues for having smart people around.
-That’s why you ought to serve in government if you’re not going to
+That&#8217;s why you ought to serve in government if you&#8217;re not going to
 be the President. You have a chance to influence policy by giving
-good rec­om­men­da­tions to the President.</blockquote>
+good rec&shy;om&shy;men&shy;da&shy;tions to the President.</blockquote>
 <p><strong>Return of Complete, <span>&#8230;<a href="/blog/2006/04/11/YourPresidentSpeaks.html" class="continue">continue</a>.</span></strong></p></blockquote>
     <footer>
         
@@ -288,16 +327,16 @@ good rec­om­men­da­tions to the President.</blockquote>
         </h1>
     </header>
     <div class="section" id="vim-vs-visual-studio">
-<h2>Vim vs. Visual Studio</h2>
-<p>I’ve been an <a class="reference external" href="/blog/2005/12/30/20YearsOfVi.html">obsessive vi user</a>
+<h2>Vim vs. Visual&nbsp;Studio</h2>
+<p>I&#8217;ve been an <a class="reference external" href="/blog/2005/12/30/20YearsOfVi.html">obsessive vi user</a>
 for more than 20 years. Vi keystrokes are indelibly burned into my
 <a class="reference external" href="http://www.oreilly.com/news/zenclavier_1299.html">muscle memory</a>.
 When I have to use Notepad or Word or Visual Studio, I feel crippled.
 I have to work harder to do simple things; I have to type too many chords
 with Alt and Ctrl; I have to take my hands off the home keys to use the
-cursor keys and the mouse.</p>
+cursor keys and the&nbsp;mouse.</p>
 <p>In the mid-90s, I adopted <a class="reference external" href="http://www.vim.org">Vim</a> (Vi IMproved)
-to the point where I became a sig­nif­i­cant con­trib­u­tor, writing a big chunk of the
+to the point where I became a sig&shy;nif&shy;i&shy;cant con&shy;trib&shy;u&shy;tor, writing a big chunk of the
 <a class="reference external" href="/blog/2005/12/30/20YearsOfVi.html">Win32 code</a>.</p>
 <p>While I was at Microsoft, I hardly ever used Visual Studio.
 I edited <span>&#8230;<a href="/blog/2006/04/09/ViEmuAViAndVimEmulatorForVisualStudio.html" class="continue">continue</a>.</span></p></div>
@@ -329,15 +368,15 @@ I edited <span>&#8230;<a href="/blog/2006/04/09/ViEmuAViAndVimEmulatorForVisualS
     </header>
     <a href="http://video.google.com/videoplay?docid=4776181634656145640" title="Chris Bliss's Amazing Juggling Finale">
      
-</a><p>Here’s (left) a video of Chris Bliss doing a pretty amazing
+</a><p>Here&#8217;s (left) a video of Chris Bliss doing a pretty amazing
 <a class="reference external" href="http://video.google.com/videoplay?docid=4776181634656145640">juggling routine</a>
-to the ac­com­pa­ni­ment of the Beatle’s <em>Once There Was a Way</em>.</p>
+to the ac&shy;com&shy;pa&shy;ni&shy;ment of the Beatle&#8217;s <em>Once There Was a Way</em>.</p>
 <a href="http://video.google.com/videoplay?docid=-6283096511750618839&amp;pl=true" title="Chris Bliss Juggling Parody">
      
-</a><p>And here’s (right) a video of Jason Garfield doing the
+</a><p>And here&#8217;s (right) a video of Jason Garfield doing the
 <a class="reference external" href="http://video.google.com/videoplay?docid=-6283096511750618839&amp;pl=true">same routine</a>
-with five balls instead of three.</p>
-<p>(Each video is about 4.5 minutes long.)</p>
+with five balls instead of&nbsp;three.</p>
+<p>(Each video is about 4.5 minutes&nbsp;long.)</p>
 
     <footer>
         
@@ -346,46 +385,6 @@ with five balls instead of three.</p>
         
             <p>tagged as
                 <a href="/tag/humor/" rel="tag">humor</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-04-07">2006-04-07</time>
-        <h1>
-            <a href="/blog/2006/04/07/TheMediasChanceAtRedemption.html" rel="bookmark canonical">The Media's Chance at Redemption</a>
-        </h1>
-    </header>
-    <p>In <a class="reference external" href="http://www.tompaine.com/articles/2006/04/06/the_medias_chance_at_redemption.php">The Media’s Chance at Redemption</a>,
-Russ Baker ably takes the <span class="caps">MSM</span> to task:</p>
-<blockquote>
-<p>When, oh when, will the <span class="caps">U.S.</span>“main­stream media” finally stop hemming and
-hawing, parsing and un­der­stat­ing? When will they simply go for the jugular
-to confirm what any thoughtful American has already learned from “less
-reputable” but in­creas­ing­ly relevant al­ter­na­tive in­for­ma­tion sources: that
-from the beginning of the Bush ad­min­is­tra­tion, invading Iraq has always
-been as much an article of faith for the president as, well, promoting
-faith over reason?</p>
-<p>…-</p>
-<p>The <em>Times</em> report was full of throat-clearing and arcane notations that,
-while the memo had previously been reported, it had never been as fully
-reported, or that a particular passage <span>&#8230;<a href="/blog/2006/04/07/TheMediasChanceAtRedemption.html" class="continue">continue</a>.</span></p></blockquote>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/04/07/TheMediasChanceAtRedemption.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/politics/" rel="tag">politics</a>
-                    and
-                    
-                <a href="/tag/media/" rel="tag">media</a>
                 
             </p>
         

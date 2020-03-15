@@ -39,7 +39,7 @@
 <p>Tomas Restrepo wrote a post about
 <a class="reference external" href="http://www.winterdom.com/weblog/2008/05/09/SharingDotfilesBetweenWindowsAndUbuntu.aspx">sharing dotfiles between Windows and Ubuntu</a>,
 specif&shy;i&shy;cal&shy;ly about sharing <tt class="docutils literal">.vimrc</tt> (Linux) and <tt class="docutils literal">_vimrc</tt> (Windows)
-and the <tt class="docutils literal">.vim</tt> (Linux) and <tt class="docutils literal">vimfiles</tt> (Windows) di&shy;rec&shy;to&shy;ries.</p>
+and the <tt class="docutils literal">.vim</tt> (Linux) and <tt class="docutils literal">vimfiles</tt> (Windows)&nbsp;di&shy;rec&shy;to&shy;ries.</p>
 <p>I have a different solution.
 On Windows, my <tt class="docutils literal"><span class="pre">C:\AutoExec.bat</span></tt> includes:</p>
 <pre class="literal-block">
@@ -53,23 +53,23 @@ set PATH=%PATH%;C:\Win32app;C:\GnuWin32\bin;C:\UnxUtils;C:\SysInternals;C:\Pytho
 and other stuff ac&shy;cu&shy;mu&shy;lat&shy;ed over many years.
 This directory is stored in a personal Subversion repository at <a class="reference external" href="http://www.devjavu.com/">DevjaVu</a>.
 All my Vim files are stored with Unix <span class="caps">LF</span> endings, not Windows <span class="caps">CR</span>-LFs,
-so that they’ll work on my Mac <span class="caps">OS</span> X and Linux boxen.
-I play some games with <tt class="docutils literal">if <span class="pre">has("win32")</span></tt> and
+so that they&#8217;ll work on my Mac <span class="caps">OS</span> X and Linux boxen.
+I play some games with <tt class="docutils literal">if <span class="pre">has(&quot;win32&quot;)</span></tt> and
 <tt class="docutils literal">if <span class="pre">has('gui_&shy;macvim')</span></tt> to ensure that my <tt class="docutils literal">_vimrc</tt>
-works cross-platform.</p>
+works&nbsp;cross-platform.</p>
 <p>On my *nix boxes, the <tt class="docutils literal">gvr</tt> folder lives under my home directory at <tt class="docutils literal">~/gvr</tt>,
-and <tt class="docutils literal"><span class="pre">~/.vimrc</span></tt> and <tt class="docutils literal"><span class="pre">~/.vim</span></tt> are symlinks:</p>
+and <tt class="docutils literal"><span class="pre">~/.vimrc</span></tt> and <tt class="docutils literal"><span class="pre">~/.vim</span></tt> are&nbsp;symlinks:</p>
 <pre class="literal-block">
 $ ln -s ~/gvr/_vimrc ~/.vimrc
 $ ln -s ~/gvr/vimfiles/ ~/.vim
 </pre>
 <p>In addition, the dotfiles that I keep in <span class="caps">SVN</span> are stored locally in
 <tt class="docutils literal">~/gvr/dotfiles</tt> without a leading period in their names,
-which makes them easy to see:</p>
+which makes them easy to&nbsp;see:</p>
 <pre class="literal-block">
 $ ln -s ~/gvr/dotfiles/bashrc ~/.bashrc
 </pre>
-<p>This arrange&shy;ment works well for me.</p>
+<p>This arrange&shy;ment works well for&nbsp;me.</p>
 
     <footer>
         

@@ -39,17 +39,17 @@
 It was using <a class="reference external" href="http://www.sqlalchemy.org/">SQLAlchemy</a> to query all the rows from a large table
 so that they could be trans&shy;formed into <a class="reference external" href="http://jsonlines.org/"><span class="caps">JSON</span> Lines</a> to be loaded into Elas&shy;tic&shy;search.
 When I reran my script,
-I noticed this time that something had printed <tt class="docutils literal">Killed</tt> at the very end.</p>
+I noticed this time that something had printed <tt class="docutils literal">Killed</tt> at the very&nbsp;end.</p>
 <p>A little research convinced me that the <a class="reference external" href="http://stackoverflow.com/questions/726690/who-killed-my-process-and-why"><span class="caps">OOM</span> Killer</a> was the likely assassin.
 I looked in <tt class="docutils literal">/var/log/kern.log</tt>
 and I found that my process had used up almost all of the <span class="caps">8GB</span> on this system
-before being killed.</p>
+before being&nbsp;killed.</p>
 <p>The query had to be the problem.
 A little more research led me to augment my query with <a class="reference external" href="http://stackoverflow.com/questions/1145905/sqlalchemy-scan-huge-tables-using-orm">yield_per</a>,
 which batched the results,
 instead of fetching everything into memory at once.
 There are various caveats to using <tt class="docutils literal">yield_per</tt>;
-none applied here.</p>
+none applied&nbsp;here.</p>
 
     <footer>
         

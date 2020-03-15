@@ -37,43 +37,43 @@
         </h1>
     </header>
     <a class="reference external image-reference" href="http://git-scm.com/"><img alt="Git logo" class="right-float" src="/content/binary/gitlogo.png"/></a>
-<p>In the last few weeks, I’ve switched over to <a class="reference external" href="http://git-scm.com/">Git</a> for most of my version-control needs,
-at home and at work, after putting it on the long finger for months.</p>
+<p>In the last few weeks, I&#8217;ve switched over to <a class="reference external" href="http://git-scm.com/">Git</a> for most of my version-control needs,
+at home and at work, after putting it on the long finger for&nbsp;months.</p>
 <p>We continue to use <a class="reference external" href="http://subversion.tigris.org/">Subversion</a> at work,
-but I’ve recently followed Pavel and Eric’s lead in using <a class="reference external" href="http://andy.delcambre.com/2008/03/04/git-svn-workflow.html">git-svn</a>.
+but I&#8217;ve recently followed Pavel and Eric&#8217;s lead in using <a class="reference external" href="http://andy.delcambre.com/2008/03/04/git-svn-workflow.html">git-svn</a>.
 I work locally on my own private branches and
 <tt class="docutils literal">git svn dcommit</tt> and <tt class="docutils literal">git svn rebase</tt> oc&shy;ca&shy;sion&shy;al&shy;ly.
-I’m primarily on Windows at work, but I have a Linux box and a Mac Mini too,
+I&#8217;m primarily on Windows at work, but I have a Linux box and a Mac Mini too,
 while at home, I have a MacBook, a Linux netbook, and a Vista desktop.
-I’m using <a class="reference external" href="http://code.google.com/p/msysgit/">msysGit</a>, oc&shy;ca&shy;sion&shy;al&shy;ly sup&shy;ple&shy;ment&shy;ed by <a class="reference external" href="http://code.google.com/p/tortoisegit/">Tor&shy;toise&shy;Git</a> and <a class="reference external" href="http://sourceforge.net/projects/qgit/files/">QGit</a>.
-Pavel’s on a Mac and Eric’s mostly on Ubuntu, so git adoption was easy for them.</p>
+I&#8217;m using <a class="reference external" href="http://code.google.com/p/msysgit/">msysGit</a>, oc&shy;ca&shy;sion&shy;al&shy;ly sup&shy;ple&shy;ment&shy;ed by <a class="reference external" href="http://code.google.com/p/tortoisegit/">Tor&shy;toise&shy;Git</a> and <a class="reference external" href="http://sourceforge.net/projects/qgit/files/">QGit</a>.
+Pavel&#8217;s on a Mac and Eric&#8217;s mostly on Ubuntu, so git adoption was easy for&nbsp;them.</p>
 <p>When I first tried git-svn under msysGit about a year ago,
-it didn’t work worth a damn.
-Git-svn works fine now, but it’s slow compared to the *nix im&shy;ple&shy;men&shy;ta&shy;tion.
-The developers say that’s due to the <tt class="docutils literal">fork()</tt> emulation
+it didn&#8217;t work worth a damn.
+Git-svn works fine now, but it&#8217;s slow compared to the *nix im&shy;ple&shy;men&shy;ta&shy;tion.
+The developers say that&#8217;s due to the <tt class="docutils literal">fork()</tt> emulation
 of the MSys/Cygwin layer.
-The rest of msysGit is much faster.</p>
-<p>For my home needs, I’ve had private Subversion repos&shy;i&shy;to&shy;ries at
+The rest of msysGit is much&nbsp;faster.</p>
+<p>For my home needs, I&#8217;ve had private Subversion repos&shy;i&shy;to&shy;ries at
 <a class="reference external" href="http://devjavu.com">DevjaVu.com</a> and <a class="reference external" href="http://opensvn.csie.org">OpenSvn.csie.org</a>.
 DevjaVu has gone out of business and OpenSvn has been un&shy;avail&shy;able too often for my liking.
-It was time to find some new hosting.</p>
-<p>I’ve ex&shy;per&shy;i&shy;ment&shy;ed with private Git repos&shy;i&shy;to&shy;ries at
+It was time to find some new&nbsp;hosting.</p>
+<p>I&#8217;ve ex&shy;per&shy;i&shy;ment&shy;ed with private Git repos&shy;i&shy;to&shy;ries at
 <a class="reference external" href="http://www.github.com/">GitHub</a> and <a class="reference external" href="http://www.projectlocker.com/">Pro&shy;ject&shy;Lock&shy;er</a>.
 GitHub is <em>very</em> nice, but charges for private repos&shy;i&shy;to&shy;ries.
 Pro&shy;ject&shy;Lock&shy;er provides free private repos&shy;i&shy;to&shy;ries,
-but is com&shy;par&shy;a&shy;tive&shy;ly clunky.</p>
+but is com&shy;par&shy;a&shy;tive&shy;ly&nbsp;clunky.</p>
 <p>Pro&shy;ject&shy;Lock&shy;er lets you set up a fresh repository on their server.
 They tell you how to clone from that, which is great for a new repository.
-But they don’t tell you how to hook it up to an existing local repository.
-Since I had some difficulty in figuring it out, here’s the recipe:</p>
+But they don&#8217;t tell you how to hook it up to an existing local repository.
+Since I had some difficulty in figuring it out, here&#8217;s the&nbsp;recipe:</p>
 <pre class="literal-block">
-git remote add origin git-foobar@freeN.projectlocker.com:foobar.git
+git remote add origin git-foobar&#64;freeN.projectlocker.com:foobar.git
 git pull origin master
 ... merge, local edits and commits ...
 git push origin master
 </pre>
 <p>I found <a class="reference external" href="http://rudifa.wordpress.com/2009/05/19/git-xcode-and-projectlocker/">Git, Xcode and Pro&shy;ject&shy;Lock&shy;er</a> and <a class="reference external" href="http://www.cforcoding.com/2009/09/windows-git-tutorial-cygwin-ssh-and.html">Cygwin, <span class="caps">SSH</span> and Pro&shy;ject&shy;Lock&shy;er</a>
-useful in figuring this out.</p>
+useful in figuring this&nbsp;out.</p>
 
     <footer>
         

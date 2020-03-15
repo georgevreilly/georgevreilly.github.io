@@ -36,10 +36,10 @@
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.infoq.com/articles/dvcs-guide"><img alt="Distributed/Decentralized Version Control Systems" src="http://www.infoq.com/resource/articles/dvcs-guide/en/resources/CVCSvsDVCS.png"/></a>
-<p>At work, I’ve been ex&shy;per&shy;i&shy;ment&shy;ing with the big three
+<p>At work, I&#8217;ve been ex&shy;per&shy;i&shy;ment&shy;ing with the big three
 Dis&shy;trib&shy;uted Version Control Systems,
 <a class="reference external" href="http://git.or.cz/">Git</a>, <a class="reference external" href="http://www.selenic.com/mercurial/wiki/">Mercurial</a>, and <a class="reference external" href="http://bazaar-vcs.org/">Bazaar</a>,
-on Windows over the last ten days.</p>
+on Windows over the last ten&nbsp;days.</p>
 <p>Pavel and Eric have been singing the praises of Git and
 <a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-svn.html">git-svn</a> on their Mac and Linux boxes re&shy;spec&shy;tive&shy;ly
 for the last few months.
@@ -49,24 +49,24 @@ at a time at a lower cost than Subversion did.
 Most of our dev team continue to work in Subversion on Windows boxes.
 git-svn allows Pavel and Eric to easily in&shy;ter&shy;op&shy;er&shy;ate with the Subversion server.
 Pavel is also a big fan of <a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-stash.html">git-stash</a>:
-he stacks away in-progress work and switches easily to other patches.</p>
-<p>Although I’ve worked primarily in Python on Linux since the summer,
-I’ve been working on our forth&shy;com&shy;ing mobile client recently.
-It’s <span class="caps">ASP</span>.<span class="caps">NET</span>-based, hence I’m working on Windows again.
-I’m in the throes of a major refac&shy;tor&shy;ing, extracting the mobile client
+he stacks away in-progress work and switches easily to other&nbsp;patches.</p>
+<p>Although I&#8217;ve worked primarily in Python on Linux since the summer,
+I&#8217;ve been working on our forth&shy;com&shy;ing mobile client recently.
+It&#8217;s <span class="caps">ASP</span>.<span class="caps">NET</span>-based, hence I&#8217;m working on Windows again.
+I&#8217;m in the throes of a major refac&shy;tor&shy;ing, extracting the mobile client
 out of the main webclient and hoisting other code into shared projects,
 while other developers continue to work on the main webclient
-and the mobile client.</p>
+and the mobile&nbsp;client.</p>
 <p>This seemed like a perfect op&shy;por&shy;tu&shy;ni&shy;ty to bite the <a class="reference external" href="http://www.infoq.com/articles/dvcs-guide"><span class="caps">DVCS</span> bullet</a>,
 since I knew that branching and merging would be less painful
-with git-svn than with Subversion.</p>
+with git-svn than with&nbsp;Subversion.</p>
 <p>Getting git-svn working on Windows turned out to be a major headache.
-The Cygwin version of git-svn simply <a class="reference external" href="http://cygwin.com/ml/cygwin/2008-10/msg00602.html">doesn’t work</a> for me.
-And msysGit doesn’t <a class="reference external" href="http://code.google.com/p/msysgit/issues/detail?id=160">currently support</a> git-svn.
+The Cygwin version of git-svn simply <a class="reference external" href="http://cygwin.com/ml/cygwin/2008-10/msg00602.html">doesn&#8217;t work</a> for me.
+And msysGit doesn&#8217;t <a class="reference external" href="http://code.google.com/p/msysgit/issues/detail?id=160">currently support</a> git-svn.
 (Eric has had some success with an older version of msysGit and git-svn,
 but I found it to be wretchedly slow.)
-Moreover, Git’s in&shy;te&shy;gra&shy;tion with Windows is poor.
-There’s nothing like <a class="reference external" href="http://tortoisesvn.net/">Tor&shy;tois&shy;eSVN</a> to ease developers into using Git.</p>
+Moreover, Git&#8217;s in&shy;te&shy;gra&shy;tion with Windows is poor.
+There&#8217;s nothing like <a class="reference external" href="http://tortoisesvn.net/">Tor&shy;tois&shy;eSVN</a> to ease developers into using&nbsp;Git.</p>
 <p>Having written off Git on Windows for now,
 it was time to try <a class="reference external" href="http://bazaar-vcs.org/">Bazaar</a> (<tt class="docutils literal">bzr</tt>),
 which has its own Subversion plugin, <a class="reference external" href="https://launchpad.net/bzr-svn">bzr-svn</a>.
@@ -74,40 +74,40 @@ The version of bzr-svn that was available for Windows the week before last
 was ancient, and <a class="reference external" href="https://bugs.launchpad.net/bzr-svn/+bug/291361">promptly crashed</a>.
 Jelmer, the developer, mailed me yesterday to say that there should be an
 up-to-date copy of bzr-svn in the brand new 1.9 release of Bazaar.
-I’ll try it at work tomorrow.
-Windows doesn’t seem like an af&shy;ter&shy;thought for Bazaar;
-indeed, <a class="reference external" href="http://bazaar-vcs.org/TortoiseBzr">Tor&shy;toise&shy;Bzr</a> offers Explorer in&shy;te&shy;gra&shy;tion.</p>
+I&#8217;ll try it at work tomorrow.
+Windows doesn&#8217;t seem like an af&shy;ter&shy;thought for Bazaar;
+indeed, <a class="reference external" href="http://bazaar-vcs.org/TortoiseBzr">Tor&shy;toise&shy;Bzr</a> offers Explorer&nbsp;in&shy;te&shy;gra&shy;tion.</p>
 <p>On to <a class="reference external" href="http://www.selenic.com/mercurial/wiki/">Mercurial</a> (<tt class="docutils literal">hg</tt>).
 Alas, this has the weakest in&shy;te&shy;gra&shy;tion with Subversion.
-There are <a class="reference external" href="http://www.momentaryfascinations.com/programming/how.to.use.mercurial.for.local.source.code.management.with.a.public.subversion.server.html">in&shy;struc&shy;tions</a> for doing it by hand (which is what I’m doing).
-The <a class="reference external" href="http://blog.red-bean.com/sussman/?p=116">hg&shy;sub&shy;ver&shy;sion</a> extension looks promising, but is still immature.</p>
-<p>Even so, Mercurial is what I’ve ended up using for the last week.
-Partly because it didn’t bite me.
+There are <a class="reference external" href="http://www.momentaryfascinations.com/programming/how.to.use.mercurial.for.local.source.code.management.with.a.public.subversion.server.html">in&shy;struc&shy;tions</a> for doing it by hand (which is what I&#8217;m doing).
+The <a class="reference external" href="http://blog.red-bean.com/sussman/?p=116">hg&shy;sub&shy;ver&shy;sion</a> extension looks promising, but is still&nbsp;immature.</p>
+<p>Even so, Mercurial is what I&#8217;ve ended up using for the last week.
+Partly because it didn&#8217;t bite me.
 Partly because I like it best of the three.
 The <a class="reference external" href="http://hgbook.red-bean.com/">Mercurial book</a> takes much of the credit for that.
 Windows is a first-class client
-and <a class="reference external" href="http://tortoisehg.wiki.sourceforge.net/">TortoiseHg</a> offers half-way decent Explorer in&shy;te&shy;gra&shy;tion.</p>
-<p>I’m not impressed with Git as software en&shy;gi&shy;neer&shy;ing;
+and <a class="reference external" href="http://tortoisehg.wiki.sourceforge.net/">TortoiseHg</a> offers half-way decent Explorer&nbsp;in&shy;te&shy;gra&shy;tion.</p>
+<p>I&#8217;m not impressed with Git as software en&shy;gi&shy;neer&shy;ing;
 it strikes me as an incoherent mess of C and Perl.
 The attitude of su&shy;pe&shy;ri&shy;or&shy;i&shy;ty from some Git proponents is off-putting.
-I watched <a class="reference external" href="http://www.youtube.com/watch?v=4XpnKHJAok8">Linus Torvalds’ Google techtalk</a> about Git on Friday;
+I watched <a class="reference external" href="http://www.youtube.com/watch?v=4XpnKHJAok8">Linus Torvalds&#8217; Google techtalk</a> about Git on Friday;
 he came across as a major jerk,
 repeatedly calling anyone who uses Subversion an idiot.
-I’d still recommend watching the video:
+I&#8217;d still recommend watching the video:
 it gives good insight into the social aspects of
 dis&shy;trib&shy;uted/de&shy;cen&shy;tral&shy;ized VCSes,
 how very different they are from tra&shy;di&shy;tion&shy;al cen&shy;tral&shy;ized VCSes,
-and how they afford a different way of working.</p>
-<p>Watching my compatriot <a class="reference external" href="http://video.google.com/videoplay?docid=-7724296011317502612">Bryan O’&shy;Sul&shy;li&shy;van’s Google techtalk</a> on Mercurial
+and how they afford a different way of&nbsp;working.</p>
+<p>Watching my compatriot <a class="reference external" href="http://video.google.com/videoplay?docid=-7724296011317502612">Bryan O&#8217;Sullivan&#8217;s Google techtalk</a> on Mercurial
 this afternoon was a far more pleasant experience.
-He talks more about workflow and im&shy;ple&shy;men&shy;ta&shy;tion.</p>
+He talks more about workflow and&nbsp;im&shy;ple&shy;men&shy;ta&shy;tion.</p>
 <p>Both Bazaar and Mercurial are written in Python and
 seem to be fairly well ar&shy;chi&shy;tect&shy;ed.
 Frankly, if I do have to get my hands dirty in the code
-(e.g., hg&shy;sub&shy;ver&shy;sion), I’d much rather hack in Python.
-I did C/C++ for fifteen years and I’m sick of unmanaged code.</p>
-<p>Anyway, Mercurial is where I’m going for now,
-though I won’t cat&shy;e&shy;gor&shy;i&shy;cal&shy;ly rule out Bazaar or Git.</p>
+(e.g., hg&shy;sub&shy;ver&shy;sion), I&#8217;d much rather hack in Python.
+I did C/C++ for fifteen years and I&#8217;m sick of unmanaged&nbsp;code.</p>
+<p>Anyway, Mercurial is where I&#8217;m going for now,
+though I won&#8217;t cat&shy;e&shy;gor&shy;i&shy;cal&shy;ly rule out Bazaar or&nbsp;Git.</p>
 
     <footer>
         

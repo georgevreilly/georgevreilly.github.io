@@ -33,12 +33,12 @@
             <a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" rel="bookmark canonical">Creating External SSL Certificates for CloudFront</a>
         </h1>
     </header>
-    <p>I needed to create a wildcard SSL cer­tifi­cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/">AWS CloudFront</a> today.</p>
+    <p>I needed to create a wildcard SSL cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/">AWS CloudFront</a> today.</p>
 <p>First, generate a 2048-bit private key. This will prompt you for a passphrase:</p>
 <pre class="literal-block">
 $ openssl genrsa -des3 -out example.key 2048
 </pre>
-<p>Check which signature algorithm was used (SHA-256 is rec­om­mend­ed):</p>
+<p>Check which signature algorithm was used (SHA-256 is rec&shy;om&shy;mend&shy;ed):</p>
 <pre class="literal-block">
 $ openssl req -in example.csr -noout -text
 </pre>
@@ -46,7 +46,7 @@ $ openssl req -in example.csr -noout -text
 <pre class="literal-block">
 $ openssl rsa -outform PEM -in example.key -out example.pem
 </pre>
-<p>Generate a Cer­tifi­cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server FQDN:</p>
+<p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server FQDN:</p>
 <pre class="literal-block">
 $ openssl req -new -key example.key -out example.csr
 
@@ -81,8 +81,8 @@ Organization Name (eg, company) [Internet Widgits Pty </pre><span>&#8230;<a href
     </header>
     <p>Many of us are guilty of saying “database” when we mean a database server or a DBMS.
 A database is a collection of tables storing related data,
-schemas, stored procs, and per­mis­sions.
-Most database servers are capable of managing many databases si­mul­ta­ne­ous­ly.</p>
+schemas, stored procs, and per&shy;mis&shy;sions.
+Most database servers are capable of managing many databases si&shy;mul&shy;ta&shy;ne&shy;ous&shy;ly.</p>
 <p>I needed to create a new PostgreSQL database at Amazon's RDS last week.
 I already had an RDS instance; I needed a new database on that instance.
 My Google searches turned up various recipes for creating a new RDS instance.</p>
@@ -118,18 +118,18 @@ psql --host=SOME-DBMS-HOST --dbname </pre><span>&#8230;<a href="/blog/2016/06/28
             <a href="/blog/2016/06/18/DeployingDockerContainersOnAWSPart3.html" rel="bookmark canonical">Deploying Docker Containers on AWS, part 3</a>
         </h1>
     </header>
-    <p>I complained <a class="reference external" href="/blog/2016/06/18/17/DeployingDockerContainersOnAWSPart2.html">yesterday</a> about my dif­fi­cul­ties in deploying Docker containers on AWS.
-I have since succeeded in getting my app to deploy on Elas­ticBeanstalk,
+    <p>I complained <a class="reference external" href="/blog/2016/06/18/17/DeployingDockerContainersOnAWSPart2.html">yesterday</a> about my dif&shy;fi&shy;cul&shy;ties in deploying Docker containers on AWS.
+I have since succeeded in getting my app to deploy on Elas&shy;ticBeanstalk,
 though I have not quite ironed out all the problems.</p>
 <p>I found several problems:</p>
 <blockquote>
 <ul class="simple">
-<li>I had to revert from a Multi-Container Docker en­vi­ron­ment
-to a Single-Container Docker en­vi­ron­ment
-because ECS wasn't starting in the multi-container en­vi­ron­ment.
+<li>I had to revert from a Multi-Container Docker en&shy;vi&shy;ron&shy;ment
+to a Single-Container Docker en&shy;vi&shy;ron&shy;ment
+because ECS wasn't starting in the multi-container en&shy;vi&shy;ron&shy;ment.
 That meant I had to revert to a v1 <tt class="docutils literal">Dockerrun.aws.json</tt>.</li>
 <li>I had to ensure that the Instance Profile had the
-Ama­zonEC2­Con­tain­erReg­istryRead­On­ly policy attached,
+Ama&shy;zonEC2&shy;Con&shy;tain&shy;erReg&shy;istryRead&shy;On&shy;ly policy attached,
 so that I could pull from the EC2 Container Repository.</li>
 </ul>
 </blockquote>
@@ -159,7 +159,7 @@ so that I could pull from the EC2 Container Repository.</li>
         </h1>
     </header>
     <p>I complained <a class="reference external" href="/blog/2016/05/24/DeployingADockerContainerOnAWS.html">a few weeks ago</a> about how hard it was to deploy Docker containers on AWS.</p>
-<p>This week has been nothing but container-related frus­tra­tion.
+<p>This week has been nothing but container-related frus&shy;tra&shy;tion.
 We have two apps running in Kubernetes clusters on top of AWS.
 This is not a well-supported scenario and we have a fragile script
 that spends a lot of time sitting in polling loops,
@@ -194,13 +194,13 @@ The way to <span>&#8230;<a href="/blog/2016/06/17/DeployingDockerContainersOnAWS
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.ybrikman.com/writing/2015/11/11/running-docker-aws-ground-up/"></a>
-<p>I spent a couple of frus­trat­ing hours this evening
+<p>I spent a couple of frus&shy;trat&shy;ing hours this evening
 trying to figure out an easy way to deploy a Docker container on AWS.
 I tried out the <a class="reference external" href="https://aws.amazon.com/ecs/">EC2 Container Service</a> and got lost
 in a sea of Clusters, Tasks, and Services.
 I couldn't connect to the EC2 instance where my container supposedly lived.</p>
-<p>I tried <a class="reference external" href="https://aws.amazon.com/elasticbeanstalk/">Elastic Beanstalk</a> and gave up in ex­as­per­a­tion.
-When you create a new Docker en­vi­ron­ment,
+<p>I tried <a class="reference external" href="https://aws.amazon.com/elasticbeanstalk/">Elastic Beanstalk</a> and gave up in ex&shy;as&shy;per&shy;a&shy;tion.
+When you create a new Docker en&shy;vi&shy;ron&shy;ment,
 there's no way to pull an existing image from an external repo
 that I could see.
 We have some tools for deploying a Docker image to Elastic Beanstalk,
