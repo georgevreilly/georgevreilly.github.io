@@ -11,8 +11,95 @@
     <link rel="self" type="application/atom+xml" href="https://www.georgevreilly.com/atom/" />
     <icon>https://www.georgevreilly.com/favicon.ico</icon>
     <logo>https://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2020-03-14T23:00:00Z</updated>
+    <updated>2020-04-22T23:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Now You Have 32 Problems</title>
+        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2020/04/23/regex-32-problems.html" />
+        <id>tag:www.georgevreilly.com,2020-04-23:/blog/2020/04/23/regex-32-problems.html</id>
+        <updated>2020-04-22T23:00:00Z</updated>
+        <category term="regex" />
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>https://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Some people, when confronted with a problem, think
+“I know, I&#39;ll use regular expressions.”
+&lt;a class=&#34;reference external&#34; href=&#34;http://regex.info/blog/2006-09-15/247&#34;&gt;Now they have two problems&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+— Jaime Zawinksi&lt;/blockquote&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;A Twitter thread about &lt;a class=&#34;reference external&#34; href=&#34;https://twitter.com/nbashaw/status/1253186961482715136&#34;&gt;very long regexes&lt;/a&gt;
+reminded me of the &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2009/07/11/64bitWindows7.html&#34;&gt;longest regex&lt;/a&gt; that I ever ran afoul of,
+a particularly horrible multilevel mess
+that had worked acceptably on the 32-bit .NET CLR,
+but brought the 64-bit CLR to its knees.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Whenever I ran our ASP.NET web application [on Win64],
+it would go berserk, eat up all 4GB of my physical RAM,
+push the working set of IIS&#39;s w3wp.exe to &lt;em&gt;12GB&lt;/em&gt;,
+and max out one of my 4&amp;nbsp;cores!
+The only way to maintain any sanity was to run &lt;tt class=&#34;docutils literal&#34;&gt;iisreset&lt;/tt&gt;
+every 20&amp;nbsp;minutes to gently kill the process.&lt;/p&gt;
+&lt;p&gt;WinDbg and Process Explorer showed that the rogue thread was stuck in a loop in
+&lt;tt class=&#34;docutils literal&#34;&gt;mscorjit!LifetimesListInteriorBlocksHelperIterative&amp;lt;GCInfoLiveRecordManipulator&amp;gt;&lt;/tt&gt;.
+I passed a minidump on to my former colleagues in IIS, who sent it to the CLR team.
+They said:&lt;/p&gt;
+&lt;blockquote&gt;
+The only thing I can tell is that it is Regex,
+and some regex expression compiled down to a method with 456KB of IL.
+That is &lt;em&gt;huge&lt;/em&gt;, and yes 12GB of RAM consumed for something like that is expected.&lt;/blockquote&gt;
+&lt;p&gt;With that clue, I was able to track down the problem,
+a particularly foul regex, built from a 10KB string,
+with 32&amp;nbsp;alternating expressions,
+each of which contains dozens of alternated subexpressions.
+The string is built from many smaller strings,
+so it&#39;s not obvious in the source just how ugly it is.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I never wrote a followup post explaining how I dealt with this beast.&lt;/p&gt;
+&lt;p&gt;The regex was used on the &lt;a class=&#34;reference external&#34; href=&#34;https://www.cozi.com/calendar/&#34;&gt;Cozi calendar&lt;/a&gt;
+to parse appointments in everyday language,
+such as “Ann/John Dinner out Friday at 8pm”
+or “John&#39;s birthday every Dec. 7”.
+These would get translated into (possibly recurring) &lt;a class=&#34;reference external&#34; href=&#34;https://tools.ietf.org/html/rfc5545&#34;&gt;iCalendar&lt;/a&gt; appointments.&lt;/p&gt;
+&lt;p&gt;Some of the subexpressions mentioned above looked like:&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;ordinals = &lt;span class=&#34;pre&#34;&gt;&amp;quot;1st|2nd|...|31st&amp;quot;&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;short_days = &lt;span class=&#34;pre&#34;&gt;&amp;quot;Sun|Mon|...|Sat&amp;quot;&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;full_days = &lt;span class=&#34;pre&#34;&gt;&amp;quot;Sunday|Monday|...|Saturday&amp;quot;&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;short_months = &lt;span class=&#34;pre&#34;&gt;&amp;quot;Jan|Feb|...|Dec&amp;quot;&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;full_months = &lt;span class=&#34;pre&#34;&gt;&amp;quot;January|February|...|December&amp;quot;&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;recurrence = &lt;span class=&#34;pre&#34;&gt;&amp;quot;((every|each)?&lt;/span&gt; (first|second|third|fourth|fifth|last)? &amp;quot;
++ &amp;quot;(&amp;quot; + short_days + &amp;quot;|&amp;quot; + full_days + &amp;quot;)&amp;quot; + ...&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I&#39;ve elided the intermediate values but they were spelled out in the original.
+Some of the simpler subexpressions were repeated several times,
+nested inside others.&lt;/p&gt;
+&lt;p&gt;This all screamed &lt;em&gt;grammar&lt;/em&gt; and &lt;em&gt;real parser&lt;/em&gt; to me,
+but the test suite also screamed &lt;em&gt;here be dragons!&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;I resisted the temptation
+to rewrite the appointment parser from scratch with a proper grammar,
+or to experiment with a real natural language parser,
+though it remained on my personal todo list for the rest of my time at Cozi.
+We were migrating from C# to Python at that point,
+and the legacy appointment parser was one of the few remaining pieces
+that prevented us from shutting down the .NET servers.&lt;/p&gt;
+&lt;p&gt;Instead, I changed the appointment parser code
+so that it didn&#39;t attempt to match the entire 10KB monster in one go.
+I looped through each of the 32 top-level disjunctions,
+manually performing the alternation.
+If any one of those matched, then I had what I needed.
+Reducing the regexes to a few hundred characters each
+tamed the combinatorial explosion of backtracking state.&lt;/p&gt;
+&lt;p&gt;Regexes definitely have a place,
+but do not try to implement a full grammar as a single regular expression.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Weirdest Birthday Ever</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2020/03/15/WeirdestBirthdayEver.html" />
@@ -1721,56 +1808,6 @@ I gave this talk at &lt;a class=&#34;reference external&#34; href=&#34;https://w
 &lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;http://www.slideshare.net/george_v_reilly/security-101-7567002&#34;&gt;Security 101&lt;/a&gt;.
 I gave this talk at an internal brownbag at Cozi in November 2011.&lt;/li&gt;
 &lt;/ul&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Trump: Media Suppresses Coverage of Terrorist Attacks</title>
-        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/02/06/TrumpMediaSuppressesCoverageTerroristAttacks.html" />
-        <id>tag:www.georgevreilly.com,2017-02-06:/blog/2017/02/06/TrumpMediaSuppressesCoverageTerroristAttacks.html</id>
-        <updated>2017-02-05T23:00:00Z</updated>
-        <category term="politics" />
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>https://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;Donald Trump is now &lt;a class=&#34;reference external&#34; href=&#34;https://www.washingtonpost.com/news/politics/wp/2017/02/06/president-trump-is-now-speculating-that-the-media-is-covering-up-terrorist-attacks/&#34;&gt;claiming&lt;/a&gt; (WaPo):&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Speaking to the U.S. Central Command on Monday,
-President Trump went off his prepared remarks to make a truly stunning claim:
-The media was intentionally covering up reports of terrorist attacks.&lt;/p&gt;
-&lt;p&gt;“You’ve seen what happened in Paris, and Nice.
-All over Europe, it’s happening,” he said to the assembled military leaders.
-“It’s gotten to a point where it’s not even being reported.
-And in many cases the very, very dishonest press doesn’t want to report it.
-They have their reasons, and you understand that.”&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;More: &lt;a class=&#34;reference external&#34; href=&#34;https://www.theatlantic.com/politics/archive/2017/02/trump-centcom-media-terror-cover-up/515823/&#34;&gt;The Atlantic&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://news.vice.com/story/trump-accused-the-media-of-ignoring-terrorist-attacks&#34;&gt;Vice&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;This is ridiculous on the face of it.
-With literally billions of cellphone cameras in circulation
-and hundreds of millions of people on social media,
-how could a real terrorist attack be covered up?
-And what would the media&#39;s motivation be for this coverup?
-And how would they all stay on message?
-Someone would scoop them.
-This is the kind of horseshit that &lt;a class=&#34;reference external&#34; href=&#34;https://www.washingtonpost.com/news/the-fix/wp/2017/02/06/trumps-suggestion-that-the-media-is-ignoring-terrorist-attacks-has-a-familiar-source-infowars/&#34;&gt;InfoWars&lt;/a&gt; flings around.&lt;/p&gt;
-&lt;p&gt;It&#39;s another damned lie from Trump.
-Whether it&#39;s part of a deliberate plan or he&#39;s making shit up in the moment,
-it hardly matters.
-Trump and Kellyanne Conway and Sean Spicer
-and the rest of his administration
-are lying repeatedly and shamelessly.&lt;/p&gt;
-&lt;p&gt;After Trump won the election,
-I entertained a faint hope
-that the grave responsibility of becoming the leader of the free world
-might cause Trump to become a little more serious and measured.
-As the presidential transition wore on, that hope died an ugly death.
-Two weeks after the Inauguration,
-it&#39;s very clear that Trump will lie about anything
-and pick a fight with anyone.&lt;/p&gt;
-&lt;p&gt;There is worse to come.&lt;/p&gt;
 </content>
     </entry>
     </feed>

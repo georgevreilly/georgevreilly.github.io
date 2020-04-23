@@ -28,6 +28,41 @@
     
         <article>
     <header>
+        <time datetime="2016-01-27">2016-01-27</time>
+        <h1>
+            <a href="/blog/2016/01/27/Streetcar.html" rel="bookmark canonical">First Hill Streetcar</a>
+        </h1>
+    </header>
+    <p>The <a class="reference external" href="http://www.seattlestreetcar.org/firsthill.htm">new streetcar line</a> that runs from Pioneer Square to First Hill and Capitol Hill
+opened on Saturday.
+I rode it this evening to get from First <span class="amp">&amp;</span> Jackson to Broadway <span class="amp">&amp;</span> Pine,
+a three-mile ride that took a full half-hour in the early evening.
+The streetcar is clean and pleasant and tem&shy;porar&shy;i&shy;ly free to ride,
+but it has no dedicated lane.
+Car drivers are still un&shy;ac&shy;cus&shy;tomed to it
+and the streetcar driver had to blow his horn several times
+at cars that were blocking our&nbsp;progress.</p>
+<p>The new light rail extension line will open in March,
+connecting Capitol Hill and Husky Stadium.
+It&#8217;s several months early and more than $100 million <span>&#8230;<a href="/blog/2016/01/27/Streetcar.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/27/Streetcar.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/seattle/" rel="tag">seattle</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-26">2016-01-26</time>
         <h1>
             <a href="/blog/2016/01/26/SpoonTheory.html" rel="bookmark canonical">Spoon Theory</a>
@@ -384,57 +419,6 @@ American <span>&#8230;<a href="/blog/2016/01/18/FederalHolidaysInadequatelyObser
         
             <p>tagged as
                 <a href="/tag/usa/" rel="tag">usa</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-17">2016-01-17</time>
-        <h1>
-            <a href="/blog/2016/01/17/RelativeImportsInAPythonScript.html" rel="bookmark canonical">Relative Imports in a Python Script</a>
-        </h1>
-    </header>
-    <p>Have you ever attempted a <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">relative import</a> in a Python&nbsp;script?</p>
-
-<pre class="brush: bash">
-$ ./foo/bar/script.py some parameters
-Traceback (most recent call last):
-  File "foo/bar/script.py", line 16, in &lt;module>
-    from .quux import find_vcs
-ValueError: Attempted relative import in non-package
-</pre>
-
-<p>I prefer to use <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">absolute imports</a> to minimize ambiguity and confusion,
-and most of my Python modules begin&nbsp;with:</p>
-
-<pre class="brush: python">
-from __future__ import absolute_import, unicode_literals, print_function
-</pre>
-
-<p>(Using <a class="reference external" href="https://www.python.org/dev/peps/pep-3112/">uni&shy;code_lit&shy;er&shy;als</a> and <a class="reference external" href="https://www.python.org/dev/peps/pep-3105/">print&shy;_&shy;func&shy;tion</a> makes porting to Python 3&nbsp;easier.)</p>
-<p>I recently read the accepted answer to <a class="reference external" href="http://stackoverflow.com/questions/14132789/python-relative-imports-for-the-billionth-time">Python relative imports for the billionth time</a>
-and the solution to the above <tt class="docutils literal">ValueError</tt> occurred to me:
-Use <tt class="docutils literal">python <span class="pre">-m</span> package</tt> instead:</p>
-
-<pre class="brush: bash">
-$ python -m foo.bar.script some parameters
-</pre>
-
-<p>(Assuming that package <tt class="docutils literal">foo</tt> exists.)</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/17/RelativeImportsInAPythonScript.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
                 
             </p>
         
