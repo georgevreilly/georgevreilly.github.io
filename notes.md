@@ -6,6 +6,8 @@ To create a fresh virtualenv. (Acrylamid doesn't work on Python 3 yet):
 virtualenv -p python2.7 ~/.virtualenvs/gvrblog
 ```
 
+Use the version of Acrylamid in `~/src/acrylamid`
+
 To create a new blog post in `~/stuff/Writing/blog/gvr` aka `./gvrblog`:
 
 ```bash
@@ -13,7 +15,7 @@ pushd ./gvrblog/drafts/
 cp 0.rst foo-bar.rst  # or 0book.rst or 0movie.rst
 vim foo-bar.rst
 # Fix template fields and _permalink
-cp foo-bar.rst ..
+mv foo-bar.rst ..
 ```
 
 To liveview a draft in `./gvrblog` at http://localhost:8080/
