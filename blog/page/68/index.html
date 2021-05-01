@@ -36,31 +36,26 @@
     
 <p>Python has <a class="reference external" href="http://docs.python.org/tutorial/datastructures.html#list-comprehensions">list com&shy;pre&shy;hen&shy;sions</a>,
 syntactic sugar for building lists from an&nbsp;expression.</p>
-
-<pre class="brush: python">
->>> [2 * i for i in (2, 3, 5, 7, 11)]
-[4, 6, 10, 14, 22]
+<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">22</span><span class="p">]</span>
 </pre>
-
 <p>This doesn&#8217;t work so well when the com&shy;pre&shy;hen&shy;sion expression
 is itself a list: you end up with a list of&nbsp;lists.</p>
-
-<pre class="brush: python">
->>> def gen():
-...     for l in [['a', 'b'], ['c'], ['d', 'e', 'f']]:
-...         yield l
-...
->>> [l for l in gen()]
-[['a', 'b'], ['c'], ['d', 'e', 'f']]
+<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
+<span class="o">...</span>     <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]:</span>
+<span class="o">...</span>         <span class="k">yield</span> <span class="n">l</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()]</span>
+<span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]</span>
 </pre>
-
 <p>This is ugly. Here&#8217;s one way to build a flattened list,
 but it&#8217;s less elegant than the&nbsp;com&shy;pre&shy;hen&shy;sion.</p>
-
-<pre class="brush: python">
->>> x = []
->>> for l in gen():
-... </pre><span>&#8230;<a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" class="continue">continue</a>.</span>
+<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">():</span>
+<span class="o">...</span> </pre><span>&#8230;<a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/20/FlatteningListComprehensionsInPython.html#disqus_thread">Comment</a>

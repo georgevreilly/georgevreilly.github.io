@@ -10,7 +10,7 @@
   <link href="/" rel="home start" />
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
-    <meta name="description" content="“Security is 1% technology plus 99% following the..." />
+    <meta name="description" content="“Security is 1% technology plus 99% following..." />
     <meta name="keywords" content="gpg, blackbox, jenkins" />
 </head>
 <body>
@@ -35,7 +35,8 @@
             <a href="/blog/2019/09/02/gpg-blackbox-paperkey.html" rel="bookmark canonical">Decrypting Blackbox secrets at build time with Paperkey</a>
         </h1>
     </header>
-    <p>“Security is 1% technology plus 99% following the procedures correctly” — Tom&nbsp;Limoncelli</p>
+    <blockquote>
+“Security is 1% technology plus 99% following the procedures correctly” — Tom Limoncelli</blockquote>
 <p>Having dealt with <span class="caps">GPG</span> last week at work,
 I remembered that I had intended to write a blog post
 about how we used <a class="reference external" href="https://gnupg.org/"><span class="caps">GPG</span></a>, <a class="reference external" href="https://github.com/StackExchange/blackbox">Blackbox</a>, and <a class="reference external" href="http://www.jabberwocky.com/software/paperkey/">Paperkey</a> to store secrets in Git
@@ -48,19 +49,20 @@ We wanted these secrets to be under version control,
 but also to be&nbsp;secure.</p>
 <p>For example, we had a <tt class="docutils literal">cre&shy;den&shy;tials.sh</tt> that exported en&shy;vi&shy;ron&shy;ment variables,
 which was managed by&nbsp;Blackbox:</p>
-<div class="highlight"><pre><span></span><span class="c1"># Save current value of xtrace option from $-; disable echoing of executed commands</span>
-<span class="o">{</span> <span class="k">if</span> <span class="nb">echo</span> <span class="nv">$-</span> <span class="p">|</span> grep -q <span class="s2">&quot;x&quot;</span><span class="p">;</span> <span class="k">then</span> <span class="nv"><span class="caps">XT</span></span><span class="o">=</span><span class="s2">&quot;-x&quot;</span><span class="p">;</span> <span class="k">else</span> <span class="nv"><span class="caps">XT</span></span><span class="o">=</span><span class="s2">&quot;+x&quot;</span><span class="p">;</span> <span class="k">fi</span><span class="p">;</span> <span class="nb">set</span> +x<span class="p">;</span> <span class="o">}</span> <span class="m">2</span>&gt;/dev/null
+<pre class="code bash literal-block">
+<span class="c1"># Save current value of xtrace option from $-; disable echoing of executed commands
+</span><span class="o">{</span> <span class="k">if</span> <span class="nb">echo</span> <span class="nv">$-</span> <span class="p">|</span> grep -q <span class="s2">&quot;x&quot;</span><span class="p">;</span> <span class="k">then</span> <span class="nv"><span class="caps">XT</span></span><span class="o">=</span><span class="s2">&quot;-x&quot;</span><span class="p">;</span> <span class="k">else</span> <span class="nv"><span class="caps">XT</span></span><span class="o">=</span><span class="s2">&quot;+x&quot;</span><span class="p">;</span> <span class="k">fi</span><span class="p">;</span> <span class="nb">set</span> +x<span class="p">;</span> <span class="o">}</span> <span class="m">2</span>&gt;/dev/null
 
-<span class="nb">export</span> <span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s1">&#39;...&#39;</span>
-<span class="nb">export</span> <span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="s1">&#39;...&#39;</span>
+<span class="nb">export</span> <span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s1">'...'</span>
+<span class="nb">export</span> <span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="s1">'...'</span>
 
-<span class="nb">export</span> <span class="nv">PYPI_USER</span><span class="o">=</span><span class="s1">&#39;build&#39;</span>
-<span class="nb">export</span> <span class="nv">PYPI_PASSWD</span><span class="o">=</span><span class="s1">&#39;...&#39;</span>
-<span class="nb">export</span> <span class="nv">PIP_INDEX_URL</span><span class="o">=</span><span class="s2">&quot;https://</span><span class="nv">$PYPI_USER</span><span class="s2">:</span><span class="nv">$PYPI_PASSWD</span><span class="s2">@pypi.example.com/pypi/&quot;</span>
+<span class="nb">export</span> <span class="nv">PYPI_USER</span><span class="o">=</span><span class="s1">'build'</span>
+<span class="nb">export</span> <span class="nv">PYPI_PASSWD</span><span class="o">=</span><span class="s1">'...'</span>
+<span class="nb">export</span> <span class="nv">PIP_INDEX_URL</span><span class="o">=</span><span class="s2">&quot;https://</span><span class="nv">$PYPI_USER</span><span class="s2">:</span><span class="nv">$PYPI_PASSWD</span><span class="s2">&#64;pypi.example.com/pypi/&quot;</span>
 
-<span class="c1"># Restore previous value of xtrace option</span>
-<span class="nb">set</span> <span class="nv">$<span class="caps">XT</span></span>
-</pre></div>
+<span class="c1"># Restore previous value of xtrace option
+</span><span class="nb">set</span> <span class="nv">$<span class="caps">XT</span></span>
+</pre>
 <p>The <tt class="docutils literal"><span class="caps">XT</span></tt> prologue ensures that even if this script is <tt class="docutils literal">source</tt>’d
 with <a class="reference external" href="https://renenyffenegger.ch/notes/Linux/shell/bash/built-in/set/x">set -x</a> (debug tracing) enabled,
 that executing this script will not leak secrets into build logs.
@@ -177,41 +179,43 @@ before decrypting the secrets needed with&nbsp;Blackbox.</p>
 follow the portion of the <a class="reference external" href="https://github.com/StackExchange/blackbox#set-up-automated-users-or-role-accounts">Blackbox &quot;role accounts&quot; in&shy;struc&shy;tions</a>
 that create a sub-key with no password for <tt class="docutils literal">ci&#64;example.com</tt>.</p>
 <p>Then, serialize the public key and the secret with&nbsp;Paperkey:</p>
-<div class="highlight"><pre><span></span><span class="nb">cd</span> /tmp/<span class="caps">NEWMASTER</span>
-gpg --homedir . --export ci@example.com <span class="se">\</span>
-    <span class="p">|</span> base64 &gt; public_key.txt
-gpg --homedir . --export-secret-keys ci@example.com <span class="se">\</span>
-    <span class="p">|</span> paperkey --output-type<span class="o">=</span>raw <span class="se">\</span>
-    <span class="p">|</span> base64 &gt; secret.txt
-</pre></div>
+<pre class="code bash literal-block">
+<span class="nb">cd</span> /tmp/<span class="caps">NEWMASTER</span>
+gpg --homedir . --export ci&#64;example.com <span class="se">\
+</span>    <span class="p">|</span> base64 &gt; public_key.txt
+gpg --homedir . --export-secret-keys ci&#64;example.com <span class="se">\
+</span>    <span class="p">|</span> paperkey --output-type<span class="o">=</span>raw <span class="se">\
+</span>    <span class="p">|</span> base64 &gt; secret.txt
+</pre>
 <p>Copy and paste the contents of <tt class="docutils literal">public_key.txt</tt>
 to the <tt class="docutils literal">GPG_PUB&shy;LIC_KEY</tt> en&shy;vi&shy;ron&shy;ment variable in the <span class="caps">CI</span>.
 Similarly, copy <tt class="docutils literal">secret.txt</tt> to <tt class="docutils literal">GPG_SECRET</tt>.</p>
 <p>Securely delete everything in <tt class="docutils literal">/tmp/<span class="caps">NEWMASTER</span></tt>.</p>
 <p>We used a script like this on the <span class="caps">CI</span> to re&shy;con&shy;sti&shy;tute the keypair
 and to decrypt the other secrets from&nbsp;Blackbox:</p>
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
-
-<span class="c1"># Run during a <span class="caps">CI</span> build to decrypt all Blackbox-encrypted files in this repo.</span>
-<span class="c1"># Can also be used interactively.</span>
-
+<pre class="code bash literal-block">
+<span class="ch">#!/usr/bin/env bash
+</span>
+<span class="c1"># Run during a <span class="caps">CI</span> build to decrypt all Blackbox-encrypted files in this repo.
+# Can also be used interactively.
+</span>
 <span class="nb">set</span> -ex
 
-<span class="c1"># Root of Git working tree</span>
-<span class="nv">SERVICES_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">cd</span> <span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">/..&quot;</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="c1"># Root of Git working tree
+</span><span class="nv">SERVICES_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">cd</span> <span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">/..&quot;</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
 
 <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$CI_BUILD</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
     <span class="nv">GPG_HOMEDIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>mktemp -d -t gnupg.<span class="caps">XXX</span><span class="k">)</span><span class="s2">&quot;</span>
     <span class="nv">SECRET_KEY_FILE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$GPG_HOMEDIR</span><span class="s2">/secret.key&quot;</span>
     <span class="nv">PUBLIC_KEY_FILE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$GPG_HOMEDIR</span><span class="s2">/public_key.gpg&quot;</span>
 
-    <span class="c1"># this variable is how you can customize how <span class="caps">GPG</span> is used in Blackbox</span>
-    <span class="nv"><span class="caps">GPG</span></span><span class="o">=</span><span class="s2">&quot;gpg --homedir=</span><span class="nv">$GPG_HOMEDIR</span><span class="s2">&quot;</span>
+    <span class="c1"># this variable is how you can customize how <span class="caps">GPG</span> is used in Blackbox
+</span>    <span class="nv"><span class="caps">GPG</span></span><span class="o">=</span><span class="s2">&quot;gpg --homedir=</span><span class="nv">$GPG_HOMEDIR</span><span class="s2">&quot;</span>
 
-    <span class="c1"># Remove secrets from filesystem on exit.</span>
-    <span class="k">function</span> clean_up <span class="o">{</span>
-        <span class="c1"># <span class="caps">TODO</span>: use shred, if available</span>
-        rm -rf <span class="s2">&quot;</span><span class="nv">$GPG_HOMEDIR</span><span class="s2">&quot;</span>
+    <span class="c1"># Remove secrets from filesystem on exit.
+</span>    <span class="k">function</span> clean_up <span class="o">{</span>
+        <span class="c1"># <span class="caps">TODO</span>: use shred, if available
+</span>        rm -rf <span class="s2">&quot;</span><span class="nv">$GPG_HOMEDIR</span><span class="s2">&quot;</span>
     <span class="o">}</span>
     <span class="nb">trap</span> clean_up <span class="caps">EXIT</span><span class="p">;</span>
 
@@ -223,52 +227,52 @@ and to decrypt the other secrets from&nbsp;Blackbox:</p>
         <span class="nb">exit</span> <span class="m">1</span>
     <span class="k">fi</span>
 
-    <span class="c1"># unpack public key</span>
-    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$GPG_PUBLIC_KEY</span><span class="s2">&quot;</span> <span class="p">|</span> base64 --decode &gt; <span class="s2">&quot;</span><span class="nv">$PUBLIC_KEY_FILE</span><span class="s2">&quot;</span>
+    <span class="c1"># unpack public key
+</span>    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$GPG_PUBLIC_KEY</span><span class="s2">&quot;</span> <span class="p">|</span> base64 --decode &gt; <span class="s2">&quot;</span><span class="nv">$PUBLIC_KEY_FILE</span><span class="s2">&quot;</span>
 
-    <span class="c1"># unpack secret key</span>
-    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$GPG_SECRET</span><span class="s2">&quot;</span> <span class="p">|</span> base64 --decode &gt; <span class="s2">&quot;</span><span class="nv">$SECRET_KEY_FILE</span><span class="s2">&quot;</span>
+    <span class="c1"># unpack secret key
+</span>    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$GPG_SECRET</span><span class="s2">&quot;</span> <span class="p">|</span> base64 --decode &gt; <span class="s2">&quot;</span><span class="nv">$SECRET_KEY_FILE</span><span class="s2">&quot;</span>
 
     <span class="nb">echo</span> <span class="s2">&quot;Secrets unpacked...&quot;</span>
     <span class="nb">set</span> -x
 
-    <span class="c1"># reconstitute and import full key into $GPG_HOMEDIR</span>
-    paperkey --pubring <span class="s2">&quot;</span><span class="nv">$PUBLIC_KEY_FILE</span><span class="s2">&quot;</span> --secrets <span class="s2">&quot;</span><span class="nv">$SECRET_KEY_FILE</span><span class="s2">&quot;</span> <span class="se">\</span>
-        <span class="p">|</span> <span class="nv">$<span class="caps">GPG</span></span> --import
+    <span class="c1"># reconstitute and import full key into $GPG_HOMEDIR
+</span>    paperkey --pubring <span class="s2">&quot;</span><span class="nv">$PUBLIC_KEY_FILE</span><span class="s2">&quot;</span> --secrets <span class="s2">&quot;</span><span class="nv">$SECRET_KEY_FILE</span><span class="s2">&quot;</span> <span class="se">\
+</span>        <span class="p">|</span> <span class="nv">$<span class="caps">GPG</span></span> --import
 
-    <span class="c1"># <span class="caps">TODO</span>: vendor Blackbox</span>
-    <span class="nv">BLACKBOX_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>mktemp -d -t blackbox.<span class="caps">XXX</span><span class="k">)</span><span class="s2">&quot;</span>
+    <span class="c1"># <span class="caps">TODO</span>: vendor Blackbox
+</span>    <span class="nv">BLACKBOX_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>mktemp -d -t blackbox.<span class="caps">XXX</span><span class="k">)</span><span class="s2">&quot;</span>
     <span class="nv">BLACKBOX_BIN</span><span class="o">=</span><span class="nv">$BLACKBOX_DIR</span>/bin
 
-    <span class="c1"># Shallow clone of Blackbox with most-recent commit only</span>
-    git clone --depth <span class="m">1</span> https://github.com/StackExchange/blackbox.git <span class="nv">$BLACKBOX_DIR</span>
+    <span class="c1"># Shallow clone of Blackbox with most-recent commit only
+</span>    git clone --depth <span class="m">1</span> https://github.com/StackExchange/blackbox.git <span class="nv">$BLACKBOX_DIR</span>
 <span class="k">else</span>
-    <span class="c1"># So that you only have to enter your password once when running interactively</span>
-    <span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>gpg-agent --daemon<span class="k">)</span><span class="s2">&quot;</span>
+    <span class="c1"># So that you only have to enter your password once when running interactively
+</span>    <span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>gpg-agent --daemon<span class="k">)</span><span class="s2">&quot;</span>
 
-    <span class="c1"># No custom GPG_HOMEDIR needed</span>
-    <span class="nv"><span class="caps">GPG</span></span><span class="o">=</span><span class="s2">&quot;gpg&quot;</span>
+    <span class="c1"># No custom GPG_HOMEDIR needed
+</span>    <span class="nv"><span class="caps">GPG</span></span><span class="o">=</span><span class="s2">&quot;gpg&quot;</span>
 
     <span class="nv">BLACKBOX_POSTDEPLOY</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">command</span> -v blackbox_postdeploy<span class="k">)</span><span class="s2">&quot;</span> <span class="o">||</span> <span class="nv">ret</span><span class="o">=</span><span class="nv">$?</span>
     <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$BLACKBOX_POSTDEPLOY</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-        <span class="c1"># Use the Blackbox that&#39;s on the path</span>
-        <span class="nv">BLACKBOX_BIN</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="nv">$BLACKBOX_POSTDEPLOY</span><span class="k">)</span><span class="s2">&quot;</span>
+        <span class="c1"># Use the Blackbox that's on the path
+</span>        <span class="nv">BLACKBOX_BIN</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="nv">$BLACKBOX_POSTDEPLOY</span><span class="k">)</span><span class="s2">&quot;</span>
     <span class="k">else</span>
-        <span class="c1"># Assume Blackbox is checked out in a sibling dir to $SERVICES_DIR</span>
-        <span class="nv">BLACKBOX_BIN</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$SERVICES_DIR</span><span class="s2">/..&quot;</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>/blackbox/bin
+        <span class="c1"># Assume Blackbox is checked out in a sibling dir to $SERVICES_DIR
+</span>        <span class="nv">BLACKBOX_BIN</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$SERVICES_DIR</span><span class="s2">/..&quot;</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>/blackbox/bin
         <span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">&quot;</span><span class="nv">$BLACKBOX_BIN</span><span class="s2">/blackbox_postdeploy&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-            <span class="nb">echo</span> <span class="s2">&quot;Can&#39;t find Blackbox binaries&quot;</span>
+            <span class="nb">echo</span> <span class="s2">&quot;Can't find Blackbox binaries&quot;</span>
             <span class="nb">exit</span> <span class="m">1</span>
         <span class="k">fi</span>
     <span class="k">fi</span>
 <span class="k">fi</span>
 
-<span class="c1"># decrypt secrets in $SERVICES_DIR using custom GPG_HOMEDIR</span>
-<span class="nv"><span class="caps">GPG</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$<span class="caps">GPG</span></span><span class="s2">&quot;</span> <span class="nv">$BLACKBOX_BIN</span>/blackbox_postdeploy
+<span class="c1"># decrypt secrets in $SERVICES_DIR using custom GPG_HOMEDIR
+</span><span class="nv"><span class="caps">GPG</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$<span class="caps">GPG</span></span><span class="s2">&quot;</span> <span class="nv">$BLACKBOX_BIN</span>/blackbox_postdeploy
 
-<span class="c1"># test that decryption worked</span>
-grep <span class="s1">&#39;congrats!&#39;</span> test_secret.txt
-</pre></div>
+<span class="c1"># test that decryption worked
+</span>grep <span class="s1">'congrats!'</span> test_secret.txt
+</pre>
 <p>At the end of the build,
 run <tt class="docutils literal">black&shy;box_shred_al&shy;l_&shy;files</tt> to destroy any decrypted&nbsp;files.</p>
 </div>

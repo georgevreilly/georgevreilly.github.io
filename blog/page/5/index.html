@@ -86,15 +86,16 @@ but I&#8217;m quite liking&nbsp;Groovy.</p>
 <p>Here&#8217;s an example of a <tt class="docutils literal">Closure</tt> called <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt>,
 where the <tt class="docutils literal">re&shy;lease_lev&shy;el</tt> parameter is a <tt class="docutils literal">String</tt>
 which must be either <tt class="docutils literal">&quot;dev&quot;</tt> or <tt class="docutils literal">&quot;prod&quot;</tt>.</p>
-<div class="highlight"><pre><span></span><span class="kt">def</span> <span class="n">acceptance_integration_tests</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span> <span class="n">release_level</span> <span class="o">-&gt;</span>
+<pre class="code groovy literal-block">
+<span class="kt">def</span> <span class="n">acceptance_integration_tests</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span> <span class="n">release_level</span> <span class="o">-&gt;</span>
     <span class="k">assert</span> <span class="n">release_level</span> <span class="o">=~</span> <span class="s">/^(dev|prod)$/</span>
     <span class="n">String</span> <span class="n">arg</span> <span class="o">=</span> <span class="s2">&quot;--${release_level}&quot;</span>
 
     <span class="kt">def</span> <span class="n">branches</span> <span class="o">=</span> <span class="o">[</span>
         <span class="s2">&quot;${release_level}_acceptance_tests&quot;</span><span class="o">:</span> <span class="o">{</span>
-            <span class="n">run_tests</span><span class="o">(</span><span class="s2">&quot;ci_acceptance_test&quot;</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">&#39;**/*nosetests.xml&#39;</span><span class="o">)</span>
+            <span class="n">run_tests</span><span class="o">(</span><span class="s2">&quot;ci_acceptance_test&quot;</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">'**/*nosetests.xml'</span><span class="o">)</span>
         <span class="o">},</span>
-        </pre><span>&#8230;<a href="/blog/2017/01/13/ComputedParallelBranchesInJenkinsPipeline.html" class="continue">continue</a>.</span></div>
+        </pre><span>&#8230;<a href="/blog/2017/01/13/ComputedParallelBranchesInJenkinsPipeline.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2017/01/13/ComputedParallelBranchesInJenkinsPipeline.html#disqus_thread">Comment</a>
@@ -168,10 +169,11 @@ which makes his position even more&nbsp;tenuous.</p>
 One of them needed some <tt class="docutils literal">sed</tt>s on each line and sorting.
 I wanted to do that on the fly,
 without leaving a massaged in&shy;ter&shy;me&shy;di&shy;ate file lying&nbsp;around.</p>
-<div class="highlight"><pre><span></span>colordiff --unified &lt;<span class="o">(</span>cat orphaned_permalinks.txt
-                        <span class="p">|</span> sed <span class="s1">&#39;s@http://www.georgevreilly.com/@@&#39;</span>
-                        <span class="p">|</span> sed <span class="s1">&#39;s/.aspx$/.html/&#39;</span>
-                 </pre><span>&#8230;<a href="/blog/2017/01/11/DiffTransformedFile.html" class="continue">continue</a>.</span></div>
+<pre class="code bash literal-block">
+colordiff --unified &lt;<span class="o">(</span>cat orphaned_permalinks.txt
+                        <span class="p">|</span> sed <span class="s1">'s&#64;http://www.georgevreilly.com/&#64;&#64;'</span>
+                        <span class="p">|</span> sed <span class="s1">'s/.aspx$/.html/'</span>
+                 </pre><span>&#8230;<a href="/blog/2017/01/11/DiffTransformedFile.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2017/01/11/DiffTransformedFile.html#disqus_thread">Comment</a>
@@ -385,16 +387,17 @@ it&#8217;s usually safe to delete&nbsp;these.</li>
 these require further&nbsp;in&shy;ves&shy;ti&shy;ga&shy;tion.</li>
 </ul>
 <p>Here&#8217;s an example for <a class="reference external" href="https://github.com/cookbrite/flyingcloud">fly&shy;ing&shy;cloud</a>:</p>
-<div class="highlight"><pre><span></span><span class="gp">$</span> git <span class="k">for</span>-each-ref --sort<span class="o">=</span>-committerdate <span class="se">\</span>
-    --format<span class="o">=</span><span class="s1">&#39;%(committerdate:short) %(refname)&#39;</span> refs/heads refs/remotes
-<span class="go">2016-12-29 refs/remotes/origin/master</span>
-<span class="go">2016-12-29 refs/remotes/origin/<span class="caps">HEAD</span></span>
-<span class="go">2016-12-29 refs/heads/master</span>
-<span class="go">2016-12-11 refs/remotes/origin/0.1.x</span>
-<span class="go">2016-06-09 refs/remotes/origin/fix/salt-pip-version-problem-in-demo</span>
-<span class="go">2016-05-25 refs/remotes/origin/updates</span>
-<span class="go">2016-05-09 refs/remotes/origin/feature/documentation-improvements-3</span>
-<span class="go">2016-04-19 </span></pre><span>&#8230;<a href="/blog/2017/01/05/GitPruningUnusedBranches.html" class="continue">continue</a>.</span></div>
+<pre class="code console literal-block">
+<span class="gp">$</span> git <span class="k">for</span>-each-ref --sort<span class="o">=</span>-committerdate <span class="se">\
+</span>    --format<span class="o">=</span><span class="s1">'%(committerdate:short) %(refname)'</span> refs/heads refs/remotes
+<span class="go">2016-12-29 refs/remotes/origin/master
+2016-12-29 refs/remotes/origin/<span class="caps">HEAD</span>
+2016-12-29 refs/heads/master
+2016-12-11 refs/remotes/origin/0.1.x
+2016-06-09 refs/remotes/origin/fix/salt-pip-version-problem-in-demo
+2016-05-25 refs/remotes/origin/updates
+2016-05-09 refs/remotes/origin/feature/documentation-improvements-3
+2016-04-19 </span></pre><span>&#8230;<a href="/blog/2017/01/05/GitPruningUnusedBranches.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2017/01/05/GitPruningUnusedBranches.html#disqus_thread">Comment</a>

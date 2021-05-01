@@ -40,12 +40,13 @@ One of them needed som..." />
 One of them needed some <tt class="docutils literal">sed</tt>s on each line and sorting.
 I wanted to do that on the fly,
 without leaving a massaged in&shy;ter&shy;me&shy;di&shy;ate file lying&nbsp;around.</p>
-<div class="highlight"><pre><span></span>colordiff --unified &lt;<span class="o">(</span>cat orphaned_permalinks.txt
-                        <span class="p">|</span> sed <span class="s1">&#39;s@http://www.georgevreilly.com/@@&#39;</span>
-                        <span class="p">|</span> sed <span class="s1">&#39;s/.aspx$/.html/&#39;</span>
+<pre class="code bash literal-block">
+colordiff --unified &lt;<span class="o">(</span>cat orphaned_permalinks.txt
+                        <span class="p">|</span> sed <span class="s1">'s&#64;http://www.georgevreilly.com/&#64;&#64;'</span>
+                        <span class="p">|</span> sed <span class="s1">'s/.aspx$/.html/'</span>
                         <span class="p">|</span> sort<span class="o">)</span>
         links.txt <span class="p">|</span> less -R
-</pre></div>
+</pre>
 <ul class="simple">
 <li>Use <a class="reference external" href="https://www.gnu.org/software/bash/manual/html_node/Process-Substitution.html">process sub&shy;sti&shy;tu&shy;tion</a>—<tt class="docutils literal">&lt;(cat | sed | sort)</tt>—to generate one argument to <a class="reference external" href="http://www.colordiff.org/">colordiff</a>.
 The other argument is simply <tt class="docutils literal">links.txt</tt>.</li>

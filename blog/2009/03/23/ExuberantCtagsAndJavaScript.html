@@ -43,9 +43,10 @@ and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to
 <p>Ctags works well for most of the languages that I deal with,
 but falls down badly on modern JavaScript.
 Its built-in parser simply doesn&#8217;t handle de&shy;c&shy;la&shy;ra&shy;tions like&nbsp;these:</p>
-<div class="highlight"><pre><span></span><span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// ...</span>
-<span class="nx">ajaxSetup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">settings</span> <span class="p">)</span> <span class="p">{</span>
-</pre></div>
+<pre class="code javascript literal-block">
+<span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// ...
+</span><span class="nx">ajaxSetup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">settings</span> <span class="p">)</span> <span class="p">{</span>
+</pre>
 <p>I came across <a class="reference external" href="http://www.unbad.net/blog/ctags-and-relevant-support-for-javascript">Unbad</a>&#8216;s workaround earlier tonight.
 His code didn&#8217;t work for me, so I hacked on it until it&nbsp;did:</p>
 <pre class="literal-block">

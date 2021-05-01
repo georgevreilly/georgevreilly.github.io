@@ -47,15 +47,14 @@ I&#8217;m calling my version <a class="reference external" href="/Python/py2cmd/
 you want to run and give it the same basename;
 i.e., <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.cmd</tt>
 will run <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.py</tt>.</p>
+<pre class="code batch literal-block">
+<span class="p">&#64;</span><span class="k">echo</span> off
+<span class="k">setlocal</span>
+<span class="k">set</span> <span class="nv">PythonExe</span><span class="p">=</span>
+<span class="k">set</span> <span class="nv">PythonExeFlags</span><span class="p">=</span>-u
 
-<pre class="brush: batch">
-@echo off
-setlocal
-set PythonExe=
-set PythonExeFlags=-u
-
-for %%i in (cmd bat exe) do (
-    for %%j in (python.%%i) do (
+<span class="k">for</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span>cmd bat exe<span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
+    <span class="k">for</span> <span class="se">%%</span>j <span class="k">in</span> <span class="p">(</span>python.<span class="se">%%</span>i<span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
    </pre><span>&#8230;<a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" class="continue">continue</a>.</span></div>
     <footer>
         

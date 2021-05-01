@@ -388,37 +388,28 @@ that it would compromise the tools.</p>
     
         <article>
     <header>
-        <time datetime="2006-09-14">2006-09-14</time>
+        <time datetime="2006-04-22">2006-04-22</time>
         <h1>
-            <a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" rel="bookmark canonical">Never Sleep(0) in an Infinite Loop</a>
+            <a href="/blog/2006/04/22/Win64PortOfVim.html" rel="bookmark canonical">Win64 port of Vim</a>
         </h1>
     </header>
-    
-<p>I ran into a problem installing some COM+ components today. The installer
-was using <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/04za0hca.aspx">Regsvcs.exe</a>
-to register each COM+ component. I noticed after a while that the installer
-wasn't making any progress and that my dual-proc system was stuck at 50%
-CPU uti&shy;liza&shy;tion. I attached a debugger to the offending process, regsvcs,
-and found that it was stuck in the following infinite loop
-(dis&shy;as&shy;sem&shy;bly courtesy of <a class="reference external" href="http://www.aisto.com/roeder/dotnet/">Reflector</a>):</p>
-
-
-<pre class="brush: csharp">
-internal void System.EnterpriseServices.CatalogSync.Wait()
-{
-  if (this._set)
-  {
-    RegistryKey key1
-      = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\CLSID");
-    while (true)
-    {
-      int num1 = (int) key1.GetValue("CLBVersion", 0);
- </pre><span>&#8230;<a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" class="continue">continue</a>.</span>
+    <p>I've ported Vim to Win64. Native binaries for AMD64 can be found on my
+<a class="reference external" href="//www.georgevreilly.com/vim/">Vim page</a>.</p>
+<p>In the end, it wasn't all that hard. Last weekend, I fixed ap&shy;prox&shy;i&shy;mate&shy;ly
+400 warnings that were thrown up by the x86_amd64 cross compiler.
+Most of them were due to the widening of <tt class="docutils literal">size_t</tt> (especially the value
+returned from <tt class="docutils literal">strlen()</tt>) and <tt class="docutils literal">ptrdiff_t</tt> to 64-bits.
+Several years ago, I went through a similar exercise in fixing these
+warnings for Vim6, but I never finished the port.</p>
+<p>This week, I scrounged access to an AMD64 box at work. Today, I turned on
+the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/yt4xw8fh(VS.80).aspx">/Wp64 flag</a>,
+which found several new, subtler problems, where pointers where being
+truncated to <span>&#8230;<a href="/blog/2006/04/22/Win64PortOfVim.html" class="continue">continue</a>.</span></p>
     <footer>
         
         
             <p>tagged as
-                <a href="/tag/c/" rel="tag">c#</a>
+                <a href="/tag/vim/" rel="tag">vim</a>
                     and
                     
                 <a href="/tag/windows/" rel="tag">windows</a>

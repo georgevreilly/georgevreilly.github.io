@@ -35,24 +35,20 @@
     </header>
     <p>The canonical <tt class="docutils literal">for</tt>-loop in C and C++ is written thus,
 counting up <tt class="docutils literal">i = 0</tt>, <tt class="docutils literal">i = 1</tt>, ..., <tt class="docutils literal">i = <span class="pre">N-1</span></tt>:</p>
-
-<pre class="brush: c++">
-for (int i=0; i &lt; N; i++) {
-    // loop body
-}
+<pre class="code c++ literal-block">
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// loop body
+</span><span class="p">}</span>
 </pre>
-
 <p>(In C, you have to declare <tt class="docutils literal">int i</tt> before the <tt class="docutils literal">for</tt>-loop.)</p>
 <p>Let's unpack that <tt class="docutils literal">for</tt>-loop into an equivalent <tt class="docutils literal">while</tt>-loop:</p>
-
-<pre class="brush: c++">
-int i = 0;
-while (i &lt; N) {
-    // loop body
-    i = i + 1
-}
+<pre class="code c++ literal-block">
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// loop body
+</span>    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="p">}</span>
 </pre>
-
 <p>In other words, we initialize <tt class="docutils literal">i</tt> to zero.
 Then, before every execution of either loop,
 we check <tt class="docutils literal">i &lt; N</tt>.
@@ -139,13 +135,10 @@ is over. &lt;boggle/&gt;</p>
             <p>tagged as
                 <a href="/tag/programming/" rel="tag">programming</a>,
                 <a href="/tag/javascript/" rel="tag">javascript</a>,
-                <a href="/tag/c++/" rel="tag">c++</a>,
-                <a href="/tag/c/" rel="tag">c#</a>,
-                <a href="/tag/python/" rel="tag">python</a>,
-                <a href="/tag/ruby/" rel="tag">ruby</a>
+                <a href="/tag/c++/" rel="tag">c++</a>
                     and
                     
-                <a href="/tag/html/" rel="tag">html</a>
+                <a href="/tag/c/" rel="tag">c</a>
                 
             </p>
         
@@ -173,15 +166,16 @@ Instead, I took the cheap-n-dirty route, playing with <tt class="docutils litera
 and include paths.
 It took less time to get working than it did to write this blog post.</p>
 <p>Here's the original native CppUnit test code</p>
-<div class="highlight"><pre><span></span><span class="c1">//-------------------------------</span>
-<span class="c1">// native\FooTest.h</span>
-<span class="c1">//-------------------------------</span>
-
-<span class="cp">#include</span> <span class="cpf">&lt;cppunit/extensions/HelperMacros.h&gt;</span><span class="cp"></span>
-
+<pre class="code cpp literal-block">
+<span class="c1">//-------------------------------
+// native\FooTest.h
+//-------------------------------
+</span>
+<span class="cp">#include</span> <span class="cpf">&lt;cppunit/extensions/HelperMacros.h&gt;</span><span class="cp">
+</span>
 <span class="k">class</span> <span class="nc">FooTest</span> <span class="o">:</span> <span class="k">public</span> <span class="n">CppUnit</span><span class="o">::</span><span class="n">TestFixture</span>
 <span class="p">{</span>
-    <span class="n">CPPUNIT_TEST_SUITE</span><span class="p">(</span> <span class="n">FooTest</span> </pre><span>&#8230;<a href="/blog/2007/03/21/NUnitCallingCppUnit.html" class="continue">continue</a>.</span></div>
+    <span class="n">CPPUNIT_TEST_SUITE</span><span class="p">(</span> <span class="n">FooTest</span> </pre><span>&#8230;<a href="/blog/2007/03/21/NUnitCallingCppUnit.html" class="continue">continue</a>.</span>
     <footer>
         
         
@@ -215,17 +209,16 @@ for overflow.</p>
 <p>Briefly, to see if <tt class="docutils literal">unsigned</tt> values <tt class="docutils literal">A+B</tt> overflow, check
 <tt class="docutils literal">if (A &gt; MAX_UINT - B)</tt>. Similarly, <tt class="docutils literal">A*B</tt> will overflow
 <tt class="docutils literal">if (A &gt; MAX_UINT / B)</tt>.</p>
+<pre class="code cpp literal-block">
+<span class="c1">// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
+</span><span class="kt">bool</span>
+<span class="nf">StringToUnsigned</span><span class="p">(</span>
+    <span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">,</span>
+    <span class="kt">unsigned</span><span class="o">&amp;</span>     <span class="n">rUint</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">rUint</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-<pre class="brush: cpp">
-// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
-bool
-StringToUnsigned(
-    const string& str,
-    unsigned&     rUint)
-{
-    rUint = 0;
-
-    if (str.empty())
+    <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
         </pre><span>&#8230;<a href="/blog/2006/05/16/0xFFFF100x1999.html" class="continue">continue</a>.</span>
     <footer>
         

@@ -47,12 +47,13 @@ Instead, I took the cheap-n-dirty route, playing with <tt class="docutils litera
 and include paths.
 It took less time to get working than it did to write this blog&nbsp;post.</p>
 <p>Here&#8217;s the original native CppUnit test&nbsp;code</p>
-<div class="highlight"><pre><span></span><span class="c1">//-------------------------------</span>
-<span class="c1">// native\FooTest.h</span>
-<span class="c1">//-------------------------------</span>
-
-<span class="cp">#include</span> <span class="cpf">&lt;cppunit/extensions/HelperMacros.h&gt;</span><span class="cp"></span>
-
+<pre class="code cpp literal-block">
+<span class="c1">//-------------------------------
+// native\FooTest.h
+//-------------------------------
+</span>
+<span class="cp">#include</span> <span class="cpf">&lt;cppunit/extensions/HelperMacros.h&gt;</span><span class="cp">
+</span>
 <span class="k">class</span> <span class="nc">FooTest</span> <span class="o">:</span> <span class="k">public</span> <span class="n">CppUnit</span><span class="o">::</span><span class="n">TestFixture</span>
 <span class="p">{</span>
     <span class="n">CPPUNIT_TEST_SUITE</span><span class="p">(</span> <span class="n">FooTest</span> <span class="p">);</span>
@@ -63,41 +64,42 @@ It took less time to get working than it did to write this blog&nbsp;post.</p>
 <span class="p">};</span>
 
 
-<span class="c1">//-------------------------------</span>
-<span class="c1">// native\FooTest.cpp</span>
-<span class="c1">//-------------------------------</span>
-
-<span class="cp">#include</span> <span class="cpf">&quot;FooTest.h&quot;</span><span class="cp"></span>
-
-<span class="c1">// Registers the fixture into the test &#39;registry&#39;</span>
-<span class="n">CPPUNIT_TEST_SUITE_REGISTRATION</span><span class="p">(</span> <span class="n">FooTest</span> <span class="p">);</span>
+<span class="c1">//-------------------------------
+// native\FooTest.cpp
+//-------------------------------
+</span>
+<span class="cp">#include</span> <span class="cpf">&quot;FooTest.h&quot;</span><span class="cp">
+</span>
+<span class="c1">// Registers the fixture into the test 'registry'
+</span><span class="n">CPPUNIT_TEST_SUITE_REGISTRATION</span><span class="p">(</span> <span class="n">FooTest</span> <span class="p">);</span>
 
 <span class="kt">void</span> <span class="n">FooTest</span><span class="o">::</span><span class="n">testAlpha</span><span class="p">()</span>
 <span class="p">{</span>
     <span class="n">CPPUNIT_ASSERT</span><span class="p">(</span> <span class="mi">4</span> <span class="o">==</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span>
 <span class="p">}</span>
-</pre></div>
+</pre>
 <p>And here&#8217;s my managed NUnit-based&nbsp;wrapper.</p>
-<div class="highlight"><pre><span></span><span class="c1">//-------------------------------</span>
-<span class="c1">// managed\FooTest.h</span>
-<span class="c1">//-------------------------------</span>
-
+<pre class="code csharp literal-block">
+<span class="c1">//-------------------------------
+// managed\FooTest.h
+//-------------------------------
+</span>
 <span class="k">using</span> <span class="nn">namespace</span> <span class="n">NUnit</span><span class="p">::</span><span class="n">Framework</span><span class="p">;</span>
 
-<span class="c1">// Gross hack. Define a completely different NUnit-compatible FooTest</span>
-<span class="c1">// test fixture and use #define&#39;s to make the CPPUnit-specific</span>
-<span class="c1">// stuff build.</span>
-
-<span class="na">[TestFixture]</span>
+<span class="c1">// Gross hack. Define a completely different NUnit-compatible FooTest
+// test fixture and use #define's to make the CPPUnit-specific
+// stuff build.
+</span><span class="na">
+[TestFixture]</span>
 <span class="k">public</span> <span class="k">ref</span> <span class="k">class</span> <span class="nc">FooTest</span>
 <span class="p">{</span>
 <span class="k">public</span><span class="p">:</span>
 <span class="na">    [Test]</span> <span class="k">void</span> <span class="n">testAlpha</span><span class="p">();</span>
 <span class="p">};</span>
 
-<span class="cp">#define CPPUNIT_TEST_SUITE_REGISTRATION(x)</span>
-<span class="cp">#define CPPUNIT_ASSERT(x) Assert::IsTrue(x)</span>
-</pre></div>
+<span class="cp">#define CPPUNIT_TEST_SUITE_REGISTRATION(x)
+#define CPPUNIT_ASSERT(x) Assert::IsTrue(x)</span>
+</pre>
 <p>I had to make one change to <tt class="docutils literal">na&shy;tive\&shy;FooTest.cpp</tt>,
 to <tt class="docutils literal">#include &lt;FooTest.h&gt;</tt> (angle brackets).
 This picks up the first <tt class="docutils literal">FooTest.h</tt> in the include path,

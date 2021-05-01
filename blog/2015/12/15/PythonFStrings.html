@@ -50,19 +50,17 @@ such as being centered within a field—see <a class="reference external" href="
 for ex&shy;am&shy;ples—but no more complex expression is allowed between the&nbsp;braces.</p>
 <p>Herewith some examples of f-string ex&shy;pres&shy;sions
 drawn from <a class="reference external" href="https://www.python.org/dev/peps/pep-0498/"><span class="caps">PEP</span> 0498</a>:</p>
+<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1991</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{date}</span><span class="s1"> was on a {date:%A}'</span>
+<span class="s1">'1991-10-12 was on a Saturday'</span>
 
-<pre class="brush: python">
->>> date = datetime.date(1991, 10, 12)
->>> f'{date} was on a {date:%A}'
-'1991-10-12 was on a Saturday'
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'Column={col_idx+1}'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'number of items: {len(items)}'</span>
 
->>> f'Column={col_idx+1}'
->>> f'number of items: {len(items)}'
-
->>> f'{extra},waiters:{len(self._waiters)}'
->>> message.append(f" [line {lineno:2d}]")
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{extra}</span><span class="s1">,waiters:{len(self._waiters)}'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">message</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; [line </span><span class="si">{lineno:2d}</span><span class="s2">]&quot;</span><span class="p">)</span>
 </pre>
-
 <p>It looks moderately useful,
 but—as with any new language feature—it can only be used in brand-new code.
 Python 3.6 is scheduled to be released in a year&#8217;s time,

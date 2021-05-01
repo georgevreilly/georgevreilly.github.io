@@ -41,7 +41,8 @@ at some point I discovered the <tt class="docutils literal">&lt;thead&gt;</tt> e
 for grouping the <tt class="docutils literal">&lt;th&gt;</tt> column headers.
 What I missed was there should be a <tt class="docutils literal">&lt;tr&gt;</tt> element between the two.
 In other words, a well-formed <span class="caps">HTML</span> table with a header looks like&nbsp;this:</p>
-<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+<pre class="code html literal-block">
+<span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">thead</span><span class="p">&gt;</span>
         <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
             <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
@@ -57,14 +58,15 @@ In other words, a well-formed <span class="caps">HTML</span> table with a header
         <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
     <span class="p">&lt;/</span><span class="nt">tbody</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
-</pre></div>
+</pre>
 <p>and&nbsp;not:</p>
-<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+<pre class="code html literal-block">
+<span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">thead</span><span class="p">&gt;</span>
         <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
         <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Value<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
         …
-</pre></div>
+</pre>
 <p>The latter form—<tt class="docutils literal">&lt;thead&gt;</tt> directly enclosing <tt class="docutils literal">&lt;th&gt;</tt>s—had always worked for me.
 Until yesterday when I ran afoul of an <span class="caps">HTML5</span> validator on a remote <span class="caps">API</span>,
 which simply would not let me proceed until I wrapped my <tt class="docutils literal">&lt;th&gt;</tt> cells with a <tt class="docutils literal">&lt;tr&gt;</tt>.</p>

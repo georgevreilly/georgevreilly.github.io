@@ -28,42 +28,6 @@
     
         <article>
     <header>
-        <time datetime="2006-04-22">2006-04-22</time>
-        <h1>
-            <a href="/blog/2006/04/22/Win64PortOfVim.html" rel="bookmark canonical">Win64 port of Vim</a>
-        </h1>
-    </header>
-    <p>I've ported Vim to Win64. Native binaries for AMD64 can be found on my
-<a class="reference external" href="//www.georgevreilly.com/vim/">Vim page</a>.</p>
-<p>In the end, it wasn't all that hard. Last weekend, I fixed ap&shy;prox&shy;i&shy;mate&shy;ly
-400 warnings that were thrown up by the x86_amd64 cross compiler.
-Most of them were due to the widening of <tt class="docutils literal">size_t</tt> (especially the value
-returned from <tt class="docutils literal">strlen()</tt>) and <tt class="docutils literal">ptrdiff_t</tt> to 64-bits.
-Several years ago, I went through a similar exercise in fixing these
-warnings for Vim6, but I never finished the port.</p>
-<p>This week, I scrounged access to an AMD64 box at work. Today, I turned on
-the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/yt4xw8fh(VS.80).aspx">/Wp64 flag</a>,
-which found several new, subtler problems, where pointers where being
-truncated to <span>&#8230;<a href="/blog/2006/04/22/Win64PortOfVim.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/vim/" rel="tag">vim</a>
-                    and
-                    
-                <a href="/tag/windows/" rel="tag">windows</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
         <time datetime="2006-04-09">2006-04-09</time>
         <h1>
             <a href="/blog/2006/04/09/ViEmuAViAndVimEmulatorForVisualStudio.html" rel="bookmark canonical">ViEmu: a vi and Vim emulator for Visual Studio</a>

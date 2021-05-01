@@ -247,18 +247,15 @@ The script upgrades Docker when it&#8217;s first run.
 The script may be run more than once during the lifetime of the agent,
 so the second and subsequent calls should not upgrade&nbsp;Docker.</p>
 <p>Basically, I&nbsp;wanted</p>
-
-<pre class="brush: bash">
-if $DOCKER_VERSION &lt; 1.9; then upgrade_docker; fi
+<pre class="code bash literal-block">
+<span class="k">if</span> <span class="nv">$DOCKER_VERSION</span> &lt; <span class="m">1</span>.9<span class="p">;</span> <span class="k">then</span> upgrade_docker<span class="p">;</span> <span class="k">fi</span>
 </pre>
-
 <p>Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s not that easy in Bash.
 Here&#8217;s what I came up&nbsp;with.</p>
-
-<pre class="brush: bash">
-install_latest_docker() {
-    if docker --version | python -c "min=[1, 9]; import sys; ↩
-v=[int(x) for x in </pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
+<pre class="code bash literal-block">
+install_latest_docker<span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> docker --version <span class="p">|</span> python -c <span class="s2">&quot;min=[1, 9]; import sys; ↩
+v=[int(x) for x in </span></pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/23/ParseMinVerBash.html#disqus_thread">Comment</a>

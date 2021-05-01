@@ -47,9 +47,10 @@ Ack is noticeably faster,
 though somewhat slower than <span class="caps">GNU</span>&nbsp;grep.</p>
 <p>Which would you rather type to search a tree,
 ignoring the <tt class="docutils literal">.svn</tt> and <tt class="docutils literal">.git</tt> subtrees?</p>
-<div class="highlight"><pre><span></span>$ ack -i -l foobar
-$ grep --exclude<span class="o">=</span><span class="s1">&#39;*.svn*&#39;</span> --exclude<span class="o">=</span><span class="s1">&#39;*.git*&#39;</span> -i -l -r foobar .
-</pre></div>
+<pre class="code bash literal-block">
+$ ack -i -l foobar
+$ grep --exclude<span class="o">=</span><span class="s1">'*.svn*'</span> --exclude<span class="o">=</span><span class="s1">'*.git*'</span> -i -l -r foobar .
+</pre>
 <p>The ack takes 6 seconds to search 4500 files, while the grep completes in 2.
 This does not count the time that I spent trying to figure out
 the correct syntax and argument quoting for <tt class="docutils literal"><span class="pre">--exclude</span></tt>.

@@ -150,24 +150,20 @@ Instead of <span>&#8230;<a href="/blog/2016/03/25/Profiling.html" class="continu
     </header>
     <p>The canonical <tt class="docutils literal">for</tt>-loop in C and C++ is written thus,
 counting up <tt class="docutils literal">i = 0</tt>, <tt class="docutils literal">i = 1</tt>, ..., <tt class="docutils literal">i = <span class="pre">N-1</span></tt>:</p>
-
-<pre class="brush: c++">
-for (int i=0; i &lt; N; i++) {
-    // loop body
-}
+<pre class="code c++ literal-block">
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// loop body
+</span><span class="p">}</span>
 </pre>
-
 <p>(In C, you have to declare <tt class="docutils literal">int i</tt> before the <tt class="docutils literal">for</tt>-loop.)</p>
 <p>Let's unpack that <tt class="docutils literal">for</tt>-loop into an equivalent <tt class="docutils literal">while</tt>-loop:</p>
-
-<pre class="brush: c++">
-int i = 0;
-while (i &lt; N) {
-    // loop body
-    i = i + 1
-}
+<pre class="code c++ literal-block">
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// loop body
+</span>    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="p">}</span>
 </pre>
-
 <p>In other words, we initialize <tt class="docutils literal">i</tt> to zero.
 Then, before every execution of either loop,
 we check <tt class="docutils literal">i &lt; N</tt>.

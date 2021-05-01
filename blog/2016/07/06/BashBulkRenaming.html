@@ -43,14 +43,12 @@ whereas we simply wanted <tt class="docutils literal">unique_pre&shy;fix.jpg</tt
 As one of the many variants of <a class="reference external" href="http://tldp.org/LDP/abs/html/parameter-substitution.html">parameter sub&shy;sti&shy;tu&shy;tion</a>,
 Bash supports <tt class="docutils literal">${var/Pattern/Re&shy;place&shy;men&shy;t}</tt>:
 “first match of <tt class="docutils literal">Pattern</tt> within <tt class="docutils literal">var</tt> replaced with <tt class="docutils literal">Re&shy;place&shy;ment</tt>.”</p>
-
-<pre class="brush: bash">
-for f in *.png.jpg;
-do
-    mv $f "${f/.png}"
-done
+<pre class="code bash literal-block">
+<span class="k">for</span> f in *.png.jpg<span class="p">;</span>
+<span class="k">do</span>
+    mv <span class="nv">$f</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">f</span><span class="p">/.png</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
 </pre>
-
 <p>The target expression could also have been written as <tt class="docutils literal"><span class="pre">&quot;${f/.png.jpg/.jpg}&quot;</span></tt></p>
 
     <footer>

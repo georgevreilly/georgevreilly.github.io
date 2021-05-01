@@ -34,31 +34,25 @@
         </h1>
     </header>
     <p>Have you ever attempted a <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">relative import</a> in a Python&nbsp;script?</p>
-
-<pre class="brush: bash">
+<pre class="code bash literal-block">
 $ ./foo/bar/script.py some parameters
-Traceback (most recent call last):
-  File "foo/bar/script.py", line 16, in &lt;module>
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">&quot;foo/bar/script.py&quot;</span>, line <span class="m">16</span>, in &lt;module&gt;
     from .quux import find_vcs
 ValueError: Attempted relative import in non-package
 </pre>
-
 <p>I prefer to use <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">absolute imports</a> to minimize ambiguity and confusion,
 and most of my Python modules begin&nbsp;with:</p>
-
-<pre class="brush: python">
-from __future__ import absolute_import, unicode_literals, print_function
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span>
 </pre>
-
 <p>(Using <a class="reference external" href="https://www.python.org/dev/peps/pep-3112/">uni&shy;code_lit&shy;er&shy;als</a> and <a class="reference external" href="https://www.python.org/dev/peps/pep-3105/">print&shy;_&shy;func&shy;tion</a> makes porting to Python 3&nbsp;easier.)</p>
 <p>I recently read the accepted answer to <a class="reference external" href="http://stackoverflow.com/questions/14132789/python-relative-imports-for-the-billionth-time">Python relative imports for the billionth time</a>
 and the solution to the above <tt class="docutils literal">ValueError</tt> occurred to me:
 Use <tt class="docutils literal">python <span class="pre">-m</span> package</tt> instead:</p>
-
-<pre class="brush: bash">
+<pre class="code bash literal-block">
 $ python -m foo.bar.script some parameters
 </pre>
-
 <p>(Assuming that package <tt class="docutils literal">foo</tt> exists.)</p>
 
     <footer>
@@ -91,13 +85,11 @@ and work with a recent version of the <a class="reference external" href="http:/
 <p>Felix Krull maintains a Personal Package Archive for <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes-python2.7">Python 2.7 Updates</a>,
 which makes it straight&shy;for&shy;ward to upgrade to Python 2.7.11
 on supported versions of&nbsp;Ubuntu.</p>
-
-<pre class="brush: bash">
+<pre class="code bash literal-block">
 sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
 sudo apt-get update
 sudo apt-get install python2.7 python2.7-dev
 </pre>
-
 <p>Be sure not to use Felix Krull&#8217;s <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes">other Python <span class="caps">PPA</span></a> by mistake.
 I did that on a colleague&#8217;s machine yesterday.
 In our attempts to figure out why we still had Python 2.7.6,
@@ -170,12 +162,10 @@ I hadn&#8217;t known such a thing&nbsp;existed.</p>
     <p>When I declare a derived class that inherits
 from both a base class and some mixins,
 I am always tempted to&nbsp;write:</p>
-
-<pre class="brush: python">
-class Derived(Base, Mixin1, Mixin2):
-    "Some class"
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">Mixin1</span><span class="p">,</span> <span class="n">Mixin2</span><span class="p">):</span>
+    <span class="s2">&quot;Some class&quot;</span>
 </pre>
-
 <p>My reasoning is that <tt class="docutils literal">Derived</tt> is a <tt class="docutils literal">Base</tt>
 with some <tt class="docutils literal">Mixin1</tt> and <tt class="docutils literal">Mixin2</tt> goodness sprinkled on.
 Generally, that&#8217;s fine.
@@ -185,12 +175,11 @@ Because the <a class="reference external" href="http://python-history.blogspot.c
 then <tt class="docutils literal">Base</tt>&#8216;s im&shy;ple&shy;men&shy;ta&shy;tion will always be found&nbsp;first.</p>
 <p>To get the desired behavior of the mixin overriding the base,
 <tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance&nbsp;list.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-<pre class="brush: python">
-from __future__ import print_function
-
-class Useful(object):
-    def __init__(self, msg):
+<span class="k">class</span> <span class="nc">Useful</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
  </pre><span>&#8230;<a href="/blog/2016/01/14/PythonBaseClassOrder.html" class="continue">continue</a>.</span>
     <footer>
         
@@ -268,34 +257,30 @@ and I got caught up <span>&#8230;<a href="/blog/2016/01/13/ReviewStarDoc.html" c
 Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s a collection of punc&shy;tu&shy;a&shy;tion characters,
 which makes it hard to Google when you can&#8217;t quite remember the&nbsp;syntax.</p>
 <p>Getting a default value using <tt class="docutils literal"><span class="pre">${var:-fallback}</span></tt>:</p>
+<pre class="code bash literal-block">
+<span class="c1"># set $<span class="caps">LOGDIR</span> to $1 if $1 has a value; otherwise set $<span class="caps">LOGDIR</span> to &quot;/var/log&quot;
+</span><span class="nv"><span class="caps">LOGDIR</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/var/log</span><span class="si">}</span><span class="s2">&quot;</span>
 
-<pre class="brush: bash">
-# set $LOGDIR to $1 if $1 has a value; otherwise set $LOGDIR to "/var/log"
-LOGDIR="${1:-/var/log}"
-
-# use $VERSION unless it's empty or unset; fall back to extracting someprog's version num
-build_version=${VERSION:-$(someprog --version | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')}
+<span class="c1"># use $<span class="caps">VERSION</span> unless it's empty or unset; fall back to extracting someprog's version num
+</span><span class="nv">build_version</span><span class="o">=</span><span class="si">${</span><span class="nv"><span class="caps">VERSION</span></span><span class="k">:-$(</span>someprog --version <span class="p">|</span> sed <span class="s1">'s/[^0-9.]*\([0-9.]*\).*/\1/'</span><span class="k">)</span><span class="si">}</span>
 </pre>
-
 <p>The colon-dash con&shy;struc&shy;tion is known as the
 <a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog&#8217;s bollocks</a>
 in&nbsp;typography.</p>
 <p>Setting a default value, using <tt class="docutils literal"><span class="pre">${var:=fallback}</span></tt>:</p>
-
-<pre class="brush: bash">
-$ echo $HOME
+<pre class="code bash literal-block">
+$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
 /Users/georgevreilly
-$ echo ${HOME:=/tmp}
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
 /Users/georgevreilly
-$ unset HOME
-$ echo ${HOME:=/tmp}
+$ <span class="nb">unset</span> <span class="caps">HOME</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
 /tmp
-$ echo $HOME
+$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
 /tmp
-$ cd; pwd
+$ cd<span class="p">;</span> <span class="nb">pwd</span>
 /tmp
 </pre>
-
 <p>Note: <tt class="docutils literal">:=</tt> uses the new value in two cases.
 First, when the shell <span>&#8230;<a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" class="continue">continue</a>.</span></p>
     <footer>

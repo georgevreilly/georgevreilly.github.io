@@ -43,18 +43,20 @@ Instead I chose to use the poorly documented <tt class="docutils literal"><span 
 Adrian Mouat gives some useful starting points at <a class="reference external" href="http://container-solutions.com/docker-inspect-template-magic/">Docker Inspect Template Magic</a>
 and notes that formatting is built around <a class="reference external" href="https://golang.org/pkg/text/template/">Go templates</a>.</p>
 <p>I quickly figured out that this format would meet my immediate&nbsp;need.</p>
-<div class="highlight"><pre><span></span>sudo docker images --format <span class="s1">&#39;{{.Repository}}:{{.Tag}}&#39;</span> <span class="se">\</span>
-    <span class="p">|</span> grep <span class="nv">$IMAGE_NAME</span> <span class="se">\</span>
-    <span class="p">|</span> grep -v latest <span class="se">\</span>
-    <span class="p">|</span> head -1
-</pre></div>
+<pre class="code bash literal-block">
+sudo docker images --format <span class="s1">'{{.Repository}}:{{.Tag}}'</span> <span class="se">\
+</span>    <span class="p">|</span> grep <span class="nv">$IMAGE_NAME</span> <span class="se">\
+</span>    <span class="p">|</span> grep -v latest <span class="se">\
+</span>    <span class="p">|</span> head -1
+</pre>
 <p>That&#8217;s fine, but I still had no idea what other possible names
 could be used in the format template.
 While getting there, I learned that <a class="reference external" href="https://nathanleclaire.com/blog/2015/11/12/using-curl-and-the-unix-socket-to-talk-to-the-docker-api/">Curl can be used with a Unix socket</a>
 to talk to the Docker&nbsp;daemon.</p>
-<div class="highlight"><pre><span></span>sudo curl --unix-socket /var/run/docker.sock <span class="se">\</span>
-    http://localhost/images/json <span class="p">|</span> python -m json.tool
-</pre></div>
+<pre class="code bash literal-block">
+sudo curl --unix-socket /var/run/docker.sock <span class="se">\
+</span>    http://localhost/images/json <span class="p">|</span> python -m json.tool
+</pre>
 <p>This produces a pret&shy;typrint&shy;ed list of all the Docker images.
 However, the names are not the same as those that can be used in the format&nbsp;template.</p>
 <p>The actual field names that can be used in the format template can be found in

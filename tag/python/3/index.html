@@ -34,31 +34,25 @@
         </h1>
     </header>
     <p>Have you ever attempted a <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">relative import</a> in a Python script?</p>
-
-<pre class="brush: bash">
+<pre class="code bash literal-block">
 $ ./foo/bar/script.py some parameters
-Traceback (most recent call last):
-  File "foo/bar/script.py", line 16, in &lt;module>
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">&quot;foo/bar/script.py&quot;</span>, line <span class="m">16</span>, in &lt;module&gt;
     from .quux import find_vcs
 ValueError: Attempted relative import in non-package
 </pre>
-
 <p>I prefer to use <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">absolute imports</a> to minimize ambiguity and confusion,
 and most of my Python modules begin with:</p>
-
-<pre class="brush: python">
-from __future__ import absolute_import, unicode_literals, print_function
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span>
 </pre>
-
 <p>(Using <a class="reference external" href="https://www.python.org/dev/peps/pep-3112/">uni&shy;code_lit&shy;er&shy;als</a> and <a class="reference external" href="https://www.python.org/dev/peps/pep-3105/">print&shy;_&shy;func&shy;tion</a> makes porting to Python 3 easier.)</p>
 <p>I recently read the accepted answer to <a class="reference external" href="http://stackoverflow.com/questions/14132789/python-relative-imports-for-the-billionth-time">Python relative imports for the billionth time</a>
 and the solution to the above <tt class="docutils literal">ValueError</tt> occurred to me:
 Use <tt class="docutils literal">python <span class="pre">-m</span> package</tt> instead:</p>
-
-<pre class="brush: bash">
+<pre class="code bash literal-block">
 $ python -m foo.bar.script some parameters
 </pre>
-
 <p>(Assuming that <span>&#8230;<a href="/blog/2016/01/17/RelativeImportsInAPythonScript.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -88,13 +82,11 @@ and work with a recent version of the <a class="reference external" href="http:/
 <p>Felix Krull maintains a Personal Package Archive for <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes-python2.7">Python 2.7 Updates</a>,
 which makes it straight&shy;for&shy;ward to upgrade to Python 2.7.11
 on supported versions of Ubuntu.</p>
-
-<pre class="brush: bash">
+<pre class="code bash literal-block">
 sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
 sudo apt-get update
 sudo apt-get install python2.7 python2.7-dev
 </pre>
-
 <p>Be sure not to use Felix Krull's <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes">other Python PPA</a> by mistake.
 I did that on a col&shy;league's machine yesterday.
 In our attempts to figure out why we still had Python 2.7.6,
@@ -126,12 +118,10 @@ we managed to mess up the <span>&#8230;<a href="/blog/2016/01/16/InstallingPytho
     <p>When I declare a derived class that inherits
 from both a base class and some mixins,
 I am always tempted to write:</p>
-
-<pre class="brush: python">
-class Derived(Base, Mixin1, Mixin2):
-    "Some class"
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">Mixin1</span><span class="p">,</span> <span class="n">Mixin2</span><span class="p">):</span>
+    <span class="s2">&quot;Some class&quot;</span>
 </pre>
-
 <p>My reasoning is that <tt class="docutils literal">Derived</tt> is a <tt class="docutils literal">Base</tt>
 with some <tt class="docutils literal">Mixin1</tt> and <tt class="docutils literal">Mixin2</tt> goodness sprinkled on.
 Generally, that's fine.
@@ -141,11 +131,10 @@ Because the <a class="reference external" href="http://python-history.blogspot.c
 then <tt class="docutils literal">Base</tt>'s im&shy;ple&shy;men&shy;ta&shy;tion will always be found first.</p>
 <p>To get the desired behavior of the mixin overriding the base,
 <tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance list.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-<pre class="brush: python">
-from __future__ import print_function
-
-class Useful(object):
+<span class="k">class</span> <span class="nc">Useful</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     </pre><span>&#8230;<a href="/blog/2016/01/14/PythonBaseClassOrder.html" class="continue">continue</a>.</span>
     <footer>
         
@@ -196,22 +185,18 @@ class Useful(object):
 <tt class="docutils literal"><span class="pre">['*.zip',</span> <span class="pre">'*.pyc',</span> <span class="pre">'*.log']</span></tt> into
 <tt class="docutils literal"><span class="pre">['--exclude',</span> <span class="pre">'*.zip',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.pyc',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.log']</span></tt>.</p>
 <p>A simple list com&shy;pre&shy;hen&shy;sion doesn't work as desired:</p>
+<pre class="code python literal-block">
+<span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">excludes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
 
-<pre class="brush: python">
-In [1]: excludes = ['*.zip', '*.pyc', '*.log']
-
-In [2]: [('--exclude', e) for e in excludes]
-Out[2]: [('--exclude', '*.zip'), ('--exclude', '*.pyc'), ('--exclude', '*.log')]
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">)]</span>
 </pre>
-
 <p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com&shy;pre&shy;hen&shy;sion</a>:</p>
-
-<pre class="brush: python">
-In [5]: [arg for pattern in excludes
-             for arg in ['--exclude', pattern]]
-Out[5]: ['--exclude', '*.zip', '--exclude', '*.pyc', '--exclude', '*.log']
+<pre class="code python literal-block">
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="n">arg</span> <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">excludes</span>
+             <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">pattern</span><span class="p">]]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
 </pre>
-
 
     <footer>
         
@@ -243,18 +228,15 @@ The script upgrades Docker when it's first run.
 The script may be run more than once during the lifetime of the agent,
 so the second and subsequent calls should not upgrade Docker.</p>
 <p>Basically, I wanted</p>
-
-<pre class="brush: bash">
-if $DOCKER_VERSION &lt; 1.9; then upgrade_docker; fi
+<pre class="code bash literal-block">
+<span class="k">if</span> <span class="nv">$DOCKER_VERSION</span> &lt; <span class="m">1</span>.9<span class="p">;</span> <span class="k">then</span> upgrade_docker<span class="p">;</span> <span class="k">fi</span>
 </pre>
-
 <p>Un&shy;for&shy;tu&shy;nate&shy;ly, it's not that easy in Bash.
 Here's what I came up with.</p>
-
-<pre class="brush: bash">
-install_latest_docker() {
-    if docker --version | python -c "min=[1, 9]; import sys; ↩
-v=[int(x) </pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
+<pre class="code bash literal-block">
+install_latest_docker<span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> docker --version <span class="p">|</span> python -c <span class="s2">&quot;min=[1, 9]; import sys; ↩
+v=[int(x) </span></pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
     <footer>
         
         
@@ -318,10 +300,9 @@ such as being centered within a field—see <a class="reference external" href="
 for ex&shy;am&shy;ples—but no more complex expression is allowed between the braces.</p>
 <p>Herewith some examples of f-string ex&shy;pres&shy;sions
 drawn from <a class="reference external" href="https://www.python.org/dev/peps/pep-0498/">PEP 0498</a>:</p>
-
-<pre class="brush: python">
->>> date = datetime.date(1991, 10, 12)
->>> f'{date} was on a </pre><span>&#8230;<a href="/blog/2015/12/15/PythonFStrings.html" class="continue">continue</a>.</span>
+<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1991</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{date}</span><span class="s1"> was on a </span></pre><span>&#8230;<a href="/blog/2015/12/15/PythonFStrings.html" class="continue">continue</a>.</span>
     <footer>
         
         

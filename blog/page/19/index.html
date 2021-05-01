@@ -189,14 +189,12 @@ as I wanted to capture the <span class="caps">CSV</span> output into a string bu
 for use with unit tests.
 <tt class="docutils literal">unicodecsv</tt> is a drop-in re&shy;place&shy;ment for Python&#8217;s built-in <tt class="docutils literal">csv</tt> module,
 which supports Unicode&nbsp;strings.</p>
-
-<pre class="brush: python">
-with io.StringIO() as csv_file:
-    write_csv_rows(csv_file)
-    lines = csv_file.getvalue().split('\r\n')
-    return lines[:-1]  # drop empty line after trailing \r\n
+<pre class="code python literal-block">
+<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+    <span class="n">write_csv_rows</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">csv_file</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\r\n</span><span class="s1">'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lines</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># drop empty line after trailing \r\n</span>
 </pre>
-
 <p>It failed horribly with
 <tt class="docutils literal">TypeError: unicode argument expected, got 'str'</tt>.</p>
 <p>I <span>&#8230;<a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" class="continue">continue</a>.</span></p>
