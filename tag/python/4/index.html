@@ -28,6 +28,50 @@
     
         <article>
     <header>
+        <time datetime="2015-12-01">2015-12-01</time>
+        <h1>
+            <a href="/blog/2015/12/01/ExplainingEpilogFnmatchTranslate.html" rel="bookmark canonical">Explaining the epilog of fnmatch.translate, \Z(?ms)</a>
+        </h1>
+    </header>
+    <p>I was debugging a <a class="reference external" href="http://stackoverflow.com/a/5141829/6364">filtering directory walker</a>
+(on which, more to follow)
+and I was trying to figure out
+the mysterious suffix that
+<a class="reference external" href="https://docs.python.org/2/library/fnmatch.html#fnmatch.translate">fnmatch.translate</a>
+appends to its result,
+<tt class="docutils literal"><span class="pre">\Z(?ms)</span></tt>.</p>
+<p><tt class="docutils literal">fnmatch.translate</tt> takes a Unix-style glob,
+like <tt class="docutils literal">*.py</tt> or <tt class="docutils literal"><span class="pre">test_*.py[cod]</span></tt>,
+and translates it character-by-character into a regular expression.
+It then appends <tt class="docutils literal"><span class="pre">\Z(?ms)</span></tt>.
+Hence the latter glob becomes <tt class="docutils literal"><span class="pre">r'test\_.*\.py[cod]\Z(?ms)'</span></tt>,
+using Python's raw string notation to avoid the
+<a class="reference external" href="https://docs.python.org/2/howto/regex.html#the-backslash-plague">backslash plague</a>.
+Also, the <tt class="docutils literal">?</tt> wildcard character becomes the <tt class="docutils literal">.</tt> regex special character,
+while the <tt class="docutils literal">*</tt> wildcard becomes the <tt class="docutils literal">.*</tt> greedy regex.</p>
+<p>A <a class="reference external" href="http://stackoverflow.com/a/11998653/6364">Stack&shy;Over&shy;flow answer partially explains</a>,
+which set me on the right track.
+<tt class="docutils literal"><span class="pre">(?ms)</span></tt> is equivalent to compiling the regex with <tt class="docutils literal">re.MULTILINE | re.DOTALL</tt>.
+The <tt class="docutils literal">re.DOTALL</tt> modifier makes the <tt class="docutils literal">.</tt> special character match <em>any</em> <span>&#8230;<a href="/blog/2015/12/01/ExplainingEpilogFnmatchTranslate.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/regex/" rel="tag">regex</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-09-20">2015-09-20</time>
         <h1>
             <a href="/blog/2015/09/20/RunSnakeRun-WxPython-Brew-Virtualenv.html" rel="bookmark canonical">RunSnakeRun (wxPython) apps in a Brew Virtualenv</a>
@@ -338,49 +382,6 @@ use the <tt class="docutils literal">**</tt> syntax to unpack the dict into <tt 
 <p>The Cozi Tech Blog needed some love,
 so I wrote a post on <a class="reference external" href="http://blogs.cozi.com/tech/2009/03/augmenting-pythons-strftime.html">augmenting Python's strftime</a>.</p>
 
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-20">2009-03-20</time>
-        <h1>
-            <a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" rel="bookmark canonical">Flattening List Comprehensions in Python</a>
-        </h1>
-    </header>
-    
-<p>Python has <a class="reference external" href="http://docs.python.org/tutorial/datastructures.html#list-comprehensions">list com&shy;pre&shy;hen&shy;sions</a>,
-syntactic sugar for building lists from an expression.</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
-<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">22</span><span class="p">]</span>
-</pre>
-<p>This doesn't work so well when the com&shy;pre&shy;hen&shy;sion expression
-is itself a list: you end up with a list of lists.</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
-<span class="o">...</span>     <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]:</span>
-<span class="o">...</span>         <span class="k">yield</span> <span class="n">l</span>
-<span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()]</span>
-<span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]</span>
-</pre>
-<p>This is ugly. Here's one way to build a flattened list,
-but it's less elegant than the com&shy;pre&shy;hen&shy;sion.</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> </pre><span>&#8230;<a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" class="continue">continue</a>.</span>
     <footer>
         
         

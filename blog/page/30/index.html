@@ -28,6 +28,37 @@
     
         <article>
     <header>
+        <time datetime="2015-12-29">2015-12-29</time>
+        <h1>
+            <a href="/blog/2015/12/29/FreeEbooksFromSpringer.html" rel="bookmark canonical">Free ebooks from Springer</a>
+        </h1>
+    </header>
+    <p>Via <a class="reference external" href="https://news.ycombinator.com/item?id=10810271">Hacker News</a>,
+&quot;All Springer Textbooks More Than 10 Years Old Available for Free Legal&nbsp;Download&quot;.</p>
+<p>This includes books from Apress
+as well as a ton of those im&shy;pen&shy;e&shy;tra&shy;ble gray-and-red
+Lecture Notes in Computer Science&nbsp;books.</p>
+<p><strong>Update 2015-12-30</strong>: No longer available.
+Springer aren&#8217;t commenting. Presumably a&nbsp;mistake.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/29/FreeEbooksFromSpringer.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-12-28">2015-12-28</time>
         <h1>
             <a href="/blog/2015/12/28/ReviewStarWarsTheForceAwakens.html" rel="bookmark canonical">Review: Star Wars VII: The Force Awakens</a>
@@ -311,9 +342,45 @@ Tonight I decorated it with marzipan and royal&nbsp;icing.</p>
             <a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" rel="bookmark canonical">Including Data Files in Python Packages</a>
         </h1>
     </header>
-    <p>New post at the MetaBrite Dev Blog:
-<a class="reference external" href="http://www.metabrite.com/devblog/posts/including-data-files-in-python-packages/">Including Data Files in Python&nbsp;Packages</a></p>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://www.metabrite.com/devblog/posts/including-data-files-in-python-packages/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>I spent some time today struggling with <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/">setuptools</a>,
+trying to make a Python source package
+not only include a data file,
+but also <em>install</em> that&nbsp;file.</p>
+<div class="section" id="building-the-installer">
+<h2>Building the&nbsp;installer</h2>
+<p>Consider the following source tree&nbsp;layout:</p>
+<pre class="literal-block">
+├── MANIFEST.in
+├── README.md
+├── my_stuff/
+│&nbsp;&nbsp; ├── bar.py
+│&nbsp;&nbsp; ├── foo.py
+│&nbsp;&nbsp; ├── __init__.py
+│&nbsp;&nbsp; └── quux.py
+├── models/
+│   └── long_ugly_name_20151221.json
+└── setup.py*
+</pre>
+<p>I wanted to create a Python source dis&shy;tri&shy;b&shy;u&shy;tion, <tt class="docutils literal"><span class="pre">some_&shy;pack&shy;age-<span class="caps">N.N.N.</span>tar.gz</span></tt>,
+which contains the code in the <tt class="docutils literal">my_stuff</tt> directory,
+as well as <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>,
+using <tt class="docutils literal">python setup.py sdist</tt>.</p>
+<p>It&#8217;s not that hard to get <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>
+included in the tarball.
+Add an entry in <tt class="docutils literal"><span class="caps">MANIFEST</span>.in</tt>:</p>
+<pre class="literal-block">
+include models/*.json
+</pre>
+<p>Then be sure to set <tt class="docutils literal">in&shy;clude_&shy;pack&shy;age_&shy;da&shy;ta=True</tt>
+in the call to <tt class="docutils literal">setup()</tt>:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
 
+<span class="n">setup</span><span class="p">(</span>
+ </pre><span>&#8230;<a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" class="continue">continue</a>.</span></div>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/21/IncludingDataFilesInPythonPackages.html#disqus_thread">Comment</a>
@@ -321,6 +388,9 @@ Tonight I decorated it with marzipan and royal&nbsp;icing.</p>
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
                 
             </p>
         
@@ -368,39 +438,6 @@ and full of tiresome stylistic&nbsp;tics.</p>
                     and
                     
                 <a href="/tag/autobiography/" rel="tag">autobiography</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-19">2015-12-19</time>
-        <h1>
-            <a href="/blog/2015/12/19/RestoringTheBarRoom.html" rel="bookmark canonical">Restoring the Bar Room</a>
-        </h1>
-    </header>
-    <p>Aside from a few hours spent at two parties,
-we&#8217;ve worked from when we got up until midnight
-getting the bar room back in shape.
-I spent a couple of hours just washing all the greasy crystal glasses this morning
-(not to be confused with last night&#8217;s <a class="reference external" href="/blog/2015/12/18/BarRoomBooze.html">cleaning the booze bottles</a>).
-We sorted through all the cookbooks and set aside about a third of them.
-The room is now ready to use again.
-Alas, we&#8217;ve moved a pile of stuff tem&shy;porar&shy;i&shy;ly into the spare room,
-which will have to be dealt with&nbsp;soon.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/19/RestoringTheBarRoom.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/personal/" rel="tag">personal</a>
                 
             </p>
         

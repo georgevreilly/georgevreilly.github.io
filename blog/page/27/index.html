@@ -241,9 +241,27 @@ It was totally incoherent and anachro&shy;nis&shy;tic and ineptly&nbsp;made.</p>
             <a href="/blog/2016/01/22/PythonRecursiveGenerators.html" rel="bookmark canonical">Recursive Generators in Python 2 and 3</a>
         </h1>
     </header>
-    <p>New <a class="reference external" href="http://www.metabrite.com/devblog/posts/recursive-generators-in-python-2-and-3/">post</a>
-at the MetaBrite&nbsp;blog.</p>
-
+    <p></p>
+<blockquote>
+<p>Generators decouple iteration from the code
+that uses the results of the&nbsp;iteration.</p>
+<p class="attribution">&mdash;David Beazley, <a class="reference external" href="https://www.dabeaz.com/generators/">Generators</a></p>
+</blockquote>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>Python generators have a <a class="reference external" href="https://www.dabeaz.com/generators/">variety of uses</a>.
+One such is to lazily evaluate sequences.
+Another is for <a class="reference external" href="https://www.dabeaz.com/coroutines/">coroutines</a>.
+Yet another is to re&shy;cur&shy;sive&shy;ly traverse a tree or a graph,
+yielding an iterable&nbsp;sequence.</p>
+<p>Consider this simple tree of&nbsp;nodes:</p>
+<pre class="code python literal-block">
+<span class="n">node_tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+    <span class="s1">'a'</span><span class="p">,</span> <span class="p">[</span>
+        <span class="n">Node</span><span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="p">[</span>
+            <span class="n">Node</span><span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="p">[</span>
+                <span class="n">Node</span><span class="p">(</span><span class="s1">'g'</span><span class="p">)</span>
+    </pre><span>&#8230;<a href="/blog/2016/01/22/PythonRecursiveGenerators.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/22/PythonRecursiveGenerators.html#disqus_thread">Comment</a>
@@ -251,6 +269,9 @@ at the MetaBrite&nbsp;blog.</p>
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
                 
             </p>
         

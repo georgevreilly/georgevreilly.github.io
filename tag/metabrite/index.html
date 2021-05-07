@@ -65,7 +65,7 @@ over the last two days.</p>
 <p>Last night,
 Adam Porad and I were one of five teams
 pitching our startups at the
-PuPPy-organized <a class="reference external" href="http://www.meetup.com/PSPPython/events/229206293/">PyCon Startup Row Pitch Night</a>:</p>
+PuPPy-organized <a class="reference external" href="https://www.meetup.com/PSPPython/events/229206293/">PyCon Startup Row Pitch Night</a>:</p>
 <blockquote>
 Techstars Seattle and PuPPy [Puget Sound Pro&shy;gram&shy;ming Python]
 presents PyCon Startup Row Pitch Night.
@@ -73,7 +73,7 @@ The time has come again for you, the members of PuPPy,
 to select Seattle’s startup rep&shy;re&shy;sen&shy;ta&shy;tive to travel
 to <a class="reference external" href="https://us.pycon.org/2016/">PyCon</a> in Portland to represent our Python community and startup scene
 at the annual conference produced by the Python Software Foundation.</blockquote>
-<p>We were pitching <a class="reference external" href="http://www.metabrite.com/">MetaBrite</a>
+<p>We were pitching <a class="reference external" href="https://www.metabrite.com/">MetaBrite</a>
 and our technology that captures receipts,
 yielding receipt in&shy;for&shy;ma&shy;tion to users and onsumer insights.
 We use Python ex&shy;ten&shy;sive&shy;ly—we've written 120,000 lines of Python code
@@ -83,6 +83,239 @@ for web services, web apps, machine learning, image processing, and <span>&#8230
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-31">2016-01-31</time>
+        <h1>
+            <a href="/blog/2016/01/31/URLsFromUnicodeStrings.html" rel="bookmark canonical">URLs from Unicode Strings</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>Some time ago,
+we made an ill-considered decision to use recipe names for image URLs,
+which simplified image management with our then-rudi&shy;men&shy;ta&shy;ry tools.
+For example, the recipe named
+<tt class="docutils literal">&quot;Twisted Pasta With Browned Butter, Sage, and Walnuts&quot;</tt>
+becomes a URL ending in
+<tt class="docutils literal">&quot;Twist&shy;ed%20&shy;Pas&shy;ta%20With&shy;%20Browned%20But&shy;ter%2C%20Sage%2C%20and%20Wal&shy;nuts.jpg&quot;</tt>.</p>
+<p>Life becomes more in&shy;ter&shy;est&shy;ing when you escape the confines of 7-bit ASCII and use Unicode.
+How should <tt class="docutils literal">u&quot;Sautéed crème fraîche Provençale&quot;</tt> be handled?
+The only reasonable thing to do is to first convert the Unicode string to UTF-8
+and then hex-encode those octets:
+<tt class="docutils literal">&quot;Saut%C3%A9ed%20cr%C3%A8me%20fra%C3%AEche%20Proven%C3%A7ale&quot;</tt>.</p>
+<p>That seems reasonable, but it was giving us in&shy;con&shy;sis&shy;tent results
+when the images were uploaded to an S3 bucket.
+When <span>&#8230;<a href="/blog/2016/01/31/URLsFromUnicodeStrings.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/unicode/" rel="tag">unicode</a>,
+                <a href="/tag/urls/" rel="tag">urls</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-22">2016-01-22</time>
+        <h1>
+            <a href="/blog/2016/01/22/PythonRecursiveGenerators.html" rel="bookmark canonical">Recursive Generators in Python 2 and 3</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+<p>Generators decouple iteration from the code
+that uses the results of the iteration.</p>
+<p class="attribution">&mdash;David Beazley, <a class="reference external" href="https://www.dabeaz.com/generators/">Generators</a></p>
+</blockquote>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>Python generators have a <a class="reference external" href="https://www.dabeaz.com/generators/">variety of uses</a>.
+One such is to lazily evaluate sequences.
+Another is for <a class="reference external" href="https://www.dabeaz.com/coroutines/">coroutines</a>.
+Yet another is to re&shy;cur&shy;sive&shy;ly traverse a tree or a graph,
+yielding an iterable sequence.</p>
+<p>Consider this simple tree of nodes:</p>
+<pre class="code python literal-block">
+<span class="n">node_tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+    <span class="s1">'a'</span><span class="p">,</span> <span class="p">[</span>
+        <span class="n">Node</span><span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="p">[</span>
+            <span class="n">Node</span><span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="p">[</span>
+                <span class="n">Node</span><span class="p">(</span><span class="s1">'g'</span><span class="p">)</span>
+ </pre><span>&#8230;<a href="/blog/2016/01/22/PythonRecursiveGenerators.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-04">2016-01-04</time>
+        <h1>
+            <a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" rel="bookmark canonical">Obfuscating Passwords in URLs in Python</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p><a class="reference external" href="https://www.ietf.org/rfc/rfc1738.txt">RFC 1738</a> allows passwords in URLs,
+in the form <tt class="docutils literal"><span class="pre">&lt;scheme&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;host&gt;:&lt;port&gt;/&lt;url-path&gt;</span></tt>.
+Although passwords are deprecated by <a class="reference external" href="https://www.ietf.org/rfc/rfc3986.txt">RFC 3986</a> and other newer RFCs,
+it's oc&shy;ca&shy;sion&shy;al&shy;ly useful.
+Several important packages in the Python world allow such URLs,
+including <a class="reference external" href="https://www.sqlalchemy.org/">SQLAlchemy</a> (<tt class="docutils literal"><span class="pre">'post&shy;gresql://scott:tiger&#64;localhost:5432/my&shy;data&shy;base'</span></tt>)
+and <a class="reference external" href="https://docs.celeryproject.org/en/stable/">Celery</a> (<tt class="docutils literal"><span class="pre">'amqp://guest:guest&#64;localhost:5672//'</span></tt>).
+It's also useful to be able to log such URLs without exposing the password.</p>
+<p>Python 2 has <a class="reference external" href="https://docs.python.org/2/library/urlparse.html#urlparse.urlparse">urlparse.urlparse</a>
+(known as <a class="reference external" href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.urlparse">urllib.parse.urlparse</a> in Python 3
+and <tt class="docutils literal">six.moves.url&shy;lib_&shy;parse.urlparse</tt> in the <a class="reference external" href="https://six.readthedocs.io/">Six</a> com&shy;pat&shy;i&shy;bil&shy;i&shy;ty library)
+to split a URL into six components,
+<em>scheme</em>, <em>netloc</em>, <em>path</em>, <em>parameters</em>, <em>query</em>, and <em>fragment</em>.
+The <em>netloc</em> cor&shy;re&shy;sponds to <tt class="docutils literal"><span class="pre">&lt;user&gt;:&lt;password&gt;&#64;&lt;host&gt;:&lt;port&gt;</span></tt>.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, neither Python 2 nor 3's <tt class="docutils literal">urlparse</tt>
+properly handle the <em>userinfo</em>
+(<em>username</em> + optional <em>password</em> in the <em>netloc</em>),
+as <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/urls/" rel="tag">urls</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-12-21">2015-12-21</time>
+        <h1>
+            <a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" rel="bookmark canonical">Including Data Files in Python Packages</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://www.metabrite.com/devblog/posts/including-data-files-in-python-packages/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>I spent some time today struggling with <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/">setuptools</a>,
+trying to make a Python source package
+not only include a data file,
+but also <em>install</em> that file.</p>
+<div class="section" id="building-the-installer">
+<h2>Building the installer</h2>
+<p>Consider the following source tree layout:</p>
+<pre class="literal-block">
+├── MANIFEST.in
+├── README.md
+├── my_stuff/
+│&nbsp;&nbsp; ├── bar.py
+│&nbsp;&nbsp; ├── foo.py
+│&nbsp;&nbsp; ├── __init__.py
+│&nbsp;&nbsp; └── quux.py
+├── models/
+│   └── long_ugly_name_20151221.json
+└── setup.py*
+</pre>
+<p>I wanted to create a Python source dis&shy;tri&shy;b&shy;u&shy;tion, <tt class="docutils literal"><span class="pre">some_&shy;pack&shy;age-N.N.N.tar.gz</span></tt>,
+which contains the code in the <tt class="docutils literal">my_stuff</tt> directory,
+as well as <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>,
+using <tt class="docutils literal">python setup.py sdist</tt>.</p>
+<p>It's not that hard to get <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>
+included in the tarball.
+Add an entry in <tt class="docutils literal">MANIFEST.in</tt>:</p>
+<pre class="literal-block">
+include models/*.json
+</pre>
+<p>Then be sure to set <tt class="docutils literal">in&shy;clude_&shy;pack&shy;age_&shy;da&shy;ta=True</tt>
+in the call to <tt class="docutils literal">setup()</tt>:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">setuptools</span> </pre><span>&#8230;<a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" class="continue">continue</a>.</span></div>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2015-11-15">2015-11-15</time>
+        <h1>
+            <a href="/blog/2015/11/15/PairingGit.html" rel="bookmark canonical">Setting Up a Pairing Workstation for Chrome and Git</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.globalnerdy.com/2008/08/28/pair-programming-chairs/"></a>
+<p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>At MetaBrite, we believe in the power of <a class="reference external" href="http://dsouthard.github.io/CSCI5828_PairProgramming/">pair pro&shy;gram&shy;ming</a>.
+We find that pairing helps for col&shy;lab&shy;o&shy;ra&shy;tion on difficult tasks,
+for exploring new areas, for knowledge transfer,
+and for spurring each other to better solutions.
+I find it to be fun, though it can also be exhausting.
+It's not ideal for all our work—there's no value in tying up two developers on some rote task that both know well.</p>
+<p>Last week, I rebuilt our primary pairing work&shy;sta&shy;tion.
+In its previous in&shy;car&shy;na&shy;tion, we had an account for each developer.
+Each of us had set up some personal pref&shy;er&shy;ences in our own <span>&#8230;<a href="/blog/2015/11/15/PairingGit.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/pair-programming/" rel="tag">pair programming</a>,
+                <a href="/tag/git/" rel="tag">git</a>,
+                <a href="/tag/agile/" rel="tag">agile</a>
                     and
                     
                 <a href="/tag/metabrite/" rel="tag">metabrite</a>

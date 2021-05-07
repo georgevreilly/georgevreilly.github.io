@@ -169,6 +169,54 @@ Then we postin&shy;cre&shy;ment <span>&#8230;<a href="/blog/2016/01/05/Decrement
     <header>
         <time datetime="2016-01-04">2016-01-04</time>
         <h1>
+            <a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" rel="bookmark canonical">Obfuscating Passwords in URLs in Python</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p><a class="reference external" href="https://www.ietf.org/rfc/rfc1738.txt"><span class="caps">RFC</span> 1738</a> allows passwords in URLs,
+in the form <tt class="docutils literal"><span class="pre">&lt;scheme&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;host&gt;:&lt;port&gt;/&lt;url-path&gt;</span></tt>.
+Although passwords are deprecated by <a class="reference external" href="https://www.ietf.org/rfc/rfc3986.txt"><span class="caps">RFC</span> 3986</a> and other newer RFCs,
+it&#8217;s oc&shy;ca&shy;sion&shy;al&shy;ly useful.
+Several important packages in the Python world allow such URLs,
+including <a class="reference external" href="https://www.sqlalchemy.org/">SQLAlchemy</a> (<tt class="docutils literal"><span class="pre">'post&shy;gresql://scott:tiger&#64;localhost:5432/my&shy;data&shy;base'</span></tt>)
+and <a class="reference external" href="https://docs.celeryproject.org/en/stable/">Celery</a> (<tt class="docutils literal"><span class="pre">'amqp://guest:guest&#64;localhost:5672//'</span></tt>).
+It&#8217;s also useful to be able to log such URLs without exposing the&nbsp;password.</p>
+<p>Python 2 has <a class="reference external" href="https://docs.python.org/2/library/urlparse.html#urlparse.urlparse">urlparse.urlparse</a>
+(known as <a class="reference external" href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.urlparse">urllib.parse.urlparse</a> in Python 3
+and <tt class="docutils literal">six.moves.url&shy;lib_&shy;parse.urlparse</tt> in the <a class="reference external" href="https://six.readthedocs.io/">Six</a> com&shy;pat&shy;i&shy;bil&shy;i&shy;ty library)
+to split a <span class="caps">URL</span> into six components,
+<em>scheme</em>, <em>netloc</em>, <em>path</em>, <em>parameters</em>, <em>query</em>, and <em>fragment</em>.
+The <em>netloc</em> cor&shy;re&shy;sponds to <tt class="docutils literal"><span class="pre">&lt;user&gt;:&lt;password&gt;&#64;&lt;host&gt;:&lt;port&gt;</span></tt>.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, neither Python 2 nor 3&#8217;s <tt class="docutils literal">urlparse</tt>
+properly handle the <em>userinfo</em>
+(<em>username</em> + optional <em>password</em> in the <em>netloc</em>),
+as they <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/04/PythonObfuscateUrlPassword.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/urls/" rel="tag">urls</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-04">2016-01-04</time>
+        <h1>
             <a href="/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html" rel="bookmark canonical">Obfuscating Passwords in URLs in Python</a>
         </h1>
     </header>
@@ -396,37 +444,6 @@ rising to the daunting challenges
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-29">2015-12-29</time>
-        <h1>
-            <a href="/blog/2015/12/29/FreeEbooksFromSpringer.html" rel="bookmark canonical">Free ebooks from Springer</a>
-        </h1>
-    </header>
-    <p>Via <a class="reference external" href="https://news.ycombinator.com/item?id=10810271">Hacker News</a>,
-&quot;All Springer Textbooks More Than 10 Years Old Available for Free Legal&nbsp;Download&quot;.</p>
-<p>This includes books from Apress
-as well as a ton of those im&shy;pen&shy;e&shy;tra&shy;ble gray-and-red
-Lecture Notes in Computer Science&nbsp;books.</p>
-<p><strong>Update 2015-12-30</strong>: No longer available.
-Springer aren&#8217;t commenting. Presumably a&nbsp;mistake.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/29/FreeEbooksFromSpringer.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>
                 
             </p>
         

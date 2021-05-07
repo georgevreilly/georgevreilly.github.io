@@ -10,9 +10,10 @@
   <link href="/" rel="home start" />
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
-    <meta name="description" content="New post at the MetaBrite Dev Blog:
-`Including Dat..." />
-    <meta name="keywords" content="python" />
+    <meta name="description" content="\ 
+
+    [Previously published at the now defunct `..." />
+    <meta name="keywords" content="python, metabrite" />
 </head>
 <body>
   <header>
@@ -36,14 +37,99 @@
             <a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" rel="bookmark canonical">Including Data Files in Python Packages</a>
         </h1>
     </header>
-    <p>New post at the MetaBrite Dev Blog:
-<a class="reference external" href="http://www.metabrite.com/devblog/posts/including-data-files-in-python-packages/">Including Data Files in Python&nbsp;Packages</a></p>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://www.metabrite.com/devblog/posts/including-data-files-in-python-packages/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>I spent some time today struggling with <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/">setuptools</a>,
+trying to make a Python source package
+not only include a data file,
+but also <em>install</em> that&nbsp;file.</p>
+<div class="section" id="building-the-installer">
+<h2>Building the&nbsp;installer</h2>
+<p>Consider the following source tree&nbsp;layout:</p>
+<pre class="literal-block">
+├── MANIFEST.in
+├── README.md
+├── my_stuff/
+│&nbsp;&nbsp; ├── bar.py
+│&nbsp;&nbsp; ├── foo.py
+│&nbsp;&nbsp; ├── __init__.py
+│&nbsp;&nbsp; └── quux.py
+├── models/
+│   └── long_ugly_name_20151221.json
+└── setup.py*
+</pre>
+<p>I wanted to create a Python source dis&shy;tri&shy;b&shy;u&shy;tion, <tt class="docutils literal"><span class="pre">some_&shy;pack&shy;age-<span class="caps">N.N.N.</span>tar.gz</span></tt>,
+which contains the code in the <tt class="docutils literal">my_stuff</tt> directory,
+as well as <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>,
+using <tt class="docutils literal">python setup.py sdist</tt>.</p>
+<p>It&#8217;s not that hard to get <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>
+included in the tarball.
+Add an entry in <tt class="docutils literal"><span class="caps">MANIFEST</span>.in</tt>:</p>
+<pre class="literal-block">
+include models/*.json
+</pre>
+<p>Then be sure to set <tt class="docutils literal">in&shy;clude_&shy;pack&shy;age_&shy;da&shy;ta=True</tt>
+in the call to <tt class="docutils literal">setup()</tt>:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">packages</span><span class="o">=</span><span class="n">find_packages</span><span class="p">(),</span>
+    <span class="n">include_package_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="c1"># ...</span>
+<span class="p">)</span>
+</pre>
+<p>Or, if the <span class="caps">JSON</span> file is under source control,
+you can add <tt class="docutils literal"><span class="pre">pack&shy;age_&shy;da&shy;ta={'models':</span> <span class="pre">['models/*.json']}</span></tt>
+to the <tt class="docutils literal">setup()</tt> call.</p>
+<p>However, neither is sufficient to have the <span class="caps">JSON</span> file <em>installed</em>
+when you run <tt class="docutils literal">pip install <span class="pre">some_&shy;pack&shy;age-<span class="caps">N.N.N.</span>tar.gz</span></tt>.
+The trick is to convince setuptools that <tt class="docutils literal">models</tt> is actually a <em>module</em>
+by placing an empty <tt class="docutils literal">__init__.py</tt> in the <tt class="docutils literal">models</tt> source&nbsp;directory:</p>
+<pre class="literal-block">
+models/
+├── __init__.py
+└── long_ugly_name_20151221.json
+</pre>
+<p>More at <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/userguide/datafiles.html">setuptools: Including Data Files</a>.</p>
+</div>
+<div class="section" id="using-the-json-file-at-runtime">
+<h2>Using the <span class="caps">JSON</span> file at&nbsp;runtime</h2>
+<p>As you might guess, the rest of the package doesn&#8217;t actually know
+the actual name of the <span class="caps">JSON</span> file.
+So how do we discover the name at runtime so that we can load it?
+We use <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/pkg_resources.html">pkg_re&shy;sources</a>:</p>
+<pre class="code python literal-block">
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pkg_resources</span>
+
+<span class="n">json_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_listdir</span><span class="p">(</span><span class="s1">'models'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+              <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.json'</span><span class="p">)]</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">resource_stream</span><span class="p">(</span><span class="s1">'models'</span><span class="p">,</span> <span class="n">json_files</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</pre>
+</div>
+<div class="section" id="package-data-versus-data-files">
+<h2>pack&shy;age_&shy;da&shy;ta versus&nbsp;data_files</h2>
+<p>Note: there are two similarly named arguments to <tt class="docutils literal">setup()</tt> with distinct semantics,
+<tt class="docutils literal">pack&shy;age_&shy;da&shy;ta</tt> and <tt class="docutils literal">data_files</tt>.</p>
+<p>Use <tt class="docutils literal">pack&shy;age_&shy;da&shy;ta</tt> to install files into the package;
+use <tt class="docutils literal">data_files</tt> to <a class="reference external" href="https://packaging.python.org/guides/distributing-packages-using-setuptools/#data-files">place files outside the package</a>.</p>
+<p>This fragment may help to set <tt class="docutils literal">data_files</tt>:</p>
+<pre class="code python literal-block">
+<span class="n">data_files</span><span class="o">=</span><span class="p">[(</span><span class="n">d</span><span class="p">,</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">d</span><span class="p">,</span> <span class="n">folders</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">datadir</span><span class="p">)]</span>
+</pre>
+</div>
 
     <footer>
         
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
                 
             </p>
         
