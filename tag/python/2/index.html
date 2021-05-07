@@ -297,14 +297,29 @@ Then you can find the plugin subclass using <a class="reference external" href="
             <a href="/blog/2016/02/16/SortingPythonDictionariesByValue.html" rel="bookmark canonical">Sorting Python Dictionaries by Value</a>
         </h1>
     </header>
-    <p>New <a class="reference external" href="http://www.metabrite.com/devblog/posts/sorting-python-dictionaries-by-value/">post</a>
-at the MetaBrite Dev Blog.</p>
-
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>I needed to sort a Python dictionary by <em>value</em> today, rather than by <em>key</em>.
+I found it confusing, so I'll share what I learned.</p>
+<p>Assume the following dictionary, where each value is a tuple of (ID, score).
+How do we sort by score; i.e., the second item in the value tuple?
+(For the purposes of this discussion, ignore the meaning of the dic&shy;tio&shy;nary's key.)</p>
+<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="n">some_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="n">b</span><span class="o">=</span><span class="p">(</span><span class="mi">372</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">e</span><span class="o">=</span><span class="p">(</span><span class="mi">456</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">),</span> <span class="n">d</span><span class="o">=</span><span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">some_dict</span>
+<span class="p">{</span><span class="s1">'a'</span><span class="p">:</span> <span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="s1">'c'</span><span class="p">:</span> <span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="s1">'b'</span><span class="p">:</span> <span class="p">(</span><span class="mi">372</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="s1">'e'</span><span class="p">:</span> <span class="p">(</span><span class="mi">456</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">),</span> <span class="s1">'d'</span><span class="p">:</span> <span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">)}</span>
+</pre>
+<p>Python dic&shy;tio&shy;nar&shy;ies are inherently unsorted,
+unless you <span>&#8230;<a href="/blog/2016/02/16/SortingPythonDictionariesByValue.html" class="continue">continue</a>.</span></p>
     <footer>
         
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
                 
             </p>
         
