@@ -28,6 +28,56 @@
     
         <article>
     <header>
+        <time datetime="2015-12-05">2015-12-05</time>
+        <h1>
+            <a href="/blog/2015/12/05/python-print-formatting.html" rel="bookmark canonical">Python Print Formatting</a>
+        </h1>
+    </header>
+    <p>On Stack&shy;Over&shy;flow, someone wanted to
+<a class="reference external" href="http://stackoverflow.com/questions/34109838/for-while-loops-to-make-triangles">print triangles in Python</a>
+in an M-shape.
+Various clumsy solutions were&nbsp;offered.</p>
+<p>Here&#8217;s mine which uses the left- and right-jus&shy;ti&shy;fi&shy;ca&shy;tion features of
+<a class="reference external" href="https://docs.python.org/2/library/string.html#formatstrings">str.format</a>.</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">&quot;{0}+++{0}&quot;.format('Hello!')</span></tt> produces two copies of the zeroth argument to <tt class="docutils literal">format</tt>
+(here <tt class="docutils literal">'Hello!'</tt>), separated by three plusses: <tt class="docutils literal"><span class="pre">Hello!+++Hello!</span></tt>.</li>
+<li><tt class="docutils literal"><span class="pre">&quot;{:&lt;4}&quot;.format('x')</span></tt> left-justifies <tt class="docutils literal">'x'</tt> in a 4-character field; i.e., <tt class="docutils literal">'x&nbsp;&nbsp; '</tt>.</li>
+<li><tt class="docutils literal"><span class="pre">&quot;{:&gt;4}&quot;.format('x')</span></tt> right-justifies <tt class="docutils literal">'x'</tt> in a 4-character field; i.e., <tt class="docutils literal">'&nbsp;&nbsp; x'</tt>.</li>
+<li><tt class="docutils literal"><span class="pre">&quot;{:&gt;{}}&quot;.format('x',</span> width)</tt> right-justifies <tt class="docutils literal">'x'</tt> in a <tt class="docutils literal">width</tt>-character&nbsp;field.</li>
+<li><tt class="docutils literal">'ab' * 4</tt> yields 4 copies of <tt class="docutils literal">'ab'</tt>; i.e., <tt class="docutils literal">'abababab'</tt>.</li>
+</ul>
+<p>Putting them&nbsp;together:</p>
+<pre class="literal-block">
+&gt;&gt;&gt; WIDTH = 4
+&gt;&gt;&gt;
+&gt;&gt;&gt; for a in range(1, WIDTH+1):
+...     print(&quot;{0:&lt;{1}}{0:&gt;{1}}&quot;.format('*' * a, WIDTH))
+...
+*      *
+**    **
+***  ***
+********
+</pre>
+<p>Handy references: <span>&#8230;<a href="/blog/2015/12/05/python-print-formatting.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/05/python-print-formatting.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-12-04">2015-12-04</time>
         <h1>
             <a href="/blog/2015/12/04/ReviewStarFall.html" rel="bookmark canonical">Review: Star Fall</a>
@@ -412,50 +462,6 @@ you can use the desk, and the remaining clutter is stacked into <span>&#8230;<a 
         
             <p>tagged as
                 <a href="/tag/personal/" rel="tag">personal</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-06-07">2015-06-07</time>
-        <h1>
-            <a href="/blog/2015/06/07/ReviewGlimmering.html" rel="bookmark canonical">Review: Glimmering</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/0061012165/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Glimmering</div>
-<div class="line">Author: Elizabeth Hand</div>
-<div class="line">Rating: ★ ★ ★</div>
-<div class="line">Publisher: Harper Prism</div>
-<div class="line">Copyright: 1997</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0061012165/?tag=georgvreill-20">0061012165</a></div>
-<div class="line">Pages: 537</div>
-<div class="line">Keywords: fiction</div>
-<div class="line">Reading period: 18–26 May, 2015</div>
-</div>
-<p>It&#8217;s 1999, the &quot;Glimmering&quot; is destroying the ozone layer,
-the seas are rising, and the world is falling&nbsp;apart.</p>
-<p>I thought this was well written and the two main characters were well-drawn,
-but I didn&#8217;t enjoy this&nbsp;book.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/06/07/ReviewGlimmering.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/fiction/" rel="tag">fiction</a>
                 
             </p>
         

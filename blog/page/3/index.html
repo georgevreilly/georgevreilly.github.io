@@ -28,6 +28,43 @@
     
         <article>
     <header>
+        <time datetime="2017-02-18">2017-02-18</time>
+        <h1>
+            <a href="/blog/2017/02/18/HTML5TablesRequireTrInsideThead.html" rel="bookmark canonical">HTML5 tables require tr inside thead</a>
+        </h1>
+    </header>
+    <p>When I learned <span class="caps">HTML</span> tables back in the 90s,
+at some point I discovered the <tt class="docutils literal">&lt;thead&gt;</tt> element
+for grouping the <tt class="docutils literal">&lt;th&gt;</tt> column headers.
+What I missed was there should be a <tt class="docutils literal">&lt;tr&gt;</tt> element between the two.
+In other words, a well-formed <span class="caps">HTML</span> table with a header looks like&nbsp;this:</p>
+<pre class="code html literal-block">
+<span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">thead</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Value<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Date<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+ </pre><span>&#8230;<a href="/blog/2017/02/18/HTML5TablesRequireTrInsideThead.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/18/HTML5TablesRequireTrInsideThead.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/html/" rel="tag">html</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2017-02-17">2017-02-17</time>
         <h1>
             <a href="/blog/2017/02/17/ReviewTheItalianJob.html" rel="bookmark canonical">Review: The Italian Job</a>
@@ -424,50 +461,6 @@ and hundreds of millions of <span>&#8230;<a href="/blog/2017/02/06/TrumpMediaSup
         
             <p>tagged as
                 <a href="/tag/politics/" rel="tag">politics</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2017-02-05">2017-02-05</time>
-        <h1>
-            <a href="/blog/2017/02/05/Jenkins02-EC2Slaves.html" rel="bookmark canonical">Jenkins #2: EC2 Slaves</a>
-        </h1>
-    </header>
-    <p></p>
-<blockquote>
-[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
-<p>The “slave” ter&shy;mi&shy;nol&shy;o&shy;gy is un&shy;for&shy;tu&shy;nate,
-but the utility of running a Jenkins build on a node that you&#8217;ve configured
-at Amazon&#8217;s <span class="caps">EC2</span> is&nbsp;undeniable.</p>
-<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#2 in a series on Jenkins&nbsp;Pipelines</a></p>
-<p>We needed to install system packages on our build nodes,
-such as Docker or Postgres.
-For obvious reasons,
-Cloud&shy;Bees—our Jenkins hosting provider—&shy;won&#8217;t let you do that on their systems.
-You must provide your own build nodes,
-where you are free to install whatever you&nbsp;like.</p>
-<p>We already use Amazon Web Services,
-so we chose to configure our CloudBees account with <span class="caps">EC2</span> slaves.
-We had a long and fruitless detour through <a class="reference external" href="https://go.cloudbees.com/docs/cloudbees-documentation/dev-at-cloud/index.html#_on_premise_executors">On-Premise Executors</a>,
-which I will not detail&nbsp;here.</p>
-<p>Ultimately, <span>&#8230;<a href="/blog/2017/02/05/Jenkins02-EC2Slaves.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/05/Jenkins02-EC2Slaves.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/jenkins/" rel="tag">jenkins</a>
-                    and
-                    
-                <a href="/tag/metabrite/" rel="tag">metabrite</a>
                 
             </p>
         
