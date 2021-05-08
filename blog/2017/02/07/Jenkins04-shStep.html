@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Jenkins #4: The sh Step</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content="\ 
+
+    [Previously published at the now defunct `..." />
+    <meta name="keywords" content="jenkins, metabrite" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2017-02-07">2017-02-07</time>
+        <h1>
+            <a href="/blog/2017/02/07/Jenkins04-shStep.html" rel="bookmark canonical">Jenkins #4: The sh Step</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>If there isn&#8217;t a built-in Pipeline step to accomplish something,
+you&#8217;ll almost certainly use the <a class="reference external" href="https://jenkins.io/doc/pipeline/steps/workflow-durable-task-step/#code-sh-code-shell-script">sh step</a>.</p>
+<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#4 in a series on Jenkins&nbsp;Pipelines</a></p>
+<p>The <tt class="docutils literal">sh</tt> step runs the Bourne shell—<tt class="docutils literal">/bin/sh</tt>, <em>not</em> Bash aka the Bourne-again shell—with the <tt class="docutils literal"><span class="pre">-x</span></tt> (<tt class="docutils literal">xtrace</tt>) and <tt class="docutils literal"><span class="pre">-e</span></tt> (<tt class="docutils literal">errexit</tt>)&nbsp;options.</p>
+<p>The <tt class="docutils literal">xtrace</tt> option means that every step in the <tt class="docutils literal">sh</tt> block is echoed to the Jenkins log,
+after commands have been expanded by the shell.
+This is useful but you could echo the contents of passwords or secret keys in&shy;ad&shy;ver&shy;tent&shy;ly.
+Use <tt class="docutils literal">set +x</tt> in your <tt class="docutils literal">sh</tt> block to control&nbsp;this.</p>
+<p>The <tt class="docutils literal">errexit</tt> option means that the script will abort on the first error.
+You can <a class="reference external" href="https://www.davidpashley.com/articles/writing-robust-shell-scripts/">control</a> this by testing <tt class="docutils literal">if ! command; then …</tt>
+or using <tt class="docutils literal">command || true</tt>.</p>
+<p>You can override the choice of shell by providing a shebang on the first&nbsp;line:</p>
+<pre class="code groovy literal-block">
+<span class="n">sh</span> <span class="s2">&quot;&quot;&quot;#!/usr/bin/env python
+
+    print([x**2 for x in range(5)])
+&quot;&quot;&quot;</span>
+</pre>
+<p>Be sure to put the shebang on the <em>first</em> line, im&shy;me&shy;di&shy;ate&shy;ly after the opening&nbsp;quote.</p>
+<p>Groovy supports <a class="reference external" href="https://groovy-lang.org/syntax.html#all-strings">multiple syntaxes for strings</a>:
+single-quote (one line, no in&shy;ter&shy;po&shy;la&shy;tion),
+double-quote (one line, <a class="reference external" href="https://groovy-lang.org/syntax.html#_string_interpolation">in&shy;ter&shy;po&shy;la&shy;tion</a> aka GStrings),
+triple single-quote (multiline, no in&shy;ter&shy;po&shy;la&shy;tion), and
+triple double-quote (multiline,&nbsp;in&shy;ter&shy;po&shy;la&shy;tion).</p>
+<p>GString in&shy;ter&shy;po&shy;la&shy;tion is very, very useful
+but you must be careful to <em>escape</em> dollar signs and back&shy;slash&shy;es meant for the&nbsp;shell.</p>
+<pre class="code groovy literal-block">
+<span class="n">sh</span> <span class="s2">&quot;&quot;&quot;
+    sudo docker run --rm --env-file \$<span class="caps">TMPDIR</span>/envfile \\
+        --volume &quot;\$(pwd)/${results_dir}:/webapp/build_output/test&quot; \\
+        &quot;$image_name&quot; ${command}
+&quot;&quot;&quot;</span>
+</pre>
+<p>For example, <tt class="docutils literal">re&shy;sult&shy;s_dir</tt>, <tt class="docutils literal">image_name</tt>, and <tt class="docutils literal">command</tt>
+are all Groovy string variables,
+while <tt class="docutils literal">\$<span class="caps">TMPDIR</span></tt> is an (escaped) shell en&shy;vi&shy;ron&shy;ment variable,
+<tt class="docutils literal"><span class="pre">\$(pwd)</span></tt> is an (escaped) example of shell <a class="reference external" href="https://tldp.org/LDP/abs/html/commandsub.html">command sub&shy;sti&shy;tu&shy;tion</a>,
+and the trailing <tt class="docutils literal">\\</tt>s
+turn into single <tt class="docutils literal">\</tt>s (line con&shy;tin&shy;u&shy;a&shy;tion markers)
+when they are seen by the&nbsp;shell.</p>
+<p>I&#8217;ve oc&shy;ca&shy;sion&shy;al&shy;ly found it helpful to put <tt class="docutils literal">cat <span class="pre">-n</span> \$0</tt> into some <tt class="docutils literal">sh</tt> blocks.
+Pipeline creates a temporary file holding the contents of the <tt class="docutils literal">sh</tt> block
+after GString in&shy;ter&shy;po&shy;la&shy;tion.
+When executed, <tt class="docutils literal">$0</tt> is the name of the temporary script file.
+The <tt class="docutils literal"><span class="pre">-n</span></tt> argument to <tt class="docutils literal">cat</tt> precedes each line with its line number.
+In other words, this shows the <em>actual</em> script with line numbers.
+This technique helped me debug a problem
+where an in&shy;ter&shy;po&shy;lat&shy;ed string contained an unexpected trailing newline,
+which split the Groovy string across two shell lines.
+I fixed that problem with <tt class="docutils literal">trim()</tt>.</p>
+<p>If you need to capture the <em>output</em> of a <tt class="docutils literal">sh</tt> block&#8217;s execution, use <tt class="docutils literal">re&shy;turn&shy;Std&shy;out</tt>:</p>
+<pre class="code groovy literal-block">
+<span class="n">String</span> <span class="n">commit</span> <span class="o">=</span> <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s1">'git rev-parse <span class="caps">HEAD</span>'</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">()</span>
+</pre>
+<p>Typically, you will want to <tt class="docutils literal">trim()</tt> (single line)
+or <tt class="docutils literal">split()</tt> (multiline) the&nbsp;result.</p>
+<p>Finally, if you have more than a few lines in a <tt class="docutils literal">sh</tt> block,
+consider putting them into a separate script,
+which can be in&shy;de&shy;pen&shy;dent&shy;ly tested and kept in source&nbsp;code.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/jenkins/" rel="tag">jenkins</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "https://www.georgevreilly.com/blog/2017/02/07/Jenkins04-shStep.html";
+            var disqus_url = "https://www.georgevreilly.com/blog/2017/02/07/Jenkins04-shStep.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="https://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+
+
+    
+    
+        <a href="/blog/2017/02/06/Jenkins03-GitHubIntegration.html" class="page floatright">
+        Jenkins #3: GitHub Integration &raquo;
+        </a>
+    
+    
+        <a href="/blog/2017/02/07/OldPresentations.html" class="page floatleft">
+        &laquo; Old Presentations
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

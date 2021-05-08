@@ -10,8 +10,9 @@
   <link href="/" rel="home start" />
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
-    <meta name="description" content="I wrote a MetaBrite DevBlog post about attending
-`..." />
+    <meta name="description" content="\ 
+
+    [Previously published at the now defunct `..." />
     <meta name="keywords" content="docker, metabrite" />
 </head>
 <body>
@@ -36,9 +37,137 @@
             <a href="/blog/2016/06/21/DockerCon2016.html" rel="bookmark canonical">DockerCon 2016</a>
         </h1>
     </header>
-    <p>I wrote a MetaBrite DevBlog post about attending
-<a class="reference external" href="http://www.metabrite.com/devblog/posts/dockercon-2016/">DockerCon 2016</a>
-over the last two&nbsp;days.</p>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>I attended <a class="reference external" href="http://web.archive.org/web/20161121204237/http://2016.dockercon.com/">DockerCon 2016</a> in Seattle
+over the last two days and I learned a lot.
+It was a well-run conference with an en&shy;thu&shy;si&shy;as&shy;tic&nbsp;audience.</p>
+<p>I&#8217;m astounded at the growth of Docker.
+Three-and-a-quarter years ago,
+Docker was revealed to the public for the first time,
+in a <a class="reference external" href="https://www.youtube.com/watch?v=wW9CAH9nSLs">five-minute lightning talk</a> at PyCon 2013.
+In January 2016, Docker Hub had received <a class="reference external" href="https://blog.docker.com/2016/02/docker-hub-two-billion-pulls/">1.6 billion image pulls</a>;
+by this month, that number had jumped to over 4 billion pulls!
+DockerCon had over 4,000 attendees and nearly 100 exhibitors,
+who clearly believe there&#8217;s a multi-billion dollar market for containers.
+DataDog concurs, in a report on <a class="reference external" href="https://www.datadoghq.com/docker-adoption/">Docker adoption</a>.</p>
+<div class="section" id="the-sad-state-of-clustering">
+<h2>The Sad State of&nbsp;Clustering</h2>
+<p>I&#8217;ve become pretty good at building Docker images,
+thanks to my work on <a class="reference external" href="https://github.com/xbrite/flyingcloud">Fly&shy;ing&shy;Cloud</a>,
+a tool that MetaBrite open-sourced earlier this year.
+Fly&shy;ing&shy;Cloud helps you build Docker images using <a class="reference external" href="https://saltstack.com/">SaltStack</a>
+and makes it easy to run tests inside the&nbsp;container.</p>
+<p>I&#8217;m generally happy with running containers
+but I&#8217;ve had less luck with deploying them in clusters.
+In fact, I spent last week fighting with de&shy;ploy&shy;ments
+of various kinds of clusters on <span class="caps">AWS</span>:
+<a class="reference external" href="https://aws.amazon.com/ecs/"><span class="caps">ECS</span></a>, <a class="reference external" href="https://kubernetes.io/">Kubernetes</a>, and <a class="reference external" href="https://aws.amazon.com/elasticbeanstalk/">Elastic Beanstalk</a>.
+Everything seems very&nbsp;immature.</p>
+<p>I like the theory of Ku&shy;ber&shy;netes;
+in practice, it&#8217;s been very painful for us on <span class="caps">AWS</span>.
+We have a couple of apps that we&#8217;ve deployed as Kubernetes clusters,
+using a homegrown script that uses <a class="reference external" href="https://kubernetes.io/docs/user-guide/kubectl-overview/">kubectl</a>, <a class="reference external" href="https://coreos.com/kubernetes/docs/latest/kubernetes-on-aws.html">kube-aws</a>, and <a class="reference external" href="https://github.com/boto/boto3">boto3</a>
+to spin up a new cluster, provision load balancers, and so on.
+Both apps required heroic effort to bootstrap into working Kubernetes clusters.
+Worse, our deployment script has grown in&shy;creas&shy;ing&shy;ly tem&shy;pera&shy;men&shy;tal,
+failing to detect if the newly deployed cluster is ready.
+I talked to someone from the Kubernetes team yesterday,
+who promised some relief in a few months when 1.4 ships.
+He mentioned <a class="reference external" href="https://www.terraform.io/">Terraform</a> in&nbsp;passing.</p>
+<p>I tried setting up a new app on <span class="caps">ECS</span>,
+but eventually I gave up.
+The very first time you create an <span class="caps">ECS</span> cluster,
+it configures 15 obscure pieces of <span class="caps">AWS</span> in&shy;fra&shy;struc&shy;ture.
+If you create another cluster,
+you have to jump through a series of non-obvious hoops
+to correctly configure your <span class="caps">EC2</span> instances.
+I have not discovered a reliable way to update the cluster with a new im&shy;age—&shy;some&shy;times the new container runs, sometimes not—much less a zero-downtime&nbsp;update.</p>
+<p>I fell back to using Elastic Beanstalk,
+which is working fine for a Single-Container Docker app.
+Multi-Container Docker utterly failed—try&shy;ing to start up&nbsp;<span class="caps">ECS</span>.</p>
+</div>
+<div class="section" id="keynotes">
+<h2>Keynotes</h2>
+<p>Therefore, I was very happy at yesterday&#8217;s keynote to hear all the an&shy;nounce&shy;ments
+about Or&shy;ches&shy;tra&shy;tion, Services, and Docker Swarm for <span class="caps">AWS</span>:
+<a class="reference external" href="https://blog.docker.com/2016/06/docker-1-12-built-in-orchestration/">Docker 1.12: Now with Built-in Or&shy;ches&shy;tra&shy;tion!</a>,
+<a class="reference external" href="https://blog.docker.com/2016/06/azure-aws-beta/">Docker for <span class="caps">AWS</span> and Azure Beta</a>,
+<a class="reference external" href="https://blog.docker.com/2016/06/docker-app-bundle/">Dis&shy;trib&shy;uted Ap&shy;pli&shy;ca&shy;tion Bundles</a>,
+<a class="reference external" href="https://blog.hypriot.com/post/more-microservice-bliss-with-docker-1-12/">More Mi&shy;croser&shy;vices Bliss with Docker 1.12 and Swarm only</a>
+<a class="reference external" href="https://blog.codeship.com/running-services-docker-1-12/">Running Services in Docker 1.12</a>, and
+<a class="reference external" href="https://ordina-jworks.github.io/conference/2016/06/20/whats-new-in-docker-112.html">DockerCon 2016 - What is new in Docker 1.12</a>.
+The demos were very slick and very compelling.
+Docker for <span class="caps">AWS</span> has just entered private beta.
+As a DockerCon attendee, I should receive an invitation soon.
+Although it has been out for some time,
+I have yet to try <a class="reference external" href="https://docs.docker.com/compose/">Docker Compose</a>.
+It looks like it simplifies multi-container&nbsp;apps.</p>
+<p>I was also happy to hear about the <a class="reference external" href="https://blog.docker.com/2016/06/docker-mac-windows-public-beta/">Docker for Mac and Windows Public Beta</a>.
+I&#8217;ve been a satisfied user of Docker for Mac for a couple of months,
+and now it&#8217;s available to everyone.
+I saw several demos where people were <a class="reference external" href="https://hharnisc.github.io/2016/06/16/developing-inside-docker-containers-with-osx-2016.html">Developing Inside Docker Containers with <span class="caps">OS</span> X</a>.
+They were able to edit and debug in <a class="reference external" href="https://blog.ctaggart.com/2016/05/visual-studio-code-served-from-docker.html">Visual Studio Code</a>
+with the source code shared between a Mac host and a Docker container.
+I should rethink some of my de&shy;vel&shy;op&shy;ment workflow
+and stop installing so much in my host operating&nbsp;system.</p>
+<p>Tuesday&#8217;s Keynote was about <a class="reference external" href="https://blog.codeship.com/docker-enterprise/">De&shy;moc&shy;ra&shy;tiz&shy;ing Docker for Enterprise</a>.
+Docker are touting <em>In&shy;cre&shy;men&shy;tal Revolution</em>.
+Certainly, containers are something that even big stodgy <span class="caps">IT</span> shops can no longer&nbsp;ignore.</p>
+</div>
+<div class="section" id="talks">
+<h2>Talks</h2>
+<p>All the talks that I attended were good.
+They were all recorded and videos should be available&nbsp;later.</p>
+<p><a class="reference external" href="https://dockercon2016.sched.org/event/70Ni/the-golden-ticket-docker-and-high-security-microservices">High Security Mi&shy;croser&shy;vices</a> dove deep into hitherto obscure areas.
+More at <a class="reference external" href="https://medium.com/@justin.schuh/stop-buying-bad-security-prescriptions-f18e4f61ba9e#.dls917gbl">Stop Buying Bad Security Pre&shy;scrip&shy;tions</a>
+and <a class="reference external" href="https://www.nccgroup.trust/us/about-us/newsroom-and-events/blog/2016/april/understanding-and-hardening-linux-containers/">Un&shy;der&shy;stand&shy;ing and Hardening Linux Containers</a>.</p>
+<p><a class="reference external" href="https://dockercon2016.sched.org/event/70OP/microservices-events-docker-a-perfect-trio">Mi&shy;croser&shy;vices + Events + Docker = A Perfect Trio</a>
+made an in&shy;ter&shy;est&shy;ing case for <a class="reference external" href="https://eventuate.io/whyeventdriven.html">Event-driven mi&shy;croser&shy;vices</a>.
+More at <a class="reference external" href="https://learnmicroservices.io">Learn&shy;Mi&shy;croser&shy;vices.io</a>
+and <a class="reference external" href="https://ordina-jworks.github.io/domain-driven%20design/2016/02/02/A-Decade-Of-DDD-CQRS-And-Event-Sourcing.html">A decade of <span class="caps">DDD</span>, <span class="caps">CQRS</span> and Event Sourcing</a>.</p>
+<p><a class="reference external" href="https://dockercon2016.sched.org/event/70Ng/the-dockerfile-explosion-and-the-need-for-higher-lehellip">The Dockerfile Explosion and the Need for Higher Level Tools</a>
+was very close to my heart, as I had written such a tool,
+the afore-mentioned <a class="reference external" href="https://github.com/xbrite/flyingcloud">Fly&shy;ing&shy;Cloud</a>.
+Dock&shy;er&shy;files are not good for building complex images,
+as you tend to end up with a mess of imperative Bash scripts.
+The speaker covered several tools that I hadn&#8217;t previously known about,
+such as <a class="reference external" href="https://github.com/jlhawn/dockramp">Dockramp</a> and <a class="reference external" href="https://tech.grammarly.com/blog/posts/Making-Docker-Rock-at-Grammarly.html">Rocker</a>.
+Two new tools have been announced in the last week,
+Chef&#8217;s <a class="reference external" href="https://www.habitat.sh/">Habitat</a> and <a class="reference external" href="https://www.ansible.com/ansible-container">Ansible Container</a>.
+Both do far more than Fly&shy;ing&shy;Cloud,
+as they not only build but deploy and manage&nbsp;containers.</p>
+<p><a class="reference external" href="https://dockercon2016.sched.org/event/70OV/immutable-awesomeness">Immutable Awe&shy;some&shy;ness</a> was a reprise of an earlier pre&shy;sen&shy;ta&shy;tion at <a class="reference external" href="https://devops.com/2015/11/13/does-2015-josh-corman-john-willis-on-immutable-awesomeness/"><span class="caps">DOES15</span></a>
+about reducing op&shy;er&shy;a&shy;tional pain.
+See also:
+Docker and the Three Ways of DevOps:
+<a class="reference external" href="https://blog.docker.com/2015/05/docker-three-ways-devops/">Systems Thinking</a>, <a class="reference external" href="https://blog.docker.com/2015/06/docker-three-ways-devops-2/">Amplify Feedback Loops</a>, and
+<a class="reference external" href="https://blog.docker.com/2015/07/docker-three-ways-devops-3/">Culture of Continuous Ex&shy;per&shy;i&shy;men&shy;ta&shy;tion and Learning</a>.</p>
+<p><a class="reference external" href="https://dockercon2016.sched.org/event/70Nn/efficient-parallel-testing-with-docker">Efficient Parallel Testing with Docker</a>
+discussed Codeship&#8217;s approach to testing using a suite of Docker containers
+in a series of parallel stages.
+The <a class="reference external" href="https://codeship.com/documentation/docker/installation/">Jet <span class="caps">CLI</span></a> can run your <span class="caps">CI</span>/<span class="caps">CD</span> pipeline on your local&nbsp;machine.</p>
+<p>I was only able to attend one talk on the second day,
+<a class="reference external" href="https://dockercon2016.sched.org/event/70O6/sharding-containers-make-go-apps-computer-friendlyhellip">Sharding Containers: Make Go Apps Computer-Friendly Again</a>.
+The speaker&#8217;s <a class="reference external" href="https://github.com/kobolog/tesson">Tesson</a> uses the principles of Sharding,
+local Load Balancing, and Hardware Locality
+to pin Docker containers to processor cores,
+reducing Go garbage collection and <span class="caps">CPU</span> cache thrashing.
+The sharding (par&shy;ti&shy;tion&shy;ing) and cache friend&shy;li&shy;ness
+reminded me of my own <a class="reference external" href="https://nwcpp.org/june-2012.html">LKRhash, a highly scalable hashtable</a>.</p>
+<p>I missed <a class="reference external" href="https://blog.codeship.com/microservices-best-practices/">Mi&shy;croser&shy;vices Best Practices</a>.</p>
+<p>The best hacks talks were also good.
+&quot;<a class="reference external" href="https://github.com/buildertools/entropy">Entropy</a> is a failure or&shy;ches&shy;tra&shy;tion mi&shy;croser&shy;vice for Docker platforms.&quot;
+<a class="reference external" href="https://blog.docker.com/2016/06/building-serverless-apps-with-docker/">Building serverless apps with Docker</a> was an experiment
+in spinning up containers on-demand to handle incoming&nbsp;requests.</p>
+</div>
+<div class="section" id="exhibition-hall">
+<h2>Exhibition&nbsp;Hall</h2>
+<p>Most of the dozens of <a class="reference external" href="http://web.archive.org/web/20161121204237/http://2016.dockercon.com/sponsors">sponsors and exhibitors</a> had booths in the Exhibition Hall.
+There were an awful lot of people
+selling monitoring, hosting, storage, networking, and&nbsp;security.</p>
+</div>
 
     <footer>
         

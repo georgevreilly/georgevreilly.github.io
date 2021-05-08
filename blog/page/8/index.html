@@ -28,6 +28,229 @@
     
         <article>
     <header>
+        <time datetime="2016-08-26">2016-08-26</time>
+        <h1>
+            <a href="/blog/2016/08/26/HomographAttacks.html" rel="bookmark canonical">Homograph Attacks</a>
+        </h1>
+    </header>
+    <p>During an internal training exercise today,
+as a sort of one-man <a class="reference external" href="https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey">Chaos Monkey</a>,
+I de&shy;lib&shy;er&shy;ate&shy;ly broke a test system by changing a config setting to&nbsp;read:</p>
+<pre class="literal-block">
+itemfinder.url = http://test-іtemfinder.example.com/
+</pre>
+<p>The correct value should have&nbsp;been:</p>
+<pre class="literal-block">
+itemfinder.url = http://test-itemfinder.example.com/
+</pre>
+<p>What&#8217;s that, you say? There&#8217;s no difference, you&nbsp;say?</p>
+<p>There <em>is</em> a difference, but it&#8217;s subtle.
+The first <tt class="docutils literal">i</tt> in the <span class="caps">URL</span> is
+<a class="reference external" href="http://www.fileformat.info/info/unicode/char/0456/index.htm">&#8216;<span class="caps">CYRILLIC</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> <span class="caps">BYELORUSS&shy;IAN</span>-<span class="caps">UKRAINIAN</span> I&#8217; (U+0456)</a>,
+not <a class="reference external" href="http://www.fileformat.info/info/unicode/char/0069/index.htm">&#8216;<span class="caps">LATIN</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> I&#8217; (U+0069)</a>.
+Depending upon the font, the two <tt class="docutils literal">i</tt>s may be visually in&shy;dis&shy;tin&shy;guish&shy;able,
+very similar looking, or the Cyrillic <tt class="docutils literal">i</tt> may not&nbsp;render.</p>
+<p>This is an example of an <a class="reference external" href="https://en.wikipedia.org/wiki/IDN_homograph_attack">In&shy;ter&shy;na&shy;tion&shy;al Domain Name Homograph Attack</a>.
+There are Greek letters and Cyrillic letters that look very similar to Latin <span>&#8230;<a href="/blog/2016/08/26/HomographAttacks.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/26/HomographAttacks.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/security/" rel="tag">security</a>
+                    and
+                    
+                <a href="/tag/unicode/" rel="tag">unicode</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-08-23">2016-08-23</time>
+        <h1>
+            <a href="/blog/2016/08/23/FlameGraphsAndFlameCharts.html" rel="bookmark canonical">Flame Graphs and Flame Charts</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://queue.acm.org/detail.cfm?id=2927301"></a>
+<p>I was in&shy;ves&shy;ti&shy;gat&shy;ing the per&shy;for&shy;mance of a web app today,
+and I spent some time looking at the <a class="reference external" href="https://addyosmani.com/blog/devtools-flame-charts/">Flame Chart</a> vi&shy;su&shy;al&shy;iza&shy;tion
+in Chrome&#8217;s profiling tools, which helped identify some&nbsp;problems.</p>
+<p>Flame Charts are like Brendan Gregg&#8217;s <a class="reference external" href="http://www.brendangregg.com/flamegraphs.html">Flame Graphs</a>,
+except that the charts are sorted by time,
+while the graphs are sorted&nbsp;al&shy;pha&shy;bet&shy;i&shy;cal&shy;ly.</p>
+<p>Quoting from Gregg&#8217;s recent <a class="reference external" href="http://queue.acm.org/detail.cfm?id=2927301"><span class="caps">ACM</span> Queue article</a>:</p>
+<blockquote>
+<p>A flame graph has the following&nbsp;char&shy;ac&shy;ter&shy;is&shy;tics:</p>
+<ul class="simple">
+<li>A stack trace is rep&shy;re&shy;sent&shy;ed as a column of boxes,
+where each box represents a function (a stack&nbsp;frame).</li>
+<li>The y-axis shows the stack depth,
+ordered from root at the bottom to leaf at the top.
+The top box shows the function
+that was on-<span class="caps">CPU</span> when the stack trace was collected,
+and <span>&#8230;<a href="/blog/2016/08/23/FlameGraphsAndFlameCharts.html" class="continue">continue</a>.</span></li></ul></blockquote>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/23/FlameGraphsAndFlameCharts.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/performance/" rel="tag">performance</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-08-21">2016-08-21</time>
+        <h1>
+            <a href="/blog/2016/08/21/ReviewFlashmanAtTheCharge.html" rel="bookmark canonical">Review: Flashman At The Charge</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.amazon.com/dp/0452264138/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: Flashman At The Charge</div>
+<div class="line">Author: George MacDonald Fraser</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Publisher: Plume</div>
+<div class="line">Copyright: 1973</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0452264138/?tag=georgvreill-20">0452264138</a></div>
+<div class="line">Pages: 288</div>
+<div class="line">Keywords: historical fiction, humor</div>
+<div class="line">Reading period: 7–16 August, 2016</div>
+<div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> <span class="caps">IV</span>: 1854–55</div>
+</div>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman_at_the_Charge">Flashman At The Charge</a> finds our hero,
+newly promoted to Colonel,
+nurse&shy;maid&shy;ing a minor Royal cousin in the <a class="reference external" href="https://en.wikipedia.org/wiki/Crimean_War">Crimean War</a>.
+Somehow he finds himself in the thick of the <a class="reference external" href="https://en.wikipedia.org/wiki/Charge_of_the_Light_Brigade">Charge of the Light Brigade</a>,
+which he survives only to be taken captive by the Russians.
+Sent off to Count Pencher&shy;jevsky&#8217;s estate,
+he luxuriates there for some time, bedding the count&#8217;s daughter Valla.
+When he and another British officer overhear the Tsar discussing Russian plans to invade India,
+he re&shy;luc&shy;tant&shy;ly escapes.
+After he is captured <span>&#8230;<a href="/blog/2016/08/21/ReviewFlashmanAtTheCharge.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/21/ReviewFlashmanAtTheCharge.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>,
+                <a href="/tag/fiction/" rel="tag">fiction</a>,
+                <a href="/tag/history/" rel="tag">history</a>
+                    and
+                    
+                <a href="/tag/humor/" rel="tag">humor</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-08-20">2016-08-20</time>
+        <h1>
+            <a href="/blog/2016/08/20/ReviewJasonBourne.html" rel="bookmark canonical">Review: Jason Bourne</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Jason_Bourne_(film)"></a>
+<div class="line-block">
+<div class="line">Title: Jason Bourne</div>
+<div class="line">Director: Paul Greengrass</div>
+<div class="line">Rating: ★ ★ ★ ½</div>
+<div class="line">Released: 2016</div>
+<div class="line">Keywords: action, thriller</div>
+<div class="line">Watched: 20 August, 2016</div>
+</div>
+<p>In <a class="reference external" href="https://en.wikipedia.org/wiki/Jason_Bourne_(film)">Jason Bourne</a>,
+the eponym is back in action, running around the planet
+in a personal vendetta with the director of the <span class="caps">CIA</span>.
+Bourne&#8217;s old ally Nicky Parsons is killed trying to pass him some in&shy;for&shy;ma&shy;tion
+that she&#8217;s unearthed about the Treadstone program
+that turned David Webb into the amnesiac assassin known as Jason Bourne.
+The <span class="caps">CIA</span> director sends a killer known only as the Asset after Bourne,
+while the fresh-faced head of the Cyber Ops division does her best to keep Bourne&nbsp;alive.</p>
+<p>This is a largely un&shy;nec&shy;es&shy;sary sequel to the Bourne franchise.
+While the <span>&#8230;<a href="/blog/2016/08/20/ReviewJasonBourne.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/20/ReviewJasonBourne.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/movies/" rel="tag">movies</a>
+                    and
+                    
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-08-19">2016-08-19</time>
+        <h1>
+            <a href="/blog/2016/08/19/OpeningVimAtTheRightPlace.html" rel="bookmark canonical">Opening Vim at the right place</a>
+        </h1>
+    </header>
+    <p>If you know exactly which line you want to go
+or which pattern you want to search for,
+Vim provides a couple of command-line options that can help:
+<tt class="docutils literal">+<span class="caps">NUM</span></tt> goes to line number <tt class="docutils literal"><span class="caps">NUM</span></tt>,
+while <tt class="docutils literal">+/<span class="caps">PAT</span></tt> searches for the first occurrence of <tt class="docutils literal"><span class="caps">PAT</span></tt>.
+It&#8217;s also possible to execute an Ex command with <tt class="docutils literal">+<span class="caps">CMD</span></tt>,
+such as <tt class="docutils literal">&quot;+set fenc=latin1&quot;</tt>.
+You can supply up to ten <tt class="docutils literal">+</tt> options.</p>
+<pre class="code bash literal-block">
+vim +23 ~/.bashrc
+vim <span class="s1">'+/<span class="caps">ASIN</span>\|<span class="caps">ISBN</span>'</span> template.rst
+vim <span class="s2">&quot;+set fenc=latin1&quot;</span> some.csv
+</pre>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/19/OpeningVimAtTheRightPlace.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-08-18">2016-08-18</time>
         <h1>
             <a href="/blog/2016/08/18/ReviewTheMurderRoad.html" rel="bookmark canonical">Review: The Murder Road</a>
@@ -238,259 +461,6 @@ I&#8217;ve known people who died of <span class="caps">AIDS</span> <span>&#8230;
                     and
                     
                 <a href="/tag/personal/" rel="tag">personal</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-08-07">2016-08-07</time>
-        <h1>
-            <a href="/blog/2016/08/07/ReviewFlashForFreedom.html" rel="bookmark canonical">Review: Flash For Freedom!</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/0452260892/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Flash For Freedom!</div>
-<div class="line">Author: George MacDonald Fraser</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Plume</div>
-<div class="line">Copyright: 1971</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0452260892/?tag=georgvreill-20">0452260892</a></div>
-<div class="line">Pages: 304</div>
-<div class="line">Keywords: historical fiction, humor</div>
-<div class="line">Reading period: 11–20 July, 2016</div>
-<div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> <span class="caps">III</span>: 1848–49</div>
-</div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flash_for_Freedom!">Flash For Freedom!</a> is the third volume of the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>,
-in which Flashy gets caught up in the slave trade.
-After a scandal involving cheating and assault, England becomes too hot for young Flashman
-and his father-in-law ships him off.
-Flashman quickly realizes that he&#8217;s on a slave ship
-captained by a lunatic that is bound for Africa to take on a cargo of slaves,
-and he&#8217;s horrified.
-Not so much about slavery but that running slaves is proscribed in 1848
-and he&#8217;s <span>&#8230;<a href="/blog/2016/08/07/ReviewFlashForFreedom.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/07/ReviewFlashForFreedom.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/fiction/" rel="tag">fiction</a>,
-                <a href="/tag/history/" rel="tag">history</a>
-                    and
-                    
-                <a href="/tag/humor/" rel="tag">humor</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-08-06">2016-08-06</time>
-        <h1>
-            <a href="/blog/2016/08/06/Rounding.html" rel="bookmark canonical">Rounding</a>
-        </h1>
-    </header>
-    <p>I recently learned from a <a class="reference external" href="http://stackoverflow.com/questions/10825926/python-3-x-rounding-behavior">Stack&shy;Over&shy;flow question</a>
-that the rounding behavior in Python 3.x is different from Python&nbsp;2.x:</p>
-<blockquote>
-The round() function rounding strategy and return type have changed.
-Exact halfway cases are now rounded to the nearest even result
-instead of away from zero.
-(For example, round(2.5) now returns 2 rather than 3.)</blockquote>
-<p>The “away from zero” rounding strategy is the one that most of us learned at school.
-The “nearest even” strategy is also known as “banker’s&nbsp;rounding”.</p>
-<p>There are actually <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_floating_point#Rounding_rules">five rounding strategies defined in <span class="caps">IEEE</span> 754</a>:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="58%"/>
-<col width="11%"/>
-<col width="11%"/>
-<col width="11%"/>
-<col width="11%"/>
-</colgroup>
-<thead valign="bottom">
-<tr><th class="head">Mode / Example Value</th>
-<th class="head">+11.5</th>
-<th class="head">+12.5</th>
-<th class="head">−11.5</th>
-<th class="head">−12.5</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr><td>to nearest, ties to even</td>
-<td>+12.0</td>
-<td>+12.0</td>
-<td>−12.0</td>
-<td>−12.0</td>
-</tr>
-<tr><td>to nearest, ties away from zero</td>
-<td>+12.0</td>
-<td>+13.0</td>
-<td>−12.0</td>
-<td>−13.0</td>
-</tr>
-<tr><td>toward 0 (truncation)</td>
-<td>+11.0</td>
-<td>+12.0</td>
-<td>−11.0</td>
-<td>−12.0</td>
-</tr>
-<tr><td>toward +∞ (ceiling)</td>
-<td>+12.0</td>
-<td>+13.0</td>
-<td>−11.0</td>
-<td>−12.0</td>
-</tr>
-<tr><td>toward −∞ (floor)</td>
-<td>+11.0</td>
-<td>+12.0</td>
-<td>−12.0</td>
-<td>−13.0</td>
-</tr>
-</tbody>
-</table>
-<p>Further reading on <span>&#8230;<a href="/blog/2016/08/06/Rounding.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/06/Rounding.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/math/" rel="tag">math</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-08-05">2016-08-05</time>
-        <h1>
-            <a href="/blog/2016/08/05/UsefulMentalModels.html" rel="bookmark canonical">Useful Mental Models</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://medium.com/@yegg/mental-models-i-find-repeatedly-useful-936f1cc405d#.5ejg13weq"></a>
-<p>Gabriel Weinberg has a great Medium post about <a class="reference external" href="https://medium.com/@yegg/mental-models-i-find-repeatedly-useful-936f1cc405d#.5ejg13weq">Useful Mental Models</a>.
-‘There is a much smaller set of concepts, however, that come up repeatedly
-in day-to-day decision making, problem solving, and truth seeking.
-As [Charlie] Munger says,
-“80 or 90 important models will carry about 90% of the freight
-in making you a world&shy;ly‑&shy;wise person.”’
-He notes ‘my definition of mental model differs from some others,
-with mine being more broadly defined as any concept
-that helps explain, analyze, or navigate the&nbsp;world.’</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/05/UsefulMentalModels.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/thinking/" rel="tag">thinking</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-08-04">2016-08-04</time>
-        <h1>
-            <a href="/blog/2016/08/04/ReviewAboveSuspicion.html" rel="bookmark canonical">Review: Above Suspicion</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/B008QNE716/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Above Suspicion</div>
-<div class="line">Author: Helen MacInnes</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Titan Books</div>
-<div class="line">Copyright: 1941</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/B008QNE716/?tag=georgvreill-20"><span class="caps">B008QNE716</span></a></div>
-<div class="line">Pages: 341</div>
-<div class="line">Keywords: spy thriller</div>
-<div class="line">Reading period: 23 July, 2016</div>
-</div>
-<p>In the summer of 1939,
-Richard and Frances Myles are approached at their Oxford college
-to do a simple-sounding spy-related task during their upcoming European vacation.
-One thing leads to another until eventually
-these amateur spies are on the run in the Tyrol.
-MacInnes had traveled in Europe in the 1930s
-and brings a strong sense of place to the locations she describes,
-as well as a strong dislike of the to&shy;tal&shy;i&shy;tar&shy;i&shy;an&shy;ism that the Germans had fallen&nbsp;into.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/04/ReviewAboveSuspicion.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/spy/" rel="tag">spy</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-08-03">2016-08-03</time>
-        <h1>
-            <a href="/blog/2016/08/03/GitCommitVerbose.html" rel="bookmark canonical">git commit --verbose</a>
-        </h1>
-    </header>
-    <p>I learned today about the <tt class="docutils literal"><span class="pre">-v</span></tt> (<tt class="docutils literal"><span class="pre">--verbose</span></tt>) flag to <tt class="docutils literal">git commit</tt> (<a class="reference external" href="https://git-scm.com/docs/git-commit">git-commit</a>),
-which causes a unified diff of what would be committed
-to be appended to the end of the commit message.
-This diff is not part of the commit.
-Set the <tt class="docutils literal">commit.verbose</tt> con&shy;fig&shy;u&shy;ra&shy;tion variable (new in Git 2.9)
-to adjust the default&nbsp;behavior.</p>
-<p>I also learned about using <tt class="docutils literal">git show</tt> (<a class="reference external" href="https://git-scm.com/docs/git-show">git-show</a>)
-to display the diff for the most recent commit.
-I had been using <tt class="docutils literal">git log <span class="pre">-1</span> <span class="pre">--patch</span></tt> (<a class="reference external" href="https://git-scm.com/docs/git-log">git-log</a>).
-More on <a class="reference external" href="http://stackoverflow.com/questions/25608809/git-log-p-vs-git-show-vs-git-diff">git log -p vs. git show vs. git diff</a>.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/03/GitCommitVerbose.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/git/" rel="tag">git</a>
                 
             </p>
         

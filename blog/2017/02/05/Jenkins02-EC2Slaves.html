@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Jenkins #2: EC2 Slaves</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content="\ 
+
+    [Previously published at the now defunct `..." />
+    <meta name="keywords" content="jenkins, metabrite" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2017-02-05">2017-02-05</time>
+        <h1>
+            <a href="/blog/2017/02/05/Jenkins02-EC2Slaves.html" rel="bookmark canonical">Jenkins #2: EC2 Slaves</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>The “slave” ter&shy;mi&shy;nol&shy;o&shy;gy is un&shy;for&shy;tu&shy;nate,
+but the utility of running a Jenkins build on a node that you&#8217;ve configured
+at Amazon&#8217;s <span class="caps">EC2</span> is&nbsp;undeniable.</p>
+<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#2 in a series on Jenkins&nbsp;Pipelines</a></p>
+<p>We needed to install system packages on our build nodes,
+such as Docker or Postgres.
+For obvious reasons,
+Cloud&shy;Bees—our Jenkins hosting provider—&shy;won&#8217;t let you do that on their systems.
+You must provide your own build nodes,
+where you are free to install whatever you&nbsp;like.</p>
+<p>We already use Amazon Web Services,
+so we chose to configure our CloudBees account with <span class="caps">EC2</span> slaves.
+We had a long and fruitless detour through <a class="reference external" href="https://go.cloudbees.com/docs/cloudbees-documentation/dev-at-cloud/index.html#_on_premise_executors">On-Premise Executors</a>,
+which I will not detail&nbsp;here.</p>
+<p>Ultimately, it turns out to be straight&shy;for&shy;ward to <a class="reference external" href="https://www.cloudbees.com/blog/setting-jenkins-ec2-slaves">create and manage <span class="caps">EC2</span> slaves</a>.</p>
+<div class="section" id="create-an-ami">
+<h2>Create an&nbsp;<span class="caps">AMI</span></h2>
+<p>First, build a custom Amazon Machine Image&nbsp;(<span class="caps">AMI</span>).</p>
+<ul class="simple">
+<li>Launch a new Instance from the <span class="caps">EC2</span> Console and choose a base&nbsp;<span class="caps">AMI</span>.</li>
+<li>We used ‘Ubuntu Server 16.04 <span class="caps">LTS</span> (<span class="caps">HVM</span>), <span class="caps">SSD</span> Volume Type’ as our&nbsp;base.</li>
+<li>Choose a suitable <a class="reference external" href="https://aws.amazon.com/ec2/instance-types/">instance type</a>, such as <tt class="docutils literal">m4.large</tt>.</li>
+<li>Pick the right amount of storage; e.g., <span class="caps">12GB</span> <span class="caps">SSD</span>.
+This can be overridden&nbsp;later.</li>
+<li>Configure the Security Group.<ul>
+<li>You <em>must</em> open up <span class="caps">SSH</span> on port 22 for the Jenkins Master to control the&nbsp;node.</li>
+<li>You should lock down the Source to known <span class="caps">IP</span> addresses so that you&#8217;re not open to the&nbsp;world.</li>
+</ul>
+</li>
+<li>Launch your new Instance and install whatever software you want baked&nbsp;in.</li>
+</ul>
+<p>Here&#8217;s the script we use to provision Ubuntu 16.04.
+We <span class="caps">SSH</span> into the instance, then run this&nbsp;script.</p>
+<pre class="code bash literal-block">
+<span class="ch">#!/bin/bash
+</span><span class="c1"># Provision an Ubuntu 16.04 <span class="caps">AMI</span> for MetaBrite <span class="caps">CI</span> and Jenkins
+</span>
+<span class="nb">echo</span> <span class="s2">&quot;Adding PPAs&quot;</span>
+<span class="c1"># jo: <span class="caps">JSON</span> output from shell: https://github.com/jpmens/jo
+</span>sudo apt-add-repository ppa:duggan/jo --yes
+
+<span class="nb">echo</span> <span class="s2">&quot;Updating package list&quot;</span>
+sudo apt-get update -q
+
+<span class="nb">echo</span> <span class="s2">&quot;Install Docker&quot;</span>
+curl -sSL https://get.docker.com/ <span class="p">|</span> sh                      ➊
+
+<span class="nb">echo</span> <span class="s2">&quot;Installing Ubuntu packages&quot;</span>
+sudo apt-get --yes install <span class="se">\
+</span>    build-essential default-jre <span class="se">\ </span>                          ➋
+    git vim wget <span class="se">\
+</span>    paperkey gnupg <span class="se">\ </span>                                       ➌
+    libffi-dev libpq-dev libxslt1-dev libyaml-dev <span class="se">\
+</span>    python libpython2.7-dev python-dev python-lxml  <span class="se">\
+</span>    postgresql python-psycopg2 <span class="se">\
+</span>    jo jq <span class="se">\
+</span>    unzip zip
+
+<span class="nb">echo</span> <span class="s2">&quot;Installing Python packages&quot;</span>                           ➍
+curl -sSL --retry <span class="m">5</span> https://bootstrap.pypa.io/get-pip.py <span class="p">|</span> sudo -H python2.7
+sudo -H pip install --upgrade virtualenvwrapper setuptools  ➎
+
+<span class="nv">KNOWN_HOSTS</span><span class="o">=</span>~/.ssh/known_hosts
+<span class="nb">echo</span> <span class="s2">&quot;Adding GitHub to </span><span class="nv">$KNOWN_HOSTS</span><span class="s2">&quot;</span>
+mkdir -p ~/.ssh/                                            ➏
+touch <span class="nv">$KNOWN_HOSTS</span>
+ssh-keyscan -H github.com &gt;&gt; <span class="nv">$KNOWN_HOSTS</span>                   ➐
+chmod <span class="m">600</span> <span class="nv">$KNOWN_HOSTS</span>
+</pre>
+<ol class="arabic simple">
+<li>This installs the latest stable Docker package,
+which is more recent than the packages supplied in the Ubuntu&nbsp;<span class="caps">LTS</span>.</li>
+<li>The <tt class="docutils literal"><span class="pre">default-jre</span></tt> package is needed to run the Jenkins Slave <span class="caps">JAR</span>.
+We work a lot with Python&nbsp;2.7;
+the packages that you need are probably&nbsp;different.</li>
+<li>We&#8217;ll have more to say about handling secrets at build time with <a class="reference external" href="https://www.jabberwocky.com/software/paperkey/">Paperkey</a> in a future&nbsp;post.</li>
+<li>We also want the latest <a class="reference external" href="https://pip.pypa.io/">Pip</a> for managing Python packages,
+in preference to the older system <tt class="docutils literal"><span class="pre">python-pip</span></tt> package.
+The <tt class="docutils literal"><span class="pre">-H</span></tt> argument to <tt class="docutils literal">sudo</tt> sets <tt class="docutils literal">$<span class="caps">HOME</span></tt> to the <a class="reference external" href="https://stackoverflow.com/questions/27870003/pip-install-please-check-the-permissions-and-owner-of-that-directory">target user (root)</a>.</li>
+<li>We install up-to-date system-level <a class="reference external" href="https://virtualenv.pypa.io/">virtualenv</a> (via <a class="reference external" href="https://virtualenvwrapper.readthedocs.io/">vir&shy;tualen&shy;vwrap&shy;per</a>) and <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/">setuptools</a>.
+We have all that we need to install all other Python packages
+into virtual en&shy;vi&shy;ron&shy;ments at build&nbsp;time.</li>
+<li>We do <em>not</em> install a private <span class="caps">SSH</span> key for GitHub.
+(We did at first, but there&#8217;s a better way to handle&nbsp;this.)</li>
+<li>We <a class="reference external" href="https://github.com/wercker/step-add-to-known_hosts">establish GitHub as a known host</a> using <tt class="docutils literal"><span class="pre">ssh-keyscan</span></tt>.
+This is needed to prevent Git+<span class="caps">SSH</span> saying that the au&shy;then&shy;tic&shy;i&shy;ty of the host
+can&#8217;t be es&shy;tab&shy;lished and asking if we want to continue.
+This would be a major problem in a non-in&shy;ter&shy;ac&shy;tive build.
+Note: <a class="reference external" href="https://help.github.com/articles/github-s-ssh-key-fingerprints/">GitHub&#8217;s <span class="caps">SSH</span> key fin&shy;ger&shy;prints</a> are not being verified&nbsp;here.</li>
+</ol>
+<p>After you&#8217;ve installed everything you need in this <span class="caps">EC2</span> instance,
+you need to <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html">create a new <span class="caps">AMI</span> from the instance</a>.</p>
+</div>
+<div class="section" id="configure-the-amazon-ec2-plugin">
+<h2>Configure the Amazon <span class="caps">EC2</span>&nbsp;Plugin</h2>
+<p>Once your <span class="caps">AMI</span> is available at <span class="caps">AWS</span>, you can configure Jenkins.
+Go to Manage Jenkins &gt; Configure System, then scroll down to Cloud &gt; Amazon <span class="caps">EC2</span>.
+(You may need to install the <a class="reference external" href="https://wiki.jenkins-ci.org/display/JENKINS/Amazon+EC2+Plugin">Amazon <span class="caps">EC2</span> plugin</a>.)</p>
+<p>You&#8217;ll need an <span class="caps">AWS</span> Access Key/Secret Key pair from <span class="caps">IAM</span>.
+You&#8217;ll also need an <span class="caps">SSH</span> keypair so that Jenkins can <span class="caps">SSH</span> into your <span class="caps">EC2</span> instance;
+don&#8217;t lose this or you&#8217;ll never be able to <span class="caps">SSH</span> into your instance to debug&nbsp;it.</p>
+<p>The <a class="reference external" href="https://www.cloudbees.com/blog/setting-jenkins-ec2-slaves">Setting Up Jenkins <span class="caps">EC2</span> Slaves</a> article covers most of this.
+The other pieces that you need to&nbsp;know:</p>
+<ul class="simple">
+<li><span class="caps">AMI</span> Type &gt; <em>Root command prefix</em>: <tt class="docutils literal">sudo</tt></li>
+<li><em>Labels</em>: whatever makes sense for you. We use <tt class="docutils literal">ubuntu</tt> for our&nbsp;<span class="caps">AMI</span>.</li>
+<li>(Advanced) <em>Number of Executors</em>: 1 executor per vCPU seems to work&nbsp;well.</li>
+<li>(Advanced): <em>Block device mapping</em>: if you run out of disk space, you can increase it here.
+It&#8217;s the number im&shy;me&shy;di&shy;ate&shy;ly after the snapshot&nbsp;name.</li>
+<li><em>Init script</em>: use the&nbsp;following:</li>
+</ul>
+<pre class="code bash literal-block">
+<span class="ch">#!/bin/bash
+</span><span class="c1"># based on https://github.com/jenkinsci/ec2-plugin/blob/master/src/main/webapp/<span class="caps">AMI</span>-Scripts/ubuntu-ami-setup.sh
+</span>
+<span class="nb">echo</span> <span class="s2">&quot;Downloading boot script&quot;</span>                              ➊
+sudo curl https://&lt;JENKINS_MASTER&gt;/plugin/ec2/<span class="caps">AMI</span>-Scripts/ubuntu-init.py -o /usr/bin/userdata
+sudo chmod +x /usr/bin/userdata
+
+<span class="nb">echo</span> <span class="s2">&quot;Adding boot script to run after boot is complete&quot;</span>     ➋
+sudo sed -i <span class="s1">'/^[^#]/ s/exit 0/python \/usr\/bin\/userdata\n&amp;/'</span> /etc/rc.local
+</pre>
+<ol class="arabic simple">
+<li>Adjust <tt class="docutils literal">&lt;JENK&shy;IN&shy;S_&shy;MAS&shy;TER&gt;</tt>. You may need to change <tt class="docutils literal">https</tt> to <tt class="docutils literal">http</tt>.</li>
+<li>The Init Script is run once, installing <tt class="docutils literal"><span class="pre">ubuntu-init.py</span></tt>
+as a boot script at <tt class="docutils literal">/etc/rc.local</tt>.</li>
+</ol>
+<p>Let&#8217;s examine the <a class="reference external" href="https://github.com/jenkinsci/ec2-plugin/blob/master/src/main/webapp/AMI-Scripts/ubuntu-init.py">ubuntu-init.py</a> boot script.
+You don&#8217;t need to copy this, as it&#8217;s available from your Jenkins&nbsp;Master.</p>
+<pre class="code python literal-block">
+<span class="ch">#!/usr/bin/python</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">httplib</span>
+<span class="kn">import</span> <span class="nn">string</span>
+
+<span class="c1"># To install run:</span>
+<span class="c1"># sudo wget http://$JENKINS_URL/plugin/ec2/<span class="caps">AMI</span>-Scripts/ubuntu-init.py -O /usr/bin/userdata</span>
+<span class="c1"># sudo chmod +x /etc/init.d/userdata</span>
+<span class="c1"># add the following line to /etc/rc.local &quot;python /usr/bin/userdata&quot;</span>
+
+<span class="c1"># If java is installed it will be zero</span>
+<span class="c1"># If java is not installed it will be non-zero</span>
+<span class="n">hasJava</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;java -version&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">hasJava</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;sudo apt-get update&quot;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;sudo apt-get install openjdk-7-jre -y&quot;</span><span class="p">)</span>      <span class="err">➊</span>
+
+<span class="n">conn</span> <span class="o">=</span> <span class="n">httplib</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="p">(</span><span class="s2">&quot;169.254.169.254&quot;</span><span class="p">)</span>            <span class="err">➋</span>
+<span class="n">conn</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;<span class="caps">GET</span>&quot;</span><span class="p">,</span> <span class="s2">&quot;/latest/user-data&quot;</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span>
+<span class="n">userdata</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">args</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">userdata</span><span class="p">,</span> <span class="s2">&quot;&amp;&quot;</span><span class="p">)</span>
+<span class="n">jenkinsUrl</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+<span class="n">slaveName</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+<span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;JENKINS_URL&quot;</span><span class="p">:</span>
+        <span class="n">jenkinsUrl</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;SLAVE_NAME&quot;</span><span class="p">:</span>
+        <span class="n">slaveName</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;wget &quot;</span> <span class="o">+</span> <span class="n">jenkinsUrl</span> <span class="o">+</span> <span class="s2">&quot;jnlpJars/slave.jar -O slave.jar&quot;</span><span class="p">)</span>     <span class="err">➌</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;java -jar slave.jar -jnlpUrl &quot;</span> <span class="o">+</span> <span class="n">jenkinsUrl</span> <span class="o">+</span> <span class="s2">&quot;computer/&quot;</span> <span class="o">+</span> <span class="n">slaveName</span> <span class="o">+</span> <span class="s2">&quot;/slave-agent.jnlp&quot;</span><span class="p">)</span>
+<span class="err">➍</span>
+</pre>
+<ol class="arabic simple">
+<li>Note that installing <tt class="docutils literal"><span class="pre">openjdk-7-jre</span></tt> will not work on stock Ubuntu 16.04,
+as <tt class="docutils literal"><span class="pre">openjdk-8-jre</span></tt> is now current.
+This is why we pro&shy;vi&shy;sioned the <span class="caps">AMI</span> with <tt class="docutils literal"><span class="pre">default-jre</span></tt>.</li>
+<li>This script reads the <a class="reference external" href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">instance metadata</a> to discover its con&shy;fig&shy;u&shy;ra&shy;tion.
+The Jenkins Master supplied this when it started the&nbsp;instance.</li>
+<li>Download <tt class="docutils literal">slave.jar</tt> from the Jenkins Master;
+run it pointing back to the Master&nbsp;node.</li>
+<li>This boot process never exits.
+The slave code will continue running until the <span class="caps">EC2</span> instance is&nbsp;stopped.</li>
+</ol>
+<p>In your Pipeline scripts, be sure to use the <em>label</em> you configured above
+in your <tt class="docutils literal">node</tt> blocks:</p>
+<pre class="code groovy literal-block">
+<span class="n">node</span><span class="o">(</span><span class="s1">'ubuntu'</span><span class="o">)</span> <span class="o">{</span>                        <span class="err">➊</span>
+    <span class="n">timestamps</span> <span class="o">{</span>
+        <span class="n">ansiColor</span><span class="o">(</span><span class="s1">'xterm'</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Source Checkout&quot;</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">checkout</span> <span class="n">scm</span>
+                <span class="c1">// …</span>
+</pre>
+<p>Jenkins will au&shy;to&shy;mat&shy;i&shy;cal&shy;ly start up an <span class="caps">EC2</span> instance running your <span class="caps">AMI</span>,
+or use an existing one if it has enough&nbsp;capacity.</p>
+</div>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/jenkins/" rel="tag">jenkins</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "https://www.georgevreilly.com/blog/2017/02/05/Jenkins02-EC2Slaves.html";
+            var disqus_url = "https://www.georgevreilly.com/blog/2017/02/05/Jenkins02-EC2Slaves.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="https://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+
+
+    
+    
+        <a href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html" class="page floatright">
+        Jenkins #1: Migrating to Pipelines &raquo;
+        </a>
+    
+    
+        <a href="/blog/2017/02/06/TrumpMediaSuppressesCoverageTerroristAttacks.html" class="page floatleft">
+        &laquo; Trump: Media Suppresses Coverage of Terrorist Attacks
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

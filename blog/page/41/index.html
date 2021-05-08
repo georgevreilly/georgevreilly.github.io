@@ -28,6 +28,232 @@
     
         <article>
     <header>
+        <time datetime="2013-11-11">2013-11-11</time>
+        <h1>
+            <a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" rel="bookmark canonical">Turn off Windows Defender on your builds</a>
+        </h1>
+    </header>
+    <p>I&#8217;ve spent some time this evening profiling a Python ap&shy;pli&shy;ca&shy;tion on Windows,
+trying to find out why it was so much slower than on Mac or Linux.
+The ap&shy;pli&shy;ca&shy;tion is an in-house build tool which reads a number of config files,
+then writes some output&nbsp;files.</p>
+<p>Using the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run&shy;SnakeRun</a> Python profile viewer on Windows,
+two things im&shy;me&shy;di&shy;ate&shy;ly leapt out at me:
+we were running <tt class="docutils literal">os.stat</tt> a lot
+and <tt class="docutils literal">file.close</tt> was really&nbsp;expensive.</p>
+<p>A quick test convinced me that we were <a class="reference external" href="http://docs.python.org/2/library/stat.html">stat-ing</a> the same files over and over.
+It was a com&shy;bi&shy;na&shy;tion of explicit checks and implicit code,
+like <tt class="docutils literal">os.walk</tt> calling <tt class="docutils literal">os.path.isdir</tt>.
+I wrote a little cache that memoizes the results,
+which brought the cost <span>&#8230;<a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/windows/" rel="tag">windows</a>
+                    and
+                    
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2013-10-24">2013-10-24</time>
+        <h1>
+            <a href="/blog/2013/10/24/ReviewBackbonejsTesting.html" rel="bookmark canonical">Review: Backbone.js Testing</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.packtpub.com/backbonejs-testing/book"></a>
+<div class="line-block">
+<div class="line">Title: Backbone.js Testing</div>
+<div class="line">Author: Ryan Roemer</div>
+<div class="line">Rating: ★ ★ ★ ★ ½</div>
+<div class="line">Publisher: Packt</div>
+<div class="line">Copyright: 2013</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/178216524X/?tag=georgvreill-20">178216524X</a></div>
+<div class="line">Pages: 168</div>
+<div class="line">Keywords: pro&shy;gram&shy;ming, testing, javascript, backbone, mocha, chai, sinon</div>
+<div class="line">Reading period: October 2013</div>
+</div>
+<p><a class="reference external" href="http://www.packtpub.com/backbonejs-testing/book">Backbone.js Testing</a> is a short, dense in&shy;tro&shy;duc&shy;tion
+to testing JavaScript ap&shy;pli&shy;ca&shy;tions with three testing libraries,
+<a class="reference external" href="http://visionmedia.github.io/mocha/">Mocha</a>, <a class="reference external" href="http://chaijs.com/">Chai</a>, and <a class="reference external" href="http://sinonjs.org/">Sinon.<span class="caps">JS</span></a>.
+Although the author uses a sample ap&shy;pli&shy;ca&shy;tion
+of a personal note manager written with <a class="reference external" href="http://backbonejs.org/">Backbone.js</a>
+throughout the book, much of the material
+would apply to any JavaScript client or server&nbsp;framework.</p>
+<p><a class="reference external" href="http://visionmedia.github.io/mocha/">Mocha</a> is a test framework that can be executed in the browser or by <a class="reference external" href="http://nodejs.org/">Node.js</a>,
+which runs your tests.
+<a class="reference external" href="http://chaijs.com/">Chai</a> is a framework-agnostic <a class="reference external" href="http://en.wikipedia.org/wiki/Test-driven_development"><span class="caps">TDD</span></a>/<a class="reference external" href="http://en.wikipedia.org/wiki/Behavior-driven_development"><span class="caps">BDD</span></a> assertion library.
+<a class="reference external" href="http://sinonjs.org/">Sinon.<span class="caps">JS</span></a> provides standalone test spies, stubs and mocks for JavaScript.
+They complement each <span>&#8230;<a href="/blog/2013/10/24/ReviewBackbonejsTesting.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2013/10/24/ReviewBackbonejsTesting.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>,
+                <a href="/tag/programming/" rel="tag">programming</a>
+                    and
+                    
+                <a href="/tag/javascript/" rel="tag">javascript</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2013-01-21">2013-01-21</time>
+        <h1>
+            <a href="/blog/2013/01/21/AdaptingPenelopePartII.html" rel="bookmark canonical">Adapting Penelope, part II</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://karenswhimsy.com/the-odyssey.shtm"></a>
+<p>Last night, I read the first third of the chapter.
+Tonight I will read&nbsp;more.</p>
+<p>I described it as “badly punctuated.”
+There&#8217;s no punc&shy;tu&shy;a&shy;tion at all!
+No apos&shy;tro&shy;phes, no commas, no periods.
+The “sen&shy;tences” are separated by paragraph&nbsp;breaks.</p>
+<p>So far, Molly Bloom has thought back to Mrs Riordan,
+an obnoxious elderly neighbor whom Leopold Bloom flattered;
+sickness;
+Bloom&#8217;s in&shy;fi&shy;deli&shy;ties, present and past;
+her own seductions and con&shy;fes&shy;sion&shy;s;
+sex and child&shy;birth;
+jealousy;
+ag&shy;gra&shy;vat&shy;ing&nbsp;husbands.</p>
+<p>In the second paragraph:
+men are all so different;
+how strange Bloom is;
+Bloom is “mad on the subject of drawers”;
+their first sexual encounter;
+punc&shy;tu&shy;al&shy;i&shy;ty;
+a potential singing trip to Belfast with both Bloom and Blazes Boylan, her paramour;
+her last concert;
+hating politics;
+money;
+well-dressed men;
+losing weight, face lotion, and beauty <span>&#8230;<a href="/blog/2013/01/21/AdaptingPenelopePartII.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2013/01/21/AdaptingPenelopePartII.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/jamesjoyce/" rel="tag">jamesjoyce</a>
+                    and
+                    
+                <a href="/tag/dramaturgy/" rel="tag">dramaturgy</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2013-01-20">2013-01-20</time>
+        <h1>
+            <a href="/blog/2013/01/20/AdaptingPenelopePartI.html" rel="bookmark canonical">Adapting Penelope, part I</a>
+        </h1>
+    </header>
+    
+<p>We at the <a class="reference external" href="http://www.wildgeeseseattle.org/">Wild Geese Players of Seattle</a> have been adapting
+James Joyce&#8217;s <em>Ulysses</em> for staged readings since 1998,
+and we will complete the book with the Penelope chapter
+(aka Molly Bloom&#8217;s soliloquy) on Bloomsday&nbsp;2013.</p>
+<p>I shall detail my dra&shy;matur&shy;gi&shy;cal process over several blog&nbsp;posts.</p>
+<p>The very first step is to re-read the chapter.
+It&#8217;s been several years since I last read it and I don&#8217;t remember it clearly.
+I&#8217;ve yet to look at my old friends, <a class="reference external" href="http://www.amazon.com/gp/product/0520253973?tag=georgvreill-20">Gifford</a> and <a class="reference external" href="http://www.amazon.com/gp/product/0415138574?tag=georgvreill-20">Blamires</a>,
+for their takes on&nbsp;“Penelope”.</p>
+<p>Molly is lying in bed, day&shy;dream&shy;ing early on the morning of June 17th, 1904.
+Leopold climbed in to bed a little while ago,
+put his head at her <span>&#8230;<a href="/blog/2013/01/20/AdaptingPenelopePartI.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2013/01/20/AdaptingPenelopePartI.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/jamesjoyce/" rel="tag">jamesjoyce</a>
+                    and
+                    
+                <a href="/tag/dramaturgy/" rel="tag">dramaturgy</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2013-01-20">2013-01-20</time>
+        <h1>
+            <a href="/blog/2013/01/20/StaticWebsiteConversions.html" rel="bookmark canonical">Static Website Conversions</a>
+        </h1>
+    </header>
+    
+
+<p>I&#8217;ve spent time over the last three weeks
+working on a new website for the <a class="reference external" href="http://nwcpp.org/">Northwest C++ Users&#8217; Group</a>.
+I blogged about the <a class="reference external" href="http://nwcpp.org/2013-website-refresh.html"><span class="caps">NWCPP</span> website refresh</a> over there.
+In brief, I moved the website
+from an instance of the <a class="reference external" href="http://www.joomla.org/">Joomla</a> Content Management System at <a class="reference external" href="http://www.justhost.com/">Just Host</a>
+to a static website generated by <a class="reference external" href="http://blog.getpelican.com/">Pelican</a> and hosted at <a class="reference external" href="http://pages.github.com/">Github Pages</a>,
+and I&#8217;m happy with the&nbsp;results.</p>
+<p>Not only am I the Webmaster (and Secretary) of <span class="caps">NWCPP</span>,
+I am also the webmaster for several other&nbsp;or&shy;ga&shy;ni&shy;za&shy;tions:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.wildgeeseseattle.org/">Wild Geese Players of Seattle</a>,
+a static <span class="caps">HTML</span> site badly in need of a makeover
+(I&#8217;m the Director, Dramaturg, and&nbsp;Webmaster).</li>
+<li><a class="reference external" href="http://www.freelyspeaking.org/">Freely Speaking Toast&shy;mas&shy;ters</a>,
+a dynamic site based on the horrid <a class="reference external" href="http://www.toastmastersclubs.org/welcome/">Free&shy;ToastHoast 2.0</a> <span>&#8230;<a href="/blog/2013/01/20/StaticWebsiteConversions.html" class="continue">continue</a>.</span></li></ul>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2013/01/20/StaticWebsiteConversions.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/blogging/" rel="tag">blogging</a>
+                    and
+                    
+                <a href="/tag/tech/" rel="tag">tech</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2012-01-26">2012-01-26</time>
         <h1>
             <a href="/blog/2012/01/26/30YearsOfProgramming.html" rel="bookmark canonical">30 Years of Programming</a>
@@ -211,219 +437,6 @@ which became Allied Irish Bank <span>&#8230;<a href="/blog/2011/04/03/The1911Cen
                     and
                     
                 <a href="/tag/personal/" rel="tag">personal</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2010-11-30">2010-11-30</time>
-        <h1>
-            <a href="/blog/2010/11/30/ReviewLetTheDeadLie.html" rel="bookmark canonical">Review: Let the Dead Lie</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/1416586229/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Let the Dead Lie</div>
-<div class="line">Author: Malla Nunn</div>
-<div class="line">Rating: ★ ★ ★</div>
-<div class="line">Publisher: Washington Square Press</div>
-<div class="line">Copyright: 2010</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/1416586229/?tag=georgvreill-20">1416586229</a></div>
-<div class="line">Pages: 382</div>
-<div class="line">Keywords: crime</div>
-<div class="line">Reading period: 24–<span class="caps">DD</span> November, 2010</div>
-</div>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2010/11/30/ReviewLetTheDeadLie.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/crime/" rel="tag">crime</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2010-11-10">2010-11-10</time>
-        <h1>
-            <a href="/blog/2010/11/10/ReviewTheHundredDays.html" rel="bookmark canonical">Review: The Hundred Days</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0393319792/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Hundred Days</div>
-<div class="line">Author: Patrick O&#8217;Brian</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: <span class="caps">W.W.</span> Norton</div>
-<div class="line">Copyright: 1998</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0393319792/?tag=georgvreill-20">0393319792</a></div>
-<div class="line">Pages: 320</div>
-<div class="line">Keywords: historical fiction</div>
-<div class="line">Reading period: 31 October–10 November, 2010</div>
-</div>
-<p>Sequel to <a class="reference external" href="/blog/...">The Yellow Admiral</a>.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2010/11/10/ReviewTheHundredDays.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/fiction/" rel="tag">fiction</a>
-                    and
-                    
-                <a href="/tag/history/" rel="tag">history</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2010-10-31">2010-10-31</time>
-        <h1>
-            <a href="/blog/2010/10/31/ReviewTheYellowAdmiral.html" rel="bookmark canonical">Review: The Yellow Admiral</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0393317048/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Yellow Admiral</div>
-<div class="line">Author: Patrick O&#8217;Brian</div>
-<div class="line">Rating: ★ ★ ★ ½</div>
-<div class="line">Publisher: <span class="caps">W.W.</span> Norton</div>
-<div class="line">Copyright: 1996</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0393317048/?tag=georgvreill-20">0393317048</a></div>
-<div class="line">Pages: 320</div>
-<div class="line">Keywords: historical fiction</div>
-<div class="line">Reading period: 24–31 October, 2010</div>
-</div>
-<p>Sequel to <a class="reference external" href="/blog/...">The Commodore</a>.</p>
-<p>The Napoleonic wars are drawing to a close.
-Jack Aubrey is beset with legal problems on land
-and Stephen Maturin&#8217;s fortune has been seized by the Spanish au&shy;thor&shy;i&shy;ties.
-They are sent to sea to be part of the blockade of the French port of Brest,
-where they are in disfavor with the admiral leading the&nbsp;blockade.</p>
-<p>Perhaps the slowest of the Aubrey-Maturin books,
-it ends with Napoleon being exiled to Elba
-and then the news that Napoleon has&nbsp;escaped.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2010/10/31/ReviewTheYellowAdmiral.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/fiction/" rel="tag">fiction</a>
-                    and
-                    
-                <a href="/tag/history/" rel="tag">history</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2010-10-31">2010-10-31</time>
-        <h1>
-            <a href="/blog/2010/10/31/ReviewLiesDamnedLiesAndScience.html" rel="bookmark canonical">Review: Lies, Damned Lies, and Science</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0137155220/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Lies, Damned Lies, and Science</div>
-<div class="line">Author: Sherry Seethaler</div>
-<div class="line">Rating: ★ ★ ★</div>
-<div class="line">Publisher: <span class="caps">FT</span> Press</div>
-<div class="line">Copyright: 2009</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0137155220/?tag=georgvreill-20">0137155220</a></div>
-<div class="line">Pages: 224</div>
-<div class="line">Keywords: science</div>
-<div class="line">Reading period: 4–<span class="caps">DD</span> October, 2010</div>
-</div>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2010/10/31/ReviewLiesDamnedLiesAndScience.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/science/" rel="tag">science</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2010-10-24">2010-10-24</time>
-        <h1>
-            <a href="/blog/2010/10/24/ReviewZuluHeart.html" rel="bookmark canonical">Review: Zulu Heart</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0446611956/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Zulu Heart</div>
-<div class="line">Author: Steven Barnes</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Aspect</div>
-<div class="line">Copyright: 2003</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0446611956/?tag=georgvreill-20">0446611956</a></div>
-<div class="line">Pages: 636</div>
-<div class="line">Keywords: alternate history</div>
-<div class="line">Reading period: 19–24 October, 2010</div>
-</div>
-<p>Sequel to <a class="reference external" href="/blog/2007/09/16/ReviewLionsBlood.html">Lion&#8217;s&nbsp;Blood</a></p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2010/10/24/ReviewZuluHeart.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/alternate-history/" rel="tag">alternate-history</a>
                 
             </p>
         

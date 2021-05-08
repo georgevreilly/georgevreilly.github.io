@@ -28,6 +28,251 @@
     
         <article>
     <header>
+        <time datetime="2016-01-12">2016-01-12</time>
+        <h1>
+            <a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" rel="bookmark canonical">Bash: Getting and Setting Default Values</a>
+        </h1>
+    </header>
+    <p>Bash has some handy syntax for getting and setting default values.
+Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s a collection of punc&shy;tu&shy;a&shy;tion characters,
+which makes it hard to Google when you can&#8217;t quite remember the&nbsp;syntax.</p>
+<p>Getting a default value using <tt class="docutils literal"><span class="pre">${var:-fallback}</span></tt>:</p>
+<pre class="code bash literal-block">
+<span class="c1"># set $<span class="caps">LOGDIR</span> to $1 if $1 has a value; otherwise set $<span class="caps">LOGDIR</span> to &quot;/var/log&quot;
+</span><span class="nv"><span class="caps">LOGDIR</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/var/log</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># use $<span class="caps">VERSION</span> unless it's empty or unset; fall back to extracting someprog's version num
+</span><span class="nv">build_version</span><span class="o">=</span><span class="si">${</span><span class="nv"><span class="caps">VERSION</span></span><span class="k">:-$(</span>someprog --version <span class="p">|</span> sed <span class="s1">'s/[^0-9.]*\([0-9.]*\).*/\1/'</span><span class="k">)</span><span class="si">}</span>
+</pre>
+<p>The colon-dash con&shy;struc&shy;tion is known as the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog&#8217;s bollocks</a>
+in&nbsp;typography.</p>
+<p>Setting a default value, using <tt class="docutils literal"><span class="pre">${var:=fallback}</span></tt>:</p>
+<pre class="code bash literal-block">
+$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
+/Users/georgevreilly
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
+/Users/georgevreilly
+$ <span class="nb">unset</span> <span class="caps">HOME</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
+/tmp
+$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
+/tmp
+$ cd<span class="p">;</span> <span class="nb">pwd</span>
+/tmp
+</pre>
+<p>Note: <tt class="docutils literal">:=</tt> uses the new value in two cases.
+First, when the shell <span>&#8230;<a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/12/BashGettingAndSettingDefaultValues.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/bash/" rel="tag">bash</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-11">2016-01-11</time>
+        <h1>
+            <a href="/blog/2016/01/11/ReviewBlindJustice.html" rel="bookmark canonical">Review: Blind Justice</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.amazon.com/dp/0425150070/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: Blind Justice</div>
+<div class="line">Author: Bruce Alexander</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Publisher: Berkeley</div>
+<div class="line">Copyright: 1994</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0425150070/?tag=georgvreill-20">0425150070</a></div>
+<div class="line">Pages: 336</div>
+<div class="line">Keywords: historical mystery</div>
+<div class="line">Reading period: 10 January, 2016</div>
+</div>
+<p>The first in a series about <a class="reference external" href="https://en.wikipedia.org/wiki/John_Fielding">Sir John Fielding</a>,
+the blind magistrate who founded the Bow Street Runners,
+London&#8217;s first pro&shy;fes&shy;sion&shy;al police force in 1749.
+Jeremy Proctor, a newly orphaned 13-year-old, is taken under Sir John&#8217;s wing
+and assists him in dis&shy;cov&shy;er&shy;ing how the rakish Lord Goodhope
+was murdered in a locked&nbsp;room.</p>
+<p>Although I figured out the murderer halfway through,
+I still enjoyed both the plot and the characters.
+Alexander vividly brings Georgian London to&nbsp;life.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/11/ReviewBlindJustice.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>,
+                <a href="/tag/mystery/" rel="tag">mystery</a>
+                    and
+                    
+                <a href="/tag/history/" rel="tag">history</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-10">2016-01-10</time>
+        <h1>
+            <a href="/blog/2016/01/10/ReviewADedicatedMan.html" rel="bookmark canonical">Review: A Dedicated Man</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.amazon.com/dp/0380716453/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: A Dedicated Man</div>
+<div class="line">Author: Peter Robinson</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Publisher: Avon</div>
+<div class="line">Copyright: 1988</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0380716453/?tag=georgvreill-20">0380716453</a></div>
+<div class="line">Pages: 352</div>
+<div class="line">Keywords: police procedural</div>
+<div class="line">Reading period: 8–10 January, 2016</div>
+</div>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/A_Dedicated_Man">A Dedicated Man</a> is the second novel in the <a class="reference external" href="https://en.wikipedia.org/wiki/Inspector_Alan_Banks">Inspector Banks</a> series.
+A local historian has been murdered in the Yorkshire Dales.
+He was well-liked and there seems to be no obvious motives or suspects.
+Banks must dig into the dead man&#8217;s past if there are no leads in the&nbsp;present.</p>
+<p>Like <a class="reference external" href="/blog/2009/11/21/ReviewTheHangingValley.html">other</a> <a class="reference external" href="/blog/2015/05/31/ReviewBadBoy.html">books</a> in the series,
+this is a competent well-written police procedural,
+partly seen through Banks&#8217; eyes
+and partly through the eyes of some of the locals.
+Robinson is an expatriate York&shy;shire&shy;man
+with a fondness for his homeland and <span>&#8230;<a href="/blog/2016/01/10/ReviewADedicatedMan.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/10/ReviewADedicatedMan.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/mystery/" rel="tag">mystery</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-09">2016-01-09</time>
+        <h1>
+            <a href="/blog/2016/01/09/ReviewDollmaker.html" rel="bookmark canonical">Review: Dollmaker</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.amazon.com/dp/1569473463/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: Dollmaker</div>
+<div class="line">Author: J. Robert Janes</div>
+<div class="line">Rating: ★ ★ ★ ½</div>
+<div class="line">Publisher: Soho Crime</div>
+<div class="line">Copyright: 1995</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/1569473463/?tag=georgvreill-20">1569473463</a></div>
+<div class="line">Pages: 272</div>
+<div class="line">Keywords: police procedural, <span class="caps">WW</span> <span class="caps">II</span></div>
+<div class="line">Reading period: 2–7 January, 2016</div>
+</div>
+<p>Occupied France, January 1943.
+Detectives Jean-Louis St-Cyr and Hermann Kohler are sent
+to the German <a class="reference external" href="https://en.wikipedia.org/wiki/Keroman_Submarine_Base">submarine base</a> at Lorient in Brittany
+to in&shy;ves&shy;ti&shy;gate a murder.
+The Gross-Admiral wants a quick resolution to the case
+since the prime suspect is a U-Boat captain known as the Dollmaker,
+whose crew are de&shy;mor&shy;al&shy;ized after many months of punishing cruises
+and who won&#8217;t go back to sea without&nbsp;him.</p>
+<p>St-Cyr and Kohler are unlikely partners,
+a Chief Inspector from the Sûreté in Paris
+and a longtime criminal policeman now in the Gestapo.
+Both are astute <span>&#8230;<a href="/blog/2016/01/09/ReviewDollmaker.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/09/ReviewDollmaker.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>,
+                <a href="/tag/mystery/" rel="tag">mystery</a>
+                    and
+                    
+                <a href="/tag/history/" rel="tag">history</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-08">2016-01-08</time>
+        <h1>
+            <a href="/blog/2016/01/08/HappyBirthdayRoyBatty.html" rel="bookmark canonical">Happy Birthday, Roy Batty</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://anjinanhut.deviantart.com/art/time-to-die-roy-batty-108197743"></a>
+
+<blockquote>
+<p>I&#8217;ve seen things you people wouldn&#8217;t believe.
+Attack ships on fire off the shoulder of Orion.
+I watched C-beams glitter in the dark near the Tannhäuser Gate.
+All those moments will be lost in time, like tears…in…rain.
+Time to&nbsp;die.</p>
+<p class="attribution">&mdash;Roy Batty, the <a class="reference external" href="https://en.wikipedia.org/wiki/Tears_in_rain_monologue">Tears in Rain</a>&nbsp;monologue</p>
+</blockquote>
+<p>According to <a class="reference external" href="https://en.wikipedia.org/wiki/Blade_Runner">Blade Runner</a>,
+the replicant Roy Batty&#8217;s incept date is January 8th, 2016.
+The <a class="reference external" href="http://www.smh.com.au/entertainment/movies/blade-runner-fans-its-roy-battys-birthday-20160107-gm19z8.html">Sydney Morning Herald</a> has an&nbsp;article.</p>
+<p>In honor of which, we watched Blade Runner&nbsp;tonight.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/08/HappyBirthdayRoyBatty.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/movies/" rel="tag">movies</a>
+                    and
+                    
+                <a href="/tag/sf/" rel="tag">sf</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-07">2016-01-07</time>
         <h1>
             <a href="/blog/2016/01/07/DicewareAndLastpass.html" rel="bookmark canonical">LastPass and Diceware</a>
@@ -226,220 +471,6 @@ as they <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" 
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-03">2016-01-03</time>
-        <h1>
-            <a href="/blog/2016/01/03/2015-Q4-books.html" rel="bookmark canonical">My Recent Reading</a>
-        </h1>
-    </header>
-    
-<p>The ac&shy;com&shy;pa&shy;ny&shy;ing photo shows most of the books that I&#8217;ve read between late September 2015
-and January&nbsp;2nd:</p>
-<ul class="simple">
-<li>Five <a class="reference external" href="https://en.wikipedia.org/wiki/Inspector_Rebus">Rebus</a> novels by Ian Rankin&nbsp;(unreviewed)</li>
-<li>Nine <a class="reference external" href="https://en.wikipedia.org/wiki/Kurt_Wallander">Wallander</a> novels by Henning Mankell (un&shy;re&shy;viewed; <em>The Fifth Woman</em> was an&nbsp;e-book)</li>
-<li><em>The Seacoast of Bohemia</em> by Nicolas&nbsp;Freeling</li>
-<li><em>The Vault</em> by Peter&nbsp;Lovesey</li>
-<li><em>A German Requiem</em> by Philip&nbsp;Kerr</li>
-<li><a class="reference external" href="/blog/2015/12/04/ReviewStarFall.html">Star&nbsp;Fall</a></li>
-<li><a class="reference external" href="/blog/2015/12/08/ReviewTheAx.html">The&nbsp;Ax</a></li>
-<li>The first seven books of <a class="reference external" href="/blog/2015/12/16/ReviewSaxonTales.html">The Saxon Tales</a> by Bernard&nbsp;Cornwell</li>
-<li><a class="reference external" href="/blog/2015/12/20/ReviewDestinationMorgue.html">Des&shy;ti&shy;na&shy;tion:&nbsp;Morgue</a></li>
-<li><a class="reference external" href="/blog/2015/12/26/ReviewTheMagicians.html">The Magicians</a>, <a class="reference external" href="/blog/2015/12/27/ReviewTheMagicianKing.html">The Magician King</a>, and <a class="reference external" href="/blog/2015/12/31/ReviewTheMagiciansLand.html">The Magician&#8217;s&nbsp;Land</a></li>
-<li><a class="reference external" href="/blog/2016/01/02/ReviewTheRedRoad.html">The Red&nbsp;Road</a></li>
-<li>Some other ebooks, including some technical&nbsp;books</li>
-</ul>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/03/2015-Q4-books.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-02">2016-01-02</time>
-        <h1>
-            <a href="/blog/2016/01/02/ReviewTheRedRoad.html" rel="bookmark canonical">Review: The Red Road</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/0316188506/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Red Road</div>
-<div class="line">Author: Denise Mina</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Back Bay Books</div>
-<div class="line">Copyright: 2014</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0316188506/?tag=georgvreill-20">0316188506</a></div>
-<div class="line">Pages: 320</div>
-<div class="line">Keywords: police procedural, tartan noir</div>
-<div class="line">Reading period: 31 December, 2015–2 January, 2016</div>
-</div>
-<p>Glasgow <span class="caps">DI</span> Alex Morrow is trying to put a dangerous criminal back in prison,
-but she can&#8217;t explain how his prints were found at the scene of a recent murder
-when he was already in custody.
-Fifteen years ago, when Rose Wilson was a sexually abused 14 year old,
-she was re&shy;spon&shy;si&shy;ble for two deaths in one night,
-but only did time for one culpable homicide.
-Now the lawyer who saved her is dead and coverups are&nbsp;unraveling.</p>
-<p>In other hands, this tale <span>&#8230;<a href="/blog/2016/01/02/ReviewTheRedRoad.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/02/ReviewTheRedRoad.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/crime/" rel="tag">crime</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-01">2016-01-01</time>
-        <h1>
-            <a href="/blog/2016/01/01/ThanksForMakingAMess.html" rel="bookmark canonical">Thanks for Making a Mess</a>
-        </h1>
-    </header>
-    <p>Emma and I have a bargain.
-If one of us cooks a nice dinner, the other cleans up.
-While I can and do cook, Emma does most of the cooking.
-Therefore, I do most of the&nbsp;cleaning.</p>
-<p>I always thank Emma during dinner for the meal,
-and Emma invariably thanks me for cleaning when I&#8217;m washing pots and pans.
-I—a lifelong smar&shy;tass—usu&shy;al&shy;ly respond,
-&quot;Thank you for making a&nbsp;mess.&quot;</p>
-<p>So far, she&#8217;s taken this with good grace—prob&shy;a&shy;bly better than I deserve.
-In truth, the cleanup is usually far quicker than the&nbsp;cooking.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/01/ThanksForMakingAMess.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/personal/" rel="tag">personal</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-31">2015-12-31</time>
-        <h1>
-            <a href="/blog/2015/12/31/ReviewTheMagiciansLand.html" rel="bookmark canonical">Review: The Magician's Land</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/0670015679/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Magician&#8217;s Land</div>
-<div class="line">Author: Lev Grossman</div>
-<div class="line">Rating: ★ ★ ★ ★ ½</div>
-<div class="line">Publisher: Plume</div>
-<div class="line">Copyright: 2014</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0670015679/?tag=georgvreill-20">0670015679</a></div>
-<div class="line">Pages: 416</div>
-<div class="line">Keywords: adult fantasy</div>
-<div class="line">Reading period: 26–29 December, 2015</div>
-</div>
-<p>[Sequel to <a class="reference external" href="/blog/2015/12/27/ReviewTheMagicianKing.html">The Magician King</a>]</p>
-<p>At the beginning of <a class="reference external" href="https://en.wikipedia.org/wiki/The_Magician%27s_Land">The Magician&#8217;s Land</a>,
-Quentin Coldwater is in exile from Fillory.
-After a brief sojourn of teaching at Brakebills,
-where he researches an enormously complex spell he found in the Nei&shy;ther&shy;lands,
-he is fired and Plum, a student, is expelled.
-A mysterious summons draws them into a magical heist, which goes awry.
-Meanwhile, Fillory is dying
-and Eliot, Janet, Josh, and Poppy are trying to save&nbsp;it.</p>
-<p>Quentin has matured over the trilogy,
-emo&shy;tion&shy;al&shy;ly and as a magician,
-rising to the daunting challenges
-&quot;He was <span>&#8230;<a href="/blog/2015/12/31/ReviewTheMagiciansLand.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/31/ReviewTheMagiciansLand.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/fantasy/" rel="tag">fantasy</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-30">2015-12-30</time>
-        <h1>
-            <a href="/blog/2015/12/30/UseForPythonNestedListComprehensions.html" rel="bookmark canonical">Python: a use for nested list comprehensions</a>
-        </h1>
-    </header>
-    <p>I wanted to turn a list like
-<tt class="docutils literal"><span class="pre">['*.zip',</span> <span class="pre">'*.pyc',</span> <span class="pre">'*.log']</span></tt> into
-<tt class="docutils literal"><span class="pre">['--exclude',</span> <span class="pre">'*.zip',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.pyc',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.log']</span></tt>.</p>
-<p>A simple list com&shy;pre&shy;hen&shy;sion doesn&#8217;t work as&nbsp;desired:</p>
-<pre class="code python literal-block">
-<span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">excludes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
-
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">]</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">)]</span>
-</pre>
-<p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com&shy;pre&shy;hen&shy;sion</a>:</p>
-<pre class="code python literal-block">
-<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="n">arg</span> <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">excludes</span>
-             <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">pattern</span><span class="p">]]</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
-</pre>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/30/UseForPythonNestedListComprehensions.html#disqus_thread">Comment</a>
         
         
             <p>tagged as

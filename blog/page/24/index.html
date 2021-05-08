@@ -28,6 +28,218 @@
     
         <article>
     <header>
+        <time datetime="2016-03-02">2016-03-02</time>
+        <h1>
+            <a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" rel="bookmark canonical">Python: Import subclass from dynamic path</a>
+        </h1>
+    </header>
+    <p>I needed to import some plugin code written in Python
+from a directory whose path isn&#8217;t known until runtime.
+Further, I needed a class object that was a subclass of the plugin base&nbsp;class.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">somewhere</span> <span class="kn">import</span> <span class="n">PluginBase</span>
+
+<span class="k">class</span> <span class="nc">SomePlugin</span><span class="p">(</span><span class="n">PluginBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">f2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+</pre>
+<p>You can use the <a class="reference external" href="https://pymotw.com/2/imp/">imp</a> module to actually load the module from <tt class="docutils literal">impl_dir</tt>.
+Note that <tt class="docutils literal">impl_dir</tt> needs to be tem&shy;porar&shy;i&shy;ly prepended to <tt class="docutils literal">sys.path</tt>.
+Then you can find the plugin subclass using <a class="reference external" href="https://docs.python.org/2/library/functions.html#dir">dir</a> and <a class="reference external" href="https://docs.python.org/2/library/functions.html#issubclass">issubclass</a>.</p>
+<pre class="code python literal-block">
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">imp</span>
+
+<span class="k">def</span> <span class="nf">import_class</span><span class="p">(</span><span class="n">implementation_filename</span><span class="p">,</span> <span class="n">base_class</span><span class="p">):</span>
+    <span class="n">impl_dir</span><span class="p">,</span> <span class="n">impl_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">implementation_filename</span><span class="p">)</span>
+    <span class="n">module_name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">impl_filename</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+ </pre><span>&#8230;<a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-03-01">2016-03-01</time>
+        <h1>
+            <a href="/blog/2016/03/01/AskingForHelp.html" rel="bookmark canonical">Asking for Help</a>
+        </h1>
+    </header>
+    <p>It&#8217;s better to stay calm when things aren&#8217;t going well.
+Stress and panic are contagious.
+When you&#8217;re broad&shy;cast&shy;ing stress or panic on all channels,
+other people start picking it up.
+If you can keep your cool, others are more likely to remain calm too.
+Often that&#8217;s for the best,
+but sometimes it backfires
+because others in&shy;cor&shy;rect&shy;ly believe that everything is still&nbsp;okay.</p>
+<p>Knowing when to ask for help is an art.
+You learn a lot when you persevere and try different things,
+many of which may fail.
+The failures will likely show you where your un&shy;der&shy;stand&shy;ing is deficient;
+you learn some of the many ways in which things can go wrong.
+If you throw <span>&#8230;<a href="/blog/2016/03/01/AskingForHelp.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/01/AskingForHelp.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/personal/" rel="tag">personal</a>
+                    and
+                    
+                <a href="/tag/tech/" rel="tag">tech</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-02-29">2016-02-29</time>
+        <h1>
+            <a href="/blog/2016/02/29/fstm-club-contest-spring-2016.html" rel="bookmark canonical">Toastmasters Speech Contest</a>
+        </h1>
+    </header>
+    <p>I <a class="reference external" href="/blog/2016/02/01/ToastmastersContestChair.html">mentioned</a> a few weeks ago that I was going to be the Contest Chair
+for the In&shy;ter&shy;na&shy;tion&shy;al Speech and Evaluation Contests
+at <a class="reference external" href="http://freelyspeaking.org/">Freely Speaking Toast&shy;mas&shy;ters</a>.
+Those contests were tonight,
+and I was both Contest Chair and Toast&shy;mas&shy;ter.
+The contest chair sets up everything be&shy;fore&shy;hand;
+the toast&shy;mas&shy;ter runs the contest itself;
+frequently but not nec&shy;es&shy;sar&shy;i&shy;ly the contest chair is also the&nbsp;toast&shy;mas&shy;ter.</p>
+<p>I&#8217;m happy with how it came off.
+I managed to recruit two speakers for the Speech contest
+and three evaluators for the Evaluation contest,
+all of whom acquitted themselves well.
+I also recruited three judges, two ballot counters, one timer,
+a sergeant at arms, and a test speaker
+to make the contest run.
+The <span>&#8230;<a href="/blog/2016/02/29/fstm-club-contest-spring-2016.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/02/29/fstm-club-contest-spring-2016.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/toastmasters/" rel="tag">toastmasters</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-02-28">2016-02-28</time>
+        <h1>
+            <a href="/blog/2016/02/28/AdaptingBooksForFilmAndTV.html" rel="bookmark canonical">Adapting Books for Film and TV</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.pinterest.com/pin/16747829840591346/"></a>
+<p>I came across this cartoon today;
+it reminded me that I&#8217;ve been meaning to write
+about the hit-or-miss nature of adapting books for the&nbsp;screen.</p>
+<p>Books and video/film are different media,
+with different con&shy;ven&shy;tions and needs.
+Often the most-loved elements of a book are lost
+when it&#8217;s adapted for television or film,
+upsetting&nbsp;fans.</p>
+<p>As <span class="caps">J.K.</span> Rowling wrote about one of the Harry Potter&nbsp;movies:</p>
+<blockquote>
+&quot;It is simply impossible to in&shy;cor&shy;po&shy;rate every one of my storylines
+into a film that has to be kept under four hours long.
+Obviously films have re&shy;stric&shy;tions
+– novels do not have con&shy;straints of time and budget;
+I can create dazzling effects relying on nothing but
+the in&shy;ter&shy;ac&shy;tion of my own and <span>&#8230;<a href="/blog/2016/02/28/AdaptingBooksForFilmAndTV.html" class="continue">continue</a>.</span></blockquote>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/02/28/AdaptingBooksForFilmAndTV.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>
+                    and
+                    
+                <a href="/tag/movies/" rel="tag">movies</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-02-27">2016-02-27</time>
+        <h1>
+            <a href="/blog/2016/02/27/Keybase.html" rel="bookmark canonical">Keybase</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://keybase.io/"></a>
+<p>I was sent an invite to <a class="reference external" href="https://keybase.io/">Keybase</a> a few weeks, which I accepted&nbsp;tonight.</p>
+<p><a class="reference external" href="http://www.fastcompany.com/3044306/keybase-wants-to-make-serious-encryption-accessible-to-mere-mortals">Keybase Wants To Make Serious Encryption Accessible To Mere Mortals</a>&nbsp;explains:</p>
+<blockquote>
+<p>From a cryp&shy;to&shy;graph&shy;ic standpoint, <span class="caps">PGP</span> is rock solid.
+In practice, using it is very messy.
+Its complexity has deterred the vast majority of people
+who might otherwise benefit from using&nbsp;encryption.</p>
+<p>The first problem is es&shy;tab&shy;lish&shy;ing a valid identity,
+especially with other people located oceans away.
+The second is dis&shy;trib&shy;ut&shy;ing public keys
+without nefarious types posting al&shy;ter&shy;na&shy;tive keys
+that appear to be registered to the same person.
+&#8230;
+The third issue is getting people to install and use <span class="caps">PGP</span>&nbsp;software.</p>
+</blockquote>
+<p>I can now be reached via <a class="reference external" href="https://keybase.io/georgevreilly">https://keybase.io/georgevreil&shy;ly</a>.
+I&#8217;ve proved my identity on
+<a class="reference external" href="http://www.georgevreilly.com/">GeorgeVReil&shy;ly.com</a>, <a class="reference external" href="https://github.com/georgevreilly">GitHub</a>, <span>&#8230;<a href="/blog/2016/02/27/Keybase.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/02/27/Keybase.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/security/" rel="tag">security</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-02-26">2016-02-26</time>
         <h1>
             <a href="/blog/2016/02/26/ReviewRunFatboyRun.html" rel="bookmark canonical">Review: Run Fatboy Run</a>
@@ -224,233 +436,6 @@ the uneasy crossover between French and American <span>&#8230;<a href="/blog/201
                     and
                     
                 <a href="/tag/history/" rel="tag">history</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-02-21">2016-02-21</time>
-        <h1>
-            <a href="/blog/2016/02/21/ReviewDeathInAStrangeCountry.html" rel="bookmark canonical">Review: Death In A Strange Country</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/0099469375/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Death In A Strange Country</div>
-<div class="line">Author: Donna Leon</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Arrow Books</div>
-<div class="line">Copyright: 1993</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0099469375/?tag=georgvreill-20">0099469375</a></div>
-<div class="line">Pages: 373</div>
-<div class="line">Keywords: mystery</div>
-<div class="line">Reading period: 19–21 February, 2016</div>
-</div>
-<p>A body has washed up in the canals of Venice,
-that of an American soldier from the nearby <span class="caps">US</span> base at Vicenza.
-Com&shy;mis&shy;sario Guido Brunetti doesn&#8217;t believe that it&#8217;s a mugging gone wrong,
-especially when he sees the fear in the eyes
-of the female army doctor who&#8217;s sent to identify the body.
-He digs and finds corruption among the rich and powerful, in a toxic&nbsp;coverup.</p>
-<p>Brunetti is a decent and honorable family man,
-whose sense of justice is undi&shy;min&shy;ished by working for
-an in&shy;com&shy;pe&shy;tent func&shy;tionary in <span>&#8230;<a href="/blog/2016/02/21/ReviewDeathInAStrangeCountry.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/02/21/ReviewDeathInAStrangeCountry.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/mystery/" rel="tag">mystery</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-02-20">2016-02-20</time>
-        <h1>
-            <a href="/blog/2016/02/20/ReviewTheBelfastConnection.html" rel="bookmark canonical">Review: The Belfast Connection</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/0451162307/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Belfast Connection</div>
-<div class="line">Author: Milton Bass</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: New American Library</div>
-<div class="line">Copyright: 1988</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0451162307/?tag=georgvreill-20">0451162307</a></div>
-<div class="line">Pages: 300</div>
-<div class="line">Keywords: thriller</div>
-<div class="line">Reading period: 14–17 February, 2016</div>
-</div>
-<p>San Diego cop Benny Freedman decides to meet his Belfast relatives for the first time.
-They disowned his Catholic mother decades ago when she married his Jewish father.
-It turns out that her siblings are still un&shy;re&shy;pen&shy;tant bigots,
-but he finds himself drawn to two of his cousins,
-pretty young Catherine Callahan
-and Brendan O&#8217;Malley, a poet whose brother Sean has just been murdered.
-Cousin Benny finds himself drawn into in&shy;ternecine feuding between the <span class="caps">IRA</span> and the <span class="caps">INLA</span>,
-as well as skirmishes against the British Army and <span>&#8230;<a href="/blog/2016/02/20/ReviewTheBelfastConnection.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/02/20/ReviewTheBelfastConnection.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/thriller/" rel="tag">thriller</a>
-                    and
-                    
-                <a href="/tag/ireland/" rel="tag">ireland</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-02-19">2016-02-19</time>
-        <h1>
-            <a href="/blog/2016/02/19/ReviewMadMaxFuryRoad.html" rel="bookmark canonical">Review: Mad Max: Fury Road</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Mad_Max:_Fury_Road"></a>
-<p>We saw <a class="reference external" href="https://en.wikipedia.org/wiki/Mad_Max:_Fury_Road">Mad Max: Fury Road</a> at the Cinerama tonight,
-as part of its <a class="reference external" href="https://www.cinerama.com/News/January-2015/Eight-Days-of-Oscar.aspx">Eight Days of Oscar</a>—<em>Fury Road</em> having being nominated for ten Oscars,
-including Best Picture and Best Director.
-I have no idea if it will win any awards from the Academy,
-but it&#8217;s no ordinary action&nbsp;movie.</p>
-<p>Action there is aplenty,
-a kinetic feast of racing cars and roaring maniacs
-that rarely lets up.
-Imperator Furiosa and Max flee across the desert,
-taking Immortan Joe&#8217;s five nubile wives to a better place.
-They seek hope, Furiosa seeks redemption, and Max seeks mostly to survive.
-Furiosa sets the plot in motion;
-Max is a loner battered by fate,
-grudgingly coming to the <span>&#8230;<a href="/blog/2016/02/19/ReviewMadMaxFuryRoad.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/02/19/ReviewMadMaxFuryRoad.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/movies/" rel="tag">movies</a>
-                    and
-                    
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-02-18">2016-02-18</time>
-        <h1>
-            <a href="/blog/2016/02/18/ReviewTheStrawMen.html" rel="bookmark canonical">Review: The Straw Men</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/B00B781GP2/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Straw Men</div>
-<div class="line">Author: Paul Doherty</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Severn House Digital</div>
-<div class="line">Copyright: 2013</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/B00B781GP2/?tag=georgvreill-20"><span class="caps">B00B781GP2</span></a></div>
-<div class="line">Pages: 224</div>
-<div class="line">Keywords: historical mystery</div>
-<div class="line">Reading period: January 29–Feb&shy;ru&shy;ary 16 2016</div>
-</div>
-<p>London, January 1381.
-<a class="reference external" href="https://en.wikipedia.org/wiki/John_of_Gaunt">John of Gaunt</a>&#8216;s regency is in trouble,
-unrest abounds throughout the land,
-and uprisings are being plotted.
-Brother Athelstan and his friend the Coroner
-are invited to a per&shy;for&shy;mance by Gaunt&#8217;s players, the Straw Men,
-at the Tower of London.
-When a murder occurs during the play, Athelstan is required to in&shy;ves&shy;ti&shy;gate.
-Several more murders happen before he finds the&nbsp;culprit.</p>
-<p>Doherty pulls off both an intricate plot and a satisfying historical&nbsp;novel.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/02/18/ReviewTheStrawMen.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/mystery/" rel="tag">mystery</a>
-                    and
-                    
-                <a href="/tag/history/" rel="tag">history</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-02-17">2016-02-17</time>
-        <h1>
-            <a href="/blog/2016/02/17/ShamrocksHaveThreeLeaves.html" rel="bookmark canonical">Shamrocks Have Three Leaves, Not Four</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Shamrock"></a>
-<a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Four-leaf_clover"></a>
-<p>I visited a <a class="reference external" href="http://www.shawnodonnells.com/Seattle/">faux-Irish bar</a> this evening
-where both three-leaved and four-leaved shamrocks were found in&nbsp;abundance.</p>
-<p>The reason why <a class="reference external" href="https://en.wikipedia.org/wiki/Shamrock">shamrocks</a> are associated with Ireland
-is that our patron saint, St. Patrick,
-used the three-leaved plant
-as a metaphor for the Divine Trinity,
-the three gods in one,
-God the Father, God the Son, and God the Holy Ghost.
-(The Irish usually refer to the Holy Spirit as the Holy Ghost.
-I spent ages 7–18 at <a class="reference external" href="https://en.wikipedia.org/wiki/St_Mary%27s_College,_Dublin">St. Mary&#8217;s College CSSp</a> in Dublin,
-which is run by the Holy Ghost&nbsp;Fathers.)</p>
-<p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Four-leaf_clover">four-leaf clover</a> is considered lucky because it is rare.
-It may be lucky but it is not a&nbsp;shamrock.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/02/17/ShamrocksHaveThreeLeaves.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/ireland/" rel="tag">ireland</a>
                 
             </p>
         

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2017-02-04">2017-02-04</time>
+        <h1>
+            <a href="/blog/2017/02/04/Jenkins05-Groovy.html" rel="bookmark canonical">Jenkins #5: Groovy</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>Jenkins Pipelines are written in a Groovy DSL.
+This is a good choice but there are surprises.</p>
+<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#5 in a series on Jenkins Pipelines</a></p>
+<div class="section" id="groovy-as-a-dsl">
+<h2>Groovy as a DSL</h2>
+<p>Groovy <a class="reference external" href="https://docs.groovy-lang.org/docs/latest/html/documentation/core-domain-specific-languages.html">lends</a> itself to <a class="reference external" href="https://dzone.com/articles/groovy-dsl-simple-example">writing</a> DSLs (<a class="reference external" href="https://en.wikipedia.org/wiki/Domain-specific_language">Domain-Specific Languages</a>)
+with a minimum of syntactic overhead.
+You can frequently omit the paren&shy;the&shy;ses, commas, and semicolons that litter other languages.</p>
+<p>Groovy has <a class="reference external" href="https://groovy-lang.org/syntax.html#_string_interpolation">in&shy;ter&shy;po&shy;lat&shy;ed GStrings</a>, lists, maps, functions, and closures.</p>
+<div class="section" id="closures">
+<h3>Closures</h3>
+<p><a class="reference external" href="https://groovy-lang.org/closures.html">Closures</a> are anonymous functions where state can be captured at de&shy;c&shy;la&shy;ra&shy;tion time
+to be executed later.
+The blocks that follow many Pipeline steps (<tt class="docutils literal">node</tt>, <tt class="docutils literal">stage</tt>, etc) are closures.</p>
+<p>Here's an example of a <tt class="docutils literal">Closure</tt> called <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt>,
+where the <tt class="docutils literal">re&shy;lease_lev&shy;el</tt> parameter <span>&#8230;<a href="/blog/2017/02/04/Jenkins05-Groovy.html" class="continue">continue</a>.</span></p></div></div>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/jenkins/" rel="tag">jenkins</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2017-02-04">2017-02-04</time>
+        <h1>
+            <a href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html" rel="bookmark canonical">Jenkins #1: Migrating to Pipelines</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>The MetaBrite dev team migrated most of their builds
+from At&shy;las&shy;sian's Bamboo Cloud to Jenkins Pipelines in late 2016/early 2017.
+This is a series of blog posts about that experience.</p>
+<div class="section" id="jenkins-pipeline-series">
+<h2>Jenkins Pipeline Series</h2>
+<p>The series so far:</p>
+<ul class="simple">
+<li><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">Jenkins #1: Migrating to Pipelines</a></li>
+<li><a class="reference external" href="/blog/2017/02/05/Jenkins02-EC2Slaves.html">Jenkins #2: EC2 Slaves</a></li>
+<li><a class="reference external" href="/blog/2017/02/06/Jenkins03-GitHubIntegration.html">Jenkins #3: GitHub In&shy;te&shy;gra&shy;tion</a></li>
+<li><a class="reference external" href="/blog/2017/02/07/Jenkins04-shStep.html">Jenkins #4: The sh step</a></li>
+<li><a class="reference external" href="/blog/2017/02/08/Jenkins05-Groovy.html">Jenkins #5: Groovy</a></li>
+<li><a class="reference external" href="/blog/2017/02/09/Jenkins06-Miscellenea.html">Jenkins #6: Mis&shy;cel&shy;le&shy;nea</a></li>
+</ul>
+</div>
+<div class="section" id="eviction">
+<h2>Eviction</h2>
+<p>For three years, we used At&shy;las&shy;sian's hosted <a class="reference external" href="https://confluence.atlassian.com/bamboocloud/">Bamboo Cloud</a> service
+to build and deploy most of our code.
+In the summer of 2016,
+Atlassian announced that they were
+going to dis&shy;con&shy;tin&shy;ue Bamboo Cloud on January 31st, 2017.</p>
+<p>We looked around for a suitable re&shy;place&shy;ment.
+We did not find <span>&#8230;<a href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html" class="continue">continue</a>.</span></p></div>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/jenkins/" rel="tag">jenkins</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2017-02-04">2017-02-04</time>
+        <h1>
+            <a href="/blog/2017/02/04/Jenkins02-EC2Slaves.html" rel="bookmark canonical">Jenkins #2: EC2 Slaves</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>The “slave” ter&shy;mi&shy;nol&shy;o&shy;gy is un&shy;for&shy;tu&shy;nate,
+but the utility of running a Jenkins build on a node that you've configured
+at Amazon's EC2 is undeniable.</p>
+<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#2 in a series on Jenkins Pipelines</a></p>
+<p>We needed to install system packages on our build nodes,
+such as Docker or Postgres.
+For obvious reasons,
+Cloud&shy;Bees—our Jenkins hosting provider—&shy;won't let you do that on their systems.
+You must provide your own build nodes,
+where you are free to install whatever you like.</p>
+<p>We already use Amazon Web Services,
+so we chose to configure our CloudBees account with EC2 slaves.
+We had a long and fruitless detour through <a class="reference external" href="https://go.cloudbees.com/docs/cloudbees-documentation/dev-at-cloud/index.html#_on_premise_executors">On-Premise Executors</a>,
+which I <span>&#8230;<a href="/blog/2017/02/04/Jenkins02-EC2Slaves.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/jenkins/" rel="tag">jenkins</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2017-01-13">2017-01-13</time>
+        <h1>
+            <a href="/blog/2017/01/13/ComputedParallelBranchesInJenkinsPipeline.html" rel="bookmark canonical">Computed Parallel Branches in Jenkins Pipeline</a>
+        </h1>
+    </header>
+    <p>I've been using Jenkins lately,
+setting up <a class="reference external" href="https://jenkins.io/solutions/pipeline/">Pipeline</a> builds.
+I have mixed feelings about that,
+but I'm quite liking Groovy.</p>
+<p>Here's an example of a <tt class="docutils literal">Closure</tt> called <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt>,
+where the <tt class="docutils literal">re&shy;lease_lev&shy;el</tt> parameter is a <tt class="docutils literal">String</tt>
+which must be either <tt class="docutils literal">&quot;dev&quot;</tt> or <tt class="docutils literal">&quot;prod&quot;</tt>.</p>
+<pre class="code groovy literal-block">
+<span class="kt">def</span> <span class="n">acceptance_integration_tests</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span> <span class="n">release_level</span> <span class="o">-&gt;</span>
+    <span class="k">assert</span> <span class="n">release_level</span> <span class="o">=~</span> <span class="s">/^(dev|prod)$/</span>
+    <span class="n">String</span> <span class="n">arg</span> <span class="o">=</span> <span class="s2">&quot;--${release_level}&quot;</span>
+
+    <span class="kt">def</span> <span class="n">branches</span> <span class="o">=</span> <span class="o">[</span>
+        <span class="s2">&quot;${release_level}_acceptance_tests&quot;</span><span class="o">:</span> <span class="o">{</span>
+            <span class="n">run_tests</span><span class="o">(</span><span class="s2">&quot;ci_acceptance_test&quot;</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">'**/*nosetests.xml'</span><span class="o">)</span>
+        <span class="o">},</span>
+       </pre><span>&#8230;<a href="/blog/2017/01/13/ComputedParallelBranchesInJenkinsPipeline.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/jenkins/" rel="tag">jenkins</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+        <a href="/tag/jenkins/" class="page floatleft">
+        &laquo; Next
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

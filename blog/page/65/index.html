@@ -28,6 +28,208 @@
     
         <article>
     <header>
+        <time datetime="2009-04-25">2009-04-25</time>
+        <h1>
+            <a href="/blog/2009/04/25/UbuntuNetbookRemix904.html" rel="bookmark canonical">Ubuntu Netbook Remix 9.04</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.jpierre.com/2009/04/installing-ubuntu-netbook-remix-904-jaunty-jackelope-on-eee-pc-the-howto-guide/"></a>
+<p>I spent much of today playing around with
+the brand-new Jaunty/9.04 release of the <a class="reference external" href="http://www.canonical.com/projects/ubuntu/unr">Ubuntu Netbook Remix</a>
+on my <a class="reference external" href="/blog/2008/11/26/Eee.html">Eee 1000H netbook</a>.
+Previously I had run the Hardy/8.04 version of <a class="reference external" href="http://www.ubuntu-eee.com/">Ubuntu Eee</a> on this system.
+I had never bothered to update to Intrepid/8.10,
+but now that <span class="caps">UNR</span> is fully supported by Canonical,
+I thought it was time to try it&nbsp;out.</p>
+<p>I <a class="reference external" href="http://www.ubuntu.com/getubuntu/download-netbook">downloaded</a> the <span class="caps">UNR</span> image last night onto my Mac,
+and trans&shy;ferred the image to a <span class="caps">1GB</span> <span class="caps">USB</span> stick this morning.
+(The <a class="reference external" href="https://help.ubuntu.com/community/Installation/FromImgFiles/#Mac%20OS%20X">Mac in&shy;struc&shy;tions</a> required a little&nbsp;tweaking.)</p>
+<p>I spent some time running the Live Image first, before clean installing.
+Everything worked seamlessly except the <a class="reference external" href="https://bugs.launchpad.net/ubuntu/+source/pulseaudio/+bug/354620">microphone</a>.
+WiFi worked, the webcam worked, sound playback <span>&#8230;<a href="/blog/2009/04/25/UbuntuNetbookRemix904.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/25/UbuntuNetbookRemix904.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-04-23">2009-04-23</time>
+        <h1>
+            <a href="/blog/2009/04/23/PythonStringFormatting.html" rel="bookmark canonical">Python String Formatting</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://docs.python.org/library/string.html#format-string-syntax"></a>
+<p>Python has long had a string in&shy;ter&shy;po&shy;la&shy;tion operator, <tt class="docutils literal">%</tt>.</p>
+<p>Python 2.6 and 3.0 introduced a new, richer set of <a class="reference external" href="http://docs.python.org/library/string.html#format-string-syntax">string formatting operations</a>.
+See <a class="reference external" href="http://www.python.org/dev/peps/pep-3101/"><span class="caps">PEP</span> 3101</a> for the&nbsp;rationale.</p>
+<p>One trick that I liked with the old way of formatting was
+to put the <a class="reference external" href="http://docs.python.org/library/functions.html#locals">locals()</a> dictionary or <tt class="docutils literal">self.__dict__</tt>
+on the right-hand&nbsp;side</p>
+<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="o">...</span>  <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
+<span class="o">...</span>  <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%(a)s</span><span class="s2">, </span><span class="si">%(b)s</span><span class="s2">, </span><span class="si">%(c)s</span><span class="s2">, </span><span class="si">%(d)s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">stuff</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
+<span class="s1">'3, 17, 20, -14'</span>
+</pre>
+<p>It took me a few minutes to figure out how to do the equivalent with <tt class="docutils literal">string.format</tt>:
+use the <tt class="docutils literal">**</tt> syntax to unpack the dict into <tt class="docutils literal">kwargs</tt>.</p>
+<pre class="code python literal-block">
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="o">...</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+<span class="o">...</span>   </pre><span>&#8230;<a href="/blog/2009/04/23/PythonStringFormatting.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/23/PythonStringFormatting.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-04-23">2009-04-23</time>
+        <h1>
+            <a href="/blog/2009/04/23/InstantShot.html" rel="bookmark canonical">InstantShot!</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://projects.digitalwaters.net/index.php?q=instantshot"></a>
+<p>Many of the screen&shy;shots that show up on my blog were captured with <a class="reference external" href="http://xtralean.com/IWOverview.html">ImageWell</a>,
+a little Mac app with resizing, uploading, and rudi&shy;men&shy;ta&shy;ry image editing func&shy;tion&shy;al&shy;i&shy;ty.
+It used to be freeware.
+Now it costs $20 after the trial period runs&nbsp;out.</p>
+<p><a class="reference external" href="http://projects.digitalwaters.net/index.php?q=instantshot">In&shy;stantShot!</a> is a menu bar app that does a good job of taking screen&shy;shots,
+but that&#8217;s all it&nbsp;does.</p>
+<p><a class="reference external" href="http://www.chocoflop.com/">ChocoFlop</a>, which I&#8217;ve only just discovered,
+seems like the best of the free image editors for the Mac.
+The rest are pretty bad.
+Nothing as good as <a class="reference external" href="http://www.getpaint.net/">Paint.<span class="caps">NET</span></a> on&nbsp;Windows.</p>
+<p><a class="reference external" href="http://gimp.lisanet.de/Website/Overview.html"><span class="caps">GIMP</span> on <span class="caps">OS</span> X</a> has finally become more or less usable,
+but that&#8217;s&nbsp;heavy&shy;weight.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/23/InstantShot.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/mac/" rel="tag">mac</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-04-22">2009-04-22</time>
+        <h1>
+            <a href="/blog/2009/04/22/Tulips.html" rel="bookmark canonical">Tulips</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.flickr.com/photos/george_v_reilly/sets/72157617070290569/"></a>
+<p>I took today off and headed north to the Skagit Valley with Emma and Lyndol
+to see the tulips.
+It was a glorious spring day,
+sunny, not too warm, a light breeze.
+The tulip fields were busy for a weekday;
+they&#8217;re completely overrun at the&nbsp;weekends.</p>
+<p>We wandered around <a class="reference external" href="http://www.tuliptown.com/">Tulip Town</a> for an hour,
+had lunch in La Conner,
+and headed back to Seattle via Camano&nbsp;Island.</p>
+<p>We had intended to take <a class="reference external" href="http://www.byways.org/explore/byways/2579/stories/67281">Chuckanut Drive</a> up to Fairhaven,
+but Emma wasn&#8217;t feeling well.
+Some other time.
+Chuckanut Drive is pretty year round;
+the tulips are good only for another couple of&nbsp;weeks.</p>
+<p>More photos at <a class="reference external" href="http://www.flickr.com/photos/george_v_reilly/sets/72157617070290569/">Flickr</a>.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/22/Tulips.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/seattle/" rel="tag">seattle</a>
+                    and
+                    
+                <a href="/tag/photography/" rel="tag">photography</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-04-20">2009-04-20</time>
+        <h1>
+            <a href="/blog/2009/04/20/ReadingFranksPoems.html" rel="bookmark canonical">Reading Frank's Poems</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.brickroadbooks.com/si/596.html"></a>
+<p>I gave a poetry reading tonight, of <a class="reference external" href="/blog/2009/01/07/FrankRAJMaloney19452009.html">Frank Maloney</a>&#8216;s poems.
+I&#8217;m working through a book of In&shy;ter&shy;pre&shy;tive Reading projects
+at Freely Speaking Toast&shy;mas&shy;ters.
+I had to read some poetry for tonight&#8217;s project
+and Frank&#8217;s work was an obvious choice.
+(Had I remembered, I would have recorded the reading and made a&nbsp;podcast.)</p>
+<p>Frank was most active as a <a class="reference external" href="http://en.wikipedia.org/wiki/Frank_Richard_Maloney_(poet)">poet</a> in the 1970s when he published
+his collection, <a class="reference external" href="https://www.amazon.com/How-Eat-Slug-Frank-Maloney/dp/0914742140/">How to Eat a Slug</a>.</p>
+<p>Six poems follow that give a taste of his work.
+The material in [square brackets] I omitted from the&nbsp;reading.</p>
+<div class="section" id="the-illiterate-calligrapher">
+<h2>The Illiterate&nbsp;Cal&shy;lig&shy;ra&shy;ph&shy;er</h2>
+<p>Frank was long interested in Chinese and Japanese art
+and he used to paint&nbsp;wa&shy;ter&shy;col&shy;ors.</p>
+<blockquote>
+<div class="line-block">
+<div class="line">I am learning to write a language <span>&#8230;<a href="/blog/2009/04/20/ReadingFranksPoems.html" class="continue">continue</a>.</span></div></div></blockquote></div>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/20/ReadingFranksPoems.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/personal/" rel="tag">personal</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2009-04-19">2009-04-19</time>
         <h1>
             <a href="/blog/2009/04/19/ReviewDeadlyDecisions.html" rel="bookmark canonical">Review: Deadly Decision</a>
@@ -234,218 +436,6 @@ Enjoy it for a few&nbsp;hours.</p>
                     and
                     
                 <a href="/tag/thriller/" rel="tag">thriller</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-04-15">2009-04-15</time>
-        <h1>
-            <a href="/blog/2009/04/15/TaxDay.html" rel="bookmark canonical">Tax Day</a>
-        </h1>
-    </header>
-    
-
-<blockquote>
-<p>I like paying taxes. With them I buy&nbsp;civ&shy;i&shy;liza&shy;tion.</p>
-<p class="attribution">&mdash;Oliver Wendell Holmes,&nbsp;Jr.</p>
-</blockquote>
-<p>The accountant completed our return last night.
-Usually we have something of a rebate,
-so the amount that we owed came as an unwelcome surprise.
-It&#8217;s paid now.&nbsp;Bah!</p>
-<p>I pay taxes willing enough, but “like” is too strong.
-We cannot run a complex society without taxes.
-There are many functions that the vaunted free market performs poorly if at all:
-roads, sewers, schools, police, health care, education, defense, emer&shy;gen&shy;cies.
-The profit motive is at odds with providing good, dis&shy;pas&shy;sion&shy;ate service.
-Government doesn&#8217;t nec&shy;es&shy;sar&shy;i&shy;ly do it well either,
-especially when it&#8217;s run by people who are ide&shy;o&shy;log&shy;i&shy;cal&shy;ly opposed to taxes.
-<em>Vide</em>&nbsp;Katrina.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/15/TaxDay.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/politics/" rel="tag">politics</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-04-14">2009-04-14</time>
-        <h1>
-            <a href="/blog/2009/04/14/TableTopics.html" rel="bookmark canonical">Table Topics</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://presentrat.wordpress.com/2008/01/01/103/"></a>
-<p>A Toast&shy;mas&shy;ters meeting has three parts:
-prepared speeches, table topics, and eval&shy;u&shy;a&shy;tions of the prepared&nbsp;speeches.</p>
-<p>Table Topics offer a chance for those present
-to wing it on some topic for one or two minutes.
-The Table Topics Master sets up the topics
-and the speaker has as most a few minutes to&nbsp;prepare.</p>
-<p>Sometimes, when I&#8217;m running Table Topics,
-I present a topic for everyone at the beginning of the section.
-On a winter&#8217;s day, I might ask people to tell us about
-some favorite food they associate with winter.
-Or I might ask them to tell us about where they&#8217;re going for their summer&nbsp;vacation.</p>
-<p>At other times, I spring the topic <span>&#8230;<a href="/blog/2009/04/14/TableTopics.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/14/TableTopics.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/toastmasters/" rel="tag">toastmasters</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-04-13">2009-04-13</time>
-        <h1>
-            <a href="/blog/2009/04/13/ReviewAnathem.html" rel="bookmark canonical">Review: Anathem</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0061474096"></a>
-<div class="line-block">
-<div class="line">Title: Anathem</div>
-<div class="line">Author: Neal Stephenson</div>
-<div class="line">Rating: ★ ★ ★ ★ ½</div>
-<div class="line">Publisher: William Morrow</div>
-<div class="line">Copyright: 2008</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0061474096">0061474096</a></div>
-<div class="line">Pages: 937</div>
-<div class="line">Keywords: science fiction</div>
-<div class="line">Reading period: 29 March–12 April, 2009</div>
-</div>
-<p>Anathem takes place on Arbre,
-a world where those of an in&shy;tel&shy;lec&shy;tu&shy;al bent
-sequester themselves in monas&shy;ter&shy;ies apart from the Sæcular world.
-When an alien ship is noticed orbiting the planet,
-avout from concents all over Arbre are drawn together for a Convox
-to determine how to respond to the threat of the&nbsp;Geometers.</p>
-<p>Stephenson&#8217;s <em>Anathem</em> is an ambitious project,
-pulling together physics, meta&shy;physics, world-building, an&shy;thro&shy;pol&shy;o&shy;gy,
-and an adventure tale.
-It&#8217;s an alien world as he keeps reminding us
-by the huge vocabulary he&#8217;s invented.
-Said vocabulary alternates between ex&shy;as&shy;per&shy;at&shy;ing and en&shy;ter&shy;tain&shy;ing,
-but <span>&#8230;<a href="/blog/2009/04/13/ReviewAnathem.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/13/ReviewAnathem.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/sf/" rel="tag">sf</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-04-12">2009-04-12</time>
-        <h1>
-            <a href="/blog/2009/04/12/DepartitioningAMacDisk.html" rel="bookmark canonical">De-partitioning a Mac disk</a>
-        </h1>
-    </header>
-    
-<p>I wrote yesterday about <a class="reference external" href="/blog/2009/04/11/NTFS3GTheUniversalFilesystem.html"><span class="caps">NTFS</span>-3G</a> because I was backing my MacBook
-to an external <span class="caps">NTFS</span> drive.
-I was backing up because I wanted to de-partition my&nbsp;Mac.</p>
-<p>When I <a class="reference external" href="/blog/2008/07/16/MacBookMakeover.html">upgraded my MacBook</a> to a bigger drive, more <span class="caps">RAM</span>, and <span class="caps">OS</span>&nbsp;X 10.5,
-I par&shy;ti&shy;tioned the drive.
-I created two <span class="caps">25GB</span> partitions with the intention of
-putting Windows and Linux on them with BootCamp.
-It turns out that BootCamp doesn&#8217;t like that.
-It wants the system drive to have only one partition,
-which it would shrink.
-I never bothered to go any&nbsp;further.</p>
-<p>The disk has been filling up recently and I wanted the extra space back,
-to extend my primary <span class="caps">HFS</span>+ partition by <span class="caps">50GB</span>.
-I found <span>&#8230;<a href="/blog/2009/04/12/DepartitioningAMacDisk.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/12/DepartitioningAMacDisk.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/mac/" rel="tag">mac</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-04-11">2009-04-11</time>
-        <h1>
-            <a href="/blog/2009/04/11/NTFS3GTheUniversalFilesystem.html" rel="bookmark canonical">NTFS-3G: the universal filesystem</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.ntfs-3g.org/"></a>
-<p>After I started running Linux and then Mac <span class="caps">OS</span> X, in addition to Windows,
-I started on a quest to find the universal filesystem.
-I had multiboot systems and external drives where I wanted to
-to be able to read and write disks under multiple operating&nbsp;systems.</p>
-<p>The obvious choice is <a class="reference external" href="http://en.wikipedia.org/wiki/File_Allocation_Table#FAT32"><span class="caps">FAT32</span></a>,
-the ubiquitous, lowest-common de&shy;nom&shy;i&shy;na&shy;tor filesystem.
-<span class="caps">FAT32</span> is supported out-of-the-box by
-all major operating systems, digital cameras, and PDAs,
-so that&#8217;s a huge advantage.
-<span class="caps">FAT32</span> also has major&nbsp;short&shy;com&shy;ings:</p>
-<ul class="simple">
-<li>Maximum file size is <span class="caps">4GB</span>. I have ISOs, MPEGs, and other large files exceeding this&nbsp;limit.</li>
-<li>Frag&shy;men&shy;ta&shy;tion happens too&nbsp;easily.</li>
-<li>Timestamps: accurate only to 2-second resolution. No notion of timezones or&nbsp;<span class="caps">UTC</span>.</li>
-<li>Journaling: none. Preferred for&nbsp;robustness.</li>
-<li>ACLs or Per&shy;mis&shy;sions. <span>&#8230;<a href="/blog/2009/04/11/NTFS3GTheUniversalFilesystem.html" class="continue">continue</a>.</span></li></ul>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/11/NTFS3GTheUniversalFilesystem.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/windows/" rel="tag">windows</a>,
-                <a href="/tag/linux/" rel="tag">linux</a>
-                    and
-                    
-                <a href="/tag/mac/" rel="tag">mac</a>
                 
             </p>
         

@@ -28,6 +28,227 @@
     
         <article>
     <header>
+        <time datetime="2009-03-25">2009-03-25</time>
+        <h1>
+            <a href="/blog/2009/03/25/Refinancing.html" rel="bookmark canonical">Refinancing</a>
+        </h1>
+    </header>
+    
+<p>When we bought our house in 2000,
+our interest rate was about 8.5% on a 30-year loan.
+A couple of years later, we refinanced it down to 6.875%,
+which reduced our monthly payments by several hundred&nbsp;dollars.</p>
+<p>Today, we signed the paperwork to refinance it again,
+down to 4.75% over 20 years.
+That drops our monthly payment by another $300,
+which is most welcome, as Emma&#8217;s&nbsp;unemployed.</p>
+<p>All of these are fixed-rate mortgages.
+We&#8217;re really not fans of adjustable-rate mortgages:
+too many horror stories about people starting out a low rate
+and not being able to cope when the rates go&nbsp;up.</p>
+<p>We went through the same guy each time,
+Sanjay Pitroda of <a class="reference external" href="http://www.metlifehomeloans.com/">MetLife Home Loans</a> <span>&#8230;<a href="/blog/2009/03/25/Refinancing.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/25/Refinancing.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/personal/" rel="tag">personal</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-25">2009-03-25</time>
+        <h1>
+            <a href="/blog/2009/03/25/AckBetterThanGrep.html" rel="bookmark canonical">Ack - Better than Grep</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.betterthangrep.com/"></a>
+<p>On a Stack&shy;Over&shy;flow question about <a class="reference external" href="http://stackoverflow.com/questions/21725/favorite-gvim-plugins-scripts">favorite Vim plugins</a>, I learned about <a class="reference external" href="http://www.betterthangrep.com/">Ack</a>,
+a re&shy;place&shy;ment for grep that&#8217;s smarter about searching source&nbsp;trees.</p>
+<p>Ack is written in Perl.
+The built-in <tt class="docutils literal">:vimgrep</tt> is rather slow.
+It seems to have some Vim-specific overhead,
+such as creating swap files and executing <tt class="docutils literal">BufRead</tt> autocmds.
+Ack is noticeably faster,
+though somewhat slower than <span class="caps">GNU</span>&nbsp;grep.</p>
+<p>Which would you rather type to search a tree,
+ignoring the <tt class="docutils literal">.svn</tt> and <tt class="docutils literal">.git</tt> subtrees?</p>
+<pre class="code bash literal-block">
+$ ack -i -l foobar
+$ grep --exclude<span class="o">=</span><span class="s1">'*.svn*'</span> --exclude<span class="o">=</span><span class="s1">'*.git*'</span> -i -l -r foobar .
+</pre>
+<p>The ack takes 6 seconds to search 4500 files, while the grep completes in 2.
+This does not count the time that I spent trying to figure <span>&#8230;<a href="/blog/2009/03/25/AckBetterThanGrep.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/25/AckBetterThanGrep.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/regex/" rel="tag">regex</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-23">2009-03-23</time>
+        <h1>
+            <a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" rel="bookmark canonical">Exuberant Ctags and JavaScript</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://ctags.sourceforge.net/"></a>
+<p><a class="reference external" href="http://ctags.sourceforge.net/">Exuberant Ctags</a> is an essential complement to Vim:
+it generates an index of symbol names (tags) for a set of source files.
+In Vim, just place the cursor on a function name
+and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its&nbsp;definition.</p>
+<p>Ctags works well for most of the languages that I deal with,
+but falls down badly on modern JavaScript.
+Its built-in parser simply doesn&#8217;t handle de&shy;c&shy;la&shy;ra&shy;tions like&nbsp;these:</p>
+<pre class="code javascript literal-block">
+<span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// ...
+</span><span class="nx">ajaxSetup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">settings</span> <span class="p">)</span> <span class="p">{</span>
+</pre>
+<p>I came across <a class="reference external" href="http://www.unbad.net/blog/ctags-and-relevant-support-for-javascript">Unbad</a>&#8216;s workaround earlier tonight.
+His code didn&#8217;t work for me, so I hacked on it until it&nbsp;did:</p>
+<pre class="literal-block">
+--langdef=js
+--langmap=js:.js
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
+--regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
+--regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\(([^)])\)/\1/,function/
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
+--regex-js=/([^= ]+)[ \t]*=[ \t]*[^&quot;]'[^']*/\1/,string/
+--regex-js=/([^= ]+)[ </pre><span>&#8230;<a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/23/ExuberantCtagsAndJavaScript.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>,
+                <a href="/tag/javascript/" rel="tag">javascript</a>
+                    and
+                    
+                <a href="/tag/regex/" rel="tag">regex</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-23">2009-03-23</time>
+        <h1>
+            <a href="/blog/2009/03/23/ReviewNoCountryForOldMen.html" rel="bookmark canonical">Review: No Country for Old Men</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=033044011X"></a>
+<div class="line-block">
+<div class="line">Title: No Country for Old Men</div>
+<div class="line">Author: Cormac McCarthy</div>
+<div class="line">Rating: ★ ★ ★ ★ ½</div>
+<div class="line">Publisher: Picador</div>
+<div class="line">Copyright: 2005</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=033044011X">033044011X</a></div>
+<div class="line">Pages: 309</div>
+<div class="line">Keywords: fiction</div>
+<div class="line">Reading period: 20–22 March, 2009</div>
+</div>
+<p>Rural Texas, 1980.
+Llewelyn Moss, out hunting in the middle of nowhere,
+finds the remains of a drug buy that went wrong:
+dead bodies, shot-up cars, black tar heroin.
+And a satchel with two million dollars in cash.
+Moss takes the money and runs.
+He knows it&#8217;s stupid, he knows that people will come after him,
+and he does it&nbsp;anyway.</p>
+<p>Anton Chigurh is the worst of the killers on his trail.
+Relentless, re&shy;morse&shy;less, untroubled by conscience,
+and offended by the wrongness of Moss&#8217;s act.
+He and Moss will be locked <span>&#8230;<a href="/blog/2009/03/23/ReviewNoCountryForOldMen.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/23/ReviewNoCountryForOldMen.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/fiction/" rel="tag">fiction</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-21">2009-03-21</time>
+        <h1>
+            <a href="/blog/2009/03/21/RugbyGrandSlam.html" rel="bookmark canonical">Rugby Grand Slam</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.irishtimes.com/sports/rugby/2009/0321/1224243225558.html"></a>
+<p>I grew up hating rugby.
+I spent <a class="reference external" href="/blog/2006/02/19/OlympicsRazorthinMargins.html">eleven years</a> at a <a class="reference external" href="http://en.wikipedia.org/wiki/St_Mary's_College,_Dublin">rugger-bugger school</a> in Dublin.
+I couldn&#8217;t stand the game.
+I was a small, unathletic child with no interest in sports.
+Rugby, even the modified rugby that they teach seven-year-olds,
+was violent and unpleasant and involved running around cold, wet fields.
+I had a big operation on my feet when I was 10
+and I parlayed that into an excuse never to play rugby&nbsp;again.</p>
+<p>I can&#8217;t remember when I last watched a rugby match,
+but it was surely back in the &#8216;80s,
+as I doubt I&#8217;ve seen one over the 20 years that I&#8217;ve been in the&nbsp;States.</p>
+<p>So imagine the im&shy;prob&shy;a&shy;bil&shy;i&shy;ty <span>&#8230;<a href="/blog/2009/03/21/RugbyGrandSlam.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/21/RugbyGrandSlam.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/sports/" rel="tag">sports</a>
+                    and
+                    
+                <a href="/tag/ireland/" rel="tag">ireland</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2009-03-20">2009-03-20</time>
         <h1>
             <a href="/blog/2009/03/20/ReviewTheChoirboys.html" rel="bookmark canonical">Review: The Choirboys</a>
@@ -223,201 +444,6 @@ and then to give your senior people $165 million in&nbsp;bonuses.</p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/17/AIGBonuses.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/politics/" rel="tag">politics</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-16">2009-03-16</time>
-        <h1>
-            <a href="/blog/2009/03/16/BistrotBistro.html" rel="bookmark canonical">Bistrot Bistro</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.bistrotbistro.com/"></a>
-<p>We discovered <a class="reference external" href="http://www.bistrotbistro.com/">Bistrot Bistro</a> in Kitsilano on a previous visit to Vancouver.
-It&#8217;s an agreeable little French restaurant just south of downtown.
-Emma suggested that we eat there again for my birthday,
-and it was a fine&nbsp;choice.</p>
-<p>We ate from the <em>prix fixe</em> menu for $26 apiece.
-She had the carrot soup, roast chicken, and raspberry sorbet;
-I had the <em>pate de campagne</em>, a peppercorn steak, and a chocolate mousse.
-The <em>prix fixe</em> included a sizeable quantity of <em>pommes frites</em>.
-We added Brussel sprouts, a baguette with olive tapenade,
-and a half-litre of Pinot Gris,
-and walked away two hours later, pleasantly&nbsp;sated.</p>
-<p>The last time we were there, it was full.
-This <span>&#8230;<a href="/blog/2009/03/16/BistrotBistro.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/16/BistrotBistro.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/vancouver/" rel="tag">vancouver</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-15">2009-03-15</time>
-        <h1>
-            <a href="/blog/2009/03/15/Vancouver.html" rel="bookmark canonical">Vancouver</a>
-        </h1>
-    </header>
-    
-<p>We drove up to Vancouver today.
-We&#8217;ll be here until Tuesday.
-It&#8217;s my birthday tomorrow and
-I have two days of vacation that I have to use by the end of March or lose them,
-so why&nbsp;not.</p>
-<p>I always like Vancouver.
-It&#8217;s un&shy;equiv&shy;o&shy;cal&shy;ly a major city.
-Vancouver feels more urban than Seattle,
-where people have only been moving into high-density
-downtown condos and apartments for a few&nbsp;years.</p>
-<p>We&#8217;re staying at the <a class="reference external" href="http://www.sunsetinn.com/">Sunset Inn and Suites</a> in the West End.
-We stayed here before.
-It&#8217;s relatively cheap, clean, and centrally located.
-No particular charm&nbsp;either.</p>
-<p>Tomorrow, we see my great-uncle Dick and his wife Margaret.
-They&#8217;re both 92 and about to move into a retirement center.
-We&#8217;ll have <span>&#8230;<a href="/blog/2009/03/15/Vancouver.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/15/Vancouver.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/canada/" rel="tag">canada</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-14">2009-03-14</time>
-        <h1>
-            <a href="/blog/2009/03/14/ClutchingThePearls.html" rel="bookmark canonical">Clutching the Pearls</a>
-        </h1>
-    </header>
-    
-<p>Ow! Ow! Ow!
-It&#8217;s Friday the 13th and
-I ransomed my car this evening from the shop for over two grand—more than half of it labor.
-I think I&#8217;m in the wrong line of business.
-Maybe I should be a grease&shy;mon&shy;key&nbsp;instead.</p>
-<p>The clutch was worn out and the flywheel needed replacing,
-which required taking out the&nbsp;trans&shy;mis&shy;sion.</p>
-<p>We&#8217;ve only had one other comparable bill with this car
-and it has over 90,000 miles.
-We&#8217;re not doing too badly overall,
-except that the other bill was late last&nbsp;year.</p>
-<p>Feh.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/14/ClutchingThePearls.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/personal/" rel="tag">personal</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-13">2009-03-13</time>
-        <h1>
-            <a href="/blog/2009/03/13/LexLuthorsBailout.html" rel="bookmark canonical">Lex Luthor's Bailout</a>
-        </h1>
-    </header>
-    <p>Via <a class="reference external" href="http://www.tor.com/index.php?option=com_content&amp;view=blog&amp;id=17324">Tor.com</a>, Lex Luthor asking the president for a&nbsp;bailout.</p>
-<object width="384" height="256" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="ordie_player_f26c4046b0">
-    <param name="movie" value="http://player.ordienetworks.com/flash/fodplayer.swf"/>
-    <param name="flashvars" value="key=f26c4046b0"/>
-    <param name="allowfullscreen" value="true"/>
-    <param name="allowscriptaccess" value="always">
-    <embed width="384" height="256" flashvars="key=f26c4046b0" allowfullscreen="true" allowscriptaccess="always" quality="high" src="http://player.ordienetworks.com/flash/fodplayer.swf" name="ordie_player_f26c4046b0" type="application/x-shockwave-flash">
-    </embed>
-</param>
-<div style="text-align:left;font-size:x-small;margin-top:0;width:384px;">
-    <a href="http://www.funnyordie.com/videos/f26c4046b0/lex-luthor-bailout-with-jon-hamm" title="from FOD Team, Eric Appel, and Jon Hamm">
-    &#8220;Lex Luthor Bailout&#8221; with Jon Hamm</a> from <a href="http://www.funnyordie.com/jon_hamm"> Jon Hamm</a>
-</div>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/13/LexLuthorsBailout.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/politics/" rel="tag">politics</a>
-                    and
-                    
-                <a href="/tag/humor/" rel="tag">humor</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-12">2009-03-12</time>
-        <h1>
-            <a href="/blog/2009/03/12/Looting.html" rel="bookmark canonical">Looting</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.cjr.org/the_audit/leonhardt_on_the_looters.php"></a>
-<p>In today&#8217;s New York Times, <a class="reference external" href="http://www.nytimes.com/2009/03/11/business/economy/11leonhardt.html">David Leonhardt writes</a>,
-of a sixteen-year-old economics&nbsp;paper:</p>
-<blockquote>
-<p>In the paper, they argued that several financial crises in the 1980s,
-like the Texas real estate bust, had been the result of
-private investors taking advantage of the government.
-The investors had borrowed huge amounts of money,
-made big profits when times were good and
-then left the government holding the bag for their eventual
-(and pre&shy;dictable)&nbsp;losses.</p>
-<p>In a word, the investors looted.
-Someone trying to make an honest profit,
-Professors Akerlof and Romer said, would have
-operated in a completely different manner.
-The investors displayed a
-“total disregard for even the most basic principles of lending,”
-failing to verify standard in&shy;for&shy;ma&shy;tion <span>&#8230;<a href="/blog/2009/03/12/Looting.html" class="continue">continue</a>.</span></p></blockquote>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/12/Looting.html#disqus_thread">Comment</a>
         
         
             <p>tagged as
