@@ -5,6 +5,7 @@ from __future__ import print_function, unicode_literals, absolute_import
 
 import six
 import argparse
+from datetime import datetime
 import fnmatch
 import hashlib
 import io
@@ -75,11 +76,14 @@ def read_permalink(filename):
         if i >= 0:
             try:
                 link = data[i + len(PERMALINK):].strip().split()[0]
-                date_parts = link.split('/')[1:4]
+                date_parts = link.split('/')[2:5]
                 if len(date_parts) < 3:
                     link = None
+                else:
+                    datetime.strptime("/".join(date_parts), "%Y/%m/%d")
             except Exception as e:
                 print(filename, e)
+                link = None
     return link
 
 
