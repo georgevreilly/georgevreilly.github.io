@@ -28,6 +28,44 @@
     
         <article>
     <header>
+        <time datetime="2021-05-10">2021-05-10</time>
+        <h1>
+            <a href="/blog/2021/05/10/PassphraseGenerators.html" rel="bookmark canonical">Passphrase Generators</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://xkcd.com/936/"></a>
+<p>I've been using <a class="reference external" href="https://en.wikipedia.org/wiki/Password_manager">password managers</a> for at least 15 years
+to keep track of all my passwords.
+I have separate, distinct, strong passwords for hundreds of sites,
+and I've only memorized the handful that I need to actually type regularly.</p>
+<p>I started out with the <a class="reference external" href="/blog/2006/02/06/200KeePassEntries.html">KeePass</a> desktop app originally,
+but I switched to the online <a class="reference external" href="/blog/2016/01/07/DicewareAndLastpass.html">LastPass</a> app about a decade ago.
+At work, we use <a class="reference external" href="https://1password.com/">1Password</a>.</p>
+<p>When I register for a site,
+LastPass generates a random password for me,
+such as <tt class="docutils literal">tV%5joS$U6^uY5xU</tt>, <tt class="docutils literal">T2oEUY!g70Iv1b&amp;I</tt>, or <tt class="docutils literal">8kN&shy;Hg9*A5GM&shy;R9%8D</tt>.
+LastPass securely syncs my passwords between machines and devices.
+Its browser in&shy;te&shy;gra&shy;tion and its Android and iPhone apps
+mean that I rarely ever have to actually type <span>&#8230;<a href="/blog/2021/05/10/PassphraseGenerators.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/security/" rel="tag">security</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2017-02-07">2017-02-07</time>
         <h1>
             <a href="/blog/2017/02/07/OldPresentations.html" rel="bookmark canonical">Old Presentations</a>
@@ -373,41 +411,6 @@ We’re often aiming <span>&#8230;<a href="/blog/2008/01/05/OddsAndEnds1.html" c
                     and
                     
                 <a href="/tag/security/" rel="tag">security</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2007-02-07">2007-02-07</time>
-        <h1>
-            <a href="/blog/2007/02/07/PrintfN.html" rel="bookmark canonical">Printf %n</a>
-        </h1>
-    </header>
-    
-<p>In my post about <a class="reference external" href="/blog/2005/06/02/PrintfTricks.html">Printf Tricks</a> a couple of years ago,
-I mentioned that &quot;<tt class="docutils literal">%n</tt> is dangerous and disabled by default in Visual Studio 2005.&quot;</p>
-<p>I got email today from someone who was porting a large codebase to VS 2005.
-He was getting an assert from <tt class="docutils literal">%n</tt> and he needed a way to get past it.
-He intends to fix the uses of <tt class="docutils literal">%n</tt> when he has a chance.</p>
-<p>I spent several minutes digging around in MSDN and came up with
-<a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms175782(VS.80).aspx">set_print&shy;f_&shy;coun&shy;t_out&shy;put</a>. Wikipedi&shy;a's <a class="reference external" href="http://en.wikipedia.org/wiki/Format_string_attack">Format string attack</a> page
-led me to <a class="reference external" href="http://julianor.tripod.com/bc/formatstring-1.2.pdf">Exploiting Format String Vul&shy;ner&shy;a&shy;bil&shy;i&shy;ties</a>, which
-describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="docutils literal">%s</tt>) may be exploited.</p>
-<p>In short, if you <span>&#8230;<a href="/blog/2007/02/07/PrintfN.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/security/" rel="tag">security</a>
-                    and
-                    
-                <a href="/tag/c/" rel="tag">c</a>
                 
             </p>
         

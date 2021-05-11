@@ -28,6 +28,41 @@
     
         <article>
     <header>
+        <time datetime="2007-02-07">2007-02-07</time>
+        <h1>
+            <a href="/blog/2007/02/07/PrintfN.html" rel="bookmark canonical">Printf %n</a>
+        </h1>
+    </header>
+    
+<p>In my post about <a class="reference external" href="/blog/2005/06/02/PrintfTricks.html">Printf Tricks</a> a couple of years ago,
+I mentioned that &quot;<tt class="docutils literal">%n</tt> is dangerous and disabled by default in Visual Studio 2005.&quot;</p>
+<p>I got email today from someone who was porting a large codebase to VS 2005.
+He was getting an assert from <tt class="docutils literal">%n</tt> and he needed a way to get past it.
+He intends to fix the uses of <tt class="docutils literal">%n</tt> when he has a chance.</p>
+<p>I spent several minutes digging around in MSDN and came up with
+<a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms175782(VS.80).aspx">set_print&shy;f_&shy;coun&shy;t_out&shy;put</a>. Wikipedi&shy;a's <a class="reference external" href="http://en.wikipedia.org/wiki/Format_string_attack">Format string attack</a> page
+led me to <a class="reference external" href="http://julianor.tripod.com/bc/formatstring-1.2.pdf">Exploiting Format String Vul&shy;ner&shy;a&shy;bil&shy;i&shy;ties</a>, which
+describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="docutils literal">%s</tt>) may be exploited.</p>
+<p>In short, if you <span>&#8230;<a href="/blog/2007/02/07/PrintfN.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/security/" rel="tag">security</a>
+                    and
+                    
+                <a href="/tag/c/" rel="tag">c</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-02-06">2006-02-06</time>
         <h1>
             <a href="/blog/2006/02/06/200KeePassEntries.html" rel="bookmark canonical">200 KeePass entries</a>

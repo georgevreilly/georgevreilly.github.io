@@ -5,9 +5,90 @@
         <link>https://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Sat, 08 May 2021 07:00:00 GMT</pubDate>
+        <pubDate>Mon, 10 May 2021 07:00:00 GMT</pubDate>
         <docs>https://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.8.dev0</generator>
+        
+            <item>
+        <title>Passphrase Generators</title>
+        <link>https://www.georgevreilly.com/blog/2021/05/10/PassphraseGenerators.html</link>
+        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://xkcd.com/936/&#34;&gt;&lt;img alt=&#34;Password Strength&#34; src=&#34;https://imgs.xkcd.com/comics/password_strength.png&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;I&#39;ve been using &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Password_manager&#34;&gt;password managers&lt;/a&gt; for at least 15 years
+to keep track of all my passwords.
+I have separate, distinct, strong passwords for hundreds of sites,
+and I&#39;ve only memorized the handful that I need to actually type regularly.&lt;/p&gt;
+&lt;p&gt;I started out with the &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2006/02/06/200KeePassEntries.html&#34;&gt;KeePass&lt;/a&gt; desktop app originally,
+but I switched to the online &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2016/01/07/DicewareAndLastpass.html&#34;&gt;LastPass&lt;/a&gt; app about a decade ago.
+At work, we use &lt;a class=&#34;reference external&#34; href=&#34;https://1password.com/&#34;&gt;1Password&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;When I register for a site,
+LastPass generates a random password for me,
+such as &lt;tt class=&#34;docutils literal&#34;&gt;tV%5joS$U6^uY5xU&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;T2oEUY!g70Iv1b&amp;amp;I&lt;/tt&gt;, or &lt;tt class=&#34;docutils literal&#34;&gt;8kNHg9*A5GMR9%8D&lt;/tt&gt;.
+LastPass securely syncs my passwords between machines and devices.
+Its browser integration and its Android and iPhone apps
+mean that I rarely ever have to actually type any of those ugly messes in.&lt;/p&gt;
+&lt;p&gt;But when I do have to type in such a password,
+it&#39;s unpleasant in a browser.
+It doesn&#39;t help that LastPass in some cases displays passwords
+in a san serif font that makes it easy to &lt;a class=&#34;reference external&#34; href=&#34;https://typography.guru/journal/letters-symbols-misrecognition/&#34;&gt;misrecognize&lt;/a&gt; letters
+such as &lt;tt class=&#34;docutils literal&#34;&gt;I&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;l&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;0&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;O&lt;/tt&gt;.
+It&#39;s far more painful in an Android app,
+where you have to switch the keyboard in and out of symbol mode.
+It&#39;s usually even worse in iPhone apps,
+which rarely offer you an option to see your password as you&#39;re laboriously typing it,
+so it&#39;s easy to make a mistake.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://theintercept.com/2015/03/26/passphrases-can-memorize-attackers-cant-guess/&#34;&gt;Passphrases&lt;/a&gt; have nice properties compared to random passwords:
+they&#39;re human readable,
+they&#39;re much easier—if longer—to type,
+and you can actually remember them if you have to.
+A passphrase of at least five words (chosen by a secure random generator)
+is computationally infeasible to crack.&lt;/p&gt;
+&lt;p&gt;The ur-example of random passphrase generators is &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Diceware&#34;&gt;Diceware&lt;/a&gt; from 1995.
+There are various problems with the Diceware wordlist,
+which are rectified by more modern lists,
+such as the &lt;a class=&#34;reference external&#34; href=&#34;https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases&#34;&gt;EFF Wordlists&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Which would you rather type?
+The &lt;a class=&#34;reference external&#34; href=&#34;http://www.catb.org/jargon/html/L/line-noise.html&#34;&gt;line noise&lt;/a&gt; above or one of these passphrases?:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+confident starfish aftermost elsewhere jasmine
+shun baggage chaps reward cuddle
+avenue rut pardon skating earlobe
+latter blissful snippet jolt corroding
+upstage-divinely-ninth-unfilled-skeleton
+SkimmingMachinistBlessHesitancyKissableRink
+&lt;/pre&gt;
+&lt;p&gt;When I want to generate a random passphrase,
+I tend to use either the &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/ulif/diceware&#34;&gt;Python diceware&lt;/a&gt; command-line tool
+or Glenn Rempe&#39;s JavaScript-based &lt;a class=&#34;reference external&#34; href=&#34;https://www.rempe.us/diceware/#eff&#34;&gt;Diceware website&lt;/a&gt;.
+Both use cryptographic random number generators
+to generate excellent passphrases.&lt;/p&gt;
+&lt;p&gt;The &lt;a class=&#34;reference external&#34; href=&#34;https://1password.com/password-generator/&#34;&gt;1Password Online Generator&lt;/a&gt; (in Memorable Password mode)
+also generates passphrases,
+as do the desktop and browser versions of 1Password.&lt;/p&gt;
+&lt;div class=&#34;admonition tip&#34;&gt;
+&lt;p class=&#34;first admonition-title&#34;&gt;Tip&lt;/p&gt;
+&lt;p&gt;If you have to supply answers
+for one of those misbegotten &lt;a class=&#34;reference external&#34; href=&#34;https://www.okta.com/blog/2021/03/security-questions/&#34;&gt;security questions&lt;/a&gt;,
+such as your favorite movie or your first car,
+&lt;em&gt;don&#39;t answer truthfully&lt;/em&gt;.
+Truthful answers increase your risk of identity theft.
+The answers are often guessable,
+can frequently be learned easily about you,
+and may be obtained through a password breach on another site.&lt;/p&gt;
+&lt;p&gt;Instead, generate a passphrase as the &amp;quot;answer&amp;quot;
+&lt;em&gt;and store it in the Notes field of your password manager&lt;/em&gt;.
+If you have to supply the answer to a security question
+over the phone to a customer service rep,
+you&#39;ll thank me that you chose something
+that you can clearly say aloud.&lt;/p&gt;
+&lt;p class=&#34;last&#34;&gt;Also &lt;a class=&#34;reference external&#34; href=&#34;https://www.mentalfloss.com/article/522136/taking-facebook-quizzes-could-put-you-risk-identity-theft&#34;&gt;Facebook quizzes&lt;/a&gt; and memes like
+&amp;quot;Your porn name is your middle name and the first car you had&amp;quot;
+are trying to obtain your answers to common security questions.
+Don&#39;t answer them.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 10 May 2021 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2021-05-10:/blog/2021/05/10/PassphraseGenerators.html</guid>
+    </item>
         
             <item>
         <title>Punctuating James Joyce</title>
@@ -1814,37 +1895,6 @@ and rerun it.&lt;/p&gt;
 </description>
         <pubDate>Thu, 09 Feb 2017 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-09:/blog/2017/02/09/Jenkins06-Miscellenea.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: I Shall Wear Midnight</title>
-        <link>https://www.georgevreilly.com/blog/2017/02/09/ReviewIShallWearMidnight.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://www.amazon.com/dp/0061433063/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;I Shall Wear Midnight&#34; class=&#34;right-float&#34; src=&#34;https://images-na.ssl-images-amazon.com/images/P/0061433063.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: I Shall Wear Midnight&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: Terry Pratchett&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Harper&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 2010&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;https://www.amazon.com/dp/0061433063/?tag=georgvreill-20&#34;&gt;0061433063&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 355&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: humor, fantasy&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 3–5 February, 2017&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;Tiffany Aching is now the overworked and overly responsible Witch of the Chalk.
-People everywhere are fearing and distrusting witches more.
-When her patient, the ailing Baron dies, she is blamed.
-Other troubles multiply.
-Eventually she realizes that the Cunning Man,
-a long-dead witchfinder,
-is seeping poison into people&#39;s hearts.
-Aided by the troublemaking Nac Mac Feegle, she defeats him.&lt;/p&gt;
-&lt;p&gt;Recommended.&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/I_Shall_Wear_Midnight&#34;&gt;I Shall Wear Midnight&lt;/a&gt; follows
-&lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2008/05/19/ReviewTheWeeFreeMen.html&#34;&gt;The Wee Free Men&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2010/01/28/ReviewAHatFullOfSky.html&#34;&gt;A Hat Full of Sky&lt;/a&gt;, and &lt;em&gt;Wintersmith&lt;/em&gt;.&lt;/p&gt;
-</description>
-        <pubDate>Thu, 09 Feb 2017 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-02-09:/blog/2017/02/09/ReviewIShallWearMidnight.html</guid>
     </item>
         </channel>
 </rss>

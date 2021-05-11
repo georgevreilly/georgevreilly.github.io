@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Passphrase Generators</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content=".. image:: https://imgs.xkcd.com/comics/password_s..." />
+    <meta name="keywords" content="tech, security" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2021-05-10">2021-05-10</time>
+        <h1>
+            <a href="/blog/2021/05/10/PassphraseGenerators.html" rel="bookmark canonical">Passphrase Generators</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://xkcd.com/936/"><img alt="Password Strength" src="https://imgs.xkcd.com/comics/password_strength.png"/></a>
+<p>I&#8217;ve been using <a class="reference external" href="https://en.wikipedia.org/wiki/Password_manager">password managers</a> for at least 15 years
+to keep track of all my passwords.
+I have separate, distinct, strong passwords for hundreds of sites,
+and I&#8217;ve only memorized the handful that I need to actually type&nbsp;regularly.</p>
+<p>I started out with the <a class="reference external" href="/blog/2006/02/06/200KeePassEntries.html">KeePass</a> desktop app originally,
+but I switched to the online <a class="reference external" href="/blog/2016/01/07/DicewareAndLastpass.html">LastPass</a> app about a decade ago.
+At work, we use <a class="reference external" href="https://1password.com/">1Password</a>.</p>
+<p>When I register for a site,
+LastPass generates a random password for me,
+such as <tt class="docutils literal">tV%5joS$U6^uY5xU</tt>, <tt class="docutils literal">T2oEUY!g70Iv1b&amp;I</tt>, or <tt class="docutils literal">8kNHg9*<span class="caps">A5GMR9</span>%8D</tt>.
+LastPass securely syncs my passwords between machines and devices.
+Its browser in&shy;te&shy;gra&shy;tion and its Android and iPhone apps
+mean that I rarely ever have to actually type any of those ugly messes&nbsp;in.</p>
+<p>But when I do have to type in such a password,
+it&#8217;s unpleasant in a browser.
+It doesn&#8217;t help that LastPass in some cases displays passwords
+in a san serif font that makes it easy to <a class="reference external" href="https://typography.guru/journal/letters-symbols-misrecognition/">mis&shy;rec&shy;og&shy;nize</a> letters
+such as <tt class="docutils literal">I</tt> and <tt class="docutils literal">l</tt> or <tt class="docutils literal">0</tt> and <tt class="docutils literal">O</tt>.
+It&#8217;s far more painful in an Android app,
+where you have to switch the keyboard in and out of symbol mode.
+It&#8217;s usually even worse in iPhone apps,
+which rarely offer you an option to see your password as you&#8217;re la&shy;bo&shy;ri&shy;ous&shy;ly typing it,
+so it&#8217;s easy to make a&nbsp;mistake.</p>
+<p><a class="reference external" href="https://theintercept.com/2015/03/26/passphrases-can-memorize-attackers-cant-guess/">Passphras&shy;es</a> have nice properties compared to random passwords:
+they&#8217;re human readable,
+they&#8217;re much easier—if longer—to type,
+and you can actually remember them if you have to.
+A passphrase of at least five words (chosen by a secure random generator)
+is com&shy;pu&shy;ta&shy;tion&shy;al&shy;ly infeasible to&nbsp;crack.</p>
+<p>The ur-example of random passphrase generators is <a class="reference external" href="https://en.wikipedia.org/wiki/Diceware">Diceware</a> from 1995.
+There are various problems with the Diceware wordlist,
+which are rectified by more modern lists,
+such as the <a class="reference external" href="https://www.eff.org/deeplinks/2016/07/new-wordlists-random-passphrases"><span class="caps">EFF</span> Wordlists</a>.</p>
+<p>Which would you rather type?
+The <a class="reference external" href="http://www.catb.org/jargon/html/L/line-noise.html">line noise</a> above or one of these&nbsp;passphras&shy;es?:</p>
+<pre class="literal-block">
+confident starfish aftermost elsewhere jasmine
+shun baggage chaps reward cuddle
+avenue rut pardon skating earlobe
+latter blissful snippet jolt corroding
+upstage-divinely-ninth-unfilled-skeleton
+SkimmingMachinistBlessHesitancyKissableRink
+</pre>
+<p>When I want to generate a random passphrase,
+I tend to use either the <a class="reference external" href="https://github.com/ulif/diceware">Python diceware</a> command-line tool
+or Glenn Rempe&#8217;s JavaScript-based <a class="reference external" href="https://www.rempe.us/diceware/#eff">Diceware website</a>.
+Both use cryp&shy;to&shy;graph&shy;ic random number generators
+to generate excellent&nbsp;passphras&shy;es.</p>
+<p>The <a class="reference external" href="https://1password.com/password-generator/">1Password Online Generator</a> (in Memorable Password mode)
+also generates passphras&shy;es,
+as do the desktop and browser versions of&nbsp;1Password.</p>
+<div class="admonition tip">
+<p class="first admonition-title">Tip</p>
+<p>If you have to supply answers
+for one of those mis&shy;be&shy;got&shy;ten <a class="reference external" href="https://www.okta.com/blog/2021/03/security-questions/">security questions</a>,
+such as your favorite movie or your first car,
+<em>don&#8217;t answer truthfully</em>.
+Truthful answers increase your risk of identity theft.
+The answers are often guessable,
+can frequently be learned easily about you,
+and may be obtained through a password breach on another&nbsp;site.</p>
+<p>Instead, generate a passphrase as the &quot;answer&quot;
+<em>and store it in the Notes field of your password manager</em>.
+If you have to supply the answer to a security question
+over the phone to a customer service rep,
+you&#8217;ll thank me that you chose something
+that you can clearly say&nbsp;aloud.</p>
+<p class="last">Also <a class="reference external" href="https://www.mentalfloss.com/article/522136/taking-facebook-quizzes-could-put-you-risk-identity-theft">Facebook quizzes</a> and memes like
+&quot;Your porn name is your middle name and the first car you had&quot;
+are trying to obtain your answers to common security questions.
+Don&#8217;t answer&nbsp;them.</p>
+</div>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/security/" rel="tag">security</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "https://www.georgevreilly.com/blog/2021/05/10/PassphraseGenerators.html";
+            var disqus_url = "https://www.georgevreilly.com/blog/2021/05/10/PassphraseGenerators.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="https://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+
+
+    
+    
+        <a href="/blog/2021/05/08/PunctuatingJamesJoyce.html" class="page floatright">
+        Punctuating James Joyce &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

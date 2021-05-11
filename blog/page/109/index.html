@@ -28,6 +28,49 @@
     
         <article>
     <header>
+        <time datetime="2006-09-14">2006-09-14</time>
+        <h1>
+            <a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" rel="bookmark canonical">Never Sleep(0) in an Infinite Loop</a>
+        </h1>
+    </header>
+    
+<p>I ran into a problem installing some <span class="caps">COM</span>+ components today. The installer
+was using <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/04za0hca.aspx">Regsvcs.exe</a>
+to register each <span class="caps">COM</span>+ component. I noticed after a while that the installer
+wasn&#8217;t making any progress and that my dual-proc system was stuck at 50%
+<span class="caps">CPU</span> uti&shy;liza&shy;tion. I attached a debugger to the offending process, regsvcs,
+and found that it was stuck in the following infinite loop
+(dis&shy;as&shy;sem&shy;bly courtesy of <a class="reference external" href="http://www.aisto.com/roeder/dotnet/">Reflector</a>):</p>
+
+<pre class="code csharp literal-block">
+<span class="k">internal</span> <span class="k">void</span> <span class="n">System</span><span class="p">.</span><span class="n">EnterpriseServices</span><span class="p">.</span><span class="n">CatalogSync</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">_set</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">RegistryKey</span> <span class="n">key1</span>
+      <span class="p">=</span> <span class="n">Registry</span><span class="p">.</span><span class="n">LocalMachine</span><span class="p">.</span><span class="n">OpenSubKey</span><span class="p">(</span><span class="s">&#64;&quot;<span class="caps">SOFTWARE</span>\Classes\<span class="caps">CLSID</span>&quot;</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
+    <span class="p">{</span>
+      <span class="kt">int</span> <span class="n">num1</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">key1</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="s">&quot;CLBVersion&quot;</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+ </pre><span>&#8230;<a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/c/" rel="tag">c</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-09-12">2006-09-12</time>
         <h1>
             <a href="/blog/2006/09/12/AIDSWalkResults.html" rel="bookmark canonical">AIDS Walk Results</a>
@@ -360,44 +403,6 @@ ticket. Many <span>&#8230;<a href="/blog/2006/08/17/TheUKTerrorPlot.html" class=
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2006/08/17/TheUKTerrorPlot.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/politics/" rel="tag">politics</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-08-16">2006-08-16</time>
-        <h1>
-            <a href="/blog/2006/08/16/AnInterviewWithSaulAlinsky.html" rel="bookmark canonical">An Interview with Saul Alinsky</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.forestcouncil.org/tims_picks/view.php?id=1075"></a>
-<p>I came across a very long <a class="reference external" href="http://www.forestcouncil.org/tims_picks/view.php?id=1075">interview with Saul Alinsky</a> (24,000 words),
-conducted by Playboy in 1972, in a
-<a class="reference external" href="http://www.firedoglake.com/">Fire&shy;DogLake</a> thread
-about the book <a class="reference external" href="http://www.firedoglake.com/2006/08/13/fdl-book-salon-50-simple-things-you-can-do-to-fight-the-right/">50 Simple Things You Can Do to Fight the Right</a>.</p>
-<p><a class="reference external" href="http://en.wikipedia.org/wiki/Saul_Alinsky">Saul Alinsky</a>
-was a longtime radical activist, starting in the Great Depression.
-He moved from labor organizing to social organizing in the late 1930s,
-working in the Back of the Yards neigh&shy;bor&shy;hood of Chicago that was made
-famous by Upton Sinclair in <em>The Jungle</em>. He is generally considered the
-father of community&nbsp;organizing.</p>
-<p>Shortly before he died, he published his most famous book,
-<a class="reference external" href="https://www.amazon.com/exec/obidos/ASIN/0679721134/georgvreill-20">Rules for&nbsp;Radicals</a></p>
-<p>As a graduate student in crim&shy;i&shy;nol&shy;o&shy;gy, he spent a couple of years hobnobbing
-with Al <span>&#8230;<a href="/blog/2006/08/16/AnInterviewWithSaulAlinsky.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/08/16/AnInterviewWithSaulAlinsky.html#disqus_thread">Comment</a>
         
         
             <p>tagged as
