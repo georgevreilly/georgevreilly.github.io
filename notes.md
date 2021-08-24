@@ -1,12 +1,14 @@
 # Building and Running the blog
 
-To create a fresh virtualenv. (Acrylamid doesn't work on Python 3 yet):
+To create a fresh virtualenv.
 
 ```bash
-virtualenv -p python2.7 ~/.virtualenvs/gvrblog
+python3 -m venv ./venv
 ```
 
-Use the version of Acrylamid in `~/src/acrylamid`
+Use the version of Acrylamid in `~/src/acrylamid`.
+
+First `pip install wheel`, then `pip install -r requirements.txt`
 
 To create a new blog post in `~/stuff/Writing/blog/gvr` aka `./gvrblog`:
 
