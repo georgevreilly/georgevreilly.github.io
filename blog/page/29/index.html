@@ -28,6 +28,44 @@
     
         <article>
     <header>
+        <time datetime="2016-01-15">2016-01-15</time>
+        <h1>
+            <a href="/blog/2016/01/15/DVINotConsideredEqual.html" rel="bookmark canonical">DVI Not Considered Equal</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Digital_Visual_Interface"></a>
+<p>We got a new monitor today for one of our <a class="reference external" href="http://www.metabrite.com/devblog/posts/pairing-git/">pairing work&shy;sta&shy;tions</a>.
+At 2560x1600, it was higher resolution than its pre&shy;de&shy;ces&shy;sor.
+I dis&shy;con&shy;nect&shy;ed the <a class="reference external" href="https://en.wikipedia.org/wiki/Digital_Visual_Interface"><span class="caps">DVI</span></a> cable from the old monitor,
+leaving it connected to one of the video ports on the computer,
+and connected it to the new monitor.
+All I could see was static and noise on the screen.
+After trying a variety of other things,
+I eventually thought to use the <span class="caps">DVI</span> cable that came with the new monitor.
+It&nbsp;worked!</p>
+<p>I had assumed that all <span class="caps">DVI</span> cables were in&shy;ter&shy;change&shy;able.
+Reading the <a class="reference external" href="https://en.wikipedia.org/wiki/Digital_Visual_Interface">Wikipedia article</a>, I see that at higher res&shy;o&shy;lu&shy;tions,
+<em>dual link</em> is needed.
+I hadn&#8217;t known such a thing&nbsp;existed.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/15/DVINotConsideredEqual.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-14">2016-01-14</time>
         <h1>
             <a href="/blog/2016/01/14/PythonBaseClassOrder.html" rel="bookmark canonical">Python Base Class Order</a>
@@ -447,54 +485,6 @@ wherein he takes historical events <span>&#8230;<a href="/blog/2016/01/06/Review
                     and
                     
                 <a href="/tag/history/" rel="tag">history</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-05">2016-01-05</time>
-        <h1>
-            <a href="/blog/2016/01/05/DecrementingLoops.html" rel="bookmark canonical">Decrementing Loops</a>
-        </h1>
-    </header>
-    <p>The canonical <tt class="docutils literal">for</tt>-loop in C and C++ is written thus,
-counting up <tt class="docutils literal">i = 0</tt>, <tt class="docutils literal">i = 1</tt>, &#8230;, <tt class="docutils literal">i = <span class="pre">N-1</span></tt>:</p>
-<pre class="code c++ literal-block">
-<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// loop body
-</span><span class="p">}</span>
-</pre>
-<p>(In C, you have to declare <tt class="docutils literal">int i</tt> before the <tt class="docutils literal">for</tt>-loop.)</p>
-<p>Let&#8217;s unpack that <tt class="docutils literal">for</tt>-loop into an equivalent <tt class="docutils literal">while</tt>-loop:</p>
-<pre class="code c++ literal-block">
-<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// loop body
-</span>    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="p">}</span>
-</pre>
-<p>In other words, we initialize <tt class="docutils literal">i</tt> to zero.
-Then, before every execution of either loop,
-we check <tt class="docutils literal">i &lt; N</tt>.
-If <tt class="docutils literal">i</tt> is still within bounds,
-we execute the loop body.
-Then we postin&shy;cre&shy;ment <span>&#8230;<a href="/blog/2016/01/05/DecrementingLoops.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/05/DecrementingLoops.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/c++/" rel="tag">c++</a>
-                    and
-                    
-                <a href="/tag/performance/" rel="tag">performance</a>
                 
             </p>
         

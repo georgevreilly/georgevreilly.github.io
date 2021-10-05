@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Accidentally Quadratic: Python List Membership</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content="We had a performance regression in a test suite re..." />
+    <meta name="keywords" content="python, performance" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2021-10-04">2021-10-04</time>
+        <h1>
+            <a href="/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html" rel="bookmark canonical">Accidentally Quadratic: Python List Membership</a>
+        </h1>
+    </header>
+    <p>We had a per&shy;for&shy;mance regression in a test suite recently
+when the median test time jumped by two&nbsp;minutes.</p>
+<a class="reference external image-reference" href="https://www.bigocheatsheet.com/"><img alt="Big O Cheat Sheet" src="/content/binary/bigochart.gif"/></a>
+<p>We tracked it down to this (simplified) code&nbsp;fragment:</p>
+<pre class="code python literal-block">
+<span class="n">task_inclusions</span> <span class="o">=</span> <span class="p">[</span> <span class="n">some_collection_of_tasks</span><span class="p">()</span> <span class="p">]</span>
+<span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span>
+                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
+</pre>
+<p>This looks fairly in&shy;nocu&shy;ous—and it was—until the size of the result returned from <tt class="docutils literal">some_&shy;col&shy;lec&shy;tion_of_&shy;tasks()</tt>
+jumped from a few hundred to a few&nbsp;thousand.</p>
+<p>The <a class="reference external" href="https://docs.python.org/3/reference/expressions.html#membership-test-operations">in comparison operator</a> con&shy;ve&shy;nient&shy;ly works
+with all of Python&#8217;s standard sequences and col&shy;lec&shy;tions,
+but its efficiency varies.
+For a <tt class="docutils literal">list</tt> and other sequences,
+<tt class="docutils literal">in</tt> must search linearly through all the elements
+until it finds a matching element
+<em>or</em> the list is exhausted.
+In other words, <tt class="docutils literal">x in some_list</tt> takes <span class="formula"><i>O</i>(<i>n</i>)</span> time.
+For a <tt class="docutils literal">set</tt> or a <tt class="docutils literal">dict</tt>, however,
+<tt class="docutils literal">x in container</tt> takes, on average, only <span class="formula"><i>O</i>(1)</span> time.
+See <a class="reference external" href="https://wiki.python.org/moin/TimeComplexity">Time Complexity</a> for&nbsp;more.</p>
+<p>The <tt class="docutils literal">in&shy;valid_&shy;tasks</tt> list com&shy;pre&shy;hen&shy;sion
+was explicitly looping through one list, <tt class="docutils literal">air&shy;flow_&shy;tasks</tt>,
+and implicitly doing a linear search through <tt class="docutils literal">task_in&shy;clu&shy;sions</tt>
+for each value of <tt class="docutils literal">t</tt>.
+The nested loop was hidden
+and its effect only became apparent
+when <tt class="docutils literal">task_in&shy;clu&shy;sions</tt> grew&nbsp;large.</p>
+<p>The list com&shy;pre&shy;hen&shy;sion was actually taking <span class="formula"><i>O</i>(<i>n</i><sup>2</sup>)</span> time.
+When <span class="formula"><i>n</i></span> was com&shy;par&shy;a&shy;tive&shy;ly small (a few hundred),
+this wasn&#8217;t a problem.
+When <span class="formula"><i>n</i></span> grew to several thousand,
+it became a big&nbsp;problem.</p>
+<p>This is a classic example of an <a class="reference external" href="https://accidentallyquadratic.tumblr.com/">ac&shy;ci&shy;den&shy;tal&shy;ly quadratic</a> algorithm.
+Indeed, Nelson describes a very similar problem with <a class="reference external" href="https://accidentallyquadratic.tumblr.com/post/161243900944/mercurial-changegroup-application">Mercurial change&shy;groups</a>.</p>
+<p>This per&shy;for&shy;mance regression was compounded because this fragment of code
+was being called thousands of times—I believe once for each task—
+making the overall cost cubic, <span class="formula"><i>O</i>(<i>n</i><sup>3</sup>)</span>.</p>
+<p>The fix here is similar:
+Use a <tt class="docutils literal">set</tt> instead of a <tt class="docutils literal">list</tt>
+and get <span class="formula"><i>O</i>(1)</span> membership testing.
+The <tt class="docutils literal">in&shy;valid_&shy;tasks</tt> list com&shy;pre&shy;hen&shy;sion now takes
+the expected <span class="formula"><i>O</i>(<i>n</i>)</span>&nbsp;time.</p>
+<pre class="code python literal-block">
+<span class="n">task_inclusions</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span> <span class="n">some_collection_of_tasks</span><span class="p">()</span> <span class="p">)</span>
+<span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span>
+                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
+</pre>
+<p>More at <a class="reference external" href="https://www.coengoedegebure.com/understanding-big-o-notation/">Un&shy;der&shy;stand&shy;ing Big-O Notation</a> and the <a class="reference external" href="https://www.bigocheatsheet.com/">Big-O Cheat Sheet</a>.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/performance/" rel="tag">performance</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "https://www.georgevreilly.com/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html";
+            var disqus_url = "https://www.georgevreilly.com/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="https://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+
+
+    
+    
+        <a href="/blog/2021/05/10/PassphraseGenerators.html" class="page floatright">
+        Passphrase Generators &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

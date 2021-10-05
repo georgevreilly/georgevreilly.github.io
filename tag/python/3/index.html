@@ -28,6 +28,51 @@
     
         <article>
     <header>
+        <time datetime="2016-01-22">2016-01-22</time>
+        <h1>
+            <a href="/blog/2016/01/22/PythonRecursiveGenerators.html" rel="bookmark canonical">Recursive Generators in Python 2 and 3</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+<p>Generators decouple iteration from the code
+that uses the results of the iteration.</p>
+<p class="attribution">&mdash;David Beazley, <a class="reference external" href="https://www.dabeaz.com/generators/">Generators</a></p>
+</blockquote>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>Python generators have a <a class="reference external" href="https://www.dabeaz.com/generators/">variety of uses</a>.
+One such is to lazily evaluate sequences.
+Another is for <a class="reference external" href="https://www.dabeaz.com/coroutines/">coroutines</a>.
+Yet another is to re&shy;cur&shy;sive&shy;ly traverse a tree or a graph,
+yielding an iterable sequence.</p>
+<p>Consider this simple tree of nodes:</p>
+<pre class="code python literal-block">
+<span class="n">node_tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+    <span class="s1">'a'</span><span class="p">,</span> <span class="p">[</span>
+        <span class="n">Node</span><span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="p">[</span>
+            <span class="n">Node</span><span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="p">[</span>
+                <span class="n">Node</span><span class="p">(</span><span class="s1">'g'</span><span class="p">)</span>
+ </pre><span>&#8230;<a href="/blog/2016/01/22/PythonRecursiveGenerators.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-17">2016-01-17</time>
         <h1>
             <a href="/blog/2016/01/17/RelativeImportsInAPythonScript.html" rel="bookmark canonical">Relative Imports in a Python Script</a>
@@ -385,51 +430,6 @@ drawn from <a class="reference external" href="https://www.python.org/dev/peps/p
 <pre class="code python literal-block">
 <span class="o">&gt;&gt;&gt;</span> <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1991</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{date}</span><span class="s1"> was on a </span></pre><span>&#8230;<a href="/blog/2015/12/15/PythonFStrings.html" class="continue">continue</a>.</span>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-05">2015-12-05</time>
-        <h1>
-            <a href="/blog/2015/12/05/python-print-formatting.html" rel="bookmark canonical">Python Print Formatting</a>
-        </h1>
-    </header>
-    <p>On Stack&shy;Over&shy;flow, someone wanted to
-<a class="reference external" href="http://stackoverflow.com/questions/34109838/for-while-loops-to-make-triangles">print triangles in Python</a>
-in an M-shape.
-Various clumsy solutions were offered.</p>
-<p>Here's mine which uses the left- and right-jus&shy;ti&shy;fi&shy;ca&shy;tion features of
-<a class="reference external" href="https://docs.python.org/2/library/string.html#formatstrings">str.format</a>.</p>
-<ul class="simple">
-<li><tt class="docutils literal"><span class="pre">&quot;{0}+++{0}&quot;.format('Hello!')</span></tt> produces two copies of the zeroth argument to <tt class="docutils literal">format</tt>
-(here <tt class="docutils literal">'Hello!'</tt>), separated by three plusses: <tt class="docutils literal"><span class="pre">Hello!+++Hello!</span></tt>.</li>
-<li><tt class="docutils literal"><span class="pre">&quot;{:&lt;4}&quot;.format('x')</span></tt> left-justifies <tt class="docutils literal">'x'</tt> in a 4-character field; i.e., <tt class="docutils literal">'x&nbsp;&nbsp; '</tt>.</li>
-<li><tt class="docutils literal"><span class="pre">&quot;{:&gt;4}&quot;.format('x')</span></tt> right-justifies <tt class="docutils literal">'x'</tt> in a 4-character field; i.e., <tt class="docutils literal">'&nbsp;&nbsp; x'</tt>.</li>
-<li><tt class="docutils literal"><span class="pre">&quot;{:&gt;{}}&quot;.format('x',</span> width)</tt> right-justifies <tt class="docutils literal">'x'</tt> in a <tt class="docutils literal">width</tt>-character field.</li>
-<li><tt class="docutils literal">'ab' * 4</tt> yields 4 copies of <tt class="docutils literal">'ab'</tt>; i.e., <tt class="docutils literal">'abababab'</tt>.</li>
-</ul>
-<p>Putting them together:</p>
-<pre class="literal-block">
-&gt;&gt;&gt; WIDTH = 4
-&gt;&gt;&gt;
-&gt;&gt;&gt; for a in range(1, WIDTH+1):
-...     print(&quot;{0:&lt;{1}}{0:&gt;{1}}&quot;.format('*' * a, WIDTH))
-...
-*      *
-**    **
-*** </pre><span>&#8230;<a href="/blog/2015/12/05/python-print-formatting.html" class="continue">continue</a>.</span>
     <footer>
         
         

@@ -28,6 +28,46 @@
     
         <article>
     <header>
+        <time datetime="2021-10-04">2021-10-04</time>
+        <h1>
+            <a href="/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html" rel="bookmark canonical">Accidentally Quadratic: Python List Membership</a>
+        </h1>
+    </header>
+    <p>We had a per&shy;for&shy;mance regression in a test suite recently
+when the median test time jumped by two minutes.</p>
+<a class="reference external image-reference" href="https://www.bigocheatsheet.com/"></a>
+<p>We tracked it down to this (simplified) code fragment:</p>
+<pre class="code python literal-block">
+<span class="n">task_inclusions</span> <span class="o">=</span> <span class="p">[</span> <span class="n">some_collection_of_tasks</span><span class="p">()</span> <span class="p">]</span>
+<span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span>
+                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
+</pre>
+<p>This looks fairly in&shy;nocu&shy;ous—and it was—until the size of the result returned from <tt class="docutils literal">some_&shy;col&shy;lec&shy;tion_of_&shy;tasks()</tt>
+jumped from a few hundred to a few thousand.</p>
+<p>The <a class="reference external" href="https://docs.python.org/3/reference/expressions.html#membership-test-operations">in comparison operator</a> con&shy;ve&shy;nient&shy;ly works
+with all of Python's standard sequences and col&shy;lec&shy;tions,
+but its efficiency varies.
+For a <tt class="docutils literal">list</tt> and other sequences,
+<tt class="docutils literal">in</tt> must search <span>&#8230;<a href="/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/performance/" rel="tag">performance</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2017-02-21">2017-02-21</time>
         <h1>
             <a href="/blog/2017/02/21/OrderedDictInitialization.html" rel="bookmark canonical">OrderedDict Initialization</a>
@@ -396,58 +436,6 @@ which supports Unicode strings.</p>
 </pre>
 <p>It failed horribly with
 <tt class="docutils literal">TypeError: unicode argument expected, <span>&#8230;<a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" class="continue">continue</a>.</span></tt></p>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-04-05">2016-04-05</time>
-        <h1>
-            <a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" rel="bookmark canonical">Doctests, Unicode Literals, and Python 2/3 Compatibility</a>
-        </h1>
-    </header>
-    <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses them.</p>
-<p>Although I still mostly write Python 2,
-I usually import several features of Python 3:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
-</pre>
-<p>Un&shy;for&shy;tu&shy;nate&shy;ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni&shy;code_lit&shy;er&shy;als</a> doesn't play well with doctests.</p>
-<p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
-but not with <tt class="docutils literal">python3</tt>:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
-
-<span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;
-    Convert `s` to upper case.
-
-    &gt;&gt;&gt; upper('Hello!')
-    u'HELLO!'
-    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-</pre>
-<p>Python 3 complains:</p>
-<pre class="literal-block">
-Failed example:
-    upper('Hello!')
-Expected:
-    u'HELLO!'
-Got:
-    'HELLO!'
-</pre>
-<p>The <span>&#8230;<a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" class="continue">continue</a>.</span></p>
     <footer>
         
         

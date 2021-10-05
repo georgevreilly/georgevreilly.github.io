@@ -28,6 +28,58 @@
     
         <article>
     <header>
+        <time datetime="2016-04-05">2016-04-05</time>
+        <h1>
+            <a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" rel="bookmark canonical">Doctests, Unicode Literals, and Python 2/3 Compatibility</a>
+        </h1>
+    </header>
+    <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses them.</p>
+<p>Although I still mostly write Python 2,
+I usually import several features of Python 3:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+</pre>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni&shy;code_lit&shy;er&shy;als</a> doesn't play well with doctests.</p>
+<p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
+but not with <tt class="docutils literal">python3</tt>:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+
+<span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;
+    Convert `s` to upper case.
+
+    &gt;&gt;&gt; upper('Hello!')
+    u'HELLO!'
+    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+</pre>
+<p>Python 3 complains:</p>
+<pre class="literal-block">
+Failed example:
+    upper('Hello!')
+Expected:
+    u'HELLO!'
+Got:
+    'HELLO!'
+</pre>
+<p>The <span>&#8230;<a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-03-25">2016-03-25</time>
         <h1>
             <a href="/blog/2016/03/25/Profiling.html" rel="bookmark canonical">Profiling</a>
@@ -360,51 +412,6 @@ which used some <span>&#8230;<a href="/blog/2016/01/24/NoseTestDiscovery.html" c
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-22">2016-01-22</time>
-        <h1>
-            <a href="/blog/2016/01/22/PythonRecursiveGenerators.html" rel="bookmark canonical">Recursive Generators in Python 2 and 3</a>
-        </h1>
-    </header>
-    <p></p>
-<blockquote>
-<p>Generators decouple iteration from the code
-that uses the results of the iteration.</p>
-<p class="attribution">&mdash;David Beazley, <a class="reference external" href="https://www.dabeaz.com/generators/">Generators</a></p>
-</blockquote>
-<blockquote>
-[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
-<p>Python generators have a <a class="reference external" href="https://www.dabeaz.com/generators/">variety of uses</a>.
-One such is to lazily evaluate sequences.
-Another is for <a class="reference external" href="https://www.dabeaz.com/coroutines/">coroutines</a>.
-Yet another is to re&shy;cur&shy;sive&shy;ly traverse a tree or a graph,
-yielding an iterable sequence.</p>
-<p>Consider this simple tree of nodes:</p>
-<pre class="code python literal-block">
-<span class="n">node_tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
-    <span class="s1">'a'</span><span class="p">,</span> <span class="p">[</span>
-        <span class="n">Node</span><span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="p">[</span>
-            <span class="n">Node</span><span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="p">[</span>
-                <span class="n">Node</span><span class="p">(</span><span class="s1">'g'</span><span class="p">)</span>
- </pre><span>&#8230;<a href="/blog/2016/01/22/PythonRecursiveGenerators.html" class="continue">continue</a>.</span>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/metabrite/" rel="tag">metabrite</a>
                 
             </p>
         

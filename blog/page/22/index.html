@@ -28,6 +28,43 @@
     
         <article>
     <header>
+        <time datetime="2016-03-25">2016-03-25</time>
+        <h1>
+            <a href="/blog/2016/03/25/Profiling.html" rel="bookmark canonical">Profiling</a>
+        </h1>
+    </header>
+    <p>Despite being a <em>bona fide</em> per&shy;for&shy;mance expert—I spent a couple of years as the Per&shy;for&shy;mance Lead
+for Microsoft&#8217;s <span class="caps">IIS</span> web server product about 15 years ago—I still forget to measure rather than&nbsp;assume.</p>
+<p>I wrote some code today that imported nearly 300,000 nodes into a graph
+from a <span class="caps">500MB</span> <span class="caps">XML</span> file.
+The code was not par&shy;tic&shy;u&shy;lar&shy;ly fast and I assumed that it was the <span class="caps">XML</span> parser.
+I had been using the built-in streaming parser, <a class="reference external" href="https://docs.python.org/2/library/xml.etree.elementtree.html#xml.etree.ElementTree.iterparse">cEle&shy;ment&shy;Tree iterparse</a>.
+I assumed that using the <a class="reference external" href="http://lxml.de/api/lxml.etree.iterparse-class.html">lmxl iterparse</a> would make the code faster.
+It&nbsp;didn&#8217;t.</p>
+<p>Then I had the bright idea of tem&shy;porar&shy;i&shy;ly disabling the per-node processing,
+which left only the <span class="caps">XML</span> parsing.
+Instead of handling 200 <span>&#8230;<a href="/blog/2016/03/25/Profiling.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/25/Profiling.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/performance/" rel="tag">performance</a>
+                    and
+                    
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-03-24">2016-03-24</time>
         <h1>
             <a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" rel="bookmark canonical">Raising IOError for 'file not found'</a>
@@ -438,42 +475,6 @@ and realizes that he&#8217;s infringing on the <a class="reference external" hre
                     and
                     
                 <a href="/tag/mystery/" rel="tag">mystery</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-03-15">2016-03-15</time>
-        <h1>
-            <a href="/blog/2016/03/15/25YearsOutAsBisexual.html" rel="bookmark canonical">25 Years Out as Bisexual</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://twitter.com/chicagobi"></a>
-<p>My birthday today marks the 25th an&shy;niver&shy;sary of <a class="reference external" href="http://groups.google.com/group/soc.motss/browse_thread/thread/baf274ae585ab622/330d866060d756d8">my coming out as bisexual</a>,
-a major milestone in my&nbsp;life.</p>
-<p>I hid my bi&shy;sex&shy;u&shy;al&shy;i&shy;ty for a decade before coming out in 1991.
-Ireland was not a welcoming place for <span class="caps">LGBT</span> youth in the 1980s.
-Nor were most other&nbsp;places.</p>
-<p>I discovered <a class="reference external" href="http://www.slate.com/articles/technology/bitwise/2014/08/online_gay_culture_and_soc_motss_how_a_usenet_group_anticipated_how_we_use.html">soc.motss</a>, the gay newsgroup on Usenet,
-in the late 1980s
-and I lurked there for a couple of years,
-half-intending to come out but never quite finding the courage.
-Then my old friend Éamonn came out to me—to my utter sur&shy;prise—and I im&shy;me&shy;di&shy;ate&shy;ly came out to him.
-Then I sat on everything for a few months.
-Eventually, late on the night of my <span>&#8230;<a href="/blog/2016/03/15/25YearsOutAsBisexual.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/15/25YearsOutAsBisexual.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/bi/" rel="tag">bi</a>
                 
             </p>
         

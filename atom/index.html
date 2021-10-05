@@ -11,8 +11,74 @@
     <link rel="self" type="application/atom+xml" href="https://www.georgevreilly.com/atom/" />
     <icon>https://www.georgevreilly.com/favicon.ico</icon>
     <logo>https://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2021-05-10T07:00:00Z</updated>
+    <updated>2021-10-04T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.8.dev0">acrylamid</generator>
+        <entry>
+        <title>Accidentally Quadratic: Python List Membership</title>
+        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html" />
+        <id>tag:www.georgevreilly.com,2021-10-04:/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html</id>
+        <updated>2021-10-04T07:00:00Z</updated>
+        <category term="python" />
+        <category term="performance" />
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>https://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;We had a performance regression in a test suite recently
+when the median test time jumped by two minutes.&lt;/p&gt;
+&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://www.bigocheatsheet.com/&#34;&gt;&lt;img alt=&#34;Big O Cheat Sheet&#34; src=&#34;https://www.georgevreilly.com/content/binary/bigochart.gif&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;We tracked it down to this (simplified) code fragment:&lt;/p&gt;
+&lt;pre class=&#34;code python literal-block&#34;&gt;
+&lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;some_collection_of_tasks&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;invalid_tasks&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;airflow_tasks&lt;/span&gt;
+                 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;This looks fairly innocuous—and it was—until the size of the result returned from &lt;tt class=&#34;docutils literal&#34;&gt;some_collection_of_tasks()&lt;/tt&gt;
+jumped from a few hundred to a few thousand.&lt;/p&gt;
+&lt;p&gt;The &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/3/reference/expressions.html#membership-test-operations&#34;&gt;in comparison operator&lt;/a&gt; conveniently works
+with all of Python&#39;s standard sequences and collections,
+but its efficiency varies.
+For a &lt;tt class=&#34;docutils literal&#34;&gt;list&lt;/tt&gt; and other sequences,
+&lt;tt class=&#34;docutils literal&#34;&gt;in&lt;/tt&gt; must search linearly through all the elements
+until it finds a matching element
+&lt;em&gt;or&lt;/em&gt; the list is exhausted.
+In other words, &lt;tt class=&#34;docutils literal&#34;&gt;x in some_list&lt;/tt&gt; takes &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;O&lt;/i&gt;(&lt;i&gt;n&lt;/i&gt;)&lt;/span&gt; time.
+For a &lt;tt class=&#34;docutils literal&#34;&gt;set&lt;/tt&gt; or a &lt;tt class=&#34;docutils literal&#34;&gt;dict&lt;/tt&gt;, however,
+&lt;tt class=&#34;docutils literal&#34;&gt;x in container&lt;/tt&gt; takes, on average, only &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;O&lt;/i&gt;(1)&lt;/span&gt; time.
+See &lt;a class=&#34;reference external&#34; href=&#34;https://wiki.python.org/moin/TimeComplexity&#34;&gt;Time Complexity&lt;/a&gt; for more.&lt;/p&gt;
+&lt;p&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;invalid_tasks&lt;/tt&gt; list comprehension
+was explicitly looping through one list, &lt;tt class=&#34;docutils literal&#34;&gt;airflow_tasks&lt;/tt&gt;,
+and implicitly doing a linear search through &lt;tt class=&#34;docutils literal&#34;&gt;task_inclusions&lt;/tt&gt;
+for each value of &lt;tt class=&#34;docutils literal&#34;&gt;t&lt;/tt&gt;.
+The nested loop was hidden
+and its effect only became apparent
+when &lt;tt class=&#34;docutils literal&#34;&gt;task_inclusions&lt;/tt&gt; grew large.&lt;/p&gt;
+&lt;p&gt;The list comprehension was actually taking &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;O&lt;/i&gt;(&lt;i&gt;n&lt;/i&gt;&lt;sup&gt;2&lt;/sup&gt;)&lt;/span&gt; time.
+When &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; was comparatively small (a few hundred),
+this wasn&#39;t a problem.
+When &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; grew to several thousand,
+it became a big problem.&lt;/p&gt;
+&lt;p&gt;This is a classic example of an &lt;a class=&#34;reference external&#34; href=&#34;https://accidentallyquadratic.tumblr.com/&#34;&gt;accidentally quadratic&lt;/a&gt; algorithm.
+Indeed, Nelson describes a very similar problem with &lt;a class=&#34;reference external&#34; href=&#34;https://accidentallyquadratic.tumblr.com/post/161243900944/mercurial-changegroup-application&#34;&gt;Mercurial changegroups&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This performance regression was compounded because this fragment of code
+was being called thousands of times—I believe once for each task—
+making the overall cost cubic, &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;O&lt;/i&gt;(&lt;i&gt;n&lt;/i&gt;&lt;sup&gt;3&lt;/sup&gt;)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;The fix here is similar:
+Use a &lt;tt class=&#34;docutils literal&#34;&gt;set&lt;/tt&gt; instead of a &lt;tt class=&#34;docutils literal&#34;&gt;list&lt;/tt&gt;
+and get &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;O&lt;/i&gt;(1)&lt;/span&gt; membership testing.
+The &lt;tt class=&#34;docutils literal&#34;&gt;invalid_tasks&lt;/tt&gt; list comprehension now takes
+the expected &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;O&lt;/i&gt;(&lt;i&gt;n&lt;/i&gt;)&lt;/span&gt; time.&lt;/p&gt;
+&lt;pre class=&#34;code python literal-block&#34;&gt;
+&lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;some_collection_of_tasks&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;invalid_tasks&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;airflow_tasks&lt;/span&gt;
+                 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;More at &lt;a class=&#34;reference external&#34; href=&#34;https://www.coengoedegebure.com/understanding-big-o-notation/&#34;&gt;Understanding Big-O Notation&lt;/a&gt; and the &lt;a class=&#34;reference external&#34; href=&#34;https://www.bigocheatsheet.com/&#34;&gt;Big-O Cheat Sheet&lt;/a&gt;.&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Passphrase Generators</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/05/10/PassphraseGenerators.html" />
@@ -1951,160 +2017,6 @@ It&#39;s bloody but not that funny.
 The characters are thinly drawn and unengaging.
 They&#39;re a far cry from Tarantino&#39;s gonzo motormouths
 or the Coen Brother&#39;s quirky killers.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Jenkins #6: Miscellenea</title>
-        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/02/09/Jenkins06-Miscellenea.html" />
-        <id>tag:www.georgevreilly.com,2017-02-09:/blog/2017/02/09/Jenkins06-Miscellenea.html</id>
-        <updated>2017-02-09T07:00:00Z</updated>
-        <category term="jenkins" />
-        <category term="metabrite" />
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>https://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-[Previously published at the now defunct &lt;a class=&#34;reference external&#34; href=&#34;https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/&#34;&gt;MetaBrite Dev Blog&lt;/a&gt;.]&lt;/blockquote&gt;
-&lt;p&gt;A collection of miscellaneous tips on using Pipelines in Jenkins 2.0.&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2017/02/04/Jenkins01-MigratingToPipelines.html&#34;&gt;#6 in a series on Jenkins Pipelines&lt;/a&gt;&lt;/p&gt;
-&lt;div class=&#34;section&#34; id=&#34;environment-variables&#34;&gt;
-&lt;h3&gt;Environment Variables&lt;/h3&gt;
-&lt;p&gt;Use the &lt;tt class=&#34;docutils literal&#34;&gt;withEnv&lt;/tt&gt; step to set environment variables.
-Don&#39;t manipulate the &lt;tt class=&#34;docutils literal&#34;&gt;env&lt;/tt&gt; global variable.&lt;/p&gt;
-&lt;p&gt;The confusing example that you see in the documents,
-&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;PATH+WHATEVER=/something&lt;/span&gt;&lt;/tt&gt;,
-simply means to &lt;em&gt;prepend&lt;/em&gt; &lt;tt class=&#34;docutils literal&#34;&gt;/something&lt;/tt&gt; to &lt;tt class=&#34;docutils literal&#34;&gt;$PATH&lt;/tt&gt;.
-The &lt;tt class=&#34;docutils literal&#34;&gt;+WHATEVER&lt;/tt&gt; has no other effect.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;section&#34; id=&#34;credentials&#34;&gt;
-&lt;h3&gt;Credentials&lt;/h3&gt;
-&lt;p&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;withEnv&lt;/tt&gt; step should not be used to introduce secrets into the build environment.
-Use the &lt;a class=&#34;reference external&#34; href=&#34;https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin&#34;&gt;withCredentials&lt;/a&gt; plugin instead.&lt;/p&gt;
-&lt;pre class=&#34;code groovy literal-block&#34;&gt;
-&lt;span class=&#34;n&#34;&gt;withCredentials&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;([&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;$class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&#39;StringBinding&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nl&#34;&gt;credentialsId:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&#39;GPG_SECRET&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nl&#34;&gt;variable:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&#39;GPG_SECRET&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;],&lt;/span&gt;
-    &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;$class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&#39;AmazonWebServicesCredentialsBinding&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
-     &lt;span class=&#34;nl&#34;&gt;credentialsId:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&#39;0defaced-cafe-f00d-badd-0000000ff1ce&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
-     &lt;span class=&#34;nl&#34;&gt;accessKeyVariable:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&#39;AWS_ACCESS_KEY_ID&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
-     &lt;span class=&#34;nl&#34;&gt;secretKeyVariable:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&#39;AWS_SECRET_ACCESS_KEY&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;o&#34;&gt;])&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-&lt;/pre&gt;
-&lt;p&gt;Tip: Use the Pipeline Syntax Snippet Generator from &lt;em&gt;your&lt;/em&gt; Jenkins project
-to figure out the exact invocation for your credentials.&lt;/p&gt;
-&lt;p&gt;If you need to display environment variables for debugging purposes,
-you can use something like this Python script instead of &lt;tt class=&#34;docutils literal&#34;&gt;sh &#39;env | sort&#39;&lt;/tt&gt;,
-which can leave secrets in cleartext in your logs.
-Note that &lt;tt class=&#34;docutils literal&#34;&gt;withCredentials&lt;/tt&gt; will mask values that it knows about.&lt;/p&gt;
-&lt;pre class=&#34;code python literal-block&#34;&gt;
-&lt;span class=&#34;ch&#34;&gt;#!/usr/bin/env python&lt;/span&gt;
-
-&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;re&lt;/span&gt;
-
-&lt;span class=&#34;n&#34;&gt;BLOCKLIST_RE&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;re&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;compile&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;^(.*_)?(PASSWORD|AUTH|TOKEN|SECRET|KEY)(_.*)?$&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-
-&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;sorted&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;environ&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;keys&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()):&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;v&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;environ&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;BLOCKLIST_RE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;and&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;v&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&#39;*&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{}{}{}&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;*&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
-    &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{}&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{}&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;format&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div class=&#34;section&#34; id=&#34;cleaning-up-workspaces&#34;&gt;
-&lt;h3&gt;Cleaning Up Workspaces&lt;/h3&gt;
-&lt;p&gt;You may need to clean up your workspace.
-&lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2017/02/09/jenkins-03-github-integration/index.html&#34;&gt;Don&#39;t remove the .git directory&lt;/a&gt;.&lt;/p&gt;
-&lt;pre class=&#34;code groovy literal-block&#34;&gt;
-&lt;span class=&#34;n&#34;&gt;sh&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;ls -A1 | grep -v &amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;^&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;\\&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;git&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot; | xargs rm -rf&amp;quot;&lt;/span&gt;
-&lt;/pre&gt;
-&lt;ul class=&#34;simple&#34;&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;ls &lt;span class=&#34;pre&#34;&gt;-A1&lt;/span&gt;&lt;/tt&gt; lists all the files and directories in the current directory,
-except &lt;tt class=&#34;docutils literal&#34;&gt;.&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;..&lt;/tt&gt;, one per line.&lt;/li&gt;
-&lt;li&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;grep &lt;span class=&#34;pre&#34;&gt;-v&lt;/span&gt;&lt;/tt&gt; excludes &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;^\.git$&lt;/span&gt;&lt;/tt&gt;.
-Note that the &lt;tt class=&#34;docutils literal&#34;&gt;\&lt;/tt&gt; and the &lt;tt class=&#34;docutils literal&#34;&gt;$&lt;/tt&gt; are escaped in the &lt;tt class=&#34;docutils literal&#34;&gt;sh&lt;/tt&gt; step
-to prevent &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2017/02/09/jenkins-04-sh-step/index.html&#34;&gt;GString interpolation&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;xargs rm &lt;span class=&#34;pre&#34;&gt;-rf&lt;/span&gt;&lt;/tt&gt; deletes the remaining files and directories.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&#34;section&#34; id=&#34;editing-jenkinsfile&#34;&gt;
-&lt;h3&gt;Editing Jenkinsfile&lt;/h3&gt;
-&lt;p&gt;Be sure to put &lt;tt class=&#34;docutils literal&#34;&gt;#!groovy&lt;/tt&gt; as the first line in your &lt;tt class=&#34;docutils literal&#34;&gt;Jenkinsfile&lt;/tt&gt;,
-as a hint to your editor to use Groovy syntax highlighting.&lt;/p&gt;
-&lt;p&gt;We use &lt;a class=&#34;reference external&#34; href=&#34;https://www.jetbrains.com/pycharm/&#34;&gt;PyCharm&lt;/a&gt; a lot, since we&#39;re a Python shop.
-However, despite being written in Java, PyCharm&#39;s support for Groovy is mediocre.
-You&#39;re expected to buy JetBrains&#39; IntelliJ IDE.&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://www.vim.org/&#34;&gt;Vim&lt;/a&gt; has built-in support for Groovy.
-&lt;a class=&#34;reference external&#34; href=&#34;https://atom.io/&#34;&gt;Atom&lt;/a&gt; with the &lt;a class=&#34;reference external&#34; href=&#34;https://atom.io/packages/language-groovy&#34;&gt;language-groovy&lt;/a&gt; package works great.
-Many other editors also support Groovy.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;section&#34; id=&#34;stashes-and-artifacts&#34;&gt;
-&lt;h3&gt;Stashes and Artifacts&lt;/h3&gt;
-&lt;p&gt;Use &lt;tt class=&#34;docutils literal&#34;&gt;stash&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;unstash&lt;/tt&gt; to get artifacts across nodes within a pipeline.
-If you&#39;re using the &lt;tt class=&#34;docutils literal&#34;&gt;parallel&lt;/tt&gt; step,
-some of your branches will start out with an empty workspace,
-and &lt;tt class=&#34;docutils literal&#34;&gt;unstash&lt;/tt&gt; is the easiest way to prime the workspace.&lt;/p&gt;
-&lt;p&gt;If you need to transfer artifacts between different builds,
-you&#39;ll need to use &lt;tt class=&#34;docutils literal&#34;&gt;archiveArtifacts&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;CopyArtifact&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;In project &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;build-1&lt;/span&gt;&lt;/tt&gt;:&lt;/p&gt;
-&lt;pre class=&#34;code groovy literal-block&#34;&gt;
-&lt;span class=&#34;n&#34;&gt;archiveArtifacts&lt;/span&gt; &lt;span class=&#34;nl&#34;&gt;artifacts:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&#39;my_artifact.zip&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nl&#34;&gt;fingerprint:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;
-&lt;/pre&gt;
-&lt;p&gt;In project &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;build-2&lt;/span&gt;&lt;/tt&gt;:&lt;/p&gt;
-&lt;pre class=&#34;code groovy literal-block&#34;&gt;
-&lt;span class=&#34;n&#34;&gt;step&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;([&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;$class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&#39;CopyArtifact&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
-       &lt;span class=&#34;nl&#34;&gt;projectName:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&#39;build-1&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
-       &lt;span class=&#34;nl&#34;&gt;filter:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&#39;my_artifact.zip&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;,&lt;/span&gt;
-       &lt;span class=&#34;nl&#34;&gt;selector:&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;$class&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&#39;StatusBuildSelector&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;
-      &lt;span class=&#34;o&#34;&gt;]);&lt;/span&gt;
-&lt;/pre&gt;
-&lt;p&gt;Note that the &lt;tt class=&#34;docutils literal&#34;&gt;StatusBuildSelector&lt;/tt&gt; selector is picking the artifact
-from the last successful build of &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;build-1&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;You can find the various selectors in the &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/jenkinsci/copyartifact-plugin/tree/master/src/main/java/hudson/plugins/copyartifact&#34;&gt;CopyArtifact source&lt;/a&gt;.
-If you dig into the tests, you can probably figure out how to use the other selectors.&lt;/p&gt;
-&lt;p&gt;In &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;build-1&lt;/span&gt;&lt;/tt&gt;, you can use &lt;tt class=&#34;docutils literal&#34;&gt;build job: &lt;span class=&#34;pre&#34;&gt;&#39;build-2&#39;,&lt;/span&gt; wait: false&lt;/tt&gt; to kick off &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;build-2&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;section&#34; id=&#34;debugging&#34;&gt;
-&lt;h3&gt;Debugging&lt;/h3&gt;
-&lt;p&gt;Here are some tricks for debugging.&lt;/p&gt;
-&lt;div class=&#34;section&#34; id=&#34;local-groovy&#34;&gt;
-&lt;h4&gt;Local Groovy&lt;/h4&gt;
-&lt;p&gt;Run &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2017/02/08/Jenkins05-Groovy.html&#34;&gt;Groovy locally&lt;/a&gt; to debug syntax issues and Groovy functions.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;section&#34; id=&#34;timestamps-and-ansicolor&#34;&gt;
-&lt;h4&gt;timestamps and ansiColor&lt;/h4&gt;
-&lt;p&gt;Use the &lt;tt class=&#34;docutils literal&#34;&gt;timestamps&lt;/tt&gt; plugin to get timestamps to appear in the Jenkins log.
-This is so useful that it should be the default.&lt;/p&gt;
-&lt;p&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;ansiColor&lt;/tt&gt; plugin will generate transform colored console output
-into colored log output.&lt;/p&gt;
-&lt;pre class=&#34;code groovy literal-block&#34;&gt;
-&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;ubuntu&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;n&#34;&gt;timestamps&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;n&#34;&gt;ansiColor&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;xterm&#39;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;n&#34;&gt;stage&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Source Checkout&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-                &lt;span class=&#34;n&#34;&gt;checkout&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;scm&lt;/span&gt;
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div class=&#34;section&#34; id=&#34;job-debugging&#34;&gt;
-&lt;h4&gt;Job Debugging&lt;/h4&gt;
-&lt;p&gt;Instead of troubleshooting build problems in a slow heavyweight job,
-create a new lightweight job that isolates the problem.
-You may get your iteration time down to a minute or so,
-instead of many minutes.&lt;/p&gt;
-&lt;p&gt;Temporarily use &amp;quot;Pipeline script&amp;quot; instead of &amp;quot;Pipeline script from SCM&amp;quot;,
-so that you can try out changes more quickly.
-Note that &lt;tt class=&#34;docutils literal&#34;&gt;checkout scm&lt;/tt&gt; won&#39;t work unless the Pipeline script comes from SCM.&lt;/p&gt;
-&lt;p&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;Replay&lt;/tt&gt; command in the left menu lets you edit the Pipeline script
-and rerun it.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&#34;section&#34; id=&#34;sh-errors&#34;&gt;
-&lt;h4&gt;sh Errors&lt;/h4&gt;
-&lt;p&gt;You can use &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2017/02/07/Jenkins04-shStep.html&#34;&gt;cat -n $0&lt;/a&gt; to echo the interpolated &lt;tt class=&#34;docutils literal&#34;&gt;sh&lt;/tt&gt; script to the log.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
 </content>
     </entry>
     </feed>
