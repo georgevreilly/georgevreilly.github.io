@@ -28,6 +28,53 @@
     
         <article>
     <header>
+        <time datetime="2016-03-16">2016-03-16</time>
+        <h1>
+            <a href="/blog/2016/03/16/ReviewTheFourthSecret.html" rel="bookmark canonical">Review: The Fourth Secret</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.amazon.com/dp/B00NOC5JFW/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: The Fourth Secret</div>
+<div class="line">Author: Andrea Camilleri</div>
+<div class="line">Rating: ★ ★ ★</div>
+<div class="line">Publisher: Mondadori</div>
+<div class="line">Copyright: 2002</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/B00NOC5JFW/?tag=georgvreill-20"><span class="caps">B00NOC5JFW</span></a></div>
+<div class="line">Pages: 77</div>
+<div class="line">Keywords: mystery</div>
+<div class="line">Reading period: February 28–March 2, 2016</div>
+</div>
+<p>A quirky novella about <a class="reference external" href="https://en.wikipedia.org/wiki/Salvo_Montalbano">Com&shy;mis&shy;sario Montalbano</a> of the Italian Polizia.
+A series of “ac&shy;ci&shy;dents” have been happening at con&shy;struc&shy;tion sites.
+Montalbano receives an anonymous letter warning that another “accident” will happen,
+too late to prevent it.
+He attempts to cover it up, while still in&shy;ves&shy;ti&shy;gat&shy;ing,
+and realizes that he&#8217;s infringing on the <a class="reference external" href="http://www.bbc.com/news/magazine-28254297">carib&shy;inieri</a>&#8216;s ju&shy;ris&shy;dic&shy;tion, a&nbsp;no-no.</p>
+<p>Moderately&nbsp;en&shy;ter&shy;tain&shy;ing.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/16/ReviewTheFourthSecret.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/mystery/" rel="tag">mystery</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-03-15">2016-03-15</time>
         <h1>
             <a href="/blog/2016/03/15/25YearsOutAsBisexual.html" rel="bookmark canonical">25 Years Out as Bisexual</a>
@@ -377,45 +424,6 @@ For now, let&#8217;s just say it&#8217;s a tool that we use to build
                 <a href="/tag/docker/" rel="tag">docker</a>
                     and
                     
-                <a href="/tag/python/" rel="tag">python</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-03-06">2016-03-06</time>
-        <h1>
-            <a href="/blog/2016/03/06/psutil-kill.html" rel="bookmark canonical">psutil kill</a>
-        </h1>
-    </header>
-    <p>From Python, I needed to find a process that was performing <span class="caps">SSH</span> tunneling on port 8080
-and kill&nbsp;it.</p>
-<p>The following works in&nbsp;Bash:</p>
-<pre class="code bash literal-block">
-ps aux <span class="p">|</span> grep <span class="o">[</span>s<span class="o">]</span>sh.*:8080 <span class="p">|</span> awk <span class="s1">'{print $2}'</span> <span class="p">|</span> xargs <span class="nb">kill</span> -9
-</pre>
-<p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
-won&#8217;t make it through to <tt class="docutils literal">awk</tt>.</p>
-<p>Here&#8217;s what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
-<pre class="code python literal-block">
-<span class="k">def</span> <span class="nf">kill_port_forwarding</span><span class="p">(</span><span class="n">host_port</span><span class="p">):</span>
-    <span class="n">ssh_args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;-L&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">:localhost:</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host_port</span><span class="p">)]</span>
-    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">process_iter</span><span class="p">():</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'ssh'</span><span class="p">):</span>
-        </pre><span>&#8230;<a href="/blog/2016/03/06/psutil-kill.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/06/psutil-kill.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
                 
             </p>

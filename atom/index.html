@@ -11,8 +11,112 @@
     <link rel="self" type="application/atom+xml" href="https://www.georgevreilly.com/atom/" />
     <icon>https://www.georgevreilly.com/favicon.ico</icon>
     <logo>https://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2021-10-04T07:00:00Z</updated>
+    <updated>2021-10-05T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.8.dev0">acrylamid</generator>
+        <entry>
+        <title>Path Traversal Attacks</title>
+        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/10/05/PathTraversalAttacks.html" />
+        <id>tag:www.georgevreilly.com,2021-10-05:/blog/2021/10/05/PathTraversalAttacks.html</id>
+        <updated>2021-10-05T07:00:00Z</updated>
+        <category term="iis" />
+        <category term="security" />
+        <category term="unicode" />
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>https://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;I was surprised to read this evening that the Apache Web Server
+just fixed an actively exploited path traversal flaw.&lt;/p&gt;
+&lt;blockquote class=&#34;twitter-tweet&#34;&gt;
+&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;
+🚨 Apache has disclosed an *actively exploited* Path traversal flaw
+in the &lt;a href=&#34;https://twitter.com/hashtag/opensource?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#opensource&lt;/a&gt;
+&amp;quot;httpd&amp;quot; server.
+Over 112,000 exposed Apache servers run version 2.4.49,
+and should be upgraded now!&lt;br&gt;
+New fix checks for encoded path traversal characters
+e.g. /../.%2E/&lt;a href=&#34;https://t.co/1tLNc3LAul&#34;&gt;https://t.co/1tLNc3LAul&lt;/a&gt;
+&lt;a href=&#34;https://t.co/mDHLEU3k9N&#34;&gt;pic.twitter.com/mDHLEU3k9N&lt;/a&gt;
+&lt;/p&gt;&amp;mdash; Ax Sharma (@Ax_Sharma)
+&lt;a href=&#34;https://twitter.com/Ax_Sharma/status/1445391350053183500?ref_src=twsrc%5Etfw&#34;&gt;October 5, 2021&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&lt;p&gt;Apparently, it was &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/apache/httpd/commit/4c79fd280dfa3eede5a6f3baebc7ef2e55b3eb6a&#34;&gt;introduced over a year ago&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I&#39;m gobsmacked that Apache didn&#39;t have a robust suite of tests for this.&lt;/p&gt;
+&lt;p&gt;Directory Traversal attacks have been a problem for web servers
+since the beginning.
+&lt;a class=&#34;reference external&#34; href=&#34;https://owasp.org/www-community/attacks/Path_Traversal&#34;&gt;OWASP&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://portswigger.net/web-security/file-path-traversal&#34;&gt;PortSwigger&lt;/a&gt;, and &lt;a class=&#34;reference external&#34; href=&#34;https://spanning.com/blog/directory-traversal-web-based-application-security-part-8/&#34;&gt;Spanning&lt;/a&gt; all have explanations that you can read.
+The essence is that you make a request to a URL that looks like
+&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;http://example.com/cgi-bin/../../../../etc/passwd&lt;/span&gt;&lt;/tt&gt;
+and, voilà, you get access to something that you shouldn&#39;t.
+Each of the &lt;tt class=&#34;docutils literal&#34;&gt;..&lt;/tt&gt; path segments climbs up a level of the file system.
+Even the simplest web server knows better than to blindly allow
+a sequence of &lt;tt class=&#34;docutils literal&#34;&gt;..&lt;/tt&gt; path segments,
+so you have to be a little clever about how you express them.&lt;/p&gt;
+&lt;div class=&#34;section&#34; id=&#34;iis-unicode-exploit&#34;&gt;
+&lt;h3&gt;IIS Unicode Exploit&lt;/h3&gt;
+&lt;p&gt;I remember when I worked on the IIS development team at Microsoft in 1997–2004,
+we got hit by &lt;a class=&#34;reference external&#34; href=&#34;https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2000-0884&#34;&gt;CVE-2000-0884&lt;/a&gt; in 2000,
+which made use of an &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/UTF-8#Overlong_encodings&#34;&gt;overlong UTF-8 encoding&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;URLs allow &lt;a class=&#34;reference external&#34; href=&#34;https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding&#34;&gt;percent encoding&lt;/a&gt; for characters that can&#39;t be sent literally.
+For example, &lt;tt class=&#34;docutils literal&#34;&gt;%3D&lt;/tt&gt; encodes an &lt;tt class=&#34;docutils literal&#34;&gt;=&lt;/tt&gt;
+as the two-digit hexadecimal value of &lt;tt class=&#34;docutils literal&#34;&gt;=&lt;/tt&gt;’s ASCII code.
+UTF-8 characters beyond U+007F require two or more bytes of storage,
+each of which can be percent encoded;
+e.g., U+00C1 (&lt;tt class=&#34;docutils literal&#34;&gt;Á&lt;/tt&gt;) is encoded as the &lt;tt class=&#34;docutils literal&#34;&gt;C3 81&lt;/tt&gt; byte pair in UTF-8,
+and as &lt;tt class=&#34;docutils literal&#34;&gt;%C3%81&lt;/tt&gt; in percent encoding.&lt;/p&gt;
+&lt;p&gt;The slash character, &lt;tt class=&#34;docutils literal&#34;&gt;/&lt;/tt&gt; or U+002F, can be percent encoded as &lt;tt class=&#34;docutils literal&#34;&gt;%2F&lt;/tt&gt;.
+IIS 4 and 5 were smart enough to treat &lt;tt class=&#34;docutils literal&#34;&gt;%2F&lt;/tt&gt; as a slash
+and to defend against sequences like &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;..%2F..%2F&lt;/span&gt;&lt;/tt&gt;.
+However, the attackers encoded a slash as &lt;tt class=&#34;docutils literal&#34;&gt;%C0%AF&lt;/tt&gt;—a sequence that is burned into my brain.
+This two-byte UTF-8 sequence can be decoded as U+002F,
+though it should not be treated as valid
+as it is &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/UTF-8#Overlong_encodings&#34;&gt;overlong&lt;/a&gt;:
+the five payload bits in the leading byte are all zero.&lt;/p&gt;
+&lt;p&gt;The &lt;a class=&#34;reference external&#34; href=&#34;https://www.giac.org/paper/gcih/115/iis-unicode-exploit/101163&#34;&gt;GIAC paper&lt;/a&gt; explains in some detail how this could be exploited.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;windows-security-push&#34;&gt;
+&lt;h3&gt;Windows Security Push&lt;/h3&gt;
+&lt;p&gt;Windows XP went on sale in late 2001,
+touted as the most secure version of Windows ever.
+(It was, at that time.)&lt;/p&gt;
+&lt;p&gt;Right around Christmas 2001,
+the &lt;a class=&#34;reference external&#34; href=&#34;https://www.giac.org/paper/gcih/274/windows-xp-upnp-exploits/102906&#34;&gt;UPnP vulnerabilty&lt;/a&gt; was disclosed.
+Brian Valentine, the Senior VP who ran Windows, threw a shitfit.
+It was announced that &lt;em&gt;all&lt;/em&gt; of Windows would spend the month of February 2002
+undergoing security training,
+so that we could &lt;a class=&#34;reference external&#34; href=&#34;https://owasp.org/www-community/Threat_Modeling&#34;&gt;threat model&lt;/a&gt; and review our code.&lt;/p&gt;
+&lt;p&gt;For IIS 6, which would be released in Windows Server 2003,
+we had fundamentally rearchitected it with a new worker process model
+(inspired by Apache&#39;s) and we had rewritten much of it.
+There was a new kernel mode driver, http.sys,
+that terminated all requests and routed them
+to the appropriate handler in kernel or user mode.
+I was part of the http.sys dev team at that point.&lt;/p&gt;
+&lt;p&gt;IIS had already gotten serious about security by then.
+We had to, after &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Code_Red_(computer_worm)&#34;&gt;Code Red&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Nimda&#34;&gt;Nimda&lt;/a&gt;, the Unicode exploit, and others.
+&lt;a class=&#34;reference external&#34; href=&#34;https://www.linkedin.com/in/mikehow/&#34;&gt;Mike Howard&lt;/a&gt; had been the IIS Security Program Manager
+before he went on to bigger responsiblities.
+A lot of the first edition of his &lt;a class=&#34;reference external&#34; href=&#34;https://www.amazon.com/Writing-Secure-Second-Developer-Practices/dp/0735617228&#34;&gt;Writing Secure Code&lt;/a&gt; book
+was based on his experience with securing IIS,
+and a lot of the second edition benefited from the Security Push experience.&lt;/p&gt;
+&lt;p&gt;Since http.sys was new and an obvious target,
+our team actually spent two months carefully reviewing everything.
+It turned out that we had done a good job over the previous couple of years
+and we didn&#39;t find much to worry about.&lt;/p&gt;
+&lt;p&gt;We did identify that the URL canonicalization in http.sys
+was overly complicated.
+I rewrote that component and I created a ton of unit tests for it.
+Developers writing unit tests was not common at Microsoft back in 2002:
+we had a separate caste of testers to write tests.&lt;/p&gt;
+&lt;p&gt;I&#39;ve been out of the loop since I left IIS in 2004,
+but to my knowledge, there were no further vulnerabilities in URL handling.&lt;/p&gt;
+&lt;p&gt;I&#39;m surprised and disappointed that Apache would mess up path traversal in the 2020s.&lt;/p&gt;
+&lt;/div&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Accidentally Quadratic: Python List Membership</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html" />
@@ -1771,6 +1875,7 @@ and does my hips and lower back no good.&lt;/p&gt;
         <id>tag:www.georgevreilly.com,2017-02-21:/blog/2017/02/21/OrderedDictInitialization.html</id>
         <updated>2017-02-21T07:00:00Z</updated>
         <category term="python" />
+        <category term="hashtables" />
         
         <author>
             <name>George V. Reilly</name>
@@ -1981,42 +2086,6 @@ the characterization is weak—we learn a bit about what makes Croker and crime 
 but the rest are ciphers.
 No matter.
 The plot ticks along and it delivers.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Review: Kill Me Three Times</title>
-        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/02/10/ReviewKillMeThreeTimes.html" />
-        <id>tag:www.georgevreilly.com,2017-02-10:/blog/2017/02/10/ReviewKillMeThreeTimes.html</id>
-        <updated>2017-02-10T07:00:00Z</updated>
-        <category term="movies" />
-        <category term="reviews" />
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>https://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Kill_Me_Three_Times&#34;&gt;&lt;img alt=&#34;Kill Me Three Times&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/en/2/2e/Kill_Me_Three_Times_poster.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: Kill Me Three Times&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Director: Kriv Stenders&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Released: 2014&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: black comedy thriller&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Country: Australia&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Watched: 10 February, 2017&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;A jealous husband engages
-a private detective-cum-killer for hire (Simon Pegg) to follow his wife.
-Upon proof of her infidelity, he orders a hit,
-which triggers a comedy of errors and double crosses,
-which ultimately leaves most of the cast dead at each other&#39;s hands.&lt;/p&gt;
-&lt;p&gt;There&#39;s not much to like about this Australian noirish comedy.
-It&#39;s bloody but not that funny.
-The characters are thinly drawn and unengaging.
-They&#39;re a far cry from Tarantino&#39;s gonzo motormouths
-or the Coen Brother&#39;s quirky killers.&lt;/p&gt;
 </content>
     </entry>
     </feed>

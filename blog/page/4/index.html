@@ -28,6 +28,44 @@
     
         <article>
     <header>
+        <time datetime="2017-02-07">2017-02-07</time>
+        <h1>
+            <a href="/blog/2017/02/07/Jenkins04-shStep.html" rel="bookmark canonical">Jenkins #4: The sh Step</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>If there isn&#8217;t a built-in Pipeline step to accomplish something,
+you&#8217;ll almost certainly use the <a class="reference external" href="https://jenkins.io/doc/pipeline/steps/workflow-durable-task-step/#code-sh-code-shell-script">sh step</a>.</p>
+<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#4 in a series on Jenkins&nbsp;Pipelines</a></p>
+<p>The <tt class="docutils literal">sh</tt> step runs the Bourne shell—<tt class="docutils literal">/bin/sh</tt>, <em>not</em> Bash aka the Bourne-again shell—with the <tt class="docutils literal"><span class="pre">-x</span></tt> (<tt class="docutils literal">xtrace</tt>) and <tt class="docutils literal"><span class="pre">-e</span></tt> (<tt class="docutils literal">errexit</tt>)&nbsp;options.</p>
+<p>The <tt class="docutils literal">xtrace</tt> option means that every step in the <tt class="docutils literal">sh</tt> block is echoed to the Jenkins log,
+after commands have been expanded by the shell.
+This is useful but you could echo the contents of passwords or secret keys in&shy;ad&shy;ver&shy;tent&shy;ly.
+Use <tt class="docutils literal">set +x</tt> in your <tt class="docutils literal">sh</tt> block to control&nbsp;this.</p>
+<p>The <tt class="docutils literal">errexit</tt> option means that the script will abort <span>&#8230;<a href="/blog/2017/02/07/Jenkins04-shStep.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/07/Jenkins04-shStep.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/jenkins/" rel="tag">jenkins</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2017-02-06">2017-02-06</time>
         <h1>
             <a href="/blog/2017/02/06/Jenkins03-GitHubIntegration.html" rel="bookmark canonical">Jenkins #3: GitHub Integration</a>
@@ -407,57 +445,6 @@ sudo docker images --format <span class="s1">'{{.Repository}}:{{.Tag}}'</span> <
         
             <p>tagged as
                 <a href="/tag/docker/" rel="tag">docker</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2017-01-29">2017-01-29</time>
-        <h1>
-            <a href="/blog/2017/01/29/ReviewTheApocalypseCodex.html" rel="bookmark canonical">Review: The Apocalypse Codex</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/1937007464/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Apocalypse Codex</div>
-<div class="line">Author: Charles Stross</div>
-<div class="line">Rating: ★ ★ ★ ★ ½</div>
-<div class="line">Publisher: Ace</div>
-<div class="line">Copyright: 2012</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/1937007464/?tag=georgvreill-20">978-1937007461</a></div>
-<div class="line">Pages: 336</div>
-<div class="line">Keywords: Love&shy;craft&shy;ian spy thriller</div>
-<div class="line">Series: <a class="reference external" href="http://www.antipope.org/charlie/blog-static/2016/04/faq-the-laundry-filesseries-ti.html">Laundry Files</a>, vol. 4</div>
-<div class="line">Reading period: 22–26 January, 2017</div>
-</div>
-<p>A major American fun&shy;da&shy;men&shy;tal&shy;ist preacher has drawn
-dis&shy;turbing&shy;ly close to the British Prime Minister,
-and the more the Laundry looks, they more alarmed they become.
-Hacker/com&shy;pu&shy;ta&shy;tion&shy;al de&shy;mo&shy;nolo&shy;gist/Laundry agent Bob Howard is leveling up with the Laundry
-and he has been assigned to “External Assets”,
-the wing that deals with deniable freelance agents.
-Bob, Persephone Hazard, and Johnny McTavish
-are sent to Colorado to in&shy;ves&shy;ti&shy;gate Golden Promise Ministries.
-There they find a hidden cult within the church
-where the members are possessed by alien parasites
-that <span>&#8230;<a href="/blog/2017/01/29/ReviewTheApocalypseCodex.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/01/29/ReviewTheApocalypseCodex.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/sf/" rel="tag">sf</a>
                 
             </p>
         

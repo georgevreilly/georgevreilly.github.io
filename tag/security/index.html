@@ -28,6 +28,52 @@
     
         <article>
     <header>
+        <time datetime="2021-10-05">2021-10-05</time>
+        <h1>
+            <a href="/blog/2021/10/05/PathTraversalAttacks.html" rel="bookmark canonical">Path Traversal Attacks</a>
+        </h1>
+    </header>
+    <p>I was surprised to read this evening that the Apache Web Server
+just fixed an actively exploited path traversal flaw.</p>
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">
+🚨 Apache has disclosed an *actively exploited* Path traversal flaw
+in the <a href="https://twitter.com/hashtag/opensource?src=hash&amp;ref_src=twsrc%5Etfw">#open&shy;source</a>
+&quot;httpd&quot; server.
+Over 112,000 exposed Apache servers run version 2.4.49,
+and should be upgraded now!<br>
+New fix checks for encoded path traversal characters
+e.g. /../.%2E/<a href="https://t.co/1tLNc3LAul">https://t.co/1tLNc3LAul</a>
+<a href="https://t.co/mDHLEU3k9N">pic.twitter.com/mDHLEU3k9N</a>
+</br>&mdash; Ax Sharma (@Ax_Sharma)
+<a href="https://twitter.com/Ax_Sharma/status/1445391350053183500?ref_src=twsrc%5Etfw">October 5, 2021</a>
+</p>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><p>Apparently, it was <a class="reference external" href="https://github.com/apache/httpd/commit/4c79fd280dfa3eede5a6f3baebc7ef2e55b3eb6a">introduced over a year ago</a>.</p>
+<p>I'm gobsmacked that Apache didn't have a robust suite of tests for this.</p>
+<p>Directory Traversal attacks have been a problem for web servers
+since the beginning.
+<a class="reference external" href="https://owasp.org/www-community/attacks/Path_Traversal">OWASP</a>, <a class="reference external" href="https://portswigger.net/web-security/file-path-traversal">PortSwig&shy;ger</a>, and <a class="reference external" href="https://spanning.com/blog/directory-traversal-web-based-application-security-part-8/">Spanning</a> all have ex&shy;pla&shy;na&shy;tions that you can read.
+The essence is that you make <span>&#8230;<a href="/blog/2021/10/05/PathTraversalAttacks.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/iis/" rel="tag">iis</a>,
+                <a href="/tag/security/" rel="tag">security</a>
+                    and
+                    
+                <a href="/tag/unicode/" rel="tag">unicode</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2021-05-10">2021-05-10</time>
         <h1>
             <a href="/blog/2021/05/10/PassphraseGenerators.html" rel="bookmark canonical">Passphrase Generators</a>
@@ -373,49 +419,6 @@ reached its <span>&#8230;<a href="/blog/2008/01/17/OddsAndEnds4.html" class="con
                     and
                     
                 <a href="/tag/religion/" rel="tag">religion</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2008-01-05">2008-01-05</time>
-        <h1>
-            <a href="/blog/2008/01/05/OddsAndEnds1.html" rel="bookmark canonical">Odds and Ends #1</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.nytimes.com/2008/01/02/dining/02curi.htm"></a>
-<p>Herewith several articles that I've read lately
-for which I'm not going to write individual posts.</p>
-<ul>
-<li><p class="first">Bruce Schneier has railed for years against <a class="reference external" href="http://en.wikipedia.org/wiki/Security_theater">security theater</a>,
-ostensible security measures that have little real effect,
-but are performed to be seen as doing something
-— airline security being the most wretched example.
-Patrick Smith wrote a good piece on
-<a class="reference external" href="http://jetlagged.blogs.nytimes.com/2007/12/28/the-airport-security-follies/">airport security follies</a> at the NYT airline blog.
-We should all be protesting loudly at this nonsense,
-but no-one does because of the fear of ending up on a <a class="reference external" href="http://en.wikipedia.org/wiki/No_Fly_List">no-fly list</a>.</p>
-</li>
-<li><p class="first">Also in the NYT, Harold McGee wrote a par&shy;tic&shy;u&shy;lar&shy;ly in&shy;ter&shy;est&shy;ing
-article on the hidden ingredient in cooking, <a class="reference external" href="http://www.nytimes.com/2008/01/02/dining/02curi.htm">heat</a>.</p>
-<blockquote>
-<p>That’s the basic challenge:
-We’re often aiming <span>&#8230;<a href="/blog/2008/01/05/OddsAndEnds1.html" class="continue">continue</a>.</span></p></blockquote></li></ul>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/food/" rel="tag">food</a>,
-                <a href="/tag/politics/" rel="tag">politics</a>
-                    and
-                    
-                <a href="/tag/security/" rel="tag">security</a>
                 
             </p>
         

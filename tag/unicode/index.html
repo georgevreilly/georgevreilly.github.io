@@ -28,6 +28,52 @@
     
         <article>
     <header>
+        <time datetime="2021-10-05">2021-10-05</time>
+        <h1>
+            <a href="/blog/2021/10/05/PathTraversalAttacks.html" rel="bookmark canonical">Path Traversal Attacks</a>
+        </h1>
+    </header>
+    <p>I was surprised to read this evening that the Apache Web Server
+just fixed an actively exploited path traversal flaw.</p>
+<blockquote class="twitter-tweet">
+<p lang="en" dir="ltr">
+🚨 Apache has disclosed an *actively exploited* Path traversal flaw
+in the <a href="https://twitter.com/hashtag/opensource?src=hash&amp;ref_src=twsrc%5Etfw">#open&shy;source</a>
+&quot;httpd&quot; server.
+Over 112,000 exposed Apache servers run version 2.4.49,
+and should be upgraded now!<br>
+New fix checks for encoded path traversal characters
+e.g. /../.%2E/<a href="https://t.co/1tLNc3LAul">https://t.co/1tLNc3LAul</a>
+<a href="https://t.co/mDHLEU3k9N">pic.twitter.com/mDHLEU3k9N</a>
+</br>&mdash; Ax Sharma (@Ax_Sharma)
+<a href="https://twitter.com/Ax_Sharma/status/1445391350053183500?ref_src=twsrc%5Etfw">October 5, 2021</a>
+</p>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><p>Apparently, it was <a class="reference external" href="https://github.com/apache/httpd/commit/4c79fd280dfa3eede5a6f3baebc7ef2e55b3eb6a">introduced over a year ago</a>.</p>
+<p>I'm gobsmacked that Apache didn't have a robust suite of tests for this.</p>
+<p>Directory Traversal attacks have been a problem for web servers
+since the beginning.
+<a class="reference external" href="https://owasp.org/www-community/attacks/Path_Traversal">OWASP</a>, <a class="reference external" href="https://portswigger.net/web-security/file-path-traversal">PortSwig&shy;ger</a>, and <a class="reference external" href="https://spanning.com/blog/directory-traversal-web-based-application-security-part-8/">Spanning</a> all have ex&shy;pla&shy;na&shy;tions that you can read.
+The essence is that you make <span>&#8230;<a href="/blog/2021/10/05/PathTraversalAttacks.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/iis/" rel="tag">iis</a>,
+                <a href="/tag/security/" rel="tag">security</a>
+                    and
+                    
+                <a href="/tag/unicode/" rel="tag">unicode</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-08-26">2016-08-26</time>
         <h1>
             <a href="/blog/2016/08/26/HomographAttacks.html" rel="bookmark canonical">Homograph Attacks</a>

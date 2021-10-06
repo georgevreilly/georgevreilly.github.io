@@ -28,6 +28,55 @@
     
         <article>
     <header>
+        <time datetime="2016-08-01">2016-08-01</time>
+        <h1>
+            <a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" rel="bookmark canonical">Creating External SSL Certificates for CloudFront</a>
+        </h1>
+    </header>
+    <p>I needed to create a wildcard <span class="caps">SSL</span> cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/"><span class="caps">AWS</span> CloudFront</a>&nbsp;today.</p>
+<p>First, generate a 2048-bit private key. This will prompt you for a&nbsp;passphrase:</p>
+<pre class="literal-block">
+$ openssl genrsa -des3 -out example.key 2048
+</pre>
+<p>Check which signature algorithm was used (<span class="caps">SHA</span>-256 is&nbsp;rec&shy;om&shy;mend&shy;ed):</p>
+<pre class="literal-block">
+$ openssl req -in example.csr -noout -text
+</pre>
+<p>Transform the private key to <span class="caps">PEM</span>&nbsp;format:</p>
+<pre class="literal-block">
+$ openssl rsa -outform PEM -in example.key -out example.pem
+</pre>
+<p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server&nbsp;<span class="caps">FQDN</span>:</p>
+<pre class="literal-block">
+$ openssl req -new -key example.key -out example.csr
+
+Country Name (2 letter code) [AU]:US
+State or Province Name (full name) [Some-State]:Washington
+Locality Name (eg, city) []:Seattle
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:Example GmbH
+Organizational Unit Name (eg, </pre><span>&#8230;<a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/ssl/" rel="tag">ssl</a>
+                    and
+                    
+                <a href="/tag/aws/" rel="tag">aws</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-07-31">2016-07-31</time>
         <h1>
             <a href="/blog/2016/07/31/ReviewCymbeline.html" rel="bookmark canonical">Review: Cymbeline</a>
@@ -390,55 +439,6 @@ I had to resort to the <a class="reference external" href="https://help.evernote
         
             <p>tagged as
                 <a href="/tag/tech/" rel="tag">tech</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-18">2016-07-18</time>
-        <h1>
-            <a href="/blog/2016/07/18/ReviewTheSilentTwin.html" rel="bookmark canonical">Review: The Silent Twin</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/B01BLU0U6G/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Silent Twin</div>
-<div class="line">Author: Caroline Mitchell</div>
-<div class="line">Rating: ★ ★ ★ ½</div>
-<div class="line">Publisher: Bookouture</div>
-<div class="line">Copyright: 2016</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/B01BLU0U6G/?tag=georgvreill-20"><span class="caps">B01BLU0U6G</span></a></div>
-<div class="line">Pages: 344</div>
-<div class="line">Keywords: police, paranormal</div>
-<div class="line">Reading period: 3 June–10 July, 2016</div>
-</div>
-<p>Abigail has gone missing from creepy Blackwater Farm days before her tenth birthday.
-Her twin Olivia has been mute ever since.
-Their strange mother is not helping matters and the father is acting oddly too.
-<span class="caps">DC</span> Jennifer Knight, who belongs to a secret psychic police task force,
-is the family liaison officer.
-She must convince Olivia to break her silence and reveal what she knows
-before time runs out for&nbsp;Abigail.</p>
-<p>This was a reasonably good thriller that I think would have been better
-without the su&shy;per&shy;nat&shy;ur&shy;al&nbsp;elements.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/18/ReviewTheSilentTwin.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/thriller/" rel="tag">thriller</a>
                 
             </p>
         
