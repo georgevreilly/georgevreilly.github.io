@@ -66,7 +66,21 @@ def parse_args():
     return args
 
 
-def read_permalink(filename):
+def read_permalink_markdown(filename):
+    with open(filename, "rb") as fp:
+        line = fp.readline()
+        if line.startswith("---"):
+            line = fp.readline()
+            while not line.startswith("---"):
+                if line[0] != '#' and line.strip():
+                    key, value = [x.strip() for x in line.split(':', 1)]
+                    if key == "permalink":
+                        return value
+                line = fp.readline()
+    return None
+
+
+def read_permalink_rst(filename):
     PERMALINK = ".. _permalink:"
     link = None
     with open(filename, "rb") as fp:
@@ -85,6 +99,16 @@ def read_permalink(filename):
                 print(filename, e)
                 link = None
     return link
+
+
+def read_permalink(filename):
+    _, ext = os.path.splitext(filename)
+    if ext == '.rst' or ext == '.txt':
+        return read_permalink_rst(filename)
+    elif ext == '.md':
+        return read_permalink_markdown(filename)
+    else:
+        raise ValueError("Unknown extension: {!r}".format(filename))
 
 
 def walk_tree(dir, includes, excludes=None):
@@ -197,7 +221,8 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
         print("Need to fix", fname, date_parts)
         return
     subdirs = os.path.join(target_dir, *date_parts)
-    target_file = os.path.join(subdirs, os.path.splitext(os.path.split(fname)[1])[0])
+    target_file, ext = os.path.splitext(os.path.split(fname)[1])
+    target_file = os.path.join(subdirs, target_file)
 
     data, title, tags, matcher = [], None, None, ReMatcher()
     with io.open(source_file, "r", encoding="utf8") as fp:
@@ -218,22 +243,26 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
 
             data.append(line)
 
-    prolog = [
-        title,
-        "#" * len(title),
-        "",
-        ":date: {0}-{1}-{2}".format(*date_parts),
-        ":permalink: /blog{0}".format(permalink.replace(".aspx", ".html")),
-    ] + ([":tags: {0}".format(tags)] if tags else [])
-    prolog = "\n".join(prolog) + "\n"
-    epilog = ""
+    if ext == '.rst' or ext == '.txt':
+        prolog = [
+            title,
+            "#" * len(title),
+            "",
+            ":date: {0}-{1}-{2}".format(*date_parts),
+            ":permalink: /blog{0}".format(permalink.replace(".aspx", ".html")),
+        ] + ([":tags: {0}".format(tags)] if tags else [])
+        prolog = "\n".join(prolog) + "\n"
+        epilog = ""
+        ext = ".rst"
+    elif ext == ".md":
+        prolog = epilog = ""
 
     write = False
     subdir_path = os.path.join(base_dir, subdirs)
     if not os.path.exists(subdir_path):
         os.makedirs(subdir_path)
         write = True
-    target_file = os.path.join(base_dir, target_file + ".rst")
+    target_file = os.path.join(base_dir, target_file + ext)
     target_data = (prolog + ''.join(data) + epilog).encode('utf-8')
     if not os.path.exists(target_file):
         write = True
@@ -275,7 +304,10 @@ if __name__ == '__main__':
         permalink_titles = json.load(fp)
 
     filename_links = {}
-    blog_files = walk_tree(args.dasblog_dir, includes=('*.txt', '*.rst'), excludes=('*.gif',))
+    blog_files = walk_tree(
+        args.dasblog_dir,
+        includes=('*.txt', '*.rst', '*.md'),
+        excludes=('*.gif',))
     filenames = list(blog_files)[:args.limit]
 
     for fname in filenames:
