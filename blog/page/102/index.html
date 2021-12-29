@@ -28,6 +28,46 @@
     
         <article>
     <header>
+        <time datetime="2007-03-28">2007-03-28</time>
+        <h1>
+            <a href="/blog/2007/03/28/TsaiFanYu.html" rel="bookmark canonical">Tsai-Fan Yu</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.nytimes.com/2007/03/12/obituaries/12yu.html"></a>
+<p>Paging through the New York Times a couple of weeks ago,
+I spotted the <a class="reference external" href="http://www.nytimes.com/2007/03/12/obituaries/12yu.html?ex=1331352000&amp;en=228d2f80e83e0515&amp;ei=5088&amp;partner=rssnyt&amp;emc=rss">obituary for Tsai-Fan Yu</a>,
+the physician who developed effective treatments for gout,
+including al&shy;lop&shy;uri&shy;nol and&nbsp;colchicine.</p>
+<p>I take al&shy;lop&shy;uri&shy;nol every day, topping up with colchicine
+when I feel gouty, so I owe her a great debt of&nbsp;gratitude.</p>
+<p>I blogged before about <a class="reference external" href="/blog/2003/10/11/Gout.html">my gout</a>.
+(Indeed, this is why I put up the <a class="reference external" href="/blog/2007/03/27/BlastFromThePastII.html">mega repost</a> yesterday
+of my old EraBlog posts, to make my gout post available
+before writing this&nbsp;one.)</p>
+<p>Nothing has changed, for better or for worse, regarding my gout.
+I take al&shy;lop&shy;uri&shy;nol every day and expect to do so for the rest of my life,
+unless a cure for <span>&#8230;<a href="/blog/2007/03/28/TsaiFanYu.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2007/03/28/TsaiFanYu.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/health/" rel="tag">health</a>
+                    and
+                    
+                <a href="/tag/gout/" rel="tag">gout</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2007-03-27">2007-03-27</time>
         <h1>
             <a href="/blog/2007/03/27/HotkeyForClipboardNET.html" rel="bookmark canonical">Hotkey for Clipboard.NET</a>
@@ -216,17 +256,16 @@ Instead, I took the cheap-n-dirty route, playing with <tt class="docutils litera
 and include paths.
 It took less time to get working than it did to write this blog&nbsp;post.</p>
 <p>Here&#8217;s the original native CppUnit test&nbsp;code</p>
-<pre class="code cpp literal-block">
-<span class="c1">//-------------------------------
-// native\FooTest.h
-//-------------------------------
-</span>
-<span class="cp">#include</span> <span class="cpf">&lt;cppunit/extensions/HelperMacros.h&gt;</span><span class="cp">
-</span>
+<div class="highlight"><pre><span></span><span class="c1">//-------------------------------</span>
+<span class="c1">// native\FooTest.h</span>
+<span class="c1">//-------------------------------</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;cppunit/extensions/HelperMacros.h&gt;</span><span class="cp"></span>
+
 <span class="k">class</span> <span class="nc">FooTest</span> <span class="o">:</span> <span class="k">public</span> <span class="n">CppUnit</span><span class="o">::</span><span class="n">TestFixture</span>
 <span class="p">{</span>
     <span class="n">CPPUNIT_TEST_SUITE</span><span class="p">(</span> <span class="n">FooTest</span> <span class="p">);</span>
-  </pre><span>&#8230;<a href="/blog/2007/03/21/NUnitCallingCppUnit.html" class="continue">continue</a>.</span>
+  </pre><span>&#8230;<a href="/blog/2007/03/21/NUnitCallingCppUnit.html" class="continue">continue</a>.</span></div>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2007/03/21/NUnitCallingCppUnit.html#disqus_thread">Comment</a>
@@ -485,49 +524,6 @@ represents some socio-cultural movement we <span>&#8230;<a href="/blog/2007/03/1
         
             <p>tagged as
                 <a href="/tag/politics/" rel="tag">politics</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2007-03-14">2007-03-14</time>
-        <h1>
-            <a href="/blog/2007/03/14/NVelocityLoadingTemplatesFromEmbeddedResources.html" rel="bookmark canonical">NVelocity: loading templates from embedded resources</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.castleproject.org/others/nvelocity/index.html"></a>
-<p>In last week&#8217;s tip on
-using the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/index.html">NVelocity</a> template formatting engine,
-I described what to set to load a template from
-an <a class="reference external" href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html">absolute path</a>.</p>
-<p>Here&#8217;s the magic necessary to get NVelocity to load a template from an
-embedded&nbsp;resource:</p>
-<pre class="code csharp literal-block">
-<span class="n">VelocityEngine</span> <span class="n">engine</span> <span class="p">=</span> <span class="k">new</span> <span class="n">VelocityEngine</span><span class="p">();</span>
-<span class="n">ExtendedProperties</span> <span class="n">properties</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ExtendedProperties</span><span class="p">();</span>
-<span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;resource.loader&quot;</span><span class="p">,</span> <span class="s">&quot;assembly&quot;</span><span class="p">);</span>
-<span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;assembly.resource.loader.class&quot;</span><span class="p">,</span>
-    <span class="s">&quot;NVelocity.Runtime.Resource.Loader.AssemblyResourceLoader, NVelocity&quot;</span><span class="p">);</span>
-<span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;assembly.resource.loader.assembly&quot;</span><span class="p">,</span> <span class="s">&quot;StencilFormatter&quot;</span><span class="p">);</span>
-<span class="n">engine</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">properties</span><span class="p">);</span>
-</pre>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2007/03/14/NVelocityLoadingTemplatesFromEmbeddedResources.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/net/" rel="tag">.NET</a>
-                    and
-                    
-                <a href="/tag/c/" rel="tag">c</a>
                 
             </p>
         

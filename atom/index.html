@@ -11,13 +11,98 @@
     <link rel="self" type="application/atom+xml" href="https://www.georgevreilly.com/atom/" />
     <icon>https://www.georgevreilly.com/favicon.ico</icon>
     <logo>https://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2021-10-05T07:00:00Z</updated>
-    <generator uri="https://github.com/posativ/acrylamid/" version="0.8.dev0">acrylamid</generator>
+    <updated>2021-12-28T08:00:00Z</updated>
+    <generator uri="https://github.com/posativ/acrylamid/" version="0.7.10">acrylamid</generator>
+        <entry>
+        <title>Review: Crafting Interpreters</title>
+        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/12/28/ReviewCraftingInterpreters.html" />
+        <id>tag:www.georgevreilly.com,2021-12-28:/blog/2021/12/28/ReviewCraftingInterpreters.html</id>
+        <updated>2021-12-28T08:00:00Z</updated>
+        <category term="books" />
+        <category term="reviews" />
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>https://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://www.amazon.com/dp/0990582930/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;Crafting Interpreters&#34; class=&#34;right-float&#34; src=&#34;https://images-na.ssl-images-amazon.com/images/I/41-7uSeOyCL._SX398_BO1,204,203,200_.jpg&#34;/&gt;&lt;/a&gt;
+&lt;div class=&#34;line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;Title: &lt;a class=&#34;reference external&#34; href=&#34;https://craftinginterpreters.com/&#34;&gt;Crafting Interpreters&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Author: Robert Nystrom&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★ ★&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Publisher: Genever Benning&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Copyright: 2021&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;https://www.amazon.com/dp/0990582930/?tag=georgvreill-20&#34;&gt;978-0990582939&lt;/a&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Pages: 640&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Keywords: programming, interpreters&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Reading period: 10–28 December, 2021&lt;/div&gt;
+&lt;/div&gt;
+&lt;p&gt;I&#39;ve read hundreds of technical books over the last 40 years.
+&lt;em&gt;Crafting Interpreters&lt;/em&gt; is an instant classic,
+and far more readable and fun than many of the classics.&lt;/p&gt;
+&lt;p&gt;Nystrom covers a lot of ground in this book,
+building two very different interpreters for Lox,
+a small dynamic language of his own design.
+He takes us through &lt;em&gt;every line&lt;/em&gt; of
+jlox, a Java-based tree-walk interpreter,
+and of clox, a bytecode virtual machine written in C.&lt;/p&gt;
+&lt;p&gt;For the first implementation, jlox,
+he covers such topics as scanning,
+parsing expressions with recursive descent,
+evaluating expressions, control flow,
+functions and closures, classes, and inheritance.&lt;/p&gt;
+&lt;p&gt;Starting with an empty slate,
+Nystrom adds just enough code to implement the topic
+of each chapter,
+having a working albeit incomplete implementation of the interpreter
+by the end of the chapter.
+He adds new code as he goes,
+inserting an extra &lt;tt class=&#34;docutils literal&#34;&gt;case&lt;/tt&gt; into a &lt;tt class=&#34;docutils literal&#34;&gt;switch&lt;/tt&gt; here
+or writing a new function there,
+or replacing a few lines of an earlier implementation
+with something that&#39;s just been explained.
+Knuth&#39;s &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Literate_programming&#34;&gt;Literate Programming&lt;/a&gt; explains a finished implementation,
+broken into separate pieces for exposition.
+Nystrom&#39;s continual, ever-evolving exposition is slower to get to the point,
+but it&#39;s excellent pedagogy.
+I would be remiss if I didn&#39;t mention the hundreds of hand-drawn illustrations,
+which add a quirky flavor to the tone of the book.
+He has a blog post on how he &lt;a class=&#34;reference external&#34; href=&#34;http://journal.stuffwithstuff.com/2020/04/05/crafting-crafting-interpreters/&#34;&gt;pulled this organization off&lt;/a&gt;
+and another on how he created a &lt;a class=&#34;reference external&#34; href=&#34;http://journal.stuffwithstuff.com/2021/07/29/640-pages-in-15-months/&#34;&gt;physical book&lt;/a&gt; from the text.&lt;/p&gt;
+&lt;p&gt;clox is a very different second implementation of a Lox interpreter.
+Instead of a slow interpreter walking an abstract syntax tree,
+he develops a stack-based virtual machine,
+compiles Lox into bytecode,
+and interprets the bytecode.
+He covers theory and practical considerations
+for creating a bytecode virtual machine,
+makes use of Pratt’s “top-down operator precedence parsing”,
+and implements closures and classes in C.
+In jlox, he used Java&#39;s &lt;tt class=&#34;docutils literal&#34;&gt;HashMap&lt;/tt&gt; to manage identifiers
+and relied on Java&#39;s garbage collection for memory management.
+For clox, he implements a hash table and a mark-and-sweep garbage collector.
+Although he has to cover similar topics (parsing, local variables, closures) each time,
+he finds a fresh perspective for the second implementation.&lt;/p&gt;
+&lt;p&gt;I read the entire book for free at &lt;a class=&#34;reference external&#34; href=&#34;https://craftinginterpreters.com/&#34;&gt;https://craftinginterpreters.com/&lt;/a&gt;,
+but I liked it so much that I&#39;ve ordered a physical copy.
+In fact, I actually read much of the book on the website in 2020,
+but life intervened and I didn&#39;t finish it,
+so this month, I read it again from the start.&lt;/p&gt;
+&lt;p&gt;This book is not a textbook and you don&#39;t get an exhaustive introduction
+to building interpreters, much less compilers.
+In the final year of my Computer Science degree at Trinity College Dublin in 1986–87,
+I studied the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Compilers:_Principles,_Techniques,_and_Tools&#34;&gt;Dragon Book&lt;/a&gt; when the first edition was brand new.
+&lt;em&gt;Crafting Interpreters&lt;/em&gt; is a lot more fun than the Dragon Book.&lt;/p&gt;
+&lt;p&gt;Highly recommended!&lt;/p&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Path Traversal Attacks</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/10/05/PathTraversalAttacks.html" />
         <id>tag:www.georgevreilly.com,2021-10-05:/blog/2021/10/05/PathTraversalAttacks.html</id>
-        <updated>2021-10-05T07:00:00Z</updated>
+        <updated>2021-10-05T08:00:00Z</updated>
         <category term="iis" />
         <category term="security" />
         <category term="unicode" />
@@ -121,7 +206,7 @@ but to my knowledge, there were no further vulnerabilities in URL handling.&lt;/
         <title>Accidentally Quadratic: Python List Membership</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html" />
         <id>tag:www.georgevreilly.com,2021-10-04:/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html</id>
-        <updated>2021-10-04T07:00:00Z</updated>
+        <updated>2021-10-04T08:00:00Z</updated>
         <category term="python" />
         <category term="performance" />
         
@@ -134,11 +219,13 @@ but to my knowledge, there were no further vulnerabilities in URL handling.&lt;/
 when the median test time jumped by two minutes.&lt;/p&gt;
 &lt;a class=&#34;reference external image-reference&#34; href=&#34;https://www.bigocheatsheet.com/&#34;&gt;&lt;img alt=&#34;Big O Cheat Sheet&#34; src=&#34;https://www.georgevreilly.com/content/binary/bigochart.gif&#34;/&gt;&lt;/a&gt;
 &lt;p&gt;We tracked it down to this (simplified) code fragment:&lt;/p&gt;
-&lt;pre class=&#34;code python literal-block&#34;&gt;
-&lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;some_collection_of_tasks&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;invalid_tasks&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;airflow_tasks&lt;/span&gt;
-                 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+task_inclusions = [ some_collection_of_tasks() ]
+invalid_tasks = [t.task_id() for t in airflow_tasks
+                 if t.task_id() not in task_inclusions]
 &lt;/pre&gt;
+
 &lt;p&gt;This looks fairly innocuous—and it was—until the size of the result returned from &lt;tt class=&#34;docutils literal&#34;&gt;some_collection_of_tasks()&lt;/tt&gt;
 jumped from a few hundred to a few thousand.&lt;/p&gt;
 &lt;p&gt;The &lt;a class=&#34;reference external&#34; href=&#34;https://docs.python.org/3/reference/expressions.html#membership-test-operations&#34;&gt;in comparison operator&lt;/a&gt; conveniently works
@@ -174,11 +261,13 @@ Use a &lt;tt class=&#34;docutils literal&#34;&gt;set&lt;/tt&gt; instead of a &lt
 and get &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;O&lt;/i&gt;(1)&lt;/span&gt; membership testing.
 The &lt;tt class=&#34;docutils literal&#34;&gt;invalid_tasks&lt;/tt&gt; list comprehension now takes
 the expected &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;O&lt;/i&gt;(&lt;i&gt;n&lt;/i&gt;)&lt;/span&gt; time.&lt;/p&gt;
-&lt;pre class=&#34;code python literal-block&#34;&gt;
-&lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;some_collection_of_tasks&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;invalid_tasks&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;airflow_tasks&lt;/span&gt;
-                 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+
+&lt;pre class=&#34;brush: python&#34;&gt;
+task_inclusions = set( some_collection_of_tasks() )
+invalid_tasks = [t.task_id() for t in airflow_tasks
+                 if t.task_id() not in task_inclusions]
 &lt;/pre&gt;
+
 &lt;p&gt;More at &lt;a class=&#34;reference external&#34; href=&#34;https://www.coengoedegebure.com/understanding-big-o-notation/&#34;&gt;Understanding Big-O Notation&lt;/a&gt; and the &lt;a class=&#34;reference external&#34; href=&#34;https://www.bigocheatsheet.com/&#34;&gt;Big-O Cheat Sheet&lt;/a&gt;.&lt;/p&gt;
 </content>
     </entry>
@@ -187,7 +276,7 @@ the expected &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;O&lt;/i&gt;(&lt;i&gt;n
         <title>Passphrase Generators</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/05/10/PassphraseGenerators.html" />
         <id>tag:www.georgevreilly.com,2021-05-10:/blog/2021/05/10/PassphraseGenerators.html</id>
-        <updated>2021-05-10T07:00:00Z</updated>
+        <updated>2021-05-10T08:00:00Z</updated>
         <category term="tech" />
         <category term="security" />
         
@@ -290,7 +379,7 @@ Don&#39;t answer them.&lt;/p&gt;
         <title>Punctuating James Joyce</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/05/08/PunctuatingJamesJoyce.html" />
         <id>tag:www.georgevreilly.com,2021-05-08:/blog/2021/05/08/PunctuatingJamesJoyce.html</id>
-        <updated>2021-05-08T07:00:00Z</updated>
+        <updated>2021-05-08T08:00:00Z</updated>
         <category term="jamesjoyce" />
         
         <author>
@@ -414,8 +503,9 @@ when they encounter a ‘≀’ symbol.&lt;/p&gt;
         <title>Now You Have 32 Problems</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2020/04/23/regex-32-problems.html" />
         <id>tag:www.georgevreilly.com,2020-04-23:/blog/2020/04/23/regex-32-problems.html</id>
-        <updated>2020-04-23T07:00:00Z</updated>
+        <updated>2020-04-23T08:00:00Z</updated>
         <category term="regex" />
+        <category term="performance" />
         
         <author>
             <name>George V. Reilly</name>
@@ -501,7 +591,7 @@ but do not try to implement a full grammar as a single regular expression.&lt;/p
         <title>Weirdest Birthday Ever</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2020/03/15/WeirdestBirthdayEver.html" />
         <id>tag:www.georgevreilly.com,2020-03-15:/blog/2020/03/15/WeirdestBirthdayEver.html</id>
-        <updated>2020-03-15T07:00:00Z</updated>
+        <updated>2020-03-15T08:00:00Z</updated>
         <category term="personal" />
         
         <author>
@@ -551,7 +641,7 @@ for a subdued birthday celebration.&lt;/p&gt;
         <title>Dublin for 2020</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2019/11/22/Dublin2020.html" />
         <id>tag:www.georgevreilly.com,2019-11-22:/blog/2019/11/22/Dublin2020.html</id>
-        <updated>2019-11-22T07:00:00Z</updated>
+        <updated>2019-11-22T08:00:00Z</updated>
         
         <author>
             <name>George V. Reilly</name>
@@ -627,7 +717,7 @@ We&#39;re all going down to Cork for a few days at Christmas.&lt;/p&gt;
         <title>A Use for Octal: Calculating Modulo 36 from Modulo 9</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2019/09/15/use-for-octal.html" />
         <id>tag:www.georgevreilly.com,2019-09-15:/blog/2019/09/15/use-for-octal.html</id>
-        <updated>2019-09-15T07:00:00Z</updated>
+        <updated>2019-09-15T08:00:00Z</updated>
         <category term="octal" />
         <category term="math" />
         <category term="go" />
@@ -769,16 +859,20 @@ by &lt;strong&gt;shifting&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;
 introducing &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt;&amp;nbsp;zeroes as the low-order bits.
 For example, using 8-bit numbers without loss of generality,
 written as modern Go/Rust number literals:&lt;/p&gt;
-&lt;pre class=&#34;code rust literal-block&#34;&gt;
-&lt;span class=&#34;mb&#34;&gt;0b_0001_0101&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_1010_1000&lt;/span&gt;
+
+&lt;pre class=&#34;brush: rust&#34;&gt;
+0b_0001_0101 &amp;lt;&amp;lt; 3 = 0b_1010_1000
 &lt;/pre&gt;
+
 &lt;p&gt;Similarly, we can &lt;strong&gt;divide&lt;/strong&gt; by &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;
 by &lt;strong&gt;shifting&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; &lt;strong&gt;right&lt;/strong&gt; by &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; bits, &lt;tt class=&#34;docutils literal&#34;&gt;u &amp;gt;&amp;gt;&amp;gt; n&lt;/tt&gt;,
 which drops the &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; low-order bits
 and introduces &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; zeroes as the high-order bits.&lt;/p&gt;
-&lt;pre class=&#34;code rust literal-block&#34;&gt;
-&lt;span class=&#34;mb&#34;&gt;0b_0101_0110&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_0000_1010&lt;/span&gt;
+
+&lt;pre class=&#34;brush: rust&#34;&gt;
+0b_0101_0110 &gt;&gt;&gt; 3 = 0b_0000_1010
 &lt;/pre&gt;
+
 &lt;p&gt;A sign-extending or arithmetic right shift introduces &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; copies
 of the sign bit as the high-order bits.
 In some languages, such as Java and JavaScript,
@@ -789,17 +883,21 @@ there is only a &lt;tt class=&#34;docutils literal&#34;&gt;&amp;gt;&amp;gt;&lt;/
 sign-extension generally depends upon the type of the left operand,
 &lt;tt class=&#34;docutils literal&#34;&gt;signed&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;unsigned&lt;/tt&gt;.
 However, sign extension is not guaranteed in C/C++.&lt;/p&gt;
-&lt;pre class=&#34;code rust literal-block&#34;&gt;
-&lt;span class=&#34;mb&#34;&gt;0b_0101_0110&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_0001_0101&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_1001_0110&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_1110_0101&lt;/span&gt;
+
+&lt;pre class=&#34;brush: rust&#34;&gt;
+0b_0101_0110 &gt;&gt; 2 = 0b_0001_0101
+0b_1001_0110 &gt;&gt; 2 = 0b_1110_0101
 &lt;/pre&gt;
+
 &lt;p&gt;Finally, we can find the &lt;strong&gt;remainder&lt;/strong&gt; of dividing &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; by &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;
 by &lt;strong&gt;masking&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; with &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; − 1&lt;/span&gt;,
 bitwise-and with &lt;tt class=&#34;docutils literal&#34;&gt;(1 &amp;lt;&amp;lt; n) - 1&lt;/tt&gt;,
 to extract the &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; low-order bits:&lt;/p&gt;
-&lt;pre class=&#34;code rust literal-block&#34;&gt;
-&lt;span class=&#34;mb&#34;&gt;0b_0101_0110&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_0000_0111&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_0000_0110&lt;/span&gt;
+
+&lt;pre class=&#34;brush: rust&#34;&gt;
+0b_0101_0110 &amp; 0b_0000_0111 = 0b_0000_0110
 &lt;/pre&gt;
+
 &lt;p&gt;In other words, &lt;tt class=&#34;docutils literal&#34;&gt;u % 8 == u &amp;amp; 7&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;u / 8 == u &amp;gt;&amp;gt; 3&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;Read MDN&#39;s page on &lt;a class=&#34;reference external&#34; href=&#34;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators&#34;&gt;bitwise operators&lt;/a&gt; for more background.&lt;/p&gt;
 &lt;/div&gt;
@@ -896,8 +994,7 @@ This gives the right answer.&lt;/p&gt;
 &lt;p&gt;Here&#39;s a simple, albeit incomplete, algorithm in Go.
 We&#39;re masking and shifting three bits at a time,
 which is tantamount to working with the octal representation of &lt;tt class=&#34;docutils literal&#34;&gt;k&lt;/tt&gt;.&lt;/p&gt;
-&lt;pre class=&#34;code go literal-block&#34;&gt;
-&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Mod9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Mod9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
     &lt;span class=&#34;nx&#34;&gt;sign&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
 
@@ -909,7 +1006,7 @@ which is tantamount to working with the octal representation of &lt;tt class=&#3
 
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;What about &lt;span class=&#34;formula&#34;&gt;617&lt;sub&gt;8&lt;/sub&gt;&lt;/span&gt;?&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
 7 − 1 + 6 = 12 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
@@ -938,8 +1035,7 @@ we have to add nine or subtract nine respectively
 to keep the running total in the range &lt;span class=&#34;formula&#34;&gt;[0, 9)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;Here&#39;s a complete algorithm for Modulo 9 in Go,
 computing the alternating sum of the octal digits:&lt;/p&gt;
-&lt;pre class=&#34;code go literal-block&#34;&gt;
-&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Mod9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Mod9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
     &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;negative&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;bool&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;false&lt;/span&gt;
 
@@ -956,13 +1052,13 @@ computing the alternating sum of the octal digits:&lt;/p&gt;
                 &lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;
             &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
         &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-        &lt;span class=&#34;c1&#34;&gt;// assert(0 &amp;lt;= m &amp;amp;&amp;amp; m &amp;lt; 9)
-&lt;/span&gt;        &lt;span class=&#34;nx&#34;&gt;negative&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;negative&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;// assert(0 &amp;lt;= m &amp;amp;&amp;amp; m &amp;lt; 9)&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;negative&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;negative&lt;/span&gt;
     &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Clearly, this algorithm can be implemented in much simpler circuitry
 than that required to compute a remainder through full-blown division.&lt;/p&gt;
 &lt;/div&gt;
@@ -970,8 +1066,7 @@ than that required to compute a remainder through full-blown division.&lt;/p&gt;
 &lt;h3&gt;Modulo 36&lt;/h3&gt;
 &lt;p&gt;We now have enough to calculate &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;36&lt;/span&gt;
 from &lt;tt class=&#34;docutils literal&#34;&gt;Mod9&lt;/tt&gt; and the Chinese Remainder Theorem:&lt;/p&gt;
-&lt;pre class=&#34;code go literal-block&#34;&gt;
-&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Mod36&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;func&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Mod36&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;nx&#34;&gt;Residues&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;uint&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;28&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;20&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;24&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;16&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;mi&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
         &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;29&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;21&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;13&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;33&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;25&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
@@ -980,7 +1075,7 @@ from &lt;tt class=&#34;docutils literal&#34;&gt;Mod9&lt;/tt&gt; and the Chinese 
     &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;Residues&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;][&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;Mod9&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;k&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)]&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;My friend says that he later learned that similar tricks were
 used in classic 36-bit hardware.&lt;/p&gt;
 &lt;p&gt;I looked everywhere I could think of to see if I could
@@ -1031,7 +1126,7 @@ but then 36-bit computers aren&#39;t exactly important any more either.&lt;/p&gt
         <title>Decrypting Blackbox secrets at build time with Paperkey</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html" />
         <id>tag:www.georgevreilly.com,2019-09-02:/blog/2019/09/02/gpg-blackbox-paperkey.html</id>
-        <updated>2019-09-02T07:00:00Z</updated>
+        <updated>2019-09-02T08:00:00Z</updated>
         <category term="gpg" />
         <category term="blackbox" />
         <category term="jenkins" />
@@ -1041,8 +1136,7 @@ but then 36-bit computers aren&#39;t exactly important any more either.&lt;/p&gt
             <uri>https://www.georgevreilly.com/</uri>
             <email>george@reilly.org</email>
         </author>
-        <content type="html">&lt;blockquote&gt;
-“Security is 1% technology plus 99% following the procedures correctly” — Tom Limoncelli&lt;/blockquote&gt;
+        <content type="html">&lt;p&gt;“Security is 1% technology plus 99% following the procedures correctly” — Tom Limoncelli&lt;/p&gt;
 &lt;p&gt;Having dealt with GPG last week at work,
 I remembered that I had intended to write a blog post
 about how we used &lt;a class=&#34;reference external&#34; href=&#34;https://gnupg.org/&#34;&gt;GPG&lt;/a&gt;, &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/StackExchange/blackbox&#34;&gt;Blackbox&lt;/a&gt;, and &lt;a class=&#34;reference external&#34; href=&#34;http://www.jabberwocky.com/software/paperkey/&#34;&gt;Paperkey&lt;/a&gt; to store secrets in Git
@@ -1055,20 +1149,19 @@ We wanted these secrets to be under version control,
 but also to be secure.&lt;/p&gt;
 &lt;p&gt;For example, we had a &lt;tt class=&#34;docutils literal&#34;&gt;credentials.sh&lt;/tt&gt; that exported environment variables,
 which was managed by Blackbox:&lt;/p&gt;
-&lt;pre class=&#34;code bash literal-block&#34;&gt;
-&lt;span class=&#34;c1&#34;&gt;# Save current value of xtrace option from $-; disable echoing of executed commands
-&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -q &lt;span class=&#34;s2&#34;&gt;&amp;quot;x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;XT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;-x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;XT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;+x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; +x&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&amp;gt;/dev/null
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Save current value of xtrace option from $-; disable echoing of executed commands&lt;/span&gt;
+&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -q &lt;span class=&#34;s2&#34;&gt;&amp;quot;x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;XT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;-x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;XT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;+x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; +x&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&amp;gt;/dev/null
 
-&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;AWS_ACCESS_KEY_ID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;...&#39;&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;AWS_SECRET_ACCESS_KEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;...&#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;AWS_ACCESS_KEY_ID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;...&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;AWS_SECRET_ACCESS_KEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;...&amp;#39;&lt;/span&gt;
 
-&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PYPI_USER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;build&#39;&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PYPI_PASSWD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;...&#39;&lt;/span&gt;
-&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PIP_INDEX_URL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;https://&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PYPI_USER&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PYPI_PASSWD&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#64;pypi.example.com/pypi/&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PYPI_USER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;build&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PYPI_PASSWD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;...&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PIP_INDEX_URL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;https://&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PYPI_USER&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PYPI_PASSWD&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;@pypi.example.com/pypi/&amp;quot;&lt;/span&gt;
 
-&lt;span class=&#34;c1&#34;&gt;# Restore previous value of xtrace option
-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$XT&lt;/span&gt;
-&lt;/pre&gt;
+&lt;span class=&#34;c1&#34;&gt;# Restore previous value of xtrace option&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$XT&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;XT&lt;/tt&gt; prologue ensures that even if this script is &lt;tt class=&#34;docutils literal&#34;&gt;source&lt;/tt&gt;’d
 with &lt;a class=&#34;reference external&#34; href=&#34;https://renenyffenegger.ch/notes/Linux/shell/bash/built-in/set/x&#34;&gt;set -x&lt;/a&gt; (debug tracing) enabled,
 that executing this script will not leak secrets into build logs.
@@ -1185,43 +1278,41 @@ before decrypting the secrets needed with Blackbox.&lt;/p&gt;
 follow the portion of the &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/StackExchange/blackbox#set-up-automated-users-or-role-accounts&#34;&gt;Blackbox &amp;quot;role accounts&amp;quot; instructions&lt;/a&gt;
 that create a sub-key with no password for &lt;tt class=&#34;docutils literal&#34;&gt;ci&amp;#64;example.com&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;Then, serialize the public key and the secret with Paperkey:&lt;/p&gt;
-&lt;pre class=&#34;code bash literal-block&#34;&gt;
-&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /tmp/NEWMASTER
-gpg --homedir . --export ci&amp;#64;example.com &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 &amp;gt; public_key.txt
-gpg --homedir . --export-secret-keys ci&amp;#64;example.com &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; paperkey --output-type&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;raw &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 &amp;gt; secret.txt
-&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /tmp/NEWMASTER
+gpg --homedir . --export ci@example.com &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 &amp;gt; public_key.txt
+gpg --homedir . --export-secret-keys ci@example.com &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; paperkey --output-type&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;raw &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 &amp;gt; secret.txt
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Copy and paste the contents of &lt;tt class=&#34;docutils literal&#34;&gt;public_key.txt&lt;/tt&gt;
 to the &lt;tt class=&#34;docutils literal&#34;&gt;GPG_PUBLIC_KEY&lt;/tt&gt; environment variable in the CI.
 Similarly, copy &lt;tt class=&#34;docutils literal&#34;&gt;secret.txt&lt;/tt&gt; to &lt;tt class=&#34;docutils literal&#34;&gt;GPG_SECRET&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;Securely delete everything in &lt;tt class=&#34;docutils literal&#34;&gt;/tmp/NEWMASTER&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;We used a script like this on the CI to reconstitute the keypair
 and to decrypt the other secrets from Blackbox:&lt;/p&gt;
-&lt;pre class=&#34;code bash literal-block&#34;&gt;
-&lt;span class=&#34;ch&#34;&gt;#!/usr/bin/env bash
-&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;# Run during a CI build to decrypt all Blackbox-encrypted files in this repo.
-# Can also be used interactively.
-&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;ch&#34;&gt;#!/usr/bin/env bash&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# Run during a CI build to decrypt all Blackbox-encrypted files in this repo.&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# Can also be used interactively.&lt;/span&gt;
+
 &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -ex
 
-&lt;span class=&#34;c1&#34;&gt;# Root of Git working tree
-&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;SERVICES_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dirname &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/..&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# Root of Git working tree&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;SERVICES_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dirname &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/..&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
 
 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CI_BUILD&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;true&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
     &lt;span class=&#34;nv&#34;&gt;GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;mktemp -d -t gnupg.XXX&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
     &lt;span class=&#34;nv&#34;&gt;SECRET_KEY_FILE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/secret.key&amp;quot;&lt;/span&gt;
     &lt;span class=&#34;nv&#34;&gt;PUBLIC_KEY_FILE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/public_key.gpg&amp;quot;&lt;/span&gt;
 
-    &lt;span class=&#34;c1&#34;&gt;# this variable is how you can customize how GPG is used in Blackbox
-&lt;/span&gt;    &lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;gpg --homedir=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;# this variable is how you can customize how GPG is used in Blackbox&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;gpg --homedir=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
 
-    &lt;span class=&#34;c1&#34;&gt;# Remove secrets from filesystem on exit.
-&lt;/span&gt;    &lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; clean_up &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;c1&#34;&gt;# TODO: use shred, if available
-&lt;/span&gt;        rm -rf &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;# Remove secrets from filesystem on exit.&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; clean_up &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;# TODO: use shred, if available&lt;/span&gt;
+        rm -rf &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
     &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
     &lt;span class=&#34;nb&#34;&gt;trap&lt;/span&gt; clean_up EXIT&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
@@ -1233,52 +1324,52 @@ and to decrypt the other secrets from Blackbox:&lt;/p&gt;
         &lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
 
-    &lt;span class=&#34;c1&#34;&gt;# unpack public key
-&lt;/span&gt;    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_PUBLIC_KEY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 --decode &amp;gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PUBLIC_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;# unpack public key&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_PUBLIC_KEY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 --decode &amp;gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PUBLIC_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
 
-    &lt;span class=&#34;c1&#34;&gt;# unpack secret key
-&lt;/span&gt;    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_SECRET&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 --decode &amp;gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SECRET_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;# unpack secret key&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_SECRET&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 --decode &amp;gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SECRET_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
 
     &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Secrets unpacked...&amp;quot;&lt;/span&gt;
     &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -x
 
-    &lt;span class=&#34;c1&#34;&gt;# reconstitute and import full key into $GPG_HOMEDIR
-&lt;/span&gt;    paperkey --pubring &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PUBLIC_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; --secrets &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SECRET_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;        &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$GPG&lt;/span&gt; --import
+    &lt;span class=&#34;c1&#34;&gt;# reconstitute and import full key into $GPG_HOMEDIR&lt;/span&gt;
+    paperkey --pubring &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PUBLIC_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; --secrets &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SECRET_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$GPG&lt;/span&gt; --import
 
-    &lt;span class=&#34;c1&#34;&gt;# TODO: vendor Blackbox
-&lt;/span&gt;    &lt;span class=&#34;nv&#34;&gt;BLACKBOX_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;mktemp -d -t blackbox.XXX&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;# TODO: vendor Blackbox&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;BLACKBOX_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;mktemp -d -t blackbox.XXX&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
     &lt;span class=&#34;nv&#34;&gt;BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_DIR&lt;/span&gt;/bin
 
-    &lt;span class=&#34;c1&#34;&gt;# Shallow clone of Blackbox with most-recent commit only
-&lt;/span&gt;    git clone --depth &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; https://github.com/StackExchange/blackbox.git &lt;span class=&#34;nv&#34;&gt;$BLACKBOX_DIR&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;# Shallow clone of Blackbox with most-recent commit only&lt;/span&gt;
+    git clone --depth &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; https://github.com/StackExchange/blackbox.git &lt;span class=&#34;nv&#34;&gt;$BLACKBOX_DIR&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
-    &lt;span class=&#34;c1&#34;&gt;# So that you only have to enter your password once when running interactively
-&lt;/span&gt;    &lt;span class=&#34;nb&#34;&gt;eval&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;gpg-agent --daemon&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;# So that you only have to enter your password once when running interactively&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;eval&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;gpg-agent --daemon&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
 
-    &lt;span class=&#34;c1&#34;&gt;# No custom GPG_HOMEDIR needed
-&lt;/span&gt;    &lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;gpg&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;# No custom GPG_HOMEDIR needed&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;gpg&amp;quot;&lt;/span&gt;
 
     &lt;span class=&#34;nv&#34;&gt;BLACKBOX_POSTDEPLOY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;command&lt;/span&gt; -v blackbox_postdeploy&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;ret&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_POSTDEPLOY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
-        &lt;span class=&#34;c1&#34;&gt;# Use the Blackbox that&#39;s on the path
-&lt;/span&gt;        &lt;span class=&#34;nv&#34;&gt;BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dirname &lt;span class=&#34;nv&#34;&gt;$BLACKBOX_POSTDEPLOY&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;# Use the Blackbox that&amp;#39;s on the path&lt;/span&gt;
+        &lt;span class=&#34;nv&#34;&gt;BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dirname &lt;span class=&#34;nv&#34;&gt;$BLACKBOX_POSTDEPLOY&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
-        &lt;span class=&#34;c1&#34;&gt;# Assume Blackbox is checked out in a sibling dir to $SERVICES_DIR
-&lt;/span&gt;        &lt;span class=&#34;nv&#34;&gt;BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SERVICES_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/..&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;/blackbox/bin
+        &lt;span class=&#34;c1&#34;&gt;# Assume Blackbox is checked out in a sibling dir to $SERVICES_DIR&lt;/span&gt;
+        &lt;span class=&#34;nv&#34;&gt;BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SERVICES_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/..&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;/blackbox/bin
         &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; ! -f &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/blackbox_postdeploy&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
-            &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Can&#39;t find Blackbox binaries&amp;quot;&lt;/span&gt;
+            &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Can&amp;#39;t find Blackbox binaries&amp;quot;&lt;/span&gt;
             &lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
         &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
 &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
 
-&lt;span class=&#34;c1&#34;&gt;# decrypt secrets in $SERVICES_DIR using custom GPG_HOMEDIR
-&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$BLACKBOX_BIN&lt;/span&gt;/blackbox_postdeploy
+&lt;span class=&#34;c1&#34;&gt;# decrypt secrets in $SERVICES_DIR using custom GPG_HOMEDIR&lt;/span&gt;
+&lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$BLACKBOX_BIN&lt;/span&gt;/blackbox_postdeploy
 
-&lt;span class=&#34;c1&#34;&gt;# test that decryption worked
-&lt;/span&gt;grep &lt;span class=&#34;s1&#34;&gt;&#39;congrats!&#39;&lt;/span&gt; test_secret.txt
-&lt;/pre&gt;
+&lt;span class=&#34;c1&#34;&gt;# test that decryption worked&lt;/span&gt;
+grep &lt;span class=&#34;s1&#34;&gt;&amp;#39;congrats!&amp;#39;&lt;/span&gt; test_secret.txt
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;At the end of the build,
 run &lt;tt class=&#34;docutils literal&#34;&gt;blackbox_shred_all_files&lt;/tt&gt; to destroy any decrypted files.&lt;/p&gt;
 &lt;/div&gt;
@@ -1303,7 +1394,7 @@ run &lt;tt class=&#34;docutils literal&#34;&gt;blackbox_shred_all_files&lt;/tt&g
         <title>Review: Fire and Blood</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2019/01/03/ReviewFireAndBlood.html" />
         <id>tag:www.georgevreilly.com,2019-01-03:/blog/2019/01/03/ReviewFireAndBlood.html</id>
-        <updated>2019-01-03T07:00:00Z</updated>
+        <updated>2019-01-03T08:00:00Z</updated>
         <category term="books" />
         <category term="reviews" />
         <category term="fantasy" />
@@ -1356,7 +1447,7 @@ I would recommend it mainly to completists.&lt;/p&gt;
         <title>Review: Watership Down (miniseries)</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2019/01/02/ReviewWatershipDownMiniseries.html" />
         <id>tag:www.georgevreilly.com,2019-01-02:/blog/2019/01/02/ReviewWatershipDownMiniseries.html</id>
-        <updated>2019-01-02T07:00:00Z</updated>
+        <updated>2019-01-02T08:00:00Z</updated>
         <category term="movies" />
         <category term="reviews" />
         
@@ -1399,7 +1490,7 @@ and it&#39;s hard to tell one gray-brown rabbit from another.&lt;/p&gt;
         <title>2018 ends</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2018/12/31/2018-review.html" />
         <id>tag:www.georgevreilly.com,2018-12-31:/blog/2018/12/31/2018-review.html</id>
-        <updated>2018-12-31T07:00:00Z</updated>
+        <updated>2018-12-31T08:00:00Z</updated>
         <category term="personal" />
         
         <author>
@@ -1461,7 +1552,7 @@ which takes office later this week.&lt;/p&gt;
         <title>Review: The Heart&#39;s Invisible Furies</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2018/12/01/ReviewHeartsInvisibleFuries.html" />
         <id>tag:www.georgevreilly.com,2018-12-01:/blog/2018/12/01/ReviewHeartsInvisibleFuries.html</id>
-        <updated>2018-12-01T07:00:00Z</updated>
+        <updated>2018-12-01T08:00:00Z</updated>
         <category term="books" />
         <category term="reviews" />
         <category term="fiction" />
@@ -1583,7 +1674,7 @@ so I think it would be easier this time around.&lt;/p&gt;
         <title>Election Day 2018</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2018/11/06/ElectionDay2018.html" />
         <id>tag:www.georgevreilly.com,2018-11-06:/blog/2018/11/06/ElectionDay2018.html</id>
-        <updated>2018-11-06T07:00:00Z</updated>
+        <updated>2018-11-06T08:00:00Z</updated>
         <category term="politics" />
         
         <author>
@@ -1641,7 +1732,7 @@ It matters.&lt;/p&gt;
         <title>Brilliant Jerks in Engineering</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/12/30/BrilliantJerksInEngineering.html" />
         <id>tag:www.georgevreilly.com,2017-12-30:/blog/2017/12/30/BrilliantJerksInEngineering.html</id>
-        <updated>2017-12-30T07:00:00Z</updated>
+        <updated>2017-12-30T08:00:00Z</updated>
         <category term="tech" />
         
         <author>
@@ -1649,7 +1740,7 @@ It matters.&lt;/p&gt;
             <uri>https://www.georgevreilly.com/</uri>
             <email>george@reilly.org</email>
         </author>
-        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.brendangregg.com/blog/2017-11-13/brilliant-jerks.html&#34;&gt;&lt;img alt=&#34;&amp;quot;Do not tolerate brilliant jerks. The cost to teamwork is too high&amp;quot; — Reed Hastings, CEO Netflix&#34; class=&#34;right-float&#34; src=&#34;https://www.brendangregg.com/blog/images/2017/brilliantjerks.jpg&#34; style=&#34;width: 400px;&#34;/&gt;&lt;/a&gt;
+        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.brendangregg.com/blog/2017-11-13/brilliant-jerks.html&#34;&gt;&lt;img alt=&#34;&#34;Do not tolerate brilliant jerks. The cost to teamwork is too high&#34; — Reed Hastings, CEO Netflix&#34; class=&#34;right-float&#34; src=&#34;https://www.brendangregg.com/blog/images/2017/brilliantjerks.jpg&#34; style=&#34;width: 400px;&#34;/&gt;&lt;/a&gt;
 &lt;p&gt;Brendan Gregg&#39;s &lt;a class=&#34;reference external&#34; href=&#34;http://www.brendangregg.com/blog/2017-11-13/brilliant-jerks.html&#34;&gt;Brilliant Jerks in Engineering&lt;/a&gt;
 is an excellent discussion of the &amp;quot;No Asshole Rule&amp;quot;
 applied to software engineers.&lt;/p&gt;
@@ -1664,7 +1755,7 @@ The latter are simply toxic and probably need to be fired.&lt;/p&gt;
         <title>How to talk to people you disagree with</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/12/27/HowToTalkToPeopleYouDisagreeWith.html" />
         <id>tag:www.georgevreilly.com,2017-12-27:/blog/2017/12/27/HowToTalkToPeopleYouDisagreeWith.html</id>
-        <updated>2017-12-27T07:00:00Z</updated>
+        <updated>2017-12-27T08:00:00Z</updated>
         <category term="politics" />
         
         <author>
@@ -1696,7 +1787,7 @@ especially online.&lt;/p&gt;
         <title>Git Diff Tips</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/12/26/GitDiffTips.html" />
         <id>tag:www.georgevreilly.com,2017-12-26:/blog/2017/12/26/GitDiffTips.html</id>
-        <updated>2017-12-26T07:00:00Z</updated>
+        <updated>2017-12-26T08:00:00Z</updated>
         <category term="git" />
         
         <author>
@@ -1723,7 +1814,7 @@ The default diff algorithm is &lt;tt class=&#34;docutils literal&#34;&gt;&lt;spa
         <title>Review: Coco</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/12/25/ReviewCoco.html" />
         <id>tag:www.georgevreilly.com,2017-12-25:/blog/2017/12/25/ReviewCoco.html</id>
-        <updated>2017-12-25T07:00:00Z</updated>
+        <updated>2017-12-25T08:00:00Z</updated>
         <category term="movies" />
         <category term="reviews" />
         
@@ -1768,7 +1859,7 @@ and the costs of following one&#39;s dreams.&lt;/p&gt;
         <title>Seattle: Overturned Truck</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/02/27/SeattleOverturnedTruck.html" />
         <id>tag:www.georgevreilly.com,2017-02-27:/blog/2017/02/27/SeattleOverturnedTruck.html</id>
-        <updated>2017-02-27T07:00:00Z</updated>
+        <updated>2017-02-27T08:00:00Z</updated>
         <category term="seattle" />
         
         <author>
@@ -1801,7 +1892,7 @@ it only takes one bad accident to trigger cascading traffic jams everywhere.&lt;
         <title>Stitches in my Finger</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/02/23/StitchesInMyFinger.html" />
         <id>tag:www.georgevreilly.com,2017-02-23:/blog/2017/02/23/StitchesInMyFinger.html</id>
-        <updated>2017-02-23T07:00:00Z</updated>
+        <updated>2017-02-23T08:00:00Z</updated>
         <category term="personal" />
         
         <author>
@@ -1841,7 +1932,7 @@ No-one gets out without scars.&lt;/p&gt;
         <title>I Haz Shoes</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/02/22/IHazShoes.html" />
         <id>tag:www.georgevreilly.com,2017-02-22:/blog/2017/02/22/IHazShoes.html</id>
-        <updated>2017-02-22T07:00:00Z</updated>
+        <updated>2017-02-22T08:00:00Z</updated>
         <category term="personal" />
         
         <author>
@@ -1873,7 +1964,7 @@ and does my hips and lower back no good.&lt;/p&gt;
         <title>OrderedDict Initialization</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/02/21/OrderedDictInitialization.html" />
         <id>tag:www.georgevreilly.com,2017-02-21:/blog/2017/02/21/OrderedDictInitialization.html</id>
-        <updated>2017-02-21T07:00:00Z</updated>
+        <updated>2017-02-21T08:00:00Z</updated>
         <category term="python" />
         <category term="hashtables" />
         
@@ -1889,35 +1980,33 @@ Ordinary &lt;tt class=&#34;docutils literal&#34;&gt;dicts&lt;/tt&gt; return thei
 end up breaking the ordering in Python 2.x and in Python 3.5 and below.
 Specifically, using keyword arguments or passing a &lt;tt class=&#34;docutils literal&#34;&gt;dict&lt;/tt&gt; (mapping)
 will not retain the insertion order of the source code.&lt;/p&gt;
-&lt;pre class=&#34;code pycon literal-block&#34;&gt;
-&lt;span class=&#34;go&#34;&gt;Python 2.7.13 (default, Dec 18 2016, 07:03:39)
-&lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;collections&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;
-&lt;span class=&#34;go&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;odict&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;odict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;one&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
-&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;odict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;two&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;
-&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;odict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;three&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;
-&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;odict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;four&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;
-&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;odict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;five&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;go&#34;&gt;Python 2.7.13 (default, Dec 18 2016, 07:03:39)&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;collections&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;
+
+&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;odict&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;odict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;one&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;odict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;two&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;odict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;three&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;odict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;four&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;odict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;five&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;
 &lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;odict&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;go&#34;&gt;[(&#39;one&#39;, 1), (&#39;two&#39;, 2), (&#39;three&#39;, 3), (&#39;four&#39;, 4), (&#39;five&#39;, 5)]
+&lt;span class=&#34;go&#34;&gt;[(&amp;#39;one&amp;#39;, 1), (&amp;#39;two&amp;#39;, 2), (&amp;#39;three&amp;#39;, 3), (&amp;#39;four&amp;#39;, 4), (&amp;#39;five&amp;#39;, 5)]&lt;/span&gt;
 
-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;one&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;two&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;three&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;four&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;five&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;go&#34;&gt;[(&#39;four&#39;, 4), (&#39;one&#39;, 1), (&#39;five&#39;, 5), (&#39;three&#39;, 3), (&#39;two&#39;, 2)]
+&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;one&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;two&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;three&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;four&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;five&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;[(&amp;#39;four&amp;#39;, 4), (&amp;#39;one&amp;#39;, 1), (&amp;#39;five&amp;#39;, 5), (&amp;#39;three&amp;#39;, 3), (&amp;#39;two&amp;#39;, 2)]&lt;/span&gt;
 
-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;dict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;one&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;two&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;three&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;four&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;five&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;go&#34;&gt;[(&#39;four&#39;, 4), (&#39;five&#39;, 5), (&#39;three&#39;, 3), (&#39;two&#39;, 2), (&#39;one&#39;, 1)]
+&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;dict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;one&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;two&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;three&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;four&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;five&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;[(&amp;#39;four&amp;#39;, 4), (&amp;#39;five&amp;#39;, 5), (&amp;#39;three&amp;#39;, 3), (&amp;#39;two&amp;#39;, 2), (&amp;#39;one&amp;#39;, 1)]&lt;/span&gt;
 
-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;one&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;two&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;three&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;four&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;↩&lt;/span&gt;
-&lt;span class=&#34;go&#34;&gt;                 &amp;quot;five&amp;quot;: 5}).items()
-[(&#39;four&#39;, 4), (&#39;three&#39;, 3), (&#39;five&#39;, 5), (&#39;two&#39;, 2), (&#39;one&#39;, 1)]&lt;/span&gt;
-&lt;/pre&gt;
+&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;one&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;two&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;three&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;four&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;↩&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;                 &amp;quot;five&amp;quot;: 5}).items()&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;[(&amp;#39;four&amp;#39;, 4), (&amp;#39;three&amp;#39;, 3), (&amp;#39;five&amp;#39;, 5), (&amp;#39;two&amp;#39;, 2), (&amp;#39;one&amp;#39;, 1)]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Only passing an &lt;em&gt;iterable&lt;/em&gt; of key-value pairs will retain the order.&lt;/p&gt;
-&lt;pre class=&#34;code pycon literal-block&#34;&gt;
-&lt;span class=&#34;n&#34;&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;one&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;two&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;three&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;↩&lt;/span&gt;
-&lt;span class=&#34;go&#34;&gt;                 (&amp;quot;four&amp;quot;, 4), (&amp;quot;five&amp;quot;, 5)]).items()
-[(&#39;one&#39;, 1), (&#39;two&#39;, 2), (&#39;three&#39;, 3), (&#39;four&#39;, 4), (&#39;five&#39;, 5)]&lt;/span&gt;
-&lt;/pre&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;one&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;two&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;three&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;↩&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;                 (&amp;quot;four&amp;quot;, 4), (&amp;quot;five&amp;quot;, 5)]).items()&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;[(&amp;#39;one&amp;#39;, 1), (&amp;#39;two&amp;#39;, 2), (&amp;#39;three&amp;#39;, 3), (&amp;#39;four&amp;#39;, 4), (&amp;#39;five&amp;#39;, 5)]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Note that &lt;tt class=&#34;docutils literal&#34;&gt;OrderedDict&lt;/tt&gt; is noticeably slower than &lt;tt class=&#34;docutils literal&#34;&gt;dict&lt;/tt&gt; in Python 2.7,
 so only use &lt;tt class=&#34;docutils literal&#34;&gt;OrderedDict&lt;/tt&gt; when insertion order matters.&lt;/p&gt;
 &lt;p&gt;In Python 3.6, the &lt;a class=&#34;reference external&#34; href=&#34;https://www.python.org/dev/peps/pep-0468/&#34;&gt;order of kwargs is preserved&lt;/a&gt;,
@@ -1928,24 +2017,23 @@ and its performance is on par with that of &lt;tt class=&#34;docutils literal&#3
 but if you care about portable code
 (earlier CPython or other Python implementations such as Jython),
 use &lt;tt class=&#34;docutils literal&#34;&gt;OrderedDict&lt;/tt&gt; rather than relying on this implementation detail.&lt;/p&gt;
-&lt;pre class=&#34;code python literal-block&#34;&gt;
-&lt;span class=&#34;n&#34;&gt;Python&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;3.6&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;default&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Dec&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2016&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;08&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;01&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;42&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Python&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;3.6&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;default&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Dec&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;24&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2016&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;08&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;01&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;42&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;from&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;collections&lt;/span&gt; &lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;one&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;two&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;three&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;four&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;five&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;odict_items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;one&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;two&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;three&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;four&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;…&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;odict_items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;one&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;two&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;three&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;four&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;…&lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;dict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;one&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;two&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;three&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;four&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;five&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;odict_items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;one&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;two&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;three&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;four&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;…&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;odict_items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;one&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;two&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;three&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;four&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;…&lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;one&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;two&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;three&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;four&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;↩&lt;/span&gt;
                  &lt;span class=&#34;s2&#34;&gt;&amp;quot;five&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;odict_items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;one&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;two&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;three&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;four&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;…&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;odict_items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;one&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;two&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;three&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;four&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;…&lt;/span&gt;
 
 &lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;OrderedDict&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;one&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;two&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;three&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;err&#34;&gt;↩&lt;/span&gt;
                  &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;four&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;five&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)])&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;
-&lt;span class=&#34;n&#34;&gt;odict_items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;one&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;two&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;three&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;four&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;…&lt;/span&gt;
-&lt;/pre&gt;
+&lt;span class=&#34;n&#34;&gt;odict_items&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;one&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;two&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;three&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;four&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;err&#34;&gt;…&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
 </content>
     </entry>
     
@@ -1953,7 +2041,7 @@ use &lt;tt class=&#34;docutils literal&#34;&gt;OrderedDict&lt;/tt&gt; rather tha
         <title>Review: Skinny Dip</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/02/19/ReviewSkinnyDip.html" />
         <id>tag:www.georgevreilly.com,2017-02-19:/blog/2017/02/19/ReviewSkinnyDip.html</id>
-        <updated>2017-02-19T07:00:00Z</updated>
+        <updated>2017-02-19T08:00:00Z</updated>
         <category term="books" />
         <category term="reviews" />
         <category term="crime" />
@@ -1995,7 +2083,7 @@ attracts the pretty younger woman.&lt;/p&gt;
         <title>HTML5 tables require tr inside thead</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/02/18/HTML5TablesRequireTrInsideThead.html" />
         <id>tag:www.georgevreilly.com,2017-02-18:/blog/2017/02/18/HTML5TablesRequireTrInsideThead.html</id>
-        <updated>2017-02-18T07:00:00Z</updated>
+        <updated>2017-02-18T08:00:00Z</updated>
         <category term="html" />
         
         <author>
@@ -2008,8 +2096,7 @@ at some point I discovered the &lt;tt class=&#34;docutils literal&#34;&gt;&amp;l
 for grouping the &lt;tt class=&#34;docutils literal&#34;&gt;&amp;lt;th&amp;gt;&lt;/tt&gt; column headers.
 What I missed was there should be a &lt;tt class=&#34;docutils literal&#34;&gt;&amp;lt;tr&amp;gt;&lt;/tt&gt; element between the two.
 In other words, a well-formed HTML table with a header looks like this:&lt;/p&gt;
-&lt;pre class=&#34;code html literal-block&#34;&gt;
-&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
     &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;thead&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
         &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;tr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
             &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;th&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;Name&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;th&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
@@ -2025,67 +2112,18 @@ In other words, a well-formed HTML table with a header looks like this:&lt;/p&gt
         &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;tr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
     &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;tbody&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;and not:&lt;/p&gt;
-&lt;pre class=&#34;code html literal-block&#34;&gt;
-&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;table&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
     &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;thead&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
         &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;th&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;Name&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;th&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
         &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;th&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;Value&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;th&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
         …
-&lt;/pre&gt;
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The latter form—&lt;tt class=&#34;docutils literal&#34;&gt;&amp;lt;thead&amp;gt;&lt;/tt&gt; directly enclosing &lt;tt class=&#34;docutils literal&#34;&gt;&amp;lt;th&amp;gt;&lt;/tt&gt;s—had always worked for me.
 Until yesterday when I ran afoul of an HTML5 validator on a remote API,
 which simply would not let me proceed until I wrapped my &lt;tt class=&#34;docutils literal&#34;&gt;&amp;lt;th&amp;gt;&lt;/tt&gt; cells with a &lt;tt class=&#34;docutils literal&#34;&gt;&amp;lt;tr&amp;gt;&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;Who knew?&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Review: The Italian Job</title>
-        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/02/17/ReviewTheItalianJob.html" />
-        <id>tag:www.georgevreilly.com,2017-02-17:/blog/2017/02/17/ReviewTheItalianJob.html</id>
-        <updated>2017-02-17T07:00:00Z</updated>
-        <category term="movies" />
-        <category term="reviews" />
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>https://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/The_Italian_Job&#34;&gt;&lt;img alt=&#34;The Italian Job&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/en/b/b3/The_Italian_Job_1969_poster.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: The Italian Job&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Director: Peter Collinson&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Released: 1969&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: heist, comedy, cars&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Country: UK&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Watched: 17 Febuary, 2017&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/The_Italian_Job&#34;&gt;The Italian Job&lt;/a&gt; movie is worth your time.
-One of the quintessential movies of the Swinging Sixties,
-its British sensibility wears well, almost 50 years on.
-The humour still works.
-And it&#39;s probably the best advertisement that the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Mini#Mini_Cooper_and_Cooper_S:_1961.E2.80.932000&#34;&gt;Mini&lt;/a&gt; ever had.&lt;/p&gt;
-&lt;p&gt;Charlie Croker (Michael Caine) has inherited a plan to rip off $4 million in gold bullion
-from Fiat in Turin.
-He and the lads are going to help the balance of payments
-by bringing the loot back from the Common Market.
-(They&#39;re proto-Euroskeptics.)
-And they&#39;re going to do it by causing the mother of all traffic jams
-and making their getaway in three little Mini Coopers.&lt;/p&gt;
-&lt;p&gt;Don&#39;t expect too much coherence from the plot.
-There&#39;s at least 20 minutes of gloriously improbable chase scene set pieces
-where the three Minis perform balletic moves
-and lose another police Alfa Romeo or two.
-The literal cliffhanger ending is a classic.
-As with most comedies of the time,
-the characterization is weak—we learn a bit about what makes Croker and crime boss Bridger (Noël Coward) tick,
-but the rest are ciphers.
-No matter.
-The plot ticks along and it delivers.&lt;/p&gt;
 </content>
     </entry>
     </feed>

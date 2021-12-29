@@ -82,30 +82,36 @@ and how we push and pull from our GitHub&nbsp;repos&shy;i&shy;to&shy;ries.</p>
 The <tt class="docutils literal">git pair</tt> command updates <tt class="docutils literal">user.name</tt> and <tt class="docutils literal">user.email</tt> in <tt class="docutils literal">.git/config</tt>
 based on values in <tt class="docutils literal">.git/pairs</tt>:</p>
 <p>For example, <tt class="docutils literal">git pair fb sac</tt> updates <tt class="docutils literal">.git/config</tt> thus:</p>
-<pre class="code ini literal-block">
-<span class="na">user.name</span> <span class="o">=</span> <span class="s">Fred Beebe and Sheila A. Corn</span>
-<span class="na">user.email</span> <span class="o">=</span> <span class="s">pair+fred+sheila.a.corn&#64;example.com</span>
+
+<pre class="brush: ini">
+user.name = Fred Beebe and Sheila A. Corn
+user.email = pair+fred+sheila.a.corn@example.com
 </pre>
+
 <p>Based on <tt class="docutils literal">.pairs</tt> in the project&nbsp;root:</p>
-<pre class="code yaml literal-block">
-<span class="c1"># .pairs - configuration for 'git pair'</span>
-<span class="nt">pairs</span><span class="p">:</span>
-  <span class="c1"># &lt;initials&gt;: &lt;Firstname&gt; &lt;Lastname&gt;[; &lt;email-id&gt;]</span>
-  <span class="nt">fb</span><span class="p">:</span> <span class="l-Scalar-Plain">Fred Beebe; fred</span>
-  <span class="nt">jo</span><span class="p">:</span> <span class="l-Scalar-Plain">Jim Osward; josward</span>
-  <span class="nt">sac</span><span class="p">:</span> <span class="l-Scalar-Plain">Sheila A. Corn; sheila.a.corn</span>
-<span class="nt">email</span><span class="p">:</span>
-  <span class="nt">prefix</span><span class="p">:</span> <span class="l-Scalar-Plain">pair</span>
-  <span class="nt">domain</span><span class="p">:</span> <span class="l-Scalar-Plain">example.com</span>
-  <span class="nt">no_solo_prefix</span><span class="p">:</span> <span class="l-Scalar-Plain">true</span>
-<span class="nt">global</span><span class="p">:</span> <span class="l-Scalar-Plain">false</span>
+
+<pre class="brush: yaml">
+# .pairs - configuration for 'git pair'
+pairs:
+  # &lt;initials>: &lt;Firstname> &lt;Lastname>[; &lt;email-id>]
+  fb: Fred Beebe; fred
+  jo: Jim Osward; josward
+  sac: Sheila A. Corn; sheila.a.corn
+email:
+  prefix: pair
+  domain: example.com
+  no_solo_prefix: true
+global: false
 </pre>
+
 <p>(Fred, Jim, and Sheila are a nod to the <a class="reference external" href="https://en.wikipedia.org/wiki/BBC_Micro#Hardware_features:_Models_A_and_B"><span class="caps">BBC</span> Micro</a>
 of my youth, not actual MetaBrite&nbsp;developers.)</p>
 <p>Now <tt class="docutils literal">git log</tt> shows a series of commits attributed&nbsp;to:</p>
-<pre class="code vctreestatus literal-block">
-Author: Fred Beebe <span class="amp">&amp;</span> Sheila A. Corn &lt;pair+fred+sheila.a.corn&#64;example.com&gt;
+
+<pre class="brush: vctreestatus">
+Author: Fred Beebe <span class="amp">&amp;</span> Sheila A. Corn &lt;pair+fred+sheila.a.corn@example.com>
 </pre>
+
 <p>These commits are created with <tt class="docutils literal">git commit</tt>, as usual.
 You can use <tt class="docutils literal">git <span class="pre">pair-commit</span></tt> to attribute a commit
 to just one, randomly chosen member of the&nbsp;pair.</p>
@@ -118,8 +124,9 @@ without having a shared <span class="caps">SSH</span>&nbsp;key.</p>
 which we uploaded to our own GitHub&nbsp;accounts.</p>
 <p>We then configured <tt class="docutils literal"><span class="pre">~pair/.ssh/config</span></tt> with a series of <a class="reference external" href="http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/">Host entries</a>,
 named after GitHub&nbsp;usernames:</p>
-<pre class="code console literal-block">
-<span class="go">Host            github-fredbeebe
+
+<pre class="brush: console">
+Host            github-fredbeebe
     Hostname        github.com
     User            git
     IdentityFile    ~/.ssh/id_rsa_fredbeebe
@@ -133,17 +140,20 @@ Host            github-josward
     IdentitiesOnly yes
     PreferredAuthentications publickey
 
-</span><span class="gp">#</span> etc
+# etc
 </pre>
+
 <p>And we set up a <a class="reference external" href="http://git.github.io/git-reference/remotes/#remote">Git remote</a> for each identity in each Git working&nbsp;copy:</p>
-<pre class="code bash literal-block">
-$ <span class="nb">cd</span> ~/src/example
+
+<pre class="brush: bash">
+$ cd ~/src/example
 $ git remote -v
-fred    git&#64;github-fredbeebe:our_org/example.git <span class="o">(</span>fetch<span class="o">)</span>
-fred    git&#64;github-fredbeebe:our_org/example.git <span class="o">(</span>push<span class="o">)</span>
-jim     git&#64;github-josward:our_org/example.git <span class="o">(</span>fetch<span class="o">)</span>
-jim     git&#64;github-josward:our_org/example.git <span class="o">(</span>push<span class="o">)</span>
+fred    git@github-fredbeebe:our_org/example.git (fetch)
+fred    git@github-fredbeebe:our_org/example.git (push)
+jim     git@github-josward:our_org/example.git (fetch)
+jim     git@github-josward:our_org/example.git (push)
 </pre>
+
 <p>Here, <tt class="docutils literal">our_org</tt> is the GitHub or&shy;ga&shy;ni&shy;za&shy;tion and <tt class="docutils literal">example</tt> is the GitHub repository,
 which can also be found at <a class="reference external" href="https://github.com/our_org/example">https://github.com/our_org/example</a>.</p>
 </div>
@@ -153,19 +163,23 @@ which can also be found at <a class="reference external" href="https://github.co
 create an <span class="caps">SSH</span> key called <tt class="docutils literal">id_r&shy;sa_sheila&shy;corn</tt>,
 upload the key to Sheila&#8217;s GitHub account,
 then add a <tt class="docutils literal"><span class="pre">github-sheilacorn</span></tt> Host entry to <tt class="docutils literal"><span class="pre">~/.ssh/config</span></tt>:</p>
-<pre class="code console literal-block">
-<span class="go">Host            github-sheilacorn
+
+<pre class="brush: console">
+Host            github-sheilacorn
     Hostname        github.com
     User            git
     IdentityFile    ~/.ssh/id_rsa_sheilacorn
     IdentitiesOnly yes
-    PreferredAuthentications publickey</span>
+    PreferredAuthentications publickey
 </pre>
+
 <p>Finally, in each Git working&nbsp;copy:</p>
-<pre class="code bash literal-block">
-$ <span class="nb">cd</span> ~/src/example
-$ git remote add sheila git&#64;github-sheilacorn:our_org/example.git
+
+<pre class="brush: bash">
+$ cd ~/src/example
+$ git remote add sheila git@github-sheilacorn:our_org/example.git
 </pre>
+
 <p>Now we can&nbsp;say:</p>
 <ul class="simple">
 <li><tt class="docutils literal">git fetch fred</tt>

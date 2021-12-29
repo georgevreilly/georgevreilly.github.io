@@ -28,6 +28,50 @@
     
         <article>
     <header>
+        <time datetime="2016-02-16">2016-02-16</time>
+        <h1>
+            <a href="/blog/2016/02/16/SortingPythonDictionariesByValue.html" rel="bookmark canonical">Sorting Python Dictionaries by Value</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>I needed to sort a Python dictionary by <em>value</em> today, rather than by <em>key</em>.
+I found it confusing, so I&#8217;ll share what I&nbsp;learned.</p>
+<p>Assume the following dictionary, where each value is a tuple of (<span class="caps">ID</span>, score).
+How do we sort by score; i.e., the second item in the value tuple?
+(For the purposes of this discussion, ignore the meaning of the dictionary&#8217;s&nbsp;key.)</p>
+
+<pre class="brush: python">
+>>> some_dict = dict(a=(123, 0.7), b=(372, 0.2), e=(456, 0.85), d=(148, 0.23), c=(502, 0.1))
+>>> some_dict
+{'a': (123, 0.7), 'c': (502, 0.1), 'b': (372, 0.2), 'e': (456, 0.85), 'd': (148, 0.23)}
+</pre>
+
+<p>Python dic&shy;tio&shy;nar&shy;ies are inherently unsorted,
+unless you use <a class="reference external" href="https://pymotw.com/2/collections/ordereddict.html">Or&shy;dered&shy;Dict</a>,
+which <span>&#8230;<a href="/blog/2016/02/16/SortingPythonDictionariesByValue.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/02/16/SortingPythonDictionariesByValue.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-02-15">2016-02-15</time>
         <h1>
             <a href="/blog/2016/02/15/ReviewAshesByNow.html" rel="bookmark canonical">Review: Ashes By Now</a>
@@ -399,43 +443,6 @@ the <span>&#8230;<a href="/blog/2016/02/07/Sportsing.html" class="continue">cont
         
             <p>tagged as
                 <a href="/tag/sports/" rel="tag">sports</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-02-06">2016-02-06</time>
-        <h1>
-            <a href="/blog/2016/02/06/StorySticks.html" rel="bookmark canonical">Story Sticks</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://web.archive.org/web/20160925082945/http://www.startwoodworking.com/post/using-story-sticks-build-furniture"></a>
-<p>I assembled a couple of adjustable shelving units today.
-Trying to count the same number of in&shy;den&shy;ta&shy;tions on all four legs for each level
-quickly grew tedious, and I realized that I needed to make a story stick.
-I cut a &quot;stick&quot; to the right length
-and then I was able to place the stick along the leg
-and instantly read where the next pair of snap rings should be placed.
-I mentioned this to Emma and she had never heard of story&nbsp;sticks.</p>
-<p>Wood&shy;work&shy;ers have used <a class="reference external" href="http://web.archive.org/web/20160925082945/http://www.startwoodworking.com/post/using-story-sticks-build-furniture">story sticks</a> for a long time
-to build furniture and to get re&shy;pro&shy;ducible results.
-Instead of writing down a mea&shy;sure&shy;ment on a sheet <span>&#8230;<a href="/blog/2016/02/06/StorySticks.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/02/06/StorySticks.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/woodworking/" rel="tag">woodworking</a>
-                    and
-                    
-                <a href="/tag/diy/" rel="tag">diy</a>
                 
             </p>
         

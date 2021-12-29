@@ -58,8 +58,7 @@ The blank lines may be omitted in all but the GitHub <tt class="docutils literal
 without affecting the rendering.
 However, without the blank lines,
 the code block will collapse onto one line in the GitHub <tt class="docutils literal"><span class="caps">README</span>.md</tt>.</p>
-<pre class="code markdown literal-block">
-<span class="k">* </span>The following has been tested with RabbitMQ 3.6.0 on macOS
+<div class="highlight"><pre><span></span><span class="k">* </span>The following has been tested with RabbitMQ 3.6.0 on macOS
   (<span class="k">`</span><span class="sb">brew install rabbitmq</span><span class="k">`</span>):
 <span class="k">        - `</span><span class="sb">/usr/local/etc/rabbitmq/rabbitmq-env.conf</span><span class="k">`</span>
           should <span class="k">*</span><span class="ge">not</span><span class="k">*</span> have a localhost entry for <span class="k">`</span><span class="sb">NODE_IP_ADDRESS</span><span class="k">`</span>;
@@ -68,17 +67,17 @@ the code block will collapse onto one line in the GitHub <tt class="docutils lit
                 <span class="k">```</span>
                 CONFIG_FILE=/usr/local/etc/rabbitmq/rabbitmq
                 #<span class="caps">NODE</span><span class="k">_</span><span class="ge"><span class="caps">IP</span></span><span class="k">_</span><span class="caps">ADDRESS</span>=127.0.0.1
-                <span class="caps">NODENAME</span>=rabbit&#64;localhost
+                <span class="caps">NODENAME</span>=rabbit@localhost
                 <span class="k">```</span>
-<span class="k">
-        - `</span><span class="sb">/usr/local/etc/rabbitmq/rabbitmq.config</span><span class="k">`</span>:
+
+<span class="k">        - `</span><span class="sb">/usr/local/etc/rabbitmq/rabbitmq.config</span><span class="k">`</span>:
 
                 <span class="k">```</span>
                 [{rabbit, [{loopback_users, []}]}].
                 <span class="k">```</span>
 
                 (Yes, the trailing period is deliberate.)
-</pre>
+</pre></div>
 <p>Both Atom and VSCode are built on top of <a class="reference external" href="http://electron.atom.io/">Electron</a>,
 which seems to be an excellent way to built powerful cross-platform desktop apps
 using <span class="caps">HTML</span>, <span class="caps">CSS</span>, and JavaScript on top of Chromium and Node.js.

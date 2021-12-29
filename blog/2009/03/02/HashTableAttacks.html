@@ -49,25 +49,29 @@ against a number of&nbsp;ap&shy;pli&shy;ca&shy;tions.</p>
 The one that I used when I first became aware of this problem
 is to use a salt to the hash&nbsp;function.</p>
 <p>In other words,&nbsp;change:</p>
-<pre class="code C literal-block">
-<span class="kt">unsigned</span> <span class="nf">hash</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span>
-        <span class="n">h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">*</span> <span class="mi">101</span> <span class="o">+</span> <span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span> <span class="o">*</span><span class="n">s</span><span class="o">++</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">h</span><span class="p">;</span>
-<span class="p">}</span>
+
+<pre class="brush: C">
+unsigned hash(const char* s)
+{
+    unsigned h = 0;
+    while (*s)
+        h = h * 101 + (unsigned) *s++;
+    return h;
+}
 </pre>
+
 <p>to:</p>
-<pre class="code C literal-block">
-<span class="kt">unsigned</span> <span class="nf">hash</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">,</span> <span class="kt">unsigned</span> <span class="n">salt</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="n">h</span> <span class="o">=</span> <span class="n">salt</span><span class="p">;</span>
-    <span class="k">while</span> <span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span>
-        <span class="n">h</span> <span class="o">=</span> <span class="n">h</span> <span class="o">*</span> <span class="mi">101</span> <span class="o">+</span> <span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span> <span class="o">*</span><span class="n">s</span><span class="o">++</span><span class="p">;</span>
-    <span class="k">return</span> <span class="n">h</span><span class="p">;</span>
-<span class="p">}</span>
+
+<pre class="brush: C">
+unsigned hash(const char* s, unsigned salt)
+{
+    unsigned h = salt;
+    while (*s)
+        h = h * 101 + (unsigned) *s++;
+    return h;
+}
 </pre>
+
 <p>where <tt class="docutils literal">salt</tt> is chosen <em>randomly</em> when the hash table is created
 or when the process starts.
 This should be enough to vary the order in which keys

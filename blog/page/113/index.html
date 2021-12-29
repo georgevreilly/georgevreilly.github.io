@@ -30,6 +30,47 @@
     <header>
         <time datetime="2006-05-18">2006-05-18</time>
         <h1>
+            <a href="/blog/2006/05/18/TheWarOnJimMcDermott.html" rel="bookmark canonical">The War on Jim McDermott</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.thestranger.com/seattle/Content?oid=34045"></a>
+<p>I <a class="reference external" href="/blog/2006/04/18/SupportJimMcDermott.html">blogged</a>
+last month on Jim McDermott&#8217;s long-running First Amendment legal battle
+with John Boehner, the new Republican Majority Leader.
+<a class="reference external" href="http://www.thestranger.com/">The Stranger</a> has a
+<a class="reference external" href="http://www.thestranger.com/seattle/Content?oid=34045">cover story</a>
+giving a lot of detail on the&nbsp;case.</p>
+<p><a class="reference external" href="http://seattletimes.nwsource.com/html/localnews/2002988658_clinton12m.html">President Clinton</a>
+will be appearing at the Seattle Center on June-3rd in a fundraiser for&nbsp;McDermott.</p>
+<p><em>Update</em>: The
+<a class="reference external" href="http://www.McDermottforCongress.com/Tickets.aspx">We The People</a>
+event will be held from 5:30-7:30pm at the Seattle Center Exhibition Hall.
+Tickets can be ordered <a class="reference external" href="http://www.McDermottforCongress.com/Tickets.aspx">here</a>.
+I just ordered tickets for Emma and me. See you&nbsp;there.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/05/18/TheWarOnJimMcDermott.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/politics/" rel="tag">politics</a>
+                    and
+                    
+                <a href="/tag/seattle/" rel="tag">seattle</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-05-18">2006-05-18</time>
+        <h1>
             <a href="/blog/2006/05/18/TheScottishOpera.html" rel="bookmark canonical">The Scottish ... Opera</a>
         </h1>
     </header>
@@ -123,17 +164,18 @@ for&nbsp;overflow.</p>
 <p>Briefly, to see if <tt class="docutils literal">unsigned</tt> values <tt class="docutils literal">A+B</tt> overflow, check
 <tt class="docutils literal">if (A &gt; MAX_UINT - B)</tt>. Similarly, <tt class="docutils literal">A*B</tt> will overflow
 <tt class="docutils literal">if (A &gt; MAX_UINT / B)</tt>.</p>
-<pre class="code cpp literal-block">
-<span class="c1">// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
-</span><span class="kt">bool</span>
-<span class="nf">StringToUnsigned</span><span class="p">(</span>
-    <span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">,</span>
-    <span class="kt">unsigned</span><span class="o">&amp;</span>     <span class="n">rUint</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">rUint</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
-        <span class="k">return</span> </pre><span>&#8230;<a href="/blog/2006/05/16/0xFFFF100x1999.html" class="continue">continue</a>.</span>
+<pre class="brush: cpp">
+// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
+bool
+StringToUnsigned(
+    const string& str,
+    unsigned&     rUint)
+{
+    rUint = 0;
+
+    if (str.empty())
+        return </pre><span>&#8230;<a href="/blog/2006/05/16/0xFFFF100x1999.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2006/05/16/0xFFFF100x1999.html#disqus_thread">Comment</a>
@@ -377,53 +419,6 @@ Gaynor&#8217;s <em>I Will Survive</em>.</p>
                     and
                     
                 <a href="/tag/lgbt/" rel="tag">lgbt</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-05-11">2006-05-11</time>
-        <h1>
-            <a href="/blog/2006/05/11/Vim70IsOut.html" rel="bookmark canonical">Vim 7.0 is out</a>
-        </h1>
-    </header>
-    <p>More than two years in the making, Vim-7.0 is finally
-<a class="reference external" href="http://groups.yahoo.com/group/vimannounce/message/161">out</a>!</p>
-<a class="reference external image-reference" href="http://www.vim.org/"></a>
-<p>(Vim is Vi IMproved, an enormously enhanced version of the classic Unix
-editor, <tt class="docutils literal">vi</tt>.)</p>
-<p>The main features of the 7.0 release&nbsp;are:</p>
-<ul class="simple">
-<li>Spell&nbsp;checking</li>
-<li>Omni-completion&nbsp;(In&shy;tel&shy;lisense-like)</li>
-<li>Tabbed&nbsp;pages</li>
-<li>VimL script language now supports Lists and&nbsp;Dic&shy;tio&shy;nar&shy;ies</li>
-</ul>
-<p>I&#8217;m going to take credit for some minor features of Vim&nbsp;7:</p>
-<ul class="simple">
-<li>Making Vim build with <a class="reference external" href="/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html"><span class="caps">VC5</span>-<span class="caps">VC8</span></a></li>
-<li>The <a class="reference external" href="/blog/2006/04/22/Win64PortOfVim.html">Win64&nbsp;port</a></li>
-<li>Syntax high&shy;light&shy;ing for <a class="reference external" href="/blog/2006/05/04/VimSyntaxHighlightingForFlexWiki.html">FlexWiki</a></li>
-</ul>
-<p>WikiPedia summarizes the <a class="reference external" href="http://en.wikipedia.org/wiki/Vim_%28text_editor%29#History">history of Vim</a>.
-This enabled me to pinpoint when I first became a con&shy;trib&shy;u&shy;tor to Vim,
-back in December 1995. I cleaned up the original, rather buggy
-port of <a class="reference external" href="http://groups.google.com/group/comp.editors/browse_thread/thread/a3fad9455d7a23cf/13c6939208787c22">Vim-3.0 to <span class="caps">NT</span></a>,
-and posted it to the <a class="reference external" href="news://news.readfreenews.net/comp.editors">comp.editors</a> newsgroup.
-Bram invited me to merge my changes into Vim-4.0, which was then <span>&#8230;<a href="/blog/2006/05/11/Vim70IsOut.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/05/11/Vim70IsOut.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/vim/" rel="tag">vim</a>
                 
             </p>
         

@@ -61,25 +61,30 @@ so I wrote a post on <a class="reference external" href="http://blogs.cozi.com/t
     
 <p>Python has <a class="reference external" href="http://docs.python.org/tutorial/datastructures.html#list-comprehensions">list com&shy;pre&shy;hen&shy;sions</a>,
 syntactic sugar for building lists from an expression.</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
-<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">22</span><span class="p">]</span>
+
+<pre class="brush: python">
+>>> [2 * i for i in (2, 3, 5, 7, 11)]
+[4, 6, 10, 14, 22]
 </pre>
+
 <p>This doesn't work so well when the com&shy;pre&shy;hen&shy;sion expression
 is itself a list: you end up with a list of lists.</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
-<span class="o">...</span>     <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]:</span>
-<span class="o">...</span>         <span class="k">yield</span> <span class="n">l</span>
-<span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()]</span>
-<span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]</span>
+
+<pre class="brush: python">
+>>> def gen():
+...     for l in [['a', 'b'], ['c'], ['d', 'e', 'f']]:
+...         yield l
+...
+>>> [l for l in gen()]
+[['a', 'b'], ['c'], ['d', 'e', 'f']]
 </pre>
+
 <p>This is ugly. Here's one way to build a flattened list,
 but it's less elegant than the com&shy;pre&shy;hen&shy;sion.</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> </pre><span>&#8230;<a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" class="continue">continue</a>.</span>
+
+<pre class="brush: python">
+>>> x = []
+>>> for </pre><span>&#8230;<a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" class="continue">continue</a>.</span>
     <footer>
         
         
@@ -165,6 +170,41 @@ I wrote up a few hard-won tips on using the <a class="reference external" href="
     
         <article>
     <header>
+        <time datetime="2007-06-09">2007-06-09</time>
+        <h1>
+            <a href="/blog/2007/06/09/Multilingual.html" rel="bookmark canonical">Multilingual</a>
+        </h1>
+    </header>
+    
+<p>This week, I have written code in C#, C++, Managed C++, C, WiX, NAnt,
+Ac&shy;tion&shy;Script, VBScript, JScript, cmd batch, NMake, HTML,
+XSLT, and Ruby. And I will probably get some Python in before the weekend
+is over. &lt;boggle/&gt;</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>,
+                <a href="/tag/javascript/" rel="tag">javascript</a>,
+                <a href="/tag/c++/" rel="tag">c++</a>,
+                <a href="/tag/c/" rel="tag">c#</a>,
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/ruby/" rel="tag">ruby</a>
+                    and
+                    
+                <a href="/tag/html/" rel="tag">html</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2007-01-13">2007-01-13</time>
         <h1>
             <a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" rel="bookmark canonical">Python Batchfile Wrapper, Redux</a>
@@ -184,14 +224,15 @@ I'm calling my version <a class="reference external" href="/Python/py2cmd/">py2c
 you want to run and give it the same basename;
 i.e., <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.cmd</tt>
 will run <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.py</tt>.</p>
-<pre class="code batch literal-block">
-<span class="p">&#64;</span><span class="k">echo</span> off
-<span class="k">setlocal</span>
-<span class="k">set</span> <span class="nv">PythonExe</span><span class="p">=</span>
-<span class="k">set</span> <span class="nv">PythonExeFlags</span><span class="p">=</span>-u
 
-<span class="k">for</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span>cmd bat exe<span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
-    <span class="k">for</span> <span class="se">%%</span>j <span class="k">in</span> <span class="p">(</span>python.<span class="se">%%</span>i<span class="p">)</span> <span class="k">do</span> </pre><span>&#8230;<a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" class="continue">continue</a>.</span></div>
+<pre class="brush: batch">
+@echo off
+setlocal
+set PythonExe=
+set PythonExeFlags=-u
+
+for %%i in (cmd bat exe) do (
+    for %%j in (python.%%i) do </pre><span>&#8230;<a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" class="continue">continue</a>.</span></div>
     <footer>
         
         

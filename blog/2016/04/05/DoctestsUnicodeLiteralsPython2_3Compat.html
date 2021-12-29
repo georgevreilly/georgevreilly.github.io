@@ -38,24 +38,28 @@
     <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses&nbsp;them.</p>
 <p>Although I still mostly write Python 2,
 I usually import several features of Python&nbsp;3:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+
+<pre class="brush: python">
+from __future__ import unicode_literals, print_function, absolute_import
 </pre>
+
 <p>Un&shy;for&shy;tu&shy;nate&shy;ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni&shy;code_lit&shy;er&shy;als</a> doesn&#8217;t play well with&nbsp;doctests.</p>
 <p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
 but not with <tt class="docutils literal">python3</tt>:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
 
-<span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;
+<pre class="brush: python">
+from __future__ import unicode_literals, print_function, absolute_import
+
+def upper(s):
+    """
     Convert `s` to upper case.
 
-    &gt;&gt;&gt; upper('Hello!')
-    u'<span class="caps">HELLO</span>!'
-    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    >>> upper('Hello!')
+    u'HELLO!'
+    """
+    return s.upper()
 </pre>
+
 <p>Python 3&nbsp;complains:</p>
 <pre class="literal-block">
 Failed example:
@@ -73,20 +77,22 @@ while Python 3&#8217;s repr does not
 from the <tt class="docutils literal">from __future__ import</tt>,
 but this also removes the benefit of implicitly forcing all string literals to be&nbsp;Unicode.</p>
 <p>Another workaround is to use <a class="reference external" href="https://pythonhosted.org/six/">six</a>&nbsp;thus:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
 
-<span class="kn">import</span> <span class="nn">six</span>
+<pre class="brush: python">
+from __future__ import unicode_literals, print_function, absolute_import
 
-<span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;
+import six
+
+def upper(s):
+    """
     Convert `s` to upper case.
 
-    &gt;&gt;&gt; upper('Hello!') == six.text_type(u'<span class="caps">HELLO</span>!')
+    >>> upper('Hello!') == six.text_type(u'HELLO!')
     True
-    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    """
+    return s.upper()
 </pre>
+
 <p>This works, but is less clear.
 If the assertion fails,
 com&shy;plain&shy;ing about <tt class="docutils literal">True</tt> instead of <tt class="docutils literal"><span class="caps">HELLO</span>!</tt> is far less&nbsp;clear.</p>

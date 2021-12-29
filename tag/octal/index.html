@@ -80,16 +80,17 @@ for overflow.</p>
 <p>Briefly, to see if <tt class="docutils literal">unsigned</tt> values <tt class="docutils literal">A+B</tt> overflow, check
 <tt class="docutils literal">if (A &gt; MAX_UINT - B)</tt>. Similarly, <tt class="docutils literal">A*B</tt> will overflow
 <tt class="docutils literal">if (A &gt; MAX_UINT / B)</tt>.</p>
-<pre class="code cpp literal-block">
-<span class="c1">// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
-</span><span class="kt">bool</span>
-<span class="nf">StringToUnsigned</span><span class="p">(</span>
-    <span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">,</span>
-    <span class="kt">unsigned</span><span class="o">&amp;</span>     <span class="n">rUint</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="n">rUint</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-    <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span>
+<pre class="brush: cpp">
+// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
+bool
+StringToUnsigned(
+    const string& str,
+    unsigned&     rUint)
+{
+    rUint = 0;
+
+    if (str.empty())
         </pre><span>&#8230;<a href="/blog/2006/05/16/0xFFFF100x1999.html" class="continue">continue</a>.</span>
     <footer>
         

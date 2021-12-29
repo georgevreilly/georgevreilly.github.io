@@ -28,6 +28,41 @@
     
         <article>
     <header>
+        <time datetime="2016-01-27">2016-01-27</time>
+        <h1>
+            <a href="/blog/2016/01/27/Streetcar.html" rel="bookmark canonical">First Hill Streetcar</a>
+        </h1>
+    </header>
+    <p>The <a class="reference external" href="http://www.seattlestreetcar.org/firsthill.htm">new streetcar line</a> that runs from Pioneer Square to First Hill and Capitol Hill
+opened on Saturday.
+I rode it this evening to get from First <span class="amp">&amp;</span> Jackson to Broadway <span class="amp">&amp;</span> Pine,
+a three-mile ride that took a full half-hour in the early evening.
+The streetcar is clean and pleasant and tem&shy;porar&shy;i&shy;ly free to ride,
+but it has no dedicated lane.
+Car drivers are still un&shy;ac&shy;cus&shy;tomed to it
+and the streetcar driver had to blow his horn several times
+at cars that were blocking our&nbsp;progress.</p>
+<p>The new light rail extension line will open in March,
+connecting Capitol Hill and Husky Stadium.
+It&#8217;s several months early and more than $100 million <span>&#8230;<a href="/blog/2016/01/27/Streetcar.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/27/Streetcar.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/seattle/" rel="tag">seattle</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-26">2016-01-26</time>
         <h1>
             <a href="/blog/2016/01/26/SpoonTheory.html" rel="bookmark canonical">Spoon Theory</a>
@@ -124,19 +159,21 @@ More at Charlie Stross&#8217;s <a class="reference external" href="http://www.an
     </header>
     <a class="reference external image-reference" href="http://nose.readthedocs.org/"></a>
 <p>I figured out why I saw the following error every time I ran <a class="reference external" href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html">Nose</a>:</p>
-<pre class="code python literal-block">
-<span class="o">======================================================================</span>
-<span class="n"><span class="caps">ERROR</span></span><span class="p">:</span> <span class="n">Failure</span><span class="p">:</span> <span class="ne">TypeError</span> <span class="p">(</span><span class="nb">type</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">3</span> <span class="n">arguments</span><span class="p">)</span>
-<span class="o">----------------------------------------------------------------------</span>
-<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">523</span><span class="p">,</span> <span class="ow">in</span> <span class="n">makeTest</span>
-    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_makeTest</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
-  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">582</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_makeTest</span>
-    <span class="k">return</span> <span class="n">MethodTestCase</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/case.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">345</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__init__</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cls</span><span class="p">()</span>
-<span class="ne">TypeError</span><span class="p">:</span> <span class="nb">type</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">3</span> <span class="n">arguments</span>
+
+<pre class="brush: python">
+======================================================================
+ERROR: Failure: TypeError (type() takes 1 or 3 arguments)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File ".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py", line 523, in makeTest
+    return self._makeTest(obj, parent)
+  File ".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py", line 582, in _makeTest
+    return MethodTestCase(obj)
+  File ".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/case.py", line 345, in __init__
+    self.inst = self.cls()
+TypeError: type() takes 1 or 3 arguments
 </pre>
+
 <p>It turns out that one module was importing a class called <tt class="docutils literal">TestApi</tt>
 which had a <tt class="docutils literal">class&shy;method</tt> called <tt class="docutils literal">run_in&shy;te&shy;gra&shy;tion_tests</tt>.
 The module itself had no tests; it just declared a class called <tt class="docutils literal">TestO&shy;b&shy;fus&shy;cat&shy;ed&shy;Mix&shy;in</tt>,
@@ -220,12 +257,13 @@ Another is for <a class="reference external" href="https://www.dabeaz.com/corout
 Yet another is to re&shy;cur&shy;sive&shy;ly traverse a tree or a graph,
 yielding an iterable&nbsp;sequence.</p>
 <p>Consider this simple tree of&nbsp;nodes:</p>
-<pre class="code python literal-block">
-<span class="n">node_tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
-    <span class="s1">'a'</span><span class="p">,</span> <span class="p">[</span>
-        <span class="n">Node</span><span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="p">[</span>
-            <span class="n">Node</span><span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="p">[</span>
-                <span class="n">Node</span><span class="p">(</span><span class="s1">'g'</span><span class="p">)</span>
+
+<pre class="brush: python">
+node_tree = Node(
+    'a', [
+        Node('b', [
+            Node('e', [
+                Node('g')
     </pre><span>&#8230;<a href="/blog/2016/01/22/PythonRecursiveGenerators.html" class="continue">continue</a>.</span>
     <footer>
         
@@ -403,51 +441,6 @@ American <span>&#8230;<a href="/blog/2016/01/18/FederalHolidaysInadequatelyObser
         
             <p>tagged as
                 <a href="/tag/usa/" rel="tag">usa</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-17">2016-01-17</time>
-        <h1>
-            <a href="/blog/2016/01/17/RelativeImportsInAPythonScript.html" rel="bookmark canonical">Relative Imports in a Python Script</a>
-        </h1>
-    </header>
-    <p>Have you ever attempted a <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">relative import</a> in a Python&nbsp;script?</p>
-<pre class="code bash literal-block">
-$ ./foo/bar/script.py some parameters
-Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
-  File <span class="s2">&quot;foo/bar/script.py&quot;</span>, line <span class="m">16</span>, in &lt;module&gt;
-    from .quux import find_vcs
-ValueError: Attempted relative import in non-package
-</pre>
-<p>I prefer to use <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">absolute imports</a> to minimize ambiguity and confusion,
-and most of my Python modules begin&nbsp;with:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span>
-</pre>
-<p>(Using <a class="reference external" href="https://www.python.org/dev/peps/pep-3112/">uni&shy;code_lit&shy;er&shy;als</a> and <a class="reference external" href="https://www.python.org/dev/peps/pep-3105/">print&shy;_&shy;func&shy;tion</a> makes porting to Python 3&nbsp;easier.)</p>
-<p>I recently read the accepted answer to <a class="reference external" href="http://stackoverflow.com/questions/14132789/python-relative-imports-for-the-billionth-time">Python relative imports for the billionth time</a>
-and the solution to the above <tt class="docutils literal">ValueError</tt> occurred to me:
-Use <tt class="docutils literal">python <span class="pre">-m</span> package</tt> instead:</p>
-<pre class="code bash literal-block">
-$ python -m foo.bar.script some parameters
-</pre>
-<p>(Assuming that package <tt class="docutils literal">foo</tt> exists.)</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/17/RelativeImportsInAPythonScript.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
                 
             </p>
         

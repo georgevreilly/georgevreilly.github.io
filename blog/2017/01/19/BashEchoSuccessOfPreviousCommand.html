@@ -47,12 +47,11 @@ In Unix, all programs exit with an integer status code.
 Successful programs exit with <tt class="docutils literal">0</tt>;
 all other values, positive or negative, indicate <a class="reference external" href="http://www-numi.fnal.gov/offline_software/srt_public_context/WebDocs/Errors/unix_system_errors.html">failure</a>.
 In Bash, the <a class="reference external" href="http://tldp.org/LDP/abs/html/exit-status.html">status code</a> of the previous program is held in <tt class="docutils literal">$?</tt>.</p>
-<pre class="code bash literal-block">
-some/command or-other fer example
+<div class="highlight"><pre><span></span>some/command or-other fer example
 
-<span class="nv"><span class="caps">STATUS</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$?</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s1">'succeeded'</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s1">'failed'</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nv"><span class="caps">STATUS</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$?</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s1">&#39;succeeded&#39;</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s1">&#39;failed&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
 <span class="nb">echo</span> <span class="s2">&quot;Results: </span><span class="nv">$<span class="caps">STATUS</span></span><span class="s2">&quot;</span>
-</pre>
+</pre></div>
 <p>There are <a class="reference external" href="http://stackoverflow.com/a/3953712/6364">other ways</a> to handle&nbsp;this.</p>
 
     <footer>

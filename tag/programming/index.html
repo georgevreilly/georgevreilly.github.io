@@ -37,11 +37,10 @@
 One of them needed some <tt class="docutils literal">sed</tt>s on each line and sorting.
 I wanted to do that on the fly,
 without leaving a massaged in&shy;ter&shy;me&shy;di&shy;ate file lying around.</p>
-<pre class="code bash literal-block">
-colordiff --unified &lt;<span class="o">(</span>cat orphaned_permalinks.txt
-                        <span class="p">|</span> sed <span class="s1">'s&#64;http://www.georgevreilly.com/&#64;&#64;'</span>
-                        <span class="p">|</span> sed <span class="s1">'s/.aspx$/.html/'</span>
-                </pre><span>&#8230;<a href="/blog/2017/01/11/DiffTransformedFile.html" class="continue">continue</a>.</span>
+<div class="highlight"><pre><span></span>colordiff --unified &lt;<span class="o">(</span>cat orphaned_permalinks.txt
+                        <span class="p">|</span> sed <span class="s1">&#39;s@http://www.georgevreilly.com/@@&#39;</span>
+                        <span class="p">|</span> sed <span class="s1">&#39;s/.aspx$/.html/&#39;</span>
+                </pre><span>&#8230;<a href="/blog/2017/01/11/DiffTransformedFile.html" class="continue">continue</a>.</span></div>
     <footer>
         
         
@@ -394,11 +393,12 @@ against a number of ap&shy;pli&shy;ca&shy;tions.</p>
 The one that I used when I first became aware of this problem
 is to use a salt to the hash function.</p>
 <p>In other words, change:</p>
-<pre class="code C literal-block">
-<span class="kt">unsigned</span> <span class="nf">hash</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">s</span><span class="p">)</span>
-<span class="p">{</span>
-    <span class="kt">unsigned</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="k">while</span> </pre><span>&#8230;<a href="/blog/2009/03/02/HashTableAttacks.html" class="continue">continue</a>.</span>
+
+<pre class="brush: C">
+unsigned hash(const char* s)
+{
+    unsigned h = 0;
+    while </pre><span>&#8230;<a href="/blog/2009/03/02/HashTableAttacks.html" class="continue">continue</a>.</span>
     <footer>
         
         

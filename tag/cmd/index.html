@@ -86,14 +86,15 @@ I'm calling my version <a class="reference external" href="/Python/py2cmd/">py2c
 you want to run and give it the same basename;
 i.e., <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.cmd</tt>
 will run <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.py</tt>.</p>
-<pre class="code batch literal-block">
-<span class="p">&#64;</span><span class="k">echo</span> off
-<span class="k">setlocal</span>
-<span class="k">set</span> <span class="nv">PythonExe</span><span class="p">=</span>
-<span class="k">set</span> <span class="nv">PythonExeFlags</span><span class="p">=</span>-u
 
-<span class="k">for</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span>cmd bat exe<span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
-    <span class="k">for</span> <span class="se">%%</span>j <span class="k">in</span> <span class="p">(</span>python.<span class="se">%%</span>i<span class="p">)</span> <span class="k">do</span> </pre><span>&#8230;<a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" class="continue">continue</a>.</span></div>
+<pre class="brush: batch">
+@echo off
+setlocal
+set PythonExe=
+set PythonExeFlags=-u
+
+for %%i in (cmd bat exe) do (
+    for %%j in (python.%%i) do </pre><span>&#8230;<a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" class="continue">continue</a>.</span></div>
     <footer>
         
         
@@ -167,15 +168,14 @@ And I write quite a few little batch files.</p>
 By combining the magic <tt class="docutils literal">%DATE%</tt> and <tt class="docutils literal">%TIME%</tt> en&shy;vi&shy;ron&shy;ment variables,
 with <tt class="docutils literal">for /f</tt> and a little bit of string sub&shy;sti&shy;tu&shy;tion,
 I can create that filename.</p>
-<pre class="code winbatch literal-block">
-<span class="c1">REM</span>
+<div class="highlight"><pre><span></span><span class="c1">REM</span>
 <span class="c1">REM &quot;Tue 06/14/2005&quot; -&gt; &quot;06/14/2005&quot;</span>
 <span class="c1">REM</span>
 <span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;tokens=2&quot;</span>              <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="nv">%DATE%</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="k">set</span> <span class="nv">MDY</span><span class="p">=</span><span class="se">%%</span>i
 <span class="c1">REM</span>
 <span class="c1">REM &quot;06/14/2005&quot; -&gt; &quot;2005-06-14&quot;</span>
 <span class="c1">REM</span>
-<span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;delims=/ tokens=1,2,3&quot;</span> <span class="se">%%</span>i <span class="k">in</span> </pre><span>&#8230;<a href="/blog/2005/08/11/TIMEStamping.html" class="continue">continue</a>.</span></div>
+<span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;delims=/ tokens=1,2,3&quot;</span> <span class="se">%%</span>i <span class="k">in</span> </pre><span>&#8230;<a href="/blog/2005/08/11/TIMEStamping.html" class="continue">continue</a>.</span></div></div>
     <footer>
         
         

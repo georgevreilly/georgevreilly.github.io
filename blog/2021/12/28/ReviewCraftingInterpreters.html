@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Review: Crafting Interpreters</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content=".. image:: https://images-na.ssl-images-amazon.com..." />
+    <meta name="keywords" content="books, reviews" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start">blog</a></li>
+        <li><a href="/about/" rel="home start">about</a></li>
+        <li><a href="/atom/" rel="alternate">atom</a></li>
+        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2021-12-28">2021-12-28</time>
+        <h1>
+            <a href="/blog/2021/12/28/ReviewCraftingInterpreters.html" rel="bookmark canonical">Review: Crafting Interpreters</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.amazon.com/dp/0990582930/?tag=georgvreill-20"><img alt="Crafting Interpreters" class="right-float" src="https://images-na.ssl-images-amazon.com/images/I/41-7uSeOyCL._SX398_BO1,204,203,200_.jpg"/></a>
+<div class="line-block">
+<div class="line">Title: <a class="reference external" href="https://craftinginterpreters.com/">Crafting In&shy;ter&shy;preters</a></div>
+<div class="line">Author: Robert Nystrom</div>
+<div class="line">Rating: ★ ★ ★ ★ ★</div>
+<div class="line">Publisher: Genever Benning</div>
+<div class="line">Copyright: 2021</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0990582930/?tag=georgvreill-20">978-0990582939</a></div>
+<div class="line">Pages: 640</div>
+<div class="line">Keywords: pro&shy;gram&shy;ming, in&shy;ter&shy;preters</div>
+<div class="line">Reading period: 10–28 December, 2021</div>
+</div>
+<p>I&#8217;ve read hundreds of technical books over the last 40 years.
+<em>Crafting In&shy;ter&shy;preters</em> is an instant classic,
+and far more readable and fun than many of the&nbsp;classics.</p>
+<p>Nystrom covers a lot of ground in this book,
+building two very different in&shy;ter&shy;preters for Lox,
+a small dynamic language of his own design.
+He takes us through <em>every line</em> of
+jlox, a Java-based tree-walk in&shy;ter&shy;preter,
+and of clox, a bytecode virtual machine written in&nbsp;C.</p>
+<p>For the first im&shy;ple&shy;men&shy;ta&shy;tion, jlox,
+he covers such topics as scanning,
+parsing ex&shy;pres&shy;sions with recursive descent,
+evaluating ex&shy;pres&shy;sions, control flow,
+functions and closures, classes, and&nbsp;in&shy;her&shy;i&shy;tance.</p>
+<p>Starting with an empty slate,
+Nystrom adds just enough code to implement the topic
+of each chapter,
+having a working albeit incomplete im&shy;ple&shy;men&shy;ta&shy;tion of the in&shy;ter&shy;preter
+by the end of the chapter.
+He adds new code as he goes,
+inserting an extra <tt class="docutils literal">case</tt> into a <tt class="docutils literal">switch</tt> here
+or writing a new function there,
+or replacing a few lines of an earlier im&shy;ple&shy;men&shy;ta&shy;tion
+with something that&#8217;s just been explained.
+Knuth&#8217;s <a class="reference external" href="https://en.wikipedia.org/wiki/Literate_programming">Literate Pro&shy;gram&shy;ming</a> explains a finished im&shy;ple&shy;men&shy;ta&shy;tion,
+broken into separate pieces for exposition.
+Nystrom&#8217;s continual, ever-evolving exposition is slower to get to the point,
+but it&#8217;s excellent pedagogy.
+I would be remiss if I didn&#8217;t mention the hundreds of hand-drawn il&shy;lus&shy;tra&shy;tions,
+which add a quirky flavor to the tone of the book.
+He has a blog post on how he <a class="reference external" href="http://journal.stuffwithstuff.com/2020/04/05/crafting-crafting-interpreters/">pulled this or&shy;ga&shy;ni&shy;za&shy;tion off</a>
+and another on how he created a <a class="reference external" href="http://journal.stuffwithstuff.com/2021/07/29/640-pages-in-15-months/">physical book</a> from the&nbsp;text.</p>
+<p>clox is a very different second im&shy;ple&shy;men&shy;ta&shy;tion of a Lox in&shy;ter&shy;preter.
+Instead of a slow in&shy;ter&shy;preter walking an abstract syntax tree,
+he develops a stack-based virtual machine,
+compiles Lox into bytecode,
+and interprets the bytecode.
+He covers theory and practical con&shy;sid&shy;er&shy;a&shy;tions
+for creating a bytecode virtual machine,
+makes use of Pratt’s “top-down operator precedence parsing”,
+and implements closures and classes in C.
+In jlox, he used Java&#8217;s <tt class="docutils literal">HashMap</tt> to manage iden&shy;ti&shy;fiers
+and relied on Java&#8217;s garbage collection for memory management.
+For clox, he implements a hash table and a mark-and-sweep garbage collector.
+Although he has to cover similar topics (parsing, local variables, closures) each time,
+he finds a fresh per&shy;spec&shy;tive for the second&nbsp;im&shy;ple&shy;men&shy;ta&shy;tion.</p>
+<p>I read the entire book for free at <a class="reference external" href="https://craftinginterpreters.com/">https://crafting&shy;in&shy;ter&shy;preters.com/</a>,
+but I liked it so much that I&#8217;ve ordered a physical copy.
+In fact, I actually read much of the book on the website in 2020,
+but life intervened and I didn&#8217;t finish it,
+so this month, I read it again from the&nbsp;start.</p>
+<p>This book is not a textbook and you don&#8217;t get an exhaustive in&shy;tro&shy;duc&shy;tion
+to building in&shy;ter&shy;preters, much less compilers.
+In the final year of my Computer Science degree at Trinity College Dublin in 1986–87,
+I studied the <a class="reference external" href="https://en.wikipedia.org/wiki/Compilers:_Principles,_Techniques,_and_Tools">Dragon Book</a> when the first edition was brand new.
+<em>Crafting In&shy;ter&shy;preters</em> is a lot more fun than the Dragon&nbsp;Book.</p>
+<p>Highly&nbsp;rec&shy;om&shy;mend&shy;ed!</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>
+                    and
+                    
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "https://www.georgevreilly.com/blog/2021/12/28/ReviewCraftingInterpreters.html";
+            var disqus_url = "https://www.georgevreilly.com/blog/2021/12/28/ReviewCraftingInterpreters.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="https://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+
+
+    
+    
+        <a href="/blog/2021/10/05/PathTraversalAttacks.html" class="page floatright">
+        Path Traversal Attacks &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

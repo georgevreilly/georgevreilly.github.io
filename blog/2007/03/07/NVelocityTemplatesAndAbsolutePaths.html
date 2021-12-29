@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: https://www.codegeneration.net/logos/nv..." />
-    <meta name="keywords" content=".NET, c" />
+    <meta name="keywords" content=".NET, c#" />
 </head>
 <body>
   <header>
@@ -42,13 +42,15 @@ out how to get it working with an absolute path to the template file,
 instead of the relative path shown in the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/usingit.html">doc&shy;u&shy;men&shy;ta&shy;tion</a>.</p>
 <p>The trick is to set <tt class="docutils literal">file.resource.loader.path</tt>.
 Here&#8217;s how to load <tt class="docutils literal"><span class="pre">C:\foo\bar\&shy;some&shy;file.vm</span></tt>:</p>
-<pre class="code csharp literal-block">
-<span class="n">ExtendedProperties</span> <span class="n">props</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ExtendedProperties</span><span class="p">();</span>
-<span class="n">props</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;file.resource.loader.path&quot;</span><span class="p">,</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="p">(</span><span class="k">new</span> <span class="kt">string</span><span class="p">[]{</span><span class="s">&quot;.&quot;</span><span class="p">,</span> <span class="s">&quot;C:\\&quot;</span><span class="p">}));</span>
-<span class="n">velocity</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">props</span><span class="p">);</span>
 
-<span class="n">template</span> <span class="p">=</span> <span class="n">velocity</span><span class="p">.</span><span class="n">GetTemplate</span><span class="p">(</span><span class="s">&quot;foo\\bar\\somefile.vm&quot;</span><span class="p">);</span>
+<pre class="brush: csharp">
+ExtendedProperties props = new ExtendedProperties();
+props.AddProperty("file.resource.loader.path", new ArrayList(new string[]{".", "C:\\"}));
+velocity.Init(props);
+
+template = velocity.GetTemplate("foo\\bar\\somefile.vm");
 </pre>
+
 
     <footer>
         
@@ -57,7 +59,7 @@ Here&#8217;s how to load <tt class="docutils literal"><span class="pre">C:\foo\b
                 <a href="/tag/net/" rel="tag">.NET</a>
                     and
                     
-                <a href="/tag/c/" rel="tag">c</a>
+                <a href="/tag/c/" rel="tag">c#</a>
                 
             </p>
         

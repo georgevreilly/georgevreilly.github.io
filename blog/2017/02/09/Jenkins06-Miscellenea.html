@@ -55,42 +55,39 @@ The <tt class="docutils literal">+<span class="caps">WHATEVER</span></tt> has no
 <h2>Cre&shy;den&shy;tials</h2>
 <p>The <tt class="docutils literal">withEnv</tt> step should not be used to introduce secrets into the build en&shy;vi&shy;ron&shy;ment.
 Use the <a class="reference external" href="https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin">with&shy;Cre&shy;den&shy;tials</a> plugin&nbsp;instead.</p>
-<pre class="code groovy literal-block">
-<span class="n">withCredentials</span><span class="o">([</span>
-    <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">'StringBinding'</span><span class="o">,</span> <span class="nl">credentialsId:</span> <span class="s1">'GPG_SECRET'</span><span class="o">,</span> <span class="nl">variable:</span> <span class="s1">'GPG_SECRET'</span><span class="o">],</span>
-    <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">'AmazonWebServicesCredentialsBinding'</span><span class="o">,</span>
-     <span class="nl">credentialsId:</span> <span class="s1">'0defaced-cafe-f00d-badd-0000000ff1ce'</span><span class="o">,</span>
-     <span class="nl">accessKeyVariable:</span> <span class="s1">'AWS_ACCESS_KEY_ID'</span><span class="o">,</span>
-     <span class="nl">secretKeyVariable:</span> <span class="s1">'AWS_SECRET_ACCESS_KEY'</span><span class="o">]</span>
+<div class="highlight"><pre><span></span><span class="n">withCredentials</span><span class="o">([</span>
+    <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">&#39;StringBinding&#39;</span><span class="o">,</span> <span class="nl">credentialsId:</span> <span class="s1">&#39;GPG_SECRET&#39;</span><span class="o">,</span> <span class="nl">variable:</span> <span class="s1">&#39;GPG_SECRET&#39;</span><span class="o">],</span>
+    <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">&#39;AmazonWebServicesCredentialsBinding&#39;</span><span class="o">,</span>
+     <span class="nl">credentialsId:</span> <span class="s1">&#39;0defaced-cafe-f00d-badd-0000000ff1ce&#39;</span><span class="o">,</span>
+     <span class="nl">accessKeyVariable:</span> <span class="s1">&#39;AWS_ACCESS_KEY_ID&#39;</span><span class="o">,</span>
+     <span class="nl">secretKeyVariable:</span> <span class="s1">&#39;AWS_SECRET_ACCESS_KEY&#39;</span><span class="o">]</span>
 <span class="o">])</span> <span class="o">{</span>
-</pre>
+</pre></div>
 <p>Tip: Use the Pipeline Syntax Snippet Generator from <em>your</em> Jenkins project
 to figure out the exact invocation for your&nbsp;cre&shy;den&shy;tials.</p>
 <p>If you need to display en&shy;vi&shy;ron&shy;ment variables for debugging purposes,
 you can use something like this Python script instead of <tt class="docutils literal">sh 'env | sort'</tt>,
 which can leave secrets in cleartext in your logs.
 Note that <tt class="docutils literal">with&shy;Cre&shy;den&shy;tials</tt> will mask values that it knows&nbsp;about.</p>
-<pre class="code python literal-block">
-<span class="ch">#!/usr/bin/env python</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
 
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">re</span>
 
-<span class="n">BLOCKLIST_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^(.*_)?(<span class="caps">PASSWORD</span>|<span class="caps">AUTH</span>|<span class="caps">TOKEN</span>|<span class="caps">SECRET</span>|<span class="caps">KEY</span>)(_.*)?$'</span><span class="p">)</span>
+<span class="n">BLOCKLIST_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^(.*_)?(<span class="caps">PASSWORD</span>|<span class="caps">AUTH</span>|<span class="caps">TOKEN</span>|<span class="caps">SECRET</span>|<span class="caps">KEY</span>)(_.*)?$&#39;</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
     <span class="n">v</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">BLOCKLIST_RE</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
-        <span class="n">v</span> <span class="o">=</span> <span class="s1">'*</span><span class="si">{}{}{}</span><span class="s1">*'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">'</span><span class="si">{}</span><span class="s1">=</span><span class="si">{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
-</pre>
+        <span class="n">v</span> <span class="o">=</span> <span class="s1">&#39;*</span><span class="si">{}{}{}</span><span class="s1">*&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+</pre></div>
 </div>
 <div class="section" id="cleaning-up-workspaces">
 <h2>Cleaning Up&nbsp;Workspaces</h2>
 <p>You may need to clean up your workspace.
 <a class="reference external" href="../jenkins-03-github-integration/">Don&#8217;t remove the .git directory</a>.</p>
-<pre class="code groovy literal-block">
-<span class="n">sh</span> <span class="s2">&quot;ls -A1 | grep -v &quot;</span><span class="o">^</span><span class="err">\\</span><span class="o">.</span><span class="na">git</span><span class="err">\</span><span class="n">$</span><span class="s2">&quot; | xargs rm -rf&quot;</span>
-</pre>
+<div class="highlight"><pre><span></span><span class="n">sh</span> <span class="s2">&quot;ls -A1 | grep -v &quot;</span><span class="o">^</span><span class="err">\\</span><span class="o">.</span><span class="na">git</span><span class="err">\</span><span class="n">$</span><span class="s2">&quot; | xargs rm -rf&quot;</span>
+</pre></div>
 <ul class="simple">
 <li><tt class="docutils literal">ls <span class="pre">-A1</span></tt> lists all the files and di&shy;rec&shy;to&shy;ries in the current directory,
 except <tt class="docutils literal">.</tt> and <tt class="docutils literal">..</tt>, one per&nbsp;line.</li>
@@ -120,17 +117,15 @@ and <tt class="docutils literal">unstash</tt> is the easiest way to prime the&nb
 <p>If you need to transfer artifacts between different builds,
 you&#8217;ll need to use <tt class="docutils literal">archiveArti&shy;facts</tt> and <tt class="docutils literal">Cop&shy;y&shy;Arti&shy;fact</tt>.</p>
 <p>In project <tt class="docutils literal"><span class="pre">build-1</span></tt>:</p>
-<pre class="code groovy literal-block">
-<span class="n">archiveArtifacts</span> <span class="nl">artifacts:</span> <span class="s1">'my_artifact.zip'</span><span class="o">,</span> <span class="nl">fingerprint:</span> <span class="kc">true</span>
-</pre>
+<div class="highlight"><pre><span></span><span class="n">archiveArtifacts</span> <span class="nl">artifacts:</span> <span class="s1">&#39;my_artifact.zip&#39;</span><span class="o">,</span> <span class="nl">fingerprint:</span> <span class="kc">true</span>
+</pre></div>
 <p>In project <tt class="docutils literal"><span class="pre">build-2</span></tt>:</p>
-<pre class="code groovy literal-block">
-<span class="n">step</span> <span class="o">([</span><span class="n">$class</span><span class="o">:</span> <span class="s1">'CopyArtifact'</span><span class="o">,</span>
-       <span class="nl">projectName:</span> <span class="s1">'build-1'</span><span class="o">,</span>
-       <span class="nl">filter:</span> <span class="s1">'my_artifact.zip'</span><span class="o">,</span>
-       <span class="nl">selector:</span> <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">'StatusBuildSelector'</span><span class="o">]</span>
+<div class="highlight"><pre><span></span><span class="n">step</span> <span class="o">([</span><span class="n">$class</span><span class="o">:</span> <span class="s1">&#39;CopyArtifact&#39;</span><span class="o">,</span>
+       <span class="nl">projectName:</span> <span class="s1">&#39;build-1&#39;</span><span class="o">,</span>
+       <span class="nl">filter:</span> <span class="s1">&#39;my_artifact.zip&#39;</span><span class="o">,</span>
+       <span class="nl">selector:</span> <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">&#39;StatusBuildSelector&#39;</span><span class="o">]</span>
       <span class="o">]);</span>
-</pre>
+</pre></div>
 <p>Note that the <tt class="docutils literal">Sta&shy;tus&shy;Build&shy;S&shy;e&shy;lec&shy;tor</tt> selector is picking the artifact
 from the last successful build of <tt class="docutils literal"><span class="pre">build-1</span></tt>.</p>
 <p>You can find the various selectors in the <a class="reference external" href="https://github.com/jenkinsci/copyartifact-plugin/tree/master/src/main/java/hudson/plugins/copyartifact">Cop&shy;y&shy;Arti&shy;fact source</a>.
@@ -150,13 +145,12 @@ If you dig into the tests, you can probably figure out how to use the other&nbsp
 This is so useful that it should be the&nbsp;default.</p>
 <p>The <tt class="docutils literal">ansiColor</tt> plugin will generate transform colored console output
 into colored log&nbsp;output.</p>
-<pre class="code groovy literal-block">
-<span class="n">node</span><span class="o">(</span><span class="s1">'ubuntu'</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight"><pre><span></span><span class="n">node</span><span class="o">(</span><span class="s1">&#39;ubuntu&#39;</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">timestamps</span> <span class="o">{</span>
-        <span class="n">ansiColor</span><span class="o">(</span><span class="s1">'xterm'</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ansiColor</span><span class="o">(</span><span class="s1">&#39;xterm&#39;</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Source Checkout&quot;</span><span class="o">)</span> <span class="o">{</span>
                 <span class="n">checkout</span> <span class="n">scm</span>
-</pre>
+</pre></div>
 </div>
 <div class="section" id="job-debugging">
 <h3>Job&nbsp;Debugging</h3>

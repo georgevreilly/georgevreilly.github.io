@@ -50,35 +50,37 @@ I&#8217;m calling my version <a class="reference external" href="/Python/py2cmd/
 you want to run and give it the same basename;
 i.e., <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.cmd</tt>
 will run <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.py</tt>.</p>
-<pre class="code batch literal-block">
-<span class="p">&#64;</span><span class="k">echo</span> off
-<span class="k">setlocal</span>
-<span class="k">set</span> <span class="nv">PythonExe</span><span class="p">=</span>
-<span class="k">set</span> <span class="nv">PythonExeFlags</span><span class="p">=</span>-u
 
-<span class="k">for</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span>cmd bat exe<span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
-    <span class="k">for</span> <span class="se">%%</span>j <span class="k">in</span> <span class="p">(</span>python.<span class="se">%%</span>i<span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
-        <span class="k">call</span> <span class="p">:</span><span class="nl">SetPythonExe</span> <span class="s2">&quot;</span><span class="se">%%</span><span class="s2">~$<span class="caps">PATH</span>:j&quot;</span>
-    <span class="p">)</span>
-<span class="p">)</span>
-<span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;tokens=2 delims==&quot;</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="s1">'assoc .py'</span><span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
-    <span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;tokens=2 delims==&quot;</span> <span class="se">%%</span>j <span class="k">in</span> <span class="p">(</span><span class="s1">'ftype </span><span class="se">%%</span><span class="s1">i'</span><span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
-        <span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;tokens=1&quot;</span> <span class="se">%%</span>k <span class="k">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">%%</span><span class="s2">j&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
-            <span class="k">call</span> <span class="p">:</span><span class="nl">SetPythonExe</span> <span class="se">%%</span>k
-        <span class="p">)</span>
-    <span class="p">)</span>
-<span class="p">)</span>
-<span class="s2">&quot;</span><span class="nv">%PythonExe%</span><span class="s2">&quot;</span> <span class="nv">%PythonExeFlags%</span> <span class="s2">&quot;</span><span class="nv">%~dpn0</span><span class="s2">.py&quot;</span> <span class="nv">%*</span>
-<span class="k">goto</span> <span class="p">:</span><span class="nl"><span class="caps">EOF</span></span>
+<pre class="brush: batch">
+@echo off
+setlocal
+set PythonExe=
+set PythonExeFlags=-u
 
-<span class="p">:</span><span class="nl">SetPythonExe</span>
-<span class="k">if</span> <span class="k">not</span> [<span class="nv">%1</span>]<span class="o">==</span>[<span class="s2">&quot;&quot;</span>] <span class="p">(</span>
-    <span class="k">if</span> [<span class="s2">&quot;</span><span class="nv">%PythonExe%</span><span class="s2">&quot;</span>]<span class="o">==</span>[<span class="s2">&quot;&quot;</span>] <span class="p">(</span>
-        <span class="k">set</span> <span class="nv">PythonExe</span><span class="p">=</span><span class="nv">%~1</span>
-    <span class="p">)</span>
-<span class="p">)</span>
-<span class="k">goto</span> <span class="p">:</span><span class="nl"><span class="caps">EOF</span></span>
+for %%i in (cmd bat exe) do (
+    for %%j in (python.%%i) do (
+        call :SetPythonExe "%%~$PATH:j"
+    )
+)
+for /f "tokens=2 delims==" %%i in ('assoc .py') do (
+    for /f "tokens=2 delims==" %%j in ('ftype %%i') do (
+        for /f "tokens=1" %%k in ("%%j") do (
+            call :SetPythonExe %%k
+        )
+    )
+)
+"%PythonExe%" %PythonExeFlags% "%~dpn0.py" %*
+goto :EOF
+
+:SetPythonExe
+if not [%1]==[""] (
+    if ["%PythonExe%"]==[""] (
+        set PythonExe=%~1
+    )
+)
+goto :EOF
 </pre>
+
 <p>This is suf&shy;fi&shy;cient&shy;ly cryptic that it merits some&nbsp;ex&shy;pla&shy;na&shy;tion.</p>
 <p>The first set of nested loops attempts to find
 <tt class="docutils literal">python.cmd</tt>, <tt class="docutils literal">python.bat</tt>, and <tt class="docutils literal">python.exe</tt>, re&shy;spec&shy;tive&shy;ly,

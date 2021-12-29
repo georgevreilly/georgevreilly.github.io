@@ -28,6 +28,42 @@
     
         <article>
     <header>
+        <time datetime="2006-09-28">2006-09-28</time>
+        <h1>
+            <a href="/blog/2006/09/28/GregoiresChutzpah.html" rel="bookmark canonical">Gregoire's Chutzpah</a>
+        </h1>
+    </header>
+    
+<p>In the past few weeks, I&#8217;ve received not one but two letters from
+Christine Gregoire, the governor of Washington State, looking for support in
+re-electing her. The thing is, is that she&#8217;s running in 2008, not&nbsp;2006.</p>
+<p>I threw away the first one. On the second one, I wrote something like this
+and mailed it&nbsp;back:</p>
+<blockquote>
+If this had come in December, I have been willing to support you.
+But not six weeks from a high-stakes election. What the <em>hell</em> are you
+thinking? Don&#8217;t bother me again before 2008.</blockquote>
+<p>Sheer idiocy. Why would anyone send her money at the moment,
+instead of making donations towards the mid-term&nbsp;elections?</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/09/28/GregoiresChutzpah.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/politics/" rel="tag">politics</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-09-27">2006-09-27</time>
         <h1>
             <a href="/blog/2006/09/27/TortureYourSenators.html" rel="bookmark canonical">Torture your senators</a>
@@ -112,16 +148,17 @@ wasn&#8217;t making any progress and that my dual-proc system was stuck at 50%
 and found that it was stuck in the following infinite loop
 (dis&shy;as&shy;sem&shy;bly courtesy of <a class="reference external" href="http://www.aisto.com/roeder/dotnet/">Reflector</a>):</p>
 
-<pre class="code csharp literal-block">
-<span class="k">internal</span> <span class="k">void</span> <span class="n">System</span><span class="p">.</span><span class="n">EnterpriseServices</span><span class="p">.</span><span class="n">CatalogSync</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">_set</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">RegistryKey</span> <span class="n">key1</span>
-      <span class="p">=</span> <span class="n">Registry</span><span class="p">.</span><span class="n">LocalMachine</span><span class="p">.</span><span class="n">OpenSubKey</span><span class="p">(</span><span class="s">&#64;&quot;<span class="caps">SOFTWARE</span>\Classes\<span class="caps">CLSID</span>&quot;</span><span class="p">);</span>
-    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
-    <span class="p">{</span>
-      <span class="kt">int</span> <span class="n">num1</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">key1</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="s">&quot;CLBVersion&quot;</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
+
+<pre class="brush: csharp">
+internal void System.EnterpriseServices.CatalogSync.Wait()
+{
+  if (this._set)
+  {
+    RegistryKey key1
+      = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\CLSID");
+    while (true)
+    {
+      int num1 = (int) key1.GetValue("CLBVersion", 0);
  </pre><span>&#8230;<a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" class="continue">continue</a>.</span>
     <footer>
         
@@ -129,7 +166,10 @@ and found that it was stuck in the following infinite loop
         
         
             <p>tagged as
-                <a href="/tag/c/" rel="tag">c</a>
+                <a href="/tag/c/" rel="tag">c#</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
                 
             </p>
         
@@ -368,43 +408,6 @@ We used the name of the&nbsp;assembly.</p>
         
             <p>tagged as
                 <a href="/tag/net/" rel="tag">.NET</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-08-18">2006-08-18</time>
-        <h1>
-            <a href="/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html" rel="bookmark canonical">Posting to dasBlog with Windows Live Writer</a>
-        </h1>
-    </header>
-    <p>From Scott Hanselman,
-I learned about Microsoft&#8217;s new blog posting client, <a class="reference external" href="/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html/http%3a%2f%2fwww.hanselman.com%2fblog%2fWindowsLiveWriterAndDasBlog19.aspx">Windows Live Writer</a>.
-I&#8217;ve played around with it and it&#8217;s definitely the nicest free blogging client that I&#8217;ve&nbsp;used.</p>
-<p>Here are in&shy;struc&shy;tions on con&shy;fig&shy;ur&shy;ing it to post to dasBlog.
-I&#8217;m showing how to set it up for <a class="reference external" href="/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html/http%3a%2f%2fwww.emmabart.com%2fMeanderings%2f">Emma&#8217;s blog</a>, since she&#8217;s running dasBlog 1.8.
-I&#8217;m running a recent build of the as-yet unreleased dasBlog 1.9,
-which supports Really Simple Discovery,
-which makes the first part of this exercise simpler,
-as <span class="caps">WLW</span> can infer that it&#8217;s dealing with Metaweblog <span class="caps">API</span>,
-just by pointing it at the root of the&nbsp;blog.</p>
-<p>Launch <span class="caps">WLW</span> and Add a Weblog Account.
-Choose Another weblog&nbsp;service.</p>
-
-<p>Next, enter the <span class="caps">URL</span> <span>&#8230;<a href="/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/dasblog/" rel="tag">dasblog</a>
                 
             </p>
         

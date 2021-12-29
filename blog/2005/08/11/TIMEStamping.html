@@ -46,8 +46,7 @@ And I write quite a few little batch&nbsp;files.</p>
 By combining the magic <tt class="docutils literal">%<span class="caps">DATE</span>%</tt> and <tt class="docutils literal">%<span class="caps">TIME</span>%</tt> en&shy;vi&shy;ron&shy;ment variables,
 with <tt class="docutils literal">for /f</tt> and a little bit of string sub&shy;sti&shy;tu&shy;tion,
 I can create that&nbsp;filename.</p>
-<pre class="code winbatch literal-block">
-<span class="c1"><span class="caps">REM</span></span>
+<div class="highlight"><pre><span></span><span class="c1"><span class="caps">REM</span></span>
 <span class="c1"><span class="caps">REM</span> &quot;Tue 06/14/2005&quot; -&gt; &quot;06/14/2005&quot;</span>
 <span class="c1"><span class="caps">REM</span></span>
 <span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;tokens=2&quot;</span>              <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="nv">%<span class="caps">DATE</span>%</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="k">set</span> <span class="nv"><span class="caps">MDY</span></span><span class="p">=</span><span class="se">%%</span>i
@@ -64,21 +63,20 @@ I can create that&nbsp;filename.</p>
 <span class="k">set</span> <span class="nv"><span class="caps">HM</span></span><span class="p">=</span><span class="nv">%<span class="caps">HM</span>: =0%</span>
 
 xcopy /yf <span class="nv">%1</span> <span class="nv">%<span class="caps">YMD</span>%</span>_<span class="nv">%<span class="caps">HM</span>%</span>.bak
-</pre>
+</pre></div>
 <p>See <tt class="docutils literal">for /?</tt> and <tt class="docutils literal">set /?</tt> to explain everything that the comments&nbsp;don&#8217;t.</p>
 </div>
 <div class="section" id="timing-operations">
 <h2>Timing&nbsp;Operations</h2>
 <p>Sometimes it&#8217;s useful to time&nbsp;operations.</p>
-<pre class="code winbatch literal-block">
-<span class="p">&#64;</span><span class="k">setlocal</span>
-<span class="p">&#64;</span><span class="k">if</span> (<span class="nv">%_echo%</span>)<span class="o">==</span>()  <span class="k">set</span> <span class="nv">_echo</span><span class="p">=</span>off
-<span class="p">&#64;</span><span class="k">echo</span> <span class="nv">%_echo%</span>
+<div class="highlight"><pre><span></span><span class="p">@</span><span class="k">setlocal</span>
+<span class="p">@</span><span class="k">if</span> (<span class="nv">%_echo%</span>)<span class="o">==</span>()  <span class="k">set</span> <span class="nv">_echo</span><span class="p">=</span>off
+<span class="p">@</span><span class="k">echo</span> <span class="nv">%_echo%</span>
 
 <span class="k">call</span> <span class="p">:</span><span class="nl">time</span> T1
 <span class="k">set</span> <span class="nv">T2</span><span class="p">=</span><span class="nv">%T1%</span>
 <span class="k">set</span> <span class="nv">Iter</span><span class="p">=</span>0
-<span class="p">&#64;</span><span class="k">echo</span> T1 = <span class="nv">%T1%</span>
+<span class="p">@</span><span class="k">echo</span> T1 = <span class="nv">%T1%</span>
 
 <span class="p">:</span><span class="nl">repeat</span>
 CostlyOperation.exe
@@ -87,7 +85,7 @@ CostlyOperation.exe
 <span class="k">set</span> <span class="k">/A</span> <span class="nv">DeltaT</span><span class="o">=%</span><span class="nv">T2% - %T1</span><span class="o">%</span>
 <span class="k">set</span> <span class="k">/A</span> <span class="nv">Iter</span><span class="o">=%</span><span class="nv">Iter</span><span class="o">%</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="k">set</span> <span class="k">/A</span> <span class="nv">Avg</span><span class="o">=%</span><span class="nv">DeltaT% / %Iter</span><span class="o">%</span>
-<span class="p">&#64;</span><span class="k">echo</span> DeltaT = <span class="nv">%DeltaT%</span>, Avg = <span class="nv">%Avg%</span>, Iter = <span class="nv">%Iter%</span>, T2 = <span class="nv">%T2%</span>
+<span class="p">@</span><span class="k">echo</span> DeltaT = <span class="nv">%DeltaT%</span>, Avg = <span class="nv">%Avg%</span>, Iter = <span class="nv">%Iter%</span>, T2 = <span class="nv">%T2%</span>
 <span class="k">goto</span> <span class="p">:</span><span class="nl">repeat</span>
 
 
@@ -98,7 +96,7 @@ CostlyOperation.exe
 <span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;delims=: tokens=3&quot;</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="nv">%<span class="caps">TT</span>%</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="k">do</span> <span class="k">set</span> <span class="nv">sec</span><span class="p">=</span>1<span class="se">%%</span>i
 <span class="k">set</span> <span class="k">/A</span> <span class="o">%</span><span class="mi">1</span><span class="o">=</span><span class="mi">3600</span> <span class="o">*</span> <span class="o">%</span><span class="nv">hrs%  +  60 * (%min%-100)  +  (%sec</span><span class="o">%-</span><span class="mi">100</span><span class="p">)</span>
 <span class="k">goto</span> <span class="p">:</span><span class="nl"><span class="caps">EOF</span></span>
-</pre>
+</pre></div>
 <p>The <tt class="docutils literal">:time</tt> subroutine calculates the number of seconds that have elapsed today.
 The business with 100 is to handle the case that <tt class="docutils literal">min</tt> or <tt class="docutils literal">sec</tt> is <tt class="docutils literal">08</tt> or <tt class="docutils literal">09</tt>,
 which Cmd&#8217;s expression evaluator considers to be malformed <a class="reference external" href="http://weblogs.asp.net/george_v_reilly/archive/2004/12/13.aspx">octal</a>.</p>

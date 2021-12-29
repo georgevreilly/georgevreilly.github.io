@@ -57,22 +57,21 @@ The blocks that follow many Pipeline steps (<tt class="docutils literal">node</t
 <p>Here&#8217;s an example of a <tt class="docutils literal">Closure</tt> called <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt>,
 where the <tt class="docutils literal">re&shy;lease_lev&shy;el</tt> parameter is a <tt class="docutils literal">String</tt>
 which must be either <tt class="docutils literal">&quot;dev&quot;</tt> or <tt class="docutils literal">&quot;prod&quot;</tt>.</p>
-<pre class="code groovy literal-block">
-<span class="kt">def</span> <span class="n">acceptance_integration_tests</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span> <span class="n">release_level</span> <span class="o">-&gt;</span>
+<div class="highlight"><pre><span></span><span class="kt">def</span> <span class="n">acceptance_integration_tests</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span> <span class="n">release_level</span> <span class="o">-&gt;</span>
     <span class="k">assert</span> <span class="n">release_level</span> <span class="o">=~</span> <span class="s">/^(dev|prod)$/</span>
     <span class="n">String</span> <span class="n">arg</span> <span class="o">=</span> <span class="s2">&quot;--${release_level}&quot;</span>
 
     <span class="kt">def</span> <span class="n">branches</span> <span class="o">=</span> <span class="o">[</span>
         <span class="s2">&quot;${release_level}_acceptance_tests&quot;</span><span class="o">:</span> <span class="o">{</span>
-            <span class="n">run_tests</span><span class="o">(</span><span class="s2">&quot;ci_acceptance_test&quot;</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">'**/*nosetests.xml'</span><span class="o">)</span>
+            <span class="n">run_tests</span><span class="o">(</span><span class="s2">&quot;ci_acceptance_test&quot;</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">&#39;**/*nosetests.xml&#39;</span><span class="o">)</span>
         <span class="o">},</span>
         <span class="s2">&quot;${release_level}_integration_tests&quot;</span><span class="o">:</span> <span class="o">{</span>
-            <span class="n">run_tests</span><span class="o">(</span><span class="s2">&quot;ci_integration_test&quot;</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">'**/*nosetests.xml'</span><span class="o">)</span>
+            <span class="n">run_tests</span><span class="o">(</span><span class="s2">&quot;ci_integration_test&quot;</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">&#39;**/*nosetests.xml&#39;</span><span class="o">)</span>
         <span class="o">}</span>
     <span class="o">]</span>
     <span class="n">parallel</span> <span class="n">branches</span>
 <span class="o">}</span>
-</pre>
+</pre></div>
 <p>We create a <tt class="docutils literal">Map</tt> called <tt class="docutils literal">branches</tt> with dy&shy;nam&shy;i&shy;cal&shy;ly named keys,
 such as <tt class="docutils literal">&quot;prod_in&shy;te&shy;gra&shy;tion_tests&quot;</tt>,
 thanks to <tt class="docutils literal">GString</tt> in&shy;ter&shy;po&shy;la&shy;tion.
@@ -81,13 +80,12 @@ where <tt class="docutils literal">arg</tt> is bound to <tt class="docutils lite
 <p>The <tt class="docutils literal">branches</tt> map is passed to Pipeline&#8217;s <tt class="docutils literal">parallel</tt> command,
 which causes the two <tt class="docutils literal">run_tests</tt> closures to be executed
 on two different&nbsp;ex&shy;ecu&shy;tors—even&shy;tu&shy;al&shy;ly.</p>
-<pre class="code groovy literal-block">
-<span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Deploy to Dev&quot;</span><span class="o">)</span> <span class="o">{</span> <span class="n">deploy</span> <span class="s2">&quot;dev&quot;</span> <span class="o">}</span>
+<div class="highlight"><pre><span></span><span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Deploy to Dev&quot;</span><span class="o">)</span> <span class="o">{</span> <span class="n">deploy</span> <span class="s2">&quot;dev&quot;</span> <span class="o">}</span>
 <span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Dev Tests&quot;</span><span class="o">)</span> <span class="o">{</span> <span class="n">acceptance_integration_tests</span> <span class="s2">&quot;dev&quot;</span> <span class="o">}</span>
 
 <span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Deploy to Prod&quot;</span><span class="o">)</span> <span class="o">{</span> <span class="n">deploy</span> <span class="s2">&quot;prod&quot;</span> <span class="o">}</span>
 <span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Prod Tests&quot;</span><span class="o">)</span> <span class="o">{</span> <span class="n">acceptance_integration_tests</span> <span class="s2">&quot;prod&quot;</span> <span class="o">}</span>
-</pre>
+</pre></div>
 <p>The <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt> closure is used in two different <tt class="docutils literal">stage</tt>s.
 Each <tt class="docutils literal">stage</tt> is passed an anonymous closure,
 which invokes the parallel tests at a suitable&nbsp;time.</p>
@@ -124,20 +122,19 @@ You must, however, return se&shy;ri&shy;al&shy;iz&shy;able objects from such a&n
 CloudBees hosts our Jenkins builds, so this was not available to&nbsp;us.</p>
 <p>I spent a ridiculous amount of time
 trying to get this apparently straight&shy;for&shy;ward code to&nbsp;work:</p>
-<pre class="code groovy literal-block">
-<span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="n">compute_build_label</span><span class="o">(</span>
+<div class="highlight"><pre><span></span><span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="n">compute_build_label</span><span class="o">(</span>
     <span class="k">new</span> <span class="nf">Date</span><span class="o">(),</span> <span class="n">env</span><span class="o">.</span><span class="na">GIT_LOCAL_BRANCH</span><span class="o">,</span> <span class="n">env</span><span class="o">.</span><span class="na">BUILD_NUMBER</span><span class="o">,</span> <span class="n">env</span><span class="o">.</span><span class="na">GIT_COMMIT</span><span class="o">)</span>
 
 <span class="kt">def</span> <span class="nf">compute_build_label</span><span class="o">(</span>
     <span class="n">Date</span> <span class="n">build_date</span><span class="o">,</span> <span class="n">String</span> <span class="n">branch_name</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">build_number</span><span class="o">,</span> <span class="n">String</span> <span class="n">git_sha</span><span class="o">)</span>
 <span class="o">{</span>
-    <span class="n">String</span> <span class="n">date</span> <span class="o">=</span> <span class="n">build_date</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s2">&quot;yyyyMMdd't'HHmm'z'&quot;</span><span class="o">,</span> <span class="n">TimeZone</span><span class="o">.</span><span class="na">getTimeZone</span><span class="o">(</span><span class="s1">'<span class="caps">UTC</span>'</span><span class="o">))</span>
+    <span class="n">String</span> <span class="n">date</span> <span class="o">=</span> <span class="n">build_date</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s2">&quot;yyyyMMdd&#39;t&#39;HHmm&#39;z&#39;&quot;</span><span class="o">,</span> <span class="n">TimeZone</span><span class="o">.</span><span class="na">getTimeZone</span><span class="o">(</span><span class="s1">&#39;<span class="caps">UTC</span>&#39;</span><span class="o">))</span>
     <span class="n">String</span> <span class="n">branch</span> <span class="o">=</span> <span class="n">branch_name</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s2">&quot;/&quot;</span><span class="o">,</span> <span class="s2">&quot;-&quot;</span><span class="o">)</span>
     <span class="n">String</span> <span class="n">number</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s2">&quot;%05d&quot;</span><span class="o">,</span> <span class="n">build_number</span><span class="o">)</span>
     <span class="n">String</span> <span class="n">sha</span> <span class="o">=</span> <span class="n">git_sha</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">7</span><span class="o">)</span>
     <span class="k">return</span> <span class="s2">&quot;${date}-${branch}-b${number}-${sha}&quot;</span>
 <span class="o">}</span>
-</pre>
+</pre></div>
 <p>Here are just some of the reasons why this didn&#8217;t&nbsp;work:</p>
 <ul class="simple">
 <li><tt class="docutils literal">org.jenkinsci.plugins.script&shy;se&shy;cu&shy;ri&shy;ty.sandbox.Re&shy;jectedAc&shy;ces&shy;sEx&shy;cep&shy;tion:
@@ -158,12 +155,11 @@ cre&shy;at&shy;eRange</tt>.</li>
 <tt class="docutils literal">env.GIT_LO&shy;CAL_BRANCH</tt> and <tt class="docutils literal">env.GIT_COMMIT</tt> did not contain useful&nbsp;values.</li>
 </ul>
 <p>I ended up with&nbsp;this:</p>
-<pre class="code groovy literal-block">
-<span class="n">String</span> <span class="n">label</span> <span class="o">=</span> <span class="n">compute_build_label</span><span class="o">(</span>
-    <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s1">'date --utc +%Y%m%dt%H%Mz'</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">(),</span>
+<div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">label</span> <span class="o">=</span> <span class="n">compute_build_label</span><span class="o">(</span>
+    <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s1">&#39;date --utc +%Y%m%dt%H%Mz&#39;</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">(),</span>
     <span class="n">GIT_BRANCH</span><span class="o">,</span>
     <span class="n">env</span><span class="o">.</span><span class="na">BUILD_NUMBER</span><span class="o">,</span>
-    <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s1">'git rev-parse <span class="caps">HEAD</span>'</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">()</span>
+    <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s1">&#39;git rev-parse <span class="caps">HEAD</span>&#39;</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">()</span>
 <span class="o">)</span>
 
 <span class="n">String</span> <span class="nf">compute_build_label</span><span class="o">(</span>
@@ -174,7 +170,7 @@ cre&shy;at&shy;eRange</tt>.</li>
     <span class="n">String</span> <span class="n">sha</span> <span class="o">=</span> <span class="n">git_sha</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">7</span><span class="o">)</span>
     <span class="k">return</span> <span class="s2">&quot;${date}-${branch}-b${number}-${sha}&quot;</span>
 <span class="o">}</span>
-</pre>
+</pre></div>
 <p>I would have been better off writing an external&nbsp;script.</p>
 </div>
 </div>

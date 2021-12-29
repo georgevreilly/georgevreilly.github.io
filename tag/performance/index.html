@@ -37,11 +37,13 @@
 when the median test time jumped by two minutes.</p>
 <a class="reference external image-reference" href="https://www.bigocheatsheet.com/"></a>
 <p>We tracked it down to this (simplified) code fragment:</p>
-<pre class="code python literal-block">
-<span class="n">task_inclusions</span> <span class="o">=</span> <span class="p">[</span> <span class="n">some_collection_of_tasks</span><span class="p">()</span> <span class="p">]</span>
-<span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span>
-                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
+
+<pre class="brush: python">
+task_inclusions = [ some_collection_of_tasks() ]
+invalid_tasks = [t.task_id() for t in airflow_tasks
+                 if t.task_id() not in task_inclusions]
 </pre>
+
 <p>This looks fairly in&shy;nocu&shy;ous—and it was—until the size of the result returned from <tt class="docutils literal">some_&shy;col&shy;lec&shy;tion_of_&shy;tasks()</tt>
 jumped from a few hundred to a few thousand.</p>
 <p>The <a class="reference external" href="https://docs.python.org/3/reference/expressions.html#membership-test-operations">in comparison operator</a> con&shy;ve&shy;nient&shy;ly works
@@ -54,6 +56,50 @@ For a <tt class="docutils literal">list</tt> and other sequences,
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/performance/" rel="tag">performance</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2020-04-23">2020-04-23</time>
+        <h1>
+            <a href="/blog/2020/04/23/regex-32-problems.html" rel="bookmark canonical">Now You Have 32 Problems</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+<p>Some people, when confronted with a problem, think
+“I know, I'll use regular ex&shy;pres&shy;sions.”
+<a class="reference external" href="http://regex.info/blog/2006-09-15/247">Now they have two problems</a>.</p>
+<blockquote>
+— Jaime Zawinksi</blockquote>
+</blockquote>
+<p>A Twitter thread about <a class="reference external" href="https://twitter.com/nbashaw/status/1253186961482715136">very long regexes</a>
+reminded me of the <a class="reference external" href="/blog/2009/07/11/64bitWindows7.html">longest regex</a> that I ever ran afoul of,
+a par&shy;tic&shy;u&shy;lar&shy;ly horrible multilevel mess
+that had worked acceptably on the 32-bit .NET CLR,
+but brought the 64-bit CLR to its knees.</p>
+<blockquote>
+<p>Whenever I ran our ASP.NET web ap&shy;pli&shy;ca&shy;tion [on Win64],
+it would go berserk, eat up all 4GB of my physical RAM,
+push the working set of IIS's w3wp.exe to <em>12GB</em>,
+and max out one of my 4&nbsp;cores!
+The only way to maintain any sanity was to run <tt class="docutils literal">iisreset</tt>
+every 20&nbsp;minutes to <span>&#8230;<a href="/blog/2020/04/23/regex-32-problems.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/regex/" rel="tag">regex</a>
                     and
                     
                 <a href="/tag/performance/" rel="tag">performance</a>
@@ -229,20 +275,24 @@ Instead of <span>&#8230;<a href="/blog/2016/03/25/Profiling.html" class="continu
     </header>
     <p>The canonical <tt class="docutils literal">for</tt>-loop in C and C++ is written thus,
 counting up <tt class="docutils literal">i = 0</tt>, <tt class="docutils literal">i = 1</tt>, ..., <tt class="docutils literal">i = <span class="pre">N-1</span></tt>:</p>
-<pre class="code c++ literal-block">
-<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// loop body
-</span><span class="p">}</span>
+
+<pre class="brush: c++">
+for (int i=0; i &lt; N; i++) {
+    // loop body
+}
 </pre>
+
 <p>(In C, you have to declare <tt class="docutils literal">int i</tt> before the <tt class="docutils literal">for</tt>-loop.)</p>
 <p>Let's unpack that <tt class="docutils literal">for</tt>-loop into an equivalent <tt class="docutils literal">while</tt>-loop:</p>
-<pre class="code c++ literal-block">
-<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// loop body
-</span>    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
-<span class="p">}</span>
+
+<pre class="brush: c++">
+int i = 0;
+while (i &lt; N) {
+    // loop body
+    i = i + 1
+}
 </pre>
+
 <p>In other words, we initialize <tt class="docutils literal">i</tt> to zero.
 Then, before every execution of either loop,
 we check <tt class="docutils literal">i &lt; N</tt>.

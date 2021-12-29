@@ -28,6 +28,37 @@
     
         <article>
     <header>
+        <time datetime="2015-12-29">2015-12-29</time>
+        <h1>
+            <a href="/blog/2015/12/29/FreeEbooksFromSpringer.html" rel="bookmark canonical">Free ebooks from Springer</a>
+        </h1>
+    </header>
+    <p>Via <a class="reference external" href="https://news.ycombinator.com/item?id=10810271">Hacker News</a>,
+&quot;All Springer Textbooks More Than 10 Years Old Available for Free Legal&nbsp;Download&quot;.</p>
+<p>This includes books from Apress
+as well as a ton of those im&shy;pen&shy;e&shy;tra&shy;ble gray-and-red
+Lecture Notes in Computer Science&nbsp;books.</p>
+<p><strong>Update 2015-12-30</strong>: No longer available.
+Springer aren&#8217;t commenting. Presumably a&nbsp;mistake.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/29/FreeEbooksFromSpringer.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-12-28">2015-12-28</time>
         <h1>
             <a href="/blog/2015/12/28/ReviewStarWarsTheForceAwakens.html" rel="bookmark canonical">Review: Star Wars VII: The Force Awakens</a>
@@ -247,15 +278,18 @@ The script upgrades Docker when it&#8217;s first run.
 The script may be run more than once during the lifetime of the agent,
 so the second and subsequent calls should not upgrade&nbsp;Docker.</p>
 <p>Basically, I&nbsp;wanted</p>
-<pre class="code bash literal-block">
-<span class="k">if</span> <span class="nv">$DOCKER_VERSION</span> &lt; <span class="m">1</span>.9<span class="p">;</span> <span class="k">then</span> upgrade_docker<span class="p">;</span> <span class="k">fi</span>
+
+<pre class="brush: bash">
+if $DOCKER_VERSION &lt; 1.9; then upgrade_docker; fi
 </pre>
+
 <p>Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s not that easy in Bash.
 Here&#8217;s what I came up&nbsp;with.</p>
-<pre class="code bash literal-block">
-install_latest_docker<span class="o">()</span> <span class="o">{</span>
-    <span class="k">if</span> docker --version <span class="p">|</span> python -c <span class="s2">&quot;min=[1, 9]; import sys; ↩
-v=[int(x) for x in </span></pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
+
+<pre class="brush: bash">
+install_latest_docker() {
+    if docker --version | python -c "min=[1, 9]; import sys; ↩
+v=[int(x) for x in </pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/23/ParseMinVerBash.html#disqus_thread">Comment</a>
@@ -345,10 +379,11 @@ include models/*.json
 </pre>
 <p>Then be sure to set <tt class="docutils literal">in&shy;clude_&shy;pack&shy;age_&shy;da&shy;ta=True</tt>
 in the call to <tt class="docutils literal">setup()</tt>:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
 
-<span class="n">setup</span><span class="p">(</span>
+<pre class="brush: python">
+from setuptools import setup, find_packages
+
+setup(
  </pre><span>&#8230;<a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" class="continue">continue</a>.</span></div>
     <footer>
         
@@ -407,39 +442,6 @@ and full of tiresome stylistic&nbsp;tics.</p>
                     and
                     
                 <a href="/tag/autobiography/" rel="tag">autobiography</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-19">2015-12-19</time>
-        <h1>
-            <a href="/blog/2015/12/19/RestoringTheBarRoom.html" rel="bookmark canonical">Restoring the Bar Room</a>
-        </h1>
-    </header>
-    <p>Aside from a few hours spent at two parties,
-we&#8217;ve worked from when we got up until midnight
-getting the bar room back in shape.
-I spent a couple of hours just washing all the greasy crystal glasses this morning
-(not to be confused with last night&#8217;s <a class="reference external" href="/blog/2015/12/18/BarRoomBooze.html">cleaning the booze bottles</a>).
-We sorted through all the cookbooks and set aside about a third of them.
-The room is now ready to use again.
-Alas, we&#8217;ve moved a pile of stuff tem&shy;porar&shy;i&shy;ly into the spare room,
-which will have to be dealt with&nbsp;soon.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/19/RestoringTheBarRoom.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/personal/" rel="tag">personal</a>
                 
             </p>
         

@@ -73,13 +73,12 @@ This can be overridden&nbsp;later.</li>
 </ul>
 <p>Here&#8217;s the script we use to provision Ubuntu 16.04.
 We <span class="caps">SSH</span> into the instance, then run this&nbsp;script.</p>
-<pre class="code bash literal-block">
-<span class="ch">#!/bin/bash
-</span><span class="c1"># Provision an Ubuntu 16.04 <span class="caps">AMI</span> for MetaBrite <span class="caps">CI</span> and Jenkins
-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1"># Provision an Ubuntu 16.04 <span class="caps">AMI</span> for MetaBrite <span class="caps">CI</span> and Jenkins</span>
+
 <span class="nb">echo</span> <span class="s2">&quot;Adding PPAs&quot;</span>
-<span class="c1"># jo: <span class="caps">JSON</span> output from shell: https://github.com/jpmens/jo
-</span>sudo apt-add-repository ppa:duggan/jo --yes
+<span class="c1"># jo: <span class="caps">JSON</span> output from shell: https://github.com/jpmens/jo</span>
+sudo apt-add-repository ppa:duggan/jo --yes
 
 <span class="nb">echo</span> <span class="s2">&quot;Updating package list&quot;</span>
 sudo apt-get update -q
@@ -88,15 +87,15 @@ sudo apt-get update -q
 curl -sSL https://get.docker.com/ <span class="p">|</span> sh                      ➊
 
 <span class="nb">echo</span> <span class="s2">&quot;Installing Ubuntu packages&quot;</span>
-sudo apt-get --yes install <span class="se">\
-</span>    build-essential default-jre <span class="se">\ </span>                          ➋
-    git vim wget <span class="se">\
-</span>    paperkey gnupg <span class="se">\ </span>                                       ➌
-    libffi-dev libpq-dev libxslt1-dev libyaml-dev <span class="se">\
-</span>    python libpython2.7-dev python-dev python-lxml  <span class="se">\
-</span>    postgresql python-psycopg2 <span class="se">\
-</span>    jo jq <span class="se">\
-</span>    unzip zip
+sudo apt-get --yes install <span class="se">\</span>
+    build-essential default-jre <span class="se">\ </span>                          ➋
+    git vim wget <span class="se">\</span>
+    paperkey gnupg <span class="se">\ </span>                                       ➌
+    libffi-dev libpq-dev libxslt1-dev libyaml-dev <span class="se">\</span>
+    python libpython2.7-dev python-dev python-lxml  <span class="se">\</span>
+    postgresql python-psycopg2 <span class="se">\</span>
+    jo jq <span class="se">\</span>
+    unzip zip
 
 <span class="nb">echo</span> <span class="s2">&quot;Installing Python packages&quot;</span>                           ➍
 curl -sSL --retry <span class="m">5</span> https://bootstrap.pypa.io/get-pip.py <span class="p">|</span> sudo -H python2.7
@@ -108,7 +107,7 @@ mkdir -p ~/.ssh/                                            ➏
 touch <span class="nv">$KNOWN_HOSTS</span>
 ssh-keyscan -H github.com &gt;&gt; <span class="nv">$KNOWN_HOSTS</span>                   ➐
 chmod <span class="m">600</span> <span class="nv">$KNOWN_HOSTS</span>
-</pre>
+</pre></div>
 <ol class="arabic simple">
 <li>This installs the latest stable Docker package,
 which is more recent than the packages supplied in the Ubuntu&nbsp;<span class="caps">LTS</span>.</li>
@@ -151,17 +150,16 @@ The other pieces that you need to&nbsp;know:</p>
 It&#8217;s the number im&shy;me&shy;di&shy;ate&shy;ly after the snapshot&nbsp;name.</li>
 <li><em>Init script</em>: use the&nbsp;following:</li>
 </ul>
-<pre class="code bash literal-block">
-<span class="ch">#!/bin/bash
-</span><span class="c1"># based on https://github.com/jenkinsci/ec2-plugin/blob/master/src/main/webapp/<span class="caps">AMI</span>-Scripts/ubuntu-ami-setup.sh
-</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1"># based on https://github.com/jenkinsci/ec2-plugin/blob/master/src/main/webapp/<span class="caps">AMI</span>-Scripts/ubuntu-ami-setup.sh</span>
+
 <span class="nb">echo</span> <span class="s2">&quot;Downloading boot script&quot;</span>                              ➊
 sudo curl https://&lt;JENKINS_MASTER&gt;/plugin/ec2/<span class="caps">AMI</span>-Scripts/ubuntu-init.py -o /usr/bin/userdata
 sudo chmod +x /usr/bin/userdata
 
 <span class="nb">echo</span> <span class="s2">&quot;Adding boot script to run after boot is complete&quot;</span>     ➋
-sudo sed -i <span class="s1">'/^[^#]/ s/exit 0/python \/usr\/bin\/userdata\n&amp;/'</span> /etc/rc.local
-</pre>
+sudo sed -i <span class="s1">&#39;/^[^#]/ s/exit 0/python \/usr\/bin\/userdata\n&amp;/&#39;</span> /etc/rc.local
+</pre></div>
 <ol class="arabic simple">
 <li>Adjust <tt class="docutils literal">&lt;JENK&shy;IN&shy;S_&shy;MAS&shy;TER&gt;</tt>. You may need to change <tt class="docutils literal">https</tt> to <tt class="docutils literal">http</tt>.</li>
 <li>The Init Script is run once, installing <tt class="docutils literal"><span class="pre">ubuntu-init.py</span></tt>
@@ -169,8 +167,7 @@ as a boot script at <tt class="docutils literal">/etc/rc.local</tt>.</li>
 </ol>
 <p>Let&#8217;s examine the <a class="reference external" href="https://github.com/jenkinsci/ec2-plugin/blob/master/src/main/webapp/AMI-Scripts/ubuntu-init.py">ubuntu-init.py</a> boot script.
 You don&#8217;t need to copy this, as it&#8217;s available from your Jenkins&nbsp;Master.</p>
-<pre class="code python literal-block">
-<span class="ch">#!/usr/bin/python</span>
+<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/python</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">httplib</span>
 <span class="kn">import</span> <span class="nn">string</span>
@@ -206,7 +203,7 @@ You don&#8217;t need to copy this, as it&#8217;s available from your Jenkins&nbs
 <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;wget &quot;</span> <span class="o">+</span> <span class="n">jenkinsUrl</span> <span class="o">+</span> <span class="s2">&quot;jnlpJars/slave.jar -O slave.jar&quot;</span><span class="p">)</span>     <span class="err">➌</span>
 <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;java -jar slave.jar -jnlpUrl &quot;</span> <span class="o">+</span> <span class="n">jenkinsUrl</span> <span class="o">+</span> <span class="s2">&quot;computer/&quot;</span> <span class="o">+</span> <span class="n">slaveName</span> <span class="o">+</span> <span class="s2">&quot;/slave-agent.jnlp&quot;</span><span class="p">)</span>
 <span class="err">➍</span>
-</pre>
+</pre></div>
 <ol class="arabic simple">
 <li>Note that installing <tt class="docutils literal"><span class="pre">openjdk-7-jre</span></tt> will not work on stock Ubuntu 16.04,
 as <tt class="docutils literal"><span class="pre">openjdk-8-jre</span></tt> is now current.
@@ -220,14 +217,13 @@ The slave code will continue running until the <span class="caps">EC2</span> ins
 </ol>
 <p>In your Pipeline scripts, be sure to use the <em>label</em> you configured above
 in your <tt class="docutils literal">node</tt> blocks:</p>
-<pre class="code groovy literal-block">
-<span class="n">node</span><span class="o">(</span><span class="s1">'ubuntu'</span><span class="o">)</span> <span class="o">{</span>                        <span class="err">➊</span>
+<div class="highlight"><pre><span></span><span class="n">node</span><span class="o">(</span><span class="s1">&#39;ubuntu&#39;</span><span class="o">)</span> <span class="o">{</span>                        <span class="err">➊</span>
     <span class="n">timestamps</span> <span class="o">{</span>
-        <span class="n">ansiColor</span><span class="o">(</span><span class="s1">'xterm'</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ansiColor</span><span class="o">(</span><span class="s1">&#39;xterm&#39;</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Source Checkout&quot;</span><span class="o">)</span> <span class="o">{</span>
                 <span class="n">checkout</span> <span class="n">scm</span>
                 <span class="c1">// …</span>
-</pre>
+</pre></div>
 <p>Jenkins will au&shy;to&shy;mat&shy;i&shy;cal&shy;ly start up an <span class="caps">EC2</span> instance running your <span class="caps">AMI</span>,
 or use an existing one if it has enough&nbsp;capacity.</p>
 </div>

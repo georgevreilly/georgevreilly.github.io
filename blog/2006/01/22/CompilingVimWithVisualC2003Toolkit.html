@@ -70,12 +70,14 @@ and Bram wants something that will still be available after
 November 2006, so that anyone can compile&nbsp;it.</p>
 <p>I have also ported Vim 7 to compile with <span class="caps">VC2005</span> Express.
 It was fairly straight&shy;for&shy;ward, after I had added the&nbsp;following</p>
-<pre class="code c literal-block">
-<span class="cp">#if _MSC_VER &gt;= 1400
+
+<pre class="brush: c">
+#if _MSC_VER >= 1400
 # define _CRT_SECURE_NO_DEPRECATE
 # define _CRT_NONSTDC_NO_DEPRECATE
-#endif</span>
+#endif
 </pre>
+
 <p>to shut up the warnings about <a class="reference external" href="http://msdn.microsoft.com/msdnmag/issues/05/05/SafeCandC/default.aspx">deprecated <span class="caps">CRT</span> functions</a>.
 I also had to make it link with libcmt.lib (mul&shy;ti&shy;thread&shy;ed) instead of libc.lib,
 as the single-threaded static library is&nbsp;gone.</p>
