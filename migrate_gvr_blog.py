@@ -67,7 +67,7 @@ def parse_args():
 
 
 def read_permalink_markdown(filename):
-    with open(filename, "rb") as fp:
+    with open(filename, "r") as fp:
         line = fp.readline()
         if line.startswith("---"):
             line = fp.readline()
