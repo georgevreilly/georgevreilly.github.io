@@ -37,29 +37,29 @@
     </header>
     <a class="reference external image-reference" href="http://manx.classiccmp.org/collections/mds-199909/cd3/storage/smcppuga.pdf"><img alt="Unloading ESA 10000 Storage Subsystem Cabinet" class="right-float" src="/content/binary/unloading_ESA10000_from_pallet.png" style="width: 400px;"/></a>
 <p>I bought a <span class="caps">2TB</span> external hard disk today.
-It&#8217;s about the size of a deck of cards, but thinner,
+It’s about the size of a deck of cards, but thinner,
 and it cost me $95.
-Disk Utility says it has 2,000,397,884,928&nbsp;bytes.</p>
+Disk Utility says it has 2,000,397,884,928 bytes.</p>
 <p>In 1998, I got to see more than three terabytes of disks in one system.
 At the time, a server with a <span class="caps">25GB</span> disk was considered high capacity.
 The <span class="caps">3TB</span> system occupied con&shy;sid&shy;er&shy;ably more volume than a pack of cards.
-I don&#8217;t know what it cost
-but clearly it was tens if not hundreds of thousands of&nbsp;dollars.</p>
+I don’t know what it cost
+but clearly it was tens if not hundreds of thousands of dollars.</p>
 <p>At that time, I was a developer on the <a class="reference external" href="http://en.wikipedia.org/wiki/Internet_Information_Services"><span class="caps">IIS</span></a> team at Microsoft.
-I was the lead per&shy;for&shy;mance engineer for Microsoft&#8217;s web server product.
+I was the lead per&shy;for&shy;mance engineer for Mi&shy;crosoft&shy;’s web server product.
 The <a class="reference external" href="http://en.wikipedia.org/wiki/Terraserver.com">Ter&shy;raServ&shy;er</a> was a project born in Microsoft Research
 intended to demon&shy;strate that <span class="caps">SQL</span> Server could scale up to terabyte-sized workloads.
 It stored aerial, satellite, and topo&shy;graph&shy;ic images of the Earth
 in a <span class="caps">SQL</span> database available via the Internet,
-and it was the world’s largest online&nbsp;atlas.</p>
+and it was the world’s largest online atlas.</p>
 <p>They launched the Ter&shy;raServ&shy;er on the Internet.
 And the Internet liked the Ter&shy;raServ&shy;er.
 And the Ter&shy;raServ&shy;er fell over.
-So I got called&nbsp;in.</p>
+So I got called in.</p>
 <p>It was June and I was wearing shorts and Birken&shy;stock sandals with no socks.
-The Ter&shy;raServ&shy;er was housed in one of Microsoft&#8217;s data centers
+The Ter&shy;raServ&shy;er was housed in one of Mi&shy;crosoft&shy;’s data centers
 and there was cold air blowing up through the floor,
-and quite soon I was wishing that I had worn socks that&nbsp;day.</p>
+and quite soon I was wishing that I had worn socks that day.</p>
 <p>The Ter&shy;raServ&shy;er was the biggest mi&shy;cro&shy;com&shy;put&shy;er-based system I had ever seen.
 Quoting the <a class="reference external" href="http://research.microsoft.com/pubs/68574/msr_tr_99_29_terraserver.pdf">Ter&shy;raServ&shy;er Tech Report</a>:</p>
 <blockquote>
@@ -68,7 +68,7 @@ The <span class="caps">USGS</span> aerial imagery is maintained on a Compaq Al&s
 containing 8 440 Mhz Alpha processors and 10 <span class="caps">GB</span> of <span class="caps">RAM</span>.
 The processor is attached to 7 Stor&shy;age&shy;Work&shy;s™
 Enterprise Storage Array 10000 (<span class="caps">ESA</span>-10000) cabinets.
-The disk arrays are based on UltraSCSI&nbsp;technology.</p>
+The disk arrays are based on UltraSCSI technology.</p>
 <p>Each <span class="caps">ESA</span>-10000 contains 48 9 <span class="caps">GB</span> disk drives and
 2 <span class="caps">HSZ70</span> dual-redundant <span class="caps">RAID</span>-5 con&shy;trollers.
 4 sets of 11 disks each are configured into
@@ -76,7 +76,7 @@ a single <span class="caps">RAID</span>-5 stripe-set
 and managed as a single logical disk by the <span class="caps">HSZ70</span> controller.
 2 drives per cabinet are available as hot spares.
 Should a disk fail, the <span class="caps">HSZ70</span> con&shy;trollers au&shy;to&shy;mat&shy;i&shy;cal&shy;ly
-swap a spare drive into a <span class="caps">RAID</span>&nbsp;set.</p>
+swap a spare drive into a <span class="caps">RAID</span> set.</p>
 <p>Windows <span class="caps">NT</span> Server sees each large (85 <span class="caps">GB</span> each) disk
 created by the <span class="caps">RAID</span> con&shy;trollers of each of the seven disk cabinets.
 It stripes these into 4 large (595 <span class="caps">GB</span>) volumes
@@ -85,30 +85,30 @@ by the Windows <span class="caps">NT</span> file system (<span class="caps">NTFS
 Each 595 <span class="caps">GB</span> volume contains about thirty <span class="caps">20GB</span> files.
 <span class="caps">SQL</span> Server stores its databases in these large files.
 We chose this <span class="caps">20GB</span> file size since it fits con&shy;ve&shy;nient&shy;ly
-on one <span class="caps">DLT</span> magnetic tape&nbsp;cartridge.</p>
+on one <span class="caps">DLT</span> magnetic tape cartridge.</p>
 <p>Connected to the Al&shy;phaServ&shy;er 8400 is a StorageTek 9710 automated tape robot.
 The tape robot contains 10 Quantum <span class="caps">DLT7000</span> tape drives.
 Legato Networker backup software can backup
 the entire 1.5 <span class="caps">TB</span> Ter&shy;raServ&shy;er <span class="caps">SQL</span> database to the StorageTek tape robot
-in 7 hours and 15 minutes — or 17&nbsp;<span class="caps">GB</span>/hour.</p>
-<p>&#8230;</p>
+in 7 hours and 15 minutes — or 17 <span class="caps">GB</span>/hour.</p>
+<p>…</p>
 <p>Database back-end: 1 8-way 440Mhz Compaq Al&shy;phaServ&shy;er 8400,
-<span class="caps">10GB</span> ram, 3.2 <span class="caps">TB</span> raid5 324 <span class="caps">9GB</span> Ultra <span class="caps">SCSI</span>&nbsp;disks</p>
+<span class="caps">10GB</span> ram, 3.2 <span class="caps">TB</span> raid5 324 <span class="caps">9GB</span> Ultra <span class="caps">SCSI</span> disks</p>
 </blockquote>
 <p>So, 7 <a class="reference external" href="http://manx.classiccmp.org/collections/mds-199909/cd3/storage/smcppuga.pdf">cabinets</a> (pictured above)
-measuring 2&#8217; wide by 3&#8217; deep and 5&#8217; tall, housing 324 <span class="caps">9GB</span> disks.
+measuring 2’ wide by 3’ deep and 5’ tall, housing 324 <span class="caps">9GB</span> disks.
 And another cabinet for the servers.
 And one for the tape robot.
-The whole thing must have been about 20 feet&nbsp;wide.</p>
-<p>By comparison, the 15&quot; mid-2012 MacBook Pro laptop that I&#8217;m writing this on
+The whole thing must have been about 20 feet wide.</p>
+<p>By comparison, the 15" mid-2012 MacBook Pro laptop that I’m writing this on
 has <span class="caps">16GB</span> <span class="caps">RAM</span>, 2.3 GHz Intel Core i7 (4 hy&shy;per&shy;thread&shy;ed cores),
 <span class="caps">750GB</span> internal disk (<span class="caps">HDD</span>), and the afore&shy;men&shy;tioned <span class="caps">2TB</span> external disk.
-I&#8217;ve been backing up to that external disk
-and I&#8217;ve been hitting <span class="caps">90MB</span>/s transfer rates.
-<a class="reference external" href="http://en.wikipedia.org/wiki/Moore%27s_law">Moore&#8217;s Law</a> marches&nbsp;on.</p>
-<p>At this point, I can&#8217;t recall what I actually did to help them out,
+I’ve been backing up to that external disk
+and I’ve been hitting <span class="caps">90MB</span>/s transfer rates.
+<a class="reference external" href="http://en.wikipedia.org/wiki/Moore%27s_law">Moore’s Law</a> marches on.</p>
+<p>At this point, I can’t recall what I actually did to help them out,
 but between me and other people,
-they got it working sat&shy;is&shy;fac&shy;to&shy;ri&shy;ly within a few&nbsp;days.</p>
+they got it working sat&shy;is&shy;fac&shy;to&shy;ri&shy;ly within a few days.</p>
 
     <footer>
         

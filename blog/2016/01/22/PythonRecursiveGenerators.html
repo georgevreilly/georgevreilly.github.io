@@ -40,8 +40,8 @@
     <p></p>
 <blockquote>
 <p>Generators decouple iteration from the code
-that uses the results of the&nbsp;iteration.</p>
-<p class="attribution">&mdash;David Beazley, <a class="reference external" href="https://www.dabeaz.com/generators/">Generators</a></p>
+that uses the results of the iteration.</p>
+<p class="attribution">—David Beazley, <a class="reference external" href="https://www.dabeaz.com/generators/">Generators</a></p>
 </blockquote>
 <blockquote>
 [Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
@@ -49,72 +49,62 @@ that uses the results of the&nbsp;iteration.</p>
 One such is to lazily evaluate sequences.
 Another is for <a class="reference external" href="https://www.dabeaz.com/coroutines/">coroutines</a>.
 Yet another is to re&shy;cur&shy;sive&shy;ly traverse a tree or a graph,
-yielding an iterable&nbsp;sequence.</p>
-<p>Consider this simple tree of&nbsp;nodes:</p>
-
-<pre class="brush: python">
-node_tree = Node(
-    'a', [
-        Node('b', [
-            Node('e', [
-                Node('g')
-            ]),
-            Node('f'),
-        ]),
-        Node('c'),
-        Node('d')
-    ])
+yielding an iterable sequence.</p>
+<p>Consider this simple tree of nodes:</p>
+<pre class="code python literal-block">
+<span class="n">node_tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+    <span class="s1">'a'</span><span class="p">,</span> <span class="p">[</span>
+        <span class="n">Node</span><span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="p">[</span>
+            <span class="n">Node</span><span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="p">[</span>
+                <span class="n">Node</span><span class="p">(</span><span class="s1">'g'</span><span class="p">)</span>
+            <span class="p">]),</span>
+            <span class="n">Node</span><span class="p">(</span><span class="s1">'f'</span><span class="p">),</span>
+        <span class="p">]),</span>
+        <span class="n">Node</span><span class="p">(</span><span class="s1">'c'</span><span class="p">),</span>
+        <span class="n">Node</span><span class="p">(</span><span class="s1">'d'</span><span class="p">)</span>
+    <span class="p">])</span>
 </pre>
+<p>where <tt class="docutils literal">Node</tt> is defined as:</p>
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="n">children</span>
 
-<p>where <tt class="docutils literal">Node</tt> is defined&nbsp;as:</p>
-
-<pre class="brush: python">
-class Node(object):
-    def __init__(self, value, children=None):
-        self.value = value
-        self.children = children
-
-    def __repr__(self):
-        return "Node({0})".format(self.value)
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"Node(</span><span class="si">{0}</span><span class="s2">)"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </pre>
-
-<p>This generator re&shy;cur&shy;sive&shy;ly traverses the nodes&nbsp;top-down:</p>
-
-<pre class="brush: python">
-@classmethod
-def get_tree(cls, node):
-    yield node
-    for child in node.children or []:
-        for n in cls.get_tree(child):
-            yield n
+<p>This generator re&shy;cur&shy;sive&shy;ly traverses the nodes top-down:</p>
+<pre class="code python literal-block">
+<span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">get_tree</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+    <span class="k">yield</span> <span class="n">node</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span> <span class="ow">or</span> <span class="p">[]:</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_tree</span><span class="p">(</span><span class="n">child</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="n">n</span>
 </pre>
+<p>Now we can consume <tt class="docutils literal">get_tree</tt> as a simple sequence:</p>
+<pre class="code python literal-block">
+<span class="nb">print</span><span class="p">([</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">Node</span><span class="o">.</span><span class="n">get_tree</span><span class="p">(</span><span class="n">node_tree</span><span class="p">)])</span>
 
-<p>Now we can consume <tt class="docutils literal">get_tree</tt> as a simple&nbsp;sequence:</p>
-
-<pre class="brush: python">
-print([n for n in Node.get_tree(node_tree)])
-
-[Node(a), Node(b), Node(e), Node(g), Node(f), Node(c), Node(d)]
+<span class="p">[</span><span class="n">Node</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="n">f</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">Node</span><span class="p">(</span><span class="n">d</span><span class="p">)]</span>
 </pre>
-
 <p>The first <tt class="docutils literal">yield</tt> in <tt class="docutils literal">get_tree</tt> produces the current node.
 The <tt class="docutils literal">yield</tt> in the inner loop is necessary
-to percolate the results of lower levels upwards to the outermost&nbsp;caller.</p>
-<p>Adding some prints may clarify what&#8217;s going&nbsp;on:</p>
-
-<pre class="brush: python">
-@classmethod
-def get_tree(cls, node, depth=1):
-    print("\n{0}yield 1: node={1} depth={2}".format('\t'*depth, node, depth))
-    yield node
-    for child in node.children or []:
-        for n in cls.get_tree(child, depth+1):
-            print("{0}yield 2: node={1} depth={2}".format('\t'*depth, n, depth))
-            yield n
+to percolate the results of lower levels upwards to the outermost caller.</p>
+<p>Adding some prints may clarify what’s going on:</p>
+<pre class="code python literal-block">
+<span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">get_tree</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="si">{0}</span><span class="s2">yield 1: node=</span><span class="si">{1}</span><span class="s2"> depth=</span><span class="si">{2}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">'</span><span class="se">\t</span><span class="s1">'</span><span class="o">*</span><span class="n">depth</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">depth</span><span class="p">))</span>
+    <span class="k">yield</span> <span class="n">node</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span> <span class="ow">or</span> <span class="p">[]:</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="si">{0}</span><span class="s2">yield 2: node=</span><span class="si">{1}</span><span class="s2"> depth=</span><span class="si">{2}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">'</span><span class="se">\t</span><span class="s1">'</span><span class="o">*</span><span class="n">depth</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">depth</span><span class="p">))</span>
+            <span class="k">yield</span> <span class="n">n</span>
 </pre>
-
 <p><tt class="docutils literal">yield 1</tt> produces the actual node value and occurs first,
-while <tt class="docutils literal">yield 2</tt> denotes the value bubbling up to the original&nbsp;caller.:</p>
+while <tt class="docutils literal">yield 2</tt> denotes the value bubbling up to the original caller.:</p>
 <pre class="literal-block">
     yield 1: node=Node(a) depth=1
 
@@ -143,39 +133,35 @@ while <tt class="docutils literal">yield 2</tt> denotes the value bubbling up to
 [Node(a), Node(b), Node(e), Node(g), Node(f), Node(c), Node(d)]
 </pre>
 <p>You might be tempted to omit the inner loop consuming the sub-generator,
-and just <tt class="docutils literal">yield</tt> the recursive&nbsp;call:</p>
-
-<pre class="brush: python">
-@classmethod
-def get_tree(cls, node, depth=1):
-    print("\n{0}yield 1: node={1} depth={2}".format('\t'*depth, node, depth))
-    yield node
-    for child in node.children or []:
-        yield cls.get_tree(child, depth+1)
+and just <tt class="docutils literal">yield</tt> the recursive call:</p>
+<pre class="code python literal-block">
+<span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">get_tree</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="si">{0}</span><span class="s2">yield 1: node=</span><span class="si">{1}</span><span class="s2"> depth=</span><span class="si">{2}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">'</span><span class="se">\t</span><span class="s1">'</span><span class="o">*</span><span class="n">depth</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">depth</span><span class="p">))</span>
+    <span class="k">yield</span> <span class="n">node</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span> <span class="ow">or</span> <span class="p">[]:</span>
+        <span class="k">yield</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 </pre>
-
-<p>This&nbsp;produces:</p>
+<p>This produces:</p>
 <pre class="literal-block">
     yield 1: node=Node(a) depth=1
 
-[Node(a), &lt;generator object get_tree at 0x106f12eb0&gt;, &lt;generator object get_tree at 0x106f12f00&gt;,
- &lt;generator object get_tree at 0x106f12f50&gt;]
+[Node(a), <generator object get_tree at 0x106f12eb0>, <generator object get_tree at 0x106f12f00>,
+ <generator object get_tree at 0x106f12f50>]
 </pre>
 <p>The call to <tt class="docutils literal">get_tree</tt> in the <tt class="docutils literal">child</tt> loop creates a generator object.
-It&#8217;s not until you iterate through that nested generator object
-that child results are&nbsp;yielded.</p>
-<p>What happens if you omit the second <tt class="docutils literal">yield</tt>, leaving a naked recursive&nbsp;call?</p>
-
-<pre class="brush: python">
-@classmethod
-def get_tree(cls, node, depth=1):
-    print("\n{0}yield 1: node={1} depth={2}".format('\t'*depth, node, depth))
-    yield node
-    for child in node.children or []:
-        cls.get_tree(child, depth+1)
+It’s not until you iterate through that nested generator object
+that child results are yielded.</p>
+<p>What happens if you omit the second <tt class="docutils literal">yield</tt>, leaving a naked recursive call?</p>
+<pre class="code python literal-block">
+<span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">get_tree</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="si">{0}</span><span class="s2">yield 1: node=</span><span class="si">{1}</span><span class="s2"> depth=</span><span class="si">{2}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">'</span><span class="se">\t</span><span class="s1">'</span><span class="o">*</span><span class="n">depth</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">depth</span><span class="p">))</span>
+    <span class="k">yield</span> <span class="n">node</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span> <span class="ow">or</span> <span class="p">[]:</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">get_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 </pre>
-
-<p>This produces even fewer&nbsp;results:</p>
+<p>This produces even fewer results:</p>
 <pre class="literal-block">
     yield 1: node=Node(a) depth=1
 
@@ -183,18 +169,16 @@ def get_tree(cls, node, depth=1):
 </pre>
 <p>So the inner loop to consume the sub-generator and re-yield is nec&shy;es&shy;sary—at least in Python 2.
 This is somewhat ugly and <a class="reference external" href="https://www.python.org/dev/peps/pep-0380/"><span class="caps">PEP</span> 0380</a> introduced <tt class="docutils literal">yield from</tt> in Python 3.3,
-which delegates to&nbsp;sub-generators:</p>
-
-<pre class="brush: python">
-@classmethod
-def get_tree3(cls, node, depth=1):
-    print("\n{0}yield 1: node={1} depth={2}".format('\t'*depth, node, depth))
-    yield node
-    for child in node.children or []:
-        yield from cls.get_tree3(child, depth+1)
+which delegates to sub-generators:</p>
+<pre class="code python literal-block">
+<span class="nd">@classmethod</span>
+<span class="k">def</span> <span class="nf">get_tree3</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="si">{0}</span><span class="s2">yield 1: node=</span><span class="si">{1}</span><span class="s2"> depth=</span><span class="si">{2}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">'</span><span class="se">\t</span><span class="s1">'</span><span class="o">*</span><span class="n">depth</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">depth</span><span class="p">))</span>
+    <span class="k">yield</span> <span class="n">node</span>
+    <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span> <span class="ow">or</span> <span class="p">[]:</span>
+        <span class="k">yield from</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_tree3</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
 </pre>
-
-<p>Now the output&nbsp;is:</p>
+<p>Now the output is:</p>
 <pre class="literal-block">
     yield 1: node=Node(a) depth=1
 
@@ -214,7 +198,7 @@ def get_tree3(cls, node, depth=1):
 </pre>
 <p>This is only one of several uses for <tt class="docutils literal">yield from</tt>,
 which functions as a <a class="reference external" href="https://stackoverflow.com/a/26109157/6364">trans&shy;par&shy;ent two-way channel</a>
-between the caller and the&nbsp;sub-generator.</p>
+between the caller and the sub-generator.</p>
 
     <footer>
         

@@ -33,15 +33,15 @@
             <a href="/blog/2005/08/26/AIDSWalk2005.html" rel="bookmark canonical">AIDS Walk 2005</a>
         </h1>
     </header>
-    <p>On Saturday 10th September 2005, over 8,000 people will par&shy;tic&shy;i&shy;pate in
+    <p>On Saturday 10th September 2005, over 8,000 people will par­tic­i­pate in
 the Northwest <span class="caps">AIDS</span> Foundation Walk. I will be one of them, as I have
-been every year since&nbsp;1992.</p>
+been every year since 1992.</p>
 <p>To sponsor me, please visit my <a class="reference external" href="http://www.aidswalk2005.org/site/TR?px=1013411&amp;pg=personal&amp;fr_id=1050">Donation Page</a>.</p>
 <p>I had originally signed up to march with Team Microsoft.
 Then we in <a class="reference external" href="http://www.binetseattle.org/">BiNet Seattle</a> decided to form a team.
-Please join <a class="reference external" href="http://www.aidswalk2005.org/site/TR?pg=team&amp;fr_id=1050&amp;team_id=3120">Team BiNet Seattle</a>: we&#8217;d love to have&nbsp;you.</p>
-<p>It&#8217;s been more than 20 years since <span class="caps">AIDS</span> was first recognized. <span class="caps">AIDS</span> is
-still wreaking dev&shy;as&shy;ta&shy;tion in Africa and Asia, and affecting many in the
+Please join <a class="reference external" href="http://www.aidswalk2005.org/site/TR?pg=team&amp;fr_id=1050&amp;team_id=3120">Team BiNet Seattle</a>: we’d love to have you.</p>
+<p>It’s been more than 20 years since <span class="caps">AIDS</span> was first recognized. <span class="caps">AIDS</span> is
+still wreaking dev­as­ta­tion in Africa and Asia, and affecting many in the
 <span class="caps">U.S.</span> Although the new protease inhibitors are helping many people in
 the West, the <span class="caps">AIDS</span> epidemic is far from <span>&#8230;<a href="/blog/2005/08/26/AIDSWalk2005.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -71,24 +71,25 @@ the West, the <span class="caps">AIDS</span> epidemic is far from <span>&#8230;<
             <a href="/blog/2005/08/11/TIMEStamping.html" rel="bookmark canonical">TIME stamping</a>
         </h1>
     </header>
-    <p>I&#8217;m a command-line dinosaur.
+    <p>I’m a command-line dinosaur.
 <a class="reference external" href="http://www.vim.org/">Vim</a> (Vi IMproved) is my favorite text editor.
-And I write quite a few little batch&nbsp;files.</p>
-<p>Here are a few useful tricks that work with cmd.exe on Windows&nbsp;<span class="caps">XP</span>.</p>
+And I write quite a few little batch files.</p>
+<p>Here are a few useful tricks that work with cmd.exe on Windows <span class="caps">XP</span>.</p>
 <div class="section" id="timestamped-filename">
-<h2>Time&shy;stamped&nbsp;filename</h2>
+<h2>Time­stamped filename</h2>
 <p>Sometimes I want to create a file whose name includes the current date and time.
-By combining the magic <tt class="docutils literal">%<span class="caps">DATE</span>%</tt> and <tt class="docutils literal">%<span class="caps">TIME</span>%</tt> en&shy;vi&shy;ron&shy;ment variables,
-with <tt class="docutils literal">for /f</tt> and a little bit of string sub&shy;sti&shy;tu&shy;tion,
-I can create that&nbsp;filename.</p>
-<div class="highlight"><pre><span></span><span class="c1"><span class="caps">REM</span></span>
-<span class="c1"><span class="caps">REM</span> &quot;Tue 06/14/2005&quot; -&gt; &quot;06/14/2005&quot;</span>
+By combining the magic <tt class="docutils literal">%<span class="caps">DATE</span>%</tt> and <tt class="docutils literal">%<span class="caps">TIME</span>%</tt> en­vi­ron­ment variables,
+with <tt class="docutils literal">for /f</tt> and a little bit of string sub­sti­tu­tion,
+I can create that filename.</p>
+<pre class="code winbatch literal-block">
 <span class="c1"><span class="caps">REM</span></span>
-<span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;tokens=2&quot;</span>              <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="nv">%<span class="caps">DATE</span>%</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="k">set</span> <span class="nv"><span class="caps">MDY</span></span><span class="p">=</span><span class="se">%%</span>i
+<span class="c1"><span class="caps">REM</span> "Tue 06/14/2005" -> "06/14/2005"</span>
 <span class="c1"><span class="caps">REM</span></span>
-<span class="c1"><span class="caps">REM</span> &quot;06/14/2005&quot; -&gt; &quot;2005-06-14&quot;</span>
+<span class="k">for</span> <span class="k">/f</span> <span class="s2">"tokens=2"</span>              <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="s2">"</span><span class="nv">%<span class="caps">DATE</span>%</span><span class="s2">"</span><span class="p">)</span> <span class="k">do</span> <span class="k">set</span> <span class="nv"><span class="caps">MDY</span></span><span class="p">=</span><span class="se">%%</span>i
 <span class="c1"><span class="caps">REM</span></span>
-<span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;delims=/ tokens=1,2,3&quot;</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="nv">%<span class="caps">MDY</span>%</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="k">do</span> <span class="k">set</span> </pre><span>&#8230;<a href="/blog/2005/08/11/TIMEStamping.html" class="continue">continue</a>.</span></div></div>
+<span class="c1"><span class="caps">REM</span> "06/14/2005" -> "2005-06-14"</span>
+<span class="c1"><span class="caps">REM</span></span>
+<span class="k">for</span> <span class="k">/f</span> <span class="s2">"delims=/ tokens=1,2,3"</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="s2">"</span><span class="nv">%<span class="caps">MDY</span>%</span><span class="s2">"</span><span class="p">)</span>  <span class="k">do</span> <span class="k">set</span> </pre><span>&#8230;<a href="/blog/2005/08/11/TIMEStamping.html" class="continue">continue</a>.</span></div>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2005/08/11/TIMEStamping.html#disqus_thread">Comment</a>
@@ -112,16 +113,16 @@ I can create that&nbsp;filename.</p>
             <a href="/blog/2005/07/20/SurfaceIsIllusionButSoIsDepth.html" rel="bookmark canonical">Surface is Illusion but so is depth</a>
         </h1>
     </header>
-    <p>I&#8217;m taking a beginner&#8217;s <a class="reference external" href="http://at-campus.net/nsccsched/index.html?print=/nsccsched/output/course_175.htm">drawing class</a> at North Seattle Community
-College. Today, we started on per&shy;spec&shy;tive. We began by watching a
+    <p>I’m taking a beginner’s <a class="reference external" href="http://at-campus.net/nsccsched/index.html?print=/nsccsched/output/course_175.htm">drawing class</a> at North Seattle Community
+College. Today, we started on per­spec­tive. We began by watching a
 45-minute <a class="reference external" href="http://www.cloudband.com/frames.mhtml/magazine/articles/rev_dinwiddie_surface_0699.html">video by David Hockney</a>, where he contrasts three paintings:
 a Canaletto painting of Venice, and two Chinese scrolls painted
-70 years&nbsp;apart.</p>
-<p>The Canaletto is a classic <a class="reference external" href="http://drawsketch.about.com/library/weekly/aa021603c.htm">two-point linear per&shy;spec&shy;tive</a> painting.
+70 years apart.</p>
+<p>The Canaletto is a classic <a class="reference external" href="http://drawsketch.about.com/library/weekly/aa021603c.htm">two-point linear per­spec­tive</a> painting.
 Both of the Chinese scrolls show trips by the emperor along the
 Grand Canal. The first one, by Wang Hui, is 27 inches high and 72 feet wide!
-It uses multiple per&shy;spec&shy;tive to show scenes, in a manner
-that is strange to my Western eyes. Hockney demon&shy;strates how
+It uses multiple per­spec­tive to show scenes, in a manner
+that is strange to my Western eyes. Hockney demon­strates how
 effective it is. For example, he shows a corner where <span>&#8230;<a href="/blog/2005/07/20/SurfaceIsIllusionButSoIsDepth.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -149,12 +150,12 @@ effective it is. For example, he shows a corner where <span>&#8230;<a href="/blo
     <p>On Saturday, I bought <em>Harry Potter and the Half-Blood Prince</em>
 at CostCo. On leaving, the checker told me that I had bought the
 887th copy at the store. This was 1pm, three hours after opening,
-so they were selling at the rate of five per&nbsp;minute.</p>
+so they were selling at the rate of five per minute.</p>
 <p>I started reading it last night. After two chapters,
 when I had seen far too many references to earlier books
-that I didn&#8217;t recall, I decided that it was time to
-re-read the earlier books. I&#8217;m a fast reader, but I don&#8217;t
-retain material very&nbsp;well.</p>
+that I didn’t recall, I decided that it was time to
+re-read the earlier books. I’m a fast reader, but I don’t
+retain material very well.</p>
 <p>In the first chapter of the first book, I came across
 an ironically prophetic statement, made by Professor McGonagall
 as she <span>&#8230;<a href="/blog/2005/07/19/AHarryPotterProphecy.html" class="continue">continue</a>.</span></p>
@@ -181,20 +182,20 @@ as she <span>&#8230;<a href="/blog/2005/07/19/AHarryPotterProphecy.html" class="
             <a href="/blog/2005/07/19/CornwellAndOBrian.html" rel="bookmark canonical">Cornwell and O'Brian</a>
         </h1>
     </header>
-    <p>I&#8217;ve been a fan of both Bernard Cornwell and Patrick O&#8217;Brian
+    <p>I’ve been a fan of both Bernard Cornwell and Patrick O’Brian
 for a number of years.
-Both are known for their historic fiction set in the Napoleonic&nbsp;Wars.</p>
+Both are known for their historic fiction set in the Napoleonic Wars.</p>
 <p>Cornwell has written 20 <a class="reference external" href="http://www.bernardcornwell.net/index2.cfm?page=1&amp;SeriesId=1">books about Richard Sharpe</a>,
 a rough and ready British Army officer, up from the ranks.
 Cornwell excels at writing battle scenes, capturing the
 smells and sounds, the noise and confusion, the blood and the gore.
 Some of them were turned into a <span class="caps">TV</span> miniseries in the mid-1990s,
-with Sean Bean as&nbsp;Sharpe.</p>
-<p>O&#8217;Brian wrote 20 novels about Captain Jack Aubrey and
+with Sean Bean as Sharpe.</p>
+<p>O’Brian wrote 20 novels about Captain Jack Aubrey and
 Dr. Stephen Maturin of the Royal Navy.
 The Russell Crowe movie
 <a class="reference external" href="http://www.masterandcommanderthefarsideoftheworld.com/">Master and Commander</a>
-was based on a couple of the&nbsp;books.</p>
+was based on a couple of the books.</p>
 <p>I recently <span>&#8230;<a href="/blog/2005/07/19/CornwellAndOBrian.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -219,19 +220,19 @@ was based on a couple of the&nbsp;books.</p>
             <a href="/blog/2005/06/16/XMLScriptsForTheTheatre.html" rel="bookmark canonical">XML Scripts -- For the Theater</a>
         </h1>
     </header>
-    <p>For the last three years, I&#8217;ve been involved with
+    <p>For the last three years, I’ve been involved with
 <a class="reference external" href="http://www.wildgeeseseattle.org/">The Wild Geese Players of Seattle</a>,
 an amateur group that does readings of Irish literature,
-par&shy;tic&shy;u&shy;lar&shy;ly the works of James Joyce and W.B.&nbsp;Yeats.
+par­tic­u­lar­ly the works of James Joyce and W.B. Yeats.
 Our big event every year is <a class="reference external" href="http://en.wikipedia.org/wiki/Bloomsday">Bloomsday</a>,
-June 16th, com&shy;mem&shy;o&shy;rat&shy;ing Joyce&#8217;s Ulysses,
+June 16th, com­mem­o­rat­ing Joyce’s Ulysses,
 which takes place on June 16th, 1904.
-It&#8217;s a tale of a Jewish everyman, Leopold Bloom,
+It’s a tale of a Jewish everyman, Leopold Bloom,
 wandering through Dublin one day,
-and of the young writer (and Joyce&#8217;s alter ego), Stephen Dedalus.
-We&#8217;re working our way through the book,
+and of the young writer (and Joyce’s alter ego), Stephen Dedalus.
+We’re working our way through the book,
 reading a chapter or two each year.
-In this, our eighth year, we&#8217;ll be reading Chapter&nbsp;11, <a class="reference external" href="http://www.wildgeeseseattle.org/Joyce/Bloomsday/2005.html">Sirens</a>,
+In this, our eighth year, we’ll be reading Chapter 11, <a class="reference external" href="http://www.wildgeeseseattle.org/Joyce/Bloomsday/2005.html">Sirens</a>,
 at the Brechemin Auditorium in the School of Music
 at the University of Washington, <span>&#8230;<a href="/blog/2005/06/16/XMLScriptsForTheTheatre.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -262,19 +263,19 @@ at the University of Washington, <span>&#8230;<a href="/blog/2005/06/16/XMLScrip
     </header>
     <p>It may be old-fashioned, but I still find <tt class="docutils literal">printf</tt> (and <tt class="docutils literal">sprintf</tt>
 and <tt class="docutils literal">_vsnprintf</tt>) incredibly useful, both for printing debug output
-and for generating formatted&nbsp;strings.</p>
+and for generating formatted strings.</p>
 <p>Here are a few lesser-known formats that I use again and again.
 See <span class="caps">MSDN</span> for the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/56e442dc(VS.71).aspx">full reference</a>.</p>
 <div class="section" id="x-4-digit-hex-number-with-leading-zeroes">
-<h2>%04x - 4-digit hex number with leading&nbsp;zeroes</h2>
-<p>A quick review of some of the&nbsp;basics.</p>
-<p><tt class="docutils literal">%x</tt> prints an <tt class="docutils literal">int</tt> in&nbsp;hexa&shy;dec&shy;i&shy;mal.</p>
+<h2>%04x - 4-digit hex number with leading zeroes</h2>
+<p>A quick review of some of the basics.</p>
+<p><tt class="docutils literal">%x</tt> prints an <tt class="docutils literal">int</tt> in hexa­dec­i­mal.</p>
 <p><tt class="docutils literal">%4x</tt> prints a hex int, right-justified to 4 places.
-If it&#8217;s less than 4 digits, it&#8217;s preceded by spaces.
-If it&#8217;s more than 4 digits, you get the full&nbsp;number.</p>
+If it’s less than 4 digits, it’s preceded by spaces.
+If it’s more than 4 digits, you get the full number.</p>
 <p><tt class="docutils literal">%04x</tt> prints a hex int, right-justified to 4 places.
-If it&#8217;s less than 4 digits, it&#8217;s preceded by zeroes.
-If it&#8217;s more than <span>&#8230;<a href="/blog/2005/06/02/PrintfTricks.html" class="continue">continue</a>.</span></p></div>
+If it’s less than 4 digits, it’s preceded by zeroes.
+If it’s more than <span>&#8230;<a href="/blog/2005/06/02/PrintfTricks.html" class="continue">continue</a>.</span></p></div>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2005/06/02/PrintfTricks.html#disqus_thread">Comment</a>
@@ -298,16 +299,16 @@ If it&#8217;s more than <span>&#8230;<a href="/blog/2005/06/02/PrintfTricks.html
             <a href="/blog/2005/05/16/dasBlogVsCommunityServer.html" rel="bookmark canonical">dasBlog vs. Community Server</a>
         </h1>
     </header>
-    <p>I&#8217;ve set up a new personal blog at <a class="reference external" href="http://www.georgevreilly.com/blog/">www.georgevreil&shy;ly.com/blog</a>.
-I&#8217;ll be posting non-technical stuff there
-and I&#8217;ll be cross-posting on technical matters to Weblogs &#64; <span class="caps">ASP</span>.net.
-Here&#8217;s how I ended up running dasBlog on the new&nbsp;blog.</p>
+    <p>I’ve set up a new personal blog at <a class="reference external" href="http://www.georgevreilly.com/blog/">www.georgevreil­ly.com/blog</a>.
+I’ll be posting non-technical stuff there
+and I’ll be cross-posting on technical matters to Weblogs @ <span class="caps">ASP</span>.net.
+Here’s how I ended up running dasBlog on the new blog.</p>
 <p>In the spring of last year, I attempted
 to install both <a class="reference external" href="http://scottwater.com/blog">.Text</a> and <a class="reference external" href="https://github.com/shanselman/dasblog">dasBlog</a> on my <span class="caps">XP</span> Pro laptop.
 I failed, signally, to get either one working.
 The details have mercifully faded with time,
-leaving me only with a residue of&nbsp;frus&shy;tra&shy;tion.</p>
-<p>I&#8217;ve been meaning to put some photos of mine up on the web for a while.
+leaving me only with a residue of frus­tra­tion.</p>
+<p>I’ve been meaning to put some photos of mine up on the web for a while.
 A week ago, I went to download <a class="reference external" href="http://www.ngallery.org/">nGallery</a>,
 as I remembered hearing good things about it in the <span>&#8230;<a href="/blog/2005/05/16/dasBlogVsCommunityServer.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -334,14 +335,14 @@ as I remembered hearing good things about it in the <span>&#8230;<a href="/blog/
         </h1>
     </header>
     <p>This is my third blog.
-I&#8217;ve had a <a class="reference external" href="http://weblogs.asp.net/george_v_reilly/">technical blog</a> at <a class="reference external" href="http://weblogs.asp.net/">Weblogs &#64; <span class="caps">ASP</span>.<span class="caps">NET</span></a> for the last year,
-and a <a class="reference external" href="http://erablog.net/blogs/george_v_reilly/">defunct blog</a> at <a class="reference external" href="http://erablog.net/">EraBlog</a> for another&nbsp;year.</p>
-<p>I&#8217;ve been meaning to set up a blog at my personal website for a while,
+I’ve had a <a class="reference external" href="http://weblogs.asp.net/george_v_reilly/">technical blog</a> at <a class="reference external" href="http://weblogs.asp.net/">Weblogs @ <span class="caps">ASP</span>.<span class="caps">NET</span></a> for the last year,
+and a <a class="reference external" href="http://erablog.net/blogs/george_v_reilly/">defunct blog</a> at <a class="reference external" href="http://erablog.net/">EraBlog</a> for another year.</p>
+<p>I’ve been meaning to set up a blog at my personal website for a while,
 one that allows me to post about anything that I feel like.
-Posting about non-technical matters is dis&shy;cour&shy;aged at&nbsp;Weblogs.asp.net.</p>
+Posting about non-technical matters is dis­cour­aged at Weblogs.asp.net.</p>
 <p>So here it is.
-(Assuming I&#8217;ve set it up correctly) I will be cross-posting technical posts to weblogs.asp.net.
-Other posts will appear here&nbsp;ex&shy;clu&shy;sive&shy;ly.</p>
+(Assuming I’ve set it up correctly) I will be cross-posting technical posts to weblogs.asp.net.
+Other posts will appear here ex­clu­sive­ly.</p>
 
     <footer>
         
@@ -370,14 +371,14 @@ Other posts will appear here&nbsp;ex&shy;clu&shy;sive&shy;ly.</p>
 <p>(Originally posted to Home at
 <a class="reference external" href="http://erablog.net/blogs/george_v_reilly/">EraBlog</a> on
 <a class="reference external" href="http://EraBlog.NET/filters/23101.post">Fri, 25 Jun 2004 20:47:24 <span class="caps">GMT</span></a>)</p>
-<p>After several months of not blogging, I&#8217;ve decided to resume. EraBlog was
-nice while it lasted, but Mike Amundsen hasn&#8217;t been paying attention to it
-for a while. I was always frustrated at the lack of con&shy;fig&shy;ura&shy;bil&shy;i&shy;ty, and I
-hated the hard-coded limit of three posts showing up on the front&nbsp;page.</p>
-<p>I&#8217;ve moved to <a class="reference external" href="http://weblogs.asp.net/george_v_reilly/">http://weblogs.asp.net/george_v_reil&shy;ly/</a>.</p>
+<p>After several months of not blogging, I’ve decided to resume. EraBlog was
+nice while it lasted, but Mike Amundsen hasn’t been paying attention to it
+for a while. I was always frustrated at the lack of con­fig­ura­bil­i­ty, and I
+hated the hard-coded limit of three posts showing up on the front page.</p>
+<p>I’ve moved to <a class="reference external" href="http://weblogs.asp.net/george_v_reilly/">http://weblogs.asp.net/george_v_reil­ly/</a>.</p>
 <p><strong>Update</strong>: See <a class="reference external" href="/blog/2005/12/05/MovedToGeorgeVReillycomblog.html">next post</a>.
-I&#8217;ve long since moved to
-<a class="reference external" href="/blog/">GeorgeVReil&shy;ly.com/blog</a>.</p>
+I’ve long since moved to
+<a class="reference external" href="/blog/">GeorgeVReil­ly.com/blog</a>.</p>
 
     <footer>
         

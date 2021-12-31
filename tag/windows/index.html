@@ -33,16 +33,16 @@
             <a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" rel="bookmark canonical">Turn off Windows Defender on your builds</a>
         </h1>
     </header>
-    <p>I've spent some time this evening profiling a Python ap&shy;pli&shy;ca&shy;tion on Windows,
+    <p>I've spent some time this evening profiling a Python ap­pli­ca­tion on Windows,
 trying to find out why it was so much slower than on Mac or Linux.
-The ap&shy;pli&shy;ca&shy;tion is an in-house build tool which reads a number of config files,
+The ap­pli­ca­tion is an in-house build tool which reads a number of config files,
 then writes some output files.</p>
-<p>Using the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run&shy;SnakeRun</a> Python profile viewer on Windows,
-two things im&shy;me&shy;di&shy;ate&shy;ly leapt out at me:
+<p>Using the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run­SnakeRun</a> Python profile viewer on Windows,
+two things im­me­di­ate­ly leapt out at me:
 we were running <tt class="docutils literal">os.stat</tt> a lot
 and <tt class="docutils literal">file.close</tt> was really expensive.</p>
 <p>A quick test convinced me that we were <a class="reference external" href="http://docs.python.org/2/library/stat.html">stat-ing</a> the same files over and over.
-It was a com&shy;bi&shy;na&shy;tion of explicit checks and implicit code,
+It was a com­bi­na­tion of explicit checks and implicit code,
 like <tt class="docutils literal">os.walk</tt> calling <tt class="docutils literal">os.path.isdir</tt>.
 I wrote a little cache that memoizes the results,
 which brought <span>&#8230;<a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" class="continue">continue</a>.</span></p>
@@ -74,16 +74,16 @@ which brought <span>&#8230;<a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYou
 <p>I've been running the <a class="reference external" href="/blog/2009/06/20/WhenVideoCardsGoBad.html">64-bit version of Windows 7 RC</a> since June.
 It's been quite painless on the whole.</p>
 <p>One wrinkle that I ran into was with some batchfiles which
-launch ap&shy;pli&shy;ca&shy;tions in <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> (normally <tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files</span></tt>).
-Due to the magic <a class="reference external" href="http://blogs.msdn.com/craigmcmurtry/archive/2004/12/14/301155.aspx">WOW64 redirector</a>, 32-bit ap&shy;pli&shy;ca&shy;tions
-are actually installed into <tt class="docutils literal">%Pro&shy;gram&shy;Files(x86)%</tt>—normally <tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files&nbsp;(x86)</span></tt>—instead of <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt>.
-This is trans&shy;par&shy;ent to the 32-bit ap&shy;pli&shy;ca&shy;tions,
-which think they're running in <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> (<tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files</span></tt>).</p>
+launch ap­pli­ca­tions in <tt class="docutils literal">%Pro­gram­Files%</tt> (normally <tt class="docutils literal"><span class="pre">C:\Program Files</span></tt>).
+Due to the magic <a class="reference external" href="http://blogs.msdn.com/craigmcmurtry/archive/2004/12/14/301155.aspx">WOW64 redirector</a>, 32-bit ap­pli­ca­tions
+are actually installed into <tt class="docutils literal">%Pro­gram­Files(x86)%</tt>—normally <tt class="docutils literal"><span class="pre">C:\Program Files (x86)</span></tt>—instead of <tt class="docutils literal">%Pro­gram­Files%</tt>.
+This is trans­par­ent to the 32-bit ap­pli­ca­tions,
+which think they're running in <tt class="docutils literal">%Pro­gram­Files%</tt> (<tt class="docutils literal"><span class="pre">C:\Program Files</span></tt>).</p>
 <p>However, the cmd.exe shell is 64-bit
 (unless you make a special effort to run the 32-bit cmd.exe in SysWOW64),
-so batchfiles see the 64-bit <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> which contains 64-bit ap&shy;pli&shy;ca&shy;tions.</p>
-<p>Hence, a batchfile that launches an installed 32-bit ap&shy;pli&shy;ca&shy;tion on Win64
-must use <tt class="docutils literal">%Pro&shy;gram&shy;Files(x86)%</tt>, not <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt>.</p>
+so batchfiles see the 64-bit <tt class="docutils literal">%Pro­gram­Files%</tt> which contains 64-bit ap­pli­ca­tions.</p>
+<p>Hence, a batchfile that launches an installed 32-bit ap­pli­ca­tion on Win64
+must use <tt class="docutils literal">%Pro­gram­Files(x86)%</tt>, not <tt class="docutils literal">%Pro­gram­Files%</tt>.</p>
 <p>It sounds <span>&#8230;<a href="/blog/2009/09/12/Launching32bitApplicationsFromBatchfilesOnWin64.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -111,14 +111,14 @@ must use <tt class="docutils literal">%Pro&shy;gram&shy;Files(x86)%</tt>, not <t
     </header>
     <a class="reference external image-reference" href="/content/binary/win64-clr-jit-leak.png"></a>
 <p>I mentioned <a class="reference external" href="/blog/2009/06/20/WhenVideoCardsGoBad.html">three weeks ago</a> that I had just repaved my work dev box
-and installed the 64-bit version of the Windows&nbsp;7&nbsp;RC.
+and installed the 64-bit version of the Windows 7 RC.
 Nine or ten years after I first ported parts of IIS to Win64,
 I am finally running my main desktop on 64-bit Windows.
 With one exception, it's been painless.
 Programs have just worked, devices have just worked.
-There are relatively few native x64 ap&shy;pli&shy;ca&shy;tions,
+There are relatively few native x64 ap­pli­ca­tions,
 but for the most part it doesn't matter.
-The cases where it does matter—e.g., shell extensions such as <a class="reference external" href="http://tortoisesvn.net/">Tor&shy;tois&shy;eSVN</a>—are available as 64-bit binaries.</p>
+The cases where it does matter—e.g., shell extensions such as <a class="reference external" href="http://tortoisesvn.net/">Tor­tois­eSVN</a>—are available as 64-bit binaries.</p>
 <p>I briefly flirted with using the 64-bit build of Python,
 but realized that I would have to recompile several eggs as <span>&#8230;<a href="/blog/2009/07/11/64bitWindows7.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -151,7 +151,7 @@ I blamed Windows Update, since it happened within hours of a pile of updates bei
 I upgraded to the latest beta NVidia drivers on Monday
 and it helped for a while, but by Wednesday,
 it was almost as bad again as it had been last Friday.
-It was in&shy;fu&shy;ri&shy;at&shy;ing and I was both en&shy;ter&shy;tain&shy;ing and alarming my neighbors
+It was in­fu­ri­at­ing and I was both en­ter­tain­ing and alarming my neighbors
 with my cursing.</p>
 <p>Today was the last day of a very busy <a class="reference external" href="/blog/2009/04/25/Sprints.html">sprint</a> for me
 and at last I had the time to dig into it.
@@ -182,14 +182,14 @@ I opened up the case and took a look at both video cards—I <span>&#8230;<a hre
     </header>
     <a class="reference external image-reference" href="http://www.microsoft.com/whdc/device/display/wddm_timeout.mspx"></a>
 <p>This morning, the video adapters on my Vista dev box were resetting
-2–3&nbsp;times per <em>minute</em>.</p>
+2–3 times per <em>minute</em>.</p>
 <p>After a pile of Windows Updates landed on my machine at 3am yesterday,
-it would oc&shy;ca&shy;sion&shy;al&shy;ly freeze solid for a few seconds.
+it would oc­ca­sion­al­ly freeze solid for a few seconds.
 Once in a while, all the monitors would go black briefly, then restore.
 Each time, I would see a status update pop up from the system tray,
-&quot;Display driver nvlddmkm stopped responding and has suc&shy;cess&shy;ful&shy;ly recovered.&quot;</p>
+"Display driver nvlddmkm stopped responding and has suc­cess­ful­ly recovered."</p>
 <p>This was irritating enough that I downloaded the latest NVidia drivers this morning,
-<tt class="docutils literal">185.85_desk&shy;top_win&shy;vis&shy;ta_32bit_eng&shy;lish_whql.exe</tt>.
+<tt class="docutils literal">185.85_desk­top_win­vis­ta_32bit_eng­lish_whql.exe</tt>.
 That really screwed me.
 The video adapters started resetting 2–3 times per minute,
 rendering the machine almost unusable.
@@ -251,13 +251,13 @@ to test it on.</p>
 <p>I decided to install the Win64 build of the Windows 7 RC on <a class="reference external" href="http://www.virtualbox.org/">VirtualBox</a>,
 which has supported 64-bit guest operating systems since version 2.0.</p>
 <p>It worked without problems on my MacBook Pro.
-I used Vir&shy;tu&shy;al&shy;Box's Virtual Media Manager to mount the Windows 7 ISO
+I used Vir­tu­al­Box's Virtual Media Manager to mount the Windows 7 ISO
 and installed from that.
 See also the <a class="reference external" href="http://www.intowindows.com/how-to-install-windows-7-on-virtualbox/">handy guide</a>.
 (Why does Windows 7 offer a choice of upgrading from a previous
 version of Windows on a virgin disk?)
-After completing the in&shy;stal&shy;la&shy;tion of the operating system,
-I installed the Guest Additions for mouse pointer in&shy;te&shy;gra&shy;tion
+After completing the in­stal­la­tion of the operating system,
+I installed the Guest Additions for mouse pointer in­te­gra­tion
 and other goodies.</p>
 <p>As always with VirtualBox <span>&#8230;<a href="/blog/2009/05/07/Windows7X64RunningInMacVirtualBox222.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -290,14 +290,14 @@ I started on a quest to find the universal filesystem.
 I had multiboot systems and external drives where I wanted to
 to be able to read and write disks under multiple operating systems.</p>
 <p>The obvious choice is <a class="reference external" href="http://en.wikipedia.org/wiki/File_Allocation_Table#FAT32">FAT32</a>,
-the ubiquitous, lowest-common de&shy;nom&shy;i&shy;na&shy;tor filesystem.
+the ubiquitous, lowest-common de­nom­i­na­tor filesystem.
 FAT32 is supported out-of-the-box by
 all major operating systems, digital cameras, and PDAs,
 so that's a huge advantage.
-FAT32 also has major short&shy;com&shy;ings:</p>
+FAT32 also has major short­com­ings:</p>
 <ul class="simple">
 <li>Maximum file size is 4GB. I have ISOs, MPEGs, and other large files exceeding this limit.</li>
-<li>Frag&shy;men&shy;ta&shy;tion happens too easily.</li>
+<li>Frag­men­ta­tion happens too easily.</li>
 <li>Timestamps: accurate only to 2-second resolution. No notion of timezones or UTC.</li>
 <li>Journaling: <span>&#8230;<a href="/blog/2009/04/11/NTFS3GTheUniversalFilesystem.html" class="continue">continue</a>.</span></li></ul>
     <footer>
@@ -326,7 +326,7 @@ FAT32 also has major short&shy;com&shy;ings:</p>
         </h1>
     </header>
     
-<p>I mentioned in my post on <a class="reference external" href="/blog/2008/11/24/reStructuredText.html">re&shy;Struc&shy;tured&shy;Text</a> that I use a little command-line tool,
+<p>I mentioned in my post on <a class="reference external" href="/blog/2008/11/24/reStructuredText.html">re­Struc­tured­Text</a> that I use a little command-line tool,
 <a class="reference external" href="http://sigpipe.macromates.com/2005/10/11/clipboard-access-from-shell-utf-8/">pbcopy</a>, to pipe the output into the clipboard.
 I finally found a similar tool for Linux, <a class="reference external" href="http://www.vergenet.net/~conrad/software/xsel/">xsel</a>.</p>
 <ul class="simple">
@@ -366,18 +366,18 @@ The winclip binary is available as part of the <a class="reference external" hre
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.infoq.com/articles/dvcs-guide"></a>
-<p>At work, I've been ex&shy;per&shy;i&shy;ment&shy;ing with the big three
-Dis&shy;trib&shy;uted Version Control Systems,
+<p>At work, I've been ex­per­i­ment­ing with the big three
+Dis­trib­uted Version Control Systems,
 <a class="reference external" href="http://git.or.cz/">Git</a>, <a class="reference external" href="http://www.selenic.com/mercurial/wiki/">Mercurial</a>, and <a class="reference external" href="http://bazaar-vcs.org/">Bazaar</a>,
 on Windows over the last ten days.</p>
 <p>Pavel and Eric have been singing the praises of Git and
-<a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-svn.html">git-svn</a> on their Mac and Linux boxes re&shy;spec&shy;tive&shy;ly
+<a class="reference external" href="http://www.kernel.org/pub/software/scm/git/docs/git-svn.html">git-svn</a> on their Mac and Linux boxes re­spec­tive­ly
 for the last few months.
 Git allows them to check in small changes locally without perturbing the build.
 The ease of branching and merging allows them to work in more than one branch
 at a time at a lower cost than Subversion did.
 Most of our dev team continue to work in Subversion on Windows boxes.
-git-svn allows Pavel and Eric to easily in&shy;ter&shy;op&shy;er&shy;ate with the Subversion server.
+git-svn allows Pavel and Eric to easily in­ter­op­er­ate with the Subversion server.
 Pavel <span>&#8230;<a href="/blog/2008/11/10/DistributedVersionControlSystemsOnWindows.html" class="continue">continue</a>.</span></p>
     <footer>
         

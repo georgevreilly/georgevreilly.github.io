@@ -38,77 +38,75 @@
     <img alt="reStructuredText syntax highlighting" src="/content/binary/rst-syntax-dash.png"/>
 <p>Vim has had <a class="reference external" href="http://vimdoc.sourceforge.net/htmldoc/syntax.html">syntax high&shy;light&shy;ing</a> since version 5.0 in 1998.
 It quickly became in&shy;dis&shy;pens&shy;able.
-It&#8217;s hard to go back to looking at mono&shy;chro&shy;mat&shy;ic source code
-after you&#8217;ve become accustomed to syntax&nbsp;high&shy;light&shy;ing.</p>
-<p>The syntax high&shy;light&shy;ing is tied into Vim&#8217;s support for col&shy;orschemes,
+It’s hard to go back to looking at mono&shy;chro&shy;mat&shy;ic source code
+after you’ve become accustomed to syntax high&shy;light&shy;ing.</p>
+<p>The syntax high&shy;light&shy;ing is tied into Vim’s support for col&shy;orschemes,
 which define colors for the fun&shy;da&shy;men&shy;tal syntax groups
 like <tt class="docutils literal">Number</tt>, <tt class="docutils literal">Comment</tt>, and <tt class="docutils literal">String</tt>.
 The syntax high&shy;light&shy;ing for a particular language
 defines custom syntax groups for specific language features,
 such as <tt class="docutils literal">cppEx&shy;cep&shy;tions</tt> or <tt class="docutils literal">htmlEndTag</tt>,</p>
 <p>The custom syntax groups are <em>linked</em> to the underlying fun&shy;da&shy;men&shy;tal syntax groups.
-Hence, if you change your col&shy;orscheme, your syntax high&shy;light&shy;ing is updated&nbsp;au&shy;to&shy;mat&shy;i&shy;cal&shy;ly.</p>
+Hence, if you change your col&shy;orscheme, your syntax high&shy;light&shy;ing is updated au&shy;to&shy;mat&shy;i&shy;cal&shy;ly.</p>
 <p>The re&shy;Struc&shy;tured&shy;Text syntax high&shy;light&shy;ing in Vim 7.2
 has some short&shy;com&shy;ings, in my opinion.
 For example, <tt class="docutils literal">*italic*</tt> shows up as <em>italic</em> in gVim,
 but in the same color as regular text,
-while <tt class="docutils literal">**bold**</tt> shows up in a different color, but not&nbsp;bolded.</p>
+while <tt class="docutils literal">**bold**</tt> shows up in a different color, but not bolded.</p>
 <p>When you declare a syntax group,
-you can either link it to another gropu and pick up that&#8217;s one color and fontstyle,
+you can either link it to another gropu and pick up that’s one color and fontstyle,
 or you can give it a concrete fontstyle and color.
 If you do that, then the syntax group
-won&#8217;t change color when you change the&nbsp;col&shy;orscheme.</p>
-<p>After much poking around, I found a way to set a syntax group&#8217;s
-fontstyle <em>and</em> link it to another group&#8217;s color:
+won’t change color when you change the col&shy;orscheme.</p>
+<p>After much poking around, I found a way to set a syntax group’s
+fontstyle <em>and</em> link it to another group’s color:
 see <tt class="docutils literal">hi def rstItalic</tt> and <tt class="docutils literal">hi def rstBold</tt> below.</p>
 <p>I also make use of certain Unicode characters in my re&shy;Struc&shy;tured&shy;Text source,
 such as endash and emdash,
 which are very hard to tell apart in a fixed-width font—even though an emdash (—) is twice as wide as an endash (–) in a pro&shy;por&shy;tion&shy;al font.
 Worse, a non-breaking space is invisible and
-can&#8217;t easily be dis&shy;tin&shy;guished from a normal&nbsp;space.</p>
+can’t easily be dis&shy;tin&shy;guished from a normal space.</p>
 <p>I provided custom high&shy;light&shy;ing for these Unicode characters
-and the various ‘curly’&nbsp;“quotes”.</p>
+and the various ‘curly’ “quotes”.</p>
 <p>All of this goes into <tt class="docutils literal"><span class="pre">~/.vim/syntax/rst.vim</span></tt>,
 which treats <tt class="docutils literal">$<span class="caps">VIMRUNTIME</span>/syntax/rst.vim</tt> as a subroutine.
 I tried putting it into <tt class="docutils literal"><span class="pre">~/.vim/after/syntax/rst.vim</span></tt>,
 which gets executed after <tt class="docutils literal">$<span class="caps">VIMRUNTIME</span>/syntax/rst.vim</tt> completes,
-but then I can&#8217;t provide non-over&shy;ride&shy;able de&shy;f&shy;i&shy;n&shy;i&shy;tions for
+but then I can’t provide non-over&shy;ride&shy;able de&shy;f&shy;i&shy;n&shy;i&shy;tions for
 <tt class="docutils literal">rstEm&shy;pha&shy;sis</tt> and <tt class="docutils literal">rst&shy;StrongEm&shy;pha&shy;sis</tt>.</p>
+<pre class="code vim literal-block">
+<span class="k">function</span><span class="p">!</span> s:SynFgColor<span class="p">(</span>hlgrp<span class="p">)</span>
+    <span class="k">return</span> synIDattr<span class="p">(</span>synIDtrans<span class="p">(</span>hlID<span class="p">(</span><span class="k">a</span>:hlgrp<span class="p">)),</span> <span class="s1">'fg'</span><span class="p">)</span>
+<span class="k">endfun</span>
 
-<pre class="brush: vim">
-function! s:SynFgColor(hlgrp)
-    return synIDattr(synIDtrans(hlID(a:hlgrp)), 'fg')
-endfun
+<span class="k">function</span><span class="p">!</span> s:SynBgColor<span class="p">(</span>hlgrp<span class="p">)</span>
+    <span class="k">return</span> synIDattr<span class="p">(</span>synIDtrans<span class="p">(</span>hlID<span class="p">(</span><span class="k">a</span>:hlgrp<span class="p">)),</span> <span class="s1">'bg'</span><span class="p">)</span>
+<span class="k">endfun</span>
 
-function! s:SynBgColor(hlgrp)
-    return synIDattr(synIDtrans(hlID(a:hlgrp)), 'bg')
-endfun
+<span class="k">syn</span> <span class="k">match</span> rstEnumeratedList <span class="sr">/^\s*[0-9#]\{1,3}\.\s/</span>
+<span class="k">syn</span> <span class="k">match</span> rstBulletedList <span class="sr">/^\s*[+*-]\s/</span>
+<span class="k">syn</span> <span class="k">match</span> rstNbsp <span class="sr">/[\xA0]/</span>
+<span class="k">syn</span> <span class="k">match</span> rstEmDash <span class="sr">/[\u2014]/</span>
+<span class="k">syn</span> <span class="k">match</span> rstUnicode <span class="sr">/[\u2013\u2018\u2019\u201C\u201D]/</span> <span class="c">" – ‘ ’ “ ”</span>
 
-syn match rstEnumeratedList /^\s*[0-9#]\{1,3}\.\s/
-syn match rstBulletedList /^\s*[+*-]\s/
-syn match rstNbsp /[\xA0]/
-syn match rstEmDash /[\u2014]/
-syn match rstUnicode /[\u2013\u2018\u2019\u201C\u201D]/ " – ‘ ’ “ ”
+exec <span class="s1">'hi def rstBold    term=bold cterm=bold gui=bold guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'PreProc'</span><span class="p">)</span>
+exec <span class="s1">'hi def rstItalic  term=italic cterm=italic gui=italic guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Statement'</span><span class="p">)</span>
+exec <span class="s1">'hi def rstNbsp    gui=underline guibg='</span> . s:SynBgColor<span class="p">(</span><span class="s1">'ErrorMsg'</span><span class="p">)</span>
+exec <span class="s1">'hi def rstEmDash  gui=bold guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Title'</span><span class="p">)</span> . <span class="s1">' guibg='</span>. s:SynBgColor<span class="p">(</span><span class="s1">'Folded'</span><span class="p">)</span>
+exec <span class="s1">'hi def rstUnicode guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Number'</span><span class="p">)</span>
 
-exec 'hi def rstBold    term=bold cterm=bold gui=bold guifg=' . s:SynFgColor('PreProc')
-exec 'hi def rstItalic  term=italic cterm=italic gui=italic guifg=' . s:SynFgColor('Statement')
-exec 'hi def rstNbsp    gui=underline guibg=' . s:SynBgColor('ErrorMsg')
-exec 'hi def rstEmDash  gui=bold guifg=' . s:SynFgColor('Title') . ' guibg='. s:SynBgColor('Folded')
-exec 'hi def rstUnicode guifg=' . s:SynFgColor('Number')
+<span class="k">hi</span> link rstEmphasis       rstItalic
+<span class="k">hi</span> link rstStrongEmphasis rstBold
+<span class="k">hi</span> link rstEnumeratedList Operator
+<span class="k">hi</span> link rstBulletedList   Operator
 
-hi link rstEmphasis       rstItalic
-hi link rstStrongEmphasis rstBold
-hi link rstEnumeratedList Operator
-hi link rstBulletedList   Operator
+source $<span class="caps">VIMRUNTIME</span><span class="sr">/syntax/</span>rst.<span class="k">vim</span>
 
-source $VIMRUNTIME/syntax/rst.vim
-
-syn cluster rstCruft                contains=rstEmphasis,rstStrongEmphasis,
-      \ rstInterpretedText,rstInlineLiteral,rstSubstitutionReference,
-      \ rstInlineInternalTargets,rstFootnoteReference,rstHyperlinkReference,
-      \ rstNbsp,rstEmDash,rstUnicode
+<span class="k">syn</span> cluster rstCruft                contains<span class="p">=</span>rstEmphasis<span class="p">,</span>rstStrongEmphasis<span class="p">,</span>
+      \ rstInterpretedText<span class="p">,</span>rstInlineLiteral<span class="p">,</span>rstSubstitutionReference<span class="p">,</span>
+      \ rstInlineInternalTargets<span class="p">,</span>rstFootnoteReference<span class="p">,</span>rstHyperlinkReference<span class="p">,</span>
+      \ rstNbsp<span class="p">,</span>rstEmDash<span class="p">,</span>rstUnicode
 </pre>
-
 
     <footer>
         

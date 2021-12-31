@@ -41,16 +41,14 @@ or which pattern you want to search for,
 Vim provides a couple of command-line options that can help:
 <tt class="docutils literal">+<span class="caps">NUM</span></tt> goes to line number <tt class="docutils literal"><span class="caps">NUM</span></tt>,
 while <tt class="docutils literal">+/<span class="caps">PAT</span></tt> searches for the first occurrence of <tt class="docutils literal"><span class="caps">PAT</span></tt>.
-It&#8217;s also possible to execute an Ex command with <tt class="docutils literal">+<span class="caps">CMD</span></tt>,
-such as <tt class="docutils literal">&quot;+set fenc=latin1&quot;</tt>.
+It’s also possible to execute an Ex command with <tt class="docutils literal">+<span class="caps">CMD</span></tt>,
+such as <tt class="docutils literal">"+set fenc=latin1"</tt>.
 You can supply up to ten <tt class="docutils literal">+</tt> options.</p>
-
-<pre class="brush: bash">
+<pre class="code bash literal-block">
 vim +23 ~/.bashrc
-vim '+/ASIN\|ISBN' template.rst
-vim "+set fenc=latin1" some.csv
+vim <span class="s1">'+/<span class="caps">ASIN</span>\|<span class="caps">ISBN</span>'</span> template.rst
+vim <span class="s2">"+set fenc=latin1"</span> some.csv
 </pre>
-
 
     <footer>
         

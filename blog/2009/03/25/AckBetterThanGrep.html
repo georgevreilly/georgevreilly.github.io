@@ -38,23 +38,24 @@
     </header>
     <a class="reference external image-reference" href="http://www.betterthangrep.com/"><img alt="Ack!" class="right-float" src="/content/binary/ack-thpppt.png"/></a>
 <p>On a Stack&shy;Over&shy;flow question about <a class="reference external" href="http://stackoverflow.com/questions/21725/favorite-gvim-plugins-scripts">favorite Vim plugins</a>, I learned about <a class="reference external" href="http://www.betterthangrep.com/">Ack</a>,
-a re&shy;place&shy;ment for grep that&#8217;s smarter about searching source&nbsp;trees.</p>
+a re&shy;place&shy;ment for grep that’s smarter about searching source trees.</p>
 <p>Ack is written in Perl.
 The built-in <tt class="docutils literal">:vimgrep</tt> is rather slow.
 It seems to have some Vim-specific overhead,
 such as creating swap files and executing <tt class="docutils literal">BufRead</tt> autocmds.
 Ack is noticeably faster,
-though somewhat slower than <span class="caps">GNU</span>&nbsp;grep.</p>
+though somewhat slower than <span class="caps">GNU</span> grep.</p>
 <p>Which would you rather type to search a tree,
 ignoring the <tt class="docutils literal">.svn</tt> and <tt class="docutils literal">.git</tt> subtrees?</p>
-<div class="highlight"><pre><span></span>$ ack -i -l foobar
-$ grep --exclude<span class="o">=</span><span class="s1">&#39;*.svn*&#39;</span> --exclude<span class="o">=</span><span class="s1">&#39;*.git*&#39;</span> -i -l -r foobar .
-</pre></div>
+<pre class="code bash literal-block">
+$ ack -i -l foobar
+$ grep --exclude<span class="o">=</span><span class="s1">'*.svn*'</span> --exclude<span class="o">=</span><span class="s1">'*.git*'</span> -i -l -r foobar .
+</pre>
 <p>The ack takes 6 seconds to search 4500 files, while the grep completes in 2.
 This does not count the time that I spent trying to figure out
 the correct syntax and argument quoting for <tt class="docutils literal"><span class="pre">--exclude</span></tt>.
 The help says both <tt class="docutils literal"><span class="pre">--regexp=<span class="caps">PATTERN</span></span></tt> and <tt class="docutils literal"><span class="pre">--exclude=<span class="caps">PATTERN</span></span></tt>,
-but the latter is a <em>glob</em> (file wildcard&nbsp;pattern).</p>
+but the latter is a <em>glob</em> (file wildcard pattern).</p>
 <p>On Windows, I wrapped ack with <a class="reference external" href="http://www.perl.com/doc/manual/html/win32/bin/pl2bat.pl.html">pl2bat</a>.</p>
 
     <footer>

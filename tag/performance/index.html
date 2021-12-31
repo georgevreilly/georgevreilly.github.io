@@ -33,21 +33,19 @@
             <a href="/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html" rel="bookmark canonical">Accidentally Quadratic: Python List Membership</a>
         </h1>
     </header>
-    <p>We had a per&shy;for&shy;mance regression in a test suite recently
+    <p>We had a per­for­mance regression in a test suite recently
 when the median test time jumped by two minutes.</p>
 <a class="reference external image-reference" href="https://www.bigocheatsheet.com/"></a>
 <p>We tracked it down to this (simplified) code fragment:</p>
-
-<pre class="brush: python">
-task_inclusions = [ some_collection_of_tasks() ]
-invalid_tasks = [t.task_id() for t in airflow_tasks
-                 if t.task_id() not in task_inclusions]
+<pre class="code python literal-block">
+<span class="n">task_inclusions</span> <span class="o">=</span> <span class="p">[</span> <span class="n">some_collection_of_tasks</span><span class="p">()</span> <span class="p">]</span>
+<span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span>
+                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
 </pre>
-
-<p>This looks fairly in&shy;nocu&shy;ous—and it was—until the size of the result returned from <tt class="docutils literal">some_&shy;col&shy;lec&shy;tion_of_&shy;tasks()</tt>
+<p>This looks fairly in­nocu­ous—and it was—until the size of the result returned from <tt class="docutils literal">some_­col­lec­tion_of_­tasks()</tt>
 jumped from a few hundred to a few thousand.</p>
-<p>The <a class="reference external" href="https://docs.python.org/3/reference/expressions.html#membership-test-operations">in comparison operator</a> con&shy;ve&shy;nient&shy;ly works
-with all of Python's standard sequences and col&shy;lec&shy;tions,
+<p>The <a class="reference external" href="https://docs.python.org/3/reference/expressions.html#membership-test-operations">in comparison operator</a> con­ve­nient­ly works
+with all of Python's standard sequences and col­lec­tions,
 but its efficiency varies.
 For a <tt class="docutils literal">list</tt> and other sequences,
 <tt class="docutils literal">in</tt> must search <span>&#8230;<a href="/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html" class="continue">continue</a>.</span></p>
@@ -78,23 +76,23 @@ For a <tt class="docutils literal">list</tt> and other sequences,
     <p></p>
 <blockquote>
 <p>Some people, when confronted with a problem, think
-“I know, I'll use regular ex&shy;pres&shy;sions.”
+“I know, I'll use regular ex­pres­sions.”
 <a class="reference external" href="http://regex.info/blog/2006-09-15/247">Now they have two problems</a>.</p>
 <blockquote>
 — Jaime Zawinksi</blockquote>
 </blockquote>
 <p>A Twitter thread about <a class="reference external" href="https://twitter.com/nbashaw/status/1253186961482715136">very long regexes</a>
 reminded me of the <a class="reference external" href="/blog/2009/07/11/64bitWindows7.html">longest regex</a> that I ever ran afoul of,
-a par&shy;tic&shy;u&shy;lar&shy;ly horrible multilevel mess
+a par­tic­u­lar­ly horrible multilevel mess
 that had worked acceptably on the 32-bit .NET CLR,
 but brought the 64-bit CLR to its knees.</p>
 <blockquote>
-<p>Whenever I ran our ASP.NET web ap&shy;pli&shy;ca&shy;tion [on Win64],
+<p>Whenever I ran our ASP.NET web ap­pli­ca­tion [on Win64],
 it would go berserk, eat up all 4GB of my physical RAM,
 push the working set of IIS's w3wp.exe to <em>12GB</em>,
-and max out one of my 4&nbsp;cores!
+and max out one of my 4 cores!
 The only way to maintain any sanity was to run <tt class="docutils literal">iisreset</tt>
-every 20&nbsp;minutes to <span>&#8230;<a href="/blog/2020/04/23/regex-32-problems.html" class="continue">continue</a>.</span></p></blockquote>
+every 20 minutes to <span>&#8230;<a href="/blog/2020/04/23/regex-32-problems.html" class="continue">continue</a>.</span></p></blockquote>
     <footer>
         
         
@@ -119,14 +117,14 @@ every 20&nbsp;minutes to <span>&#8230;<a href="/blog/2020/04/23/regex-32-problem
             <a href="/blog/2017/02/07/OldPresentations.html" rel="bookmark canonical">Old Presentations</a>
         </h1>
     </header>
-    <p>I uploaded some pre&shy;sen&shy;ta&shy;tions to Speak&shy;erDeck.com tonight.</p>
-<p>Here are various pre&shy;sen&shy;ta&shy;tions of mine at <a class="reference external" href="https://speakerdeck.com/georgevreilly">Speak&shy;erDeck.com</a> and <a class="reference external" href="http://www.slideshare.net/george_v_reilly">SlideShare.net</a>:</p>
+    <p>I uploaded some pre­sen­ta­tions to Speak­erDeck.com tonight.</p>
+<p>Here are various pre­sen­ta­tions of mine at <a class="reference external" href="https://speakerdeck.com/georgevreilly">Speak­erDeck.com</a> and <a class="reference external" href="http://www.slideshare.net/george_v_reilly">SlideShare.net</a>:</p>
 <ul class="simple">
 <li><a class="reference external" href="https://speakerdeck.com/georgevreilly/lkrhash-the-design-of-a-scalable-hashtable">LKRhash: the design of a scalable hashtable</a>.
 I spoke about this at <a class="reference external" href="http://nwcpp.org/june-2012.html">NWCPP</a> (<a class="reference external" href="https://vimeo.com/44575071">video</a>) in June 2012.</li>
-<li><a class="reference external" href="https://speakerdeck.com/georgevreilly/software-performance-an-overview">Software Per&shy;for&shy;mance: an Overview</a>.
+<li><a class="reference external" href="https://speakerdeck.com/georgevreilly/software-performance-an-overview">Software Per­for­mance: an Overview</a>.
 I gave this talk at an internal brownbag at MetaBrite in January 2016.</li>
-<li><a class="reference external" href="https://speakerdeck.com/georgevreilly/flyingcloud-docker-containers-built-with-saltstack">Fly&shy;ing&shy;Cloud: Docker containers built with SaltStack</a>.
+<li><a class="reference external" href="https://speakerdeck.com/georgevreilly/flyingcloud-docker-containers-built-with-saltstack">Fly­ing­Cloud: Docker containers built with SaltStack</a>.
 I gave this talk at <a class="reference external" href="https://www.meetup.com/PSPPython/events/228878102/">PuPPy</a> (<a class="reference external" href="https://youtu.be/MbBzuI3p5xw?t=25m23s">video</a>) in March 2016.</li>
 <li><a class="reference external" href="http://www.slideshare.net/george_v_reilly/security-101-7567002">Security 101</a>.
 I gave this talk at an internal brownbag at Cozi in November 2011.</li>
@@ -161,14 +159,14 @@ I gave this talk at an internal brownbag at Cozi in November 2011.</li>
     <p>LKRhash is a hashtable that scales to multiple processors and to millions of items.
 LKRhash was invented at Microsoft in 1997
 by Per-Åke (Paul) Larson of Microsoft Research
-and Murali Krishnan and George Reilly of Internet In&shy;for&shy;ma&shy;tion Services.
+and Murali Krishnan and George Reilly of Internet In­for­ma­tion Services.
 LKRhash has been used in many Microsoft products.
-The techniques that give LKRhash its per&shy;for&shy;mance
+The techniques that give LKRhash its per­for­mance
 include <a class="reference external" href="https://en.wikipedia.org/wiki/Linear_hashing">linear hashing</a>, cache-friendly data structures, and fine-grained locking.</p>
 <ul class="simple">
 <li><a class="reference external" href="http://nwcpp.org/june-2012.html">Northwest C++ Users' Group talk</a>, June 2012. <a class="reference external" href="https://speakerdeck.com/georgevreilly/lkrhash-the-design-of-a-scalable-hashtable">Speaker Deck Slides</a>.</li>
-<li><a class="reference external" href="/content/LKRhash-for-SoftwarePE.pdf">Un&shy;pub&shy;lished paper</a> submitted to <a class="reference external" href="http://www.wiley.com/WileyCDA/WileyTitle/productCd-SPE.html">Software: Practice &amp; Experience</a> (Oct 1999).</li>
-<li><a class="reference external" href="https://patents.google.com/patent/US6578131B1/en">US 6,578,131 patent</a>. Associated <a class="reference external" href="https://www.google.com/patents/US6578131.pdf">PDF</a> contains some of the SP&amp;E paper.</li>
+<li><a class="reference external" href="/content/LKRhash-for-SoftwarePE.pdf">Un­pub­lished paper</a> submitted to <a class="reference external" href="http://www.wiley.com/WileyCDA/WileyTitle/productCd-SPE.html">Software: Practice & Experience</a> (Oct 1999).</li>
+<li><a class="reference external" href="https://patents.google.com/patent/US6578131B1/en">US 6,578,131 patent</a>. Associated <a class="reference external" href="https://www.google.com/patents/US6578131.pdf">PDF</a> contains some of the SP&E paper.</li>
 </ul>
 <p>If Microsoft had had <a class="reference external" href="https://qz.com/115831/googles-20-time-which-brought-you-gmail-and-adsense-is-now-as-good-as-dead/">20% time</a>,
 LKRhash would have been my main 20% project.
@@ -198,17 +196,17 @@ I put a lot of <span>&#8230;<a href="/blog/2017/01/10/LKRhashScalableHashTables.
         </h1>
     </header>
     <a class="reference external image-reference" href="http://queue.acm.org/detail.cfm?id=2927301"></a>
-<p>I was in&shy;ves&shy;ti&shy;gat&shy;ing the per&shy;for&shy;mance of a web app today,
-and I spent some time looking at the <a class="reference external" href="https://addyosmani.com/blog/devtools-flame-charts/">Flame Chart</a> vi&shy;su&shy;al&shy;iza&shy;tion
+<p>I was in­ves­ti­gat­ing the per­for­mance of a web app today,
+and I spent some time looking at the <a class="reference external" href="https://addyosmani.com/blog/devtools-flame-charts/">Flame Chart</a> vi­su­al­iza­tion
 in Chrome's profiling tools, which helped identify some problems.</p>
 <p>Flame Charts are like Brendan Gregg's <a class="reference external" href="http://www.brendangregg.com/flamegraphs.html">Flame Graphs</a>,
 except that the charts are sorted by time,
-while the graphs are sorted al&shy;pha&shy;bet&shy;i&shy;cal&shy;ly.</p>
+while the graphs are sorted al­pha­bet­i­cal­ly.</p>
 <p>Quoting from Gregg's recent <a class="reference external" href="http://queue.acm.org/detail.cfm?id=2927301">ACM Queue article</a>:</p>
 <blockquote>
-<p>A flame graph has the following char&shy;ac&shy;ter&shy;is&shy;tics:</p>
+<p>A flame graph has the following char­ac­ter­is­tics:</p>
 <ul class="simple">
-<li>A stack trace is rep&shy;re&shy;sent&shy;ed as a column of boxes,
+<li>A stack trace is rep­re­sent­ed as a column of boxes,
 where each box represents a function (a stack frame).</li>
 <li>The y-axis shows the stack depth,
 ordered from root at the bottom to leaf at the top.
@@ -238,15 +236,15 @@ that was on-CPU when the <span>&#8230;<a href="/blog/2016/08/23/FlameGraphsAndFl
             <a href="/blog/2016/03/25/Profiling.html" rel="bookmark canonical">Profiling</a>
         </h1>
     </header>
-    <p>Despite being a <em>bona fide</em> per&shy;for&shy;mance expert—I spent a couple of years as the Per&shy;for&shy;mance Lead
-for Mi&shy;crosoft&shy;'s IIS web server product about 15 years ago—I still forget to measure rather than assume.</p>
+    <p>Despite being a <em>bona fide</em> per­for­mance expert—I spent a couple of years as the Per­for­mance Lead
+for Mi­crosoft­'s IIS web server product about 15 years ago—I still forget to measure rather than assume.</p>
 <p>I wrote some code today that imported nearly 300,000 nodes into a graph
 from a 500MB XML file.
-The code was not par&shy;tic&shy;u&shy;lar&shy;ly fast and I assumed that it was the XML parser.
-I had been using the built-in streaming parser, <a class="reference external" href="https://docs.python.org/2/library/xml.etree.elementtree.html#xml.etree.ElementTree.iterparse">cEle&shy;ment&shy;Tree iterparse</a>.
+The code was not par­tic­u­lar­ly fast and I assumed that it was the XML parser.
+I had been using the built-in streaming parser, <a class="reference external" href="https://docs.python.org/2/library/xml.etree.elementtree.html#xml.etree.ElementTree.iterparse">cEle­ment­Tree iterparse</a>.
 I assumed that using the <a class="reference external" href="http://lxml.de/api/lxml.etree.iterparse-class.html">lmxl iterparse</a> would make the code faster.
 It didn't.</p>
-<p>Then I had the bright idea of tem&shy;porar&shy;i&shy;ly disabling the per-node processing,
+<p>Then I had the bright idea of tem­porar­i­ly disabling the per-node processing,
 which left only the XML parsing.
 Instead of <span>&#8230;<a href="/blog/2016/03/25/Profiling.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -275,30 +273,26 @@ Instead of <span>&#8230;<a href="/blog/2016/03/25/Profiling.html" class="continu
     </header>
     <p>The canonical <tt class="docutils literal">for</tt>-loop in C and C++ is written thus,
 counting up <tt class="docutils literal">i = 0</tt>, <tt class="docutils literal">i = 1</tt>, ..., <tt class="docutils literal">i = <span class="pre">N-1</span></tt>:</p>
-
-<pre class="brush: c++">
-for (int i=0; i &lt; N; i++) {
-    // loop body
-}
+<pre class="code c++ literal-block">
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o"><</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c1">// loop body
+</span><span class="p">}</span>
 </pre>
-
 <p>(In C, you have to declare <tt class="docutils literal">int i</tt> before the <tt class="docutils literal">for</tt>-loop.)</p>
 <p>Let's unpack that <tt class="docutils literal">for</tt>-loop into an equivalent <tt class="docutils literal">while</tt>-loop:</p>
-
-<pre class="brush: c++">
-int i = 0;
-while (i &lt; N) {
-    // loop body
-    i = i + 1
-}
+<pre class="code c++ literal-block">
+<span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o"><</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c1">// loop body
+</span><span class="w">    </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span>
 </pre>
-
 <p>In other words, we initialize <tt class="docutils literal">i</tt> to zero.
 Then, before every execution of either loop,
-we check <tt class="docutils literal">i &lt; N</tt>.
+we check <tt class="docutils literal">i < N</tt>.
 If <tt class="docutils literal">i</tt> is still within bounds,
 we execute the loop body.
-Then we postin&shy;cre&shy;ment <span>&#8230;<a href="/blog/2016/01/05/DecrementingLoops.html" class="continue">continue</a>.</span></p>
+Then we postin­cre­ment <span>&#8230;<a href="/blog/2016/01/05/DecrementingLoops.html" class="continue">continue</a>.</span></p>
     <footer>
         
         

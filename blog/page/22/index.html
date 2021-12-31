@@ -36,15 +36,15 @@
     <p>Bloomsday is less than three months away
 and the <a class="reference external" href="http://www.wildgeeseseattle.org/">Wild Geese Players</a> need to start rehearsing soon.
 I made a start on the script at the end of January,
-but didn&#8217;t pick it up again until&nbsp;today.</p>
+but didn’t pick it up again until today.</p>
 <p>Three years ago, we completed <em>Ulysses</em>, having started in 1998.
 Two years ago, we started over,
-reading chapters 1 and 4 in&shy;ter&shy;leaved.
+reading chapters 1 and 4 in­ter­leaved.
 In Chapter 1 (Telemachus), Stephen Dedalus arises in the Martello Tower at Sandymount
 and feuds with Buck Mulligan.
 Chapter 4 (Calypso) takes place at the same time as Chapter 1,
-wherein Leopold Bloom breaks his&nbsp;fast.</p>
-<p>Last year, we in&shy;ter&shy;twined chapters 2 and 5.
+wherein Leopold Bloom breaks his fast.</p>
+<p>Last year, we in­ter­twined chapters 2 and 5.
 Chapter 2 (Nestor) takes place at the school where Stephen teaches;
 he <span>&#8230;<a href="/blog/2016/03/27/PreparingBloomsdayScripts.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -72,19 +72,19 @@ he <span>&#8230;<a href="/blog/2016/03/27/PreparingBloomsdayScripts.html" class=
     </header>
     
 <p>The Washington state Democratic Caucus was held today.
-The final totals aren&#8217;t in yet but Bernie Sanders beat Hillary Clinton
+The final totals aren’t in yet but Bernie Sanders beat Hillary Clinton
 by a nearly 3:1 margin around the state.
 Our own precinct, <span class="caps">SEA</span> 11-1945, had Sanders 41, Clinton 26, Undecided 2.
 That translates to 4 Sanders delegates and 2 Clinton delegates
-in the next level of&nbsp;caucusing.</p>
+in the next level of caucusing.</p>
 <p>Emma and I both voted for Sanders.
 We believe that Sanders represents much-needed change
 in the party and in the nation.
-Clinton is un&shy;doubt&shy;ed&shy;ly one of the most qualified candidates ever,
-with an ex&shy;tra&shy;or&shy;di&shy;nary résumé and a high degree of competence.
-She&#8217;s also too tied to the status quo for my&nbsp;liking.</p>
+Clinton is un­doubt­ed­ly one of the most qualified candidates ever,
+with an ex­tra­or­di­nary résumé and a high degree of competence.
+She’s also too tied to the status quo for my liking.</p>
 <p>However, unlike some Sanders partisans,
-we&#8217;ll readily <span>&#8230;<a href="/blog/2016/03/26/Caucus2016.html" class="continue">continue</a>.</span></p>
+we’ll readily <span>&#8230;<a href="/blog/2016/03/26/Caucus2016.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/26/Caucus2016.html#disqus_thread">Comment</a>
@@ -108,15 +108,15 @@ we&#8217;ll readily <span>&#8230;<a href="/blog/2016/03/26/Caucus2016.html" clas
             <a href="/blog/2016/03/25/Profiling.html" rel="bookmark canonical">Profiling</a>
         </h1>
     </header>
-    <p>Despite being a <em>bona fide</em> per&shy;for&shy;mance expert—I spent a couple of years as the Per&shy;for&shy;mance Lead
-for Microsoft&#8217;s <span class="caps">IIS</span> web server product about 15 years ago—I still forget to measure rather than&nbsp;assume.</p>
+    <p>Despite being a <em>bona fide</em> per­for­mance expert—I spent a couple of years as the Per­for­mance Lead
+for Mi­crosoft­’s <span class="caps">IIS</span> web server product about 15 years ago—I still forget to measure rather than assume.</p>
 <p>I wrote some code today that imported nearly 300,000 nodes into a graph
 from a <span class="caps">500MB</span> <span class="caps">XML</span> file.
-The code was not par&shy;tic&shy;u&shy;lar&shy;ly fast and I assumed that it was the <span class="caps">XML</span> parser.
-I had been using the built-in streaming parser, <a class="reference external" href="https://docs.python.org/2/library/xml.etree.elementtree.html#xml.etree.ElementTree.iterparse">cEle&shy;ment&shy;Tree iterparse</a>.
+The code was not par­tic­u­lar­ly fast and I assumed that it was the <span class="caps">XML</span> parser.
+I had been using the built-in streaming parser, <a class="reference external" href="https://docs.python.org/2/library/xml.etree.elementtree.html#xml.etree.ElementTree.iterparse">cEle­ment­Tree iterparse</a>.
 I assumed that using the <a class="reference external" href="http://lxml.de/api/lxml.etree.iterparse-class.html">lmxl iterparse</a> would make the code faster.
-It&nbsp;didn&#8217;t.</p>
-<p>Then I had the bright idea of tem&shy;porar&shy;i&shy;ly disabling the per-node processing,
+It didn’t.</p>
+<p>Then I had the bright idea of tem­porar­i­ly disabling the per-node processing,
 which left only the <span class="caps">XML</span> parsing.
 Instead of handling 200 <span>&#8230;<a href="/blog/2016/03/25/Profiling.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -145,28 +145,26 @@ Instead of handling 200 <span>&#8230;<a href="/blog/2016/03/25/Profiling.html" c
             <a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" rel="bookmark canonical">Raising IOError for 'file not found'</a>
         </h1>
     </header>
-    <p>I wanted to raise Python&#8217;s <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.IOError">IOError</a> for a file-not-found condition,
-but it wasn&#8217;t obvious what the parameters to the exception should&nbsp;be.</p>
+    <p>I wanted to raise Python’s <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.IOError">IOError</a> for a file-not-found condition,
+but it wasn’t obvious what the parameters to the exception should be.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">errno</span> <span class="kn">import</span> <span class="n"><span class="caps">ENOENT</span></span>
 
-<pre class="brush: python">
-from errno import ENOENT
-
-if not os.path.isfile(source_file):
-    raise IOError(ENOENT, 'Not a file', source_file)
-with open(source_file) as fp:
-    return fp.read()
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">source_file</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n"><span class="caps">ENOENT</span></span><span class="p">,</span> <span class="s1">'Not a file'</span><span class="p">,</span> <span class="n">source_file</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </pre>
-
-<p><tt class="docutils literal">IOError</tt> can be in&shy;stan&shy;ti&shy;at&shy;ed with 1, 2, or 3&nbsp;arguments:</p>
+<p><tt class="docutils literal">IOError</tt> can be in­stan­ti­at­ed with 1, 2, or 3 arguments:</p>
 <dl class="docutils">
 <dt><tt class="docutils literal">IOError(errno, strerror, filename)</tt></dt>
 <dd>These arguments are available
 on the <tt class="docutils literal">errno</tt>, <tt class="docutils literal">strerror</tt>, and <tt class="docutils literal">filename</tt> attributes of the exception object,
-re&shy;spec&shy;tive&shy;ly, in both Python 2 and 3.
-The <tt class="docutils literal">args</tt> attribute contains the verbatim con&shy;struc&shy;tor arguments as a&nbsp;tuple.</dd>
+re­spec­tive­ly, in both Python 2 and 3.
+The <tt class="docutils literal">args</tt> attribute contains the verbatim con­struc­tor arguments as a tuple.</dd>
 <dt><tt class="docutils literal">IOError(errno, strerror)</tt></dt>
 <dd>These are available on the <tt class="docutils literal">errno</tt> and <tt class="docutils literal">strerror</tt> attributes of the exception,
-re&shy;spec&shy;tive&shy;ly, in both Python 2 and 3,
+re­spec­tive­ly, in both Python 2 and 3,
 while the <tt class="docutils literal">filename</tt> <span>&#8230;<a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" class="continue">continue</a>.</span></dd></dl>
     <footer>
         
@@ -191,23 +189,23 @@ while the <tt class="docutils literal">filename</tt> <span>&#8230;<a href="/blog
             <a href="/blog/2016/03/23/MoleRemoval.html" rel="bookmark canonical">Mole Removal</a>
         </h1>
     </header>
-    <p>I had a mole excised&nbsp;today.</p>
+    <p>I had a mole excised today.</p>
 <p>I have a few moles on my body, mostly on my legs.
 My doctor has disliked the look of some of my moles for years.
 After my most recent annual physical,
-I went to see a der&shy;ma&shy;tol&shy;o&shy;gist a month ago.
+I went to see a der­ma­tol­o­gist a month ago.
 There was only one mole that she wanted to treat,
 low on my left calf.
 She took a biopsy,
 using a tiny little saw to peel the top layer off
-after the area had been numbed with a local&nbsp;anesthetic.</p>
+after the area had been numbed with a local anesthetic.</p>
 <div class="figure">
 
-<p class="caption">Before&nbsp;Biopsy</p>
+<p class="caption">Before Biopsy</p>
 </div>
 <p>The results came back a week later.
 The mole was “abnormal” but not cancerous.
-It was rec&shy;om&shy;mend&shy;ed that the rest be removed.
+It was rec­om­mend­ed that the rest be removed.
 The skin is tight on my lower <span>&#8230;<a href="/blog/2016/03/23/MoleRemoval.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -241,17 +239,17 @@ Adam Porad and I were one of five teams
 pitching our startups at the
 PuPPy-organized <a class="reference external" href="https://www.meetup.com/PSPPython/events/229206293/">PyCon Startup Row Pitch Night</a>:</p>
 <blockquote>
-Techstars Seattle and PuPPy [Puget Sound Pro&shy;gram&shy;ming Python]
+Techstars Seattle and PuPPy [Puget Sound Pro­gram­ming Python]
 presents PyCon Startup Row Pitch Night.
 The time has come again for you, the members of PuPPy,
-to select Seattle’s startup rep&shy;re&shy;sen&shy;ta&shy;tive to travel
+to select Seattle’s startup rep­re­sen­ta­tive to travel
 to <a class="reference external" href="https://us.pycon.org/2016/">PyCon</a> in Portland to represent our Python community and startup scene
 at the annual conference produced by the Python Software Foundation.</blockquote>
 <p>We were pitching <a class="reference external" href="https://www.metabrite.com/">MetaBrite</a>
 and our technology that captures receipts,
-yielding receipt in&shy;for&shy;ma&shy;tion to users and onsumer insights.
-We use Python ex&shy;ten&shy;sive&shy;ly—we&#8217;ve written 120,000 lines of Python code
-for web services, web apps, machine learning, image processing, and&nbsp;scripting.</p>
+yielding receipt in­for­ma­tion to users and onsumer insights.
+We use Python ex­ten­sive­ly—we’ve written 120,000 lines of Python code
+for web services, web apps, machine learning, image processing, and scripting.</p>
 <p>We <span>&#8230;<a href="/blog/2016/03/22/PuPPyStartupRowPitchNight.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -293,11 +291,11 @@ for web services, web apps, machine learning, image processing, and&nbsp;scripti
 </div>
 <p>Jane Nichols, burnt-out <span class="caps">MI5</span> agent and novelist, has gotten out of the Service,
 but she wants revenge on the man who caused the death of her lover.
-The target, Jim O&#8217;Neil, is a re&shy;spectable busi&shy;ness&shy;man in Savannah, Georgia.
+The target, Jim O’Neil, is a re­spectable busi­ness­man in Savannah, Georgia.
 Jane rents a room from the Savannah chief of police, sexy Alex Callaghan,
-posing as the novelist she is, so that she kill O&#8217;Neil.
-She gets tangled up in Callaghan&#8217;s serial killer case&nbsp;too.</p>
-<p>En&shy;ter&shy;tain&shy;ing, fast-paced thriller with a likeable and believable lead&nbsp;character.</p>
+posing as the novelist she is, so that she kill O’Neil.
+She gets tangled up in Callaghan’s serial killer case too.</p>
+<p>En­ter­tain­ing, fast-paced thriller with a likeable and believable lead character.</p>
 
     <footer>
         
@@ -338,14 +336,14 @@ She gets tangled up in Callaghan&#8217;s serial killer case&nbsp;too.</p>
 <div class="line">Keywords: sf</div>
 <div class="line">Reading period: 10–13 March, 2016</div>
 </div>
-<p>Three people are nearly all that&#8217;s left of the elite “Meshed” caste.
+<p>Three people are nearly all that’s left of the elite “Meshed” caste.
 They stay one step aside of the hunters
 and live off the proceeds from making and selling the highly addictive “Staze”.
 They flee to a long-abandoned planet and discover a new lifeform,
 which takes over in both meatspace and the shared virtual reality,
-infecting the dreams of the&nbsp;Staze-addicted.</p>
-<p>While there were some in&shy;ter&shy;est&shy;ing ideas in this book,
-I didn&#8217;t enjoy it very&nbsp;much.</p>
+infecting the dreams of the Staze-addicted.</p>
+<p>While there were some in­ter­est­ing ideas in this book,
+I didn’t enjoy it very much.</p>
 
     <footer>
         
@@ -376,25 +374,25 @@ I didn&#8217;t enjoy it very&nbsp;much.</p>
     </header>
     <a class="reference external image-reference" href="https://www.amazon.com/dp/B00XT47SOK/?tag=georgvreill-20"></a>
 <div class="line-block">
-<div class="line">Title: The God&#8217;s Eye View</div>
+<div class="line">Title: The God’s Eye View</div>
 <div class="line">Author: Barry Eisler</div>
 <div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Thomas <span class="amp">&amp;</span> Mercer</div>
+<div class="line">Publisher: Thomas <span class="amp">&</span> Mercer</div>
 <div class="line">Copyright: 2016</div>
 <div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/B00XT47SOK/?tag=georgvreill-20"><span class="caps">B00XT47SOK</span></a></div>
 <div class="line">Pages: 417</div>
 <div class="line">Keywords: thriller</div>
 <div class="line">Reading period: 3–10 March, 2016</div>
 </div>
-<p>An <span class="caps">NSA</span> analyst spots a suspicious cor&shy;re&shy;la&shy;tion between the <span class="caps">NSA</span> station chief in Ankara
+<p>An <span class="caps">NSA</span> analyst spots a suspicious cor­re­la­tion between the <span class="caps">NSA</span> station chief in Ankara
 and a crusading journalist, and she reports it to the director of the <span class="caps">NSA</span>.
 The station chief promptly dies in a car crash
 and the journalist is abducted by Syrian terrorists,
 and she starts to worry.
-As the ever-more au&shy;thor&shy;i&shy;tar&shy;i&shy;an director goes further off the deep end,
+As the ever-more au­thor­i­tar­i­an director goes further off the deep end,
 her worry grows—with good reason.
-And the director&#8217;s hatchet man who is assigned to monitor her
-un&shy;ex&shy;pect&shy;ed&shy;ly turns out to have human&nbsp;feelings.</p>
+And the director’s hatchet man who is assigned to monitor her
+un­ex­pect­ed­ly turns out to have human feelings.</p>
 <p>This is a classic paranoid <span>&#8230;<a href="/blog/2016/03/19/ReviewTheGodsEyeView.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -428,7 +426,7 @@ un&shy;ex&shy;pect&shy;ed&shy;ly turns out to have human&nbsp;feelings.</p>
 <div class="line">Title: Big City, Bad Blood</div>
 <div class="line">Author: Sean Chercover</div>
 <div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Harper&shy;Collins</div>
+<div class="line">Publisher: Harper­Collins</div>
 <div class="line">Copyright: 2007</div>
 <div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/B000OI0E1S/?tag=georgvreill-20"><span class="caps">B000OI0E1S</span></a></div>
 <div class="line">Pages: 304</div>
@@ -438,8 +436,8 @@ un&shy;ex&shy;pect&shy;ed&shy;ly turns out to have human&nbsp;feelings.</p>
 <p>Ray Dudgeon is a Chicago <span class="caps">PI</span> hired to guard a Hollywood location manager
 who witnessed the Outfit at work.
 The client is murdered, Ray gets caught up in a Mafia power struggle,
-and the body count&nbsp;rises.</p>
-<p>A well-written, fast-paced story that I gobbled&nbsp;up.</p>
+and the body count rises.</p>
+<p>A well-written, fast-paced story that I gobbled up.</p>
 
     <footer>
         

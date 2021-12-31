@@ -10,7 +10,7 @@
   <link href="/" rel="home start" />
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
-    <meta name="description" content="“Security is 1% technology plus 99% following the..." />
+    <meta name="description" content="“Security is 1% technology plus 99% following..." />
     <meta name="keywords" content="gpg, blackbox, jenkins" />
 </head>
 <body>
@@ -35,7 +35,8 @@
             <a href="/blog/2019/09/02/gpg-blackbox-paperkey.html" rel="bookmark canonical">Decrypting Blackbox secrets at build time with Paperkey</a>
         </h1>
     </header>
-    <p>“Security is 1% technology plus 99% following the procedures correctly” — Tom&nbsp;Limoncelli</p>
+    <blockquote>
+“Security is 1% technology plus 99% following the procedures correctly” — Tom Limoncelli</blockquote>
 <p>Having dealt with <span class="caps">GPG</span> last week at work,
 I remembered that I had intended to write a blog post
 about how we used <a class="reference external" href="https://gnupg.org/"><span class="caps">GPG</span></a>, <a class="reference external" href="https://github.com/StackExchange/blackbox">Blackbox</a>, and <a class="reference external" href="http://www.jabberwocky.com/software/paperkey/">Paperkey</a> to store secrets in Git
@@ -45,30 +46,31 @@ during de&shy;vel&shy;op&shy;ment, build, deployment, and runtime.
 These secrets included <span class="caps">AWS</span> cre&shy;den&shy;tials, Docker registry cre&shy;den&shy;tials,
 our private PyPI cre&shy;den&shy;tials, database cre&shy;den&shy;tials, and cer&shy;tifi&shy;cates.
 We wanted these secrets to be under version control,
-but also to be&nbsp;secure.</p>
+but also to be secure.</p>
 <p>For example, we had a <tt class="docutils literal">cre&shy;den&shy;tials.sh</tt> that exported en&shy;vi&shy;ron&shy;ment variables,
-which was managed by&nbsp;Blackbox:</p>
-<div class="highlight"><pre><span></span><span class="c1"># Save current value of xtrace option from $-; disable echoing of executed commands</span>
-<span class="o">{</span> <span class="k">if</span> <span class="nb">echo</span> <span class="nv">$-</span> <span class="p">|</span> grep -q <span class="s2">&quot;x&quot;</span><span class="p">;</span> <span class="k">then</span> <span class="nv"><span class="caps">XT</span></span><span class="o">=</span><span class="s2">&quot;-x&quot;</span><span class="p">;</span> <span class="k">else</span> <span class="nv"><span class="caps">XT</span></span><span class="o">=</span><span class="s2">&quot;+x&quot;</span><span class="p">;</span> <span class="k">fi</span><span class="p">;</span> <span class="nb">set</span> +x<span class="p">;</span> <span class="o">}</span> <span class="m">2</span>&gt;/dev/null
+which was managed by Blackbox:</p>
+<pre class="code bash literal-block">
+<span class="c1"># Save current value of xtrace option from $-; disable echoing of executed commands
+</span><span class="o">{</span> <span class="k">if</span> <span class="nb">echo</span> <span class="nv">$-</span> <span class="p">|</span> grep -q <span class="s2">"x"</span><span class="p">;</span> <span class="k">then</span> <span class="nv"><span class="caps">XT</span></span><span class="o">=</span><span class="s2">"-x"</span><span class="p">;</span> <span class="k">else</span> <span class="nv"><span class="caps">XT</span></span><span class="o">=</span><span class="s2">"+x"</span><span class="p">;</span> <span class="k">fi</span><span class="p">;</span> <span class="nb">set</span> +x<span class="p">;</span> <span class="o">}</span> <span class="m">2</span>>/dev/null
 
-<span class="nb">export</span> <span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s1">&#39;...&#39;</span>
-<span class="nb">export</span> <span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="s1">&#39;...&#39;</span>
+<span class="nb">export</span> <span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s1">'...'</span>
+<span class="nb">export</span> <span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="s1">'...'</span>
 
-<span class="nb">export</span> <span class="nv">PYPI_USER</span><span class="o">=</span><span class="s1">&#39;build&#39;</span>
-<span class="nb">export</span> <span class="nv">PYPI_PASSWD</span><span class="o">=</span><span class="s1">&#39;...&#39;</span>
-<span class="nb">export</span> <span class="nv">PIP_INDEX_URL</span><span class="o">=</span><span class="s2">&quot;https://</span><span class="nv">$PYPI_USER</span><span class="s2">:</span><span class="nv">$PYPI_PASSWD</span><span class="s2">@pypi.example.com/pypi/&quot;</span>
+<span class="nb">export</span> <span class="nv">PYPI_USER</span><span class="o">=</span><span class="s1">'build'</span>
+<span class="nb">export</span> <span class="nv">PYPI_PASSWD</span><span class="o">=</span><span class="s1">'...'</span>
+<span class="nb">export</span> <span class="nv">PIP_INDEX_URL</span><span class="o">=</span><span class="s2">"https://</span><span class="nv">$PYPI_USER</span><span class="s2">:</span><span class="nv">$PYPI_PASSWD</span><span class="s2">@pypi.example.com/pypi/"</span>
 
-<span class="c1"># Restore previous value of xtrace option</span>
-<span class="nb">set</span> <span class="nv">$<span class="caps">XT</span></span>
-</pre></div>
+<span class="c1"># Restore previous value of xtrace option
+</span><span class="nb">set</span> <span class="nv">$<span class="caps">XT</span></span>
+</pre>
 <p>The <tt class="docutils literal"><span class="caps">XT</span></tt> prologue ensures that even if this script is <tt class="docutils literal">source</tt>’d
 with <a class="reference external" href="https://renenyffenegger.ch/notes/Linux/shell/bash/built-in/set/x">set -x</a> (debug tracing) enabled,
 that executing this script will not leak secrets into build logs.
-The epilogue turns the <tt class="docutils literal">xtrace</tt> option back on again if it was on at the&nbsp;start.</p>
+The epilogue turns the <tt class="docutils literal">xtrace</tt> option back on again if it was on at the start.</p>
 <p>We used <a class="reference external" href="https://www.lastpass.com/">LastPass</a> to manage personal cre&shy;den&shy;tials that were needed in a browser,
-but it wasn&#8217;t suitable for automated use in&nbsp;<span class="caps">CI</span>.</p>
+but it wasn’t suitable for automated use in <span class="caps">CI</span>.</p>
 <div class="section" id="how-blackbox-works">
-<h2>How Blackbox&nbsp;Works</h2>
+<h2>How Blackbox Works</h2>
 <p>Blackbox builds on top of <a class="reference external" href="https://gnupg.org/"><span class="caps">GNU</span> Privacy Guard</a> (aka GnuPG aka <span class="caps">GPG</span>)
 to automate the secure management
 of a set of files containing secrets
@@ -78,9 +80,9 @@ These registered files are owned col&shy;lec&shy;tive&shy;ly by a set of ad&shy;
 each of whom has their own separate keypair
 (a public key and a private key)
 stored in their own keyrings.
-The ad&shy;min&shy;is&shy;tra&shy;tors&#8217; public keys are also present in Blackbox&#8217;s keyring,
+The ad&shy;min&shy;is&shy;tra&shy;tors’ public keys are also present in Blackbox’s keyring,
 which is stored in the <span class="caps">VCS</span>.
-Using Blackbox&#8217;s commands,
+Using Blackbox’s commands,
 any ad&shy;min&shy;is&shy;tra&shy;tor can decrypt a file containing secrets,
 update the secrets in the file,
 encrypt the updated secrets file,
@@ -90,200 +92,202 @@ after which they will not be able to decrypt the updated secrets files<a class="
 <p>How does Blackbox encrypt a file so that any ad&shy;min&shy;is&shy;tra&shy;tor can decrypt it?
 It uses <span class="caps">GPG</span> to encrypt the file for multiple recipients,
 say, <a class="reference external" href="https://en.wikipedia.org/wiki/Alice_and_Bob#Cast_of_characters">Alice, Bob, and Carol</a>.</p>
-<p>When <span class="caps">GPG</span> encrypts a file,&nbsp;it:</p>
+<p>When <span class="caps">GPG</span> encrypts a file, it:</p>
 <ul class="simple">
-<li>creates a random <em>session key</em> for <a class="reference external" href="https://www.ssl2buy.com/wiki/symmetric-vs-asymmetric-encryption-what-are-differences">symmetric&nbsp;encryption</a></li>
+<li>creates a random <em>session key</em> for <a class="reference external" href="https://www.ssl2buy.com/wiki/symmetric-vs-asymmetric-encryption-what-are-differences">symmetric encryption</a></li>
 <li>writes a header for each recipient, containing:<ul>
-<li>the <span class="caps">ID</span> of the recipient&#8217;s public&nbsp;key</li>
-<li>the result of encrypting the session key with the recipient&#8217;s public&nbsp;key</li>
+<li>the <span class="caps">ID</span> of the re&shy;cip&shy;i&shy;en&shy;t’s public key</li>
+<li>the result of encrypting the session key with the re&shy;cip&shy;i&shy;en&shy;t’s public key</li>
 </ul>
 </li>
-<li>possibly signs the&nbsp;data</li>
-<li>compresses the (signed)&nbsp;data</li>
-<li>encrypts the compressed data with the session&nbsp;key</li>
-<li>writes the encrypted, compressed&nbsp;data</li>
+<li>possibly signs the data</li>
+<li>compresses the (signed) data</li>
+<li>encrypts the compressed data with the session key</li>
+<li>writes the encrypted, compressed data</li>
 </ul>
 <p>Only the recipients have the private keys (in theory, at least).
-Therefore, only a recipient can decrypt the encrypted&nbsp;file.</p>
-<p>To decrypt the file for a recipient,&nbsp;<span class="caps">GPG</span>:</p>
+Therefore, only a recipient can decrypt the encrypted file.</p>
+<p>To decrypt the file for a recipient, <span class="caps">GPG</span>:</p>
 <ul class="simple">
-<li>finds the encrypted session key packet whose keyID matches the recipient&#8217;s public&nbsp;key</li>
-<li>decrypts the session key using the recipient&#8217;s private&nbsp;key</li>
-<li>decrypts the encrypted, compressed data using the session&nbsp;key</li>
-<li>de&shy;com&shy;press&shy;es the decrypted&nbsp;data</li>
-<li>verifies the signature, if&nbsp;present</li>
-<li>writes the&nbsp;cleartext</li>
+<li>finds the encrypted session key packet whose keyID matches the re&shy;cip&shy;i&shy;en&shy;t’s public key</li>
+<li>decrypts the session key using the re&shy;cip&shy;i&shy;en&shy;t’s private key</li>
+<li>decrypts the encrypted, compressed data using the session key</li>
+<li>de&shy;com&shy;press&shy;es the decrypted data</li>
+<li>verifies the signature, if present</li>
+<li>writes the cleartext</li>
 </ul>
 <p>This is a hybrid scheme.
 Symmetric encryption is a lot faster than public key/private key asymmetric encryption,
-so it&#8217;s used to encrypt the actual data.
-Fur&shy;ther&shy;more, if the data were entirely encrypted with a recipient&#8217;s public key,
+so it’s used to encrypt the actual data.
+Fur&shy;ther&shy;more, if the data were entirely encrypted with a re&shy;cip&shy;i&shy;en&shy;t’s public key,
 then encrypting for <em>N</em> recipients would mean that the size of the result
 would be pro&shy;por&shy;tion&shy;al to the number of recipients times the length of the original data.
 With the hybrid scheme, the header grows a <a class="reference external" href="https://security.stackexchange.com/questions/8245/gpg-file-size-with-multiple-recipients">few hundred bytes</a> for each recipient
-but the data is encrypted only once, with faster&nbsp;encryption.</p>
+but the data is encrypted only once, with faster encryption.</p>
 <p>Blackbox encrypts a registered file with all of the ad&shy;min&shy;is&shy;tra&shy;tors as the recipients,
-so any ad&shy;min&shy;is&shy;tra&shy;tor can decrypt the&nbsp;file.</p>
+so any ad&shy;min&shy;is&shy;tra&shy;tor can decrypt the file.</p>
 <div class="figure">
 <a class="reference external image-reference" href="http://www.cse.tkk.fi/fi/opinnot/T-110.5240/2009/luennot-files/Lecture%202.pdf"><img alt="Typical PGP Message" src="/content/binary/typical-pgp-message.jpg"/></a>
-<p class="caption">Typical <span class="caps">PGP</span>&nbsp;Message</p>
+<p class="caption">Typical <span class="caps">PGP</span> Message</p>
 <div class="legend">
 (Figure from <a class="reference external" href="http://www.cse.tkk.fi/fi/opinnot/T-110.5240/2009/luennot-files/Lecture%202.pdf">Network Security: Email Security, <span class="caps">PKI</span></a>, Tuomas Aura)</div>
 </div>
 <p>You can use <tt class="docutils literal">gpg <span class="pre">--list-packets</span></tt> to dump the contents of any <span class="caps">GPG</span> message.
-<a class="reference external" href="https://begriffs.com/posts/2016-11-05-advanced-intro-gnupg.html">An Advanced Intro to GnuPG</a> dives into the message format in more&nbsp;detail.</p>
+<a class="reference external" href="https://begriffs.com/posts/2016-11-05-advanced-intro-gnupg.html">An Advanced Intro to GnuPG</a> dives into the message format in more detail.</p>
 <p>Going back to my original example,
 <tt class="docutils literal">cre&shy;den&shy;tials.sh</tt> is a file registered in <tt class="docutils literal"><span class="pre">blackbox-files.txt</span></tt>.
 This file should never be committed to the <span class="caps">VCS</span>—add it to <a class="reference external" href="https://git-scm.com/docs/gitignore">gitignore</a> to prevent ac&shy;ci&shy;den&shy;tal&shy;ly committing it.
 Instead, <tt class="docutils literal">cre&shy;den&shy;tials.sh.gpg</tt> is committed.
 Since the latter is a binary file,
-comparing two versions in cleartext is&nbsp;tricky.</p>
+comparing two versions in cleartext is tricky.</p>
 <table class="docutils footnote" frame="void" id="revocation" rules="none">
 <colgroup><col class="label"/><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>If they have a snapshot of the <span class="caps">VCS</span> before their access was revoked,
 they will still be able to decrypt the secrets as they were then.
 In principle, you should be changing passwords and cer&shy;tifi&shy;cates
-every time someone&#8217;s access is revoked.</td></tr>
+every time someone’s access is revoked.</td></tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="private-keys-and-paperkey">
-<h2>Private Keys and&nbsp;Paperkey</h2>
-<p>Ad&shy;min&shy;is&shy;tra&shy;tors can encrypt and decrypt Blackbox&#8217;d files
-because they have their private key on a local&nbsp;keyring.</p>
+<h2>Private Keys and Paperkey</h2>
+<p>Ad&shy;min&shy;is&shy;tra&shy;tors can encrypt and decrypt Blackbox’d files
+because they have their private key on a local keyring.</p>
 <p>Getting a private key onto other hosts can be tricky.
-We developed this technique when we were using Atlassian&#8217;s hosted Bamboo <span class="caps">CI</span> service.
+We developed this technique when we were using At&shy;las&shy;sian’s hosted Bamboo <span class="caps">CI</span> service.
 We later used it with hosted Jenkins at Cloudbees.
 Because we were using a hosted Continuous In&shy;te&shy;gra&shy;tion (<span class="caps">CI</span>) service,
 we had limited control over what we could install.
 If I remember correctly,
 Bamboo had support for secret en&shy;vi&shy;ron&shy;ment variables,
 but did not provide a way to store a keyring file.
-There was also a limit on the length of the en&shy;vi&shy;ron&shy;ment variables, I&nbsp;believe.</p>
+There was also a limit on the length of the en&shy;vi&shy;ron&shy;ment variables, I believe.</p>
 <p>We were able to get past this by using <a class="reference external" href="http://www.jabberwocky.com/software/paperkey/">Paperkey</a>
 to (de)serialize the secret key.
 Paperkey can extract just the secret part of a secret key:
 ‘Due to metadata and redundancy,
-OpenPGP secret keys are sig&shy;nif&shy;i&shy;cant&shy;ly larger than just the &quot;secret bits&quot;.
-In fact, the secret key contains a complete copy of the public&nbsp;key.’</p>
+OpenPGP secret keys are sig&shy;nif&shy;i&shy;cant&shy;ly larger than just the "secret bits".
+In fact, the secret key contains a complete copy of the public key.’</p>
 <p>We created a keypair for the <span class="caps">CI</span> on a secure host,
 serialized the secret with Paperkey,
-and pasted the secret into the <span class="caps">CI</span>&#8217;s <span class="caps">UI</span> to become an en&shy;vi&shy;ron&shy;ment variable.
+and pasted the secret into the <span class="caps">CI</span>’s <span class="caps">UI</span> to become an en&shy;vi&shy;ron&shy;ment variable.
 At build time, we used Paperkey on the <span class="caps">CI</span> box to de&shy;se&shy;ri&shy;al&shy;ize the secret key
 from the en&shy;vi&shy;ron&shy;ment variable,
-before decrypting the secrets needed with&nbsp;Blackbox.</p>
+before decrypting the secrets needed with Blackbox.</p>
 <p>To create the <span class="caps">CI</span> keypair,
-follow the portion of the <a class="reference external" href="https://github.com/StackExchange/blackbox#set-up-automated-users-or-role-accounts">Blackbox &quot;role accounts&quot; in&shy;struc&shy;tions</a>
-that create a sub-key with no password for <tt class="docutils literal">ci&#64;example.com</tt>.</p>
-<p>Then, serialize the public key and the secret with&nbsp;Paperkey:</p>
-<div class="highlight"><pre><span></span><span class="nb">cd</span> /tmp/<span class="caps">NEWMASTER</span>
-gpg --homedir . --export ci@example.com <span class="se">\</span>
-    <span class="p">|</span> base64 &gt; public_key.txt
-gpg --homedir . --export-secret-keys ci@example.com <span class="se">\</span>
-    <span class="p">|</span> paperkey --output-type<span class="o">=</span>raw <span class="se">\</span>
-    <span class="p">|</span> base64 &gt; secret.txt
-</pre></div>
+follow the portion of the <a class="reference external" href="https://github.com/StackExchange/blackbox#set-up-automated-users-or-role-accounts">Blackbox "role accounts" in&shy;struc&shy;tions</a>
+that create a sub-key with no password for <tt class="docutils literal">ci@example.com</tt>.</p>
+<p>Then, serialize the public key and the secret with Paperkey:</p>
+<pre class="code bash literal-block">
+<span class="nb">cd</span> /tmp/<span class="caps">NEWMASTER</span>
+gpg --homedir . --export ci@example.com <span class="se">\
+</span>    <span class="p">|</span> base64 > public_key.txt
+gpg --homedir . --export-secret-keys ci@example.com <span class="se">\
+</span>    <span class="p">|</span> paperkey --output-type<span class="o">=</span>raw <span class="se">\
+</span>    <span class="p">|</span> base64 > secret.txt
+</pre>
 <p>Copy and paste the contents of <tt class="docutils literal">public_key.txt</tt>
 to the <tt class="docutils literal">GPG_PUB&shy;LIC_KEY</tt> en&shy;vi&shy;ron&shy;ment variable in the <span class="caps">CI</span>.
 Similarly, copy <tt class="docutils literal">secret.txt</tt> to <tt class="docutils literal">GPG_SECRET</tt>.</p>
 <p>Securely delete everything in <tt class="docutils literal">/tmp/<span class="caps">NEWMASTER</span></tt>.</p>
 <p>We used a script like this on the <span class="caps">CI</span> to re&shy;con&shy;sti&shy;tute the keypair
-and to decrypt the other secrets from&nbsp;Blackbox:</p>
-<div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env bash</span>
-
-<span class="c1"># Run during a <span class="caps">CI</span> build to decrypt all Blackbox-encrypted files in this repo.</span>
-<span class="c1"># Can also be used interactively.</span>
-
+and to decrypt the other secrets from Blackbox:</p>
+<pre class="code bash literal-block">
+<span class="ch">#!/usr/bin/env bash
+</span>
+<span class="c1"># Run during a <span class="caps">CI</span> build to decrypt all Blackbox-encrypted files in this repo.
+# Can also be used interactively.
+</span>
 <span class="nb">set</span> -ex
 
-<span class="c1"># Root of Git working tree</span>
-<span class="nv">SERVICES_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">cd</span> <span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="s2">&quot;</span><span class="nv">$0</span><span class="s2">&quot;</span><span class="k">)</span><span class="s2">/..&quot;</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="c1"># Root of Git working tree
+</span><span class="nv">SERVICES_DIR</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span><span class="nb">cd</span> <span class="s2">"</span><span class="k">$(</span>dirname <span class="s2">"</span><span class="nv">$0</span><span class="s2">"</span><span class="k">)</span><span class="s2">/.."</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span><span class="s2">"</span>
 
-<span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$CI_BUILD</span><span class="s2">&quot;</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-    <span class="nv">GPG_HOMEDIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>mktemp -d -t gnupg.<span class="caps">XXX</span><span class="k">)</span><span class="s2">&quot;</span>
-    <span class="nv">SECRET_KEY_FILE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$GPG_HOMEDIR</span><span class="s2">/secret.key&quot;</span>
-    <span class="nv">PUBLIC_KEY_FILE</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$GPG_HOMEDIR</span><span class="s2">/public_key.gpg&quot;</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$CI_BUILD</span><span class="s2">"</span> <span class="o">=</span> <span class="s2">"true"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nv">GPG_HOMEDIR</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>mktemp -d -t gnupg.<span class="caps">XXX</span><span class="k">)</span><span class="s2">"</span>
+    <span class="nv">SECRET_KEY_FILE</span><span class="o">=</span><span class="s2">"</span><span class="nv">$GPG_HOMEDIR</span><span class="s2">/secret.key"</span>
+    <span class="nv">PUBLIC_KEY_FILE</span><span class="o">=</span><span class="s2">"</span><span class="nv">$GPG_HOMEDIR</span><span class="s2">/public_key.gpg"</span>
 
-    <span class="c1"># this variable is how you can customize how <span class="caps">GPG</span> is used in Blackbox</span>
-    <span class="nv"><span class="caps">GPG</span></span><span class="o">=</span><span class="s2">&quot;gpg --homedir=</span><span class="nv">$GPG_HOMEDIR</span><span class="s2">&quot;</span>
+    <span class="c1"># this variable is how you can customize how <span class="caps">GPG</span> is used in Blackbox
+</span>    <span class="nv"><span class="caps">GPG</span></span><span class="o">=</span><span class="s2">"gpg --homedir=</span><span class="nv">$GPG_HOMEDIR</span><span class="s2">"</span>
 
-    <span class="c1"># Remove secrets from filesystem on exit.</span>
-    <span class="k">function</span> clean_up <span class="o">{</span>
-        <span class="c1"># <span class="caps">TODO</span>: use shred, if available</span>
-        rm -rf <span class="s2">&quot;</span><span class="nv">$GPG_HOMEDIR</span><span class="s2">&quot;</span>
+    <span class="c1"># Remove secrets from filesystem on exit.
+</span>    <span class="k">function</span> clean_up <span class="o">{</span>
+        <span class="c1"># <span class="caps">TODO</span>: use shred, if available
+</span>        rm -rf <span class="s2">"</span><span class="nv">$GPG_HOMEDIR</span><span class="s2">"</span>
     <span class="o">}</span>
     <span class="nb">trap</span> clean_up <span class="caps">EXIT</span><span class="p">;</span>
 
-    <span class="nb">echo</span> <span class="s2">&quot;Unpacking keys; exiting debug mode to redact...&quot;</span>
+    <span class="nb">echo</span> <span class="s2">"Unpacking keys; exiting debug mode to redact..."</span>
     <span class="nb">set</span> +x
 
-    <span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$GPG_PUBLIC_KEY</span><span class="s2">&quot;</span> -o -z <span class="s2">&quot;</span><span class="nv">$GPG_SECRET</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-        <span class="nb">echo</span> <span class="s2">&quot;Missing <span class="caps">CI</span> credential env vars for <span class="caps">GPG</span> key and secret&quot;</span>
+    <span class="k">if</span> <span class="o">[</span> -z <span class="s2">"</span><span class="nv">$GPG_PUBLIC_KEY</span><span class="s2">"</span> -o -z <span class="s2">"</span><span class="nv">$GPG_SECRET</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">"Missing <span class="caps">CI</span> credential env vars for <span class="caps">GPG</span> key and secret"</span>
         <span class="nb">exit</span> <span class="m">1</span>
     <span class="k">fi</span>
 
-    <span class="c1"># unpack public key</span>
-    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$GPG_PUBLIC_KEY</span><span class="s2">&quot;</span> <span class="p">|</span> base64 --decode &gt; <span class="s2">&quot;</span><span class="nv">$PUBLIC_KEY_FILE</span><span class="s2">&quot;</span>
+    <span class="c1"># unpack public key
+</span>    <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$GPG_PUBLIC_KEY</span><span class="s2">"</span> <span class="p">|</span> base64 --decode > <span class="s2">"</span><span class="nv">$PUBLIC_KEY_FILE</span><span class="s2">"</span>
 
-    <span class="c1"># unpack secret key</span>
-    <span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$GPG_SECRET</span><span class="s2">&quot;</span> <span class="p">|</span> base64 --decode &gt; <span class="s2">&quot;</span><span class="nv">$SECRET_KEY_FILE</span><span class="s2">&quot;</span>
+    <span class="c1"># unpack secret key
+</span>    <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$GPG_SECRET</span><span class="s2">"</span> <span class="p">|</span> base64 --decode > <span class="s2">"</span><span class="nv">$SECRET_KEY_FILE</span><span class="s2">"</span>
 
-    <span class="nb">echo</span> <span class="s2">&quot;Secrets unpacked...&quot;</span>
+    <span class="nb">echo</span> <span class="s2">"Secrets unpacked..."</span>
     <span class="nb">set</span> -x
 
-    <span class="c1"># reconstitute and import full key into $GPG_HOMEDIR</span>
-    paperkey --pubring <span class="s2">&quot;</span><span class="nv">$PUBLIC_KEY_FILE</span><span class="s2">&quot;</span> --secrets <span class="s2">&quot;</span><span class="nv">$SECRET_KEY_FILE</span><span class="s2">&quot;</span> <span class="se">\</span>
-        <span class="p">|</span> <span class="nv">$<span class="caps">GPG</span></span> --import
+    <span class="c1"># reconstitute and import full key into $GPG_HOMEDIR
+</span>    paperkey --pubring <span class="s2">"</span><span class="nv">$PUBLIC_KEY_FILE</span><span class="s2">"</span> --secrets <span class="s2">"</span><span class="nv">$SECRET_KEY_FILE</span><span class="s2">"</span> <span class="se">\
+</span>        <span class="p">|</span> <span class="nv">$<span class="caps">GPG</span></span> --import
 
-    <span class="c1"># <span class="caps">TODO</span>: vendor Blackbox</span>
-    <span class="nv">BLACKBOX_DIR</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>mktemp -d -t blackbox.<span class="caps">XXX</span><span class="k">)</span><span class="s2">&quot;</span>
+    <span class="c1"># <span class="caps">TODO</span>: vendor Blackbox
+</span>    <span class="nv">BLACKBOX_DIR</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>mktemp -d -t blackbox.<span class="caps">XXX</span><span class="k">)</span><span class="s2">"</span>
     <span class="nv">BLACKBOX_BIN</span><span class="o">=</span><span class="nv">$BLACKBOX_DIR</span>/bin
 
-    <span class="c1"># Shallow clone of Blackbox with most-recent commit only</span>
-    git clone --depth <span class="m">1</span> https://github.com/StackExchange/blackbox.git <span class="nv">$BLACKBOX_DIR</span>
+    <span class="c1"># Shallow clone of Blackbox with most-recent commit only
+</span>    git clone --depth <span class="m">1</span> https://github.com/StackExchange/blackbox.git <span class="nv">$BLACKBOX_DIR</span>
 <span class="k">else</span>
-    <span class="c1"># So that you only have to enter your password once when running interactively</span>
-    <span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span>gpg-agent --daemon<span class="k">)</span><span class="s2">&quot;</span>
+    <span class="c1"># So that you only have to enter your password once when running interactively
+</span>    <span class="nb">eval</span> <span class="s2">"</span><span class="k">$(</span>gpg-agent --daemon<span class="k">)</span><span class="s2">"</span>
 
-    <span class="c1"># No custom GPG_HOMEDIR needed</span>
-    <span class="nv"><span class="caps">GPG</span></span><span class="o">=</span><span class="s2">&quot;gpg&quot;</span>
+    <span class="c1"># No custom GPG_HOMEDIR needed
+</span>    <span class="nv"><span class="caps">GPG</span></span><span class="o">=</span><span class="s2">"gpg"</span>
 
-    <span class="nv">BLACKBOX_POSTDEPLOY</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">command</span> -v blackbox_postdeploy<span class="k">)</span><span class="s2">&quot;</span> <span class="o">||</span> <span class="nv">ret</span><span class="o">=</span><span class="nv">$?</span>
-    <span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;</span><span class="nv">$BLACKBOX_POSTDEPLOY</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-        <span class="c1"># Use the Blackbox that&#39;s on the path</span>
-        <span class="nv">BLACKBOX_BIN</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>dirname <span class="nv">$BLACKBOX_POSTDEPLOY</span><span class="k">)</span><span class="s2">&quot;</span>
+    <span class="nv">BLACKBOX_POSTDEPLOY</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span><span class="nb">command</span> -v blackbox_postdeploy<span class="k">)</span><span class="s2">"</span> <span class="o">||</span> <span class="nv">ret</span><span class="o">=</span><span class="nv">$?</span>
+    <span class="k">if</span> <span class="o">[</span> -n <span class="s2">"</span><span class="nv">$BLACKBOX_POSTDEPLOY</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="c1"># Use the Blackbox that's on the path
+</span>        <span class="nv">BLACKBOX_BIN</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>dirname <span class="nv">$BLACKBOX_POSTDEPLOY</span><span class="k">)</span><span class="s2">"</span>
     <span class="k">else</span>
-        <span class="c1"># Assume Blackbox is checked out in a sibling dir to $SERVICES_DIR</span>
-        <span class="nv">BLACKBOX_BIN</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">cd</span> <span class="s2">&quot;</span><span class="nv">$SERVICES_DIR</span><span class="s2">/..&quot;</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span><span class="s2">&quot;</span>/blackbox/bin
-        <span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">&quot;</span><span class="nv">$BLACKBOX_BIN</span><span class="s2">/blackbox_postdeploy&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
-            <span class="nb">echo</span> <span class="s2">&quot;Can&#39;t find Blackbox binaries&quot;</span>
+        <span class="c1"># Assume Blackbox is checked out in a sibling dir to $SERVICES_DIR
+</span>        <span class="nv">BLACKBOX_BIN</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span><span class="nb">cd</span> <span class="s2">"</span><span class="nv">$SERVICES_DIR</span><span class="s2">/.."</span><span class="p">;</span> <span class="nb">pwd</span><span class="k">)</span><span class="s2">"</span>/blackbox/bin
+        <span class="k">if</span> <span class="o">[</span> ! -f <span class="s2">"</span><span class="nv">$BLACKBOX_BIN</span><span class="s2">/blackbox_postdeploy"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+            <span class="nb">echo</span> <span class="s2">"Can't find Blackbox binaries"</span>
             <span class="nb">exit</span> <span class="m">1</span>
         <span class="k">fi</span>
     <span class="k">fi</span>
 <span class="k">fi</span>
 
-<span class="c1"># decrypt secrets in $SERVICES_DIR using custom GPG_HOMEDIR</span>
-<span class="nv"><span class="caps">GPG</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$<span class="caps">GPG</span></span><span class="s2">&quot;</span> <span class="nv">$BLACKBOX_BIN</span>/blackbox_postdeploy
+<span class="c1"># decrypt secrets in $SERVICES_DIR using custom GPG_HOMEDIR
+</span><span class="nv"><span class="caps">GPG</span></span><span class="o">=</span><span class="s2">"</span><span class="nv">$<span class="caps">GPG</span></span><span class="s2">"</span> <span class="nv">$BLACKBOX_BIN</span>/blackbox_postdeploy
 
-<span class="c1"># test that decryption worked</span>
-grep <span class="s1">&#39;congrats!&#39;</span> test_secret.txt
-</pre></div>
+<span class="c1"># test that decryption worked
+</span>grep <span class="s1">'congrats!'</span> test_secret.txt
+</pre>
 <p>At the end of the build,
-run <tt class="docutils literal">black&shy;box_shred_al&shy;l_&shy;files</tt> to destroy any decrypted&nbsp;files.</p>
+run <tt class="docutils literal">black&shy;box_shred_al&shy;l_&shy;files</tt> to destroy any decrypted files.</p>
 </div>
 <div class="section" id="more-reading">
-<h2>More&nbsp;Reading</h2>
+<h2>More Reading</h2>
 <ul class="simple">
 <li><a class="reference external" href="https://github.com/StackExchange/blackbox">Blackbox</a></li>
 <li><a class="reference external" href="http://www.jabberwocky.com/software/paperkey/">Paperkey</a></li>
-<li><a class="reference external" href="http://www.linux-magazine.com/Online/Features/Protect-your-Documents-with-GPG">Protect your documents with&nbsp;<span class="caps">GPG</span></a></li>
-<li><a class="reference external" href="https://davesteele.github.io/gpg/2014/09/20/anatomy-of-a-gpg-key/">Anatomy of a <span class="caps">GPG</span>&nbsp;Key</a></li>
-<li><a class="reference external" href="https://alexcabal.com/creating-the-perfect-gpg-keypair">Creating the perfect <span class="caps">GPG</span>&nbsp;keypair</a></li>
-<li><a class="reference external" href="https://www.darkcoding.net/software/how-gpg-works-encrypt/">How <span class="caps">GPG</span> works:&nbsp;Encrypt</a></li>
-<li><a class="reference external" href="https://gist.github.com/chrisroos/1205934"><span class="caps">GPG</span> import and&nbsp;export</a></li>
-<li><a class="reference external" href="https://begriffs.com/posts/2016-11-05-advanced-intro-gnupg.html">An Advanced Intro to&nbsp;GnuPG</a></li>
-<li><a class="reference external" href="http://www.cse.tkk.fi/fi/opinnot/T-110.5240/2009/luennot-files/Lecture%202.pdf">Network Security: Email Security,&nbsp;<span class="caps">PKI</span></a></li>
+<li><a class="reference external" href="http://www.linux-magazine.com/Online/Features/Protect-your-Documents-with-GPG">Protect your documents with <span class="caps">GPG</span></a></li>
+<li><a class="reference external" href="https://davesteele.github.io/gpg/2014/09/20/anatomy-of-a-gpg-key/">Anatomy of a <span class="caps">GPG</span> Key</a></li>
+<li><a class="reference external" href="https://alexcabal.com/creating-the-perfect-gpg-keypair">Creating the perfect <span class="caps">GPG</span> keypair</a></li>
+<li><a class="reference external" href="https://www.darkcoding.net/software/how-gpg-works-encrypt/">How <span class="caps">GPG</span> works: Encrypt</a></li>
+<li><a class="reference external" href="https://gist.github.com/chrisroos/1205934"><span class="caps">GPG</span> import and export</a></li>
+<li><a class="reference external" href="https://begriffs.com/posts/2016-11-05-advanced-intro-gnupg.html">An Advanced Intro to GnuPG</a></li>
+<li><a class="reference external" href="http://www.cse.tkk.fi/fi/opinnot/T-110.5240/2009/luennot-files/Lecture%202.pdf">Network Security: Email Security, <span class="caps">PKI</span></a></li>
 </ul>
 </div>
 

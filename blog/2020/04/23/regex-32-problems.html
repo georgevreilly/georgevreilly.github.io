@@ -40,7 +40,7 @@
     <p></p>
 <blockquote>
 <p>Some people, when confronted with a problem, think
-“I know, I&#8217;ll use regular ex&shy;pres&shy;sions.”
+“I know, I’ll use regular ex&shy;pres&shy;sions.”
 <a class="reference external" href="http://regex.info/blog/2006-09-15/247">Now they have two problems</a>.</p>
 <blockquote>
 — Jaime Zawinksi</blockquote>
@@ -49,66 +49,66 @@
 reminded me of the <a class="reference external" href="/blog/2009/07/11/64bitWindows7.html">longest regex</a> that I ever ran afoul of,
 a par&shy;tic&shy;u&shy;lar&shy;ly horrible multilevel mess
 that had worked acceptably on the 32-bit .<span class="caps">NET</span> <span class="caps">CLR</span>,
-but brought the 64-bit <span class="caps">CLR</span> to its&nbsp;knees.</p>
+but brought the 64-bit <span class="caps">CLR</span> to its knees.</p>
 <blockquote>
 <p>Whenever I ran our <span class="caps">ASP</span>.<span class="caps">NET</span> web ap&shy;pli&shy;ca&shy;tion [on Win64],
 it would go berserk, eat up all <span class="caps">4GB</span> of my physical <span class="caps">RAM</span>,
-push the working set of <span class="caps">IIS</span>&#8217;s w3wp.exe to <em><span class="caps">12GB</span></em>,
-and max out one of my 4&nbsp;cores!
+push the working set of <span class="caps">IIS</span>’s w3wp.exe to <em><span class="caps">12GB</span></em>,
+and max out one of my 4 cores!
 The only way to maintain any sanity was to run <tt class="docutils literal">iisreset</tt>
-every 20&nbsp;minutes to gently kill the&nbsp;process.</p>
+every 20 minutes to gently kill the process.</p>
 <p>WinDbg and Process Explorer showed that the rogue thread was stuck in a loop in
-<tt class="docutils literal">mscorjit!Life&shy;times&shy;ListIn&shy;te&shy;ri&shy;or&shy;Block&shy;sHelperIt&shy;er&shy;a&shy;tive&lt;GCIn&shy;fo&shy;Liv&shy;eRe&shy;cord&shy;Ma&shy;nip&shy;u&shy;la&shy;tor&gt;</tt>.
+<tt class="docutils literal">mscorjit!Life&shy;times&shy;ListIn&shy;te&shy;ri&shy;or&shy;Block&shy;sHelperIt&shy;er&shy;a&shy;tive<GCIn&shy;fo&shy;Liv&shy;eRe&shy;cord&shy;Ma&shy;nip&shy;u&shy;la&shy;tor></tt>.
 I passed a minidump on to my former colleagues in <span class="caps">IIS</span>, who sent it to the <span class="caps">CLR</span> team.
-They&nbsp;said:</p>
+They said:</p>
 <blockquote>
 The only thing I can tell is that it is Regex,
 and some regex expression compiled down to a method with <span class="caps">456KB</span> of <span class="caps">IL</span>.
 That is <em>huge</em>, and yes <span class="caps">12GB</span> of <span class="caps">RAM</span> consumed for something like that is expected.</blockquote>
 <p>With that clue, I was able to track down the problem,
 a par&shy;tic&shy;u&shy;lar&shy;ly foul regex, built from a <span class="caps">10KB</span> string,
-with 32&nbsp;al&shy;ter&shy;nat&shy;ing ex&shy;pres&shy;sions,
+with 32 al&shy;ter&shy;nat&shy;ing ex&shy;pres&shy;sions,
 each of which contains dozens of alternated subex&shy;pres&shy;sions.
 The string is built from many smaller strings,
-so it&#8217;s not obvious in the source just how ugly it&nbsp;is.</p>
+so it’s not obvious in the source just how ugly it is.</p>
 </blockquote>
-<p>I never wrote a followup post explaining how I dealt with this&nbsp;beast.</p>
+<p>I never wrote a followup post explaining how I dealt with this beast.</p>
 <p>The regex was used on the <a class="reference external" href="https://www.cozi.com/calendar/">Cozi calendar</a>
 to parse ap&shy;point&shy;ments in everyday language,
 such as “Ann/John Dinner out Friday at 8pm”
-or “John&#8217;s birthday every Dec. 7”.
-These would get translated into (possibly recurring) <a class="reference external" href="https://tools.ietf.org/html/rfc5545">iCalendar</a>&nbsp;ap&shy;point&shy;ments.</p>
-<p>Some of the subex&shy;pres&shy;sions mentioned above looked&nbsp;like:</p>
+or “John’s birthday every Dec. 7”.
+These would get translated into (possibly recurring) <a class="reference external" href="https://tools.ietf.org/html/rfc5545">iCalendar</a> ap&shy;point&shy;ments.</p>
+<p>Some of the subex&shy;pres&shy;sions mentioned above looked like:</p>
 <ul class="simple">
-<li><tt class="docutils literal">ordinals = <span class="pre">&quot;1st|2nd|...|31st&quot;</span></tt></li>
-<li><tt class="docutils literal">short_days = <span class="pre">&quot;Sun|Mon|...|Sat&quot;</span></tt></li>
-<li><tt class="docutils literal">full_days = <span class="pre">&quot;Sun&shy;day|&shy;Mon&shy;day|...|Saturday&quot;</span></tt></li>
-<li><tt class="docutils literal">short&shy;_&shy;months = <span class="pre">&quot;Jan|Feb|...|Dec&quot;</span></tt></li>
-<li><tt class="docutils literal">ful&shy;l_&shy;months = <span class="pre">&quot;Jan&shy;u&shy;ary|Feb&shy;ru&shy;ary|...|December&quot;</span></tt></li>
-<li><tt class="docutils literal">recurrence = <span class="pre">&quot;((every|each)?</span> (first|sec&shy;ond|third|&shy;fourth|&shy;fifth|last)? &quot;
-+ &quot;(&quot; + short_days + &quot;|&quot; + full_days + &quot;)&quot; + ...</tt></li>
+<li><tt class="docutils literal">ordinals = <span class="pre">"1st|2nd|...|31st"</span></tt></li>
+<li><tt class="docutils literal">short_days = <span class="pre">"Sun|Mon|...|Sat"</span></tt></li>
+<li><tt class="docutils literal">full_days = <span class="pre">"Sun&shy;day|&shy;Mon&shy;day|...|Saturday"</span></tt></li>
+<li><tt class="docutils literal">short&shy;_&shy;months = <span class="pre">"Jan|Feb|...|Dec"</span></tt></li>
+<li><tt class="docutils literal">ful&shy;l_&shy;months = <span class="pre">"Jan&shy;u&shy;ary|Feb&shy;ru&shy;ary|...|December"</span></tt></li>
+<li><tt class="docutils literal">recurrence = <span class="pre">"((every|each)?</span> (first|sec&shy;ond|third|&shy;fourth|&shy;fifth|last)? "
++ "(" + short_days + "|" + full_days + ")" + ...</tt></li>
 </ul>
-<p>I&#8217;ve elided the in&shy;ter&shy;me&shy;di&shy;ate values but they were spelled out in the original.
+<p>I’ve elided the in&shy;ter&shy;me&shy;di&shy;ate values but they were spelled out in the original.
 Some of the simpler subex&shy;pres&shy;sions were repeated several times,
-nested inside&nbsp;others.</p>
+nested inside others.</p>
 <p>This all screamed <em>grammar</em> and <em>real parser</em> to me,
-but the test suite also screamed <em>here be&nbsp;dragons!</em></p>
+but the test suite also screamed <em>here be dragons!</em></p>
 <p>I resisted the temptation
 to rewrite the ap&shy;point&shy;ment parser from scratch with a proper grammar,
 or to experiment with a real natural language parser,
 though it remained on my personal todo list for the rest of my time at Cozi.
 We were migrating from C# to Python at that point,
 and the legacy ap&shy;point&shy;ment parser was one of the few remaining pieces
-that prevented us from shutting down the .<span class="caps">NET</span>&nbsp;servers.</p>
+that prevented us from shutting down the .<span class="caps">NET</span> servers.</p>
 <p>Instead, I changed the ap&shy;point&shy;ment parser code
-so that it didn&#8217;t attempt to match the entire <span class="caps">10KB</span> monster in one go.
+so that it didn’t attempt to match the entire <span class="caps">10KB</span> monster in one go.
 I looped through each of the 32 top-level dis&shy;junc&shy;tions,
 manually performing the al&shy;ter&shy;na&shy;tion.
 If any one of those matched, then I had what I needed.
 Reducing the regexes to a few hundred characters each
-tamed the com&shy;bi&shy;na&shy;to&shy;r&shy;i&shy;al explosion of back&shy;track&shy;ing&nbsp;state.</p>
+tamed the com&shy;bi&shy;na&shy;to&shy;r&shy;i&shy;al explosion of back&shy;track&shy;ing state.</p>
 <p>Regexes definitely have a place,
-but do not try to implement a full grammar as a single regular&nbsp;expression.</p>
+but do not try to implement a full grammar as a single regular expression.</p>
 
     <footer>
         

@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: https://www.codegeneration.net/logos/nv..." />
-    <meta name="keywords" content=".NET, c#" />
+    <meta name="keywords" content=".NET, c" />
 </head>
 <body>
   <header>
@@ -36,23 +36,21 @@
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.castleproject.org/others/nvelocity/index.html"><img alt="NVelocity" class="right-float" src="https://www.codegeneration.net/logos/nvelocity.gif"/></a>
-<p>In last week&#8217;s tip on
+<p>In last week’s tip on
 using the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/index.html">NVelocity</a> template formatting engine,
 I described what to set to load a template from
 an <a class="reference external" href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html">absolute path</a>.</p>
-<p>Here&#8217;s the magic necessary to get NVelocity to load a template from an
-embedded&nbsp;resource:</p>
-
-<pre class="brush: csharp">
-VelocityEngine engine = new VelocityEngine();
-ExtendedProperties properties = new ExtendedProperties();
-properties.AddProperty("resource.loader", "assembly");
-properties.AddProperty("assembly.resource.loader.class",
-    "NVelocity.Runtime.Resource.Loader.AssemblyResourceLoader, NVelocity");
-properties.AddProperty("assembly.resource.loader.assembly", "StencilFormatter");
-engine.Init(properties);
+<p>Here’s the magic necessary to get NVelocity to load a template from an
+embedded resource:</p>
+<pre class="code csharp literal-block">
+<span class="n">VelocityEngine</span> <span class="n">engine</span> <span class="p">=</span> <span class="k">new</span> <span class="n">VelocityEngine</span><span class="p">();</span>
+<span class="n">ExtendedProperties</span> <span class="n">properties</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ExtendedProperties</span><span class="p">();</span>
+<span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">"resource.loader"</span><span class="p">,</span> <span class="s">"assembly"</span><span class="p">);</span>
+<span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">"assembly.resource.loader.class"</span><span class="p">,</span>
+    <span class="s">"NVelocity.Runtime.Resource.Loader.AssemblyResourceLoader, NVelocity"</span><span class="p">);</span>
+<span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">"assembly.resource.loader.assembly"</span><span class="p">,</span> <span class="s">"StencilFormatter"</span><span class="p">);</span>
+<span class="n">engine</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">properties</span><span class="p">);</span>
 </pre>
-
 
     <footer>
         
@@ -61,7 +59,7 @@ engine.Init(properties);
                 <a href="/tag/net/" rel="tag">.NET</a>
                     and
                     
-                <a href="/tag/c/" rel="tag">c#</a>
+                <a href="/tag/c/" rel="tag">c</a>
                 
             </p>
         

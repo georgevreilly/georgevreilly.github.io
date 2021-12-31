@@ -37,21 +37,22 @@
     </header>
     <p>I needed to add some de&shy;clar&shy;a&shy;tive error checking to some <span class="caps">XSLT</span> templates
 recently. Specif&shy;i&shy;cal&shy;ly, I wanted to throw an error if my selects yielded an
-empty string, indicating that the input <span class="caps">XML</span> was&nbsp;wrong.</p>
+empty string, indicating that the input <span class="caps">XML</span> was wrong.</p>
 <p>Un&shy;for&shy;tu&shy;nate&shy;ly, there seems to be no easy way of doing this in <span class="caps">XSLT</span>, nor in
 <tt class="docutils literal">XslTrans&shy;form</tt>. The approved way is to validate against an <span class="caps">XSD</span> schema,
-but for various reasons, I didn&#8217;t want to go to the hassle of creating&nbsp;one.</p>
+but for various reasons, I didn’t want to go to the hassle of creating one.</p>
 <p>I found a partial solution using <tt class="docutils literal">xsl:message</tt> with the
-<tt class="docutils literal"><span class="pre">terminate=&quot;yes&quot;</span></tt> attribute. Under <tt class="docutils literal">XslTrans&shy;form.Transform()</tt> the
-following code throws an exception if the XPath expression is&nbsp;empty.</p>
-<div class="highlight"><pre><span></span><span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span>
-    <span class="k">&lt;xsl:message</span> <span class="na">terminate=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>Missing expression<span class="k">&lt;/xsl:message&gt;</span>
-<span class="k">&lt;/xsl:if&gt;</span>
-<span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;/some/xpath/expression&quot;</span> <span class="nt">/&gt;</span>
-</pre></div>
-<p>It doesn&#8217;t do anything, however, in&nbsp;XMLSpy.</p>
+<tt class="docutils literal"><span class="pre">terminate="yes"</span></tt> attribute. Under <tt class="docutils literal">XslTrans&shy;form.Transform()</tt> the
+following code throws an exception if the XPath expression is empty.</p>
+<pre class="code xslt literal-block">
+<span class="k"><xsl:if</span> <span class="na">test=</span><span class="s">"not(/some/xpath/expression)"</span><span class="nt">></span>
+    <span class="k"><xsl:message</span> <span class="na">terminate=</span><span class="s">"yes"</span><span class="nt">></span>Missing expression<span class="k"></xsl:message></span>
+<span class="k"></xsl:if></span>
+<span class="k"><xsl:value-of</span> <span class="na">select=</span><span class="s">"/some/xpath/expression"</span> <span class="nt">/></span>
+</pre>
+<p>It doesn’t do anything, however, in XMLSpy.</p>
 <p>The downside, of course, is that you have to maintain the expression in two places,
-and the template becomes littered with those annoying&nbsp;tests.</p>
+and the template becomes littered with those annoying tests.</p>
 
     <footer>
         

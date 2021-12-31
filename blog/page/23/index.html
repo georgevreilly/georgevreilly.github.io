@@ -34,40 +34,34 @@
         </h1>
     </header>
     <p>Various Bash guides recommend putting quotes around just about everything.
-I had a script that contained this&nbsp;line:</p>
-
-<pre class="brush: bash">
-sudo apt-get install --yes $(cat "$BUILD/install_on_aws_ubuntu.txt")
+I had a script that contained this line:</p>
+<pre class="code bash literal-block">
+sudo apt-get install --yes <span class="k">$(</span>cat <span class="s2">"</span><span class="nv">$<span class="caps">BUILD</span></span><span class="s2">/install_on_aws_ubuntu.txt"</span><span class="k">)</span>
 </pre>
-
-<p>While refac&shy;tor&shy;ing, I put another set of quotes around the <tt class="docutils literal">$(cat <span class="pre">...)</span></tt>
-out of an abundance of&nbsp;caution:</p>
-
-<pre class="brush: bash">
-sudo apt-get install --yes "$(cat "$BUILD/install_on_aws_ubuntu.txt")"
+<p>While refac­tor­ing, I put another set of quotes around the <tt class="docutils literal">$(cat <span class="pre">...)</span></tt>
+out of an abundance of caution:</p>
+<pre class="code bash literal-block">
+sudo apt-get install --yes <span class="s2">"</span><span class="k">$(</span>cat <span class="s2">"</span><span class="nv">$<span class="caps">BUILD</span></span><span class="s2">/install_on_aws_ubuntu.txt"</span><span class="k">)</span><span class="s2">"</span>
 </pre>
-
-<p>Several other changes later, I couldn&#8217;t figure out why my script had stopped&nbsp;working.</p>
-<p>Here&#8217;s what&nbsp;happened:</p>
-
-<pre class="brush: bash">
-$ cat $HOME/tmp/demo.txt
+<p>Several other changes later, I couldn’t figure out why my script had stopped working.</p>
+<p>Here’s what happened:</p>
+<pre class="code bash literal-block">
+$ cat <span class="nv">$<span class="caps">HOME</span></span>/tmp/demo.txt
 foo
 bar
 quux
 
-$ echo $(cat "$HOME/tmp/demo.txt")
+$ <span class="nb">echo</span> <span class="k">$(</span>cat <span class="s2">"</span><span class="nv">$<span class="caps">HOME</span></span><span class="s2">/tmp/demo.txt"</span><span class="k">)</span>
 foo bar quux
 
-$ echo "$(cat $HOME/tmp/demo.txt)"
+$ <span class="nb">echo</span> <span class="s2">"</span><span class="k">$(</span>cat <span class="nv">$<span class="caps">HOME</span></span>/tmp/demo.txt<span class="k">)</span><span class="s2">"</span>
 foo
 bar
 quux
 </pre>
-
 <p>The new outer quotes retained the newlines;
-the original replaced newlines with&nbsp;spaces.</p>
-<p>The <a class="reference external" href="http://mywiki.wooledge.org/BashFAQ">Bash <span class="caps">FAQ</span></a> has more: specif&shy;i&shy;cal&shy;ly <a class="reference external" href="http://mywiki.wooledge.org/CommandSubstitution">Command Substition</a> and <a class="reference external" href="http://mywiki.wooledge.org/WordSplitting">Word Splitting</a>.</p>
+the original replaced newlines with spaces.</p>
+<p>The <a class="reference external" href="http://mywiki.wooledge.org/BashFAQ">Bash <span class="caps">FAQ</span></a> has more: specif­i­cal­ly <a class="reference external" href="http://mywiki.wooledge.org/CommandSubstitution">Command Substition</a> and <a class="reference external" href="http://mywiki.wooledge.org/WordSplitting">Word Splitting</a>.</p>
 
     <footer>
         
@@ -104,13 +98,13 @@ the original replaced newlines with&nbsp;spaces.</p>
 <div class="line">Keywords: mystery</div>
 <div class="line">Reading period: February 28–March 2, 2016</div>
 </div>
-<p>A quirky novella about <a class="reference external" href="https://en.wikipedia.org/wiki/Salvo_Montalbano">Com&shy;mis&shy;sario Montalbano</a> of the Italian Polizia.
-A series of “ac&shy;ci&shy;dents” have been happening at con&shy;struc&shy;tion sites.
+<p>A quirky novella about <a class="reference external" href="https://en.wikipedia.org/wiki/Salvo_Montalbano">Com­mis­sario Montalbano</a> of the Italian Polizia.
+A series of “ac­ci­dents” have been happening at con­struc­tion sites.
 Montalbano receives an anonymous letter warning that another “accident” will happen,
 too late to prevent it.
-He attempts to cover it up, while still in&shy;ves&shy;ti&shy;gat&shy;ing,
-and realizes that he&#8217;s infringing on the <a class="reference external" href="http://www.bbc.com/news/magazine-28254297">carib&shy;inieri</a>&#8216;s ju&shy;ris&shy;dic&shy;tion, a&nbsp;no-no.</p>
-<p>Moderately&nbsp;en&shy;ter&shy;tain&shy;ing.</p>
+He attempts to cover it up, while still in­ves­ti­gat­ing,
+and realizes that he’s infringing on the <a class="reference external" href="http://www.bbc.com/news/magazine-28254297">carib­inieri</a>‘s ju­ris­dic­tion, a no-no.</p>
+<p>Moderately en­ter­tain­ing.</p>
 
     <footer>
         
@@ -140,16 +134,16 @@ and realizes that he&#8217;s infringing on the <a class="reference external" hre
         </h1>
     </header>
     <a class="reference external image-reference" href="https://twitter.com/chicagobi"></a>
-<p>My birthday today marks the 25th an&shy;niver&shy;sary of <a class="reference external" href="http://groups.google.com/group/soc.motss/browse_thread/thread/baf274ae585ab622/330d866060d756d8">my coming out as bisexual</a>,
-a major milestone in my&nbsp;life.</p>
-<p>I hid my bi&shy;sex&shy;u&shy;al&shy;i&shy;ty for a decade before coming out in 1991.
+<p>My birthday today marks the 25th an­niver­sary of <a class="reference external" href="http://groups.google.com/group/soc.motss/browse_thread/thread/baf274ae585ab622/330d866060d756d8">my coming out as bisexual</a>,
+a major milestone in my life.</p>
+<p>I hid my bi­sex­u­al­i­ty for a decade before coming out in 1991.
 Ireland was not a welcoming place for <span class="caps">LGBT</span> youth in the 1980s.
-Nor were most other&nbsp;places.</p>
+Nor were most other places.</p>
 <p>I discovered <a class="reference external" href="http://www.slate.com/articles/technology/bitwise/2014/08/online_gay_culture_and_soc_motss_how_a_usenet_group_anticipated_how_we_use.html">soc.motss</a>, the gay newsgroup on Usenet,
 in the late 1980s
 and I lurked there for a couple of years,
 half-intending to come out but never quite finding the courage.
-Then my old friend Éamonn came out to me—to my utter sur&shy;prise—and I im&shy;me&shy;di&shy;ate&shy;ly came out to him.
+Then my old friend Éamonn came out to me—to my utter sur­prise—and I im­me­di­ate­ly came out to him.
 Then I sat on everything for a few months.
 Eventually, late on the night of my <span>&#8230;<a href="/blog/2016/03/15/25YearsOutAsBisexual.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -176,19 +170,19 @@ Eventually, late on the night of my <span>&#8230;<a href="/blog/2016/03/15/25Yea
         </h1>
     </header>
     <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Pi"></a>
-<p>3/14 is considered to be <a class="reference external" href="https://en.wikipedia.org/wiki/Pi_Day">Pi Day</a> by many geeks, as <a class="reference external" href="https://en.wikipedia.org/wiki/Pi">π</a> is ap&shy;prox&shy;i&shy;mate&shy;ly 3.14.
+<p>3/14 is considered to be <a class="reference external" href="https://en.wikipedia.org/wiki/Pi_Day">Pi Day</a> by many geeks, as <a class="reference external" href="https://en.wikipedia.org/wiki/Pi">π</a> is ap­prox­i­mate­ly 3.14.
 I wish I could say that I had celebrated by eating pie,
-but I&nbsp;didn&#8217;t.</p>
+but I didn’t.</p>
 <p>π is surely the most important irrational number,
-which has been known since&nbsp;antiquity.</p>
+which has been known since antiquity.</p>
 <p>π shows up in so many different formulas.
-My own favorite is <a class="reference external" href="https://en.wikipedia.org/wiki/Euler%27s_identity">Euler&#8217;s Identity</a>,
+My own favorite is <a class="reference external" href="https://en.wikipedia.org/wiki/Euler%27s_identity">Euler’s Identity</a>,
 <span class="formula"><i>e</i><sup><i>i</i><i>π</i></sup> + 1 = 0</span>.
-(This marks the first use of the <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/roles.html#math">re&shy;Struc&shy;tured&shy;Text math role</a> in my&nbsp;blog.)</p>
-<p>I am also find of the ap&shy;prox&shy;i&shy;mate fraction <span class="formula">355 ⁄ 113</span>.</p>
-<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Pi">Wikipedia article on π</a> has much more on&nbsp;π.</p>
+(This marks the first use of the <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/roles.html#math">re­Struc­tured­Text math role</a> in my blog.)</p>
+<p>I am also find of the ap­prox­i­mate fraction <span class="formula">355 ⁄ 113</span>.</p>
+<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Pi">Wikipedia article on π</a> has much more on π.</p>
 <p><strong>Update</strong>:
-<a class="reference external" href="https://www.washingtonpost.com/news/wonk/wp/2015/03/14/10-stunning-images-show-the-beauty-hidden-in-pi/">Wonkblog: 10 stunning images show the beauty hidden in&nbsp;pi</a></p>
+<a class="reference external" href="https://www.washingtonpost.com/news/wonk/wp/2015/03/14/10-stunning-images-show-the-beauty-hidden-in-pi/">Wonkblog: 10 stunning images show the beauty hidden in pi</a></p>
 
     <footer>
         
@@ -218,21 +212,21 @@ My own favorite is <a class="reference external" href="https://en.wikipedia.org/
 <div class="line">Title: Moriarty</div>
 <div class="line">Author: Anthony Horowitz</div>
 <div class="line">Rating: ★ ★ ★ ½</div>
-<div class="line">Publisher: Harper&shy;Collins</div>
+<div class="line">Publisher: Harper­Collins</div>
 <div class="line">Copyright: 2014</div>
 <div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/B00KPVCG1A/?tag=georgvreill-20"><span class="caps">B00KPVCG1A</span></a></div>
 <div class="line">Pages: 309</div>
 <div class="line">Keywords: mystery</div>
 <div class="line">Reading period: 27 February–5 March, 2016</div>
 </div>
-<p>Pinkerton agent Frederick Chase arrives at Re&shy;ichen&shy;bach Falls
+<p>Pinkerton agent Frederick Chase arrives at Re­ichen­bach Falls
 just after Sherlock Holmes and Professor Moriarty have plunged to their deaths.
-With Inspector Athelney Jones of Scotland Yard—&shy;sure&shy;ly one of Holmes&#8217;s most ardent stu&shy;dents—he travels to London on the trail of an American master criminal, Clarence Devereaux.
-Devereaux&#8217;s gang is moving quickly and ruthlessly
+With Inspector Athelney Jones of Scotland Yard—­sure­ly one of Holmes’s most ardent stu­dents—he travels to London on the trail of an American master criminal, Clarence Devereaux.
+De­v­ereaux’s gang is moving quickly and ruthlessly
 to seize control of the vacuum left by Moriarty.
 But not all is it appears and the American gang receive bloody setbacks.
-Could Moriarty be alive after&nbsp;all?</p>
-<p>While I mostly enjoyed the book, I was ex&shy;as&shy;per&shy;at&shy;ed by <span>&#8230;<a href="/blog/2016/03/13/ReviewMoriarty.html" class="continue">continue</a>.</span></p>
+Could Moriarty be alive after all?</p>
+<p>While I mostly enjoyed the book, I was ex­as­per­at­ed by <span>&#8230;<a href="/blog/2016/03/13/ReviewMoriarty.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/13/ReviewMoriarty.html#disqus_thread">Comment</a>
@@ -264,16 +258,16 @@ Could Moriarty be alive after&nbsp;all?</p>
     <a class="reference external image-reference" href="http://www.theverge.com/2016/3/12/11186842/daylight-saving-time-car-crashes-work-accidents-fatigue"></a>
 <p><a class="reference external" href="http://www.theverge.com/2016/3/12/11186842/daylight-saving-time-car-crashes-work-accidents-fatigue">Daylight Saving Time is hot garbage</a>
 is a typical article you can expect to read this weekend
-condemning&nbsp;<span class="caps">DST</span>.</p>
+condemning <span class="caps">DST</span>.</p>
 <p>My own dislike of <span class="caps">DST</span> was boosted when I worked on calendar software at Cozi.
 We learned the hard way that we needed to test our latest software
 ahead of both the start and end of <span class="caps">DST</span> each year.
-That&#8217;s trickier than you might think.
-Setting the computer&#8217;s clock forward a couple of weeks,
+That’s trickier than you might think.
+Setting the computer’s clock forward a couple of weeks,
 past the change of <span class="caps">DST</span>, is one thing;
 getting the changed time to last for more than a few minutes is another.
-Most computers ag&shy;gres&shy;sive&shy;ly sync their clocks to a network time server,
-which can be tricky to&nbsp;disable.</p>
+Most computers ag­gres­sive­ly sync their clocks to a network time server,
+which can be tricky to disable.</p>
 <p>I no <span>&#8230;<a href="/blog/2016/03/12/DaylightSavingTime.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -305,22 +299,22 @@ which can be tricky to&nbsp;disable.</p>
 
 <blockquote>
 <p>In an interview with <span class="caps">MSNBC</span> Friday,
-2016 Democratic pres&shy;i&shy;den&shy;tial candidate Hillary Clinton said
-that Ronald and Nancy Reagan helped start a national con&shy;ver&shy;sa&shy;tion about <span class="caps">HIV</span>/<span class="caps">AIDS</span>.
+2016 Democratic pres­i­den­tial candidate Hillary Clinton said
+that Ronald and Nancy Reagan helped start a national con­ver­sa­tion about <span class="caps">HIV</span>/<span class="caps">AIDS</span>.
 This is not exactly a bald-faced lie,
-but it is a gross mis&shy;un&shy;der&shy;stand&shy;ing of history
-and a mis&shy;rep&shy;re&shy;sen&shy;ta&shy;tion of the true gov&shy;ern&shy;men&shy;tal neglect
-during the <span class="caps">AIDS</span> epidemic that killed millions&nbsp;worldwide.</p>
-<p class="attribution">&mdash;Mathew Rodriguez, <a class="reference external" href="http://mic.com/articles/137718/ronald-and-nancy-reagan-ignored-the-aids-crisis-and-you-know-it-hillary-clinton">mic.com</a></p>
+but it is a gross mis­un­der­stand­ing of history
+and a mis­rep­re­sen­ta­tion of the true gov­ern­men­tal neglect
+during the <span class="caps">AIDS</span> epidemic that killed millions worldwide.</p>
+<p class="attribution">—Mathew Rodriguez, <a class="reference external" href="http://mic.com/articles/137718/ronald-and-nancy-reagan-ignored-the-aids-crisis-and-you-know-it-hillary-clinton">mic.com</a></p>
 </blockquote>
-<p>As I wrote on Facebook earlier&nbsp;today:</p>
+<p>As I wrote on Facebook earlier today:</p>
 <blockquote>
-I&#8217;m really surprised by this.
+I’m really surprised by this.
 I expected Hillary Clinton to know better.
-It&#8217;s one thing not to speak ill of the dead at their funeral.
-It&#8217;s quite another to make such a profoundly wrong assertion.
-The Reagan White House&#8217;s negligence and homophobia
-was directly re&shy;spon&shy;si&shy;ble for the growth of the <span>&#8230;<a href="/blog/2016/03/11/HillaryClintonMisspeaksAboutNancyReaganAndAIDS.html" class="continue">continue</a>.</span></blockquote>
+It’s one thing not to speak ill of the dead at their funeral.
+It’s quite another to make such a profoundly wrong assertion.
+The Reagan White House’s negligence and homophobia
+was directly re­spon­si­ble for the growth of the <span>&#8230;<a href="/blog/2016/03/11/HillaryClintonMisspeaksAboutNancyReaganAndAIDS.html" class="continue">continue</a>.</span></blockquote>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/11/HillaryClintonMisspeaksAboutNancyReaganAndAIDS.html#disqus_thread">Comment</a>
@@ -353,23 +347,23 @@ was directly re&shy;spon&shy;si&shy;ble for the growth of the <span>&#8230;<a hr
 <div class="line">Title: Mother London</div>
 <div class="line">Author: Michael Moorcock</div>
 <div class="line">Rating: ★ ★ ★</div>
-<div class="line">Publisher: Harper&shy;Collins</div>
+<div class="line">Publisher: Harper­Collins</div>
 <div class="line">Copyright: 1989</div>
 <div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0060973099/?tag=georgvreill-20">0060973099</a></div>
 <div class="line">Pages: 496</div>
 <div class="line">Keywords: fiction</div>
-<div class="line">Reading period: 22 Feb&shy;ru&shy;ary–10 March, 2016</div>
+<div class="line">Reading period: 22 Feb­ru­ary–10 March, 2016</div>
 </div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Mother_London">Mother London</a> is well written and it has some fine scenes and three in&shy;ter&shy;est&shy;ing characters.
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Mother_London">Mother London</a> is well written and it has some fine scenes and three in­ter­est­ing characters.
 I wanted to like it but it never engaged me
 because the story goes nowhere.
-I rarely abandon books, but I gave up on this two-thirds of the way&nbsp;through.</p>
-<p><em>Mother London</em> follows three out&shy;pa&shy;tients from a mental hospital,
+I rarely abandon books, but I gave up on this two-thirds of the way through.</p>
+<p><em>Mother London</em> follows three out­pa­tients from a mental hospital,
 between 1940 and the 1980s:
 Josef Kiss, a larger-than-life performer,
 David Mummery, a writer,
 and Mary Gasalee, a housewife who spends fifteen years in a coma, after the Blitz.
-All three seem to be psy&shy;chi&shy;cal&shy;ly sensitive to the thoughts <span>&#8230;<a href="/blog/2016/03/10/ReviewMotherLondon.html" class="continue">continue</a>.</span></p>
+All three seem to be psy­chi­cal­ly sensitive to the thoughts <span>&#8230;<a href="/blog/2016/03/10/ReviewMotherLondon.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/10/ReviewMotherLondon.html#disqus_thread">Comment</a>
@@ -401,13 +395,13 @@ All three seem to be psy&shy;chi&shy;cal&shy;ly sensitive to the thoughts <span>
 <p>It is often said that people fear public speaking more than they fear death.
 I certainly used to fear getting up in front of a crowd,
 though not to the point of death.
-Tonight I spoke about <a class="reference external" href="http://flyingcloud.readthedocs.org/">Fly&shy;ing&shy;Cloud</a>
+Tonight I spoke about <a class="reference external" href="http://flyingcloud.readthedocs.org/">Fly­ing­Cloud</a>
 in front of more than 100 people for half an hour
 at the <a class="reference external" href="http://www.meetup.com/PSPPython/events/228878102/">PuPPy Meetup</a>.
-I wasn&#8217;t nervous beforehand and I wasn&#8217;t nervous talking to the&nbsp;crowd.</p>
-<p>I&#8217;ve been an active Toast&shy;mas&shy;ter for nearly 15 years
-and I&#8217;ve spoken at Toast&shy;mas&shy;ters hundreds of times.
-I&#8217;m used to a room of 15–25 people but not to a larger audience.
+I wasn’t nervous beforehand and I wasn’t nervous talking to the crowd.</p>
+<p>I’ve been an active Toast­mas­ter for nearly 15 years
+and I’ve spoken at Toast­mas­ters hundreds of times.
+I’m used to a room of 15–25 people but not to a larger audience.
 Adam and I put our slides together late last week.
 We ran through it together once <span>&#8230;<a href="/blog/2016/03/09/FearOfPublicSpeaking.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -437,12 +431,12 @@ We ran through it together once <span>&#8230;<a href="/blog/2016/03/09/FearOfPub
         </h1>
     </header>
     <p>Boing Boing posted <a class="reference external" href="http://boingboing.net/2016/03/08/irish-slave-myths-debunked.html">Irish slave myths debunked</a>,
-a link to the work of Liam&nbsp;Hogan.</p>
+a link to the work of Liam Hogan.</p>
 <p>The indentured servitude that brought many Irish people to the Americas
-could be very harsh, but it wasn&#8217;t slavery.
+could be very harsh, but it wasn’t slavery.
 Slavery was brutal and often murderous,
 the children of slaves were themselves slaves,
-and the aftermath continues to affect their de&shy;scen&shy;dants even&nbsp;now.</p>
+and the aftermath continues to affect their de­scen­dants even now.</p>
 
     <footer>
         

@@ -37,22 +37,22 @@
     </header>
     <p>It may be old-fashioned, but I still find <tt class="docutils literal">printf</tt> (and <tt class="docutils literal">sprintf</tt>
 and <tt class="docutils literal">_vsnprintf</tt>) incredibly useful, both for printing debug output
-and for generating formatted&nbsp;strings.</p>
+and for generating formatted strings.</p>
 <p>Here are a few lesser-known formats that I use again and again.
 See <span class="caps">MSDN</span> for the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/56e442dc(VS.71).aspx">full reference</a>.</p>
 <div class="section" id="x-4-digit-hex-number-with-leading-zeroes">
-<h2>%04x - 4-digit hex number with leading&nbsp;zeroes</h2>
-<p>A quick review of some of the&nbsp;basics.</p>
-<p><tt class="docutils literal">%x</tt> prints an <tt class="docutils literal">int</tt> in&nbsp;hexa&shy;dec&shy;i&shy;mal.</p>
+<h2>%04x - 4-digit hex number with leading zeroes</h2>
+<p>A quick review of some of the basics.</p>
+<p><tt class="docutils literal">%x</tt> prints an <tt class="docutils literal">int</tt> in hexa&shy;dec&shy;i&shy;mal.</p>
 <p><tt class="docutils literal">%4x</tt> prints a hex int, right-justified to 4 places.
-If it&#8217;s less than 4 digits, it&#8217;s preceded by spaces.
-If it&#8217;s more than 4 digits, you get the full&nbsp;number.</p>
+If it’s less than 4 digits, it’s preceded by spaces.
+If it’s more than 4 digits, you get the full number.</p>
 <p><tt class="docutils literal">%04x</tt> prints a hex int, right-justified to 4 places.
-If it&#8217;s less than 4 digits, it&#8217;s preceded by zeroes.
-If it&#8217;s more than 4 digits, you get the full number,
-but no leading&nbsp;zeroes.</p>
+If it’s less than 4 digits, it’s preceded by zeroes.
+If it’s more than 4 digits, you get the full number,
+but no leading zeroes.</p>
 <p>Similarly, <tt class="docutils literal">%d</tt> prints a <tt class="docutils literal">signed int</tt> in decimal,
-and <tt class="docutils literal">%u</tt> prints an <tt class="docutils literal">unsigned int</tt> in&nbsp;decimal.</p>
+and <tt class="docutils literal">%u</tt> prints an <tt class="docutils literal">unsigned int</tt> in decimal.</p>
 <p>Not so similarly, <tt class="docutils literal">%c</tt> prints a character and
 <tt class="docutils literal">%s</tt> prints a string.
 For wide (Unicode) strings, prefix with <tt class="docutils literal">l</tt> (ell, or <tt class="docutils literal">w</tt>):
@@ -65,90 +65,90 @@ and to force a wide string, use the <tt class="docutils literal">%l</tt> size pr
 e.g., <tt class="docutils literal">%hs</tt> and <tt class="docutils literal">%lc</tt>.</p>
 </div>
 <div class="section" id="p-pointer">
-<h2>%p -&nbsp;pointer</h2>
+<h2>%p - pointer</h2>
 <p>The <em>wrong</em> way to print a pointer is to use <tt class="docutils literal">%x</tt>.
 The right way is to use <tt class="docutils literal">%p</tt>.
-It&#8217;s portable to Win64,
-as well as to all other operating&nbsp;systems.</p>
-<p>Everyone should know this one, but many&nbsp;don&#8217;t.</p>
+It’s portable to Win64,
+as well as to all other operating systems.</p>
+<p>Everyone should know this one, but many don’t.</p>
 </div>
 <div class="section" id="i64d-i64u-i64x-64-bit-integers">
-<h2>%I64d, %I64u, %I64x - 64-bit&nbsp;integers</h2>
-<p>To print 64-bit numbers (<tt class="docutils literal">__int64</tt>), use the <tt class="docutils literal">I64</tt> size&nbsp;prefix.</p>
+<h2>%I64d, %I64u, %I64x - 64-bit integers</h2>
+<p>To print 64-bit numbers (<tt class="docutils literal">__int64</tt>), use the <tt class="docutils literal">I64</tt> size prefix.</p>
 </div>
 <div class="section" id="iu-id-ix-ulong-ptr">
-<h2>%Iu, %Id, %Ix -&nbsp;ULONG_PTR</h2>
+<h2>%Iu, %Id, %Ix - ULONG_PTR</h2>
 <p><tt class="docutils literal">ULONG_PTR</tt>, <tt class="docutils literal">LONG_PTR</tt>, and <tt class="docutils literal">DWORD_PTR</tt>
 are numeric types that are as wide as a pointer.
 In other words, they map to
 <tt class="docutils literal"><span class="caps">ULONG</span></tt>, <tt class="docutils literal"><span class="caps">LONG</span></tt>, and <tt class="docutils literal"><span class="caps">DWORD</span></tt>
 re&shy;spec&shy;tive&shy;ly on Win32, and
 <tt class="docutils literal"><span class="caps">ULONGLONG</span></tt>, <tt class="docutils literal"><span class="caps">LONGLONG</span></tt>, and <tt class="docutils literal"><span class="caps">ULONGLONG</span></tt>
-on&nbsp;Win64.</p>
+on Win64.</p>
 <p>The <tt class="docutils literal">I</tt> size prefix (capital-i, not lowercase-L)
-is what you need to print <tt class="docutils literal">*LONG_PTR</tt> on Win32 and&nbsp;Win64.</p>
+is what you need to print <tt class="docutils literal">*LONG_PTR</tt> on Win32 and Win64.</p>
 </div>
 <div class="section" id="d-runtime-width-specifier">
-<h2>%*d - runtime width&nbsp;specifier</h2>
+<h2>%*d - runtime width specifier</h2>
 <p>If you want to calculate the width of a field at runtime,
 you can use <tt class="docutils literal">%*</tt>.
 This says the next argument is the width,
-followed by whatever type you want to&nbsp;print.</p>
-<p>For example, the following can be used to print a&nbsp;tree:</p>
+followed by whatever type you want to print.</p>
+<p>For example, the following can be used to print a tree:</p>
 <pre class="literal-block">
 void Tree::Print(Node* pNode, int level)
 {
     if (NULL != pNode)
     {
-        Print(pNode-&gt;Left, level+1);
-        printf(&quot;%*d%s\n&quot;, 2 * level, pNode-&gt;Key);
-        Print(pNode-&gt;Right, level+1);
+        Print(pNode->Left, level+1);
+        printf("%*d%s\n", 2 * level, pNode->Key);
+        Print(pNode->Right, level+1);
     }
 }
 </pre>
 </div>
 <div class="section" id="s-print-a-substring">
-<h2>%.*s - print a&nbsp;substring</h2>
+<h2>%.*s - print a substring</h2>
 <p>With a variable precision, you can print a substring,
 or print a non-<span class="caps">NUL</span>-terminated string, if you know its length.
-<tt class="docutils literal"><span class="pre">printf(&quot;%.*s\n&quot;,</span> sublen, str)</tt> prints the first
+<tt class="docutils literal"><span class="pre">printf("%.*s\n",</span> sublen, str)</tt> prints the first
 <tt class="docutils literal">sublen</tt> characters of <tt class="docutils literal">str</tt>.</p>
-<p>[2005/7/19: fixed a typo in previous sentence (<tt class="docutils literal">%.s</tt> -&gt; <tt class="docutils literal"><span class="pre">%.*s</span></tt>).
+<p>[2005/7/19: fixed a typo in previous sentence (<tt class="docutils literal">%.s</tt> -> <tt class="docutils literal"><span class="pre">%.*s</span></tt>).
 A little elab&shy;o&shy;ra&shy;tion on the syntax:
 <tt class="docutils literal">.</tt>-in a printf format spec&shy;i&shy;fi&shy;ca&shy;tion is followed by the <em>precision</em>.
 For strings, the precision speci&shy;fi&shy;cies how many characters will be printed.
 A precision of <tt class="docutils literal">*</tt> indicates that the precision is the next argument on the stack.
 If the precision is zero, then nothing is printed.
-If a string has a precision spec&shy;i&shy;fi&shy;ca&shy;tion, its length is&nbsp;ignored.]</p>
+If a string has a precision spec&shy;i&shy;fi&shy;ca&shy;tion, its length is ignored.]</p>
 </div>
 <div class="section" id="d-print-nothing-for-zero">
-<h2>%.0d - print nothing for&nbsp;zero</h2>
-<p>I&#8217;ve oc&shy;ca&shy;sion&shy;al&shy;ly found it useful to suppress output when
+<h2>%.0d - print nothing for zero</h2>
+<p>I’ve oc&shy;ca&shy;sion&shy;al&shy;ly found it useful to suppress output when
 a number is zero, and <tt class="docutils literal">%.0d</tt> is the way to do it.
 (If you attempt to print a non-zero number with this zero-precision
 specifier, it will be printed.)
-Similarly, <tt class="docutils literal">%.0s</tt> swallows a&nbsp;string.</p>
+Similarly, <tt class="docutils literal">%.0s</tt> swallows a string.</p>
 </div>
 <div class="section" id="x-print-a-leading-0x">
-<h2>%#x - print a leading&nbsp;0x</h2>
+<h2>%#x - print a leading 0x</h2>
 <p>If you want printf to au&shy;to&shy;mat&shy;i&shy;cal&shy;ly generate <tt class="docutils literal">0x</tt>
 before hex numbers, use <tt class="docutils literal">%#x</tt> instead of <tt class="docutils literal">%x</tt>.</p>
 </div>
 <div class="section" id="other-tricks">
-<h2>Other&nbsp;tricks</h2>
-<p>See the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/56e442dc(VS.71).aspx">doc&shy;u&shy;men&shy;ta&shy;tion</a> for other useful&nbsp;tricks.</p>
+<h2>Other tricks</h2>
+<p>See the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/56e442dc(VS.71).aspx">doc&shy;u&shy;men&shy;ta&shy;tion</a> for other useful tricks.</p>
 </div>
 <div class="section" id="security">
 <h2>Security</h2>
 <p>Never use an inputted string as the format argument: <tt class="docutils literal">printf(str)</tt>.
-Instead, use <tt class="docutils literal"><span class="pre">printf(&quot;%s&quot;,</span> str)</tt>.
-The former is a stack smasher waiting to&nbsp;happen.</p>
-<p><tt class="docutils literal">%n</tt> is dangerous and disabled by default in&nbsp;<span class="caps">VS2005</span>.</p>
-<p>Don&#8217;t use <tt class="docutils literal">sprintf</tt>. Use the counted version,
+Instead, use <tt class="docutils literal"><span class="pre">printf("%s",</span> str)</tt>.
+The former is a stack smasher waiting to happen.</p>
+<p><tt class="docutils literal">%n</tt> is dangerous and disabled by default in <span class="caps">VS2005</span>.</p>
+<p>Don’t use <tt class="docutils literal">sprintf</tt>. Use the counted version,
 <tt class="docutils literal">_snprintf</tt> or <tt class="docutils literal">_vsnprintf</tt> instead.
 Better still, use the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms647466(VS.85).aspx">StrSafe.h functions</a>,
 <tt class="docutils literal">StringC&shy;ch&shy;Printf</tt> and <tt class="docutils literal">StringC&shy;chVPrintf</tt>,
-to guarantee that your strings are&nbsp;<span class="caps">NUL</span>-terminated.</p>
+to guarantee that your strings are <span class="caps">NUL</span>-terminated.</p>
 <p>[Update: 2008/01/25: See also <a class="reference external" href="/blog/2007/02/07/PrintfN.html">Printf %n</a>.]</p>
 </div>
 

@@ -38,22 +38,22 @@
     <a class="reference external image-reference" href="http://queue.acm.org/detail.cfm?id=2927301"><img alt="Flame Graph" class="right-float" src="https://deliveryimages.acm.org/10.1145/2930000/2927301/gregg4.png" style="width: 700px;"/></a>
 <p>I was in&shy;ves&shy;ti&shy;gat&shy;ing the per&shy;for&shy;mance of a web app today,
 and I spent some time looking at the <a class="reference external" href="https://addyosmani.com/blog/devtools-flame-charts/">Flame Chart</a> vi&shy;su&shy;al&shy;iza&shy;tion
-in Chrome&#8217;s profiling tools, which helped identify some&nbsp;problems.</p>
-<p>Flame Charts are like Brendan Gregg&#8217;s <a class="reference external" href="http://www.brendangregg.com/flamegraphs.html">Flame Graphs</a>,
+in Chrome’s profiling tools, which helped identify some problems.</p>
+<p>Flame Charts are like Brendan Gregg’s <a class="reference external" href="http://www.brendangregg.com/flamegraphs.html">Flame Graphs</a>,
 except that the charts are sorted by time,
-while the graphs are sorted&nbsp;al&shy;pha&shy;bet&shy;i&shy;cal&shy;ly.</p>
-<p>Quoting from Gregg&#8217;s recent <a class="reference external" href="http://queue.acm.org/detail.cfm?id=2927301"><span class="caps">ACM</span> Queue article</a>:</p>
+while the graphs are sorted al&shy;pha&shy;bet&shy;i&shy;cal&shy;ly.</p>
+<p>Quoting from Gregg’s recent <a class="reference external" href="http://queue.acm.org/detail.cfm?id=2927301"><span class="caps">ACM</span> Queue article</a>:</p>
 <blockquote>
-<p>A flame graph has the following&nbsp;char&shy;ac&shy;ter&shy;is&shy;tics:</p>
+<p>A flame graph has the following char&shy;ac&shy;ter&shy;is&shy;tics:</p>
 <ul class="simple">
 <li>A stack trace is rep&shy;re&shy;sent&shy;ed as a column of boxes,
-where each box represents a function (a stack&nbsp;frame).</li>
+where each box represents a function (a stack frame).</li>
 <li>The y-axis shows the stack depth,
 ordered from root at the bottom to leaf at the top.
 The top box shows the function
 that was on-<span class="caps">CPU</span> when the stack trace was collected,
 and everything beneath that is its ancestry.
-The function beneath a function is its&nbsp;parent.</li>
+The function beneath a function is its parent.</li>
 <li>The x-axis spans the stack trace collection.
 It does not show the passage of time,
 so the left-to-right ordering has no special meaning.
@@ -62,17 +62,17 @@ is performed al&shy;pha&shy;bet&shy;i&shy;cal&shy;ly on the function names,
 from the root to the leaf of each stack.
 This maximizes box merging:
 when identical function boxes are hor&shy;i&shy;zon&shy;tal&shy;ly adjacent,
-they are&nbsp;merged.</li>
+they are merged.</li>
 <li>The width of each function box shows the frequency
 at which that function was present in the stack traces,
 or part of a stack trace ancestry.
 Functions with wide boxes were more present in the stack traces
 than those with narrow boxes,
-in proportion to their&nbsp;widths.</li>
+in proportion to their widths.</li>
 </ul>
 </blockquote>
 <p>Flame graphs are a clever, in&shy;for&shy;ma&shy;tion-dense way to present computer per&shy;for&shy;mance.
-I suspect Edward Tufte would&nbsp;approve.</p>
+I suspect Edward Tufte would approve.</p>
 
     <footer>
         

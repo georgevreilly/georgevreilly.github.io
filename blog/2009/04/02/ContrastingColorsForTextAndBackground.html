@@ -38,35 +38,35 @@
     <a class="reference external image-reference" href="http://colorschemedesigner.com/"><img alt="ColorSchemeDesigner.com" class="right-float" src="/content/binary/ColorSchemeDesigner-Wheel.png"/></a>
 <p>About three weeks ago, I answered a question on Stack&shy;Over&shy;flow
 about generating the <a class="reference external" href="http://stackoverflow.com/questions/646068/find-most-readable-colour-of-text-that-is-drawn-on-a-coloured-surface/646328#646328">most readable color</a> of text
-on a colored&nbsp;background.</p>
+on a colored background.</p>
 <p>I suggested flipping the top bit of each component,
 <tt class="docutils literal">(r ^ 0x80, g ^ 0x80, b ^ 0x80)</tt>.
 This has the same effect as adding 128 if the component is less than 128,
-and sub&shy;tract&shy;ing 128&nbsp;otherwise.</p>
+and sub&shy;tract&shy;ing 128 otherwise.</p>
 <p>Another way to think about it is to imagine the 256x256x256 color cube.
 Inside that cube, erect another cube half as wide.
 One corner is at your original color
-and the diagonally opposite corner is the one computed&nbsp;above.</p>
+and the diagonally opposite corner is the one computed above.</p>
 <p>The questioner liked my answer the best,
 but I decided to experiment further.
 I wrote some JavaScript to compute that color.
 As you can see in the table of 549 colors below,
-it works well most of the time, but it&#8217;s not&nbsp;perfect.</p>
+it works well most of the time, but it’s not perfect.</p>
 <p>Someone else suggested an earlier <span class="caps">SO</span> question on <a class="reference external" href="http://stackoverflow.com/questions/301869/how-to-find-good-looking-font-color-if-background-color-is-known">good-looking font colors</a>.
 Looking at that thread, I decided to try inverting the <a class="reference external" href="http://en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV"><span class="caps">HSL</span></a> value to
-<tt class="docutils literal">(h + 180, s, l + (l &lt; 0.5 ? 0.5 : <span class="pre">-0.5))</span></tt>.
+<tt class="docutils literal">(h + 180, s, l + (l < 0.5 ? 0.5 : <span class="pre">-0.5))</span></tt>.
 That works well too.
 Generally, it yields different colors than my first approach.
-It looks like one of the two always contrasts&nbsp;well.</p>
+It looks like one of the two always contrasts well.</p>
 <p>I found that the most effective approach was to compute
 the gray-level intensity of the original color,
 <tt class="docutils literal">(0.30*r + 0.59*g + 0.11*b)</tt>.
-If it was dark, use white; otherwise,&nbsp;black.</p>
+If it was dark, use white; otherwise, black.</p>
 <p>Really, though, unless you have a re&shy;quire&shy;ment to work with arbitrary colors,
 you should pick your color scheme carefully.
 I found a really nice site this afternoon, <a class="reference external" href="http://colorschemedesigner.com/">Col&shy;orSchemeDesign&shy;er.com</a></p>
 <iframe id="inverse-colors" src="/tests/inverse-colors/inverse-colors.html" width="600" height="250" marginwidth="0" marginheight="0" hspace="0" vspace="0" frameborder="1" scrolling="auto">
-</iframe><p>Here&#8217;s the <a class="reference external" href="/tests/inverse-colors/inverse-colors.html">source</a> of my&nbsp;colortable.</p>
+</iframe><p>Here’s the <a class="reference external" href="/tests/inverse-colors/inverse-colors.html">source</a> of my colortable.</p>
 
     <footer>
         

@@ -35,30 +35,26 @@
     </header>
     <p>The canonical <tt class="docutils literal">for</tt>-loop in C and C++ is written thus,
 counting up <tt class="docutils literal">i = 0</tt>, <tt class="docutils literal">i = 1</tt>, ..., <tt class="docutils literal">i = <span class="pre">N-1</span></tt>:</p>
-
-<pre class="brush: c++">
-for (int i=0; i &lt; N; i++) {
-    // loop body
-}
+<pre class="code c++ literal-block">
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o"><</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c1">// loop body
+</span><span class="p">}</span>
 </pre>
-
 <p>(In C, you have to declare <tt class="docutils literal">int i</tt> before the <tt class="docutils literal">for</tt>-loop.)</p>
 <p>Let's unpack that <tt class="docutils literal">for</tt>-loop into an equivalent <tt class="docutils literal">while</tt>-loop:</p>
-
-<pre class="brush: c++">
-int i = 0;
-while (i &lt; N) {
-    // loop body
-    i = i + 1
-}
+<pre class="code c++ literal-block">
+<span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o"><</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c1">// loop body
+</span><span class="w">    </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span>
 </pre>
-
 <p>In other words, we initialize <tt class="docutils literal">i</tt> to zero.
 Then, before every execution of either loop,
-we check <tt class="docutils literal">i &lt; N</tt>.
+we check <tt class="docutils literal">i < N</tt>.
 If <tt class="docutils literal">i</tt> is still within bounds,
 we execute the loop body.
-Then we postin&shy;cre&shy;ment <span>&#8230;<a href="/blog/2016/01/05/DecrementingLoops.html" class="continue">continue</a>.</span></p>
+Then we postin­cre­ment <span>&#8230;<a href="/blog/2016/01/05/DecrementingLoops.html" class="continue">continue</a>.</span></p>
     <footer>
         
         
@@ -87,18 +83,18 @@ Then we postin&shy;cre&shy;ment <span>&#8230;<a href="/blog/2016/01/05/Decrement
 <p>From October 1996 to May 1997, I wrote a number of sample components
 for the then-new <a class="reference external" href="http://en.wikipedia.org/wiki/Active_Server_Pages">Active Server Pages</a>
 (Classic ASP).
-I worked for Mi&shy;cro&shy;Crafts, a consulting company in Redmond, WA;
-the samples were written for Mi&shy;crosoft&shy;'s
-<a class="reference external" href="http://en.wikipedia.org/wiki/Internet_Information_Services">Internet In&shy;for&shy;ma&shy;tion Server</a>
+I worked for Mi­cro­Crafts, a consulting company in Redmond, WA;
+the samples were written for Mi­crosoft­'s
+<a class="reference external" href="http://en.wikipedia.org/wiki/Internet_Information_Services">Internet In­for­ma­tion Server</a>
 (IIS) team.
-Most of the components used Mi&shy;crosoft&shy;'s new
+Most of the components used Mi­crosoft­'s new
 <a class="reference external" href="http://en.wikipedia.org/wiki/Active_Template_Library">Active Template Library</a> (ATL),
 a C++ library for COM.</p>
-<p>This work had two important con&shy;se&shy;quences for me:
-Microsoft recruited me to join the IIS de&shy;vel&shy;op&shy;ment team
-to work on improving ASP per&shy;for&shy;mance for IIS 3,
+<p>This work had two important con­se­quences for me:
+Microsoft recruited me to join the IIS de­vel­op­ment team
+to work on improving ASP per­for­mance for IIS 3,
 and Wrox Press invited me to write
-<a class="reference external" href="http://www.amazon.com/gp/product/1861000111/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1861000111&amp;linkCode=as2&amp;tag=georgvreill-20">Beginning ATL COM Pro&shy;gram&shy;ming</a>
+<a class="reference external" href="http://www.amazon.com/gp/product/1861000111/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1861000111&amp;linkCode=as2&amp;tag=georgvreill-20">Beginning ATL COM Pro­gram­ming</a>
 I was originally supposed to be the sole author of the book,
 but I was a slow writer and I was <span>&#8230;<a href="/blog/2013/12/12/SampleASPComponentsNowAtGithub.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -129,9 +125,9 @@ but I was a slow writer and I was <span>&#8230;<a href="/blog/2013/12/12/SampleA
     </header>
     
 <p>This week, I have written code in C#, C++, Managed C++, C, WiX, NAnt,
-Ac&shy;tion&shy;Script, VBScript, JScript, cmd batch, NMake, HTML,
+Ac­tion­Script, VBScript, JScript, cmd batch, NMake, HTML,
 XSLT, and Ruby. And I will probably get some Python in before the weekend
-is over. &lt;boggle/&gt;</p>
+is over. <boggle /></p>
 
     <footer>
         
@@ -139,13 +135,10 @@ is over. &lt;boggle/&gt;</p>
             <p>tagged as
                 <a href="/tag/programming/" rel="tag">programming</a>,
                 <a href="/tag/javascript/" rel="tag">javascript</a>,
-                <a href="/tag/c++/" rel="tag">c++</a>,
-                <a href="/tag/c/" rel="tag">c#</a>,
-                <a href="/tag/python/" rel="tag">python</a>,
-                <a href="/tag/ruby/" rel="tag">ruby</a>
+                <a href="/tag/c++/" rel="tag">c++</a>
                     and
                     
-                <a href="/tag/html/" rel="tag">html</a>
+                <a href="/tag/c/" rel="tag">c</a>
                 
             </p>
         
@@ -173,15 +166,16 @@ Instead, I took the cheap-n-dirty route, playing with <tt class="docutils litera
 and include paths.
 It took less time to get working than it did to write this blog post.</p>
 <p>Here's the original native CppUnit test code</p>
-<div class="highlight"><pre><span></span><span class="c1">//-------------------------------</span>
-<span class="c1">// native\FooTest.h</span>
-<span class="c1">//-------------------------------</span>
-
-<span class="cp">#include</span> <span class="cpf">&lt;cppunit/extensions/HelperMacros.h&gt;</span><span class="cp"></span>
-
-<span class="k">class</span> <span class="nc">FooTest</span> <span class="o">:</span> <span class="k">public</span> <span class="n">CppUnit</span><span class="o">::</span><span class="n">TestFixture</span>
-<span class="p">{</span>
-    <span class="n">CPPUNIT_TEST_SUITE</span><span class="p">(</span> <span class="n">FooTest</span> </pre><span>&#8230;<a href="/blog/2007/03/21/NUnitCallingCppUnit.html" class="continue">continue</a>.</span></div>
+<pre class="code cpp literal-block">
+<span class="c1">//-------------------------------
+// native\FooTest.h
+//-------------------------------
+</span><span class="w">
+</span><span class="cp">#include</span><span class="w"> </span><span class="cpf"><cppunit extensions helpermacros.h></cppunit><span class="cp">
+</span><span class="w">
+</span><span class="k">class</span> <span class="nc">FooTest</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">CppUnit</span><span class="o">::</span><span class="n">TestFixture</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="n">CPPUNIT_TEST_SUITE</span><span class="p">(</span><span class="w"> </span><span class="n">FooTest</span><span class="w"> </span></span></pre><span>&#8230;<a href="/blog/2007/03/21/NUnitCallingCppUnit.html" class="continue">continue</a>.</span>
     <footer>
         
         
@@ -213,20 +207,19 @@ overflow detection principles of
 I couldn't find anything in the libraries that actually did a good job of checking
 for overflow.</p>
 <p>Briefly, to see if <tt class="docutils literal">unsigned</tt> values <tt class="docutils literal">A+B</tt> overflow, check
-<tt class="docutils literal">if (A &gt; MAX_UINT - B)</tt>. Similarly, <tt class="docutils literal">A*B</tt> will overflow
-<tt class="docutils literal">if (A &gt; MAX_UINT / B)</tt>.</p>
+<tt class="docutils literal">if (A > MAX_UINT - B)</tt>. Similarly, <tt class="docutils literal">A*B</tt> will overflow
+<tt class="docutils literal">if (A > MAX_UINT / B)</tt>.</p>
+<pre class="code cpp literal-block">
+<span class="c1">// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
+</span><span class="kt">bool</span><span class="w">
+</span><span class="nf">StringToUnsigned</span><span class="p">(</span><span class="w">
+    </span><span class="k">const</span><span class="w"> </span><span class="n">string</span><span class="o">&</span><span class="w"> </span><span class="n">str</span><span class="p">,</span><span class="w">
+    </span><span class="kt">unsigned</span><span class="o">&</span><span class="w">     </span><span class="n">rUint</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="n">rUint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
 
-<pre class="brush: cpp">
-// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
-bool
-StringToUnsigned(
-    const string& str,
-    unsigned&     rUint)
-{
-    rUint = 0;
-
-    if (str.empty())
-        </pre><span>&#8230;<a href="/blog/2006/05/16/0xFFFF100x1999.html" class="continue">continue</a>.</span>
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="w">
+        </span></pre><span>&#8230;<a href="/blog/2006/05/16/0xFFFF100x1999.html" class="continue">continue</a>.</span>
     <footer>
         
         
@@ -259,7 +252,7 @@ for the first time. It's not as easy as
 <a class="reference external" href="http://www.nunit.org/">NUnit</a>. You can't just declare
 your test method with an attribute, you have to declare the test method
 in a header file, place it inside a macro, and then have the test
-im&shy;ple&shy;men&shy;ta&shy;tion in a .cpp-file. And there's no nunit-gui.
+im­ple­men­ta­tion in a .cpp-file. And there's no nunit-gui.
 I'm using a post-build step to run the tests, which makes it
 fairly pain free.</p>
 <p>There was one internal method that I didn't have an explicit test for,

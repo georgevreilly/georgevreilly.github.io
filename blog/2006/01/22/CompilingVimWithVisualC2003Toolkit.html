@@ -35,55 +35,53 @@
             <a href="/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html" rel="bookmark canonical">Compiling Vim with Visual C++ 2003 Toolkit</a>
         </h1>
     </header>
-    <p>I&#8217;ve been trying to make <a class="reference external" href="http://www.vim.org/develop.php">Vim 7</a>
+    <p>I’ve been trying to make <a class="reference external" href="http://www.vim.org/develop.php">Vim 7</a>
 compile with the
 <a class="reference external" href="http://msdn.microsoft.com/visualc/vctoolkit2003/">Microsoft Visual C++ 2003 Toolkit</a>,
 as a favor to Bram Moolenaar, the primary author of Vim.
 He wants to be able to use the free compiler as the
-primary build tool for the Win32 version of&nbsp;Vim.</p>
-<p>Oh. My.&nbsp;God.</p>
+primary build tool for the Win32 version of Vim.</p>
+<p>Oh. My. God.</p>
 <p>The <span class="caps">VC2003</span> toolkit may include a full optimizing compiler,
-but it&#8217;s certainly far from a complete system for building
-Windows&nbsp;binaries.</p>
+but it’s certainly far from a complete system for building
+Windows binaries.</p>
 <p>First, I discovered that it came only with the C library headers,
 but not the Windows headers. That was easily rectified. Download the
 <a class="reference external" href="http://www.microsoft.com/msdownload/platformsdk/sdkupdate/">Platform <span class="caps">SDK</span></a>.
-Just the Windows Core <span class="caps">SDK</span> subset. This also got me&nbsp;nmake.</p>
+Just the Windows Core <span class="caps">SDK</span> subset. This also got me nmake.</p>
 <p>At this point, I was able to compile Vim, but not to link it.
 The linker required cvtres.exe, to link some resources.
 Some googling showed me that this is included in the <a class="reference external" href="http://www.microsoft.com/downloads/details.aspx?familyid=262d25e3-f589-4842-8157-034d1e7cf3a3">.<span class="caps">NET</span> Runtime</a>.</p>
-<p>The main Vim executable now linked, but the shell extension <span class="caps">DLL</span> didn&#8217;t.
-I didn&#8217;t have msvcrt.lib! It took me more detective work to learn
-that I&#8217;d have to install the <a class="reference external" href="http://www.microsoft.com/downloads/details.aspx?familyid=9b3a2ca6-3647-4070-9f41-a333c6b9181d">.<span class="caps">NET</span> Framework <span class="caps">SDK</span></a> to get msvcrt.lib. There are several clever hacks out there
+<p>The main Vim executable now linked, but the shell extension <span class="caps">DLL</span> didn’t.
+I didn’t have msvcrt.lib! It took me more detective work to learn
+that I’d have to install the <a class="reference external" href="http://www.microsoft.com/downloads/details.aspx?familyid=9b3a2ca6-3647-4070-9f41-a333c6b9181d">.<span class="caps">NET</span> Framework <span class="caps">SDK</span></a> to get msvcrt.lib. There are several clever hacks out there
 that generate msvcrt.lib from msvcrt.dll, with the help
 of <tt class="docutils literal">link <span class="pre">-dump</span> <span class="pre">-exports</span></tt> and a <a class="reference external" href="http://www.delta3d.org/article.php?story=20050721180227305&amp;topic=tutorials">sed script</a>,
-but these do not include the all-important <tt class="docutils literal">_Dll&shy;Main&shy;CRT&shy;Start&shy;up&#64;12</tt>,
-the <strong>real</strong> entrypoint for DLLs linked with&nbsp;msvcrt.</p>
+but these do not include the all-important <tt class="docutils literal">_Dll&shy;Main&shy;CRT&shy;Star&shy;tup@12</tt>,
+the <strong>real</strong> entrypoint for DLLs linked with msvcrt.</p>
 <p>All the necessary steps for getting the downloads are summarized on the
 <a class="reference external" href="http://wiki.codeblocks.org/index.php?title=Integrating_Microsoft_Visual_Toolkit_2003_with_Code::Blocks_IDE">Code::Blocks wiki</a>. Code::Blocks is an open-source <span class="caps">IDE</span> that can host the
-<span class="caps">VC2003</span> toolkit, <span class="caps">GCC</span>, and a number of other&nbsp;compilers.</p>
+<span class="caps">VC2003</span> toolkit, <span class="caps">GCC</span>, and a number of other compilers.</p>
 <p>So why bother with the <span class="caps">VC2003</span> toolkit, since
 <a class="reference external" href="http://msdn.microsoft.com/vstudio/express/visualC/default.aspx">Visual C++ 2005 Express Edition</a>
-is freely&nbsp;down&shy;load&shy;able?</p>
-<p>The main reason is that it&#8217;s free only for the first year,
+is freely down&shy;load&shy;able?</p>
+<p>The main reason is that it’s free only for the first year,
 and Bram wants something that will still be available after
-November 2006, so that anyone can compile&nbsp;it.</p>
+November 2006, so that anyone can compile it.</p>
 <p>I have also ported Vim 7 to compile with <span class="caps">VC2005</span> Express.
-It was fairly straight&shy;for&shy;ward, after I had added the&nbsp;following</p>
-
-<pre class="brush: c">
-#if _MSC_VER >= 1400
+It was fairly straight&shy;for&shy;ward, after I had added the following</p>
+<pre class="code c literal-block">
+<span class="cp">#if _MSC_VER >= 1400
 # define _CRT_SECURE_NO_DEPRECATE
 # define _CRT_NONSTDC_NO_DEPRECATE
-#endif
+#endif</span>
 </pre>
-
 <p>to shut up the warnings about <a class="reference external" href="http://msdn.microsoft.com/msdnmag/issues/05/05/SafeCandC/default.aspx">deprecated <span class="caps">CRT</span> functions</a>.
 I also had to make it link with libcmt.lib (mul&shy;ti&shy;thread&shy;ed) instead of libc.lib,
-as the single-threaded static library is&nbsp;gone.</p>
+as the single-threaded static library is gone.</p>
 <p>I still need to make sure that everything continues to work with
 the retail compilers, <span class="caps">VC6</span>, <span class="caps">VC7</span>.1, and <span class="caps">VC8</span>, before passing my changes
-back to Bram.&nbsp;Sigh.</p>
+back to Bram. Sigh.</p>
 
     <footer>
         

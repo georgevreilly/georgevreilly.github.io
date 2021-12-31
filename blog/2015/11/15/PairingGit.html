@@ -45,17 +45,17 @@ We find that pairing helps for col&shy;lab&shy;o&shy;ra&shy;tion on difficult ta
 for exploring new areas, for knowledge transfer,
 and for spurring each other to better solutions.
 I find it to be fun, though it can also be exhausting.
-It&#8217;s not ideal for all our work—there&#8217;s no value in tying up two developers on some rote task that both know&nbsp;well.</p>
+It’s not ideal for all our work—there’s no value in tying up two developers on some rote task that both know well.</p>
 <p>Last week, I rebuilt our primary pairing work&shy;sta&shy;tion.
 In its previous in&shy;car&shy;na&shy;tion, we had an account for each developer.
 Each of us had set up some personal pref&shy;er&shy;ences in our own user account,
 configured our editor(s), and hooked up our GitHub cre&shy;den&shy;tials.
 The arrange&shy;ment worked but it was always dis&shy;con&shy;cert&shy;ing
-to see a large number of Git checkins attributed only to &quot;Fred&quot;
-when you knew that both &quot;Fred&quot; and &quot;Jim&quot; had paired on that feature.
+to see a large number of Git checkins attributed only to "Fred"
+when you knew that both "Fred" and "Jim" had paired on that feature.
 We had adopted the convention of ending each commit message
-with &quot;Pair: Fred <span class="amp">&amp;</span> Jim&quot;,
-but that was easy to forget and hard to&nbsp;see.</p>
+with "Pair: Fred <span class="amp">&</span> Jim",
+but that was easy to forget and hard to see.</p>
 <p>Most of us have MacBooks as our work machines,
 but the pairing work&shy;sta&shy;tion is a beefy desktop system
 running Ubuntu 14.04.
@@ -63,70 +63,63 @@ It has two monitors, two keyboards, and two mice.
 The monitors are mirrored so that each person can read the screen
 without neck or eye strain.
 The notion of a <a class="reference external" href="http://www.globalnerdy.com/2008/08/28/pair-programming-chairs/">PairOn chair</a> is amusing
-but I doubt that it would work well for us—we each have our own&nbsp;chair.</p>
+but I doubt that it would work well for us—we each have our own chair.</p>
 <div class="section" id="chrome-profiles">
-<h2>Chrome&nbsp;Profiles</h2>
+<h2>Chrome Profiles</h2>
 <p>When I rebuilt the machine, I set up only one user account, <tt class="docutils literal">pair</tt>.
 I configured Chrome to have <a class="reference external" href="https://support.google.com/chrome/answer/2364824?hl=en">multiple profiles</a>,
 one for each developer.
 This means that each of us can launch our own browser window
 where we can read our own email,
 access GitHub or Stack&shy;Over&shy;flow using our own identity,
-or log into our own copy of the <a class="reference external" href="https://lastpass.com/">LastPass</a> password manager browser&nbsp;extension.</p>
+or log into our own copy of the <a class="reference external" href="https://lastpass.com/">LastPass</a> password manager browser extension.</p>
 </div>
 <div class="section" id="git-pair">
-<h2>Git&nbsp;Pair</h2>
+<h2>Git Pair</h2>
 <p>I also changed how we manage local commits to Git
-and how we push and pull from our GitHub&nbsp;repos&shy;i&shy;to&shy;ries.</p>
-<p>For local commits, we&#8217;re using some <a class="reference external" href="https://github.com/pivotal/git_scripts#git-pair">helper scripts from Pivotal</a>.
+and how we push and pull from our GitHub repos&shy;i&shy;to&shy;ries.</p>
+<p>For local commits, we’re using some <a class="reference external" href="https://github.com/pivotal/git_scripts#git-pair">helper scripts from Pivotal</a>.
 The <tt class="docutils literal">git pair</tt> command updates <tt class="docutils literal">user.name</tt> and <tt class="docutils literal">user.email</tt> in <tt class="docutils literal">.git/config</tt>
 based on values in <tt class="docutils literal">.git/pairs</tt>:</p>
 <p>For example, <tt class="docutils literal">git pair fb sac</tt> updates <tt class="docutils literal">.git/config</tt> thus:</p>
-
-<pre class="brush: ini">
-user.name = Fred Beebe and Sheila A. Corn
-user.email = pair+fred+sheila.a.corn@example.com
+<pre class="code ini literal-block">
+<span class="na">user.name</span> <span class="o">=</span> <span class="s">Fred Beebe and Sheila A. Corn</span>
+<span class="na">user.email</span> <span class="o">=</span> <span class="s">pair+fred+sheila.a.corn@example.com</span>
 </pre>
-
-<p>Based on <tt class="docutils literal">.pairs</tt> in the project&nbsp;root:</p>
-
-<pre class="brush: yaml">
-# .pairs - configuration for 'git pair'
-pairs:
-  # &lt;initials>: &lt;Firstname> &lt;Lastname>[; &lt;email-id>]
-  fb: Fred Beebe; fred
-  jo: Jim Osward; josward
-  sac: Sheila A. Corn; sheila.a.corn
-email:
-  prefix: pair
-  domain: example.com
-  no_solo_prefix: true
-global: false
+<p>Based on <tt class="docutils literal">.pairs</tt> in the project root:</p>
+<pre class="code yaml literal-block">
+<span class="c1"># .pairs - configuration for 'git pair'</span>
+<span class="nt">pairs</span><span class="p">:</span>
+  <span class="c1"># <initials>: <Firstname> <Lastname>[; <email-id>]</span>
+  <span class="nt">fb</span><span class="p">:</span> <span class="l-Scalar-Plain">Fred Beebe; fred</span>
+  <span class="nt">jo</span><span class="p">:</span> <span class="l-Scalar-Plain">Jim Osward; josward</span>
+  <span class="nt">sac</span><span class="p">:</span> <span class="l-Scalar-Plain">Sheila A. Corn; sheila.a.corn</span>
+<span class="nt">email</span><span class="p">:</span>
+  <span class="nt">prefix</span><span class="p">:</span> <span class="l-Scalar-Plain">pair</span>
+  <span class="nt">domain</span><span class="p">:</span> <span class="l-Scalar-Plain">example.com</span>
+  <span class="nt">no_solo_prefix</span><span class="p">:</span> <span class="l-Scalar-Plain">true</span>
+<span class="nt">global</span><span class="p">:</span> <span class="l-Scalar-Plain">false</span>
 </pre>
-
 <p>(Fred, Jim, and Sheila are a nod to the <a class="reference external" href="https://en.wikipedia.org/wiki/BBC_Micro#Hardware_features:_Models_A_and_B"><span class="caps">BBC</span> Micro</a>
-of my youth, not actual MetaBrite&nbsp;developers.)</p>
-<p>Now <tt class="docutils literal">git log</tt> shows a series of commits attributed&nbsp;to:</p>
-
-<pre class="brush: vctreestatus">
-Author: Fred Beebe <span class="amp">&amp;</span> Sheila A. Corn &lt;pair+fred+sheila.a.corn@example.com>
+of my youth, not actual MetaBrite developers.)</p>
+<p>Now <tt class="docutils literal">git log</tt> shows a series of commits attributed to:</p>
+<pre class="code vctreestatus literal-block">
+Author: Fred Beebe <span class="amp">&</span> Sheila A. Corn <pair+fred+sheila.a.corn@example.com>
 </pre>
-
 <p>These commits are created with <tt class="docutils literal">git commit</tt>, as usual.
 You can use <tt class="docutils literal">git <span class="pre">pair-commit</span></tt> to attribute a commit
-to just one, randomly chosen member of the&nbsp;pair.</p>
+to just one, randomly chosen member of the pair.</p>
 </div>
 <div class="section" id="multiple-ssh-keys">
-<h2>Multiple <span class="caps">SSH</span>&nbsp;Keys</h2>
+<h2>Multiple <span class="caps">SSH</span> Keys</h2>
 <p>I also wanted each of us to be able to push to or pull from the MetaBrite GitHub repos&shy;i&shy;to&shy;ries,
-without having a shared <span class="caps">SSH</span>&nbsp;key.</p>
+without having a shared <span class="caps">SSH</span> key.</p>
 <p>I had each of us create an <a class="reference external" href="https://help.github.com/articles/generating-ssh-keys/"><span class="caps">SSH</span> key with passphrase</a>,
-which we uploaded to our own GitHub&nbsp;accounts.</p>
+which we uploaded to our own GitHub accounts.</p>
 <p>We then configured <tt class="docutils literal"><span class="pre">~pair/.ssh/config</span></tt> with a series of <a class="reference external" href="http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/">Host entries</a>,
-named after GitHub&nbsp;usernames:</p>
-
-<pre class="brush: console">
-Host            github-fredbeebe
+named after GitHub usernames:</p>
+<pre class="code console literal-block">
+<span class="go">Host            github-fredbeebe
     Hostname        github.com
     User            git
     IdentityFile    ~/.ssh/id_rsa_fredbeebe
@@ -140,65 +133,58 @@ Host            github-josward
     IdentitiesOnly yes
     PreferredAuthentications publickey
 
-# etc
+</span><span class="gp"># </span>etc
 </pre>
-
-<p>And we set up a <a class="reference external" href="http://git.github.io/git-reference/remotes/#remote">Git remote</a> for each identity in each Git working&nbsp;copy:</p>
-
-<pre class="brush: bash">
-$ cd ~/src/example
+<p>And we set up a <a class="reference external" href="http://git.github.io/git-reference/remotes/#remote">Git remote</a> for each identity in each Git working copy:</p>
+<pre class="code bash literal-block">
+$ <span class="nb">cd</span> ~/src/example
 $ git remote -v
-fred    git@github-fredbeebe:our_org/example.git (fetch)
-fred    git@github-fredbeebe:our_org/example.git (push)
-jim     git@github-josward:our_org/example.git (fetch)
-jim     git@github-josward:our_org/example.git (push)
+fred    git@github-fredbeebe:our_org/example.git <span class="o">(</span>fetch<span class="o">)</span>
+fred    git@github-fredbeebe:our_org/example.git <span class="o">(</span>push<span class="o">)</span>
+jim     git@github-josward:our_org/example.git <span class="o">(</span>fetch<span class="o">)</span>
+jim     git@github-josward:our_org/example.git <span class="o">(</span>push<span class="o">)</span>
 </pre>
-
 <p>Here, <tt class="docutils literal">our_org</tt> is the GitHub or&shy;ga&shy;ni&shy;za&shy;tion and <tt class="docutils literal">example</tt> is the GitHub repository,
 which can also be found at <a class="reference external" href="https://github.com/our_org/example">https://github.com/our_org/example</a>.</p>
 </div>
 <div class="section" id="adding-a-new-remote">
-<h2>Adding a New&nbsp;Remote</h2>
+<h2>Adding a New Remote</h2>
 <p>To add a <tt class="docutils literal">sheila</tt> remote,
 create an <span class="caps">SSH</span> key called <tt class="docutils literal">id_r&shy;sa_sheila&shy;corn</tt>,
-upload the key to Sheila&#8217;s GitHub account,
+upload the key to Sheila’s GitHub account,
 then add a <tt class="docutils literal"><span class="pre">github-sheilacorn</span></tt> Host entry to <tt class="docutils literal"><span class="pre">~/.ssh/config</span></tt>:</p>
-
-<pre class="brush: console">
-Host            github-sheilacorn
+<pre class="code console literal-block">
+<span class="go">Host            github-sheilacorn
     Hostname        github.com
     User            git
     IdentityFile    ~/.ssh/id_rsa_sheilacorn
     IdentitiesOnly yes
-    PreferredAuthentications publickey
+    PreferredAuthentications publickey</span>
 </pre>
-
-<p>Finally, in each Git working&nbsp;copy:</p>
-
-<pre class="brush: bash">
-$ cd ~/src/example
+<p>Finally, in each Git working copy:</p>
+<pre class="code bash literal-block">
+$ <span class="nb">cd</span> ~/src/example
 $ git remote add sheila git@github-sheilacorn:our_org/example.git
 </pre>
-
-<p>Now we can&nbsp;say:</p>
+<p>Now we can say:</p>
 <ul class="simple">
 <li><tt class="docutils literal">git fetch fred</tt>
-— Using Fred&#8217;s <span class="caps">SSH</span> key, fetch all branches and tags from the remote repository at&nbsp;GitHub.</li>
+— Using Fred’s <span class="caps">SSH</span> key, fetch all branches and tags from the remote repository at GitHub.</li>
 <li><tt class="docutils literal">git pull jim master</tt>
-— using Jim&#8217;s remote, pull the <tt class="docutils literal">master</tt> branch from&nbsp;GitHub.</li>
+— using Jim’s remote, pull the <tt class="docutils literal">master</tt> branch from GitHub.</li>
 <li><tt class="docutils literal">git push sheila <span class="pre">feature/emoji-avatars</span></tt>
-— push the <tt class="docutils literal"><span class="pre">feature/emoji-avatars</span></tt> branch using Sheila&#8217;s&nbsp;cre&shy;den&shy;tials.</li>
-<li><tt class="docutils literal">git clone <span class="pre">--origin</span> jim <span class="pre">git&#64;github-josward:our_org/some_stuff.git</span></tt>
-— Clone the <tt class="docutils literal">some_stuff</tt> repo using Jim&#8217;s key,
+— push the <tt class="docutils literal"><span class="pre">feature/emoji-avatars</span></tt> branch using Sheila’s cre&shy;den&shy;tials.</li>
+<li><tt class="docutils literal">git clone <span class="pre">--origin</span> jim <span class="pre">git@github-josward:our_org/some_stuff.git</span></tt>
+— Clone the <tt class="docutils literal">some_stuff</tt> repo using Jim’s key,
 creating a remote named <tt class="docutils literal">jim</tt>.</li>
 </ul>
-<p>All other Git commands behave just as&nbsp;before.</p>
-<p>So far, it seems to be working&nbsp;well.</p>
+<p>All other Git commands behave just as before.</p>
+<p>So far, it seems to be working well.</p>
 <div class="admonition tip">
 <p class="first admonition-title">Tip</p>
-<p class="last">If you get &quot;Too many au&shy;then&shy;ti&shy;ca&shy;tion failures for username&quot; when using <span class="caps">SSH</span>,
+<p class="last">If you get "Too many au&shy;then&shy;ti&shy;ca&shy;tion failures for username" when using <span class="caps">SSH</span>,
 try using <tt class="docutils literal">ssh <span class="pre">-o</span> 'I&shy;den&shy;ti&shy;tiesOn&shy;ly yes'</tt> instead.
-By default, ssh-agent will promis&shy;cu&shy;ous&shy;ly offer many&nbsp;identities.</p>
+By default, ssh-agent will promis&shy;cu&shy;ous&shy;ly offer many identities.</p>
 </div>
 </div>
 

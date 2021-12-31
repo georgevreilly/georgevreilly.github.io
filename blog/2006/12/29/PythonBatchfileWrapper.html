@@ -37,95 +37,93 @@
         </h1>
     </header>
     <img alt="Python Batchfile Wrapper" src="/content/binary/PythonBatch.jpg"/>
-<p>I&#8217;ve been getting into Python lately. One problem that I&#8217;ve en&shy;coun&shy;tered
-under Windows, is that input redi&shy;rec&shy;tion doesn&#8217;t work if you use
-the <tt class="docutils literal">.py</tt> file as&shy;so&shy;ci&shy;a&shy;tion to run the script;&nbsp;e.g.:</p>
+<p>I’ve been getting into Python lately. One problem that I’ve en&shy;coun&shy;tered
+under Windows, is that input redi&shy;rec&shy;tion doesn’t work if you use
+the <tt class="docutils literal">.py</tt> file as&shy;so&shy;ci&shy;a&shy;tion to run the script; e.g.:</p>
 <pre class="literal-block">
-C:\&gt; foo.py &lt; input.txt
+C:\> foo.py < input.txt
 </pre>
-<p>There&#8217;s a well-known <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi&shy;rec&shy;tion bug</a>. The fix is to explicitly use
-<tt class="docutils literal">python.exe</tt> to run the&nbsp;script.</p>
+<p>There’s a well-known <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi&shy;rec&shy;tion bug</a>. The fix is to explicitly use
+<tt class="docutils literal">python.exe</tt> to run the script.</p>
 <p>A related problem for me was that <tt class="docutils literal">stdin</tt> was opened as a <em>text</em> file,
 not a <em>binary</em> file, so <tt class="docutils literal">\r</tt> bytes were being discarded from binary input
-files. The fix is to run <tt class="docutils literal">python.exe <span class="pre">-u</span></tt> (unbuffered binary input and&nbsp;output).</p>
-<p>I didn&#8217;t want to hardcode the path to <tt class="docutils literal">python.exe</tt> in a batch file,
+files. The fix is to run <tt class="docutils literal">python.exe <span class="pre">-u</span></tt> (unbuffered binary input and output).</p>
+<p>I didn’t want to hardcode the path to <tt class="docutils literal">python.exe</tt> in a batch file,
 so I came up with the following wrapper, which parses the output from
 <tt class="docutils literal">assoc .py</tt> and <tt class="docutils literal">ftype Python.File</tt>.</p>
 <p>Just place this batch file in the same directory as <tt class="docutils literal">foo.py</tt> and call it
 <tt class="docutils literal">foo.bat</tt>.</p>
+<pre class="code batch literal-block">
+<span class="p">@</span><span class="k">setlocal</span>
+<span class="p">@</span><span class="k">if</span> (<span class="nv">%_echo%</span>)<span class="o">==</span>()  <span class="k">set</span> <span class="nv">_echo</span><span class="p">=</span>off
+<span class="p">@</span><span class="k">echo</span> <span class="nv">%_echo%</span>
 
-<pre class="brush: batch">
-@setlocal
-@if (%_echo%)==()  set _echo=off
-@echo %_echo%
+<span class="p">:</span><span class="c1">: You must explicitly invoke python.exe, rather than rely on the</span>
+<span class="p">:</span><span class="c1">: file association for .py, if you want stdin redirection to work.</span>
+<span class="p">:</span><span class="c1">: See http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html</span>
+<span class="p">:</span><span class="c1">: The -u flag to python.exe specifies unbuffered, binary stdin,</span>
+<span class="p">:</span><span class="c1">: so '\r\n' is not remapped to '\n'.</span>
+<span class="k">call</span> <span class="p">:</span><span class="nl">FindPythonExe</span>
 
-:: You must explicitly invoke python.exe, rather than rely on the
-:: file association for .py, if you want stdin redirection to work.
-:: See http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html
-:: The -u flag to python.exe specifies unbuffered, binary stdin,
-:: so '\r\n' is not remapped to '\n'.
-call :FindPythonExe
+<span class="k">if</span> <span class="s2">"</span><span class="nv">%PythonExe%</span><span class="s2">"</span><span class="o">==</span><span class="s2">""</span> <span class="p">(</span>
+    <span class="k">echo</span> Can't find python.exe
+    <span class="k">exit</span> /B 1
+<span class="p">)</span>
 
-if "%PythonExe%"=="" (
-    echo Can't find python.exe
-    exit /B 1
-)
+<span class="p">:</span><span class="c1">: Replace the extension of this batch file with .py: s/.bat$/.py/</span>
+<span class="k">set</span> <span class="nv">PythonFile</span><span class="p">=</span><span class="nv">%~dpn0</span>.py
 
-:: Replace the extension of this batch file with .py: s/.bat$/.py/
-set PythonFile=%~dpn0.py
-
-"%PythonExe%" -u %PythonFile% %*
-goto :EOF
-
-
-::
-:: Find python.exe in the path or via the .py association
-::
-:FindPythonExe
-set PythonExe=
-:: Search for python.{cmd,bat,exe} in %PATH%
-for %%i in (cmd bat exe) do (
-    if "%PythonExe%"=="" (
-        for %%j in (python.%%i) do set PythonExe=%%~$PATH:j
-    )
-)
-:: Extract path to python.exe from .py association
-if "%PythonExe%"=="" call :AssocPy2Exe
-goto :EOF
+<span class="s2">"</span><span class="nv">%PythonExe%</span><span class="s2">"</span> -u <span class="nv">%PythonFile%</span> <span class="nv">%*</span>
+<span class="k">goto</span> <span class="p">:</span><span class="nl"><span class="caps">EOF</span></span>
 
 
-::
-:: Return the executable associated with .py in %PythonExe%
-::
-:AssocPy2Exe
-call :AssocExtn2Exe .py
-set PythonExe=%_exe%
-goto :EOF
+<span class="p">:</span><span class="c1">:</span>
+<span class="p">:</span><span class="c1">: Find python.exe in the path or via the .py association</span>
+<span class="p">:</span><span class="c1">:</span>
+<span class="p">:</span><span class="nl">FindPythonExe</span>
+<span class="k">set</span> <span class="nv">PythonExe</span><span class="p">=</span>
+<span class="p">:</span><span class="c1">: Search for python.{cmd,bat,exe} in %<span class="caps">PATH</span>%</span>
+<span class="k">for</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span>cmd bat exe<span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
+    <span class="k">if</span> <span class="s2">"</span><span class="nv">%PythonExe%</span><span class="s2">"</span><span class="o">==</span><span class="s2">""</span> <span class="p">(</span>
+        <span class="k">for</span> <span class="se">%%</span>j <span class="k">in</span> <span class="p">(</span>python.<span class="se">%%</span>i<span class="p">)</span> <span class="k">do</span> <span class="k">set</span> <span class="nv">PythonExe</span><span class="p">=</span><span class="se">%%</span>~$<span class="caps">PATH</span>:j
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="p">:</span><span class="c1">: Extract path to python.exe from .py association</span>
+<span class="k">if</span> <span class="s2">"</span><span class="nv">%PythonExe%</span><span class="s2">"</span><span class="o">==</span><span class="s2">""</span> <span class="k">call</span> <span class="p">:</span><span class="nl">AssocPy2Exe</span>
+<span class="k">goto</span> <span class="p">:</span><span class="nl"><span class="caps">EOF</span></span>
 
-::
-:: Return the executable associated with file extension %1 in %_exe%
-::
-:AssocExtn2Exe
-:: assoc .py -> .py=Python.File
-for /f "usebackq tokens=2 delims==" %%i in (`assoc %1`) do set _ftype=%%i
 
-:: ftype Python.File -> Python.File="C:\Python24\python.exe" "%1" %*
-:: Grab everything after the '='
-for /f "usebackq tokens=2 delims==" %%i in (`ftype %_ftype%`) do set _rhs=%%i
+<span class="p">:</span><span class="c1">:</span>
+<span class="p">:</span><span class="c1">: Return the executable associated with .py in %PythonExe%</span>
+<span class="p">:</span><span class="c1">:</span>
+<span class="p">:</span><span class="nl">AssocPy2Exe</span>
+<span class="k">call</span> <span class="p">:</span><span class="nl">AssocExtn2Exe</span> .py
+<span class="k">set</span> <span class="nv">PythonExe</span><span class="p">=</span><span class="nv">%_exe%</span>
+<span class="k">goto</span> <span class="p">:</span><span class="nl"><span class="caps">EOF</span></span>
 
-:: Get the first token of the space-separated list
-for /f "tokens=1" %%i in ("%_rhs%") do set _exe=%%i
-goto :EOF
+<span class="p">:</span><span class="c1">:</span>
+<span class="p">:</span><span class="c1">: Return the executable associated with file extension %1 in %_exe%</span>
+<span class="p">:</span><span class="c1">:</span>
+<span class="p">:</span><span class="nl">AssocExtn2Exe</span>
+<span class="p">:</span><span class="c1">: assoc .py -> .py=Python.File</span>
+<span class="k">for</span> <span class="k">/f</span> <span class="s2">"usebackq tokens=2 delims=="</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="sb">`assoc </span><span class="nv">%1</span><span class="sb">`</span><span class="p">)</span> <span class="k">do</span> <span class="k">set</span> <span class="nv">_ftype</span><span class="p">=</span><span class="se">%%</span>i
+
+<span class="p">:</span><span class="c1">: ftype Python.File -> Python.File="C:\Python24\python.exe" "%1" %*</span>
+<span class="p">:</span><span class="c1">: Grab everything after the '='</span>
+<span class="k">for</span> <span class="k">/f</span> <span class="s2">"usebackq tokens=2 delims=="</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="sb">`ftype </span><span class="nv">%_ftype%</span><span class="sb">`</span><span class="p">)</span> <span class="k">do</span> <span class="k">set</span> <span class="nv">_rhs</span><span class="p">=</span><span class="se">%%</span>i
+
+<span class="p">:</span><span class="c1">: Get the first token of the space-separated list</span>
+<span class="k">for</span> <span class="k">/f</span> <span class="s2">"tokens=1"</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="s2">"</span><span class="nv">%_rhs%</span><span class="s2">"</span><span class="p">)</span> <span class="k">do</span> <span class="k">set</span> <span class="nv">_exe</span><span class="p">=</span><span class="se">%%</span>i
+<span class="k">goto</span> <span class="p">:</span><span class="nl"><span class="caps">EOF</span></span>
 </pre>
-
-<p>Now you can run <tt class="docutils literal">foo.bat &lt; bar.jpg</tt> with the expected&nbsp;results.</p>
+<p>Now you can run <tt class="docutils literal">foo.bat < bar.jpg</tt> with the expected results.</p>
 <p>Enjoy!</p>
 <p><strong>Update 2006/01/03</strong>:
 The batchfile now searches <tt class="docutils literal">%<span class="caps">PATH</span>%</tt> before looking
 up the <tt class="docutils literal">.py</tt> as&shy;so&shy;ci&shy;a&shy;tion.</p>
 <p><strong>Update 2007/01/12</strong>:
 See <a class="reference external" href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html">here</a>
-for a sig&shy;nif&shy;i&shy;cant&shy;ly improved batchfile and for&nbsp;py2cmd.</p>
+for a sig&shy;nif&shy;i&shy;cant&shy;ly improved batchfile and for py2cmd.</p>
 
     <footer>
         

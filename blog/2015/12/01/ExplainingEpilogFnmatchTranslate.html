@@ -48,10 +48,10 @@ like <tt class="docutils literal">*.py</tt> or <tt class="docutils literal"><spa
 and translates it character-by-character into a regular expression.
 It then appends <tt class="docutils literal"><span class="pre">\Z(?ms)</span></tt>.
 Hence the latter glob becomes <tt class="docutils literal"><span class="pre">r'test\_.*\.py[cod]\Z(?ms)'</span></tt>,
-using Python&#8217;s raw string notation to avoid the
+using Python’s raw string notation to avoid the
 <a class="reference external" href="https://docs.python.org/2/howto/regex.html#the-backslash-plague">backslash plague</a>.
 Also, the <tt class="docutils literal">?</tt> wildcard character becomes the <tt class="docutils literal">.</tt> regex special character,
-while the <tt class="docutils literal">*</tt> wildcard becomes the <tt class="docutils literal">.*</tt> greedy&nbsp;regex.</p>
+while the <tt class="docutils literal">*</tt> wildcard becomes the <tt class="docutils literal">.*</tt> greedy regex.</p>
 <p>A <a class="reference external" href="http://stackoverflow.com/a/11998653/6364">Stack&shy;Over&shy;flow answer partially explains</a>,
 which set me on the right track.
 <tt class="docutils literal"><span class="pre">(?ms)</span></tt> is equivalent to compiling the regex with <tt class="docutils literal">re.<span class="caps">MULTILINE</span> | re.<span class="caps">DOTALL</span></tt>.
@@ -62,34 +62,32 @@ The <tt class="docutils literal">re.<span class="caps">MULTILINE</span></tt> mod
 operate on newline boundaries within the search string;
 otherwise, they anchor to the beginning and end of the string.
 <tt class="docutils literal">\A</tt> always matches the beginning of the string;
-<tt class="docutils literal">\Z</tt> always matches the end of the&nbsp;string.</p>
-<p>Another way of saying&nbsp;this:</p>
+<tt class="docutils literal">\Z</tt> always matches the end of the string.</p>
+<p>Another way of saying this:</p>
+<pre class="code python literal-block">
+<span class="c1"># No multiline, so ^ and $ anchor beginning and end of string</span>
+<span class="o">>>></span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^\.git$(?s)'</span><span class="p">,</span> <span class="s1">'.git'</span><span class="p">)</span>
+<span class="o"><</span><span class="n">_sre</span><span class="o">.</span><span class="n">SRE_Match</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10e73a850</span><span class="o">></span>
 
-<pre class="brush: python">
-# No multiline, so ^ and $ anchor beginning and end of string
->>> re.search(r'^\.git$(?s)', '.git')
-&lt;_sre.SRE_Match object at 0x10e73a850>
+<span class="o">>>></span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^\.git$(?s)'</span><span class="p">,</span> <span class="s1">'bar</span><span class="se">\n</span><span class="s1">.git</span><span class="se">\n</span><span class="s1">foo'</span><span class="p">)</span>
+<span class="c1"># Nope</span>
 
->>> re.search(r'^\.git$(?s)', 'bar\n.git\nfoo')
-# Nope
+<span class="c1"># Multiline => ^ matches after \n and $ before \n</span>
+<span class="o">>>></span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^\.git$(?ms)'</span><span class="p">,</span> <span class="s1">'bar</span><span class="se">\n</span><span class="s1">.git</span><span class="se">\n</span><span class="s1">foo'</span><span class="p">)</span>
+<span class="o"><</span><span class="n">_sre</span><span class="o">.</span><span class="n">SRE_Match</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10e73a988</span><span class="o">></span>
 
-# Multiline => ^ matches after \n and $ before \n
->>> re.search(r'^\.git$(?ms)', 'bar\n.git\nfoo')
-&lt;_sre.SRE_Match object at 0x10e73a988>
+<span class="c1"># \A and \Z always anchor beginning and end of string</span>
+<span class="o">>>></span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\A\.git\Z(?ms)'</span><span class="p">,</span> <span class="s1">'.git'</span><span class="p">)</span>
+<span class="o"><</span><span class="n">_sre</span><span class="o">.</span><span class="n">SRE_Match</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x10e73a850</span><span class="o">></span>
 
-# \A and \Z always anchor beginning and end of string
->>> re.search(r'\A\.git\Z(?ms)', '.git')
-&lt;_sre.SRE_Match object at 0x10e73a850>
-
->>> re.search(r'\A\.git\Z(?ms)', 'foo\n.git')
-# Nope
+<span class="o">>>></span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\A\.git\Z(?ms)'</span><span class="p">,</span> <span class="s1">'foo</span><span class="se">\n</span><span class="s1">.git'</span><span class="p">)</span>
+<span class="c1"># Nope</span>
 </pre>
-
-<p>So, <tt class="docutils literal"><span class="pre">\Z(?ms)</span></tt> at the end of the pattern&nbsp;means:</p>
+<p>So, <tt class="docutils literal"><span class="pre">\Z(?ms)</span></tt> at the end of the pattern means:</p>
 <ul class="simple">
-<li><tt class="docutils literal">\Z</tt>: the pattern must match all the way to the end of the search&nbsp;string;</li>
-<li><tt class="docutils literal"><span class="pre">(?m)</span></tt>: the search string may contain&nbsp;newlines;</li>
-<li><tt class="docutils literal"><span class="pre">(?s)</span></tt>: the <tt class="docutils literal">?</tt> and <tt class="docutils literal">*</tt> wildcards may match newlines in the search&nbsp;string.</li>
+<li><tt class="docutils literal">\Z</tt>: the pattern must match all the way to the end of the search string;</li>
+<li><tt class="docutils literal"><span class="pre">(?m)</span></tt>: the search string may contain newlines;</li>
+<li><tt class="docutils literal"><span class="pre">(?s)</span></tt>: the <tt class="docutils literal">?</tt> and <tt class="docutils literal">*</tt> wildcards may match newlines in the search string.</li>
 </ul>
 
     <footer>

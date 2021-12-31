@@ -39,35 +39,35 @@
 <p>After I started running Linux and then Mac <span class="caps">OS</span> X, in addition to Windows,
 I started on a quest to find the universal filesystem.
 I had multiboot systems and external drives where I wanted to
-to be able to read and write disks under multiple operating&nbsp;systems.</p>
+to be able to read and write disks under multiple operating systems.</p>
 <p>The obvious choice is <a class="reference external" href="http://en.wikipedia.org/wiki/File_Allocation_Table#FAT32"><span class="caps">FAT32</span></a>,
 the ubiquitous, lowest-common de&shy;nom&shy;i&shy;na&shy;tor filesystem.
 <span class="caps">FAT32</span> is supported out-of-the-box by
 all major operating systems, digital cameras, and PDAs,
-so that&#8217;s a huge advantage.
-<span class="caps">FAT32</span> also has major&nbsp;short&shy;com&shy;ings:</p>
+so that’s a huge advantage.
+<span class="caps">FAT32</span> also has major short&shy;com&shy;ings:</p>
 <ul class="simple">
-<li>Maximum file size is <span class="caps">4GB</span>. I have ISOs, MPEGs, and other large files exceeding this&nbsp;limit.</li>
-<li>Frag&shy;men&shy;ta&shy;tion happens too&nbsp;easily.</li>
-<li>Timestamps: accurate only to 2-second resolution. No notion of timezones or&nbsp;<span class="caps">UTC</span>.</li>
-<li>Journaling: none. Preferred for&nbsp;robustness.</li>
-<li>ACLs or Per&shy;mis&shy;sions. Nothing beyond&nbsp;R/W.</li>
+<li>Maximum file size is <span class="caps">4GB</span>. I have ISOs, MPEGs, and other large files exceeding this limit.</li>
+<li>Frag&shy;men&shy;ta&shy;tion happens too easily.</li>
+<li>Timestamps: accurate only to 2-second resolution. No notion of timezones or <span class="caps">UTC</span>.</li>
+<li>Journaling: none. Preferred for robustness.</li>
+<li>ACLs or Per&shy;mis&shy;sions. Nothing beyond R/W.</li>
 </ul>
 <p>I ex&shy;per&shy;i&shy;ment&shy;ed with <a class="reference external" href="http://en.wikipedia.org/wiki/Ext3">ext3</a> (and its non-journaling sibling, ext2)
 on Windows and later on the Mac.
 On Windows, <a class="reference external" href="http://www.fs-driver.org/">ext2fs</a> works well and I used it happily for several months
 on a machine du&shy;al&shy;boot&shy;ing <span class="caps">XP</span> and Ubuntu.
-It did not work well with Vista initially, though that seems to have been fixed&nbsp;since.</p>
+It did not work well with Vista initially, though that seems to have been fixed since.</p>
 <p>My ex&shy;pe&shy;ri&shy;ences on the Mac were bad:
 <a class="reference external" href="http://sourceforge.net/projects/ext2fsx/">ext2fsx</a> caused some kernel panics,
-which was enough for me to abandon&nbsp;it.</p>
+which was enough for me to abandon it.</p>
 <p>There was no free solution for reading and writing Mac <span class="caps">HFS</span>+ disks
-under Linux and Windows the last time that I&nbsp;checked.</p>
+under Linux and Windows the last time that I checked.</p>
 <p>Both Linux and Macs natively support mounting <span class="caps">NTFS</span> disks read-only.
 The <a class="reference external" href="http://www.ntfs-3g.org/"><span class="caps">NTFS</span>-3G</a> project allows Linux to write to <span class="caps">NTFS</span> disks,
 and <a class="reference external" href="http://macntfs-3g.blogspot.com/">Mac <span class="caps">NTFS</span>-3G</a> does likewise for Macs.
-I&#8217;ve never had a problem with <span class="caps">NTFS</span>-3G and it&#8217;s worked
-flawlessly under Linux and Mac for&nbsp;me.</p>
+I’ve never had a problem with <span class="caps">NTFS</span>-3G and it’s worked
+flawlessly under Linux and Mac for me.</p>
 
     <footer>
         

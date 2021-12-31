@@ -33,26 +33,26 @@
             <a href="/blog/2015/12/05/python-print-formatting.html" rel="bookmark canonical">Python Print Formatting</a>
         </h1>
     </header>
-    <p>On Stack&shy;Over&shy;flow, someone wanted to
+    <p>On Stack­Over­flow, someone wanted to
 <a class="reference external" href="http://stackoverflow.com/questions/34109838/for-while-loops-to-make-triangles">print triangles in Python</a>
 in an M-shape.
 Various clumsy solutions were offered.</p>
-<p>Here's mine which uses the left- and right-jus&shy;ti&shy;fi&shy;ca&shy;tion features of
+<p>Here's mine which uses the left- and right-jus­ti­fi­ca­tion features of
 <a class="reference external" href="https://docs.python.org/2/library/string.html#formatstrings">str.format</a>.</p>
 <ul class="simple">
-<li><tt class="docutils literal"><span class="pre">&quot;{0}+++{0}&quot;.format('Hello!')</span></tt> produces two copies of the zeroth argument to <tt class="docutils literal">format</tt>
+<li><tt class="docutils literal"><span class="pre">"{0}+++{0}".format('Hello!')</span></tt> produces two copies of the zeroth argument to <tt class="docutils literal">format</tt>
 (here <tt class="docutils literal">'Hello!'</tt>), separated by three plusses: <tt class="docutils literal"><span class="pre">Hello!+++Hello!</span></tt>.</li>
-<li><tt class="docutils literal"><span class="pre">&quot;{:&lt;4}&quot;.format('x')</span></tt> left-justifies <tt class="docutils literal">'x'</tt> in a 4-character field; i.e., <tt class="docutils literal">'x&nbsp;&nbsp; '</tt>.</li>
-<li><tt class="docutils literal"><span class="pre">&quot;{:&gt;4}&quot;.format('x')</span></tt> right-justifies <tt class="docutils literal">'x'</tt> in a 4-character field; i.e., <tt class="docutils literal">'&nbsp;&nbsp; x'</tt>.</li>
-<li><tt class="docutils literal"><span class="pre">&quot;{:&gt;{}}&quot;.format('x',</span> width)</tt> right-justifies <tt class="docutils literal">'x'</tt> in a <tt class="docutils literal">width</tt>-character field.</li>
+<li><tt class="docutils literal"><span class="pre">"{:<4}".format('x')</span></tt> left-justifies <tt class="docutils literal">'x'</tt> in a 4-character field; i.e., <tt class="docutils literal">'x   '</tt>.</li>
+<li><tt class="docutils literal"><span class="pre">"{:>4}".format('x')</span></tt> right-justifies <tt class="docutils literal">'x'</tt> in a 4-character field; i.e., <tt class="docutils literal">'   x'</tt>.</li>
+<li><tt class="docutils literal"><span class="pre">"{:>{}}".format('x',</span> width)</tt> right-justifies <tt class="docutils literal">'x'</tt> in a <tt class="docutils literal">width</tt>-character field.</li>
 <li><tt class="docutils literal">'ab' * 4</tt> yields 4 copies of <tt class="docutils literal">'ab'</tt>; i.e., <tt class="docutils literal">'abababab'</tt>.</li>
 </ul>
 <p>Putting them together:</p>
 <pre class="literal-block">
-&gt;&gt;&gt; WIDTH = 4
-&gt;&gt;&gt;
-&gt;&gt;&gt; for a in range(1, WIDTH+1):
-...     print(&quot;{0:&lt;{1}}{0:&gt;{1}}&quot;.format('*' * a, WIDTH))
+>>> WIDTH = 4
+>>>
+>>> for a in range(1, WIDTH+1):
+...     print("{0:<{1}}{0:>{1}}".format('*' * a, WIDTH))
 ...
 *      *
 **    **
@@ -94,7 +94,7 @@ using Python's raw string notation to avoid the
 <a class="reference external" href="https://docs.python.org/2/howto/regex.html#the-backslash-plague">backslash plague</a>.
 Also, the <tt class="docutils literal">?</tt> wildcard character becomes the <tt class="docutils literal">.</tt> regex special character,
 while the <tt class="docutils literal">*</tt> wildcard becomes the <tt class="docutils literal">.*</tt> greedy regex.</p>
-<p>A <a class="reference external" href="http://stackoverflow.com/a/11998653/6364">Stack&shy;Over&shy;flow answer partially explains</a>,
+<p>A <a class="reference external" href="http://stackoverflow.com/a/11998653/6364">Stack­Over­flow answer partially explains</a>,
 which set me on the right track.
 <tt class="docutils literal"><span class="pre">(?ms)</span></tt> is equivalent to compiling the regex with <tt class="docutils literal">re.MULTILINE | re.DOTALL</tt>.
 The <tt class="docutils literal">re.DOTALL</tt> modifier makes the <tt class="docutils literal">.</tt> special character match <em>any</em> <span>&#8230;<a href="/blog/2015/12/01/ExplainingEpilogFnmatchTranslate.html" class="continue">continue</a>.</span></p>
@@ -124,14 +124,14 @@ The <tt class="docutils literal">re.DOTALL</tt> modifier makes the <tt class="do
     </header>
     
 <p>I'm doing some Python profiling
-and I wanted to use the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run&shy;SnakeRun</a> utility to view the profile data.
-Un&shy;for&shy;tu&shy;nate&shy;ly, that's not straight&shy;for&shy;ward on Mac OS X if you use a <a class="reference external" href="https://virtualenv.pypa.io/en/latest/">virtualenv</a>,
+and I wanted to use the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run­SnakeRun</a> utility to view the profile data.
+Un­for­tu­nate­ly, that's not straight­for­ward on Mac OS X if you use a <a class="reference external" href="https://virtualenv.pypa.io/en/latest/">virtualenv</a>,
 and it's even less easy if you're using the Python
 installed by the <a class="reference external" href="http://brew.sh/">Homebrew</a> (<tt class="docutils literal">brew</tt>) package manager.</p>
 <p>There are several problems:</p>
 <ul class="simple">
 <li>Installing <a class="reference external" href="http://www.wxpython.org/">wxPython</a> on OS X 10.10.
-This is the cross-platform GUI API toolkit used by Run&shy;SnakeRun.</li>
+This is the cross-platform GUI API toolkit used by Run­SnakeRun.</li>
 <li>Getting wxPython installed in a virtualenv</li>
 <li>Running wxPython apps in a virtualenv on the Mac.</li>
 </ul>
@@ -172,7 +172,7 @@ you will likely get a misleading error message from OS X:</p>
 I noticed that we had some tests that weren't being run,
 and it took me some time to work out why.
 Eventually, I found this <a class="reference external" href="https://www.hyperink.com/blog/?p=22">checklist</a>,
-which told me to &quot;make sure the files in your tests directory are not executable&quot;.</p>
+which told me to "make sure the files in your tests directory are not ex­e­cutable".</p>
 <p>A quick <tt class="docutils literal">chmod <span class="pre">-x</span> *.py</tt> later and <tt class="docutils literal">nosetests project/tests</tt> suddenly found all the tests.</p>
 <p>Now that I know what to look for, I found this in the Nose docs:</p>
 <blockquote>
@@ -245,14 +245,14 @@ as a zipped egg (as it does by default) into the <span>&#8230;<a href="/blog/201
     <a class="reference external image-reference" href="https://www.jetbrains.com/pycharm/"></a>
 <p>I did a <a class="reference external" href="/blog/2015/01/17/YosemiteCleanInstall.html">clean install of OS X 10.10</a> on my home laptop a week ago.
 I tried to launch <a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a> 4.0.4 on it today.
-It im&shy;me&shy;di&shy;ate&shy;ly failed. Every time.</p>
+It im­me­di­ate­ly failed. Every time.</p>
 <p>When I looked in the System Console, I saw:</p>
 <pre class="literal-block">
 1/25/15 7:46:00.557 PM pycharm[1160]: No matching VM found.
 1/25/15 7:46:00.711 PM com.apple.xpc.launchd[1]: (com.jetbrains.pycharm.58252[1160]) Service exited with abnormal code: 1
 </pre>
 <p>The JetBrains website wasn't very helpful when I looked there.
-In time, I found a <a class="reference external" href="http://stackoverflow.com/questions/26438628/crash-jetbrains-ide-with-yosemite-mac-osx-webstorm-intellij">Stack&shy;Over&shy;flow answer</a> that put me on the right track
+In time, I found a <a class="reference external" href="http://stackoverflow.com/questions/26438628/crash-jetbrains-ide-with-yosemite-mac-osx-webstorm-intellij">Stack­Over­flow answer</a> that put me on the right track
 (and reminded me that I had previously solved this problem about a year ago, at work).
 PyCharm and some of the other JetBrains IDEs require JDK 1.6,
 as <span>&#8230;<a href="/blog/2015/01/25/PyCharmYosemite.html" class="continue">continue</a>.</span></p>
@@ -281,17 +281,17 @@ as <span>&#8230;<a href="/blog/2015/01/25/PyCharmYosemite.html" class="continue"
             <a href="/blog/2014/12/30/Blog2014.html" rel="bookmark canonical">Blog 2014</a>
         </h1>
     </header>
-    <p>My DasBlog-based blog at <a class="reference external" href="http://www.georgevreilly.com/blog/">http://www.georgevreil&shy;ly.com/blog/</a>
+    <p>My DasBlog-based blog at <a class="reference external" href="http://www.georgevreilly.com/blog/">http://www.georgevreil­ly.com/blog/</a>
 has been out of commission for months.
 I've been meaning to replace it for a long time,
 but I only just got around to making a serious effort,
 as I realized that otherwise I would have no posts at all for 2014.
 I received only a handful of complaints about its absence;
 if there had been more, I would have fixed it sooner.</p>
-<p><a class="reference external" href="http://dasblog.codeplex.com/">DasBlog</a> is a fairly light&shy;weight blogging engine that runs on ASP.NET.
+<p><a class="reference external" href="http://dasblog.codeplex.com/">DasBlog</a> is a fairly light­weight blogging engine that runs on ASP.NET.
 It doesn't require a database,
 but it does require the ability to write XML blogpost entries to the local filesystem.
-That's a non-standard con&shy;fig&shy;u&shy;ra&shy;tion for ASP.NET and IIS websites,
+That's a non-standard con­fig­u­ra­tion for ASP.NET and IIS websites,
 which inevitably causes <span>&#8230;<a href="/blog/2014/12/30/Blog2014.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -318,16 +318,16 @@ which inevitably causes <span>&#8230;<a href="/blog/2014/12/30/Blog2014.html" cl
             <a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" rel="bookmark canonical">Turn off Windows Defender on your builds</a>
         </h1>
     </header>
-    <p>I've spent some time this evening profiling a Python ap&shy;pli&shy;ca&shy;tion on Windows,
+    <p>I've spent some time this evening profiling a Python ap­pli­ca­tion on Windows,
 trying to find out why it was so much slower than on Mac or Linux.
-The ap&shy;pli&shy;ca&shy;tion is an in-house build tool which reads a number of config files,
+The ap­pli­ca­tion is an in-house build tool which reads a number of config files,
 then writes some output files.</p>
-<p>Using the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run&shy;SnakeRun</a> Python profile viewer on Windows,
-two things im&shy;me&shy;di&shy;ate&shy;ly leapt out at me:
+<p>Using the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run­SnakeRun</a> Python profile viewer on Windows,
+two things im­me­di­ate­ly leapt out at me:
 we were running <tt class="docutils literal">os.stat</tt> a lot
 and <tt class="docutils literal">file.close</tt> was really expensive.</p>
 <p>A quick test convinced me that we were <a class="reference external" href="http://docs.python.org/2/library/stat.html">stat-ing</a> the same files over and over.
-It was a com&shy;bi&shy;na&shy;tion of explicit checks and implicit code,
+It was a com­bi­na­tion of explicit checks and implicit code,
 like <tt class="docutils literal">os.walk</tt> calling <tt class="docutils literal">os.path.isdir</tt>.
 I wrote a little cache that memoizes the results,
 which brought <span>&#8230;<a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" class="continue">continue</a>.</span></p>
@@ -382,24 +382,26 @@ at the Cozi Tech Blog.</p>
         </h1>
     </header>
     <a class="reference external image-reference" href="http://docs.python.org/library/string.html#format-string-syntax"></a>
-<p>Python has long had a string in&shy;ter&shy;po&shy;la&shy;tion operator, <tt class="docutils literal">%</tt>.</p>
+<p>Python has long had a string in­ter­po­la­tion operator, <tt class="docutils literal">%</tt>.</p>
 <p>Python 2.6 and 3.0 introduced a new, richer set of <a class="reference external" href="http://docs.python.org/library/string.html#format-string-syntax">string formatting operations</a>.
 See <a class="reference external" href="http://www.python.org/dev/peps/pep-3101/">PEP 3101</a> for the rationale.</p>
 <p>One trick that I liked with the old way of formatting was
 to put the <a class="reference external" href="http://docs.python.org/library/functions.html#locals">locals()</a> dictionary or <tt class="docutils literal">self.__dict__</tt>
 on the right-hand side</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<pre class="code python literal-block">
+<span class="o">>>></span> <span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="o">...</span>  <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
-<span class="o">...</span>  <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%(a)s</span><span class="s2">, </span><span class="si">%(b)s</span><span class="s2">, </span><span class="si">%(c)s</span><span class="s2">, </span><span class="si">%(d)s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span>
+<span class="o">...</span>  <span class="k">return</span> <span class="s2">"</span><span class="si">%(a)s</span><span class="s2">, </span><span class="si">%(b)s</span><span class="s2">, </span><span class="si">%(c)s</span><span class="s2">, </span><span class="si">%(d)s</span><span class="s2">"</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span>
 <span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">stuff</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
-<span class="s1">&#39;3, 17, 20, -14&#39;</span>
-</pre></div>
+<span class="o">>>></span> <span class="n">stuff</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
+<span class="s1">'3, 17, 20, -14'</span>
+</pre>
 <p>It took me a few minutes to figure out how to do the equivalent with <tt class="docutils literal">string.format</tt>:
 use the <tt class="docutils literal">**</tt> syntax to unpack the dict into <tt class="docutils literal">kwargs</tt>.</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<pre class="code python literal-block">
+<span class="o">>>></span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <span class="o">...</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
-<span class="o">...</span> </pre><span>&#8230;<a href="/blog/2009/04/23/PythonStringFormatting.html" class="continue">continue</a>.</span></div>
+<span class="o">...</span> </pre><span>&#8230;<a href="/blog/2009/04/23/PythonStringFormatting.html" class="continue">continue</a>.</span>
     <footer>
         
         

@@ -41,63 +41,65 @@
 <blockquote>
 [Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>Jenkins Pipelines are written in a Groovy <span class="caps">DSL</span>.
-This is a good choice but there are&nbsp;surprises.</p>
-<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#5 in a series on Jenkins&nbsp;Pipelines</a></p>
+This is a good choice but there are surprises.</p>
+<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#5 in a series on Jenkins Pipelines</a></p>
 <div class="section" id="groovy-as-a-dsl">
-<h2>Groovy as a&nbsp;<span class="caps">DSL</span></h2>
+<h2>Groovy as a <span class="caps">DSL</span></h2>
 <p>Groovy <a class="reference external" href="https://docs.groovy-lang.org/docs/latest/html/documentation/core-domain-specific-languages.html">lends</a> itself to <a class="reference external" href="https://dzone.com/articles/groovy-dsl-simple-example">writing</a> DSLs (<a class="reference external" href="https://en.wikipedia.org/wiki/Domain-specific_language">Domain-Specific Languages</a>)
 with a minimum of syntactic overhead.
-You can frequently omit the paren&shy;the&shy;ses, commas, and semicolons that litter other&nbsp;languages.</p>
-<p>Groovy has <a class="reference external" href="https://groovy-lang.org/syntax.html#_string_interpolation">in&shy;ter&shy;po&shy;lat&shy;ed GStrings</a>, lists, maps, functions, and&nbsp;closures.</p>
+You can frequently omit the paren&shy;the&shy;ses, commas, and semicolons that litter other languages.</p>
+<p>Groovy has <a class="reference external" href="https://groovy-lang.org/syntax.html#_string_interpolation">in&shy;ter&shy;po&shy;lat&shy;ed GStrings</a>, lists, maps, functions, and closures.</p>
 <div class="section" id="closures">
 <h3>Closures</h3>
 <p><a class="reference external" href="https://groovy-lang.org/closures.html">Closures</a> are anonymous functions where state can be captured at de&shy;c&shy;la&shy;ra&shy;tion time
 to be executed later.
-The blocks that follow many Pipeline steps (<tt class="docutils literal">node</tt>, <tt class="docutils literal">stage</tt>, etc) are&nbsp;closures.</p>
-<p>Here&#8217;s an example of a <tt class="docutils literal">Closure</tt> called <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt>,
+The blocks that follow many Pipeline steps (<tt class="docutils literal">node</tt>, <tt class="docutils literal">stage</tt>, etc) are closures.</p>
+<p>Here’s an example of a <tt class="docutils literal">Closure</tt> called <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt>,
 where the <tt class="docutils literal">re&shy;lease_lev&shy;el</tt> parameter is a <tt class="docutils literal">String</tt>
-which must be either <tt class="docutils literal">&quot;dev&quot;</tt> or <tt class="docutils literal">&quot;prod&quot;</tt>.</p>
-<div class="highlight"><pre><span></span><span class="kt">def</span> <span class="n">acceptance_integration_tests</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span> <span class="n">release_level</span> <span class="o">-&gt;</span>
+which must be either <tt class="docutils literal">"dev"</tt> or <tt class="docutils literal">"prod"</tt>.</p>
+<pre class="code groovy literal-block">
+<span class="kt">def</span> <span class="n">acceptance_integration_tests</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span> <span class="n">release_level</span> <span class="o">-></span>
     <span class="k">assert</span> <span class="n">release_level</span> <span class="o">=~</span> <span class="s">/^(dev|prod)$/</span>
-    <span class="n">String</span> <span class="n">arg</span> <span class="o">=</span> <span class="s2">&quot;--${release_level}&quot;</span>
+    <span class="n">String</span> <span class="n">arg</span> <span class="o">=</span> <span class="s2">"--${release_level}"</span>
 
     <span class="kt">def</span> <span class="n">branches</span> <span class="o">=</span> <span class="o">[</span>
-        <span class="s2">&quot;${release_level}_acceptance_tests&quot;</span><span class="o">:</span> <span class="o">{</span>
-            <span class="n">run_tests</span><span class="o">(</span><span class="s2">&quot;ci_acceptance_test&quot;</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">&#39;**/*nosetests.xml&#39;</span><span class="o">)</span>
+        <span class="s2">"${release_level}_acceptance_tests"</span><span class="o">:</span> <span class="o">{</span>
+            <span class="n">run_tests</span><span class="o">(</span><span class="s2">"ci_acceptance_test"</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">'**/*nosetests.xml'</span><span class="o">)</span>
         <span class="o">},</span>
-        <span class="s2">&quot;${release_level}_integration_tests&quot;</span><span class="o">:</span> <span class="o">{</span>
-            <span class="n">run_tests</span><span class="o">(</span><span class="s2">&quot;ci_integration_test&quot;</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">&#39;**/*nosetests.xml&#39;</span><span class="o">)</span>
+        <span class="s2">"${release_level}_integration_tests"</span><span class="o">:</span> <span class="o">{</span>
+            <span class="n">run_tests</span><span class="o">(</span><span class="s2">"ci_integration_test"</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">'**/*nosetests.xml'</span><span class="o">)</span>
         <span class="o">}</span>
     <span class="o">]</span>
     <span class="n">parallel</span> <span class="n">branches</span>
 <span class="o">}</span>
-</pre></div>
+</pre>
 <p>We create a <tt class="docutils literal">Map</tt> called <tt class="docutils literal">branches</tt> with dy&shy;nam&shy;i&shy;cal&shy;ly named keys,
-such as <tt class="docutils literal">&quot;prod_in&shy;te&shy;gra&shy;tion_tests&quot;</tt>,
+such as <tt class="docutils literal">"prod_in&shy;te&shy;gra&shy;tion_test&shy;s"</tt>,
 thanks to <tt class="docutils literal">GString</tt> in&shy;ter&shy;po&shy;la&shy;tion.
 The values in the <tt class="docutils literal">branches</tt> map are in turn also closures,
-where <tt class="docutils literal">arg</tt> is bound to <tt class="docutils literal"><span class="pre">&quot;--dev&quot;</span></tt> or <tt class="docutils literal"><span class="pre">&quot;--prod&quot;</span></tt>.</p>
-<p>The <tt class="docutils literal">branches</tt> map is passed to Pipeline&#8217;s <tt class="docutils literal">parallel</tt> command,
+where <tt class="docutils literal">arg</tt> is bound to <tt class="docutils literal"><span class="pre">"--dev"</span></tt> or <tt class="docutils literal"><span class="pre">"--prod"</span></tt>.</p>
+<p>The <tt class="docutils literal">branches</tt> map is passed to Pipeline’s <tt class="docutils literal">parallel</tt> command,
 which causes the two <tt class="docutils literal">run_tests</tt> closures to be executed
-on two different&nbsp;ex&shy;ecu&shy;tors—even&shy;tu&shy;al&shy;ly.</p>
-<div class="highlight"><pre><span></span><span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Deploy to Dev&quot;</span><span class="o">)</span> <span class="o">{</span> <span class="n">deploy</span> <span class="s2">&quot;dev&quot;</span> <span class="o">}</span>
-<span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Dev Tests&quot;</span><span class="o">)</span> <span class="o">{</span> <span class="n">acceptance_integration_tests</span> <span class="s2">&quot;dev&quot;</span> <span class="o">}</span>
+on two different ex&shy;ecu&shy;tors—even&shy;tu&shy;al&shy;ly.</p>
+<pre class="code groovy literal-block">
+<span class="n">stage</span><span class="o">(</span><span class="s2">"Deploy to Dev"</span><span class="o">)</span> <span class="o">{</span> <span class="n">deploy</span> <span class="s2">"dev"</span> <span class="o">}</span>
+<span class="n">stage</span><span class="o">(</span><span class="s2">"Dev Tests"</span><span class="o">)</span> <span class="o">{</span> <span class="n">acceptance_integration_tests</span> <span class="s2">"dev"</span> <span class="o">}</span>
 
-<span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Deploy to Prod&quot;</span><span class="o">)</span> <span class="o">{</span> <span class="n">deploy</span> <span class="s2">&quot;prod&quot;</span> <span class="o">}</span>
-<span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Prod Tests&quot;</span><span class="o">)</span> <span class="o">{</span> <span class="n">acceptance_integration_tests</span> <span class="s2">&quot;prod&quot;</span> <span class="o">}</span>
-</pre></div>
+<span class="n">stage</span><span class="o">(</span><span class="s2">"Deploy to Prod"</span><span class="o">)</span> <span class="o">{</span> <span class="n">deploy</span> <span class="s2">"prod"</span> <span class="o">}</span>
+<span class="n">stage</span><span class="o">(</span><span class="s2">"Prod Tests"</span><span class="o">)</span> <span class="o">{</span> <span class="n">acceptance_integration_tests</span> <span class="s2">"prod"</span> <span class="o">}</span>
+</pre>
 <p>The <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt> closure is used in two different <tt class="docutils literal">stage</tt>s.
 Each <tt class="docutils literal">stage</tt> is passed an anonymous closure,
-which invokes the parallel tests at a suitable&nbsp;time.</p>
+which invokes the parallel tests at a suitable time.</p>
 </div>
 <div class="section" id="not-so-groovy">
-<h3>Not So&nbsp;Groovy</h3>
-<p><strong>Fiction</strong>: Jenkins Pipeline scripts are written in&nbsp;Groovy.</p>
+<h3>Not So Groovy</h3>
+<p><strong>Fiction</strong>: Jenkins Pipeline scripts are written in Groovy.</p>
 <p><strong>Fact</strong>: Pipeline scripts are written in a <em>sandboxed subset</em> of Groovy
-and you need to be aware of the&nbsp;dif&shy;fer&shy;ences.</p>
+and you need to be aware of the dif&shy;fer&shy;ences.</p>
 <p>The Pipeline plugin presents the illusion
 that a Groovy program is executing on your agent node.
-It&#8217;s more <a class="reference external" href="https://github.com/jenkinsci/workflow-cps-plugin/blob/master/README.md">com&shy;pli&shy;cat&shy;ed</a> than that.
+It’s more <a class="reference external" href="https://github.com/jenkinsci/workflow-cps-plugin/blob/master/README.md">com&shy;pli&shy;cat&shy;ed</a> than that.
 The Pipeline script compiles the script into a series of steps on the <a class="reference external" href="https://jenkins.io/blog/2017/02/01/pipeline-scalability-best-practice/">master node</a>,
 where they are executed in a flyweight executor.
 Many steps actually result in the cor&shy;re&shy;spond&shy;ing code being executed in an agent node.
@@ -112,73 +114,75 @@ on the Groovy code that you can write.
 Many Java and Groovy classes and methods are not al&shy;lowlist&shy;ed
 and cannot be executed at all.
 Some may be used only in restricted cir&shy;cum&shy;stances.
-Es&shy;sen&shy;tial&shy;ly, you&#8217;re limited to strings, numbers,
-and lists and maps built out of strings and&nbsp;numbers.</p>
+Es&shy;sen&shy;tial&shy;ly, you’re limited to strings, numbers,
+and lists and maps built out of strings and numbers.</p>
 <p>You can work around this to some extent
-by decorating a Groovy function with <tt class="docutils literal">&#64;NonCPS</tt>
+by decorating a Groovy function with <tt class="docutils literal">@NonCPS</tt>
 and operating on otherwise forbidden objects as local variables.
-You must, however, return se&shy;ri&shy;al&shy;iz&shy;able objects from such a&nbsp;function.</p>
+You must, however, return se&shy;ri&shy;al&shy;iz&shy;able objects from such a function.</p>
 <p>If you control your Jenkins master, you can allowlist <span class="caps">JVM</span> classes that you may need.
-CloudBees hosts our Jenkins builds, so this was not available to&nbsp;us.</p>
+CloudBees hosts our Jenkins builds, so this was not available to us.</p>
 <p>I spent a ridiculous amount of time
-trying to get this apparently straight&shy;for&shy;ward code to&nbsp;work:</p>
-<div class="highlight"><pre><span></span><span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="n">compute_build_label</span><span class="o">(</span>
-    <span class="k">new</span> <span class="nf">Date</span><span class="o">(),</span> <span class="n">env</span><span class="o">.</span><span class="na">GIT_LOCAL_BRANCH</span><span class="o">,</span> <span class="n">env</span><span class="o">.</span><span class="na">BUILD_NUMBER</span><span class="o">,</span> <span class="n">env</span><span class="o">.</span><span class="na">GIT_COMMIT</span><span class="o">)</span>
+trying to get this apparently straight&shy;for&shy;ward code to work:</p>
+<pre class="code groovy literal-block">
+<span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="n">compute_build_label</span><span class="o">(</span>
+    <span class="k">new</span> <span class="n">Date</span><span class="o">(),</span> <span class="n">env</span><span class="o">.</span><span class="na">GIT_LOCAL_BRANCH</span><span class="o">,</span> <span class="n">env</span><span class="o">.</span><span class="na">BUILD_NUMBER</span><span class="o">,</span> <span class="n">env</span><span class="o">.</span><span class="na">GIT_COMMIT</span><span class="o">)</span>
 
 <span class="kt">def</span> <span class="nf">compute_build_label</span><span class="o">(</span>
     <span class="n">Date</span> <span class="n">build_date</span><span class="o">,</span> <span class="n">String</span> <span class="n">branch_name</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">build_number</span><span class="o">,</span> <span class="n">String</span> <span class="n">git_sha</span><span class="o">)</span>
 <span class="o">{</span>
-    <span class="n">String</span> <span class="n">date</span> <span class="o">=</span> <span class="n">build_date</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s2">&quot;yyyyMMdd&#39;t&#39;HHmm&#39;z&#39;&quot;</span><span class="o">,</span> <span class="n">TimeZone</span><span class="o">.</span><span class="na">getTimeZone</span><span class="o">(</span><span class="s1">&#39;<span class="caps">UTC</span>&#39;</span><span class="o">))</span>
-    <span class="n">String</span> <span class="n">branch</span> <span class="o">=</span> <span class="n">branch_name</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s2">&quot;/&quot;</span><span class="o">,</span> <span class="s2">&quot;-&quot;</span><span class="o">)</span>
-    <span class="n">String</span> <span class="n">number</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s2">&quot;%05d&quot;</span><span class="o">,</span> <span class="n">build_number</span><span class="o">)</span>
+    <span class="n">String</span> <span class="n">date</span> <span class="o">=</span> <span class="n">build_date</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s2">"yyyyMMdd't'HHmm'z'"</span><span class="o">,</span> <span class="n">TimeZone</span><span class="o">.</span><span class="na">getTimeZone</span><span class="o">(</span><span class="s1">'<span class="caps">UTC</span>'</span><span class="o">))</span>
+    <span class="n">String</span> <span class="n">branch</span> <span class="o">=</span> <span class="n">branch_name</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s2">"/"</span><span class="o">,</span> <span class="s2">"-"</span><span class="o">)</span>
+    <span class="n">String</span> <span class="n">number</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s2">"%05d"</span><span class="o">,</span> <span class="n">build_number</span><span class="o">)</span>
     <span class="n">String</span> <span class="n">sha</span> <span class="o">=</span> <span class="n">git_sha</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">7</span><span class="o">)</span>
-    <span class="k">return</span> <span class="s2">&quot;${date}-${branch}-b${number}-${sha}&quot;</span>
+    <span class="k">return</span> <span class="s2">"${date}-${branch}-b${number}-${sha}"</span>
 <span class="o">}</span>
-</pre></div>
-<p>Here are just some of the reasons why this didn&#8217;t&nbsp;work:</p>
+</pre>
+<p>Here are just some of the reasons why this didn’t work:</p>
 <ul class="simple">
 <li><tt class="docutils literal">org.jenkinsci.plugins.script&shy;se&shy;cu&shy;ri&shy;ty.sandbox.Re&shy;jectedAc&shy;ces&shy;sEx&shy;cep&shy;tion:
-Scripts not permitted to use new java.util.Date</tt>: you can&#8217;t use <tt class="docutils literal">new Date()</tt>.
+Scripts not permitted to use new java.util.Date</tt>: you can’t use <tt class="docutils literal">new Date()</tt>.
 I ended up shelling out to the system <tt class="docutils literal">date</tt> command.</li>
 <li><tt class="docutils literal">java.lang.No&shy;Such&shy;Meth&shy;od&shy;Er&shy;ror:
 No such <span class="caps">DSL</span> method 'com&shy;pute_build_la&shy;bel' found among steps […]</tt>:
-This very unhelpful error means that the function signature didn&#8217;t match its use,
+This very unhelpful error means that the function signature didn’t match its use,
 as <tt class="docutils literal">env.BUILD_NUM&shy;BER</tt> is a <tt class="docutils literal">String</tt>, not an <tt class="docutils literal">Integer</tt>.</li>
 <li><tt class="docutils literal">org.jenkinsci.plugins.script&shy;se&shy;cu&shy;ri&shy;ty.sandbox.Re&shy;jectedAc&shy;ces&shy;sEx&shy;cep&shy;tion:
 Scripts not permitted to use sta&shy;t&shy;icMethod java.lang.String format</tt>:
-I was attempting to use <tt class="docutils literal"><span class="pre">String.format(&quot;%05s&quot;,</span> build_num&shy;ber)</tt>.</li>
-<li>I switched to <tt class="docutils literal"><span class="pre">&quot;0000${build_num&shy;ber}&quot;[-5..-1]</span></tt> to take the last five digits and got
+I was attempting to use <tt class="docutils literal"><span class="pre">String.format("%05s",</span> build_num&shy;ber)</tt>.</li>
+<li>I switched to <tt class="docutils literal"><span class="pre">"0000${build_num&shy;ber}"[-5..-1]</span></tt> to take the last five digits and got
 <tt class="docutils literal">org.jenkinsci.plugins.script&shy;se&shy;cu&shy;ri&shy;ty.sandbox.Re&shy;jectedAc&shy;ces&shy;sEx&shy;cep&shy;tion:
 Scripts not permitted to use sta&shy;t&shy;icMethod org.codehaus.groovy.runtime.Script&shy;Byte&shy;codeAdapter
 cre&shy;at&shy;eRange</tt>.</li>
 <li>Despite my <a class="reference external" href="https://github.com/jenkinsci/git-plugin/blob/master/src/main/java/hudson/plugins/git/GitSCM.java#L1237">reading of GitSCM.java</a>,
-<tt class="docutils literal">env.GIT_LO&shy;CAL_BRANCH</tt> and <tt class="docutils literal">env.GIT_COMMIT</tt> did not contain useful&nbsp;values.</li>
+<tt class="docutils literal">env.GIT_LO&shy;CAL_BRANCH</tt> and <tt class="docutils literal">env.GIT_COMMIT</tt> did not contain useful values.</li>
 </ul>
-<p>I ended up with&nbsp;this:</p>
-<div class="highlight"><pre><span></span><span class="n">String</span> <span class="n">label</span> <span class="o">=</span> <span class="n">compute_build_label</span><span class="o">(</span>
-    <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s1">&#39;date --utc +%Y%m%dt%H%Mz&#39;</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">(),</span>
+<p>I ended up with this:</p>
+<pre class="code groovy literal-block">
+<span class="n">String</span> <span class="n">label</span> <span class="o">=</span> <span class="n">compute_build_label</span><span class="o">(</span>
+    <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s1">'date --utc +%Y%m%dt%H%Mz'</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">(),</span>
     <span class="n">GIT_BRANCH</span><span class="o">,</span>
     <span class="n">env</span><span class="o">.</span><span class="na">BUILD_NUMBER</span><span class="o">,</span>
-    <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s1">&#39;git rev-parse <span class="caps">HEAD</span>&#39;</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">()</span>
+    <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s1">'git rev-parse <span class="caps">HEAD</span>'</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">()</span>
 <span class="o">)</span>
 
 <span class="n">String</span> <span class="nf">compute_build_label</span><span class="o">(</span>
     <span class="n">String</span> <span class="n">date</span><span class="o">,</span> <span class="n">String</span> <span class="n">branch_name</span><span class="o">,</span> <span class="n">String</span> <span class="n">build_number</span><span class="o">,</span> <span class="n">String</span> <span class="n">git_sha</span><span class="o">)</span>
 <span class="o">{</span>
-    <span class="n">String</span> <span class="n">branch</span> <span class="o">=</span> <span class="n">branch_name</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s2">&quot;/&quot;</span><span class="o">,</span> <span class="s2">&quot;-&quot;</span><span class="o">)</span>
-    <span class="n">String</span> <span class="n">number</span> <span class="o">=</span> <span class="s2">&quot;00000&quot;</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">5</span> <span class="o">-</span> <span class="n">build_number</span><span class="o">.</span><span class="na">length</span><span class="o">())</span> <span class="o">+</span> <span class="n">build_number</span>
+    <span class="n">String</span> <span class="n">branch</span> <span class="o">=</span> <span class="n">branch_name</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s2">"/"</span><span class="o">,</span> <span class="s2">"-"</span><span class="o">)</span>
+    <span class="n">String</span> <span class="n">number</span> <span class="o">=</span> <span class="s2">"00000"</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">5</span> <span class="o">-</span> <span class="n">build_number</span><span class="o">.</span><span class="na">length</span><span class="o">())</span> <span class="o">+</span> <span class="n">build_number</span>
     <span class="n">String</span> <span class="n">sha</span> <span class="o">=</span> <span class="n">git_sha</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">7</span><span class="o">)</span>
-    <span class="k">return</span> <span class="s2">&quot;${date}-${branch}-b${number}-${sha}&quot;</span>
+    <span class="k">return</span> <span class="s2">"${date}-${branch}-b${number}-${sha}"</span>
 <span class="o">}</span>
-</pre></div>
-<p>I would have been better off writing an external&nbsp;script.</p>
+</pre>
+<p>I would have been better off writing an external script.</p>
 </div>
 </div>
 <div class="section" id="tips">
 <h2>Tips</h2>
 <div class="section" id="line-numbers">
-<h3>Line&nbsp;Numbers</h3>
-<p>If you see a callstack like&nbsp;this:</p>
+<h3>Line Numbers</h3>
+<p>If you see a callstack like this:</p>
 <pre class="literal-block">
 …
 at WorkflowScript.run(WorkflowScript:39)
@@ -190,15 +194,15 @@ at com.cloudbees.groovy.cps.impl.ContinuationGroup.methodCall(ContinuationGroup.
 (here, line <tt class="docutils literal">39</tt>).</p>
 </div>
 <div class="section" id="install-groovy">
-<h3>Install&nbsp;Groovy</h3>
+<h3>Install Groovy</h3>
 <p>For debugging some Groovy syntax issues,
-it can be much faster to try them out in a local Groovy&nbsp;script.</p>
+it can be much faster to try them out in a local Groovy script.</p>
 <p>I installed Groovy using <a class="reference external" href="https://brew.sh/">Brew</a> on my Mac.
 I found that I had to set the <tt class="docutils literal">$JAVA_HOME</tt> and <tt class="docutils literal">$GROOVY_HOME</tt> en&shy;vi&shy;ron&shy;ment variables
-before it worked properly for&nbsp;me.</p>
+before it worked properly for me.</p>
 <ul class="simple">
-<li><tt class="docutils literal">export <span class="pre">JAVA_HOME=&quot;$(/usr/libexec/java_home)&quot;</span></tt></li>
-<li><tt class="docutils literal">export <span class="pre">GROOVY_HOME=&quot;$(brew</span> <span class="pre">--prefix)/opt/groovy/libexec&quot;</span></tt></li>
+<li><tt class="docutils literal">export <span class="pre">JAVA_HOME="$(/usr/libexec/java_home)"</span></tt></li>
+<li><tt class="docutils literal">export <span class="pre">GROOVY_HOME="$(brew</span> <span class="pre">--prefix)/opt/groovy/libexec"</span></tt></li>
 </ul>
 </div>
 </div>

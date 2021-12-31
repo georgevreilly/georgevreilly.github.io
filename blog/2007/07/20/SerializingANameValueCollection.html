@@ -12,7 +12,7 @@
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: /content/binary/serialize-nvc.jpg
     :..." />
-    <meta name="keywords" content="c#" />
+    <meta name="keywords" content="c" />
 </head>
 <body>
   <header>
@@ -40,127 +40,123 @@
 <p>I had a NameVal&shy;ueCol&shy;lec&shy;tion embedded inside a larger object.
 I needed to serialize the larger object into <span class="caps">XML</span> and back.
 Un&shy;for&shy;tu&shy;nate&shy;ly, NameVal&shy;ueCol&shy;lec&shy;tion is not <span class="caps">XML</span> se&shy;ri&shy;al&shy;iz&shy;able.
-Why I do not&nbsp;know.</p>
+Why I do not know.</p>
 <p>A blog comment from <a class="reference external" href="http://nayyeri.net/archive/2006/08/11/Serialize-NameValueCollection.aspx#72442">Tim Erwin</a> got me started in the right direction.
 Implement <tt class="docutils literal">IXmlSe&shy;ri&shy;al&shy;iz&shy;able</tt> and do the work by hand in
 <tt class="docutils literal">ReadXml</tt> and <tt class="docutils literal">WriteXml</tt>.</p>
-<p>Tim&#8217;s im&shy;ple&shy;men&shy;ta&shy;tion turned out to be overly simple.
-It didn&#8217;t handle an empty collection well,
-nor did it leave the <tt class="docutils literal">XmlReader</tt> in a good&nbsp;state.</p>
+<p>Tim’s im&shy;ple&shy;men&shy;ta&shy;tion turned out to be overly simple.
+It didn’t handle an empty collection well,
+nor did it leave the <tt class="docutils literal">XmlReader</tt> in a good state.</p>
 <p>I used <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/bk3w6240(vs.80).aspx">SGen</a> to examine the de&shy;se&shy;ri&shy;al&shy;iza&shy;tion of a
-<tt class="docutils literal">List&lt;String&gt;</tt> to figure out what else needed to be&nbsp;done.</p>
+<tt class="docutils literal">List<String></tt> to figure out what else needed to be done.</p>
 <p>The following <tt class="docutils literal">ReadXml</tt> seems to work.
 If I expected to receive <span class="caps">XML</span> from untrusted sources,
-I would make this more&nbsp;robust.</p>
+I would make this more robust.</p>
+<pre class="code csharp literal-block">
+<span class="k">public</span> <span class="k">void</span> <span class="nf">ReadXml</span><span class="p">(</span><span class="n">XmlReader</span> <span class="n">reader</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">IsEmptyElement</span><span class="p">)</span>
+        <span class="k">return</span><span class="p">;</span>
 
-<pre class="brush: csharp">
-public void ReadXml(XmlReader reader)
-{
-    if (reader.IsEmptyElement)
-        return;
+    <span class="k">while</span> <span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">Read</span><span class="p">()</span>
+        <span class="p">&&</span> <span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span> <span class="p">!=</span> <span class="n">XmlNodeType</span><span class="p">.</span><span class="n">EndElement</span>
+        <span class="p">&&</span> <span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span> <span class="p">!=</span> <span class="n">XmlNodeType</span><span class="p">.</span><span class="n">None</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span> <span class="p">==</span> <span class="n">XmlNodeType</span><span class="p">.</span><span class="n">Element</span> <span class="p">&&</span> <span class="n">reader</span><span class="p">.</span><span class="n">LocalName</span> <span class="p">==</span> <span class="s">"Header"</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">reader</span><span class="p">.</span><span class="n">MoveToAttribute</span><span class="p">(</span><span class="s">"name"</span><span class="p">);</span>
+            <span class="kt">string</span> <span class="n">name</span> <span class="p">=</span> <span class="n">reader</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+            <span class="n">reader</span><span class="p">.</span><span class="n">MoveToAttribute</span><span class="p">(</span><span class="s">"value"</span><span class="p">);</span>
+            <span class="kt">string</span> <span class="k">value</span> <span class="p">=</span> <span class="n">reader</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span>
+            <span class="n">Add</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="k">value</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">reader</span><span class="p">.</span><span class="n">ReadEndElement</span><span class="p">();</span>
+<span class="p">}</span>
 
-    while (reader.Read()
-        && reader.NodeType != XmlNodeType.EndElement
-        && reader.NodeType != XmlNodeType.None)
-    {
-        if (reader.NodeType == XmlNodeType.Element && reader.LocalName == "Header")
-        {
-            reader.MoveToAttribute("name");
-            string name = reader.Value;
-            reader.MoveToAttribute("value");
-            string value = reader.Value;
-            Add(name, value);
-        }
-    }
-    reader.ReadEndElement();
-}
+<span class="k">public</span> <span class="k">void</span> <span class="nf">WriteXml</span><span class="p">(</span><span class="n">XmlWriter</span> <span class="n">writer</span><span class="p">)</span>
+<span class="p">{</span>
+   <span class="k">foreach</span> <span class="p">(</span><span class="kt">string</span> <span class="n">name</span> <span class="k">in</span> <span class="n">nvc</span><span class="p">.</span><span class="n">Keys</span><span class="p">)</span>
+   <span class="p">{</span>
+       <span class="n">writer</span><span class="p">.</span><span class="n">WriteStartElement</span><span class="p">(</span><span class="s">"Header"</span><span class="p">);</span>
+       <span class="kt">string</span> <span class="k">value</span> <span class="p">=</span> <span class="n">nvc</span><span class="p">[</span><span class="n">name</span><span class="p">];</span>
+       <span class="n">writer</span><span class="p">.</span><span class="n">WriteAttributeString</span><span class="p">(</span><span class="s">"name"</span><span class="p">,</span>  <span class="n">name</span><span class="p">);</span>
+       <span class="n">writer</span><span class="p">.</span><span class="n">WriteAttributeString</span><span class="p">(</span><span class="s">"value"</span><span class="p">,</span> <span class="k">value</span><span class="p">);</span>
+       <span class="n">writer</span><span class="p">.</span><span class="n">WriteEndElement</span><span class="p">();</span>
+   <span class="p">}</span>
+<span class="p">}</span>
 
-public void WriteXml(XmlWriter writer)
-{
-   foreach (string name in nvc.Keys)
-   {
-       writer.WriteStartElement("Header");
-       string value = nvc[name];
-       writer.WriteAttributeString("name",  name);
-       writer.WriteAttributeString("value", value);
-       writer.WriteEndElement();
-   }
-}
-
-public XmlSchema GetSchema( )
-{
-   return null;
-}
+<span class="k">public</span> <span class="n">XmlSchema</span> <span class="nf">GetSchema</span><span class="p">(</span> <span class="p">)</span>
+<span class="p">{</span>
+   <span class="k">return</span> <span class="k">null</span><span class="p">;</span>
+<span class="p">}</span>
 </pre>
-
 <p>I also found that I needed to implement custom <tt class="docutils literal">Equals</tt>
 and <tt class="docutils literal">GetH&shy;ash&shy;Code</tt>, as the <tt class="docutils literal">NameVal&shy;ueCol&shy;lec&shy;tion</tt>
-im&shy;ple&shy;men&shy;ta&shy;tions didn&#8217;t seem to do what I&nbsp;wanted.</p>
-
-<pre class="brush: csharp">
-// Have to override GetHashCode() as two apparently identical NameValueCollections
+im&shy;ple&shy;men&shy;ta&shy;tions didn’t seem to do what I wanted.</p>
+<pre class="code csharp literal-block">
+<span class="c1">// Have to override GetHashCode() as two apparently identical NameValueCollections
 // will have different hash codes.
-public override int GetHashCode()
-{
-    int hash = nvc.Count;
+</span><span class="k">public</span> <span class="k">override</span> <span class="kt">int</span> <span class="nf">GetHashCode</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">hash</span> <span class="p">=</span> <span class="n">nvc</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span>
 
-    foreach (string name in nvc)
-    {
-        hash = 757 * hash  +  101 * nvc[name].GetHashCode()  +  name.GetHashCode();
-    }
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">string</span> <span class="n">name</span> <span class="k">in</span> <span class="n">nvc</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">hash</span> <span class="p">=</span> <span class="m">757</span> <span class="p">*</span> <span class="n">hash</span>  <span class="p">+</span>  <span class="m">101</span> <span class="p">*</span> <span class="n">nvc</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">GetHashCode</span><span class="p">()</span>  <span class="p">+</span>  <span class="n">name</span><span class="p">.</span><span class="n">GetHashCode</span><span class="p">();</span>
+    <span class="p">}</span>
 
-    return hash;
-}
+    <span class="k">return</span> <span class="n">hash</span><span class="p">;</span>
+<span class="p">}</span>
 
-public bool Equals(HeadersCollection that)
-{
-    if (ReferenceEquals(that, null))
-        return false;
+<span class="k">public</span> <span class="kt">bool</span> <span class="nf">Equals</span><span class="p">(</span><span class="n">HeadersCollection</span> <span class="n">that</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ReferenceEquals</span><span class="p">(</span><span class="n">that</span><span class="p">,</span> <span class="k">null</span><span class="p">))</span>
+        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
 
-    if (ReferenceEquals(this, that))
-        return true;
+    <span class="k">if</span> <span class="p">(</span><span class="n">ReferenceEquals</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">that</span><span class="p">))</span>
+        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
 
-    // Have to explicitly compare the contents of the collections
-    // as NameValueCollection.Equals doesn't seem to do what we want.
-    // Note: this is independent of order.
-    if (nvc.Count != that.nvc.Count)
-        return false;
+    <span class="c1">// Have to explicitly compare the contents of the collections
+</span>    <span class="c1">// as NameValueCollection.Equals doesn't seem to do what we want.
+</span>    <span class="c1">// Note: this is independent of order.
+</span>    <span class="k">if</span> <span class="p">(</span><span class="n">nvc</span><span class="p">.</span><span class="n">Count</span> <span class="p">!=</span> <span class="n">that</span><span class="p">.</span><span class="n">nvc</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span>
+        <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
 
-    foreach (string name in nvc)
-    {
-        if (nvc[name] != that.nvc.Get(name))
-            return false;
-    }
+    <span class="k">foreach</span> <span class="p">(</span><span class="kt">string</span> <span class="n">name</span> <span class="k">in</span> <span class="n">nvc</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">nvc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="p">!=</span> <span class="n">that</span><span class="p">.</span><span class="n">nvc</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    return true;
-}
+    <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+<span class="p">}</span>
 
-public static bool Equals(HeadersCollection headersA, HeadersCollection headersB)
-{
-    if (headersA == null)
-        return (headersB == null);
+<span class="k">public</span> <span class="k">static</span> <span class="kt">bool</span> <span class="nf">Equals</span><span class="p">(</span><span class="n">HeadersCollection</span> <span class="n">headersA</span><span class="p">,</span> <span class="n">HeadersCollection</span> <span class="n">headersB</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">headersA</span> <span class="p">==</span> <span class="k">null</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">headersB</span> <span class="p">==</span> <span class="k">null</span><span class="p">);</span>
 
-    if (ReferenceEquals(headersA, headersB))
-        return true;
+    <span class="k">if</span> <span class="p">(</span><span class="n">ReferenceEquals</span><span class="p">(</span><span class="n">headersA</span><span class="p">,</span> <span class="n">headersB</span><span class="p">))</span>
+        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
 
-    return headersA.Equals(headersB);
-}
+    <span class="k">return</span> <span class="n">headersA</span><span class="p">.</span><span class="n">Equals</span><span class="p">(</span><span class="n">headersB</span><span class="p">);</span>
+<span class="p">}</span>
 
-public override bool Equals(object obj)
-{
-    if (obj is HeadersCollection)
-        return Equals((HeadersCollection) obj);
+<span class="k">public</span> <span class="k">override</span> <span class="kt">bool</span> <span class="nf">Equals</span><span class="p">(</span><span class="kt">object</span> <span class="n">obj</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">obj</span> <span class="k">is</span> <span class="n">HeadersCollection</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nf">Equals</span><span class="p">((</span><span class="n">HeadersCollection</span><span class="p">)</span> <span class="n">obj</span><span class="p">);</span>
 
-    return false;
-}
+    <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+<span class="p">}</span>
 </pre>
-
 
     <footer>
         
         
             <p>tagged as
-                <a href="/tag/c/" rel="tag">c#</a>
+                <a href="/tag/c/" rel="tag">c</a>
                 
             </p>
         

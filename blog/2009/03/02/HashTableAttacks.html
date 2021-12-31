@@ -38,44 +38,40 @@
     <a class="reference external image-reference" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf"><img alt="Worst-case hash table collisions" class="right-float" src="/content/binary/hashtable-collide.png"/></a>
 <p>At lunch today, I told Eric about <a class="reference external" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf">Hash Attacks</a>:
 for many hash functions,
-it&#8217;s possible to construct a large set of keys that collide.
+it’s possible to construct a large set of keys that collide.
 This can be used to cause a Denial of Service
 as hashtable operations can be induced
 to take <em>O(n)</em> time instead of <em>O(1)</em>.</p>
 <p>Crosby and Wallach suc&shy;cess&shy;ful&shy;ly <a class="reference external" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf">demon&shy;strat&shy;ed</a> this
-against a number of&nbsp;ap&shy;pli&shy;ca&shy;tions.</p>
+against a number of ap&shy;pli&shy;ca&shy;tions.</p>
 <p>Andrew has a good writeup of <a class="reference external" href="http://web.archive.org/web/20120318203841/http://www.team5150.com/~andrew/blog/2007/03/hash_algorithm_attacks.html">Hash Algorithm Attacks</a>.</p>
 <p>There are various mit&shy;i&shy;ga&shy;tions suggested.
 The one that I used when I first became aware of this problem
-is to use a salt to the hash&nbsp;function.</p>
-<p>In other words,&nbsp;change:</p>
-
-<pre class="brush: C">
-unsigned hash(const char* s)
-{
-    unsigned h = 0;
-    while (*s)
-        h = h * 101 + (unsigned) *s++;
-    return h;
-}
+is to use a salt to the hash function.</p>
+<p>In other words, change:</p>
+<pre class="code C literal-block">
+<span class="kt">unsigned</span><span class="w"> </span><span class="nf">hash</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="w">
+        </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">101</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="o">++</span><span class="p">;</span><span class="w">
+    </span><span class="k">return</span><span class="w"> </span><span class="n">h</span><span class="p">;</span><span class="w">
+</span><span class="p">}</span>
 </pre>
-
 <p>to:</p>
-
-<pre class="brush: C">
-unsigned hash(const char* s, unsigned salt)
-{
-    unsigned h = salt;
-    while (*s)
-        h = h * 101 + (unsigned) *s++;
-    return h;
-}
+<pre class="code C literal-block">
+<span class="kt">unsigned</span><span class="w"> </span><span class="nf">hash</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">salt</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">salt</span><span class="p">;</span><span class="w">
+    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="w">
+        </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">101</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="n">s</span><span class="o">++</span><span class="p">;</span><span class="w">
+    </span><span class="k">return</span><span class="w"> </span><span class="n">h</span><span class="p">;</span><span class="w">
+</span><span class="p">}</span>
 </pre>
-
 <p>where <tt class="docutils literal">salt</tt> is chosen <em>randomly</em> when the hash table is created
 or when the process starts.
 This should be enough to vary the order in which keys
-are dis&shy;trib&shy;uted to buckets from run to&nbsp;run.</p>
+are dis&shy;trib&shy;uted to buckets from run to run.</p>
 
     <footer>
         

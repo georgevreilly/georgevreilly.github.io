@@ -44,13 +44,13 @@
 </div>
 <p>We saw the “roadshow” edition of <a class="reference external" href="https://en.wikipedia.org/wiki/The_Hateful_Eight">The Hateful Eight</a> at the Cinerama,
 projected in 70mm as Tarantino and God intended.
-The eight pro&shy;tag&shy;o&shy;nists are all as hateful and violent
+The eight pro­tag­o­nists are all as hateful and violent
 as you would expect given the title and the director.
 Tarantino is incapable of making a film
 without gratuitous violence and gore,
 but neither can he make a film
 without memorable characters who eviscerate with dialog.
-He continues to deliver&nbsp;both.</p>
+He continues to deliver both.</p>
 <p>During one long day, some years after the Civil War,
 eight characters find themselves trapped by a blizzard in a remote inn.
 Two are bounty hunters,
@@ -84,7 +84,7 @@ another claims <span>&#8230;<a href="/blog/2016/04/16/TheHatefulEight.html" clas
     <a class="reference external image-reference" href="https://www.amazon.com/dp/0394742745/?tag=georgvreill-20"></a>
 <div class="line-block">
 <div class="line">Title: The Locked Room</div>
-<div class="line">Author: Maj Sjöwall <span class="amp">&amp;</span> Per Wahlöö</div>
+<div class="line">Author: Maj Sjöwall <span class="amp">&</span> Per Wahlöö</div>
 <div class="line">Rating: ★ ★ ★ ½</div>
 <div class="line">Publisher: Vintage</div>
 <div class="line">Copyright: 1973</div>
@@ -95,12 +95,12 @@ another claims <span>&#8230;<a href="/blog/2016/04/16/TheHatefulEight.html" clas
 </div>
 <p>In <a class="reference external" href="https://en.wikipedia.org/wiki/The_Locked_Room">The Locked Room</a>,
 Martin Beck, recovering from being shot,
-in&shy;ves&shy;ti&shy;gates the death of a man,
+in­ves­ti­gates the death of a man,
 who has been found shot in a locked room with no gun.
 Meanwhile, some of his former colleagues,
 now serving on a special task force,
 are trying to deal with an epidemic of bank robberies.
-The latter is a comedy of errors, with the police con&shy;sis&shy;tent&shy;ly messing&nbsp;up.</p>
+The latter is a comedy of errors, with the police con­sis­tent­ly messing up.</p>
 <p>The authors are severely critical of the growth of Swedish police powers
 in the decade before this book was written.
 They also write harshly of the <span>&#8230;<a href="/blog/2016/04/15/ReviewTheLockedRoom.html" class="continue">continue</a>.</span></p>
@@ -145,12 +145,12 @@ They also write harshly of the <span>&#8230;<a href="/blog/2016/04/15/ReviewTheL
 </div>
 <p>A student is found murdered on the grounds of Trinity College Dublin.
 Sergeant Matt Minogue, newly back on duty after serious injuries,
-in&shy;ves&shy;ti&shy;gates and eventually finds links to the violence
-then roiling Northern&nbsp;Ireland.</p>
+in­ves­ti­gates and eventually finds links to the violence
+then roiling Northern Ireland.</p>
 <p>A slow-moving but thoughtful police procedural.
-Minogue may be trau&shy;ma&shy;tized by earlier injuries,
+Minogue may be trau­ma­tized by earlier injuries,
 but he is not the cynical, hard-drinking policeman so typical of fiction,
-but rather a happily married father with a nose for the&nbsp;truth.</p>
+but rather a happily married father with a nose for the truth.</p>
 
     <footer>
         
@@ -180,23 +180,21 @@ but rather a happily married father with a nose for the&nbsp;truth.</p>
         </h1>
     </header>
     <p>I like to use <a class="reference external" href="https://docs.python.org/2/library/io.html#io.StringIO">io.StringIO</a> rather than the older <a class="reference external" href="https://docs.python.org/2/library/stringio.html#cStringIO.StringIO">cStringIO.StringIO</a>,
-as it&#8217;s Python 3–ready
+as it’s Python 3–ready
 <tt class="docutils literal">io.StringIO</tt> is also a <a class="reference external" href="https://docs.python.org/2/reference/datamodel.html#context-managers">context manager</a>:
 if you use it in a <tt class="docutils literal">with</tt> statement,
-the string buffer is au&shy;to&shy;mat&shy;i&shy;cal&shy;ly <tt class="docutils literal">close</tt>d as you go out of&nbsp;scope.</p>
+the string buffer is au­to­mat­i­cal­ly <tt class="docutils literal">close</tt>d as you go out of scope.</p>
 <p>I tried using <tt class="docutils literal">io.StringIO</tt> with <a class="reference external" href="https://github.com/jdunck/python-unicodecsv">unicodecsv</a>,
 as I wanted to capture the <span class="caps">CSV</span> output into a string buffer
 for use with unit tests.
-<tt class="docutils literal">unicodecsv</tt> is a drop-in re&shy;place&shy;ment for Python&#8217;s built-in <tt class="docutils literal">csv</tt> module,
-which supports Unicode&nbsp;strings.</p>
-
-<pre class="brush: python">
-with io.StringIO() as csv_file:
-    write_csv_rows(csv_file)
-    lines = csv_file.getvalue().split('\r\n')
-    return lines[:-1]  # drop empty line after trailing \r\n
+<tt class="docutils literal">unicodecsv</tt> is a drop-in re­place­ment for Python’s built-in <tt class="docutils literal">csv</tt> module,
+which supports Unicode strings.</p>
+<pre class="code python literal-block">
+<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+    <span class="n">write_csv_rows</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">csv_file</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\r\n</span><span class="s1">'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lines</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># drop empty line after trailing \r\n</span>
 </pre>
-
 <p>It failed horribly with
 <tt class="docutils literal">TypeError: unicode argument expected, got 'str'</tt>.</p>
 <p>I <span>&#8230;<a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" class="continue">continue</a>.</span></p>
@@ -238,14 +236,14 @@ with io.StringIO() as csv_file:
 <p>Six people arrange to meet in Venice for Carnival,
 masked and costumed as their true selves.
 Not knowing how the others are costumed,
-each makes very dif&shy;fer&shy;en&shy;t—and wrong—as&shy;sump&shy;tions.
+each makes very dif­fer­en­t—and wrong—as­sump­tions.
 Brian, husband of Sally and lover of Jean-Pierre, is found dead.
 Surely one of the group is the killer.
-An effete local, Count Michele Zanon, takes an interest in the&nbsp;affair.</p>
+An effete local, Count Michele Zanon, takes an interest in the affair.</p>
 <p>A strange novel whose plot hinges on
-mis&shy;com&shy;mu&shy;ni&shy;ca&shy;tion, mistaken identities, and incorrect as&shy;sump&shy;tions,
-as the seven pro&shy;tag&shy;o&shy;nists rush around Venice,
-seeking or hiding from each&nbsp;other.</p>
+mis­com­mu­ni­ca­tion, mistaken identities, and incorrect as­sump­tions,
+as the seven pro­tag­o­nists rush around Venice,
+seeking or hiding from each other.</p>
 
     <footer>
         
@@ -278,20 +276,20 @@ seeking or hiding from each&nbsp;other.</p>
 <p>Some days on Facebook,
 it seems like I spend half my time being <em>that guy</em>,
 the killjoy who debunks the false memes.
-One that I&#8217;ve debunked many times in the last few weeks
-is the one that claims Sandra Day O&#8217;Connor
-called the <span class="caps">GOP</span> a group of &quot;vile, petulant, hateful&quot; ob&shy;struc&shy;tion&shy;ists.
+One that I’ve debunked many times in the last few weeks
+is the one that claims Sandra Day O’Connor
+called the <span class="caps">GOP</span> a group of "vile, petulant, hateful" ob­struc­tion­ists.
 Although I (and many of my friends) agree with that sentiment,
-O&#8217;Connor never said it.
+O’Connor never said it.
 <a class="reference external" href="http://www.snopes.com/">Snopes</a>—as usual— is on the job
-and points out that the <a class="reference external" href="http://www.snopes.com/sandra-day-oconnor-quote/"><span class="caps">GOP</span> Ob&shy;struc&shy;tion&shy;ists</a> meme
-is due to sloppy punc&shy;tu&shy;a&shy;tion that then went&nbsp;viral.</p>
+and points out that the <a class="reference external" href="http://www.snopes.com/sandra-day-oconnor-quote/"><span class="caps">GOP</span> Ob­struc­tion­ists</a> meme
+is due to sloppy punc­tu­a­tion that then went viral.</p>
 <a class="reference external image-reference" href="http://usvsth3m.com/post/no-this-isnt-a-real-1970s-anti-drink-driving-ad"></a>
-<p>In the last week, I&#8217;ve seen what purports to be a poster
+<p>In the last week, I’ve seen what purports to be a poster
 from a 1970s anti-drink driving campaign,
 often supposedly in Ireland,
 which says,
-“Driving? Don&#8217;t have <span>&#8230;<a href="/blog/2016/04/11/DebunkingMemes.html" class="continue">continue</a>.</span></p>
+“Driving? Don’t have <span>&#8230;<a href="/blog/2016/04/11/DebunkingMemes.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/11/DebunkingMemes.html#disqus_thread">Comment</a>
@@ -316,18 +314,18 @@ which says,
         </h1>
     </header>
     <a class="reference external image-reference" href="https://www.linotype.com/1118/bembo.html"></a>
-<p>I&#8217;ve long been a fan of <a class="reference external" href="https://www.edwardtufte.com/tufte/">Edward Tufte</a>&#8216;s work.
-I&#8217;m also a fan of <a class="reference external" href="https://en.wikipedia.org/wiki/Serif#Old-style">old-style serif fonts</a>, such as <a class="reference external" href="https://en.wikipedia.org/wiki/Bembo">Bembo</a>.</p>
+<p>I’ve long been a fan of <a class="reference external" href="https://www.edwardtufte.com/tufte/">Edward Tufte</a>‘s work.
+I’m also a fan of <a class="reference external" href="https://en.wikipedia.org/wiki/Serif#Old-style">old-style serif fonts</a>, such as <a class="reference external" href="https://en.wikipedia.org/wiki/Bembo">Bembo</a>.</p>
 <p>I happened across the <a class="reference external" href="http://rstudio.github.io/tufte/">R Studio Tufte Handout Style</a> yesterday,
-and I was im&shy;me&shy;di&shy;ate&shy;ly struck by how much it resembles Tufte&#8217;s books.
+and I was im­me­di­ate­ly struck by how much it resembles Tufte’s books.
 It uses <a class="reference external" href="http://edwardtufte.github.io/tufte-css/">Tufte <span class="caps">CSS</span></a> and the open-source <a class="reference external" href="https://github.com/edwardtufte/et-book">Tufte Book Font</a>.
-ETBook is a “computer version” of Bembo that Tufte con&shy;struct&shy;ed
+ETBook is a “computer version” of Bembo that Tufte con­struct­ed
 for the more recent editions of his books,
-sup&shy;plant&shy;i&shy;ng the lead type of the earlier&nbsp;editions.</p>
-<p>I&#8217;ve adapted this blog&#8217;s stylesheet to use ETBook
+sup­plant­i­ng the lead type of the earlier editions.</p>
+<p>I’ve adapted this blog’s stylesheet to use ETBook
 and some of the other settings from tufte.css.
-It&#8217;s not completely faithful;
-e.g., headings are bold, not&nbsp;italic.</p>
+It’s not completely faithful;
+e.g., headings are bold, not italic.</p>
 
     <footer>
         
@@ -357,12 +355,12 @@ e.g., headings are bold, not&nbsp;italic.</p>
         </h1>
     </header>
     <p>How have I never discovered <a class="reference external" href="https://sizes.com/">Sizes.com</a> before?
-It&#8217;s been around for 20 years
-and it seems to be an au&shy;thor&shy;i&shy;ta&shy;tive source
+It’s been around for 20 years
+and it seems to be an au­thor­i­ta­tive source
 on the sizes of all kinds of things:
 screw threads, shoe sizes, horse collars, cake pans,
-comas, chronolo&shy;gies, gross national happiness,
-vehicle iden&shy;ti&shy;fi&shy;ca&shy;tion numbers, and much more.
+comas, chronolo­gies, gross national happiness,
+vehicle iden­ti­fi­ca­tion numbers, and much more.
 I discovered it when looking up <a class="reference external" href="https://sizes.com/units/penny.htm">penny nails</a>.</p>
 
     <footer>
@@ -391,14 +389,14 @@ I discovered it when looking up <a class="reference external" href="https://size
     <p>I signed up for a three-part <a class="reference external" href="http://www.meetup.com/seattle-gdg/events/228821224/">Android Study Jam</a>
 organized by the Seattle Google Developer Group,
 at the behest of a colleague who is also one of the organizers.
-The last session takes place tomorrow&nbsp;morning.</p>
-<p>I&#8217;ve built a little Android app that I call the <a class="reference external" href="https://github.com/georgevreilly/toastmasters_assistant">Toast&shy;mas&shy;ters Assistant</a>
+The last session takes place tomorrow morning.</p>
+<p>I’ve built a little Android app that I call the <a class="reference external" href="https://github.com/georgevreilly/toastmasters_assistant">Toast­mas­ters Assistant</a>
 for the final project.
-It doesn&#8217;t do very much yet,
-except present some in&shy;for&shy;ma&shy;tion about Toast&shy;mas&shy;ters meetings, roles, and speeches
-in an <tt class="docutils literal">Ex&shy;pand&shy;ableListView</tt>.
+It doesn’t do very much yet,
+except present some in­for­ma­tion about Toast­mas­ters meetings, roles, and speeches
+in an <tt class="docutils literal">Ex­pand­ableListView</tt>.
 I have some ambitions to do more with it.
-Specif&shy;i&shy;cal&shy;ly, I want to add a speech&nbsp;timer.</p>
+Specif­i­cal­ly, I want to add a speech timer.</p>
 
     <footer>
         
@@ -431,21 +429,21 @@ Specif&shy;i&shy;cal&shy;ly, I want to add a speech&nbsp;timer.</p>
 <div class="line">Title: National Sunday Law</div>
 <div class="line">Author: A. Jan Marcussen</div>
 <div class="line">Rating: ☆</div>
-<div class="line">Publisher: Amazing Truth Pub&shy;li&shy;ca&shy;tions</div>
+<div class="line">Publisher: Amazing Truth Pub­li­ca­tions</div>
 <div class="line">Copyright: 1988</div>
 <div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/B000M7537G/?tag=georgvreill-20"><span class="caps">B000M7537G</span></a></div>
 <div class="line">Pages: 94</div>
 <div class="line">Keywords: delusional religious propaganda</div>
 </div>
-<p>We received an un&shy;so&shy;licit&shy;ed copy of this ridiculous book in the mail.
+<p>We received an un­so­licit­ed copy of this ridiculous book in the mail.
 It drones on and on about Satan and his plans,
-bashing both Catholics and Protes&shy;tants.
+bashing both Catholics and Protes­tants.
 Apparently, ‘Sunday worship is “the mark of the beast!”’.
-Who knew? Who&nbsp;cares.</p>
-<p>I assumed that it&#8217;s from the Seventh Day Adventists,
-though I couldn&#8217;t confirm that from skimming it.
-However, <a class="reference external" href="http://www.catholic.com/tracts/seventh-day-adventism">Catholic Answers</a> confirms my&nbsp;guess.</p>
-<p>Best avoided, especially on&nbsp;Sundays.</p>
+Who knew? Who cares.</p>
+<p>I assumed that it’s from the Seventh Day Adventists,
+though I couldn’t confirm that from skimming it.
+However, <a class="reference external" href="http://www.catholic.com/tracts/seventh-day-adventism">Catholic Answers</a> confirms my guess.</p>
+<p>Best avoided, especially on Sundays.</p>
 
     <footer>
         

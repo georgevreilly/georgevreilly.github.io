@@ -37,7 +37,7 @@
         </h1>
     </header>
     <img alt="Er, er" src="/content/binary/ErEr.png"/>
-<p>I&#8217;ve grown fond of the JavaScript <tt class="docutils literal">||</tt> idiom:</p>
+<p>I’ve grown fond of the JavaScript <tt class="docutils literal">||</tt> idiom:</p>
 <pre class="literal-block">
 function FrobImage(img) {
     var width  = img.width  || 400;
@@ -45,9 +45,9 @@ function FrobImage(img) {
     // ...
 }
 
-FrobImage({height: 100, name: &quot;example.png&quot;});
+FrobImage({height: 100, name: "example.png"});
 </pre>
-<p>If <tt class="docutils literal">img.width</tt> exists and it&#8217;s <a class="reference external" href="http://mattsnider.com/wp-content/uploads/2007/04/FalseTest.html">truthy</a>,
+<p>If <tt class="docutils literal">img.width</tt> exists and it’s <a class="reference external" href="http://mattsnider.com/wp-content/uploads/2007/04/FalseTest.html">truthy</a>,
 then <tt class="docutils literal">width = img.width</tt>; otherwise, <tt class="docutils literal">width = 400</tt>.
 Here, it will be <tt class="docutils literal">400</tt> since the <tt class="docutils literal">img</tt> hash
 has no <tt class="docutils literal">width</tt> property.
@@ -56,23 +56,23 @@ More than two al&shy;ter&shy;na&shy;tives may be used:
 <p>A few weeks ago, while cleaning up the error handling in some batch files,
 I came across a <a class="reference external" href="http://www.ss64.com/ntsyntax/conditional.html">similar idiom</a>:</p>
 <pre class="literal-block">
-foo.exe bar 123 &quot;some stuff&quot;  || goto :Error
+foo.exe bar 123 "some stuff"  || goto :Error
 </pre>
 <p>Only if <tt class="docutils literal">foo.exe</tt> fails (<tt class="docutils literal">exit()</tt> returns a non-zero value),
-is the second clause&nbsp;executed.</p>
-<p><a class="reference external" href="http://perldoc.perl.org/functions/die.html">Perl&#8217;s die</a> is typically used in a very similar&nbsp;idom:</p>
+is the second clause executed.</p>
+<p><a class="reference external" href="http://perldoc.perl.org/functions/die.html">Perl’s die</a> is typically used in a very similar idom:</p>
 <pre class="literal-block">
-chdir '/usr/spool/news' || die &quot;Can't cd to spool: $!\n&quot;
+chdir '/usr/spool/news' || die "Can't cd to spool: $!\n"
 </pre>
 <p>though the <tt class="docutils literal">or</tt> keyword seems to be preferred nowadays to <tt class="docutils literal">||</tt>.</p>
 <p>This morning, I came across the <a class="reference external" href="http://blog.devstone.com/Aaron/archive/2006/01/02/1404.aspx">?? operator in C# 2.0</a>,
-aka the null coalescing&nbsp;operator:</p>
+aka the null coalescing operator:</p>
 <pre class="literal-block">
 Customer cust = getCustomer(id) ?? new Customer();
 </pre>
-<p>If <tt class="docutils literal">get&shy;Cus&shy;tomer(id)</tt> is not <tt class="docutils literal">null</tt>, then that&#8217;s the value that <tt class="docutils literal">cust</tt> gets;
-otherwise it&#8217;s set to <tt class="docutils literal">new Customer()</tt>.</p>
-<p>All of these idioms are <a class="reference external" href="http://en.wikipedia.org/wiki/Syntactic_sugar">syntactic sugar</a> and all of them are in my&nbsp;toolbox.</p>
+<p>If <tt class="docutils literal">get&shy;Cus&shy;tomer(id)</tt> is not <tt class="docutils literal">null</tt>, then that’s the value that <tt class="docutils literal">cust</tt> gets;
+otherwise it’s set to <tt class="docutils literal">new Customer()</tt>.</p>
+<p>All of these idioms are <a class="reference external" href="http://en.wikipedia.org/wiki/Syntactic_sugar">syntactic sugar</a> and all of them are in my toolbox.</p>
 
     <footer>
         

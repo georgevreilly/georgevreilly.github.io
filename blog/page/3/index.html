@@ -34,17 +34,17 @@
         </h1>
     </header>
     
-<p>I&#8217;ve had stitches before, but never from a self-inflicted cut.
+<p>I’ve had stitches before, but never from a self-inflicted cut.
 Five stitches this morning
 from a bread knife slipping on a stale loaf that I was going to toast.
-I never did get that&nbsp;snack.</p>
-<p>For&shy;tu&shy;nate&shy;ly, it hasn&#8217;t been painful.
+I never did get that snack.</p>
+<p>For­tu­nate­ly, it hasn’t been painful.
 The stitches should come out in 7–9 days.
-Meanwhile, typing is awkward and&nbsp;slow.</p>
+Meanwhile, typing is awkward and slow.</p>
 <p>My brother David when he was eight or nine nearly ruined his thumb with a chisel.
 He was using it to make a wooden sign for his cub scout troop.
 The chisel slipped and jammed into the back of his left thumb.
-He didn&#8217;t sever the tendon and he got the full use of his thumb back,
+He didn’t sever the tendon and he got the full use of his thumb back,
 but he <span>&#8230;<a href="/blog/2017/02/23/StitchesInMyFinger.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -69,17 +69,17 @@ but he <span>&#8230;<a href="/blog/2017/02/23/StitchesInMyFinger.html" class="co
             <a href="/blog/2017/02/22/IHazShoes.html" rel="bookmark canonical">I Haz Shoes</a>
         </h1>
     </header>
-    <p>I&#8217;ve been wearing a surgical boot since my <a class="reference external" href="/blog/2017/01/17/KneeWalker.html">heel surgery</a> six weeks ago.
+    <p>I’ve been wearing a surgical boot since my <a class="reference external" href="/blog/2017/01/17/KneeWalker.html">heel surgery</a> six weeks ago.
 The first month I spent getting around on a knee walker or crutches.
-For the last couple of weeks, I&#8217;ve been walking more and more,
+For the last couple of weeks, I’ve been walking more and more,
 but always wearing the boot.
 The doctor told me today that I could start weaning myself off the boot,
-but not to rush&nbsp;it.</p>
+but not to rush it.</p>
 <p>I wore shoes on my right foot tonight for the first time.
 I tried on a Doc Marten shoe but found it too stiff.
 It rubbed against the scar at the back of my heel.
-A pair of sneakers were more com&shy;fort&shy;able.
-I&#8217;ll bring the right sneaker to work <span>&#8230;<a href="/blog/2017/02/22/IHazShoes.html" class="continue">continue</a>.</span></p>
+A pair of sneakers were more com­fort­able.
+I’ll bring the right sneaker to work <span>&#8230;<a href="/blog/2017/02/22/IHazShoes.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/22/IHazShoes.html#disqus_thread">Comment</a>
@@ -103,24 +103,25 @@ I&#8217;ll bring the right sneaker to work <span>&#8230;<a href="/blog/2017/02/2
             <a href="/blog/2017/02/21/OrderedDictInitialization.html" rel="bookmark canonical">OrderedDict Initialization</a>
         </h1>
     </header>
-    <p>An <a class="reference external" href="https://docs.python.org/2/library/collections.html#collections.OrderedDict">Or&shy;dered&shy;Dict</a> is a Python <tt class="docutils literal">dict</tt> which remembers insertion order.
-When iterating over an <tt class="docutils literal">Or&shy;dered&shy;Dict</tt>, items are returned in that order.
-Ordinary <tt class="docutils literal">dicts</tt> return their items in an un&shy;spec&shy;i&shy;fied&nbsp;order.</p>
-<p>Ironically, most of the ways of con&shy;struct&shy;ing an ini&shy;tial&shy;ized <tt class="docutils literal">Or&shy;dered&shy;Dict</tt>
+    <p>An <a class="reference external" href="https://docs.python.org/2/library/collections.html#collections.OrderedDict">Or­dered­Dict</a> is a Python <tt class="docutils literal">dict</tt> which remembers insertion order.
+When iterating over an <tt class="docutils literal">Or­dered­Dict</tt>, items are returned in that order.
+Ordinary <tt class="docutils literal">dicts</tt> return their items in an un­spec­i­fied order.</p>
+<p>Ironically, most of the ways of con­struct­ing an ini­tial­ized <tt class="docutils literal">Or­dered­Dict</tt>
 end up breaking the ordering in Python 2.x and in Python 3.5 and below.
-Specif&shy;i&shy;cal&shy;ly, using keyword arguments or passing a <tt class="docutils literal">dict</tt> (mapping)
-will not retain the insertion order of the source&nbsp;code.</p>
-<div class="highlight"><pre><span></span><span class="go">Python 2.7.13 (default, Dec 18 2016, 07:03:39)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
-
-<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">&#39;two&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">&#39;three&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">&#39;four&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">&#39;five&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-<span class="go">[(&#39;one&#39;, 1), (&#39;two&#39;, 2), (&#39;three&#39;, 3), (&#39;four&#39;, </span></pre><span>&#8230;<a href="/blog/2017/02/21/OrderedDictInitialization.html" class="continue">continue</a>.</span></div>
+Specif­i­cal­ly, using keyword arguments or passing a <tt class="docutils literal">dict</tt> (mapping)
+will not retain the insertion order of the source code.</p>
+<pre class="code pycon literal-block">
+<span class="go">Python 2.7.13 (default, Dec 18 2016, 07:03:39)
+</span><span class="gp">>>> </span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="go">
+</span><span class="gp">>>> </span><span class="n">odict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="gp">>>> </span><span class="n">odict</span><span class="p">[</span><span class="s1">'one'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">>>> </span><span class="n">odict</span><span class="p">[</span><span class="s1">'two'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">>>> </span><span class="n">odict</span><span class="p">[</span><span class="s1">'three'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">>>> </span><span class="n">odict</span><span class="p">[</span><span class="s1">'four'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gp">>>> </span><span class="n">odict</span><span class="p">[</span><span class="s1">'five'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">>>> </span><span class="n">odict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+<span class="go">[('one', 1), ('two', 2), ('three', 3), ('four', </span></pre><span>&#8230;<a href="/blog/2017/02/21/OrderedDictInitialization.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/21/OrderedDictInitialization.html#disqus_thread">Comment</a>
@@ -160,13 +161,13 @@ will not retain the insertion order of the source&nbsp;code.</p>
 <div class="line">Reading period: 18–19 February, 2017</div>
 </div>
 <p>Joey Perrone is very surprised to find herself thrown off a cruise ship
-on her second wedding an&shy;niver&shy;sary.
+on her second wedding an­niver­sary.
 After a night of swimming, she washes up on a small Florida island
-in the company of a pre&shy;ma&shy;ture&shy;ly retired in&shy;ves&shy;ti&shy;ga&shy;tor.
+in the company of a pre­ma­ture­ly retired in­ves­ti­ga­tor.
 Joey persuades Mick Stranahan not to report the attempted murder,
-but instead to in&shy;ves&shy;ti&shy;gate and torment her worthless husband, Chaz,
+but instead to in­ves­ti­gate and torment her worthless husband, Chaz,
 who turns out to be a <a class="reference external" href="http://www.urbandictionary.com/define.php?term=biostitute">biostitute</a> for a major polluter of the Everglades,
-as well as a relentless pussyhound, an inept killer, and an all-round&nbsp;shitheel.</p>
+as well as a relentless pussyhound, an inept killer, and an all-round shitheel.</p>
 <p>Hiaasen has a lot of <span>&#8230;<a href="/blog/2017/02/19/ReviewSkinnyDip.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -197,18 +198,19 @@ as well as a relentless pussyhound, an inept killer, and an all-round&nbsp;shith
         </h1>
     </header>
     <p>When I learned <span class="caps">HTML</span> tables back in the 90s,
-at some point I discovered the <tt class="docutils literal">&lt;thead&gt;</tt> element
-for grouping the <tt class="docutils literal">&lt;th&gt;</tt> column headers.
-What I missed was there should be a <tt class="docutils literal">&lt;tr&gt;</tt> element between the two.
-In other words, a well-formed <span class="caps">HTML</span> table with a header looks like&nbsp;this:</p>
-<div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">thead</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Value<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Date<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
- </pre><span>&#8230;<a href="/blog/2017/02/18/HTML5TablesRequireTrInsideThead.html" class="continue">continue</a>.</span></div>
+at some point I discovered the <tt class="docutils literal"><thead></thead> element
+for grouping the <tt class="docutils literal"><th></th> column headers.
+What I missed was there should be a <tt class="docutils literal"><tr></tr> element between the two.
+In other words, a well-formed <span class="caps">HTML</span> table with a header looks like this:</tt>
+<pre class="code html literal-block">
+<span class="p"><</span><span class="nt">table</span><span class="p">></span>
+    <span class="p"><</span><span class="nt">thead</span><span class="p">></span>
+        <span class="p"><</span><span class="nt">tr</span><span class="p">></span>
+            <span class="p"><</span><span class="nt">th</span><span class="p">></span>Name<span class="p"><span class="nt">th</span><span class="p">></span>
+            <span class="p"><</span><span class="nt">th</span><span class="p">></span>Value<span class="p"><span class="nt">th</span><span class="p">></span>
+            <span class="p"><</span><span class="nt">th</span><span class="p">></span>Date<span class="p"><span class="nt">th</span><span class="p">></span>
+        <span class="p"><span class="nt">tr</span><span class="p">></span>
+ </span></span></span></span></pre><span>&#8230;<a href="/blog/2017/02/18/HTML5TablesRequireTrInsideThead.html" class="continue">continue</a>.</span></tt></tt></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/18/HTML5TablesRequireTrInsideThead.html#disqus_thread">Comment</a>
@@ -243,16 +245,16 @@ In other words, a well-formed <span class="caps">HTML</span> table with a header
 <div class="line">Watched: 17 Febuary, 2017</div>
 </div>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/The_Italian_Job">The Italian Job</a> movie is worth your time.
-One of the quin&shy;tes&shy;sen&shy;tial movies of the Swinging Sixties,
-its British sen&shy;si&shy;bil&shy;i&shy;ty wears well, almost 50 years on.
+One of the quin­tes­sen­tial movies of the Swinging Sixties,
+its British sen­si­bil­i­ty wears well, almost 50 years on.
 The humour still works.
-And it&#8217;s probably the best ad&shy;ver&shy;tise&shy;ment that the <a class="reference external" href="https://en.wikipedia.org/wiki/Mini#Mini_Cooper_and_Cooper_S:_1961.E2.80.932000">Mini</a> ever&nbsp;had.</p>
+And it’s probably the best ad­ver­tise­ment that the <a class="reference external" href="https://en.wikipedia.org/wiki/Mini#Mini_Cooper_and_Cooper_S:_1961.E2.80.932000">Mini</a> ever had.</p>
 <p>Charlie Croker (Michael Caine) has inherited a plan to rip off $4 million in gold bullion
 from Fiat in Turin.
 He and the lads are going to help the balance of payments
 by bringing the loot back from the Common Market.
-(They&#8217;re proto-Eu&shy;roskep&shy;tics.)
-And they&#8217;re going to do it by causing the mother <span>&#8230;<a href="/blog/2017/02/17/ReviewTheItalianJob.html" class="continue">continue</a>.</span></p>
+(They’re proto-Eu­roskep­tics.)
+And they’re going to do it by causing the mother <span>&#8230;<a href="/blog/2017/02/17/ReviewTheItalianJob.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/17/ReviewTheItalianJob.html#disqus_thread">Comment</a>
@@ -293,12 +295,12 @@ And they&#8217;re going to do it by causing the mother <span>&#8230;<a href="/bl
 a private detective-cum-killer for hire (Simon Pegg) to follow his wife.
 Upon proof of her infidelity, he orders a hit,
 which triggers a comedy of errors and double crosses,
-which ultimately leaves most of the cast dead at each other&#8217;s&nbsp;hands.</p>
-<p>There&#8217;s not much to like about this Australian noirish comedy.
-It&#8217;s bloody but not that funny.
+which ultimately leaves most of the cast dead at each other’s hands.</p>
+<p>There’s not much to like about this Australian noirish comedy.
+It’s bloody but not that funny.
 The characters are thinly drawn and unengaging.
-They&#8217;re a far cry from Tarantino&#8217;s gonzo mo&shy;tor&shy;mouths
-or the Coen Brother&#8217;s quirky&nbsp;killers.</p>
+They’re a far cry from Taran­ti­no’s gonzo mo­tor­mouths
+or the Coen Brother’s quirky killers.</p>
 
     <footer>
         
@@ -328,29 +330,30 @@ or the Coen Brother&#8217;s quirky&nbsp;killers.</p>
     </header>
     <p></p>
 <blockquote>
-[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
-<p>A collection of mis&shy;cel&shy;la&shy;neous tips on using Pipelines in Jenkins&nbsp;2.0.</p>
-<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#6 in a series on Jenkins&nbsp;Pipelines</a></p>
+[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>A collection of mis­cel­la­neous tips on using Pipelines in Jenkins 2.0.</p>
+<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#6 in a series on Jenkins Pipelines</a></p>
 <div class="section" id="environment-variables">
-<h2>En&shy;vi&shy;ron&shy;ment&nbsp;Variables</h2>
-<p>Use the <tt class="docutils literal">withEnv</tt> step to set en&shy;vi&shy;ron&shy;ment variables.
-Don&#8217;t manipulate the <tt class="docutils literal">env</tt> global&nbsp;variable.</p>
+<h2>En­vi­ron­ment Variables</h2>
+<p>Use the <tt class="docutils literal">withEnv</tt> step to set en­vi­ron­ment variables.
+Don’t manipulate the <tt class="docutils literal">env</tt> global variable.</p>
 <p>The confusing example that you see in the documents,
 <tt class="docutils literal"><span class="pre"><span class="caps">PATH</span>+<span class="caps">WHATEVER</span>=/something</span></tt>,
 simply means to <em>prepend</em> <tt class="docutils literal">/something</tt> to <tt class="docutils literal">$<span class="caps">PATH</span></tt>.
-The <tt class="docutils literal">+<span class="caps">WHATEVER</span></tt> has no other&nbsp;effect.</p>
+The <tt class="docutils literal">+<span class="caps">WHATEVER</span></tt> has no other effect.</p>
 </div>
 <div class="section" id="credentials">
-<h2>Cre&shy;den&shy;tials</h2>
-<p>The <tt class="docutils literal">withEnv</tt> step should not be used to introduce secrets into the build en&shy;vi&shy;ron&shy;ment.
-Use the <a class="reference external" href="https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin">with&shy;Cre&shy;den&shy;tials</a> plugin&nbsp;instead.</p>
-<div class="highlight"><pre><span></span><span class="n">withCredentials</span><span class="o">([</span>
-    <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">&#39;StringBinding&#39;</span><span class="o">,</span> <span class="nl">credentialsId:</span> <span class="s1">&#39;GPG_SECRET&#39;</span><span class="o">,</span> <span class="nl">variable:</span> <span class="s1">&#39;GPG_SECRET&#39;</span><span class="o">],</span>
-    <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">&#39;AmazonWebServicesCredentialsBinding&#39;</span><span class="o">,</span>
-     <span class="nl">credentialsId:</span> <span class="s1">&#39;0defaced-cafe-f00d-badd-0000000ff1ce&#39;</span><span class="o">,</span>
-     <span class="nl">accessKeyVariable:</span> <span class="s1">&#39;AWS_ACCESS_KEY_ID&#39;</span><span class="o">,</span>
-     <span class="nl">secretKeyVariable:</span> <span class="s1">&#39;AWS_SECRET_ACCESS_KEY&#39;</span><span class="o">]</span>
-<span class="o">])</span> </pre><span>&#8230;<a href="/blog/2017/02/09/Jenkins06-Miscellenea.html" class="continue">continue</a>.</span></div></div>
+<h2>Cre­den­tials</h2>
+<p>The <tt class="docutils literal">withEnv</tt> step should not be used to introduce secrets into the build en­vi­ron­ment.
+Use the <a class="reference external" href="https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin">with­Cre­den­tials</a> plugin instead.</p>
+<pre class="code groovy literal-block">
+<span class="n">withCredentials</span><span class="o">([</span>
+    <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">'StringBinding'</span><span class="o">,</span> <span class="nl">credentialsId:</span> <span class="s1">'GPG_SECRET'</span><span class="o">,</span> <span class="nl">variable:</span> <span class="s1">'GPG_SECRET'</span><span class="o">],</span>
+    <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">'AmazonWebServicesCredentialsBinding'</span><span class="o">,</span>
+     <span class="nl">credentialsId:</span> <span class="s1">'0defaced-cafe-f00d-badd-0000000ff1ce'</span><span class="o">,</span>
+     <span class="nl">accessKeyVariable:</span> <span class="s1">'AWS_ACCESS_KEY_ID'</span><span class="o">,</span>
+     <span class="nl">secretKeyVariable:</span> <span class="s1">'AWS_SECRET_ACCESS_KEY'</span><span class="o">]</span>
+<span class="o">])</span> </pre><span>&#8230;<a href="/blog/2017/02/09/Jenkins06-Miscellenea.html" class="continue">continue</a>.</span></div>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/09/Jenkins06-Miscellenea.html#disqus_thread">Comment</a>
@@ -389,17 +392,17 @@ Use the <a class="reference external" href="https://wiki.jenkins-ci.org/display/
 <div class="line">Keywords: humor, fantasy</div>
 <div class="line">Reading period: 3–5 February, 2017</div>
 </div>
-<p>Tiffany Aching is now the overworked and overly re&shy;spon&shy;si&shy;ble Witch of the Chalk.
-People everywhere are fearing and dis&shy;trust&shy;ing witches more.
+<p>Tiffany Aching is now the overworked and overly re­spon­si­ble Witch of the Chalk.
+People everywhere are fearing and dis­trust­ing witches more.
 When her patient, the ailing Baron dies, she is blamed.
 Other troubles multiply.
 Eventually she realizes that the Cunning Man,
-a long-dead witchfind&shy;er,
-is seeping poison into people&#8217;s hearts.
-Aided by the trou&shy;ble&shy;mak&shy;ing Nac Mac Feegle, she defeats&nbsp;him.</p>
-<p>Rec&shy;om&shy;mend&shy;ed.</p>
+a long-dead witchfind­er,
+is seeping poison into people’s hearts.
+Aided by the trou­ble­mak­ing Nac Mac Feegle, she defeats him.</p>
+<p>Rec­om­mend­ed.</p>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/I_Shall_Wear_Midnight">I Shall Wear Midnight</a> follows
-<a class="reference external" href="/blog/2008/05/19/ReviewTheWeeFreeMen.html">The Wee Free Men</a>, <a class="reference external" href="/blog/2010/01/28/ReviewAHatFullOfSky.html">A Hat Full of Sky</a>, and <em>Win&shy;ter&shy;smith</em>.</p>
+<a class="reference external" href="/blog/2008/05/19/ReviewTheWeeFreeMen.html">The Wee Free Men</a>, <a class="reference external" href="/blog/2010/01/28/ReviewAHatFullOfSky.html">A Hat Full of Sky</a>, and <em>Win­ter­smith</em>.</p>
 
     <footer>
         
@@ -431,23 +434,23 @@ Aided by the trou&shy;ble&shy;mak&shy;ing Nac Mac Feegle, she defeats&nbsp;him.<
     </header>
     <p></p>
 <blockquote>
-[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>Jenkins Pipelines are written in a Groovy <span class="caps">DSL</span>.
-This is a good choice but there are&nbsp;surprises.</p>
-<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#5 in a series on Jenkins&nbsp;Pipelines</a></p>
+This is a good choice but there are surprises.</p>
+<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#5 in a series on Jenkins Pipelines</a></p>
 <div class="section" id="groovy-as-a-dsl">
-<h2>Groovy as a&nbsp;<span class="caps">DSL</span></h2>
+<h2>Groovy as a <span class="caps">DSL</span></h2>
 <p>Groovy <a class="reference external" href="https://docs.groovy-lang.org/docs/latest/html/documentation/core-domain-specific-languages.html">lends</a> itself to <a class="reference external" href="https://dzone.com/articles/groovy-dsl-simple-example">writing</a> DSLs (<a class="reference external" href="https://en.wikipedia.org/wiki/Domain-specific_language">Domain-Specific Languages</a>)
 with a minimum of syntactic overhead.
-You can frequently omit the paren&shy;the&shy;ses, commas, and semicolons that litter other&nbsp;languages.</p>
-<p>Groovy has <a class="reference external" href="https://groovy-lang.org/syntax.html#_string_interpolation">in&shy;ter&shy;po&shy;lat&shy;ed GStrings</a>, lists, maps, functions, and&nbsp;closures.</p>
+You can frequently omit the paren­the­ses, commas, and semicolons that litter other languages.</p>
+<p>Groovy has <a class="reference external" href="https://groovy-lang.org/syntax.html#_string_interpolation">in­ter­po­lat­ed GStrings</a>, lists, maps, functions, and closures.</p>
 <div class="section" id="closures">
 <h3>Closures</h3>
-<p><a class="reference external" href="https://groovy-lang.org/closures.html">Closures</a> are anonymous functions where state can be captured at de&shy;c&shy;la&shy;ra&shy;tion time
+<p><a class="reference external" href="https://groovy-lang.org/closures.html">Closures</a> are anonymous functions where state can be captured at de­c­la­ra­tion time
 to be executed later.
-The blocks that follow many Pipeline steps (<tt class="docutils literal">node</tt>, <tt class="docutils literal">stage</tt>, etc) are&nbsp;closures.</p>
-<p>Here&#8217;s an example of a <tt class="docutils literal">Closure</tt> called <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt>,
-where the <tt class="docutils literal">re&shy;lease_lev&shy;el</tt> parameter is a <tt class="docutils literal">String</tt>
+The blocks that follow many Pipeline steps (<tt class="docutils literal">node</tt>, <tt class="docutils literal">stage</tt>, etc) are closures.</p>
+<p>Here’s an example of a <tt class="docutils literal">Closure</tt> called <tt class="docutils literal">ac­cep­tance_in­te­gra­tion_tests</tt>,
+where the <tt class="docutils literal">re­lease_lev­el</tt> parameter is a <tt class="docutils literal">String</tt>
 which must be either <span>&#8230;<a href="/blog/2017/02/08/Jenkins05-Groovy.html" class="continue">continue</a>.</span></p></div></div>
     <footer>
         

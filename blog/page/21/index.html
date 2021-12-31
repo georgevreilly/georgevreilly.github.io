@@ -46,7 +46,7 @@
 <div class="line">Reading period: 15–27 March, 2016</div>
 </div>
 <p>Peter and Pauli Winter are brothers,
-born to a wealthy German in&shy;dus&shy;tri&shy;al&shy;ist and his American wife
+born to a wealthy German in­dus­tri­al­ist and his American wife
 at the end of the nineteenth century.
 They proudly serve as young officers in the German military in the Great War,
 live through the tumultuous 1920s in Berlin,
@@ -84,32 +84,28 @@ and joins the Nazi party early, rising <span>&#8230;<a href="/blog/2016/04/06/Re
             <a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" rel="bookmark canonical">Doctests, Unicode Literals, and Python 2/3 Compatibility</a>
         </h1>
     </header>
-    <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses&nbsp;them.</p>
+    <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses them.</p>
 <p>Although I still mostly write Python 2,
-I usually import several features of Python&nbsp;3:</p>
-
-<pre class="brush: python">
-from __future__ import unicode_literals, print_function, absolute_import
+I usually import several features of Python 3:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
 </pre>
-
-<p>Un&shy;for&shy;tu&shy;nate&shy;ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni&shy;code_lit&shy;er&shy;als</a> doesn&#8217;t play well with&nbsp;doctests.</p>
+<p>Un­for­tu­nate­ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni­code_lit­er­als</a> doesn’t play well with doctests.</p>
 <p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
 but not with <tt class="docutils literal">python3</tt>:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
 
-<pre class="brush: python">
-from __future__ import unicode_literals, print_function, absolute_import
-
-def upper(s):
-    """
+<span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">"""
     Convert `s` to upper case.
 
     >>> upper('Hello!')
-    u'HELLO!'
-    """
-    return s.upper()
+    u'<span class="caps">HELLO</span>!'
+    """</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 </pre>
-
-<p>Python 3&nbsp;complains:</p>
+<p>Python 3 complains:</p>
 <pre class="literal-block">
 Failed example:
     upper('Hello!')
@@ -144,12 +140,12 @@ Got:
     </header>
     
 <p>My most recent trip to Montréal was a year ago this week for PyCon 2015,
-following another trip there two years ago this week for PyCon&nbsp;2014.</p>
+following another trip there two years ago this week for PyCon 2014.</p>
 <p>My first trip to Montréal was a very long business trip in 1995.
 Four colleagues and I spent five or six weeks in Montréal,
-just before the <a class="reference external" href="https://en.wikipedia.org/wiki/Quebec_referendum,_1995">Quebec in&shy;de&shy;pen&shy;dence referendum</a>,
+just before the <a class="reference external" href="https://en.wikipedia.org/wiki/Quebec_referendum,_1995">Quebec in­de­pen­dence referendum</a>,
 working onsite for our client,
-in&shy;te&shy;grat&shy;ing the <span class="caps">UI</span> we had written into the rest of their&nbsp;software.</p>
+in­te­grat­ing the <span class="caps">UI</span> we had written into the rest of their software.</p>
 <p>We had to bring our own computers, as they declined to provide us with any equipment.
 In 1995, this meant shipping our desktop systems <em>and</em> our heavy <span class="caps">CRT</span> monitors.
 Through Canadian Customs.
@@ -184,15 +180,13 @@ And back through <span class="caps">US</span> Customs when <span>&#8230;<a href=
     <p>I needed to track down a remote branch created a couple of months ago
 on another machine.
 I knew which file had been changed,
-but none of the far-too-many remote branches&#8217; names rang a&nbsp;bell.</p>
-<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch &#8211;contains</a> in the right way finds all the relevant&nbsp;branches.</p>
-
-<pre class="brush: bash">
-git log --all --format=%H FILENAME \
-    | while read f; do git branch --remotes --contains $f; done \
-    | sort -u
+but none of the far-too-many remote branches’ names rang a bell.</p>
+<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch –contains</a> in the right way finds all the relevant branches.</p>
+<pre class="code bash literal-block">
+git log --all --format<span class="o">=</span>%H <span class="caps">FILENAME</span> <span class="se">\
+</span>    <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> f<span class="p">;</span> <span class="k">do</span> git branch --remotes --contains <span class="nv">$f</span><span class="p">;</span> <span class="k">done</span> <span class="se">\
+</span>    <span class="p">|</span> sort -u
 </pre>
-
 <p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> <span class="caps">FILENAME</span></tt>,
 lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal"><span class="caps">FILENAME</span></tt>.
 The second finds all the branches that contain those hashes
@@ -226,7 +220,7 @@ The third <span>&#8230;<a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeTo
 <div class="line">Title: The Mercy of the Night</div>
 <div class="line">Author: David Corbett</div>
 <div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Thomas <span class="amp">&amp;</span> Mercer</div>
+<div class="line">Publisher: Thomas <span class="amp">&</span> Mercer</div>
 <div class="line">Copyright: 2015</div>
 <div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/B00NVOJY36/?tag=georgvreill-20"><span class="caps">B00NVOJY36</span></a></div>
 <div class="line">Pages: 431</div>
@@ -235,11 +229,11 @@ The third <span>&#8230;<a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeTo
 </div>
 <p>Jacqi Garza was abducted when she was eight.
 She got away but her life has gone far off course in decade since.
-Now she&#8217;s the prime witness to a murder.
+Now she’s the prime witness to a murder.
 Phelan Tierney, a former lawyer, has taken her under his wing,
-but she&#8217;s not easy to&nbsp;help.</p>
+but she’s not easy to help.</p>
 <p>This is dark and disturbing, if ultimately hopeful.
-It&#8217;s a portrait of a town in distress
+It’s a portrait of a town in distress
 and of some of its citizens.
 Some are still trying to make a difference,
 while others are too lost in their own pain and <span>&#8230;<a href="/blog/2016/04/02/ReviewTheMercyOfTheNight.html" class="continue">continue</a>.</span></p>
@@ -274,12 +268,12 @@ while others are too lost in their own pain and <span>&#8230;<a href="/blog/2016
 <p>I moved to Seattle in 1992 and spent the next 13 years commuting to the Eastside,
 largely across the <span class="caps">SR</span>-520 Floating Bridge.
 Ten of those years were at Microsoft; the rest, elsewhere in Redmond and Bothell.
-It was im&shy;me&shy;di&shy;ate&shy;ly obvious that 520 needed more capacity.
+It was im­me­di­ate­ly obvious that 520 needed more capacity.
 Only now, 24 years later, are we getting that extra capacity:
-a new bridge that will replace the old, worn-out&nbsp;bridge.</p>
-<p>The old bridge has only two lanes in either direction and there&#8217;s no shoulder.
+a new bridge that will replace the old, worn-out bridge.</p>
+<p>The old bridge has only two lanes in either direction and there’s no shoulder.
 If anything happens, like a flat tire or a stalled car,
-one lane im&shy;me&shy;di&shy;ate&shy;ly grinds to a halt.
+one lane im­me­di­ate­ly grinds to a halt.
 The second lane promptly jams up as everyone merges into it.
 The oncoming <span>&#8230;<a href="/blog/2016/04/01/New520FloatingBridge.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -305,17 +299,17 @@ The oncoming <span>&#8230;<a href="/blog/2016/04/01/New520FloatingBridge.html" c
             <a href="/blog/2016/03/31/Acne.html" rel="bookmark canonical">Acne</a>
         </h1>
     </header>
-    <p>Ad&shy;ver&shy;tis&shy;ing would make you think that acne is a problem only for teenagers.
+    <p>Ad­ver­tis­ing would make you think that acne is a problem only for teenagers.
 Not true.
-It&#8217;s never entirely gone away for me.
+It’s never entirely gone away for me.
 I often find spots on my nose.
 Less often, on my chin or forehead.
-I&#8217;ve even had a few spots inside my&nbsp;ears.</p>
+I’ve even had a few spots inside my ears.</p>
 <p>For some reason, I woke up with three spots this morning:
 on the side of my nose;
 under my jawline, hidden by my beard;
 and on the back of my neck, near the hairline.
-Go&nbsp;figure.</p>
+Go figure.</p>
 
     <footer>
         
@@ -341,15 +335,15 @@ Go&nbsp;figure.</p>
         </h1>
     </header>
     <p>I got a new MacBook Pro on Monday:
-a 13&quot; Retina with <span class="caps">16GB</span> <span class="caps">RAM</span> and <span class="caps">500GB</span> <span class="caps">SSD</span>,
+a 13" Retina with <span class="caps">16GB</span> <span class="caps">RAM</span> and <span class="caps">500GB</span> <span class="caps">SSD</span>,
 which doubles both the <span class="caps">RAM</span> and the disk capacity
-of its late-2013 pre&shy;de&shy;ces&shy;sor.
-<span class="caps">8GB</span> wasn&#8217;t really enough for software de&shy;vel&shy;op&shy;ment.
+of its late-2013 pre­de­ces­sor.
+<span class="caps">8GB</span> wasn’t really enough for software de­vel­op­ment.
 By the time you run Chrome and PyCharm and Docker,
-you don&#8217;t have much <span class="caps">RAM</span> left.
-And I was constantly having to run <a class="reference external" href="http://grandperspectiv.sourceforge.net/">Grand Per&shy;spec&shy;tive</a>
-to clean up disk&nbsp;space.</p>
-<p>For the first time, I used the <a class="reference external" href="https://support.apple.com/en-us/HT204350">Migration Assistant</a> and a Thun&shy;der&shy;bolt cable
+you don’t have much <span class="caps">RAM</span> left.
+And I was constantly having to run <a class="reference external" href="http://grandperspectiv.sourceforge.net/">Grand Per­spec­tive</a>
+to clean up disk space.</p>
+<p>For the first time, I used the <a class="reference external" href="https://support.apple.com/en-us/HT204350">Migration Assistant</a> and a Thun­der­bolt cable
 to transfer settings from the old laptop to the new.
 I was pleasantly surprised at how well it worked.
 In one hour, the new machine had all the files and just about all <span>&#8230;<a href="/blog/2016/03/30/MigratingToANewMac.html" class="continue">continue</a>.</span></p>
@@ -379,7 +373,7 @@ In one hour, the new machine had all the files and just about all <span>&#8230;<
     <a class="reference external image-reference" href="https://www.amazon.com/dp/B00BBPW90C/?tag=georgvreill-20"></a>
 <div class="line-block">
 <div class="line">Title: Trap Line</div>
-<div class="line">Author: Carl Hiaasen <span class="amp">&amp;</span> Bill Montalbano</div>
+<div class="line">Author: Carl Hiaasen <span class="amp">&</span> Bill Montalbano</div>
 <div class="line">Rating: ★ ★ ★ ★</div>
 <div class="line">Publisher: Open Road Media</div>
 <div class="line">Copyright: 1982</div>
@@ -388,14 +382,14 @@ In one hour, the new machine had all the files and just about all <span>&#8230;<
 <div class="line">Keywords: crime</div>
 <div class="line">Reading period: 10–17 March, 2016</div>
 </div>
-<p>The drug smugglers who bring their mer&shy;chan&shy;dise in through the Florida Keys
+<p>The drug smugglers who bring their mer­chan­dise in through the Florida Keys
 need some local expertise and decide that Breeze Albury is their man.
 Although he has no desire to be involved,
 they force him to take part.
 When they need a convenient fall guy and set him up,
 he turns on The Machine and on the corrupt local cops.
-Revenge is&nbsp;sweet.</p>
-<p>Although it&#8217;s set in Florida,
+Revenge is sweet.</p>
+<p>Although it’s set in Florida,
 this early Hiaasen novel lacks the humor of his more famous books.
 Still, Breeze is an engaging character and the <span>&#8230;<a href="/blog/2016/03/29/ReviewTrapLine.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -438,14 +432,14 @@ Still, Breeze is an engaging character and the <span>&#8230;<a href="/blog/2016/
 <div class="line">Reading period: 13 March, 2016</div>
 </div>
 <p>Sequel to <a class="reference external" href="/blog/2016/03/21/ReviewAkaJane.html"><span class="caps">A.K.A.</span> Jane</a>.</p>
-<p>Jane Nichols&#8217; parents were murdered in front of her on a Greek hillside
+<p>Jane Nichols’ parents were murdered in front of her on a Greek hillside
 when she was six.
 An <span class="caps">MI5</span> operation triggers some dormant memories
-and she starts to suspect who was re&shy;spon&shy;si&shy;ble.
-An attempt on her life confirms that she&#8217;s not imagining it.
-She returns to her life in Savannah to lay a&nbsp;trap.</p>
-<p>Another en&shy;ter&shy;tain&shy;ing entry in the Jane series.
-The last, presumably, since it&#8217;s nearly 20 years&nbsp;old.</p>
+and she starts to suspect who was re­spon­si­ble.
+An attempt on her life confirms that she’s not imagining it.
+She returns to her life in Savannah to lay a trap.</p>
+<p>Another en­ter­tain­ing entry in the Jane series.
+The last, presumably, since it’s nearly 20 years old.</p>
 
     <footer>
         

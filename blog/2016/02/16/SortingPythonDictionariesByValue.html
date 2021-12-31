@@ -41,52 +41,46 @@
 <blockquote>
 [Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>I needed to sort a Python dictionary by <em>value</em> today, rather than by <em>key</em>.
-I found it confusing, so I&#8217;ll share what I&nbsp;learned.</p>
+I found it confusing, so I’ll share what I learned.</p>
 <p>Assume the following dictionary, where each value is a tuple of (<span class="caps">ID</span>, score).
 How do we sort by score; i.e., the second item in the value tuple?
-(For the purposes of this discussion, ignore the meaning of the dictionary&#8217;s&nbsp;key.)</p>
-
-<pre class="brush: python">
->>> some_dict = dict(a=(123, 0.7), b=(372, 0.2), e=(456, 0.85), d=(148, 0.23), c=(502, 0.1))
->>> some_dict
-{'a': (123, 0.7), 'c': (502, 0.1), 'b': (372, 0.2), 'e': (456, 0.85), 'd': (148, 0.23)}
+(For the purposes of this discussion, ignore the meaning of the dic&shy;tio&shy;nary’s key.)</p>
+<pre class="code python literal-block">
+<span class="o">>>></span> <span class="n">some_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="n">b</span><span class="o">=</span><span class="p">(</span><span class="mi">372</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">e</span><span class="o">=</span><span class="p">(</span><span class="mi">456</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">),</span> <span class="n">d</span><span class="o">=</span><span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<span class="o">>>></span> <span class="n">some_dict</span>
+<span class="p">{</span><span class="s1">'a'</span><span class="p">:</span> <span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="s1">'c'</span><span class="p">:</span> <span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="s1">'b'</span><span class="p">:</span> <span class="p">(</span><span class="mi">372</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="s1">'e'</span><span class="p">:</span> <span class="p">(</span><span class="mi">456</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">),</span> <span class="s1">'d'</span><span class="p">:</span> <span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">)}</span>
 </pre>
-
 <p>Python dic&shy;tio&shy;nar&shy;ies are inherently unsorted,
 unless you use <a class="reference external" href="https://pymotw.com/2/collections/ordereddict.html">Or&shy;dered&shy;Dict</a>,
-which remembers the insertion&nbsp;order.</p>
+which remembers the insertion order.</p>
 <blockquote>
 From Python 3.6 onwards, dictionary order is guaranteed to be insertion order.
 Even with <tt class="docutils literal">Or&shy;dered&shy;Dict</tt> or Python 3.6+,
 the dictionary will be sorted only if the insertion order was sorted.</blockquote>
 <p>If you want to sort a dictionary <em>by value</em>,
 you must create an ordered sequence.
-You have two&nbsp;options:</p>
+You have two options:</p>
 <ul class="simple">
 <li>produce a sorted list of key-value pairs;
 e.g., <tt class="docutils literal"><span class="pre">[('e',</span> (456, <span class="pre">0.85)),</span> ('a', (123, <span class="pre">0.7)),</span> <span class="pre">...,</span> ('c', (502, <span class="pre">0.1))]</span></tt></li>
 <li>produce a sorted list of keys, which are then used to access the dic&shy;tio&shy;nary;
 e.g., <tt class="docutils literal">['e', 'a', 'd', 'b', 'c']</tt></li>
 </ul>
-<p>The latter should be a little&nbsp;faster.</p>
-<p>Let&#8217;s use Python&#8217;s built-in <a class="reference external" href="https://wiki.python.org/moin/HowTo/Sorting">sorted</a> function.
+<p>The latter should be a little faster.</p>
+<p>Let’s use Python’s built-in <a class="reference external" href="https://wiki.python.org/moin/HowTo/Sorting">sorted</a> function.
 If you supply a <tt class="docutils literal">key</tt> parameter to <tt class="docutils literal">sorted()</tt>,
-you&#8217;re providing a function that (somehow) extracts a <em>sort-key</em> from the item passed to it.
-The <tt class="docutils literal">key</tt> parameter is not related to dictionary&nbsp;keys.</p>
+you’re providing a function that (somehow) extracts a <em>sort-key</em> from the item passed to it.
+The <tt class="docutils literal">key</tt> parameter is not related to dictionary keys.</p>
 <p>To produce the sorted list of keys for <tt class="docutils literal">some_dict</tt>,
-in descending order of&nbsp;score:</p>
-
-<pre class="brush: python">
-sorted(some_dict, key=lambda k: some_dict[k][1], reverse=True)
+in descending order of score:</p>
+<pre class="code python literal-block">
+<span class="nb">sorted</span><span class="p">(</span><span class="n">some_dict</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">some_dict</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre>
-
-<p>This can be used to build a sorted list of key-value&nbsp;pairs:</p>
-
-<pre class="brush: python">
->>> [(k, some_dict[k]) for k in sorted(some_dict, key=lambda k: some_dict[k][1], reverse=True)]
-[('e', (456, 0.85)), ('a', (123, 0.7)), ('d', (148, 0.23)), ('b', (372, 0.2)), ('c', (502, 0.1))]
+<p>This can be used to build a sorted list of key-value pairs:</p>
+<pre class="code python literal-block">
+<span class="o">>>></span> <span class="p">[(</span><span class="n">k</span><span class="p">,</span> <span class="n">some_dict</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">some_dict</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">some_dict</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+<span class="p">[(</span><span class="s1">'e'</span><span class="p">,</span> <span class="p">(</span><span class="mi">456</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">)),</span> <span class="p">(</span><span class="s1">'a'</span><span class="p">,</span> <span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)),</span> <span class="p">(</span><span class="s1">'d'</span><span class="p">,</span> <span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">)),</span> <span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="p">(</span><span class="mi">372</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)),</span> <span class="p">(</span><span class="s1">'c'</span><span class="p">,</span> <span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))]</span>
 </pre>
-
 <p>Note that <tt class="docutils literal">for k in some_dict</tt>
 yields the same sequence as <tt class="docutils literal">for k in some_dict.keys()</tt>.
 Here, <tt class="docutils literal">sorted()</tt> walks through <tt class="docutils literal">some_dict</tt> once,
@@ -96,48 +90,44 @@ Our lambda fetches the associated value—an <span class="caps">ID</span>-score 
 This score becomes the sort-key for <tt class="docutils literal">k</tt>.
 In <em>O(n)</em> time, <tt class="docutils literal">sorted()</tt> extracts (sort-key, dictionary-key) pairs,
 which are then sorted in <em>O(n log n)</em> time on the sort-key,
-yielding a sorted sequence of&nbsp;dictionary-keys.</p>
+yielding a sorted sequence of dictionary-keys.</p>
 <p><tt class="docutils literal">operator.itemgetter</tt> and <tt class="docutils literal">operator.attrgetter</tt> can also be used
 for the <tt class="docutils literal">key</tt> parameter to <tt class="docutils literal">sorted()</tt>.</p>
 <p>If we express this sort-key behavior using the <a class="reference external" href="https://wiki.python.org/moin/HowTo/Sorting#The_Old_Way_Using_Decorate-Sort-Undecorate">Decorate-Sort-Undecorate</a> pattern,
 it may be clearer,
-albeit slower and more&nbsp;verbose:</p>
+albeit slower and more verbose:</p>
+<pre class="code python literal-block">
+<span class="c1"># Decorate: Build a list of (sort-key, dict-key) pairs</span>
+<span class="o">>>></span> <span class="n">decorated</span> <span class="o">=</span> <span class="p">[(</span><span class="n">id_score</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">id_score</span> <span class="ow">in</span> <span class="n">some_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+<span class="o">>>></span> <span class="n">decorated</span>
+<span class="p">[(</span><span class="mf">0.7</span><span class="p">,</span> <span class="s1">'a'</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.85</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.23</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">)]</span>
 
-<pre class="brush: python">
-# Decorate: Build a list of (sort-key, dict-key) pairs
->>> decorated = [(id_score[1], k) for k,id_score in some_dict.items()]
->>> decorated
-[(0.7, 'a'), (0.1, 'c'), (0.2, 'b'), (0.85, 'e'), (0.23, 'd')]
+<span class="c1"># Sort in descending order of sort-keys (scores)</span>
+<span class="o">>>></span> <span class="n">decorated</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-# Sort in descending order of sort-keys (scores)
->>> decorated.sort(reverse=True)
+<span class="o">>>></span> <span class="n">decorated</span>
+<span class="p">[(</span><span class="mf">0.85</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="s1">'a'</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.23</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">)]</span>
 
->>> decorated
-[(0.85, 'e'), (0.7, 'a'), (0.23, 'd'), (0.2, 'b'), (0.1, 'c')]
-
-# Undecorate: Extract the sorted dictionary keys
->>> keys = [k for score,k in decorated]
->>> keys
-['e', 'a', 'd', 'b', 'c']
+<span class="c1"># Undecorate: Extract the sorted dictionary keys</span>
+<span class="o">>>></span> <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">score</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="n">decorated</span><span class="p">]</span>
+<span class="o">>>></span> <span class="n">keys</span>
+<span class="p">[</span><span class="s1">'e'</span><span class="p">,</span> <span class="s1">'a'</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">]</span>
 </pre>
-
 <div class="section" id="sorting-directly-by-value">
-<h2>Sorting directly by&nbsp;value</h2>
+<h2>Sorting directly by value</h2>
 <p>If we have a simpler dictionary that we want to sort directly by value,
 we can use <a class="reference external" href="https://stackoverflow.com/questions/613183/sort-a-python-dictionary-by-value">dict.get</a> as the <tt class="docutils literal">key</tt> function:</p>
+<pre class="code python literal-block">
+<span class="o">>>></span> <span class="n">other_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="o">>>></span> <span class="n">other_dict</span>
+<span class="p">{</span><span class="s1">'a'</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">:</span> <span class="mi">14</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">:</span> <span class="mi">9</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
 
-<pre class="brush: python">
->>> other_dict = dict(a=7, b=3, c=14, d=2, e=9)
->>> other_dict
-{'a': 7, 'c': 14, 'b': 3, 'e': 9, 'd': 2}
+<span class="o">>>></span> <span class="nb">sorted</span><span class="p">(</span><span class="n">other_dict</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">other_dict</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
+<span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'a'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">]</span>
 
->>> sorted(other_dict, key=other_dict.get)
-['d', 'b', 'a', 'e', 'c']
-
->>> [(k, other_dict[k]) for k in sorted(other_dict, key=other_dict.get)]
-[('d', 2), ('b', 3), ('a', 7), ('e', 9), ('c', 14)]
+<span class="o">>>></span> <span class="p">[(</span><span class="n">k</span><span class="p">,</span> <span class="n">other_dict</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">other_dict</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">other_dict</span><span class="o">.</span><span class="n">get</span><span class="p">)]</span>
+<span class="p">[(</span><span class="s1">'d'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">'a'</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="p">(</span><span class="s1">'c'</span><span class="p">,</span> <span class="mi">14</span><span class="p">)]</span>
 </pre>
-
 <p><tt class="docutils literal">other_dict.get</tt> is a partial function bound to the <tt class="docutils literal">other_dict</tt> instance.
 When it is used as the <tt class="docutils literal">key</tt> parameter to <tt class="docutils literal">sorted()</tt>
 and invoked with a dictionary key from <tt class="docutils literal">other_dict</tt>,
@@ -145,17 +135,15 @@ it yields the associated value;
 e.g., <tt class="docutils literal"><span class="pre">key('c')</span> → <span class="pre">other_dict.get('c')</span> → 14</tt>.</p>
 </div>
 <div class="section" id="sorting-by-key">
-<h2>Sorting by&nbsp;key</h2>
-<p>To sort the dictionary&#8217;s&nbsp;keys:</p>
+<h2>Sorting by key</h2>
+<p>To sort the dic&shy;tio&shy;nary’s keys:</p>
+<pre class="code python literal-block">
+<span class="o">>>></span> <span class="nb">sorted</span><span class="p">(</span><span class="n">other_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">]</span>
 
-<pre class="brush: python">
->>> sorted(other_dict.keys())
-['a', 'b', 'c', 'd', 'e']
-
->>> [(k, other_dict[k]) for k in sorted(other_dict.keys())]
-[('a', 7), ('b', 3), ('c', 14), ('d', 2), ('e', 9)]
+<span class="o">>>></span> <span class="p">[(</span><span class="n">k</span><span class="p">,</span> <span class="n">other_dict</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">other_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())]</span>
+<span class="p">[(</span><span class="s1">'a'</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s1">'c'</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="p">(</span><span class="s1">'d'</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="mi">9</span><span class="p">)]</span>
 </pre>
-
 </div>
 
     <footer>
