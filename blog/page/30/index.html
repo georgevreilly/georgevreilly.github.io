@@ -28,6 +28,47 @@
     
         <article>
     <header>
+        <time datetime="2016-01-08">2016-01-08</time>
+        <h1>
+            <a href="/blog/2016/01/08/HappyBirthdayRoyBatty.html" rel="bookmark canonical">Happy Birthday, Roy Batty</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://anjinanhut.deviantart.com/art/time-to-die-roy-batty-108197743"></a>
+
+<blockquote>
+<p>I’ve seen things you people wouldn’t believe.
+Attack ships on fire off the shoulder of Orion.
+I watched C-beams glitter in the dark near the Tannhäuser Gate.
+All those moments will be lost in time, like tears…in…rain.
+Time to die.</p>
+<p class="attribution">—Roy Batty, the <a class="reference external" href="https://en.wikipedia.org/wiki/Tears_in_rain_monologue">Tears in Rain</a> monologue</p>
+</blockquote>
+<p>According to <a class="reference external" href="https://en.wikipedia.org/wiki/Blade_Runner">Blade Runner</a>,
+the replicant Roy Batty’s incept date is January 8th, 2016.
+The <a class="reference external" href="http://www.smh.com.au/entertainment/movies/blade-runner-fans-its-roy-battys-birthday-20160107-gm19z8.html">Sydney Morning Herald</a> has an article.</p>
+<p>In honor of which, we watched Blade Runner tonight.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/08/HappyBirthdayRoyBatty.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/movies/" rel="tag">movies</a>
+                    and
+                    
+                <a href="/tag/sf/" rel="tag">sf</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-07">2016-01-07</time>
         <h1>
             <a href="/blog/2016/01/07/DicewareAndLastpass.html" rel="bookmark canonical">LastPass and Diceware</a>
@@ -404,46 +445,6 @@ rising to the daunting challenges
                     and
                     
                 <a href="/tag/fantasy/" rel="tag">fantasy</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-30">2015-12-30</time>
-        <h1>
-            <a href="/blog/2015/12/30/UseForPythonNestedListComprehensions.html" rel="bookmark canonical">Python: a use for nested list comprehensions</a>
-        </h1>
-    </header>
-    <p>I wanted to turn a list like
-<tt class="docutils literal"><span class="pre">['*.zip',</span> <span class="pre">'*.pyc',</span> <span class="pre">'*.log']</span></tt> into
-<tt class="docutils literal"><span class="pre">['--exclude',</span> <span class="pre">'*.zip',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.pyc',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.log']</span></tt>.</p>
-<p>A simple list com­pre­hen­sion doesn’t work as desired:</p>
-<pre class="code python literal-block">
-<span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">excludes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
-
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">]</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">)]</span>
-</pre>
-<p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com­pre­hen­sion</a>:</p>
-<pre class="code python literal-block">
-<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="n">arg</span> <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">excludes</span>
-             <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">pattern</span><span class="p">]]</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
-</pre>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/30/UseForPythonNestedListComprehensions.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
                 
             </p>
         

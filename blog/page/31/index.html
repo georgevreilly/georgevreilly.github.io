@@ -28,6 +28,46 @@
     
         <article>
     <header>
+        <time datetime="2015-12-30">2015-12-30</time>
+        <h1>
+            <a href="/blog/2015/12/30/UseForPythonNestedListComprehensions.html" rel="bookmark canonical">Python: a use for nested list comprehensions</a>
+        </h1>
+    </header>
+    <p>I wanted to turn a list like
+<tt class="docutils literal"><span class="pre">['*.zip',</span> <span class="pre">'*.pyc',</span> <span class="pre">'*.log']</span></tt> into
+<tt class="docutils literal"><span class="pre">['--exclude',</span> <span class="pre">'*.zip',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.pyc',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.log']</span></tt>.</p>
+<p>A simple list com­pre­hen­sion doesn’t work as desired:</p>
+<pre class="code python literal-block">
+<span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">excludes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">)]</span>
+</pre>
+<p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com­pre­hen­sion</a>:</p>
+<pre class="code python literal-block">
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="n">arg</span> <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">excludes</span>
+             <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">pattern</span><span class="p">]]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
+</pre>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/30/UseForPythonNestedListComprehensions.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-12-29">2015-12-29</time>
         <h1>
             <a href="/blog/2015/12/29/FreeEbooksFromSpringer.html" rel="bookmark canonical">Free ebooks from Springer</a>
@@ -391,53 +431,6 @@ in the call to <tt class="docutils literal">setup()</tt>:</p>
                     and
                     
                 <a href="/tag/metabrite/" rel="tag">metabrite</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-20">2015-12-20</time>
-        <h1>
-            <a href="/blog/2015/12/20/ReviewDestinationMorgue.html" rel="bookmark canonical">Review: Destination: Morgue!</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/1400032873/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Des­ti­na­tion: Morgue!</div>
-<div class="line">Author: James Ellroy</div>
-<div class="line">Rating: ★ ★ ½</div>
-<div class="line">Publisher: Vintage</div>
-<div class="line">Copyright: 2004</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/1400032873/?tag=georgvreill-20">1400032873</a></div>
-<div class="line">Pages: 400</div>
-<div class="line">Keywords: true crime, au­to­bi­og­ra­phy</div>
-<div class="line">Reading period: November 28–De­cem­ber 20, 2015</div>
-</div>
-<p>A collection of James Ellroy’s articles on crime
-and his own past.</p>
-<p>I’ve enjoyed Ellroy in the past but I found this unreadable.
-I tried it twice but abandoned it halfway through.
-Ellroy’s writing is self-indulgent, irritating, grandiose,
-and full of tiresome stylistic tics.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/20/ReviewDestinationMorgue.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/true-crime/" rel="tag">true-crime</a>
-                    and
-                    
-                <a href="/tag/autobiography/" rel="tag">autobiography</a>
                 
             </p>
         

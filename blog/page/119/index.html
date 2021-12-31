@@ -28,6 +28,47 @@
     
         <article>
     <header>
+        <time datetime="2006-01-22">2006-01-22</time>
+        <h1>
+            <a href="/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html" rel="bookmark canonical">Compiling Vim with Visual C++ 2003 Toolkit</a>
+        </h1>
+    </header>
+    <p>I’ve been trying to make <a class="reference external" href="http://www.vim.org/develop.php">Vim 7</a>
+compile with the
+<a class="reference external" href="http://msdn.microsoft.com/visualc/vctoolkit2003/">Microsoft Visual C++ 2003 Toolkit</a>,
+as a favor to Bram Moolenaar, the primary author of Vim.
+He wants to be able to use the free compiler as the
+primary build tool for the Win32 version of Vim.</p>
+<p>Oh. My. God.</p>
+<p>The <span class="caps">VC2003</span> toolkit may include a full optimizing compiler,
+but it’s certainly far from a complete system for building
+Windows binaries.</p>
+<p>First, I discovered that it came only with the C library headers,
+but not the Windows headers. That was easily rectified. Download the
+<a class="reference external" href="http://www.microsoft.com/msdownload/platformsdk/sdkupdate/">Platform <span class="caps">SDK</span></a>.
+Just the Windows Core <span class="caps">SDK</span> subset. This also got me nmake.</p>
+<p>At this point, I was able to compile Vim, but not <span>&#8230;<a href="/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/c++/" rel="tag">c++</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-01-19">2006-01-19</time>
         <h1>
             <a href="/blog/2006/01/19/IsYourComputerKillingYou.html" rel="bookmark canonical">Is Your Computer Killing You?</a>
@@ -343,49 +384,6 @@ like <tt class="docutils literal">ct)</tt> to replace a <span>&#8230;<a href="/b
         
             <p>tagged as
                 <a href="/tag/vim/" rel="tag">vim</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2005-12-16">2005-12-16</time>
-        <h1>
-            <a href="/blog/2005/12/16/25DumbestPoliticalQuotesOf2005.html" rel="bookmark canonical">25 Dumbest Political Quotes of 2005</a>
-        </h1>
-    </header>
-    <p>Via DailyKos, the <a class="reference external" href="http://politicalhumor.about.com/od/stupidquotes/a/dumbquotes2005.htm">25 Dumbest Quotes of 2005</a>.
-Includes such gems as:</p>
-<ul class="simple">
-<li>13) "If you’ll look at my lovely <span class="caps">FEMA</span> attire you’ll really vomit.
-I am a fashion god…
-Anything specific I need to do or tweak?
-Do you know of anyone who dog-sits?
-… Can I quit now? Can I come home? …
-I’m trapped now, please rescue me."
-–Ex-<span class="caps">FEMA</span> Director Michael Brown, in various emails to colleagues and friends
-in the immediate aftermath of Hurricane Katrina</li>
-<li>2) "Now tell me the truth boys, is this kind of fun?"
-–House Majority Leader Tom Delay (R-<span class="caps">TX</span>),
-to three young hurricane evacuees from New Orleans
-at the Astrodome in Houston, Sept. 9, 2005</li>
-</ul>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2005/12/16/25DumbestPoliticalQuotesOf2005.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/politics/" rel="tag">politics</a>
-                    and
-                    
-                <a href="/tag/humor/" rel="tag">humor</a>
                 
             </p>
         
