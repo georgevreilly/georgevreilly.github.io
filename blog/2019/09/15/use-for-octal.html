@@ -74,7 +74,7 @@ and <span class="formula"><i>k</i><span class="textrm"> mod </span>9</span> is e
 determine <span class="formula"><i>k</i><span class="textrm"> mod </span>36</span>.
 By inspection, this is true for the following table of “residues”.
 All the integers in the range <span class="formula">[0, 36)</span> appear exactly once.</p>
-<table border="1" class="docutils">
+<table border="1" class="docutils align-right">
 <colgroup>
 <col width="18%"/>
 <col width="9%"/>
@@ -155,14 +155,14 @@ it’s the two least-sig&shy;nif&shy;i&shy;cant bits.</p>
 <p>Several pro&shy;gram&shy;ming languages now provide a <tt class="docutils literal">0b</tt> prefix for binary literals
 to go along with the <tt class="docutils literal">0x</tt> prefix for hex literals
 and the <tt class="docutils literal">0o</tt> prefix for octal literals.
-(Older languages use a <tt class="docutils literal">0</tt> prefix for octal and have no <tt class="docutils literal">0b</tt> prefix.)
+(Older languages, such as C, use a <tt class="docutils literal">0</tt> prefix for octal and have no <tt class="docutils literal">0b</tt> prefix.)
 See the discussion in <a class="reference external" href="https://github.com/golang/proposal/blob/master/design/19308-number-literals.md">Go number literals</a> for more detail on <tt class="docutils literal">0b</tt>,
 including a list of languages that now support this notation.</p>
-<p><span class="formula">2<sup><i>n</i></sup></span>, written in binary, looks like <tt class="docutils literal">1</tt> followed by <span class="formula"><i>n</i></span> <tt class="docutils literal">0</tt>s.
+<p><span class="formula">2<sup><i>n</i></sup></span>, written in binary, looks like <tt class="docutils literal">1</tt> followed by <span class="formula"><i>n</i></span> <tt class="docutils literal">0</tt>s.
 For example, <span class="formula">2<sup>3</sup> = 1000<sub>2</sub></span>.
 In C-like languages, <span class="formula">2<sup><i>n</i></sup></span> can be written as <tt class="docutils literal">1 << n</tt>.</p>
 <p>Similarly, <span class="formula">2<sup><i>n</i></sup> − 1</span>, <tt class="docutils literal">(1 << n) - 1</tt>,
-written in binary, looks like <span class="formula"><i>n</i></span> <tt class="docutils literal">1</tt>s.
+written in binary, looks like <span class="formula"><i>n</i></span> <tt class="docutils literal">1</tt>s.
 For example, <span class="formula">2<sup>5</sup> − 1 = 31<sub>10</sub> = 11111<sub>2</sub></span>.</p>
 <p>We can <strong>multiply</strong> an unsigned integer, <tt class="docutils literal">u</tt>, by <span class="formula">2<sup><i>n</i></sup></span>
 by <strong>shifting</strong> <tt class="docutils literal">u</tt> <strong>left</strong> by <span class="formula"><i>n</i></span> bits, <tt class="docutils literal">u << n</tt>,
@@ -170,16 +170,16 @@ in&shy;tro&shy;duc&shy;ing <span class="formula"><i>n</i></span> zeroes as the 
 For example, using 8-bit numbers without loss of generality,
 written as modern Go/Rust number literals:</p>
 <pre class="code rust literal-block">
-<span class="mb">0b_0001_0101</span><span class="w"> </span><span class="o"><<</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b_1010_1000</span>
+<span class="mb">0b_0001_0101</span><span class="w"> </span><span class="o"><<</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b_1010_1000</span>
 </pre>
-<p>Similarly, we can <strong>divide</strong> by <span class="formula">2<sup><i>n</i></sup></span>
-by <strong>shifting</strong> <tt class="docutils literal">u</tt> <strong>right</strong> by <span class="formula"><i>n</i></span> bits, <tt class="docutils literal">u >>> n</tt>,
-which drops the <span class="formula"><i>n</i></span> low-order bits
-and introduces <span class="formula"><i>n</i></span> zeroes as the high-order bits.</p>
+<p>Similarly, we can <strong>divide</strong> <tt class="docutils literal">u</tt> by <span class="formula">2<sup><i>n</i></sup></span>
+by <strong>shifting</strong> <tt class="docutils literal">u</tt> <strong>right</strong> by <span class="formula"><i>n</i></span> bits, <tt class="docutils literal">u >>> n</tt>,
+which drops the <span class="formula"><i>n</i></span> low-order bits
+and introduces <span class="formula"><i>n</i></span> zeroes as the high-order bits.</p>
 <pre class="code rust literal-block">
-<span class="mb">0b_0101_0110</span><span class="w"> </span><span class="o">>>></span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b_0000_1010</span>
+<span class="mb">0b_0101_0110</span><span class="w"> </span><span class="o">>>></span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b_0000_1010</span>
 </pre>
-<p>A sign-extending or arithmetic right shift introduces <span class="formula"><i>n</i></span> copies
+<p>A sign-extending or arithmetic right shift introduces <span class="formula"><i>n</i></span> copies
 of the sign bit as the high-order bits.
 In some languages, such as Java and JavaScript,
 <tt class="docutils literal">>></tt> means an arithmetic right shift and
@@ -190,13 +190,13 @@ sign-extension generally depends upon the type of the left operand,
 <tt class="docutils literal">signed</tt> or <tt class="docutils literal">unsigned</tt>.
 However, sign extension is not guaranteed in C/C++.</p>
 <pre class="code rust literal-block">
-<span class="mb">0b_0101_0110</span><span class="w"> </span><span class="o">>></span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b_0001_0101</span><span class="w">
-</span><span class="mb">0b_1001_0110</span><span class="w"> </span><span class="o">>></span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b_1110_0101</span>
+<span class="mb">0b_0101_0110</span><span class="w"> </span><span class="o">>></span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b_0001_0101</span><span class="w">
+</span><span class="mb">0b_1001_0110</span><span class="w"> </span><span class="o">>></span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b_1110_0101</span>
 </pre>
 <p>Finally, we can find the <strong>remainder</strong> of dividing <tt class="docutils literal">u</tt> by <span class="formula">2<sup><i>n</i></sup></span>
 by <strong>masking</strong> <tt class="docutils literal">u</tt> with <span class="formula">2<sup><i>n</i></sup> − 1</span>,
-bitwise-and with <tt class="docutils literal">(1 << n) - 1</tt>,
-to extract the <span class="formula"><i>n</i></span> low-order bits:</p>
+that is, <strong>bitwise-and</strong> with <tt class="docutils literal">(1 << n) - 1</tt>,
+to extract the <span class="formula"><i>n</i></span> <strong>low-order bits</strong>:</p>
 <pre class="code rust literal-block">
 <span class="mb">0b_0101_0110</span><span class="w"> </span><span class="o">&</span><span class="w"> </span><span class="mb">0b_0000_0111</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">0b_0000_0110</span>
 </pre>

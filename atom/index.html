@@ -831,7 +831,7 @@ and &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;
 determine &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;36&lt;/span&gt;.
 By inspection, this is true for the following table of “residues”.
 All the integers in the range &lt;span class=&#34;formula&#34;&gt;[0, 36)&lt;/span&gt; appear exactly once.&lt;/p&gt;
-&lt;table border=&#34;1&#34; class=&#34;docutils&#34;&gt;
+&lt;table border=&#34;1&#34; class=&#34;docutils align-right&#34;&gt;
 &lt;colgroup&gt;
 &lt;col width=&#34;18%&#34;/&gt;
 &lt;col width=&#34;9%&#34;/&gt;
@@ -912,14 +912,14 @@ it&#39;s the two least-significant bits.&lt;/p&gt;
 &lt;p&gt;Several programming languages now provide a &lt;tt class=&#34;docutils literal&#34;&gt;0b&lt;/tt&gt; prefix for binary literals
 to go along with the &lt;tt class=&#34;docutils literal&#34;&gt;0x&lt;/tt&gt; prefix for hex literals
 and the &lt;tt class=&#34;docutils literal&#34;&gt;0o&lt;/tt&gt; prefix for octal literals.
-(Older languages use a &lt;tt class=&#34;docutils literal&#34;&gt;0&lt;/tt&gt; prefix for octal and have no &lt;tt class=&#34;docutils literal&#34;&gt;0b&lt;/tt&gt; prefix.)
+(Older languages, such as C, use a &lt;tt class=&#34;docutils literal&#34;&gt;0&lt;/tt&gt; prefix for octal and have no &lt;tt class=&#34;docutils literal&#34;&gt;0b&lt;/tt&gt; prefix.)
 See the discussion in &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/golang/proposal/blob/master/design/19308-number-literals.md&#34;&gt;Go number literals&lt;/a&gt; for more detail on &lt;tt class=&#34;docutils literal&#34;&gt;0b&lt;/tt&gt;,
 including a list of languages that now support this notation.&lt;/p&gt;
-&lt;p&gt;&lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;, written in binary, looks like &lt;tt class=&#34;docutils literal&#34;&gt;1&lt;/tt&gt; followed by &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; &lt;tt class=&#34;docutils literal&#34;&gt;0&lt;/tt&gt;s.
+&lt;p&gt;&lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;, written in binary, looks like &lt;tt class=&#34;docutils literal&#34;&gt;1&lt;/tt&gt; followed by &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; &lt;tt class=&#34;docutils literal&#34;&gt;0&lt;/tt&gt;s.
 For example, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;3&lt;/sup&gt; = 1000&lt;sub&gt;2&lt;/sub&gt;&lt;/span&gt;.
 In C-like languages, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt; can be written as &lt;tt class=&#34;docutils literal&#34;&gt;1 &lt;&lt; n&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;Similarly, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; − 1&lt;/span&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;(1 &lt;&lt; n) - 1&lt;/tt&gt;,
-written in binary, looks like &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; &lt;tt class=&#34;docutils literal&#34;&gt;1&lt;/tt&gt;s.
+written in binary, looks like &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; &lt;tt class=&#34;docutils literal&#34;&gt;1&lt;/tt&gt;s.
 For example, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;5&lt;/sup&gt; − 1 = 31&lt;sub&gt;10&lt;/sub&gt; = 11111&lt;sub&gt;2&lt;/sub&gt;&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;We can &lt;strong&gt;multiply&lt;/strong&gt; an unsigned integer, &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt;, by &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;
 by &lt;strong&gt;shifting&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; &lt;strong&gt;left&lt;/strong&gt; by &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; bits, &lt;tt class=&#34;docutils literal&#34;&gt;u &lt;&lt; n&lt;/tt&gt;,
@@ -927,16 +927,16 @@ introducing &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt
 For example, using 8-bit numbers without loss of generality,
 written as modern Go/Rust number literals:&lt;/p&gt;
 &lt;pre class=&#34;code rust literal-block&#34;&gt;
-&lt;span class=&#34;mb&#34;&gt;0b_0001_0101&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&lt;&lt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_1010_1000&lt;/span&gt;
+&lt;span class=&#34;mb&#34;&gt;0b_0001_0101&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&lt;&lt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_1010_1000&lt;/span&gt;
 &lt;/pre&gt;
-&lt;p&gt;Similarly, we can &lt;strong&gt;divide&lt;/strong&gt; by &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;
-by &lt;strong&gt;shifting&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; &lt;strong&gt;right&lt;/strong&gt; by &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; bits, &lt;tt class=&#34;docutils literal&#34;&gt;u &gt;&gt;&gt; n&lt;/tt&gt;,
-which drops the &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; low-order bits
-and introduces &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; zeroes as the high-order bits.&lt;/p&gt;
+&lt;p&gt;Similarly, we can &lt;strong&gt;divide&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; by &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;
+by &lt;strong&gt;shifting&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; &lt;strong&gt;right&lt;/strong&gt; by &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; bits, &lt;tt class=&#34;docutils literal&#34;&gt;u &gt;&gt;&gt; n&lt;/tt&gt;,
+which drops the &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; low-order bits
+and introduces &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; zeroes as the high-order bits.&lt;/p&gt;
 &lt;pre class=&#34;code rust literal-block&#34;&gt;
-&lt;span class=&#34;mb&#34;&gt;0b_0101_0110&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&gt;&gt;&gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_0000_1010&lt;/span&gt;
+&lt;span class=&#34;mb&#34;&gt;0b_0101_0110&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&gt;&gt;&gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_0000_1010&lt;/span&gt;
 &lt;/pre&gt;
-&lt;p&gt;A sign-extending or arithmetic right shift introduces &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; copies
+&lt;p&gt;A sign-extending or arithmetic right shift introduces &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; copies
 of the sign bit as the high-order bits.
 In some languages, such as Java and JavaScript,
 &lt;tt class=&#34;docutils literal&#34;&gt;&gt;&gt;&lt;/tt&gt; means an arithmetic right shift and
@@ -947,13 +947,13 @@ sign-extension generally depends upon the type of the left operand,
 &lt;tt class=&#34;docutils literal&#34;&gt;signed&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;unsigned&lt;/tt&gt;.
 However, sign extension is not guaranteed in C/C++.&lt;/p&gt;
 &lt;pre class=&#34;code rust literal-block&#34;&gt;
-&lt;span class=&#34;mb&#34;&gt;0b_0101_0110&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&gt;&gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_0001_0101&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_1001_0110&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&gt;&gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_1110_0101&lt;/span&gt;
+&lt;span class=&#34;mb&#34;&gt;0b_0101_0110&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&gt;&gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_0001_0101&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_1001_0110&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&gt;&gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_1110_0101&lt;/span&gt;
 &lt;/pre&gt;
 &lt;p&gt;Finally, we can find the &lt;strong&gt;remainder&lt;/strong&gt; of dividing &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; by &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;
 by &lt;strong&gt;masking&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; with &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; − 1&lt;/span&gt;,
-bitwise-and with &lt;tt class=&#34;docutils literal&#34;&gt;(1 &lt;&lt; n) - 1&lt;/tt&gt;,
-to extract the &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; low-order bits:&lt;/p&gt;
+that is, &lt;strong&gt;bitwise-and&lt;/strong&gt; with &lt;tt class=&#34;docutils literal&#34;&gt;(1 &lt;&lt; n) - 1&lt;/tt&gt;,
+to extract the &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; &lt;strong&gt;low-order bits&lt;/strong&gt;:&lt;/p&gt;
 &lt;pre class=&#34;code rust literal-block&#34;&gt;
 &lt;span class=&#34;mb&#34;&gt;0b_0101_0110&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_0000_0111&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_0000_0110&lt;/span&gt;
 &lt;/pre&gt;
