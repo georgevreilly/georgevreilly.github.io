@@ -28,6 +28,81 @@
     
         <article>
     <header>
+        <time datetime="2009-04-02">2009-04-02</time>
+        <h1>
+            <a href="/blog/2009/04/02/ContrastingColorsForTextAndBackground.html" rel="bookmark canonical">Contrasting Colors for Text and Background</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://colorschemedesigner.com/"></a>
+<p>About three weeks ago, I answered a question on Stack­Over­flow
+about generating the <a class="reference external" href="http://stackoverflow.com/questions/646068/find-most-readable-colour-of-text-that-is-drawn-on-a-coloured-surface/646328#646328">most readable color</a> of text
+on a colored background.</p>
+<p>I suggested flipping the top bit of each component,
+<tt class="docutils literal">(r ^ 0x80, g ^ 0x80, b ^ 0x80)</tt>.
+This has the same effect as adding 128 if the component is less than 128,
+and sub­tract­ing 128 otherwise.</p>
+<p>Another way to think about it is to imagine the 256x256x256 color cube.
+Inside that cube, erect another cube half as wide.
+One corner is at your original color
+and the diagonally opposite corner is the one computed above.</p>
+<p>The questioner liked my answer the best,
+but I decided to experiment further.
+I wrote some JavaScript to <span>&#8230;<a href="/blog/2009/04/02/ContrastingColorsForTextAndBackground.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/02/ContrastingColorsForTextAndBackground.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/color/" rel="tag">color</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-04-01">2009-04-01</time>
+        <h1>
+            <a href="/blog/2009/04/01/Allergies.html" rel="bookmark canonical">Allergies</a>
+        </h1>
+    </header>
+    
+<p>I love Spring.
+The winter recedes, the weather grows warmer,
+the young plants appear, the dormant trees bloom,
+and all is right with the world.</p>
+<p>I dread Spring.
+My nose itches, it runs, it blocks up, it explodes.</p>
+<p>This year, my eyes itch too.
+A lot.
+It’s really, um, irritating.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/01/Allergies.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/personal/" rel="tag">personal</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2009-04-01">2009-04-01</time>
         <h1>
             <a href="/blog/2009/04/01/DejaVu.html" rel="bookmark canonical">Deja Vu</a>
@@ -327,107 +402,6 @@ This does not count the time that I spent trying to figure <span>&#8230;<a href=
                     and
                     
                 <a href="/tag/regex/" rel="tag">regex</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-23">2009-03-23</time>
-        <h1>
-            <a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" rel="bookmark canonical">Exuberant Ctags and JavaScript</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://ctags.sourceforge.net/"></a>
-<p><a class="reference external" href="http://ctags.sourceforge.net/">Exuberant Ctags</a> is an essential complement to Vim:
-it generates an index of symbol names (tags) for a set of source files.
-In Vim, just place the cursor on a function name
-and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its definition.</p>
-<p>Ctags works well for most of the languages that I deal with,
-but falls down badly on modern JavaScript.
-Its built-in parser simply doesn’t handle de­c­la­ra­tions like these:</p>
-<pre class="code javascript literal-block">
-<span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// ...
-</span><span class="nx">ajaxSetup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">settings</span> <span class="p">)</span> <span class="p">{</span>
-</pre>
-<p>I came across <a class="reference external" href="http://www.unbad.net/blog/ctags-and-relevant-support-for-javascript">Unbad</a>‘s workaround earlier tonight.
-His code didn’t work for me, so I hacked on it until it did:</p>
-<pre class="literal-block">
---langdef=js
---langmap=js:.js
---regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
---regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
---regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\(([^)])\)/\1/,function/
---regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
---regex-js=/([^= ]+)[ \t]*=[ \t]*[^"]'[^']*/\1/,string/
---regex-js=/([^= ]+)[ </pre><span>&#8230;<a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/23/ExuberantCtagsAndJavaScript.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/vim/" rel="tag">vim</a>,
-                <a href="/tag/javascript/" rel="tag">javascript</a>
-                    and
-                    
-                <a href="/tag/regex/" rel="tag">regex</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-23">2009-03-23</time>
-        <h1>
-            <a href="/blog/2009/03/23/ReviewNoCountryForOldMen.html" rel="bookmark canonical">Review: No Country for Old Men</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=033044011X"></a>
-<div class="line-block">
-<div class="line">Title: No Country for Old Men</div>
-<div class="line">Author: Cormac McCarthy</div>
-<div class="line">Rating: ★ ★ ★ ★ ½</div>
-<div class="line">Publisher: Picador</div>
-<div class="line">Copyright: 2005</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=033044011X">033044011X</a></div>
-<div class="line">Pages: 309</div>
-<div class="line">Keywords: fiction</div>
-<div class="line">Reading period: 20–22 March, 2009</div>
-</div>
-<p>Rural Texas, 1980.
-Llewelyn Moss, out hunting in the middle of nowhere,
-finds the remains of a drug buy that went wrong:
-dead bodies, shot-up cars, black tar heroin.
-And a satchel with two million dollars in cash.
-Moss takes the money and runs.
-He knows it’s stupid, he knows that people will come after him,
-and he does it anyway.</p>
-<p>Anton Chigurh is the worst of the killers on his trail.
-Relentless, re­morse­less, untroubled by conscience,
-and offended by the wrongness of Moss’s act.
-He and Moss will be locked <span>&#8230;<a href="/blog/2009/03/23/ReviewNoCountryForOldMen.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/23/ReviewNoCountryForOldMen.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/fiction/" rel="tag">fiction</a>
                 
             </p>
         

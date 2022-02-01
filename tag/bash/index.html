@@ -28,6 +28,48 @@
     
         <article>
     <header>
+        <time datetime="2022-01-31">2022-01-31</time>
+        <h1>
+            <a href="/blog/2022/01/31/DiffFileFragment.html" rel="bookmark canonical">Diffing a fragment of a file</a>
+        </h1>
+    </header>
+    <p>A while back, I had extracted some code out of a large file
+into a separate file and made some mod­i­fi­ca­tions.
+I wanted to check that the dif­fer­ences were minimal.
+Let's say that the extracted code had been between
+lines 123 and 456 of <tt class="docutils literal">large_old_­file</tt>.</p>
+<pre class="code bash literal-block">
+diff -u <<span class="o">(</span>sed -n <span class="s1">'123,456p;457q'</span> large_old_file<span class="o">)</span> new_file
+</pre>
+<p>What's happening here?</p>
+<ul class="simple">
+<li><tt class="docutils literal">sed <span class="pre">-n</span> '123,456p'</tt> is printing lines 123–456 of <tt class="docutils literal">large_old_­file</tt>.</li>
+<li>The <tt class="docutils literal">457q</tt> tells sed to abandon the file at line 457.
+Otherwise, it will keep reading all the way to the end.</li>
+<li>The <tt class="docutils literal"><(sed <span class="pre">...)</span></tt> is an example of <a class="reference external" href="https://tldp.org/LDP/abs/html/process-sub.html">process sub­sti­tu­tion</a>.
+The <em>output</em> of the <tt class="docutils literal">sed</tt> invocation
+becomes the first <em>input</em> of the <tt class="docutils literal">diff</tt> command.</li>
+</ul>
+<p>A similar example: <a class="reference external" href="/blog/2017/01/11/DiffTransformedFile.html">Diff </a><span>&#8230;<a href="/blog/2022/01/31/DiffFileFragment.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>
+                    and
+                    
+                <a href="/tag/bash/" rel="tag">bash</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2017-01-19">2017-01-19</time>
         <h1>
             <a href="/blog/2017/01/19/BashEchoSuccessOfPreviousCommand.html" rel="bookmark canonical">Bash: echo success of previous command</a>

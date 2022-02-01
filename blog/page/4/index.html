@@ -28,6 +28,110 @@
     
         <article>
     <header>
+        <time datetime="2017-02-09">2017-02-09</time>
+        <h1>
+            <a href="/blog/2017/02/09/Jenkins06-Miscellenea.html" rel="bookmark canonical">Jenkins #6: Miscellenea</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>A collection of mis­cel­la­neous tips on using Pipelines in Jenkins 2.0.</p>
+<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#6 in a series on Jenkins Pipelines</a></p>
+<div class="section" id="environment-variables">
+<h2>En­vi­ron­ment Variables</h2>
+<p>Use the <tt class="docutils literal">withEnv</tt> step to set en­vi­ron­ment variables.
+Don’t manipulate the <tt class="docutils literal">env</tt> global variable.</p>
+<p>The confusing example that you see in the documents,
+<tt class="docutils literal"><span class="pre"><span class="caps">PATH</span>+<span class="caps">WHATEVER</span>=/something</span></tt>,
+simply means to <em>prepend</em> <tt class="docutils literal">/something</tt> to <tt class="docutils literal">$<span class="caps">PATH</span></tt>.
+The <tt class="docutils literal">+<span class="caps">WHATEVER</span></tt> has no other effect.</p>
+</div>
+<div class="section" id="credentials">
+<h2>Cre­den­tials</h2>
+<p>The <tt class="docutils literal">withEnv</tt> step should not be used to introduce secrets into the build en­vi­ron­ment.
+Use the <a class="reference external" href="https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin">with­Cre­den­tials</a> plugin instead.</p>
+<pre class="code groovy literal-block">
+<span class="n">withCredentials</span><span class="o">([</span>
+    <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">'StringBinding'</span><span class="o">,</span> <span class="nl">credentialsId:</span> <span class="s1">'GPG_SECRET'</span><span class="o">,</span> <span class="nl">variable:</span> <span class="s1">'GPG_SECRET'</span><span class="o">],</span>
+    <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">'AmazonWebServicesCredentialsBinding'</span><span class="o">,</span>
+     <span class="nl">credentialsId:</span> <span class="s1">'0defaced-cafe-f00d-badd-0000000ff1ce'</span><span class="o">,</span>
+     <span class="nl">accessKeyVariable:</span> <span class="s1">'AWS_ACCESS_KEY_ID'</span><span class="o">,</span>
+     <span class="nl">secretKeyVariable:</span> <span class="s1">'AWS_SECRET_ACCESS_KEY'</span><span class="o">]</span>
+<span class="o">])</span> </pre><span>&#8230;<a href="/blog/2017/02/09/Jenkins06-Miscellenea.html" class="continue">continue</a>.</span></div>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/09/Jenkins06-Miscellenea.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/jenkins/" rel="tag">jenkins</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2017-02-09">2017-02-09</time>
+        <h1>
+            <a href="/blog/2017/02/09/ReviewIShallWearMidnight.html" rel="bookmark canonical">Review: I Shall Wear Midnight</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.amazon.com/dp/0061433063/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: I Shall Wear Midnight</div>
+<div class="line">Author: Terry Pratchett</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Publisher: Harper</div>
+<div class="line">Copyright: 2010</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0061433063/?tag=georgvreill-20">0061433063</a></div>
+<div class="line">Pages: 355</div>
+<div class="line">Keywords: humor, fantasy</div>
+<div class="line">Reading period: 3–5 February, 2017</div>
+</div>
+<p>Tiffany Aching is now the overworked and overly re­spon­si­ble Witch of the Chalk.
+People everywhere are fearing and dis­trust­ing witches more.
+When her patient, the ailing Baron dies, she is blamed.
+Other troubles multiply.
+Eventually she realizes that the Cunning Man,
+a long-dead witchfind­er,
+is seeping poison into people’s hearts.
+Aided by the trou­ble­mak­ing Nac Mac Feegle, she defeats him.</p>
+<p>Rec­om­mend­ed.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/I_Shall_Wear_Midnight">I Shall Wear Midnight</a> follows
+<a class="reference external" href="/blog/2008/05/19/ReviewTheWeeFreeMen.html">The Wee Free Men</a>, <a class="reference external" href="/blog/2010/01/28/ReviewAHatFullOfSky.html">A Hat Full of Sky</a>, and <em>Win­ter­smith</em>.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/09/ReviewIShallWearMidnight.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>,
+                <a href="/tag/fantasy/" rel="tag">fantasy</a>
+                    and
+                    
+                <a href="/tag/humor/" rel="tag">humor</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2017-02-08">2017-02-08</time>
         <h1>
             <a href="/blog/2017/02/08/Jenkins05-Groovy.html" rel="bookmark canonical">Jenkins #5: Groovy</a>
@@ -373,91 +477,6 @@ and against decent people doing wrong for reasons that seem right to <span>&#823
                     and
                     
                 <a href="/tag/mystery/" rel="tag">mystery</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2017-02-02">2017-02-02</time>
-        <h1>
-            <a href="/blog/2017/02/02/SeattleAccessibility.html" rel="bookmark canonical">Seattle Accessibility</a>
-        </h1>
-    </header>
-    <p>I’ve been using a <a class="reference external" href="/blog/2017/01/17/KneeWalker.html">knee walker</a> for the last couple of weeks.
-For the first time, I took public trans­porta­tion by myself
-to attend <a class="reference external" href="https://www.meetup.com/Papers-We-Love-Seattle/events/236557338/">Papers We Love</a> tonight.
-I rolled myself from 1st Ave S <span class="amp">&</span> Washington up to the Pioneer Square station,
-took the Light Rail one stop north to the University Street station at 3rd <span class="amp">&</span> Seneca,
-then rolled down the hill to 2nd <span class="amp">&</span> Spring.
-It’s a trip I wouldn’t have thought about twice if I were walking nor­mal­ly—and I probably would have walked the entire way
-rather than take the Light Rail only one short stop.</p>
-<p>It’s a different matter on a knee scooter.
-I said <span>&#8230;<a href="/blog/2017/02/02/SeattleAccessibility.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/02/SeattleAccessibility.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/seattle/" rel="tag">seattle</a>
-                    and
-                    
-                <a href="/tag/health/" rel="tag">health</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2017-02-01">2017-02-01</time>
-        <h1>
-            <a href="/blog/2017/02/01/ReviewTheRhesusChart.html" rel="bookmark canonical">Review: The Rhesus Chart</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/0425256863/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Rhesus Chart</div>
-<div class="line">Author: Charles Stross</div>
-<div class="line">Rating: ★ ★ ★ ★ ½</div>
-<div class="line">Publisher: Ace</div>
-<div class="line">Copyright: 2014</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0425256863/?tag=georgvreill-20">978-0425256862</a></div>
-<div class="line">Pages: 359</div>
-<div class="line">Keywords: Love­craft­ian spy thriller</div>
-<div class="line">Series: <a class="reference external" href="http://www.antipope.org/charlie/blog-static/2016/04/faq-the-laundry-filesseries-ti.html">Laundry Files</a>, vol. 5</div>
-<div class="line">Reading period: 27–29 January, 2017</div>
-</div>
-<p><em>“Don’t be silly,” Bob, said Mo, “everyone knows vampires don’t exist!”</em>
-Thus opens <em>The Rhesus Chart</em>.
-We quickly come to realize that vampires do exist and
-we come to wonder why everyone in the Laundry is so dog­mat­i­cal­ly sure that they don’t.
-One of the nest of baby vampires that sets the plot in motion
-is Bob’s toxic ex-girlfriend, Mhari,
-who manages to convince the Laundry that they should recruit her clutch
-rather than ex­ter­mi­nate them.
-But there are old vampires who have <span>&#8230;<a href="/blog/2017/02/01/ReviewTheRhesusChart.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/01/ReviewTheRhesusChart.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/spy/" rel="tag">spy</a>
                 
             </p>
         

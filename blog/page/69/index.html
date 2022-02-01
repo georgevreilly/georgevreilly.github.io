@@ -28,6 +28,107 @@
     
         <article>
     <header>
+        <time datetime="2009-03-23">2009-03-23</time>
+        <h1>
+            <a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" rel="bookmark canonical">Exuberant Ctags and JavaScript</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://ctags.sourceforge.net/"></a>
+<p><a class="reference external" href="http://ctags.sourceforge.net/">Exuberant Ctags</a> is an essential complement to Vim:
+it generates an index of symbol names (tags) for a set of source files.
+In Vim, just place the cursor on a function name
+and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its definition.</p>
+<p>Ctags works well for most of the languages that I deal with,
+but falls down badly on modern JavaScript.
+Its built-in parser simply doesn’t handle de­c­la­ra­tions like these:</p>
+<pre class="code javascript literal-block">
+<span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// ...
+</span><span class="nx">ajaxSetup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">settings</span> <span class="p">)</span> <span class="p">{</span>
+</pre>
+<p>I came across <a class="reference external" href="http://www.unbad.net/blog/ctags-and-relevant-support-for-javascript">Unbad</a>‘s workaround earlier tonight.
+His code didn’t work for me, so I hacked on it until it did:</p>
+<pre class="literal-block">
+--langdef=js
+--langmap=js:.js
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
+--regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
+--regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\(([^)])\)/\1/,function/
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
+--regex-js=/([^= ]+)[ \t]*=[ \t]*[^"]'[^']*/\1/,string/
+--regex-js=/([^= ]+)[ </pre><span>&#8230;<a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/23/ExuberantCtagsAndJavaScript.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>,
+                <a href="/tag/javascript/" rel="tag">javascript</a>
+                    and
+                    
+                <a href="/tag/regex/" rel="tag">regex</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-23">2009-03-23</time>
+        <h1>
+            <a href="/blog/2009/03/23/ReviewNoCountryForOldMen.html" rel="bookmark canonical">Review: No Country for Old Men</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=033044011X"></a>
+<div class="line-block">
+<div class="line">Title: No Country for Old Men</div>
+<div class="line">Author: Cormac McCarthy</div>
+<div class="line">Rating: ★ ★ ★ ★ ½</div>
+<div class="line">Publisher: Picador</div>
+<div class="line">Copyright: 2005</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=033044011X">033044011X</a></div>
+<div class="line">Pages: 309</div>
+<div class="line">Keywords: fiction</div>
+<div class="line">Reading period: 20–22 March, 2009</div>
+</div>
+<p>Rural Texas, 1980.
+Llewelyn Moss, out hunting in the middle of nowhere,
+finds the remains of a drug buy that went wrong:
+dead bodies, shot-up cars, black tar heroin.
+And a satchel with two million dollars in cash.
+Moss takes the money and runs.
+He knows it’s stupid, he knows that people will come after him,
+and he does it anyway.</p>
+<p>Anton Chigurh is the worst of the killers on his trail.
+Relentless, re­morse­less, untroubled by conscience,
+and offended by the wrongness of Moss’s act.
+He and Moss will be locked <span>&#8230;<a href="/blog/2009/03/23/ReviewNoCountryForOldMen.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/23/ReviewNoCountryForOldMen.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/fiction/" rel="tag">fiction</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2009-03-21">2009-03-21</time>
         <h1>
             <a href="/blog/2009/03/21/RugbyGrandSlam.html" rel="bookmark canonical">Rugby Grand Slam</a>
@@ -344,82 +445,6 @@ We’ll have <span>&#8230;<a href="/blog/2009/03/15/Vancouver.html" class="conti
         
             <p>tagged as
                 <a href="/tag/canada/" rel="tag">canada</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-14">2009-03-14</time>
-        <h1>
-            <a href="/blog/2009/03/14/ClutchingThePearls.html" rel="bookmark canonical">Clutching the Pearls</a>
-        </h1>
-    </header>
-    
-<p>Ow! Ow! Ow!
-It’s Friday the 13th and
-I ransomed my car this evening from the shop for over two grand—more than half of it labor.
-I think I’m in the wrong line of business.
-Maybe I should be a grease­mon­key instead.</p>
-<p>The clutch was worn out and the flywheel needed replacing,
-which required taking out the trans­mis­sion.</p>
-<p>We’ve only had one other comparable bill with this car
-and it has over 90,000 miles.
-We’re not doing too badly overall,
-except that the other bill was late last year.</p>
-<p>Feh.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/14/ClutchingThePearls.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/personal/" rel="tag">personal</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-13">2009-03-13</time>
-        <h1>
-            <a href="/blog/2009/03/13/LexLuthorsBailout.html" rel="bookmark canonical">Lex Luthor's Bailout</a>
-        </h1>
-    </header>
-    <p>Via <a class="reference external" href="http://www.tor.com/index.php?option=com_content&amp;view=blog&amp;id=17324">Tor.com</a>, Lex Luthor asking the president for a bailout.</p>
-<object width="384" height="256" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" id="ordie_player_f26c4046b0">
-    <param name="movie" value="http://player.ordienetworks.com/flash/fodplayer.swf"/>
-    <param name="flashvars" value="key=f26c4046b0"/>
-    <param name="allowfullscreen" value="true"/>
-    <param name="allowscriptaccess" value="always">
-    <embed width="384" height="256" flashvars="key=f26c4046b0" allowfullscreen="true" allowscriptaccess="always" quality="high" src="http://player.ordienetworks.com/flash/fodplayer.swf" name="ordie_player_f26c4046b0" type="application/x-shockwave-flash">
-    </embed>
-</param>
-<div style="text-align:left;font-size:x-small;margin-top:0;width:384px;">
-    <a href="http://www.funnyordie.com/videos/f26c4046b0/lex-luthor-bailout-with-jon-hamm" title="from FOD Team, Eric Appel, and Jon Hamm">
-    “Lex Luthor Bailout” with Jon Hamm</a> from <a href="http://www.funnyordie.com/jon_hamm"> Jon Hamm</a>
-</div>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/13/LexLuthorsBailout.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/politics/" rel="tag">politics</a>
-                    and
-                    
-                <a href="/tag/humor/" rel="tag">humor</a>
                 
             </p>
         

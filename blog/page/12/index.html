@@ -28,6 +28,96 @@
     
         <article>
     <header>
+        <time datetime="2016-07-11">2016-07-11</time>
+        <h1>
+            <a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" rel="bookmark canonical">Logging in Python: Don't use new-fangled format</a>
+        </h1>
+    </header>
+    <p>Python 2.6 introduced the <a class="reference external" href="https://pyformat.info/">format method</a> to strings.
+In general, <tt class="docutils literal">format</tt> is now the preferred way to build strings
+instead of the old <tt class="docutils literal">%</tt> formatting operator.</p>
+<p>One exception is with the <tt class="docutils literal">logging</tt> module,
+where the best practice is to use <tt class="docutils literal">%s</tt> and <tt class="docutils literal">%d</tt>.
+Why?
+First, <tt class="docutils literal">%s</tt> is the idiomatic way to use <tt class="docutils literal">logging</tt>,
+which was built years before <tt class="docutils literal">format</tt> was introduced.
+Second, if there’s a literal <tt class="docutils literal">%</tt> in the in­ter­po­lat­ed values,
+<tt class="docutils literal">logging</tt> will be unhappy,
+since there won’t be cor­re­spond­ing arguments in the call.
+It won’t fall over, since
+“The logging package is designed to swallow exceptions which occur while logging in production.
+This is so that errors which occur while handling logging events
+- <span>&#8230;<a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-07-10">2016-07-10</time>
+        <h1>
+            <a href="/blog/2016/07/10/ReviewFlashmanAndTheMountainOfLight.html" rel="bookmark canonical">Review: Flashman and the Mountain of Light</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.amazon.com/dp/0452267854/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: Flashman and the Mountain of Light</div>
+<div class="line">Author: George MacDonald Fraser</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Publisher: Plume</div>
+<div class="line">Copyright: 1990</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0452267854/?tag=georgvreill-20">0452267854</a></div>
+<div class="line">Pages: 368</div>
+<div class="line">Keywords: historical fiction, humor</div>
+<div class="line">Reading period: 29 June–10 July, 2016</div>
+<div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> <span class="caps">IX</span>: 1845–46</div>
+</div>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman_and_the_Mountain_of_Light">Flashman and the Mountain of Light</a> takes place just after <a class="reference external" href="/blog/2016/07/05/ReviewFlashmansLady.html">Flashman’s Lady</a>,
+and it also falls between the two parts of <a class="reference external" href="/blog/2016/06/26/ReviewRoyalFlash.html">Royal Flash</a>,
+making it the fourth book chrono­log­i­cal­ly of the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>
+and the ninth book published.</p>
+<p>In the prologue,
+our hero finds himself telling Queen Victoria
+a much-edited version of how he came to acquire the <a class="reference external" href="https://en.wikipedia.org/wiki/Koh-i-Noor">Koh-i-Noor</a> diamond
+on the crown’s behalf forty years earlier during the
+<a class="reference external" href="https://en.wikipedia.org/wiki/First_Anglo-Sikh_War">First Anglo-Sikh War</a>.
+The <em>actual</em> story—at least according to Flashman and Fraser—is that <span>&#8230;<a href="/blog/2016/07/10/ReviewFlashmanAndTheMountainOfLight.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/10/ReviewFlashmanAndTheMountainOfLight.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>,
+                <a href="/tag/fiction/" rel="tag">fiction</a>,
+                <a href="/tag/history/" rel="tag">history</a>
+                    and
+                    
+                <a href="/tag/humor/" rel="tag">humor</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-07-09">2016-07-09</time>
         <h1>
             <a href="/blog/2016/07/09/BlackLivesMatterAltonPhilandoAndDallas.html" rel="bookmark canonical">Black Lives Matter: Alton, Philando, and Dallas</a>
@@ -336,97 +426,6 @@ and destroy the machine that’s casting a pall of <span>&#8230;<a href="/blog/2
                     and
                     
                 <a href="/tag/reviews/" rel="tag">reviews</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-01">2016-07-01</time>
-        <h1>
-            <a href="/blog/2016/07/01/ReviewJimmysHall.html" rel="bookmark canonical">Review: Jimmy's Hall</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Jimmy%27s_Hall"></a>
-<div class="line-block">
-<div class="line">Title: Jimmy’s Hall</div>
-<div class="line">Director: Ken Loach</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Released: 2014</div>
-<div class="line">Keywords: irish, historical</div>
-<div class="line">Watched: 1 July, 2016</div>
-</div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Jimmy%27s_Hall">Jimmy’s Hall</a> tells how Jimmy Gralton
-became the only Irishman ever deported from Ireland.
-Gralton returns to rural Ireland from the <span class="caps">US</span> in 1932,
-after being run out ten years’ earlier
-during the Irish Civil War for Communist activity.
-He revives the dance hall he had built previously,
-as it is a much-needed outlet for the young to dance, study, and talk,
-and im­me­di­ate­ly runs afoul of the local powers,
-par­tic­u­lar­ly the parish priest.
-Tensions escalate, cul­mi­nat­ing in his de­por­ta­tion.</p>
-<p>Ken Loach is never subtle about his own socialist beliefs.
-<em>Jimmy’s Hall</em> is a polemic about
-the struggle between <span>&#8230;<a href="/blog/2016/07/01/ReviewJimmysHall.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/01/ReviewJimmysHall.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/movies/" rel="tag">movies</a>
-                    and
-                    
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-06-30">2016-06-30</time>
-        <h1>
-            <a href="/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html" rel="bookmark canonical">reStructuredText Anonymous Hyperlinks</a>
-        </h1>
-    </header>
-    <p>While re­search­ing <a class="reference external" href="/blog/2016/06/29/reStructuredTextNestedMarkup.html">yes­ter­day’s post</a> about nested markup in Re­Struc­tured­Text,
-I finally learned how to use <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#anonymous-hyperlinks">anonymous hyperlinks</a>.</p>
-<p>Hitherto, I used one of these three forms for hyperlinks:</p>
-<pre class="literal-block">
-1. The central conceit of the fictional `Flashman Papers`_ is that Flashy
-2. besieging Breda_ in 1625.
-3. my club, `Freely Speaking Toastmasters <http: freelyspeaking.org/>`_.
-
-.. _Flashman Papers:
-    https://en.wikipedia.org/wiki/The_Flashman_Papers
-.. _Breda: http://en.wikipedia.org/wiki/Siege_of_Breda
-</pre>
-<p>The first, <tt class="docutils literal">`Flashman Papers`_</tt>, is a <em>named hyperlink reference</em>,
-which refers to an <em>external hyperlink target</em>, <tt class="docutils literal">.. _Flashman Papers: <span class="caps">URI</span></tt>.
-Note that the reference name starts with a backquote, <tt class="docutils literal">`</tt>,
-and ends with backquote-underscore, <tt class="docutils literal">`_</tt>.</p>
-<p>The second, <tt class="docutils literal">Breda_</tt>, is a <em>simple reference name</em>—the backquotes are optional.</p>
-<p><tt class="docutils literal">`Freely Speaking Toast­mas­ters <span class="pre"><http: freelyspeak&shy;ing.org/>`_</span></tt>,
-is an <em>embedded <span class="caps">URI</span></em>.
-The syntax <span>&#8230;<a href="/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>
                 
             </p>
         

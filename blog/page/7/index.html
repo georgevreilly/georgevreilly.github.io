@@ -28,6 +28,100 @@
     
         <article>
     <header>
+        <time datetime="2017-01-07">2017-01-07</time>
+        <h1>
+            <a href="/blog/2017/01/07/ReviewDrStrange.html" rel="bookmark canonical">Review: Dr. Strange</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Doctor_Strange_(film)"></a>
+<div class="line-block">
+<div class="line">Title: Dr. Strange</div>
+<div class="line">Director: Scott Derrickson</div>
+<div class="line">Rating: ★ ★ ★ ½</div>
+<div class="line">Released: 2016</div>
+<div class="line">Keywords: Marvel, fantasy</div>
+<div class="line">Watched: 7 January, 2017</div>
+</div>
+<p>Stephen Strange is a world-class surgeon whose talent is only matched by his arrogance.
+His hands are ruined by a car crash, leaving him desperate to regain their use.
+In Nepal, he finds a temple of sorcerers led by the Ancient One,
+where he learns new and un­sus­pect­ed ways of dealing with the world.
+Eventually he takes on the renegade sorcerer Kaecilius,
+who wants to summon Dormammu from the Dark Dimension to change the world.</p>
+<p>Aside from his very odd American accent,
+Benedict Cum­ber­batch does a decent job with a not-great script
+of portraying one <span>&#8230;<a href="/blog/2017/01/07/ReviewDrStrange.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/01/07/ReviewDrStrange.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/movies/" rel="tag">movies</a>
+                    and
+                    
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2017-01-05">2017-01-05</time>
+        <h1>
+            <a href="/blog/2017/01/05/GitPruningUnusedBranches.html" rel="bookmark canonical">Git: pruning unused branches</a>
+        </h1>
+    </header>
+    <p>Ever had a Git repository where there’s an over­whelm­ing number of branches,
+most of which are surely abandoned?
+You run <tt class="docutils literal">git branch <span class="pre">--remote</span></tt> and you see dozens of unfamiliar branches.
+Where to begin?</p>
+<ul class="simple">
+<li>Use <a class="reference external" href="http://stackoverflow.com/a/11144311/6364">git for-each-ref –sort</a> to sort the branches
+so that you can identify the oldest branches.</li>
+<li>Use <a class="reference external" href="http://stackoverflow.com/a/227026/6364">git branch –remote –merged master</a>
+to detect which branches have already been merged into <tt class="docutils literal">master</tt>.
+It’s likely that these are branches that weren’t deleted
+after a pull request was merged;
+it’s usually safe to delete these.</li>
+<li><tt class="docutils literal"><span class="pre">--no-merged</span></tt> shows unmerged branches;
+these require further in­ves­ti­ga­tion.</li>
+</ul>
+<p>Here’s an example for <a class="reference external" href="https://github.com/cookbrite/flyingcloud">fly­ing­cloud</a>:</p>
+<pre class="code console literal-block">
+<span class="gp">$ </span>git <span class="k">for</span>-each-ref --sort<span class="o">=</span>-committerdate <span class="se">\
+</span>    --format<span class="o">=</span><span class="s1">'%(committerdate:short) %(refname)'</span> refs/heads refs/remotes
+<span class="go">2016-12-29 refs/remotes/origin/master
+2016-12-29 refs/remotes/origin/<span class="caps">HEAD</span>
+2016-12-29 refs/heads/master
+2016-12-11 refs/remotes/origin/0.1.x
+2016-06-09 refs/remotes/origin/fix/salt-pip-version-problem-in-demo
+2016-05-25 refs/remotes/origin/updates
+2016-05-09 refs/remotes/origin/feature/documentation-improvements-3
+2016-04-19 </span></pre><span>&#8230;<a href="/blog/2017/01/05/GitPruningUnusedBranches.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/01/05/GitPruningUnusedBranches.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/git/" rel="tag">git</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2017-01-04">2017-01-04</time>
         <h1>
             <a href="/blog/2017/01/04/MarkdownLivePreview.html" rel="bookmark canonical">Markdown Live Preview</a>
@@ -362,97 +456,6 @@ and finally the secret service want Flashman to sabotage Brown so as to <span>&#
                     and
                     
                 <a href="/tag/humor/" rel="tag">humor</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-09-04">2016-09-04</time>
-        <h1>
-            <a href="/blog/2016/09/04/ReviewInForTheKill.html" rel="bookmark canonical">Review: In For The Kill</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/B000X1LX0M/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: In For The Kill</div>
-<div class="line">Author: John Lutz</div>
-<div class="line">Rating: ★ ★ ★ ½</div>
-<div class="line">Publisher: Pinnacle</div>
-<div class="line">Copyright: 2007</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/B000X1LX0M/?tag=georgvreill-20"><span class="caps">B000X1LX0M</span></a></div>
-<div class="line">Pages: 477</div>
-<div class="line">Keywords: thriller</div>
-<div class="line">Reading period: 20 Aug–3 Sep, 2016</div>
-</div>
-<p>The “Butcher” is leaving dis­mem­bered corpses of women all over New York City
-and he seems to want to get Frank Quinn’s goat.
-Quinn is a former police captain, who’s been called back from retirement
-along with two of his former team members,
-Pearl, his ex-girlfriend, and the slovenly Fedderman.
-The “Butcher” is brilliant and the body count is climbing.</p>
-<p>While the book is properly sus­pense­ful,
-I couldn’t suspend my disbelief at the notion
-that the <span class="caps">NYPD</span> would have little more than Quinn’s tiny team
-working on such a major <span>&#8230;<a href="/blog/2016/09/04/ReviewInForTheKill.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/09/04/ReviewInForTheKill.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/crime/" rel="tag">crime</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-09-03">2016-09-03</time>
-        <h1>
-            <a href="/blog/2016/09/03/ProductivityHackDoNothing.html" rel="bookmark canonical">Productivity Hack: Do Nothing</a>
-        </h1>
-    </header>
-    <p>I read an in­ter­est­ing pro­duc­tiv­i­ty hack: <a class="reference external" href="http://goalsinfinite.com/the-best-productivity-hack-ive-ever-heard/">Writing or Nothing</a>.
-It’s attributed to Raymond Chandler who set himself the goal of writing
-for four hours every day but often found himself goofing off.
-To curb himself of this, he set two rules about how he could spend those four hours.</p>
-<ol class="arabic simple">
-<li>I may write, but it is not mandatory,</li>
-<li>Not do anything else.</li>
-</ol>
-<p>The first rule is simple.
-The second is the key.
-If he’s not writing, he may not do anything else.
-No reading, no bill paying,
-no modern dis­trac­tions like surfing the web or playing a game on a phone.
-Self-enforced idleness.
-Nothing else.</p>
-<p>I haven’t tried it yet but I think it might be effective for <span>&#8230;<a href="/blog/2016/09/03/ProductivityHackDoNothing.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/09/03/ProductivityHackDoNothing.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/productivity/" rel="tag">productivity</a>
-                    and
-                    
-                <a href="/tag/writing/" rel="tag">writing</a>
                 
             </p>
         
