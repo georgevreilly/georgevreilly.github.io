@@ -28,6 +28,51 @@
     
         <article>
     <header>
+        <time datetime="2016-01-31">2016-01-31</time>
+        <h1>
+            <a href="/blog/2016/01/31/URLsFromUnicodeStrings.html" rel="bookmark canonical">URLs from Unicode Strings</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>Some time ago,
+we made an ill-considered decision to use recipe names for image URLs,
+which simplified image management with our then-rudi­men­ta­ry tools.
+For example, the recipe named
+<tt class="docutils literal">"Twisted Pasta With Browned Butter, Sage, and Walnuts"</tt>
+becomes a <span class="caps">URL</span> ending in
+<tt class="docutils literal">"Twist­ed%20­Pas­ta%20With­%20Browned%20But­ter%2C%20Sage%2C%20and%20Wal­nuts.jpg"</tt>.</p>
+<p>Life becomes more in­ter­est­ing when you escape the confines of 7-bit <span class="caps">ASCII</span> and use Unicode.
+How should <tt class="docutils literal">u"Sautéed crème fraîche Provençale"</tt> be handled?
+The only reasonable thing to do is to first convert the Unicode string to <span class="caps">UTF</span>-8
+and then hex-encode those octets:
+<tt class="docutils literal">"Saut%C3%A9ed%20cr%C3%A8me%20fra%C3%AEche%20Proven%C3%A7ale"</tt>.</p>
+<p>That seems reasonable, but it was giving us in­con­sis­tent results
+when the images were uploaded to an S3 bucket.
+When <span>&#8230;<a href="/blog/2016/01/31/URLsFromUnicodeStrings.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/31/URLsFromUnicodeStrings.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/unicode/" rel="tag">unicode</a>,
+                <a href="/tag/urls/" rel="tag">urls</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-30">2016-01-30</time>
         <h1>
             <a href="/blog/2016/01/30/ReviewTheBuglesBlowing.html" rel="bookmark canonical">Review: The Bugles Blowing</a>
@@ -410,63 +455,6 @@ yielding an iterable sequence.</p>
                     and
                     
                 <a href="/tag/metabrite/" rel="tag">metabrite</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-21">2016-01-21</time>
-        <h1>
-            <a href="/blog/2016/01/21/ReviewTheBlackEyedBlonde.html" rel="bookmark canonical">Review: The Black-Eyed Blonde</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/1250062128/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Black-Eyed Blonde</div>
-<div class="line">Author: Benjamin Black</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Picador</div>
-<div class="line">Copyright: 2014</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/1250062128/?tag=georgvreill-20">1250062128</a></div>
-<div class="line">Pages: 304</div>
-<div class="line">Keywords: mystery</div>
-<div class="line">Reading period: 12–16 January, 2016</div>
-</div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Benjamin_Black">Benjamin Black</a> (the mystery-writing pseudonym of Irish novelist, John Banville)
-channels <a class="reference external" href="https://en.wikipedia.org/wiki/Raymond_Chandler">Raymond Chandler</a> as he writes a <a class="reference external" href="https://en.wikipedia.org/wiki/Philip_Marlowe">Philip Marlowe</a> novel.
-Robert Parker wrote a couple of books about a quarter-century ago
-with the approval of the Chandler estate.
-Black’s book is also authorized.</p>
-<p>The book has all the familiar elements of a Marlowe novel:
-the femme fatale of the title,
-the idle rich,
-ungrateful offspring and murderous staff,
-cynical cops,
-the baking heat of California,
-beatings and booze,
-Marlowe cracking wise,
-and the trademark Chan­dleresque similes.</p>
-<p>If you like Chandler,
-you’ll probably like Black’s con­tri­bu­tion to the canon.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/21/ReviewTheBlackEyedBlonde.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/mystery/" rel="tag">mystery</a>
-                    and
-                    
-                <a href="/tag/history/" rel="tag">history</a>
                 
             </p>
         

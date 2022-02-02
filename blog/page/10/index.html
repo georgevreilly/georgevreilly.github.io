@@ -28,6 +28,92 @@
     
         <article>
     <header>
+        <time datetime="2016-08-06">2016-08-06</time>
+        <h1>
+            <a href="/blog/2016/08/06/Rounding.html" rel="bookmark canonical">Rounding</a>
+        </h1>
+    </header>
+    <p>I recently learned from a <a class="reference external" href="http://stackoverflow.com/questions/10825926/python-3-x-rounding-behavior">Stack­Over­flow question</a>
+that the rounding behavior in Python 3.x is different from Python 2.x:</p>
+<blockquote>
+The round() function rounding strategy and return type have changed.
+Exact halfway cases are now rounded to the nearest even result
+instead of away from zero.
+(For example, round(2.5) now returns 2 rather than 3.)</blockquote>
+<p>The “away from zero” rounding strategy is the one that most of us learned at school.
+The “nearest even” strategy is also known as “banker’s rounding”.</p>
+<p>There are actually <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_floating_point#Rounding_rules">five rounding strategies defined in <span class="caps">IEEE</span> 754</a>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="58%"/>
+<col width="11%"/>
+<col width="11%"/>
+<col width="11%"/>
+<col width="11%"/>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Mode / Example Value</th>
+<th class="head">+11.5</th>
+<th class="head">+12.5</th>
+<th class="head">−11.5</th>
+<th class="head">−12.5</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>to nearest, ties to even</td>
+<td>+12.0</td>
+<td>+12.0</td>
+<td>−12.0</td>
+<td>−12.0</td>
+</tr>
+<tr><td>to nearest, ties away from zero</td>
+<td>+12.0</td>
+<td>+13.0</td>
+<td>−12.0</td>
+<td>−13.0</td>
+</tr>
+<tr><td>toward 0 (truncation)</td>
+<td>+11.0</td>
+<td>+12.0</td>
+<td>−11.0</td>
+<td>−12.0</td>
+</tr>
+<tr><td>toward +∞ (ceiling)</td>
+<td>+12.0</td>
+<td>+13.0</td>
+<td>−11.0</td>
+<td>−12.0</td>
+</tr>
+<tr><td>toward −∞ (floor)</td>
+<td>+11.0</td>
+<td>+12.0</td>
+<td>−12.0</td>
+<td>−13.0</td>
+</tr>
+</tbody>
+</table>
+<p>Further reading on <span>&#8230;<a href="/blog/2016/08/06/Rounding.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/06/Rounding.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/math/" rel="tag">math</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-08-05">2016-08-05</time>
         <h1>
             <a href="/blog/2016/08/05/UsefulMentalModels.html" rel="bookmark canonical">Useful Mental Models</a>
@@ -400,56 +486,6 @@ and Secretary of State for <span>&#8230;<a href="/blog/2016/07/28/ImWithHer.html
         
             <p>tagged as
                 <a href="/tag/politics/" rel="tag">politics</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-27">2016-07-27</time>
-        <h1>
-            <a href="/blog/2016/07/27/ReviewTheKingsHounds.html" rel="bookmark canonical">Review: The King's Hounds</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/B00BCPEWQU/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The King’s Hounds</div>
-<div class="line">Author: Martin Jensen</div>
-<div class="line">Rating: ★ ★ ★ ½</div>
-<div class="line">Publisher: Ama­zon­Cross­ing</div>
-<div class="line">Copyright: 2013</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/B00BCPEWQU/?tag=georgvreill-20"><span class="caps">B00BCPEWQU</span></a></div>
-<div class="line">Pages: 274</div>
-<div class="line">Keywords: historical mystery</div>
-<div class="line">Reading period: 11 June–22 July, 2016</div>
-</div>
-<p><span class="caps">1018AD</span>. King Cnut of Denmark (aka <a class="reference external" href="https://en.wikipedia.org/wiki/Cnut_the_Great">Canute</a>) has recently conquered England,
-and now must broker peace between the Saxons and the Danes at Oxford.
-Also in Oxford are Winston, a talented il­lu­mi­na­tor of man­u­scripts,
-and Halfdan, a roguish half-Danish half-Saxon landless noble.
-A prominent Saxon has been murdered and Cnut commands Winston and Halfdan to in­ves­ti­gate.</p>
-<p>While the mystery was reasonably while done,
-I found the anachro­nis­tic speech patterns quite jarring.
-The book is translated from Danish;
-I presume this is also true in the original.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/27/ReviewTheKingsHounds.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/mystery/" rel="tag">mystery</a>
-                    and
-                    
-                <a href="/tag/history/" rel="tag">history</a>
                 
             </p>
         

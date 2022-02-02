@@ -28,6 +28,61 @@
     
         <article>
     <header>
+        <time datetime="2016-07-12">2016-07-12</time>
+        <h1>
+            <a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" rel="bookmark canonical">Python: Joining URLs with posixpath.join</a>
+        </h1>
+    </header>
+    <p>On Mac/Linux, <a class="reference external" href="https://docs.python.org/2/library/os.path.html#os.path.join">os.path.join</a> is an alias for <tt class="docutils literal">posixpath.join</tt>,
+which always joins path segments with <tt class="docutils literal">/</tt>.
+On Windows, <tt class="docutils literal">os.path.join</tt> is an alias for <tt class="docutils literal">ntpath.join</tt>,
+which always uses <tt class="docutils literal">\</tt>.
+When dealing with URLs, we always want forward slashes,
+regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build <span class="caps">URL</span> paths.</p>
+<p>Running:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">from</span> <span class="nn">six.moves.urllib_parse</span> <span class="kn">import</span> <span class="n">urljoin</span> <span class="k">as</span> <span class="n">abs_urljoin</span>
+<span class="kn">from</span> <span class="nn">posixpath</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">path_urljoin</span>
+
+<span class="k">def</span> <span class="nf">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">abs_urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_join</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"'</span><span class="si">{0}</span><span class="s2">' + '</span><span class="si">{1}</span><span class="s2">'</span><span class="se">\n\t</span><span class="s2">-> '</span><span class="si">{2}</span><span class="s2">'"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="n">local_path</span> <span class="o">=</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="s1">'2016'</span><span class="p">,</span> <span class="s1">'07'</span><span class="p">,</span> <span class="s1">'12'</span><span class="p">,</span> <span class="s1">'release'</span><span class="p">,</span> <span class="s1">'index.html'</span><span class="p">)</span>
+
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="s1">'foo/bar/quux.js'</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/prefix'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+</pre>
+<p>Yields:</p>
+<pre class="literal-block">
+'https://www.example.com' + 'foo/bar/quux.js'
+   </pre><span>&#8230;<a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-07-11">2016-07-11</time>
         <h1>
             <a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" rel="bookmark canonical">Logging in Python: Don't use new-fangled format</a>
@@ -382,50 +437,6 @@ The manual had <span>&#8230;<a href="/blog/2016/07/03/SSDUpgradeFor2012MacBook.h
         
             <p>tagged as
                 <a href="/tag/mac/" rel="tag">mac</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-02">2016-07-02</time>
-        <h1>
-            <a href="/blog/2016/07/02/ReviewTomorrowland.html" rel="bookmark canonical">Review: Tomorrowland</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Tomorrowland_(film)"></a>
-<div class="line-block">
-<div class="line">Title: To­mor­row­land</div>
-<div class="line">Director: Brad Bird</div>
-<div class="line">Rating: ★ ★ ★ ½</div>
-<div class="line">Released: 2015</div>
-<div class="line">Keywords: sf</div>
-<div class="line">Watched: 2 July, 2016</div>
-</div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Tomorrowland_(film)">To­mor­row­land</a> is a story of dashed dreams and recovered optimism.</p>
-<p>In 1964, eleven-year-old Frank Walker meets a girl called Athena
-who takes him from the World’s Fair into a futuristic city called To­mor­row­land.
-In the present day, where doom and gloom reign,
-a teenager called Casey hasn’t given up hope of a better future.
-She is recruited by Athena—­some­how no older—to save the world.
-Casey finds Frank, who is embittered at having been cast out of paradise decades ago.
-They find their way back into the now-desolate To­mor­row­land
-and destroy the machine that’s casting a pall of <span>&#8230;<a href="/blog/2016/07/02/ReviewTomorrowland.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/02/ReviewTomorrowland.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/movies/" rel="tag">movies</a>
-                    and
-                    
-                <a href="/tag/reviews/" rel="tag">reviews</a>
                 
             </p>
         

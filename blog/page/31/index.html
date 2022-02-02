@@ -28,6 +28,53 @@
     
         <article>
     <header>
+        <time datetime="2016-01-02">2016-01-02</time>
+        <h1>
+            <a href="/blog/2016/01/02/ReviewTheRedRoad.html" rel="bookmark canonical">Review: The Red Road</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.amazon.com/dp/0316188506/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: The Red Road</div>
+<div class="line">Author: Denise Mina</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Publisher: Back Bay Books</div>
+<div class="line">Copyright: 2014</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0316188506/?tag=georgvreill-20">0316188506</a></div>
+<div class="line">Pages: 320</div>
+<div class="line">Keywords: police procedural, tartan noir</div>
+<div class="line">Reading period: 31 December, 2015–2 January, 2016</div>
+</div>
+<p>Glasgow <span class="caps">DI</span> Alex Morrow is trying to put a dangerous criminal back in prison,
+but she can’t explain how his prints were found at the scene of a recent murder
+when he was already in custody.
+Fifteen years ago, when Rose Wilson was a sexually abused 14 year old,
+she was re­spon­si­ble for two deaths in one night,
+but only did time for one culpable homicide.
+Now the lawyer who saved her is dead and coverups are unraveling.</p>
+<p>In other hands, this tale <span>&#8230;<a href="/blog/2016/01/02/ReviewTheRedRoad.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/02/ReviewTheRedRoad.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/crime/" rel="tag">crime</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-01">2016-01-01</time>
         <h1>
             <a href="/blog/2016/01/01/ThanksForMakingAMess.html" rel="bookmark canonical">Thanks for Making a Mess</a>
@@ -379,50 +426,6 @@ and a few weeks before my trip, he challenged me to join him in a 5K run for ch
         
             <p>tagged as
                 <a href="/tag/running/" rel="tag">running</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-23">2015-12-23</time>
-        <h1>
-            <a href="/blog/2015/12/23/ParseMinVerBash.html" rel="bookmark canonical">Checking minimum version numbers in Bash</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://cube-drone.com/comics/c/version-sacrifice"></a>
-<p>I worked on a Bash script today that sets up various pre­req­ui­sites for our build.
-We need a recent version of Docker
-but our <a class="reference external" href="https://www.atlassian.com/software/bamboo/">Bamboo</a> build agents are running on Ubuntu 14.04,
-which has a very old version of Docker.
-The script upgrades Docker when it’s first run.
-The script may be run more than once during the lifetime of the agent,
-so the second and subsequent calls should not upgrade Docker.</p>
-<p>Basically, I wanted</p>
-<pre class="code bash literal-block">
-<span class="k">if</span> <span class="nv">$DOCKER_VERSION</span> < <span class="m">1</span>.9<span class="p">;</span> <span class="k">then</span> upgrade_docker<span class="p">;</span> <span class="k">fi</span>
-</pre>
-<p>Un­for­tu­nate­ly, it’s not that easy in Bash.
-Here’s what I came up with.</p>
-<pre class="code bash literal-block">
-install_latest_docker<span class="o">()</span> <span class="o">{</span>
-    <span class="k">if</span> docker --version <span class="p">|</span> python -c <span class="s2">"min=[1, 9]; import sys; ↩
-v=[int(x) for x in </span></pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/23/ParseMinVerBash.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/bash/" rel="tag">bash</a>
-                    and
-                    
-                <a href="/tag/python/" rel="tag">python</a>
                 
             </p>
         

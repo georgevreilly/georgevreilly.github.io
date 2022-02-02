@@ -30,6 +30,50 @@
     <header>
         <time datetime="2009-04-23">2009-04-23</time>
         <h1>
+            <a href="/blog/2009/04/23/PythonStringFormatting.html" rel="bookmark canonical">Python String Formatting</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://docs.python.org/library/string.html#format-string-syntax"></a>
+<p>Python has long had a string in­ter­po­la­tion operator, <tt class="docutils literal">%</tt>.</p>
+<p>Python 2.6 and 3.0 introduced a new, richer set of <a class="reference external" href="http://docs.python.org/library/string.html#format-string-syntax">string formatting operations</a>.
+See <a class="reference external" href="http://www.python.org/dev/peps/pep-3101/"><span class="caps">PEP</span> 3101</a> for the rationale.</p>
+<p>One trick that I liked with the old way of formatting was
+to put the <a class="reference external" href="http://docs.python.org/library/functions.html#locals">locals()</a> dictionary or <tt class="docutils literal">self.__dict__</tt>
+on the right-hand side</p>
+<pre class="code python literal-block">
+<span class="o">>>></span> <span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="o">...</span>  <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
+<span class="o">...</span>  <span class="k">return</span> <span class="s2">"</span><span class="si">%(a)s</span><span class="s2">, </span><span class="si">%(b)s</span><span class="s2">, </span><span class="si">%(c)s</span><span class="s2">, </span><span class="si">%(d)s</span><span class="s2">"</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span>
+<span class="o">...</span>
+<span class="o">>>></span> <span class="n">stuff</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
+<span class="s1">'3, 17, 20, -14'</span>
+</pre>
+<p>It took me a few minutes to figure out how to do the equivalent with <tt class="docutils literal">string.format</tt>:
+use the <tt class="docutils literal">**</tt> syntax to unpack the dict into <tt class="docutils literal">kwargs</tt>.</p>
+<pre class="code python literal-block">
+<span class="o">>>></span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="o">...</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+<span class="o">...</span>   </pre><span>&#8230;<a href="/blog/2009/04/23/PythonStringFormatting.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/23/PythonStringFormatting.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-04-23">2009-04-23</time>
+        <h1>
             <a href="/blog/2009/04/23/InstantShot.html" rel="bookmark canonical">InstantShot!</a>
         </h1>
     </header>
@@ -389,42 +433,6 @@ especially when it’s run by people who are ide­o­log­i­cal­ly opposed to 
         
             <p>tagged as
                 <a href="/tag/politics/" rel="tag">politics</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-04-14">2009-04-14</time>
-        <h1>
-            <a href="/blog/2009/04/14/TableTopics.html" rel="bookmark canonical">Table Topics</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://presentrat.wordpress.com/2008/01/01/103/"></a>
-<p>A Toast­mas­ters meeting has three parts:
-prepared speeches, table topics, and eval­u­a­tions of the prepared speeches.</p>
-<p>Table Topics offer a chance for those present
-to wing it on some topic for one or two minutes.
-The Table Topics Master sets up the topics
-and the speaker has as most a few minutes to prepare.</p>
-<p>Sometimes, when I’m running Table Topics,
-I present a topic for everyone at the beginning of the section.
-On a winter’s day, I might ask people to tell us about
-some favorite food they associate with winter.
-Or I might ask them to tell us about where they’re going for their summer vacation.</p>
-<p>At other times, I spring the topic <span>&#8230;<a href="/blog/2009/04/14/TableTopics.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/14/TableTopics.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/toastmasters/" rel="tag">toastmasters</a>
                 
             </p>
         
