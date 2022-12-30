@@ -10,7 +10,10 @@ George V. Reilly
     :target: /about/
     :class: right-float
 
-* `blog </blog/>`_
-* `about </about/>`_
+* `Blog </blog/>`_
+* `Today George Learned </til/>`_
+* `About George </about/>`_
 * `GitHub <https://github.com/georgevreilly/>`_
+* `LinkedIn <https://www.linkedin.com/in/georgevreilly/>`_
 * `Twitter <https://twitter.com/georgevreilly>`_
+* `Mastodon <https://tech.lgbt/@georgevreilly>`_
