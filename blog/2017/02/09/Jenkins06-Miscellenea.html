@@ -20,10 +20,11 @@
     <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
     <nav>
       <ul>
-        <li><a href="/blog/" rel="home start">blog</a></li>
-        <li><a href="/about/" rel="home start">about</a></li>
-        <li><a href="/atom/" rel="alternate">atom</a></li>
-        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
         <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
@@ -56,13 +57,13 @@ The <tt class="docutils literal">+<span class="caps">WHATEVER</span></tt> has no
 <p>The <tt class="docutils literal">withEnv</tt> step should not be used to introduce secrets into the build en&shy;vi&shy;ron&shy;ment.
 Use the <a class="reference external" href="https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin">with&shy;Cre&shy;den&shy;tials</a> plugin instead.</p>
 <pre class="code groovy literal-block">
-<span class="n">withCredentials</span><span class="o">([</span>
-    <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">'StringBinding'</span><span class="o">,</span> <span class="nl">credentialsId:</span> <span class="s1">'GPG_SECRET'</span><span class="o">,</span> <span class="nl">variable:</span> <span class="s1">'GPG_SECRET'</span><span class="o">],</span>
-    <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">'AmazonWebServicesCredentialsBinding'</span><span class="o">,</span>
-     <span class="nl">credentialsId:</span> <span class="s1">'0defaced-cafe-f00d-badd-0000000ff1ce'</span><span class="o">,</span>
-     <span class="nl">accessKeyVariable:</span> <span class="s1">'AWS_ACCESS_KEY_ID'</span><span class="o">,</span>
-     <span class="nl">secretKeyVariable:</span> <span class="s1">'AWS_SECRET_ACCESS_KEY'</span><span class="o">]</span>
-<span class="o">])</span> <span class="o">{</span>
+<span class="n">withCredentials</span><span class="o">([</span><span class="w">
+    </span><span class="o">[</span><span class="n">$class</span><span class="o">:</span><span class="w"> </span><span class="s1">'StringBinding'</span><span class="o">,</span><span class="w"> </span><span class="nl">credentialsId:</span><span class="w"> </span><span class="s1">'GPG_SECRET'</span><span class="o">,</span><span class="w"> </span><span class="nl">variable:</span><span class="w"> </span><span class="s1">'GPG_SECRET'</span><span class="o">],</span><span class="w">
+    </span><span class="o">[</span><span class="n">$class</span><span class="o">:</span><span class="w"> </span><span class="s1">'AmazonWebServicesCredentialsBinding'</span><span class="o">,</span><span class="w">
+     </span><span class="nl">credentialsId:</span><span class="w"> </span><span class="s1">'0defaced-cafe-f00d-badd-0000000ff1ce'</span><span class="o">,</span><span class="w">
+     </span><span class="nl">accessKeyVariable:</span><span class="w"> </span><span class="s1">'AWS_ACCESS_KEY_ID'</span><span class="o">,</span><span class="w">
+     </span><span class="nl">secretKeyVariable:</span><span class="w"> </span><span class="s1">'AWS_SECRET_ACCESS_KEY'</span><span class="o">]</span><span class="w">
+</span><span class="o">])</span><span class="w"> </span><span class="o">{</span>
 </pre>
 <p>Tip: Use the Pipeline Syntax Snippet Generator from <em>your</em> Jenkins project
 to figure out the exact invocation for your cre&shy;den&shy;tials.</p>
@@ -89,7 +90,7 @@ Note that <tt class="docutils literal">with&shy;Cre&shy;den&shy;tials</tt> will 
 <p>You may need to clean up your workspace.
 <a class="reference external" href="../jenkins-03-github-integration/">Don’t remove the .git directory</a>.</p>
 <pre class="code groovy literal-block">
-<span class="n">sh</span> <span class="s2">"ls -A1 | grep -v "</span><span class="o">^</span><span class="err">\\</span><span class="o">.</span><span class="na">git</span><span class="err">\</span><span class="n">$</span><span class="s2">" | xargs rm -rf"</span>
+<span class="n">sh</span><span class="w"> </span><span class="s2">"ls -A1 | grep -v "</span><span class="o">^</span><span class="err">\\</span><span class="o">.</span><span class="na">git</span><span class="err">\</span><span class="n">$</span><span class="s2">" | xargs rm -rf"</span>
 </pre>
 <ul class="simple">
 <li><tt class="docutils literal">ls <span class="pre">-A1</span></tt> lists all the files and di&shy;rec&shy;to&shy;ries in the current directory,
@@ -121,15 +122,15 @@ and <tt class="docutils literal">unstash</tt> is the easiest way to prime the w
 you’ll need to use <tt class="docutils literal">archiveArti&shy;facts</tt> and <tt class="docutils literal">Cop&shy;y&shy;Arti&shy;fact</tt>.</p>
 <p>In project <tt class="docutils literal"><span class="pre">build-1</span></tt>:</p>
 <pre class="code groovy literal-block">
-<span class="n">archiveArtifacts</span> <span class="nl">artifacts:</span> <span class="s1">'my_artifact.zip'</span><span class="o">,</span> <span class="nl">fingerprint:</span> <span class="kc">true</span>
+<span class="n">archiveArtifacts</span><span class="w"> </span><span class="nl">artifacts:</span><span class="w"> </span><span class="s1">'my_artifact.zip'</span><span class="o">,</span><span class="w"> </span><span class="nl">fingerprint:</span><span class="w"> </span><span class="kc">true</span>
 </pre>
 <p>In project <tt class="docutils literal"><span class="pre">build-2</span></tt>:</p>
 <pre class="code groovy literal-block">
-<span class="n">step</span> <span class="o">([</span><span class="n">$class</span><span class="o">:</span> <span class="s1">'CopyArtifact'</span><span class="o">,</span>
-       <span class="nl">projectName:</span> <span class="s1">'build-1'</span><span class="o">,</span>
-       <span class="nl">filter:</span> <span class="s1">'my_artifact.zip'</span><span class="o">,</span>
-       <span class="nl">selector:</span> <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">'StatusBuildSelector'</span><span class="o">]</span>
-      <span class="o">]);</span>
+<span class="n">step</span><span class="w"> </span><span class="o">([</span><span class="n">$class</span><span class="o">:</span><span class="w"> </span><span class="s1">'CopyArtifact'</span><span class="o">,</span><span class="w">
+       </span><span class="nl">projectName:</span><span class="w"> </span><span class="s1">'build-1'</span><span class="o">,</span><span class="w">
+       </span><span class="nl">filter:</span><span class="w"> </span><span class="s1">'my_artifact.zip'</span><span class="o">,</span><span class="w">
+       </span><span class="nl">selector:</span><span class="w"> </span><span class="o">[</span><span class="n">$class</span><span class="o">:</span><span class="w"> </span><span class="s1">'StatusBuildSelector'</span><span class="o">]</span><span class="w">
+      </span><span class="o">]);</span>
 </pre>
 <p>Note that the <tt class="docutils literal">Sta&shy;tus&shy;Build&shy;S&shy;e&shy;lec&shy;tor</tt> selector is picking the artifact
 from the last successful build of <tt class="docutils literal"><span class="pre">build-1</span></tt>.</p>
@@ -151,11 +152,11 @@ This is so useful that it should be the default.</p>
 <p>The <tt class="docutils literal">ansiColor</tt> plugin will generate transform colored console output
 into colored log output.</p>
 <pre class="code groovy literal-block">
-<span class="n">node</span><span class="o">(</span><span class="s1">'ubuntu'</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">timestamps</span> <span class="o">{</span>
-        <span class="n">ansiColor</span><span class="o">(</span><span class="s1">'xterm'</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">stage</span><span class="o">(</span><span class="s2">"Source Checkout"</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">checkout</span> <span class="n">scm</span>
+<span class="n">node</span><span class="o">(</span><span class="s1">'ubuntu'</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w">
+    </span><span class="n">timestamps</span><span class="w"> </span><span class="o">{</span><span class="w">
+        </span><span class="n">ansiColor</span><span class="o">(</span><span class="s1">'xterm'</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w">
+            </span><span class="n">stage</span><span class="o">(</span><span class="s2">"Source Checkout"</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w">
+                </span><span class="n">checkout</span><span class="w"> </span><span class="n">scm</span>
 </pre>
 </div>
 <div class="section" id="job-debugging">

@@ -16,10 +16,11 @@
     <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
     <nav>
       <ul>
-        <li><a href="/blog/" rel="home start">blog</a></li>
-        <li><a href="/about/" rel="home start">about</a></li>
-        <li><a href="/atom/" rel="alternate">atom</a></li>
-        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
         <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
@@ -93,12 +94,12 @@ The <tt class="docutils literal">+WHATEVER</tt> has no other effect.</p>
 <p>The <tt class="docutils literal">withEnv</tt> step should not be used to introduce secrets into the build en­vi­ron­ment.
 Use the <a class="reference external" href="https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin">with­Cre­den­tials</a> plugin instead.</p>
 <pre class="code groovy literal-block">
-<span class="n">withCredentials</span><span class="o">([</span>
-    <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">'StringBinding'</span><span class="o">,</span> <span class="nl">credentialsId:</span> <span class="s1">'GPG_SECRET'</span><span class="o">,</span> <span class="nl">variable:</span> <span class="s1">'GPG_SECRET'</span><span class="o">],</span>
-    <span class="o">[</span><span class="n">$class</span><span class="o">:</span> <span class="s1">'AmazonWebServicesCredentialsBinding'</span><span class="o">,</span>
-     <span class="nl">credentialsId:</span> <span class="s1">'0defaced-cafe-f00d-badd-0000000ff1ce'</span><span class="o">,</span>
-     <span class="nl">accessKeyVariable:</span> <span class="s1">'AWS_ACCESS_KEY_ID'</span><span class="o">,</span>
- </pre><span>&#8230;<a href="/blog/2017/02/09/Jenkins06-Miscellenea.html" class="continue">continue</a>.</span></div>
+<span class="n">withCredentials</span><span class="o">([</span><span class="w">
+    </span><span class="o">[</span><span class="n">$class</span><span class="o">:</span><span class="w"> </span><span class="s1">'StringBinding'</span><span class="o">,</span><span class="w"> </span><span class="nl">credentialsId:</span><span class="w"> </span><span class="s1">'GPG_SECRET'</span><span class="o">,</span><span class="w"> </span><span class="nl">variable:</span><span class="w"> </span><span class="s1">'GPG_SECRET'</span><span class="o">],</span><span class="w">
+    </span><span class="o">[</span><span class="n">$class</span><span class="o">:</span><span class="w"> </span><span class="s1">'AmazonWebServicesCredentialsBinding'</span><span class="o">,</span><span class="w">
+     </span><span class="nl">credentialsId:</span><span class="w"> </span><span class="s1">'0defaced-cafe-f00d-badd-0000000ff1ce'</span><span class="o">,</span><span class="w">
+     </span><span class="nl">accessKeyVariable:</span><span class="w"> </span><span class="s1">'AWS_ACCESS_KEY_ID'</span><span class="o">,</span><span class="w">
+ </span></pre><span>&#8230;<a href="/blog/2017/02/09/Jenkins06-Miscellenea.html" class="continue">continue</a>.</span></div>
     <footer>
         
         
@@ -346,15 +347,15 @@ but I'm quite liking Groovy.</p>
 where the <tt class="docutils literal">re­lease_lev­el</tt> parameter is a <tt class="docutils literal">String</tt>
 which must be either <tt class="docutils literal">"dev"</tt> or <tt class="docutils literal">"prod"</tt>.</p>
 <pre class="code groovy literal-block">
-<span class="kt">def</span> <span class="n">acceptance_integration_tests</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span> <span class="n">release_level</span> <span class="o">-></span>
-    <span class="k">assert</span> <span class="n">release_level</span> <span class="o">=~</span> <span class="s">/^(dev|prod)$/</span>
-    <span class="n">String</span> <span class="n">arg</span> <span class="o">=</span> <span class="s2">"--${release_level}"</span>
+<span class="kt">def</span><span class="w"> </span><span class="n">acceptance_integration_tests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">release_level</span><span class="w"> </span><span class="o">-></span><span class="w">
+    </span><span class="k">assert</span><span class="w"> </span><span class="n">release_level</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="s">/^(dev|prod)$/</span><span class="w">
+    </span><span class="n">String</span><span class="w"> </span><span class="n">arg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"--${release_level}"</span><span class="w">
 
-    <span class="kt">def</span> <span class="n">branches</span> <span class="o">=</span> <span class="o">[</span>
-        <span class="s2">"${release_level}_acceptance_tests"</span><span class="o">:</span> <span class="o">{</span>
-            <span class="n">run_tests</span><span class="o">(</span><span class="s2">"ci_acceptance_test"</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">'**/*nosetests.xml'</span><span class="o">)</span>
-        <span class="o">},</span>
-       </pre><span>&#8230;<a href="/blog/2017/01/13/ComputedParallelBranchesInJenkinsPipeline.html" class="continue">continue</a>.</span>
+    </span><span class="kt">def</span><span class="w"> </span><span class="n">branches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="w">
+        </span><span class="s2">"${release_level}_acceptance_tests"</span><span class="o">:</span><span class="w"> </span><span class="o">{</span><span class="w">
+            </span><span class="n">run_tests</span><span class="o">(</span><span class="s2">"ci_acceptance_test"</span><span class="o">,</span><span class="w"> </span><span class="n">arg</span><span class="o">,</span><span class="w"> </span><span class="s1">'**/*nosetests.xml'</span><span class="o">)</span><span class="w">
+        </span><span class="o">},</span><span class="w">
+       </span></pre><span>&#8230;<a href="/blog/2017/01/13/ComputedParallelBranchesInJenkinsPipeline.html" class="continue">continue</a>.</span>
     <footer>
         
         

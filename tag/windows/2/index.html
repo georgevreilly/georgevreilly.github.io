@@ -16,10 +16,11 @@
     <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
     <nav>
       <ul>
-        <li><a href="/blog/" rel="home start">blog</a></li>
-        <li><a href="/about/" rel="home start">about</a></li>
-        <li><a href="/atom/" rel="alternate">atom</a></li>
-        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
         <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
@@ -388,28 +389,36 @@ that it would compromise the tools.</p>
     
         <article>
     <header>
-        <time datetime="2006-04-22">2006-04-22</time>
+        <time datetime="2006-09-14">2006-09-14</time>
         <h1>
-            <a href="/blog/2006/04/22/Win64PortOfVim.html" rel="bookmark canonical">Win64 port of Vim</a>
+            <a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" rel="bookmark canonical">Never Sleep(0) in an Infinite Loop</a>
         </h1>
     </header>
-    <p>I've ported Vim to Win64. Native binaries for AMD64 can be found on my
-<a class="reference external" href="//www.georgevreilly.com/vim/">Vim page</a>.</p>
-<p>In the end, it wasn't all that hard. Last weekend, I fixed ap­prox­i­mate­ly
-400 warnings that were thrown up by the x86_amd64 cross compiler.
-Most of them were due to the widening of <tt class="docutils literal">size_t</tt> (especially the value
-returned from <tt class="docutils literal">strlen()</tt>) and <tt class="docutils literal">ptrdiff_t</tt> to 64-bits.
-Several years ago, I went through a similar exercise in fixing these
-warnings for Vim6, but I never finished the port.</p>
-<p>This week, I scrounged access to an AMD64 box at work. Today, I turned on
-the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/yt4xw8fh(VS.80).aspx">/Wp64 flag</a>,
-which found several new, subtler problems, where pointers where being
-truncated to <span>&#8230;<a href="/blog/2006/04/22/Win64PortOfVim.html" class="continue">continue</a>.</span></p>
+    
+<p>I ran into a problem installing some COM+ components today. The installer
+was using <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/04za0hca.aspx">Regsvcs.exe</a>
+to register each COM+ component. I noticed after a while that the installer
+wasn't making any progress and that my dual-proc system was stuck at 50%
+CPU uti­liza­tion. I attached a debugger to the offending process, regsvcs,
+and found that it was stuck in the following infinite loop
+(dis­as­sem­bly courtesy of <a class="reference external" href="http://www.aisto.com/roeder/dotnet/">Reflector</a>):</p>
+
+<pre class="code csharp literal-block">
+<span class="k">internal</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">EnterpriseServices</span><span class="p">.</span><span class="n">CatalogSync</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">_set</span><span class="p">)</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="n">RegistryKey</span><span class="w"> </span><span class="n">key1</span><span class="w">
+      </span><span class="p">=</span><span class="w"> </span><span class="n">Registry</span><span class="p">.</span><span class="n">LocalMachine</span><span class="p">.</span><span class="n">OpenSubKey</span><span class="p">(</span><span class="s">@"SOFTWARE\Classes\CLSID"</span><span class="p">);</span><span class="w">
+    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="k">true</span><span class="p">)</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="kt">int</span><span class="w"> </span><span class="n">num1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="n">key1</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="s">"CLBVersion"</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">);</span><span class="w">
+ </span></pre><span>&#8230;<a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" class="continue">continue</a>.</span>
     <footer>
         
         
             <p>tagged as
-                <a href="/tag/vim/" rel="tag">vim</a>
+                <a href="/tag/c/" rel="tag">c#</a>
                     and
                     
                 <a href="/tag/windows/" rel="tag">windows</a>

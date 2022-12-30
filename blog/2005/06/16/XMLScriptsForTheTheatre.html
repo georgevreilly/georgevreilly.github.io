@@ -18,10 +18,11 @@
     <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
     <nav>
       <ul>
-        <li><a href="/blog/" rel="home start">blog</a></li>
-        <li><a href="/about/" rel="home start">about</a></li>
-        <li><a href="/atom/" rel="alternate">atom</a></li>
-        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
         <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
@@ -76,53 +77,23 @@ About the only mildly in&shy;ter&shy;est&shy;ing thing is defining
 one template in terms of another;
 e.g., I want all the speakers to share the same styling,
 so I defined a pa&shy;ra&shy;me&shy;ter&shy;ized <tt class="docutils literal">speaker</tt> template:</p>
-<pre class="literal-block">
-.. code:: xslt
+<pre class="code xslt literal-block">
+<span class="k"><xsl:template</span> <span class="na">name=</span><span class="s">"speaker"</span><span class="nt">></span>
+    <span class="k"><xsl:param</span> <span class="na">name=</span><span class="s">"name"</span> <span class="nt">/></span>
+    <span class="nt"><div</span> <span class="na">class=</span><span class="s">"speaker"</span><span class="nt">></span>
+        <span class="nt"><span</span> <span class="na">class=</span><span class="s">"speaker"</span><span class="nt">></span><span class="k"><xsl:value-of</span> <span class="na">select=</span><span class="s">"$name"</span><span class="nt">/></span>: <span class="nt"></span></span>
+        <span class="k"><xsl:apply-templates</span> <span class="nt">/></span>
+    <span class="nt"></div></span>
+<span class="k"></xsl:template></span>
 </pre>
-<blockquote>
-<dl class="docutils">
-<dt><xsl:template name="speaker"></dt>
-<dd><p class="first"><xsl:param name="name" />
-<div class="speaker"></p>
-<div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">ERROR</span>/3 (<tt class="docutils"><string></tt>, line 51)</p>
-Unexpected in&shy;den&shy;ta&shy;tion.</div>
-<blockquote>
-<span class="s&shy;peak&shy;er"><xsl:value-of select="$name"/>: </span>
-<xsl:apply-templates /></blockquote>
-<div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils"><string></tt>, line 53)</p>
-Block quote ends without a blank line; unexpected unindent.</div>
-<p class="last"></div></p>
-</dd>
-</dl>
-<div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils"><string></tt>, line 54)</p>
-Definition list ends without a blank line; unexpected unindent.</div>
-<p></xsl:template></p>
-</blockquote>
 <p>which is called thus:</p>
-<pre class="literal-block">
-.. code:: xslt
+<pre class="code xslt literal-block">
+<span class="k"><xsl:template</span> <span class="na">match=</span><span class="s">"bloom"</span><span class="nt">></span>
+    <span class="k"><xsl:call-template</span> <span class="na">name=</span><span class="s">"speaker"</span><span class="nt">></span>
+        <span class="k"><xsl:with-param</span> <span class="na">name=</span><span class="s">"name"</span><span class="nt">></span>Bloom<span class="k"></xsl:with-param></span>
+    <span class="k"></xsl:call-template></span>
+<span class="k"></xsl:template></span>
 </pre>
-<blockquote>
-<dl class="docutils">
-<dt><xsl:template match="bloom"></dt>
-<dd><dl class="first docutils">
-<dt><xsl:call-template name="speaker"></dt>
-<dd><xsl:with-param name="name">Bloom</xsl:with-param></dd>
-</dl>
-<div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils"><string></tt>, line 63)</p>
-Definition list ends without a blank line; unexpected unindent.</div>
-<p class="last"></xsl:call-template></p>
-</dd>
-</dl>
-<div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils"><string></tt>, line 64)</p>
-Definition list ends without a blank line; unexpected unindent.</div>
-<p></xsl:template></p>
-</blockquote>
 <p>The <em>real</em> challenge in preparing the script is dra&shy;matur&shy;gi&shy;cal.
 <em>Ulysses</em> is a no&shy;to&shy;ri&shy;ous&shy;ly difficult and dense text,
 woven through with Bloom’s stream-of-con&shy;scious&shy;ness interior monologue.

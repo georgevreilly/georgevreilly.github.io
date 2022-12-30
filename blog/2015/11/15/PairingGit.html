@@ -19,10 +19,11 @@
     <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
     <nav>
       <ul>
-        <li><a href="/blog/" rel="home start">blog</a></li>
-        <li><a href="/about/" rel="home start">about</a></li>
-        <li><a href="/atom/" rel="alternate">atom</a></li>
-        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
         <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
@@ -83,28 +84,28 @@ The <tt class="docutils literal">git pair</tt> command updates <tt class="docuti
 based on values in <tt class="docutils literal">.git/pairs</tt>:</p>
 <p>For example, <tt class="docutils literal">git pair fb sac</tt> updates <tt class="docutils literal">.git/config</tt> thus:</p>
 <pre class="code ini literal-block">
-<span class="na">user.name</span> <span class="o">=</span> <span class="s">Fred Beebe and Sheila A. Corn</span>
-<span class="na">user.email</span> <span class="o">=</span> <span class="s">pair+fred+sheila.a.corn@example.com</span>
+<span class="na">user.name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">Fred Beebe and Sheila A. Corn</span><span class="w">
+</span><span class="na">user.email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">pair+fred+sheila.a.corn@example.com</span>
 </pre>
 <p>Based on <tt class="docutils literal">.pairs</tt> in the project root:</p>
 <pre class="code yaml literal-block">
-<span class="c1"># .pairs - configuration for 'git pair'</span>
-<span class="nt">pairs</span><span class="p">:</span>
-  <span class="c1"># <initials>: <Firstname> <Lastname>[; <email-id>]</span>
-  <span class="nt">fb</span><span class="p">:</span> <span class="l-Scalar-Plain">Fred Beebe; fred</span>
-  <span class="nt">jo</span><span class="p">:</span> <span class="l-Scalar-Plain">Jim Osward; josward</span>
-  <span class="nt">sac</span><span class="p">:</span> <span class="l-Scalar-Plain">Sheila A. Corn; sheila.a.corn</span>
-<span class="nt">email</span><span class="p">:</span>
-  <span class="nt">prefix</span><span class="p">:</span> <span class="l-Scalar-Plain">pair</span>
-  <span class="nt">domain</span><span class="p">:</span> <span class="l-Scalar-Plain">example.com</span>
-  <span class="nt">no_solo_prefix</span><span class="p">:</span> <span class="l-Scalar-Plain">true</span>
-<span class="nt">global</span><span class="p">:</span> <span class="l-Scalar-Plain">false</span>
+<span class="c1"># .pairs - configuration for 'git pair'</span><span class="w">
+</span><span class="nt">pairs</span><span class="p">:</span><span class="w">
+  </span><span class="c1"># <initials>: <Firstname> <Lastname>[; <email-id>]</span><span class="w">
+  </span><span class="nt">fb</span><span class="p">:</span><span class="w"> </span><span class="l-Scalar-Plain">Fred Beebe; fred</span><span class="w">
+  </span><span class="nt">jo</span><span class="p">:</span><span class="w"> </span><span class="l-Scalar-Plain">Jim Osward; josward</span><span class="w">
+  </span><span class="nt">sac</span><span class="p">:</span><span class="w"> </span><span class="l-Scalar-Plain">Sheila A. Corn; sheila.a.corn</span><span class="w">
+</span><span class="nt">email</span><span class="p">:</span><span class="w">
+  </span><span class="nt">prefix</span><span class="p">:</span><span class="w"> </span><span class="l-Scalar-Plain">pair</span><span class="w">
+  </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l-Scalar-Plain">example.com</span><span class="w">
+  </span><span class="nt">no_solo_prefix</span><span class="p">:</span><span class="w"> </span><span class="l-Scalar-Plain">true</span><span class="w">
+</span><span class="nt">global</span><span class="p">:</span><span class="w"> </span><span class="l-Scalar-Plain">false</span>
 </pre>
 <p>(Fred, Jim, and Sheila are a nod to the <a class="reference external" href="https://en.wikipedia.org/wiki/BBC_Micro#Hardware_features:_Models_A_and_B"><span class="caps">BBC</span> Micro</a>
 of my youth, not actual MetaBrite developers.)</p>
 <p>Now <tt class="docutils literal">git log</tt> shows a series of commits attributed to:</p>
 <pre class="code vctreestatus literal-block">
-Author: Fred Beebe <span class="amp">&</span> Sheila A. Corn <pair+fred+sheila.a.corn@example.com>
+Author:<span class="w"> </span>Fred<span class="w"> </span>Beebe<span class="w"> </span>&<span class="w"> </span>Sheila<span class="w"> </span>A.<span class="w"> </span>Corn<span class="w"> </span><pair+fred+sheila.a.corn@example.com>
 </pre>
 <p>These commits are created with <tt class="docutils literal">git commit</tt>, as usual.
 You can use <tt class="docutils literal">git <span class="pre">pair-commit</span></tt> to attribute a commit

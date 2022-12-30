@@ -11,17 +11,18 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: https://www.codegeneration.net/logos/nv..." />
-    <meta name="keywords" content=".NET, c" />
+    <meta name="keywords" content=".NET, c#" />
 </head>
 <body>
   <header>
     <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
     <nav>
       <ul>
-        <li><a href="/blog/" rel="home start">blog</a></li>
-        <li><a href="/about/" rel="home start">about</a></li>
-        <li><a href="/atom/" rel="alternate">atom</a></li>
-        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
         <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
@@ -43,11 +44,11 @@ instead of the relative path shown in the <a class="reference external" href="ht
 <p>The trick is to set <tt class="docutils literal">file.resource.loader.path</tt>.
 Here’s how to load <tt class="docutils literal"><span class="pre">C:\foo\bar\&shy;some&shy;file.vm</span></tt>:</p>
 <pre class="code csharp literal-block">
-<span class="n">ExtendedProperties</span> <span class="n">props</span> <span class="p">=</span> <span class="k">new</span> <span class="n">ExtendedProperties</span><span class="p">();</span>
-<span class="n">props</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">"file.resource.loader.path"</span><span class="p">,</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="p">(</span><span class="k">new</span> <span class="kt">string</span><span class="p">[]{</span><span class="s">"."</span><span class="p">,</span> <span class="s">"C:\\"</span><span class="p">}));</span>
-<span class="n">velocity</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">props</span><span class="p">);</span>
+<span class="n">ExtendedProperties</span><span class="w"> </span><span class="n">props</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExtendedProperties</span><span class="p">();</span><span class="w">
+</span><span class="n">props</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">"file.resource.loader.path"</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">string</span><span class="p">[]{</span><span class="s">"."</span><span class="p">,</span><span class="w"> </span><span class="s">"C:\\"</span><span class="p">}));</span><span class="w">
+</span><span class="n">velocity</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">props</span><span class="p">);</span><span class="w">
 
-<span class="n">template</span> <span class="p">=</span> <span class="n">velocity</span><span class="p">.</span><span class="n">GetTemplate</span><span class="p">(</span><span class="s">"foo\\bar\\somefile.vm"</span><span class="p">);</span>
+</span><span class="n">template</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">velocity</span><span class="p">.</span><span class="n">GetTemplate</span><span class="p">(</span><span class="s">"foo\\bar\\somefile.vm"</span><span class="p">);</span>
 </pre>
 
     <footer>
@@ -57,7 +58,7 @@ Here’s how to load <tt class="docutils literal"><span class="pre">C:\foo\bar\&
                 <a href="/tag/net/" rel="tag">.NET</a>
                     and
                     
-                <a href="/tag/c/" rel="tag">c</a>
+                <a href="/tag/c/" rel="tag">c#</a>
                 
             </p>
         

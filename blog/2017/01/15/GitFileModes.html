@@ -18,10 +18,11 @@
     <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
     <nav>
       <ul>
-        <li><a href="/blog/" rel="home start">blog</a></li>
-        <li><a href="/about/" rel="home start">about</a></li>
-        <li><a href="/atom/" rel="alternate">atom</a></li>
-        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
         <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
@@ -38,14 +39,14 @@
     <p>Ever wonder what the six-digit file modes are in a Git commit?
 The mysterious <tt class="docutils literal">100644</tt> and <tt class="docutils literal">100755</tt> modes?</p>
 <pre class="code diff literal-block">
-<span class="gh">diff --git a/foo/bar.py b/foo/bar.py
-</span>old mode 100644
+<span class="gh">diff --git a/foo/bar.py b/foo/bar.py</span><span class="w">
+old mode 100644
 new mode 100755
-<span class="gh">index b829edea4..ee6bda024
-</span><span class="gd">--- a/foo/bar.py
-</span><span class="gi">+++ b/foo/bar.py
-</span><span class="gu">@@ -1,3 +1,4 @@
-</span>...
+</span><span class="gh">index b829edea4..ee6bda024</span><span class="w">
+</span><span class="gd">--- a/foo/bar.py</span><span class="w">
+</span><span class="gi">+++ b/foo/bar.py</span><span class="w">
+</span><span class="gu">@@ -1,3 +1,4 @@</span><span class="w">
+...</span>
 </pre>
 <p>I had made <tt class="docutils literal">foo/bar.py</tt> executable by using <tt class="docutils literal">chmod +x</tt>
 and adding a <tt class="docutils literal"><span class="pre">#!/usr/bin/env</span> python</tt> shebang.

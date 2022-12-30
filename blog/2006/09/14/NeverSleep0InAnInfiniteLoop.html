@@ -12,17 +12,18 @@
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content=".. image:: /content/binary/infinite-loop.jpg
     :..." />
-    <meta name="keywords" content="c" />
+    <meta name="keywords" content="c#, windows" />
 </head>
 <body>
   <header>
     <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
     <nav>
       <ul>
-        <li><a href="/blog/" rel="home start">blog</a></li>
-        <li><a href="/about/" rel="home start">about</a></li>
-        <li><a href="/atom/" rel="alternate">atom</a></li>
-        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
         <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
@@ -46,24 +47,24 @@ and found that it was stuck in the following infinite loop
 (dis&shy;as&shy;sem&shy;bly courtesy of <a class="reference external" href="http://www.aisto.com/roeder/dotnet/">Reflector</a>):</p>
 <!-- RegistryKey key1 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\CLSID"); -->
 <pre class="code csharp literal-block">
-<span class="k">internal</span> <span class="k">void</span> <span class="n">System</span><span class="p">.</span><span class="n">EnterpriseServices</span><span class="p">.</span><span class="n">CatalogSync</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">_set</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">RegistryKey</span> <span class="n">key1</span>
-      <span class="p">=</span> <span class="n">Registry</span><span class="p">.</span><span class="n">LocalMachine</span><span class="p">.</span><span class="n">OpenSubKey</span><span class="p">(</span><span class="s">@"<span class="caps">SOFTWARE</span>\Classes\<span class="caps">CLSID</span>"</span><span class="p">);</span>
-    <span class="k">while</span> <span class="p">(</span><span class="k">true</span><span class="p">)</span>
-    <span class="p">{</span>
-      <span class="kt">int</span> <span class="n">num1</span> <span class="p">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">key1</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="s">"CLBVersion"</span><span class="p">,</span> <span class="m">0</span><span class="p">);</span>
-      <span class="k">if</span> <span class="p">(</span><span class="n">num1</span> <span class="p">!=</span> <span class="k">this</span><span class="p">.</span><span class="n">_version</span><span class="p">)</span>
-      <span class="p">{</span>
-        <span class="k">break</span><span class="p">;</span>
-      <span class="p">}</span>
-      <span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">0</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="k">this</span><span class="p">.</span><span class="n">_set</span> <span class="p">=</span> <span class="k">false</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
+<span class="k">internal</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">EnterpriseServices</span><span class="p">.</span><span class="n">CatalogSync</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">_set</span><span class="p">)</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="n">RegistryKey</span><span class="w"> </span><span class="n">key1</span><span class="w">
+      </span><span class="p">=</span><span class="w"> </span><span class="n">Registry</span><span class="p">.</span><span class="n">LocalMachine</span><span class="p">.</span><span class="n">OpenSubKey</span><span class="p">(</span><span class="s">@"<span class="caps">SOFTWARE</span>\Classes\<span class="caps">CLSID</span>"</span><span class="p">);</span><span class="w">
+    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="k">true</span><span class="p">)</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="kt">int</span><span class="w"> </span><span class="n">num1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="n">key1</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="s">"CLBVersion"</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">);</span><span class="w">
+      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">num1</span><span class="w"> </span><span class="p">!=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">_version</span><span class="p">)</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="k">break</span><span class="p">;</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+      </span><span class="n">Thread</span><span class="p">.</span><span class="n">Sleep</span><span class="p">(</span><span class="m">0</span><span class="p">);</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="k">this</span><span class="p">.</span><span class="n">_set</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">false</span><span class="p">;</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span>
 </pre>
 <p>There are two severe problems with this code.</p>
 <ol class="arabic simple">
@@ -96,7 +97,10 @@ leave at that point.</p>
         
         
             <p>tagged as
-                <a href="/tag/c/" rel="tag">c</a>
+                <a href="/tag/c/" rel="tag">c#</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
                 
             </p>
         

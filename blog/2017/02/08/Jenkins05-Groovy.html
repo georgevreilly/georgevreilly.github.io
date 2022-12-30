@@ -20,10 +20,11 @@
     <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
     <nav>
       <ul>
-        <li><a href="/blog/" rel="home start">blog</a></li>
-        <li><a href="/about/" rel="home start">about</a></li>
-        <li><a href="/atom/" rel="alternate">atom</a></li>
-        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
         <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
@@ -58,20 +59,20 @@ The blocks that follow many Pipeline steps (<tt class="docutils literal">node</t
 where the <tt class="docutils literal">re&shy;lease_lev&shy;el</tt> parameter is a <tt class="docutils literal">String</tt>
 which must be either <tt class="docutils literal">"dev"</tt> or <tt class="docutils literal">"prod"</tt>.</p>
 <pre class="code groovy literal-block">
-<span class="kt">def</span> <span class="n">acceptance_integration_tests</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span> <span class="n">release_level</span> <span class="o">-></span>
-    <span class="k">assert</span> <span class="n">release_level</span> <span class="o">=~</span> <span class="s">/^(dev|prod)$/</span>
-    <span class="n">String</span> <span class="n">arg</span> <span class="o">=</span> <span class="s2">"--${release_level}"</span>
+<span class="kt">def</span><span class="w"> </span><span class="n">acceptance_integration_tests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">release_level</span><span class="w"> </span><span class="o">-></span><span class="w">
+    </span><span class="k">assert</span><span class="w"> </span><span class="n">release_level</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="s">/^(dev|prod)$/</span><span class="w">
+    </span><span class="n">String</span><span class="w"> </span><span class="n">arg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"--${release_level}"</span><span class="w">
 
-    <span class="kt">def</span> <span class="n">branches</span> <span class="o">=</span> <span class="o">[</span>
-        <span class="s2">"${release_level}_acceptance_tests"</span><span class="o">:</span> <span class="o">{</span>
-            <span class="n">run_tests</span><span class="o">(</span><span class="s2">"ci_acceptance_test"</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">'**/*nosetests.xml'</span><span class="o">)</span>
-        <span class="o">},</span>
-        <span class="s2">"${release_level}_integration_tests"</span><span class="o">:</span> <span class="o">{</span>
-            <span class="n">run_tests</span><span class="o">(</span><span class="s2">"ci_integration_test"</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">'**/*nosetests.xml'</span><span class="o">)</span>
-        <span class="o">}</span>
-    <span class="o">]</span>
-    <span class="n">parallel</span> <span class="n">branches</span>
-<span class="o">}</span>
+    </span><span class="kt">def</span><span class="w"> </span><span class="n">branches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="w">
+        </span><span class="s2">"${release_level}_acceptance_tests"</span><span class="o">:</span><span class="w"> </span><span class="o">{</span><span class="w">
+            </span><span class="n">run_tests</span><span class="o">(</span><span class="s2">"ci_acceptance_test"</span><span class="o">,</span><span class="w"> </span><span class="n">arg</span><span class="o">,</span><span class="w"> </span><span class="s1">'**/*nosetests.xml'</span><span class="o">)</span><span class="w">
+        </span><span class="o">},</span><span class="w">
+        </span><span class="s2">"${release_level}_integration_tests"</span><span class="o">:</span><span class="w"> </span><span class="o">{</span><span class="w">
+            </span><span class="n">run_tests</span><span class="o">(</span><span class="s2">"ci_integration_test"</span><span class="o">,</span><span class="w"> </span><span class="n">arg</span><span class="o">,</span><span class="w"> </span><span class="s1">'**/*nosetests.xml'</span><span class="o">)</span><span class="w">
+        </span><span class="o">}</span><span class="w">
+    </span><span class="o">]</span><span class="w">
+    </span><span class="n">parallel</span><span class="w"> </span><span class="n">branches</span><span class="w">
+</span><span class="o">}</span>
 </pre>
 <p>We create a <tt class="docutils literal">Map</tt> called <tt class="docutils literal">branches</tt> with dy&shy;nam&shy;i&shy;cal&shy;ly named keys,
 such as <tt class="docutils literal">"prod_in&shy;te&shy;gra&shy;tion_test&shy;s"</tt>,
@@ -82,11 +83,11 @@ where <tt class="docutils literal">arg</tt> is bound to <tt class="docutils lite
 which causes the two <tt class="docutils literal">run_tests</tt> closures to be executed
 on two different ex&shy;ecu&shy;tors—even&shy;tu&shy;al&shy;ly.</p>
 <pre class="code groovy literal-block">
-<span class="n">stage</span><span class="o">(</span><span class="s2">"Deploy to Dev"</span><span class="o">)</span> <span class="o">{</span> <span class="n">deploy</span> <span class="s2">"dev"</span> <span class="o">}</span>
-<span class="n">stage</span><span class="o">(</span><span class="s2">"Dev Tests"</span><span class="o">)</span> <span class="o">{</span> <span class="n">acceptance_integration_tests</span> <span class="s2">"dev"</span> <span class="o">}</span>
+<span class="n">stage</span><span class="o">(</span><span class="s2">"Deploy to Dev"</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">deploy</span><span class="w"> </span><span class="s2">"dev"</span><span class="w"> </span><span class="o">}</span><span class="w">
+</span><span class="n">stage</span><span class="o">(</span><span class="s2">"Dev Tests"</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">acceptance_integration_tests</span><span class="w"> </span><span class="s2">"dev"</span><span class="w"> </span><span class="o">}</span><span class="w">
 
-<span class="n">stage</span><span class="o">(</span><span class="s2">"Deploy to Prod"</span><span class="o">)</span> <span class="o">{</span> <span class="n">deploy</span> <span class="s2">"prod"</span> <span class="o">}</span>
-<span class="n">stage</span><span class="o">(</span><span class="s2">"Prod Tests"</span><span class="o">)</span> <span class="o">{</span> <span class="n">acceptance_integration_tests</span> <span class="s2">"prod"</span> <span class="o">}</span>
+</span><span class="n">stage</span><span class="o">(</span><span class="s2">"Deploy to Prod"</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">deploy</span><span class="w"> </span><span class="s2">"prod"</span><span class="w"> </span><span class="o">}</span><span class="w">
+</span><span class="n">stage</span><span class="o">(</span><span class="s2">"Prod Tests"</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">acceptance_integration_tests</span><span class="w"> </span><span class="s2">"prod"</span><span class="w"> </span><span class="o">}</span>
 </pre>
 <p>The <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt> closure is used in two different <tt class="docutils literal">stage</tt>s.
 Each <tt class="docutils literal">stage</tt> is passed an anonymous closure,
@@ -125,18 +126,18 @@ CloudBees hosts our Jenkins builds, so this was not available to us.</p>
 <p>I spent a ridiculous amount of time
 trying to get this apparently straight&shy;for&shy;ward code to work:</p>
 <pre class="code groovy literal-block">
-<span class="kt">def</span> <span class="n">label</span> <span class="o">=</span> <span class="n">compute_build_label</span><span class="o">(</span>
-    <span class="k">new</span> <span class="n">Date</span><span class="o">(),</span> <span class="n">env</span><span class="o">.</span><span class="na">GIT_LOCAL_BRANCH</span><span class="o">,</span> <span class="n">env</span><span class="o">.</span><span class="na">BUILD_NUMBER</span><span class="o">,</span> <span class="n">env</span><span class="o">.</span><span class="na">GIT_COMMIT</span><span class="o">)</span>
+<span class="kt">def</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">compute_build_label</span><span class="o">(</span><span class="w">
+    </span><span class="k">new</span><span class="w"> </span><span class="n">Date</span><span class="o">(),</span><span class="w"> </span><span class="n">env</span><span class="o">.</span><span class="na">GIT_LOCAL_BRANCH</span><span class="o">,</span><span class="w"> </span><span class="n">env</span><span class="o">.</span><span class="na">BUILD_NUMBER</span><span class="o">,</span><span class="w"> </span><span class="n">env</span><span class="o">.</span><span class="na">GIT_COMMIT</span><span class="o">)</span><span class="w">
 
-<span class="kt">def</span> <span class="nf">compute_build_label</span><span class="o">(</span>
-    <span class="n">Date</span> <span class="n">build_date</span><span class="o">,</span> <span class="n">String</span> <span class="n">branch_name</span><span class="o">,</span> <span class="n">Integer</span> <span class="n">build_number</span><span class="o">,</span> <span class="n">String</span> <span class="n">git_sha</span><span class="o">)</span>
-<span class="o">{</span>
-    <span class="n">String</span> <span class="n">date</span> <span class="o">=</span> <span class="n">build_date</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s2">"yyyyMMdd't'HHmm'z'"</span><span class="o">,</span> <span class="n">TimeZone</span><span class="o">.</span><span class="na">getTimeZone</span><span class="o">(</span><span class="s1">'<span class="caps">UTC</span>'</span><span class="o">))</span>
-    <span class="n">String</span> <span class="n">branch</span> <span class="o">=</span> <span class="n">branch_name</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s2">"/"</span><span class="o">,</span> <span class="s2">"-"</span><span class="o">)</span>
-    <span class="n">String</span> <span class="n">number</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s2">"%05d"</span><span class="o">,</span> <span class="n">build_number</span><span class="o">)</span>
-    <span class="n">String</span> <span class="n">sha</span> <span class="o">=</span> <span class="n">git_sha</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">7</span><span class="o">)</span>
-    <span class="k">return</span> <span class="s2">"${date}-${branch}-b${number}-${sha}"</span>
-<span class="o">}</span>
+</span><span class="kt">def</span><span class="w"> </span><span class="nf">compute_build_label</span><span class="o">(</span><span class="w">
+    </span><span class="n">Date</span><span class="w"> </span><span class="n">build_date</span><span class="o">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">branch_name</span><span class="o">,</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">build_number</span><span class="o">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">git_sha</span><span class="o">)</span><span class="w">
+</span><span class="o">{</span><span class="w">
+    </span><span class="n">String</span><span class="w"> </span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">build_date</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s2">"yyyyMMdd't'HHmm'z'"</span><span class="o">,</span><span class="w"> </span><span class="n">TimeZone</span><span class="o">.</span><span class="na">getTimeZone</span><span class="o">(</span><span class="s1">'<span class="caps">UTC</span>'</span><span class="o">))</span><span class="w">
+    </span><span class="n">String</span><span class="w"> </span><span class="n">branch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">branch_name</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s2">"/"</span><span class="o">,</span><span class="w"> </span><span class="s2">"-"</span><span class="o">)</span><span class="w">
+    </span><span class="n">String</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s2">"%05d"</span><span class="o">,</span><span class="w"> </span><span class="n">build_number</span><span class="o">)</span><span class="w">
+    </span><span class="n">String</span><span class="w"> </span><span class="n">sha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">git_sha</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">7</span><span class="o">)</span><span class="w">
+    </span><span class="k">return</span><span class="w"> </span><span class="s2">"${date}-${branch}-b${number}-${sha}"</span><span class="w">
+</span><span class="o">}</span>
 </pre>
 <p>Here are just some of the reasons why this didn’t work:</p>
 <ul class="simple">
@@ -159,21 +160,21 @@ cre&shy;at&shy;eRange</tt>.</li>
 </ul>
 <p>I ended up with this:</p>
 <pre class="code groovy literal-block">
-<span class="n">String</span> <span class="n">label</span> <span class="o">=</span> <span class="n">compute_build_label</span><span class="o">(</span>
-    <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s1">'date --utc +%Y%m%dt%H%Mz'</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">(),</span>
-    <span class="n">GIT_BRANCH</span><span class="o">,</span>
-    <span class="n">env</span><span class="o">.</span><span class="na">BUILD_NUMBER</span><span class="o">,</span>
-    <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s1">'git rev-parse <span class="caps">HEAD</span>'</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">()</span>
-<span class="o">)</span>
+<span class="n">String</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">compute_build_label</span><span class="o">(</span><span class="w">
+    </span><span class="n">sh</span><span class="o">(</span><span class="nl">script:</span><span class="w"> </span><span class="s1">'date --utc +%Y%m%dt%H%Mz'</span><span class="o">,</span><span class="w"> </span><span class="nl">returnStdout:</span><span class="w"> </span><span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">(),</span><span class="w">
+    </span><span class="n">GIT_BRANCH</span><span class="o">,</span><span class="w">
+    </span><span class="n">env</span><span class="o">.</span><span class="na">BUILD_NUMBER</span><span class="o">,</span><span class="w">
+    </span><span class="n">sh</span><span class="o">(</span><span class="nl">script:</span><span class="w"> </span><span class="s1">'git rev-parse <span class="caps">HEAD</span>'</span><span class="o">,</span><span class="w"> </span><span class="nl">returnStdout:</span><span class="w"> </span><span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">()</span><span class="w">
+</span><span class="o">)</span><span class="w">
 
-<span class="n">String</span> <span class="nf">compute_build_label</span><span class="o">(</span>
-    <span class="n">String</span> <span class="n">date</span><span class="o">,</span> <span class="n">String</span> <span class="n">branch_name</span><span class="o">,</span> <span class="n">String</span> <span class="n">build_number</span><span class="o">,</span> <span class="n">String</span> <span class="n">git_sha</span><span class="o">)</span>
-<span class="o">{</span>
-    <span class="n">String</span> <span class="n">branch</span> <span class="o">=</span> <span class="n">branch_name</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s2">"/"</span><span class="o">,</span> <span class="s2">"-"</span><span class="o">)</span>
-    <span class="n">String</span> <span class="n">number</span> <span class="o">=</span> <span class="s2">"00000"</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">5</span> <span class="o">-</span> <span class="n">build_number</span><span class="o">.</span><span class="na">length</span><span class="o">())</span> <span class="o">+</span> <span class="n">build_number</span>
-    <span class="n">String</span> <span class="n">sha</span> <span class="o">=</span> <span class="n">git_sha</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mi">7</span><span class="o">)</span>
-    <span class="k">return</span> <span class="s2">"${date}-${branch}-b${number}-${sha}"</span>
-<span class="o">}</span>
+</span><span class="n">String</span><span class="w"> </span><span class="nf">compute_build_label</span><span class="o">(</span><span class="w">
+    </span><span class="n">String</span><span class="w"> </span><span class="n">date</span><span class="o">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">branch_name</span><span class="o">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">build_number</span><span class="o">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">git_sha</span><span class="o">)</span><span class="w">
+</span><span class="o">{</span><span class="w">
+    </span><span class="n">String</span><span class="w"> </span><span class="n">branch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">branch_name</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s2">"/"</span><span class="o">,</span><span class="w"> </span><span class="s2">"-"</span><span class="o">)</span><span class="w">
+    </span><span class="n">String</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"00000"</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">build_number</span><span class="o">.</span><span class="na">length</span><span class="o">())</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">build_number</span><span class="w">
+    </span><span class="n">String</span><span class="w"> </span><span class="n">sha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">git_sha</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span><span class="w"> </span><span class="mi">7</span><span class="o">)</span><span class="w">
+    </span><span class="k">return</span><span class="w"> </span><span class="s2">"${date}-${branch}-b${number}-${sha}"</span><span class="w">
+</span><span class="o">}</span>
 </pre>
 <p>I would have been better off writing an external script.</p>
 </div>

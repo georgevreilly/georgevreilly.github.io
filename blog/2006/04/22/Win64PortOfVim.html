@@ -18,10 +18,11 @@
     <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
     <nav>
       <ul>
-        <li><a href="/blog/" rel="home start">blog</a></li>
-        <li><a href="/about/" rel="home start">about</a></li>
-        <li><a href="/atom/" rel="alternate">atom</a></li>
-        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
         <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
@@ -57,62 +58,30 @@ installed, and ran gvim under WinDbg. That showed that the error was 14001
 side-by-side con&shy;fig&shy;u&shy;ra&shy;tion is incorrect. Please see the ap&shy;pli&shy;ca&shy;tion event
 log for more detail.") The event log showed nothing.</p>
 <p>After more in&shy;ves&shy;ti&shy;ga&shy;tion, I found a WinSxS manifest for the Windows Common Controls:</p>
-<pre class="literal-block">
-.. code:: xml
+<pre class="code xml literal-block">
+<span class="cp"><?xml version="1.0" encoding="<span class="caps">UTF</span>-8" standalone="yes"?></span>
+<span class="nt"><assembly</span> <span class="na">xmlns=</span><span class="s">"urn:schemas-microsoft-com:asm.v1"</span> <span class="na">manifestVersion=</span><span class="s">"1.0"</span><span class="nt">></span>
+  <span class="nt"><assemblyIdentity</span>
+    <span class="na">processorArchitecture=</span><span class="s">"X86"</span>
+    <span class="na">version=</span><span class="s">"6.2.0.0"</span>
+    <span class="na">type=</span><span class="s">"win32"</span>
+    <span class="na">name=</span><span class="s">"Vim"</span>
+  <span class="nt">/></span>
+  <span class="nt"><description></span>Vi Improved - A Text Editor<span class="nt"></description></span>
+  <span class="nt"><dependency></span>
+    <span class="nt"><dependentAssembly></span>
+      <span class="nt"><assemblyIdentity</span>
+        <span class="na">type=</span><span class="s">"win32"</span>
+        <span class="na">name=</span><span class="s">"Microsoft.Windows.Common-Controls"</span>
+        <span class="na">version=</span><span class="s">"6.0.0.0"</span>
+        <span class="na">publicKeyToken=</span><span class="s">"6595b64144ccf1df"</span>
+        <span class="na">language=</span><span class="s">"*"</span>
+        <span class="na">processorArchitecture=</span><span class="s">"X86"</span>
+      <span class="nt">/></span>
+    <span class="nt"></dependentAssembly></span>
+  <span class="nt"></dependency></span>
+<span class="nt"></assembly></span>
 </pre>
-<blockquote>
-<p><?xml version="1.0" encoding="<span class="caps">UTF</span>-8" standalone="yes"?>
-<assembly xmlns="<a class="reference external" href="urn:schemas-microsoft-com:asm.v1">urn:schemas-microsoft-com:asm.v1</a>" man&shy;i&shy;festVer&shy;sion="1.0"></p>
-<div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">ERROR</span>/3 (<tt class="docutils"><string></tt>, line 34)</p>
-Unexpected in&shy;den&shy;ta&shy;tion.</div>
-<blockquote>
-<dl class="docutils">
-<dt><assem&shy;blyI&shy;den&shy;ti&shy;ty</dt>
-<dd>proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture="X86"
-version="6.2.0.0"
-type="win32" name="Vim"</dd>
-</dl>
-<div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils"><string></tt>, line 39)</p>
-Definition list ends without a blank line; unexpected unindent.</div>
-<p>/>
-<de&shy;scrip&shy;tion>Vi Improved - A Text Editor</de&shy;scrip&shy;tion> <de&shy;pen&shy;den&shy;cy></p>
-<div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">ERROR</span>/3 (<tt class="docutils"><string></tt>, line 42)</p>
-Unexpected in&shy;den&shy;ta&shy;tion.</div>
-<blockquote>
-<dl class="docutils">
-<dt><de&shy;pen&shy;den&shy;tAssem&shy;bly></dt>
-<dd><dl class="first docutils">
-<dt><assem&shy;blyI&shy;den&shy;ti&shy;ty</dt>
-<dd>type="win32"
-name="Microsoft.Windows.Common-Controls"
-version="6.0.0.0"
-pub&shy;licK&shy;ey&shy;To&shy;ken="6595b64144c&shy;cf1d&shy;f"
-language="*" proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture="X86"</dd>
-</dl>
-<div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils"><string></tt>, line 50)</p>
-Definition list ends without a blank line; unexpected unindent.</div>
-<p class="last">/></p>
-</dd>
-</dl>
-<div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils"><string></tt>, line 51)</p>
-Definition list ends without a blank line; unexpected unindent.</div>
-<p></de&shy;pen&shy;den&shy;tAssem&shy;bly></p>
-</blockquote>
-<div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils"><string></tt>, line 52)</p>
-Block quote ends without a blank line; unexpected unindent.</div>
-<p></de&shy;pen&shy;den&shy;cy></p>
-</blockquote>
-<div class="system-message">
-<p class="system-message-title">System Message: <span class="caps">WARNING</span>/2 (<tt class="docutils"><string></tt>, line 53)</p>
-Block quote ends without a blank line; unexpected unindent.</div>
-<p></assembly></p>
-</blockquote>
 <p>Once the two instances of <tt class="docutils literal"><span class="pre">proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture="X86"</span></tt> were set to
 <tt class="docutils literal"><span class="pre">proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture="<span class="caps">AMD64</span>"</span></tt>, Vim started working without a hitch.
 Despite my naïve ex&shy;pec&shy;ta&shy;tions, none of the other fields in the comctl32

@@ -19,10 +19,11 @@ setting up Pipelin..." />
     <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
     <nav>
       <ul>
-        <li><a href="/blog/" rel="home start">blog</a></li>
-        <li><a href="/about/" rel="home start">about</a></li>
-        <li><a href="/atom/" rel="alternate">atom</a></li>
-        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
         <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
@@ -44,20 +45,20 @@ but I’m quite liking Groovy.</p>
 where the <tt class="docutils literal">re&shy;lease_lev&shy;el</tt> parameter is a <tt class="docutils literal">String</tt>
 which must be either <tt class="docutils literal">"dev"</tt> or <tt class="docutils literal">"prod"</tt>.</p>
 <pre class="code groovy literal-block">
-<span class="kt">def</span> <span class="n">acceptance_integration_tests</span> <span class="o">=</span> <span class="o">{</span> <span class="n">String</span> <span class="n">release_level</span> <span class="o">-></span>
-    <span class="k">assert</span> <span class="n">release_level</span> <span class="o">=~</span> <span class="s">/^(dev|prod)$/</span>
-    <span class="n">String</span> <span class="n">arg</span> <span class="o">=</span> <span class="s2">"--${release_level}"</span>
+<span class="kt">def</span><span class="w"> </span><span class="n">acceptance_integration_tests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">release_level</span><span class="w"> </span><span class="o">-></span><span class="w">
+    </span><span class="k">assert</span><span class="w"> </span><span class="n">release_level</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="s">/^(dev|prod)$/</span><span class="w">
+    </span><span class="n">String</span><span class="w"> </span><span class="n">arg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"--${release_level}"</span><span class="w">
 
-    <span class="kt">def</span> <span class="n">branches</span> <span class="o">=</span> <span class="o">[</span>
-        <span class="s2">"${release_level}_acceptance_tests"</span><span class="o">:</span> <span class="o">{</span>
-            <span class="n">run_tests</span><span class="o">(</span><span class="s2">"ci_acceptance_test"</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">'**/*nosetests.xml'</span><span class="o">)</span>
-        <span class="o">},</span>
-        <span class="s2">"${release_level}_integration_tests"</span><span class="o">:</span> <span class="o">{</span>
-            <span class="n">run_tests</span><span class="o">(</span><span class="s2">"ci_integration_test"</span><span class="o">,</span> <span class="n">arg</span><span class="o">,</span> <span class="s1">'**/*nosetests.xml'</span><span class="o">)</span>
-        <span class="o">}</span>
-    <span class="o">]</span>
-    <span class="n">parallel</span> <span class="n">branches</span>
-<span class="o">}</span>
+    </span><span class="kt">def</span><span class="w"> </span><span class="n">branches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="w">
+        </span><span class="s2">"${release_level}_acceptance_tests"</span><span class="o">:</span><span class="w"> </span><span class="o">{</span><span class="w">
+            </span><span class="n">run_tests</span><span class="o">(</span><span class="s2">"ci_acceptance_test"</span><span class="o">,</span><span class="w"> </span><span class="n">arg</span><span class="o">,</span><span class="w"> </span><span class="s1">'**/*nosetests.xml'</span><span class="o">)</span><span class="w">
+        </span><span class="o">},</span><span class="w">
+        </span><span class="s2">"${release_level}_integration_tests"</span><span class="o">:</span><span class="w"> </span><span class="o">{</span><span class="w">
+            </span><span class="n">run_tests</span><span class="o">(</span><span class="s2">"ci_integration_test"</span><span class="o">,</span><span class="w"> </span><span class="n">arg</span><span class="o">,</span><span class="w"> </span><span class="s1">'**/*nosetests.xml'</span><span class="o">)</span><span class="w">
+        </span><span class="o">}</span><span class="w">
+    </span><span class="o">]</span><span class="w">
+    </span><span class="n">parallel</span><span class="w"> </span><span class="n">branches</span><span class="w">
+</span><span class="o">}</span>
 </pre>
 <p>We create a <tt class="docutils literal">Map</tt> called <tt class="docutils literal">branches</tt> with dy&shy;nam&shy;i&shy;cal&shy;ly named keys,
 such as <tt class="docutils literal">"prod_in&shy;te&shy;gra&shy;tion_test&shy;s"</tt>,
@@ -69,11 +70,11 @@ which causes the two <tt class="docutils literal">run_tests</tt> closures to be 
 on two different ex&shy;ecu&shy;tors—even&shy;tu&shy;al&shy;ly.</p>
 <p>I figured out the above syntax myself, then found a <a class="reference external" href="https://jenkins.io/doc/pipeline/examples/#jobs-in-parallel">similar example</a>.</p>
 <pre class="code groovy literal-block">
-<span class="n">stage</span><span class="o">(</span><span class="s2">"Deploy to Dev"</span><span class="o">)</span> <span class="o">{</span> <span class="n">deploy</span> <span class="s2">"dev"</span> <span class="o">}</span>
-<span class="n">stage</span><span class="o">(</span><span class="s2">"Dev Tests"</span><span class="o">)</span> <span class="o">{</span> <span class="n">acceptance_integration_tests</span> <span class="s2">"dev"</span> <span class="o">}</span>
+<span class="n">stage</span><span class="o">(</span><span class="s2">"Deploy to Dev"</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">deploy</span><span class="w"> </span><span class="s2">"dev"</span><span class="w"> </span><span class="o">}</span><span class="w">
+</span><span class="n">stage</span><span class="o">(</span><span class="s2">"Dev Tests"</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">acceptance_integration_tests</span><span class="w"> </span><span class="s2">"dev"</span><span class="w"> </span><span class="o">}</span><span class="w">
 
-<span class="n">stage</span><span class="o">(</span><span class="s2">"Deploy to Prod"</span><span class="o">)</span> <span class="o">{</span> <span class="n">deploy</span> <span class="s2">"prod"</span> <span class="o">}</span>
-<span class="n">stage</span><span class="o">(</span><span class="s2">"Prod Tests"</span><span class="o">)</span> <span class="o">{</span> <span class="n">acceptance_integration_tests</span> <span class="s2">"prod"</span> <span class="o">}</span>
+</span><span class="n">stage</span><span class="o">(</span><span class="s2">"Deploy to Prod"</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">deploy</span><span class="w"> </span><span class="s2">"prod"</span><span class="w"> </span><span class="o">}</span><span class="w">
+</span><span class="n">stage</span><span class="o">(</span><span class="s2">"Prod Tests"</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">acceptance_integration_tests</span><span class="w"> </span><span class="s2">"prod"</span><span class="w"> </span><span class="o">}</span>
 </pre>
 <p>The <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt> closure is used in two different <tt class="docutils literal">stage</tt>s.
 Each <tt class="docutils literal">stage</tt> is passed an anonymous closure,

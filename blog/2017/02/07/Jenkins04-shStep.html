@@ -20,10 +20,11 @@
     <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
     <nav>
       <ul>
-        <li><a href="/blog/" rel="home start">blog</a></li>
-        <li><a href="/about/" rel="home start">about</a></li>
-        <li><a href="/atom/" rel="alternate">atom</a></li>
-        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
         <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
@@ -53,7 +54,7 @@ You can <a class="reference external" href="https://www.davidpashley.com/article
 or using <tt class="docutils literal">command || true</tt>.</p>
 <p>You can override the choice of shell by providing a shebang on the first line:</p>
 <pre class="code groovy literal-block">
-<span class="n">sh</span> <span class="s2">"""#!/usr/bin/env python
+<span class="n">sh</span><span class="w"> </span><span class="s2">"""#!/usr/bin/env python
 
     print([x**2 for x in range(5)])
 """</span>
@@ -67,7 +68,7 @@ triple double-quote (multiline, in&shy;ter&shy;po&shy;la&shy;tion).</p>
 <p>GString in&shy;ter&shy;po&shy;la&shy;tion is very, very useful
 but you must be careful to <em>escape</em> dollar signs and back&shy;slash&shy;es meant for the shell.</p>
 <pre class="code groovy literal-block">
-<span class="n">sh</span> <span class="s2">"""
+<span class="n">sh</span><span class="w"> </span><span class="s2">"""
     sudo docker run --rm --env-file \$<span class="caps">TMPDIR</span>/envfile \\
         --volume "\$(pwd)/${results_dir}:/webapp/build_output/test" \\
         "$image_name" ${command}
@@ -92,7 +93,7 @@ which split the Groovy string across two shell lines.
 I fixed that problem with <tt class="docutils literal">trim()</tt>.</p>
 <p>If you need to capture the <em>output</em> of a <tt class="docutils literal">sh</tt> block’s execution, use <tt class="docutils literal">re&shy;turn&shy;Std&shy;out</tt>:</p>
 <pre class="code groovy literal-block">
-<span class="n">String</span> <span class="n">commit</span> <span class="o">=</span> <span class="n">sh</span><span class="o">(</span><span class="nl">script:</span> <span class="s1">'git rev-parse <span class="caps">HEAD</span>'</span><span class="o">,</span> <span class="nl">returnStdout:</span> <span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">()</span>
+<span class="n">String</span><span class="w"> </span><span class="n">commit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sh</span><span class="o">(</span><span class="nl">script:</span><span class="w"> </span><span class="s1">'git rev-parse <span class="caps">HEAD</span>'</span><span class="o">,</span><span class="w"> </span><span class="nl">returnStdout:</span><span class="w"> </span><span class="kc">true</span><span class="o">).</span><span class="na">trim</span><span class="o">()</span>
 </pre>
 <p>Typically, you will want to <tt class="docutils literal">trim()</tt> (single line)
 or <tt class="docutils literal">split()</tt> (multiline) the result.</p>

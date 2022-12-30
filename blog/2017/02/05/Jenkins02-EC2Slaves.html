@@ -20,10 +20,11 @@
     <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
     <nav>
       <ul>
-        <li><a href="/blog/" rel="home start">blog</a></li>
-        <li><a href="/about/" rel="home start">about</a></li>
-        <li><a href="/atom/" rel="alternate">atom</a></li>
-        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
         <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
@@ -221,12 +222,12 @@ The slave code will continue running until the <span class="caps">EC2</span> ins
 <p>In your Pipeline scripts, be sure to use the <em>label</em> you configured above
 in your <tt class="docutils literal">node</tt> blocks:</p>
 <pre class="code groovy literal-block">
-<span class="n">node</span><span class="o">(</span><span class="s1">'ubuntu'</span><span class="o">)</span> <span class="o">{</span>                        <span class="err">➊</span>
-    <span class="n">timestamps</span> <span class="o">{</span>
-        <span class="n">ansiColor</span><span class="o">(</span><span class="s1">'xterm'</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">stage</span><span class="o">(</span><span class="s2">"Source Checkout"</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">checkout</span> <span class="n">scm</span>
-                <span class="c1">// …</span>
+<span class="n">node</span><span class="o">(</span><span class="s1">'ubuntu'</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w">                        </span><span class="err">➊</span><span class="w">
+    </span><span class="n">timestamps</span><span class="w"> </span><span class="o">{</span><span class="w">
+        </span><span class="n">ansiColor</span><span class="o">(</span><span class="s1">'xterm'</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w">
+            </span><span class="n">stage</span><span class="o">(</span><span class="s2">"Source Checkout"</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w">
+                </span><span class="n">checkout</span><span class="w"> </span><span class="n">scm</span><span class="w">
+                </span><span class="c1">// …</span>
 </pre>
 <p>Jenkins will au&shy;to&shy;mat&shy;i&shy;cal&shy;ly start up an <span class="caps">EC2</span> instance running your <span class="caps">AMI</span>,
 or use an existing one if it has enough capacity.</p>

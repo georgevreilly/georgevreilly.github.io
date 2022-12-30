@@ -19,10 +19,11 @@
     <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
     <nav>
       <ul>
-        <li><a href="/blog/" rel="home start">blog</a></li>
-        <li><a href="/about/" rel="home start">about</a></li>
-        <li><a href="/atom/" rel="alternate">atom</a></li>
-        <li><a href="/rss/" rel="alternate">rss</a></li>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
         <li><a href="/articles/" rel="contents">articles</a></li>
         <li><a href="/tags/" rel="contents">tags</a></li>
       </ul>
@@ -54,7 +55,7 @@ It took less time to get working than it did to write this blog post.</p>
 </span><span class="w">
 </span><span class="cp">#include</span><span class="w"> </span><span class="cpf"><cppunit/extensions/HelperMacros.h></span><span class="cp">
 </span><span class="w">
-</span><span class="k">class</span> <span class="nc">FooTest</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">CppUnit</span><span class="o">::</span><span class="n">TestFixture</span><span class="w">
+</span><span class="k">class</span><span class="w"> </span><span class="nc">FooTest</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">CppUnit</span><span class="o">::</span><span class="n">TestFixture</span><span class="w">
 </span><span class="p">{</span><span class="w">
     </span><span class="n">CPPUNIT_TEST_SUITE</span><span class="p">(</span><span class="w"> </span><span class="n">FooTest</span><span class="w"> </span><span class="p">);</span><span class="w">
     </span><span class="n">CPPUNIT_TEST</span><span class="p">(</span><span class="w"> </span><span class="n">testAlpha</span><span class="w"> </span><span class="p">);</span><span class="w">
@@ -83,22 +84,22 @@ It took less time to get working than it did to write this blog post.</p>
 <span class="c1">//-------------------------------
 // managed\FooTest.h
 //-------------------------------
-</span>
-<span class="k">using</span> <span class="nn">namespace</span> <span class="n">NUnit</span><span class="p">::</span><span class="n">Framework</span><span class="p">;</span>
+</span><span class="w">
+</span><span class="k">using</span><span class="w"> </span><span class="nn">namespace</span><span class="w"> </span><span class="n">NUnit</span><span class="p">::</span><span class="n">Framework</span><span class="p">;</span><span class="w">
 
-<span class="c1">// Gross hack. Define a completely different NUnit-compatible FooTest
+</span><span class="c1">// Gross hack. Define a completely different NUnit-compatible FooTest
 // test fixture and use #define's to make the CPPUnit-specific
 // stuff build.
-</span><span class="na">
-[TestFixture]</span>
-<span class="k">public</span> <span class="k">ref</span> <span class="k">class</span> <span class="nc">FooTest</span>
-<span class="p">{</span>
-<span class="k">public</span><span class="p">:</span>
-<span class="na">    [Test]</span> <span class="k">void</span> <span class="n">testAlpha</span><span class="p">();</span>
-<span class="p">};</span>
+</span><span class="w">
+</span><span class="na">[TestFixture]</span><span class="w">
+</span><span class="k">public</span><span class="w"> </span><span class="k">ref</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">FooTest</span><span class="w">
+</span><span class="p">{</span><span class="w">
+</span><span class="k">public</span><span class="p">:</span><span class="w">
+    </span><span class="na">[Test]</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="n">testAlpha</span><span class="p">();</span><span class="w">
+</span><span class="p">};</span><span class="w">
 
-<span class="cp">#define CPPUNIT_TEST_SUITE_REGISTRATION(x)
-#define CPPUNIT_ASSERT(x) Assert::IsTrue(x)</span>
+</span><span class="cp">#define CPPUNIT_TEST_SUITE_REGISTRATION(x)</span><span class="w">
+</span><span class="cp">#define CPPUNIT_ASSERT(x) Assert::IsTrue(x)</span>
 </pre>
 <p>I had to make one change to <tt class="docutils literal">na&shy;tive\&shy;FooTest.cpp</tt>,
 to <tt class="docutils literal">#include <FooTest.h></tt> (angle brackets).
