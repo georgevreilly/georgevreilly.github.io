@@ -67,8 +67,7 @@ VIEWS = {
 THEME = 'theme'
 ENGINE = 'acrylamid.templates.jinja2.Environment'
 DATE_FORMAT = '%Y-%m-%d %H:%M'
-METASTYLE = 'native'
-STATIC = ["media"]
+STATIC = "media"
 
 TAG_CLOUD_MAX_ITEMS = 300
 
