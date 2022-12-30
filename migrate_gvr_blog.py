@@ -245,12 +245,15 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
 
     if ext == '.rst' or ext == '.txt':
         prolog = [
-            title,
-            "#" * len(title),
-            "",
-            ":date: {0}-{1}-{2}".format(*date_parts),
-            ":permalink: /blog{0}".format(permalink.replace(".aspx", ".html")),
-        ] + ([":tags: {0}".format(tags)] if tags else [])
+            "---",
+            'title: "{0}"'.format(title.replace('\\', '\\\\').replace('"', '\\"')),
+            'date: "{0}-{1}-{2}"'.format(*date_parts),
+            'permalink: "/blog{0}"'.format(permalink.replace(".aspx", ".html")),
+        ] + (
+            ['tags: {0}'.format(tags)] if tags else []
+        ) + [
+            "---",
+        ]
         prolog = "\n".join(prolog) + "\n"
         epilog = ""
         ext = ".rst"
