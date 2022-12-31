@@ -39,23 +39,23 @@
     <p>A while back, I had extracted some code out of a large file
 into a separate file and made some mod&shy;i&shy;fi&shy;ca&shy;tions.
 I wanted to check that the dif&shy;fer&shy;ences were minimal.
-Let’s say that the extracted code had been between
+Let&#8217;s say that the extracted code had been between
 lines 123 and 456 of <tt class="docutils literal">large_old_&shy;file</tt>.</p>
 <pre class="code bash literal-block">
-diff -u <<span class="o">(</span>sed -n <span class="s1">'123,456p;457q'</span> large_old_file<span class="o">)</span> new_file
+diff -u &lt;<span class="o">(</span>sed -n <span class="s1">'123,456p;457q'</span> large_old_file<span class="o">)</span> new_file
 </pre>
-<p>What’s happening here?</p>
+<p>What&#8217;s happening&nbsp;here?</p>
 <ul class="simple">
 <li><tt class="docutils literal">sed <span class="pre">-n</span> '123,456p'</tt> is printing lines 123–456 of <tt class="docutils literal">large_old_&shy;file</tt>.</li>
 <li>The <tt class="docutils literal">457q</tt> tells sed to abandon the file at line 457.
-Otherwise, it will keep reading all the way to the end.</li>
-<li>The <tt class="docutils literal"><(sed <span class="pre">...)</span></tt> is an example of <a class="reference external" href="https://tldp.org/LDP/abs/html/process-sub.html">process sub&shy;sti&shy;tu&shy;tion</a>.
+Otherwise, it will keep reading all the way to the&nbsp;end.</li>
+<li>The <tt class="docutils literal">&lt;(sed <span class="pre">...)</span></tt> is an example of <a class="reference external" href="https://tldp.org/LDP/abs/html/process-sub.html">process sub&shy;sti&shy;tu&shy;tion</a>.
 The <em>output</em> of the <tt class="docutils literal">sed</tt> invocation
 becomes the first <em>input</em> of the <tt class="docutils literal">diff</tt> command.</li>
 </ul>
 <p>A similar example: <a class="reference external" href="/blog/2017/01/11/DiffTransformedFile.html">Diff a Trans&shy;formed File</a>.</p>
 <p><span class="caps">BTW</span>, these days, I usually use <a class="reference external" href="https://github.com/dandavison/delta">delta</a> for diffing at the command line,
-especially with Git.</p>
+especially with&nbsp;Git.</p>
 
     <footer>
         

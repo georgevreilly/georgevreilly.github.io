@@ -35,19 +35,19 @@
         </h1>
     </header>
     <p>A while back, I had extracted some code out of a large file
-into a separate file and made some mod­i­fi­ca­tions.
-I wanted to check that the dif­fer­ences were minimal.
+into a separate file and made some mod&shy;i&shy;fi&shy;ca&shy;tions.
+I wanted to check that the dif&shy;fer&shy;ences were minimal.
 Let's say that the extracted code had been between
-lines 123 and 456 of <tt class="docutils literal">large_old_­file</tt>.</p>
+lines 123 and 456 of <tt class="docutils literal">large_old_&shy;file</tt>.</p>
 <pre class="code bash literal-block">
-diff -u <<span class="o">(</span>sed -n <span class="s1">'123,456p;457q'</span> large_old_file<span class="o">)</span> new_file
+diff -u &lt;<span class="o">(</span>sed -n <span class="s1">'123,456p;457q'</span> large_old_file<span class="o">)</span> new_file
 </pre>
 <p>What's happening here?</p>
 <ul class="simple">
-<li><tt class="docutils literal">sed <span class="pre">-n</span> '123,456p'</tt> is printing lines 123–456 of <tt class="docutils literal">large_old_­file</tt>.</li>
+<li><tt class="docutils literal">sed <span class="pre">-n</span> '123,456p'</tt> is printing lines 123–456 of <tt class="docutils literal">large_old_&shy;file</tt>.</li>
 <li>The <tt class="docutils literal">457q</tt> tells sed to abandon the file at line 457.
 Otherwise, it will keep reading all the way to the end.</li>
-<li>The <tt class="docutils literal"><(sed <span class="pre">...)</span></tt> is an example of <a class="reference external" href="https://tldp.org/LDP/abs/html/process-sub.html">process sub­sti­tu­tion</a>.
+<li>The <tt class="docutils literal">&lt;(sed <span class="pre">...)</span></tt> is an example of <a class="reference external" href="https://tldp.org/LDP/abs/html/process-sub.html">process sub&shy;sti&shy;tu&shy;tion</a>.
 The <em>output</em> of the <tt class="docutils literal">sed</tt> invocation
 becomes the first <em>input</em> of the <tt class="docutils literal">diff</tt> command.</li>
 </ul>
@@ -78,7 +78,7 @@ becomes the first <em>input</em> of the <tt class="docutils literal">diff</tt> c
     </header>
     <p>40 years ago this month,
 I sat down at a computer and wrote a program.
-(Or "pro­gram­me", as I spelled it then.)
+(Or &quot;programme&quot;, as I spelled it then.)
 It was the first time I had ever used a computer.
 Very few people had used computers in 1982,
 in Ireland or elsewhere.</p>
@@ -89,7 +89,7 @@ But it was enough to get me hooked and change my life.</p>
 <p>I still get a hit when a little bit of code unlocks in my brain.
 It's quite addictive.
 There's always more to learn and to see.</p>
-<p>I wrote more about this in 2012: <a class="reference external" href="/blog/2012/01/26/30YearsOfProgramming.html">30 Years of Pro­gram­ming</a>.</p>
+<p>I wrote more about this in 2012: <a class="reference external" href="/blog/2012/01/26/30YearsOfProgramming.html">30 Years of Pro&shy;gram&shy;ming</a>.</p>
 
     <footer>
         
@@ -118,10 +118,10 @@ There's always more to learn and to see.</p>
     <p>I wanted to diff two files.
 One of them needed some <tt class="docutils literal">sed</tt>s on each line and sorting.
 I wanted to do that on the fly,
-without leaving a massaged in­ter­me­di­ate file lying around.</p>
+without leaving a massaged in&shy;ter&shy;me&shy;di&shy;ate file lying around.</p>
 <pre class="code bash literal-block">
-colordiff --unified <<span class="o">(</span>cat orphaned_permalinks.txt
-                        <span class="p">|</span> sed <span class="s1">'s@http://www.georgevreilly.com/@@'</span>
+colordiff --unified &lt;<span class="o">(</span>cat orphaned_permalinks.txt
+                        <span class="p">|</span> sed <span class="s1">'s&#64;http://www.georgevreilly.com/&#64;&#64;'</span>
                         <span class="p">|</span> sed <span class="s1">'s/.aspx$/.html/'</span>
                 </pre><span>&#8230;<a href="/blog/2017/01/11/DiffTransformedFile.html" class="continue">continue</a>.</span>
     <footer>
@@ -154,7 +154,7 @@ What's the angle between the hour hand and the minute hand on an analog clock
 when the time reads 11:37?</p>
 <p>The hard way to compute the difference between the two dates
 is to start counting back months and days until you reach the earlier date,
-or equiv­a­lent­ly to count forward from the beginning.
+or equiv&shy;a&shy;lent&shy;ly to count forward from the beginning.
 (Don't forget that Feb 2016 has 29 days but Feb 2015 has 28.)
 Similarly with the angle between the hands.</p>
 <p>The easier way is to compute the number of units between the first point
@@ -189,12 +189,12 @@ in a Pascal textbook that I used as a freshman
 and on <a class="reference external" href="http://www.json.org/">JSON.org</a>.
 The former was surely influenced by Niklaus Wirth's <em>Pascal User Manual</em>,
 which also used them.
-For com­mu­ni­cat­ing with laypeople,
-the simple diagrams convey much more in­for­ma­tion than a textual grammar.</p>
+For com&shy;mu&shy;ni&shy;cat&shy;ing with laypeople,
+the simple diagrams convey much more in&shy;for&shy;ma&shy;tion than a textual grammar.</p>
 <p>There are a few tools which can generate such diagrams from EBNF grammars,
 including the <a class="reference external" href="http://www.bottlecaps.de/rr/ui">online Railroad Diagram Generator</a>
 and the <a class="reference external" href="https://github.com/tabatkins/railroad-diagrams">Railroad-diagram Generator library</a>.
-Other tools can be found in the answers to the <a class="reference external" href="http://stackoverflow.com/questions/796824/tool-for-generating-railroad-diagram-used-on-json-org">Stack­Over­flow question</a>.</p>
+Other tools can be found in the answers to the <a class="reference external" href="http://stackoverflow.com/questions/796824/tool-for-generating-railroad-diagram-used-on-json-org">Stack&shy;Over&shy;flow question</a>.</p>
 
     <footer>
         
@@ -221,18 +221,18 @@ Other tools can be found in the answers to the <a class="reference external" hre
 <p>From October 1996 to May 1997, I wrote a number of sample components
 for the then-new <a class="reference external" href="http://en.wikipedia.org/wiki/Active_Server_Pages">Active Server Pages</a>
 (Classic ASP).
-I worked for Mi­cro­Crafts, a consulting company in Redmond, WA;
-the samples were written for Mi­crosoft­'s
-<a class="reference external" href="http://en.wikipedia.org/wiki/Internet_Information_Services">Internet In­for­ma­tion Server</a>
+I worked for Mi&shy;cro&shy;Crafts, a consulting company in Redmond, WA;
+the samples were written for Mi&shy;crosoft&shy;'s
+<a class="reference external" href="http://en.wikipedia.org/wiki/Internet_Information_Services">Internet In&shy;for&shy;ma&shy;tion Server</a>
 (IIS) team.
-Most of the components used Mi­crosoft­'s new
+Most of the components used Mi&shy;crosoft&shy;'s new
 <a class="reference external" href="http://en.wikipedia.org/wiki/Active_Template_Library">Active Template Library</a> (ATL),
 a C++ library for COM.</p>
-<p>This work had two important con­se­quences for me:
-Microsoft recruited me to join the IIS de­vel­op­ment team
-to work on improving ASP per­for­mance for IIS 3,
+<p>This work had two important con&shy;se&shy;quences for me:
+Microsoft recruited me to join the IIS de&shy;vel&shy;op&shy;ment team
+to work on improving ASP per&shy;for&shy;mance for IIS 3,
 and Wrox Press invited me to write
-<a class="reference external" href="http://www.amazon.com/gp/product/1861000111/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1861000111&amp;linkCode=as2&amp;tag=georgvreill-20">Beginning ATL COM Pro­gram­ming</a>
+<a class="reference external" href="http://www.amazon.com/gp/product/1861000111/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1861000111&amp;linkCode=as2&amp;tag=georgvreill-20">Beginning ATL COM Pro&shy;gram&shy;ming</a>
 I was originally supposed to be the sole author of the book,
 but I was a slow writer and I was <span>&#8230;<a href="/blog/2013/12/12/SampleASPComponentsNowAtGithub.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -270,13 +270,13 @@ but I was a slow writer and I was <span>&#8230;<a href="/blog/2013/12/12/SampleA
 <div class="line">Copyright: 2013</div>
 <div class="line">ISBN: <a class="reference external" href="http://www.amazon.com/dp/178216524X/?tag=georgvreill-20">178216524X</a></div>
 <div class="line">Pages: 168</div>
-<div class="line">Keywords: pro­gram­ming, testing, javascript, backbone, mocha, chai, sinon</div>
+<div class="line">Keywords: pro&shy;gram&shy;ming, testing, javascript, backbone, mocha, chai, sinon</div>
 <div class="line">Reading period: October 2013</div>
 </div>
-<p><a class="reference external" href="http://www.packtpub.com/backbonejs-testing/book">Backbone.js Testing</a> is a short, dense in­tro­duc­tion
-to testing JavaScript ap­pli­ca­tions with three testing libraries,
+<p><a class="reference external" href="http://www.packtpub.com/backbonejs-testing/book">Backbone.js Testing</a> is a short, dense in&shy;tro&shy;duc&shy;tion
+to testing JavaScript ap&shy;pli&shy;ca&shy;tions with three testing libraries,
 <a class="reference external" href="http://visionmedia.github.io/mocha/">Mocha</a>, <a class="reference external" href="http://chaijs.com/">Chai</a>, and <a class="reference external" href="http://sinonjs.org/">Sinon.JS</a>.
-Although the author uses a sample ap­pli­ca­tion
+Although the author uses a sample ap&shy;pli&shy;ca&shy;tion
 of a personal note manager written with <a class="reference external" href="http://backbonejs.org/">Backbone.js</a>
 throughout the book, much of the material
 would apply to any JavaScript client or server framework.</p>
@@ -314,10 +314,10 @@ They complement <span>&#8230;<a href="/blog/2013/10/24/ReviewBackbonejsTesting.h
     <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Apple_II_series"></a>
 <p>30 years ago today, I sat down at a computer for the first time,
 and I wrote my first program.</p>
-<p>I was in Fifth Year of secondary school in Ire­land—the equivalent of eleventh grade.
+<p>I was in Fifth Year of secondary school in Ire&shy;land—the equivalent of eleventh grade.
 Personal computers were just coming into Ireland;
 few people had them.
-I had been taking an ex­tracur­ric­u­lar course in computer pro­gram­ming,
+I had been taking an ex&shy;tracur&shy;ric&shy;u&shy;lar course in computer pro&shy;gram&shy;ming,
 in the school's physics lab.
 We wrote code on paper at our desks, as there were no computers in the room.
 Somehow, I hadn't realized that there was another room with computers,
@@ -351,14 +351,14 @@ Writing <span>&#8230;<a href="/blog/2012/01/26/30YearsOfProgramming.html" class=
     </header>
     <a class="reference external image-reference" href="http://www.flickr.com/photos/neoeinstein/sets/72157622407907283/"></a>
 <p>I spent last Wednesday at Benaroya Hall,
-attending the Seattle edition of Stack­Over­flow's traveling <a class="reference external" href="http://blog.stackoverflow.com/2009/05/stack-overflow-developer-days-conference/">DevDays conference</a>.
+attending the Seattle edition of Stack&shy;Over&shy;flow's traveling <a class="reference external" href="http://blog.stackoverflow.com/2009/05/stack-overflow-developer-days-conference/">DevDays conference</a>.
 It was well worth $99.</p>
-<p>Joel Spolsky, owner of FogCreek Software and co-founder of Stack­Over­flow,
+<p>Joel Spolsky, owner of FogCreek Software and co-founder of Stack&shy;Over&shy;flow,
 opened the conference with a keynote about the
 dichotomy of power and simplicity.
-People are happier when not over­whelmed with choices.
+People are happier when not over&shy;whelmed with choices.
 Many of the choices that software forces users to make
-are es­sen­tial­ly mean­ing­less to the users.
+are es&shy;sen&shy;tial&shy;ly mean&shy;ing&shy;less to the users.
 However, even though people want simplicity, they also want features
 and different people use different features.
 Powerful software sells more copies.</p>
@@ -397,14 +397,14 @@ on behalf of the users: don't make users <span>&#8230;<a href="/blog/2009/10/26/
 <div class="line">Keywords: computers</div>
 <div class="line">Reading period: 10–18 October, 2009</div>
 </div>
-<p>As part of my <a class="reference external" href="/blog/2009/10/15/GittingAlong.html">personal conversion to Git</a>, I read Swice­good's Git book.
-It's a decent in­tro­duc­tion to Git and you learn how to
+<p>As part of my <a class="reference external" href="/blog/2009/10/15/GittingAlong.html">personal conversion to Git</a>, I read Swice&shy;good's Git book.
+It's a decent in&shy;tro&shy;duc&shy;tion to Git and you learn how to
 do all the basic tasks as well as some more advanced topics.
 The examples are clear and well-paced.</p>
-<p>I would have liked to see more about col­lab­o­ra­tion and workflow in a DVCS world,
+<p>I would have liked to see more about col&shy;lab&shy;o&shy;ra&shy;tion and workflow in a DVCS world,
 perhaps a few case studies:
-how is Git used in the Linux kernel de­vel­op­ment process;
-how a small, dis­trib­uted team uses Git and GitHub;
+how is Git used in the Linux kernel de&shy;vel&shy;op&shy;ment process;
+how a small, dis&shy;trib&shy;uted team uses Git and GitHub;
 how a collocated team migrates from <span>&#8230;<a href="/blog/2009/10/19/ReviewPragmaticVersionControlUsingGit.html" class="continue">continue</a>.</span></p>
     <footer>
         

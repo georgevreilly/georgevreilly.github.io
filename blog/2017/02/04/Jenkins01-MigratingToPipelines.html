@@ -42,27 +42,27 @@
 <blockquote>
 [Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>The MetaBrite dev team migrated most of their builds
-from At&shy;las&shy;sian’s Bamboo Cloud to Jenkins Pipelines in late 2016/early 2017.
-This is a series of blog posts about that experience.</p>
+from Atlassian&#8217;s Bamboo Cloud to Jenkins Pipelines in late 2016/early 2017.
+This is a series of blog posts about that&nbsp;experience.</p>
 <div class="section" id="jenkins-pipeline-series">
-<h2>Jenkins Pipeline Series</h2>
-<p>The series so far:</p>
+<h2>Jenkins Pipeline&nbsp;Series</h2>
+<p>The series so&nbsp;far:</p>
 <ul class="simple">
-<li><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">Jenkins #1: Migrating to Pipelines</a></li>
-<li><a class="reference external" href="/blog/2017/02/05/Jenkins02-EC2Slaves.html">Jenkins #2: <span class="caps">EC2</span> Slaves</a></li>
-<li><a class="reference external" href="/blog/2017/02/06/Jenkins03-GitHubIntegration.html">Jenkins #3: GitHub In&shy;te&shy;gra&shy;tion</a></li>
-<li><a class="reference external" href="/blog/2017/02/07/Jenkins04-shStep.html">Jenkins #4: The sh step</a></li>
-<li><a class="reference external" href="/blog/2017/02/08/Jenkins05-Groovy.html">Jenkins #5: Groovy</a></li>
-<li><a class="reference external" href="/blog/2017/02/09/Jenkins06-Miscellenea.html">Jenkins #6: Mis&shy;cel&shy;le&shy;nea</a></li>
+<li><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">Jenkins #1: Migrating to&nbsp;Pipelines</a></li>
+<li><a class="reference external" href="/blog/2017/02/05/Jenkins02-EC2Slaves.html">Jenkins #2: <span class="caps">EC2</span>&nbsp;Slaves</a></li>
+<li><a class="reference external" href="/blog/2017/02/06/Jenkins03-GitHubIntegration.html">Jenkins #3: GitHub&nbsp;In&shy;te&shy;gra&shy;tion</a></li>
+<li><a class="reference external" href="/blog/2017/02/07/Jenkins04-shStep.html">Jenkins #4: The sh&nbsp;step</a></li>
+<li><a class="reference external" href="/blog/2017/02/08/Jenkins05-Groovy.html">Jenkins #5:&nbsp;Groovy</a></li>
+<li><a class="reference external" href="/blog/2017/02/09/Jenkins06-Miscellenea.html">Jenkins #6:&nbsp;Mis&shy;cel&shy;le&shy;nea</a></li>
 </ul>
 </div>
 <div class="section" id="eviction">
 <h2>Eviction</h2>
-<p>For three years, we used At&shy;las&shy;sian’s hosted <a class="reference external" href="https://confluence.atlassian.com/bamboocloud/">Bamboo Cloud</a> service
+<p>For three years, we used Atlassian&#8217;s hosted <a class="reference external" href="https://confluence.atlassian.com/bamboocloud/">Bamboo Cloud</a> service
 to build and deploy most of our code.
 In the summer of 2016,
 Atlassian announced that they were
-going to dis&shy;con&shy;tin&shy;ue Bamboo Cloud on January 31st, 2017.</p>
+going to dis&shy;con&shy;tin&shy;ue Bamboo Cloud on January 31st,&nbsp;2017.</p>
 <p>We looked around for a suitable re&shy;place&shy;ment.
 We did not find anything would work well for us.
 We had re&shy;quire&shy;ments that were—&shy;sur&shy;pris&shy;ing&shy;ly—hard to satisfy.
@@ -73,66 +73,66 @@ were designed to build only one project per repository.
 Another hard re&shy;quire&shy;ment was that a push to the <em>master</em> branch in this repo
 should not trigger a build of every ap&shy;pli&shy;ca&shy;tion;
 only the ap&shy;pli&shy;ca&shy;tions in the affected di&shy;rec&shy;to&shy;ries should be built.
-We also didn’t want to host our own build system,
+We also didn&#8217;t want to host our own build system,
 preferring to pay for a service that considered hosting <span class="caps">CI</span>
 to be one of their core com&shy;pe&shy;ten&shy;cies.
 We liked some of the systems that we evaluated,
-but none of them satisfied our needs.</p>
+but none of them satisfied our&nbsp;needs.</p>
 <p>Failing to find a new system that we liked,
 we re&shy;luc&shy;tant&shy;ly ex&shy;per&shy;i&shy;ment&shy;ed with hosting Bamboo Server ourselves,
 reasoning that it should be fairly easy
 to get our Bamboo Cloud builds working on Bamboo Server.
-It wasn’t.
+It wasn&#8217;t.
 Getting Bamboo Server even half working was painful and un&shy;sat&shy;is&shy;fac&shy;to&shy;ry.
-Time for Plan C.</p>
+Time for Plan&nbsp;C.</p>
 <p>We took a closer look at Jenkins;
-more specif&shy;i&shy;cal&shy;ly, at <a class="reference external" href="https://www.cloudbees.com/">CloudBees</a>‘ hosted offering.
+more specif&shy;i&shy;cal&shy;ly, at <a class="reference external" href="https://www.cloudbees.com/">CloudBees</a>&#8216; hosted offering.
 Some of us had previously used <a class="reference external" href="https://wiki.jenkins-ci.org/display/JENKINS/Building+a+software+project">Jenkins Free-Style Builds</a>
 at other jobs in the past and were un&shy;en&shy;thu&shy;si&shy;as&shy;tic about doing so again.
 In fact, we had already been customers of CloudBees for a couple of years,
-as most of our Android builds were built there.</p>
+as most of our Android builds were built&nbsp;there.</p>
 <p>We initially ex&shy;per&shy;i&shy;ment&shy;ed with Free-Style builds
 and found them no more pleasing than we remembered.
 Hesitantly, we tried the <a class="reference external" href="https://jenkins.io/2.0/">Pipeline</a> builds (formerly the Workflow Plugin)
-that formed the heart of last year’s <a class="reference external" href="https://jenkins.io/blog/2016/04/26/jenkins-20-is-here/">Jenkins 2.0 release</a>.</p>
+that formed the heart of last year&#8217;s <a class="reference external" href="https://jenkins.io/blog/2016/04/26/jenkins-20-is-here/">Jenkins 2.0 release</a>.</p>
 <p>With Jenkins Pipelines, we finally found something that made us happy.
-But there was a long, steep learning curve and we haven’t reached the summit yet.
+But there was a long, steep learning curve and we haven&#8217;t reached the summit yet.
 This series of posts describes much of our hard-won knowledge.
 Had we found similar posts written by someone else before we started,
-we would have saved ourselves con&shy;sid&shy;er&shy;able time.</p>
+we would have saved ourselves con&shy;sid&shy;er&shy;able&nbsp;time.</p>
 <div class="section" id="pipelines">
 <h3>Pipelines</h3>
 <p>The Pipeline is the heart of Jenkins 2.0.
 The tra&shy;di&shy;tion&shy;al Free-Style build has been supplanted by a more powerful mechanism
 that supports a rich <a class="reference external" href="https://en.wikipedia.org/wiki/Domain-specific_language">Domain-Specific Language (<span class="caps">DSL</span>)</a>
-and a variety of other features.</p>
+and a variety of other&nbsp;features.</p>
 <p>Having our build system be under source control was almost enough to sell us on Pipeline.
 After Bamboo, where a build had to be configured across multiple screens, tabs, and forms,
 having everything in a single Groovy file was appealing.
 (A few settings do still need to be configured in a Jenkins webform.)
 Being able to use an expressive language like Groovy as the basis of the <span class="caps">DSL</span>
-leads to compact, terse, main&shy;tain&shy;able, and reusable func&shy;tion&shy;al&shy;i&shy;ty.</p>
+leads to compact, terse, main&shy;tain&shy;able, and reusable&nbsp;func&shy;tion&shy;al&shy;i&shy;ty.</p>
 <p>This series of posts is <em>not</em> intended to be a com&shy;pre&shy;hen&shy;sive in&shy;tro&shy;duc&shy;tion to Pipelines.
-These resources may help:</p>
+These resources may&nbsp;help:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/jenkinsci/pipeline-plugin/blob/master/TUTORIAL.md">Pipeline Tutorial</a></li>
-<li><a class="reference external" href="https://wilsonmar.github.io/jenkins2-pipeline/">Wilson Mar</a></li>
+<li><a class="reference external" href="https://github.com/jenkinsci/pipeline-plugin/blob/master/TUTORIAL.md">Pipeline&nbsp;Tutorial</a></li>
+<li><a class="reference external" href="https://wilsonmar.github.io/jenkins2-pipeline/">Wilson&nbsp;Mar</a></li>
 <li><a class="reference external" href="https://sysadvent.blogspot.com/2016/12/day-8-building-robust-jenkins-pipelines.html">SysAdvent</a></li>
-<li><a class="reference external" href="https://dzone.com/refcardz/continuous-delivery-with-jenkins-workflow">DZone RefCard #218</a></li>
-<li><a class="reference external" href="https://www.cloudbees.com/blog/top-10-best-practices-jenkins-pipeline-plugin">Top 10 Best Practices for Jenkins Pipeline Plugin</a></li>
-<li><a class="reference external" href="https://github.com/jenkinsci/pipeline-examples/blob/master/docs/BEST_PRACTICES.md">Best Practices</a></li>
-<li><a class="reference external" href="https://jenkins.io/blog/2017/02/01/pipeline-scalability-best-practice/">Best Practices for Scalable Pipeline Code</a></li>
-<li><a class="reference external" href="https://go.cloudbees.com/docs/cloudbees-documentation/cje-user-guide/">In&shy;tro&shy;duc&shy;ing CloudBees Jenkins Enterprise</a></li>
+<li><a class="reference external" href="https://dzone.com/refcardz/continuous-delivery-with-jenkins-workflow">DZone RefCard&nbsp;#218</a></li>
+<li><a class="reference external" href="https://www.cloudbees.com/blog/top-10-best-practices-jenkins-pipeline-plugin">Top 10 Best Practices for Jenkins Pipeline&nbsp;Plugin</a></li>
+<li><a class="reference external" href="https://github.com/jenkinsci/pipeline-examples/blob/master/docs/BEST_PRACTICES.md">Best&nbsp;Practices</a></li>
+<li><a class="reference external" href="https://jenkins.io/blog/2017/02/01/pipeline-scalability-best-practice/">Best Practices for Scalable Pipeline&nbsp;Code</a></li>
+<li><a class="reference external" href="https://go.cloudbees.com/docs/cloudbees-documentation/cje-user-guide/">In&shy;tro&shy;duc&shy;ing CloudBees Jenkins&nbsp;Enterprise</a></li>
 </ul>
 <p>The Pipeline doc&shy;u&shy;men&shy;ta&shy;tion is, bluntly, not very good.
-It’s frequently confusing and often incomplete.
-You need to search and to be willing to paw through Java code in GitHub repos&shy;i&shy;to&shy;ries.</p>
+It&#8217;s frequently confusing and often incomplete.
+You need to search and to be willing to paw through Java code in GitHub&nbsp;repos&shy;i&shy;to&shy;ries.</p>
 </div>
 <div class="section" id="acknowledgements">
 <h3>Ac&shy;knowl&shy;edge&shy;ments</h3>
 <p>The work on which this series is based was jointly done with Adam Porad.
-Several of CloudBees’ support engineers were very helpful,
-including Owen Wood, Allan Bur&shy;da&shy;jew&shy;icz, Travis Sweet, and Adrien Lechar&shy;p&shy;en&shy;tier.</p>
+Several of CloudBees&#8217; support engineers were very helpful,
+including Owen Wood, Allan Bur&shy;da&shy;jew&shy;icz, Travis Sweet, and Adrien&nbsp;Lechar&shy;p&shy;en&shy;tier.</p>
 </div>
 </div>
 

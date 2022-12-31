@@ -38,12 +38,12 @@
 <p>My colleague, Greg, and I spent all day debugging a build break in
 some unit tests that exercise a webservice interface in legacy .NET 1.1 code.
 Last night, the tests stopped working on our
-<a class="reference external" href="http://ccnet.thoughtworks.com">CruiseC­on­trol.NET</a>
+<a class="reference external" href="http://ccnet.thoughtworks.com">CruiseC&shy;on&shy;trol.NET</a>
 build server. We couldn't understand it. The tests had been working for
-months. Now we were getting timeouts in SOAP. The tests es­sen­tial­ly
+months. Now we were getting timeouts in SOAP. The tests es&shy;sen&shy;tial&shy;ly
 <a class="reference external" href="http://en.wikipedia.org/wiki/Mock_object">mock</a>
 a SOAP service using the <tt class="docutils literal">soap.inproc</tt> transport and a stub
-im­ple­men­ta­tion that signaled an event to ac­knowl­edge a method being called.</p>
+im&shy;ple&shy;men&shy;ta&shy;tion that signaled an event to ac&shy;knowl&shy;edge a method being called.</p>
 <p>The only thing that had changed in the code tree was that another
 colleague, Pavel, had discovered that two of our <tt class="docutils literal">.csproj</tt> files somehow
 shared the same GUID, and had repaired <span>&#8230;<a href="/blog/2006/09/02/UpgradeYourInstallationOfNAnt.html" class="continue">continue</a>.</span></p>
@@ -71,20 +71,20 @@ shared the same GUID, and had repaired <span>&#8230;<a href="/blog/2006/09/02/Up
             <a href="/blog/2006/03/02/ThrowingFromXSLT.html" rel="bookmark canonical">Throwing from XSLT</a>
         </h1>
     </header>
-    <p>I needed to add some de­clar­a­tive error checking to some XSLT templates
-recently. Specif­i­cal­ly, I wanted to throw an error if my selects yielded an
+    <p>I needed to add some de&shy;clar&shy;a&shy;tive error checking to some XSLT templates
+recently. Specif&shy;i&shy;cal&shy;ly, I wanted to throw an error if my selects yielded an
 empty string, indicating that the input XML was wrong.</p>
-<p>Un­for­tu­nate­ly, there seems to be no easy way of doing this in XSLT, nor in
-<tt class="docutils literal">XslTrans­form</tt>. The approved way is to validate against an XSD schema,
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, there seems to be no easy way of doing this in XSLT, nor in
+<tt class="docutils literal">XslTrans&shy;form</tt>. The approved way is to validate against an XSD schema,
 but for various reasons, I didn't want to go to the hassle of creating one.</p>
 <p>I found a partial solution using <tt class="docutils literal">xsl:message</tt> with the
-<tt class="docutils literal"><span class="pre">terminate="yes"</span></tt> attribute. Under <tt class="docutils literal">XslTrans­form.Transform()</tt> the
+<tt class="docutils literal"><span class="pre">terminate=&quot;yes&quot;</span></tt> attribute. Under <tt class="docutils literal">XslTrans&shy;form.Transform()</tt> the
 following code throws an exception if the XPath expression is empty.</p>
 <pre class="code xslt literal-block">
-<span class="k"><xsl:if< span> <span class="na">test=</span><span class="s">"not(/some/xpath/expression)"</span><span class="nt">></span>
-    <span class="k"><xsl:message< span> <span class="na">terminate=</span><span class="s">"yes"</span><span class="nt">></span>Missing expression<span class="k"></span></xsl:message<>
-<span class="k"></span></span>
-<span class="k"><xsl:value-of< span> <span class="na">select=</span><span class="s">"/some/xpath/expression"</span> </xsl:value-of<></span></xsl:if<></span></pre><span>&#8230;<a href="/blog/2006/03/02/ThrowingFromXSLT.html" class="continue">continue</a>.</span>
+<span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:message</span> <span class="na">terminate=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>Missing expression<span class="k">&lt;/xsl:message&gt;</span>
+<span class="k">&lt;/xsl:if&gt;</span>
+<span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;/some/xpath/expression&quot;</span> </pre><span>&#8230;<a href="/blog/2006/03/02/ThrowingFromXSLT.html" class="continue">continue</a>.</span>
     <footer>
         
         

@@ -37,50 +37,50 @@ setting up Pipelin..." />
             <a href="/blog/2017/01/13/ComputedParallelBranchesInJenkinsPipeline.html" rel="bookmark canonical">Computed Parallel Branches in Jenkins Pipeline</a>
         </h1>
     </header>
-    <p>I’ve been using Jenkins lately,
+    <p>I&#8217;ve been using Jenkins lately,
 setting up <a class="reference external" href="https://jenkins.io/solutions/pipeline/">Pipeline</a> builds.
 I have mixed feelings about that,
-but I’m quite liking Groovy.</p>
-<p>Here’s an example of a <tt class="docutils literal">Closure</tt> called <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt>,
+but I&#8217;m quite liking&nbsp;Groovy.</p>
+<p>Here&#8217;s an example of a <tt class="docutils literal">Closure</tt> called <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt>,
 where the <tt class="docutils literal">re&shy;lease_lev&shy;el</tt> parameter is a <tt class="docutils literal">String</tt>
-which must be either <tt class="docutils literal">"dev"</tt> or <tt class="docutils literal">"prod"</tt>.</p>
+which must be either <tt class="docutils literal">&quot;dev&quot;</tt> or <tt class="docutils literal">&quot;prod&quot;</tt>.</p>
 <pre class="code groovy literal-block">
-<span class="kt">def</span><span class="w"> </span><span class="n">acceptance_integration_tests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">release_level</span><span class="w"> </span><span class="o">-></span><span class="w">
+<span class="kt">def</span><span class="w"> </span><span class="n">acceptance_integration_tests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">release_level</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">
     </span><span class="k">assert</span><span class="w"> </span><span class="n">release_level</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="s">/^(dev|prod)$/</span><span class="w">
-    </span><span class="n">String</span><span class="w"> </span><span class="n">arg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"--${release_level}"</span><span class="w">
+    </span><span class="n">String</span><span class="w"> </span><span class="n">arg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;--${release_level}&quot;</span><span class="w">
 
     </span><span class="kt">def</span><span class="w"> </span><span class="n">branches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="w">
-        </span><span class="s2">"${release_level}_acceptance_tests"</span><span class="o">:</span><span class="w"> </span><span class="o">{</span><span class="w">
-            </span><span class="n">run_tests</span><span class="o">(</span><span class="s2">"ci_acceptance_test"</span><span class="o">,</span><span class="w"> </span><span class="n">arg</span><span class="o">,</span><span class="w"> </span><span class="s1">'**/*nosetests.xml'</span><span class="o">)</span><span class="w">
+        </span><span class="s2">&quot;${release_level}_acceptance_tests&quot;</span><span class="o">:</span><span class="w"> </span><span class="o">{</span><span class="w">
+            </span><span class="n">run_tests</span><span class="o">(</span><span class="s2">&quot;ci_acceptance_test&quot;</span><span class="o">,</span><span class="w"> </span><span class="n">arg</span><span class="o">,</span><span class="w"> </span><span class="s1">'**/*nosetests.xml'</span><span class="o">)</span><span class="w">
         </span><span class="o">},</span><span class="w">
-        </span><span class="s2">"${release_level}_integration_tests"</span><span class="o">:</span><span class="w"> </span><span class="o">{</span><span class="w">
-            </span><span class="n">run_tests</span><span class="o">(</span><span class="s2">"ci_integration_test"</span><span class="o">,</span><span class="w"> </span><span class="n">arg</span><span class="o">,</span><span class="w"> </span><span class="s1">'**/*nosetests.xml'</span><span class="o">)</span><span class="w">
+        </span><span class="s2">&quot;${release_level}_integration_tests&quot;</span><span class="o">:</span><span class="w"> </span><span class="o">{</span><span class="w">
+            </span><span class="n">run_tests</span><span class="o">(</span><span class="s2">&quot;ci_integration_test&quot;</span><span class="o">,</span><span class="w"> </span><span class="n">arg</span><span class="o">,</span><span class="w"> </span><span class="s1">'**/*nosetests.xml'</span><span class="o">)</span><span class="w">
         </span><span class="o">}</span><span class="w">
     </span><span class="o">]</span><span class="w">
     </span><span class="n">parallel</span><span class="w"> </span><span class="n">branches</span><span class="w">
 </span><span class="o">}</span>
 </pre>
 <p>We create a <tt class="docutils literal">Map</tt> called <tt class="docutils literal">branches</tt> with dy&shy;nam&shy;i&shy;cal&shy;ly named keys,
-such as <tt class="docutils literal">"prod_in&shy;te&shy;gra&shy;tion_test&shy;s"</tt>,
+such as <tt class="docutils literal">&quot;prod_in&shy;te&shy;gra&shy;tion_tests&quot;</tt>,
 thanks to <tt class="docutils literal">GString</tt> in&shy;ter&shy;po&shy;la&shy;tion.
 The values in the <tt class="docutils literal">branches</tt> map are themselves closures,
-where <tt class="docutils literal">arg</tt> is bound to <tt class="docutils literal"><span class="pre">"--dev"</span></tt> or <tt class="docutils literal"><span class="pre">"--prod"</span></tt>.</p>
-<p>The <tt class="docutils literal">branches</tt> map is passed to Pipeline’s <tt class="docutils literal">parallel</tt> command,
+where <tt class="docutils literal">arg</tt> is bound to <tt class="docutils literal"><span class="pre">&quot;--dev&quot;</span></tt> or <tt class="docutils literal"><span class="pre">&quot;--prod&quot;</span></tt>.</p>
+<p>The <tt class="docutils literal">branches</tt> map is passed to Pipeline&#8217;s <tt class="docutils literal">parallel</tt> command,
 which causes the two <tt class="docutils literal">run_tests</tt> closures to be executed
-on two different ex&shy;ecu&shy;tors—even&shy;tu&shy;al&shy;ly.</p>
+on two different&nbsp;ex&shy;ecu&shy;tors—even&shy;tu&shy;al&shy;ly.</p>
 <p>I figured out the above syntax myself, then found a <a class="reference external" href="https://jenkins.io/doc/pipeline/examples/#jobs-in-parallel">similar example</a>.</p>
 <pre class="code groovy literal-block">
-<span class="n">stage</span><span class="o">(</span><span class="s2">"Deploy to Dev"</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">deploy</span><span class="w"> </span><span class="s2">"dev"</span><span class="w"> </span><span class="o">}</span><span class="w">
-</span><span class="n">stage</span><span class="o">(</span><span class="s2">"Dev Tests"</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">acceptance_integration_tests</span><span class="w"> </span><span class="s2">"dev"</span><span class="w"> </span><span class="o">}</span><span class="w">
+<span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Deploy to Dev&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">deploy</span><span class="w"> </span><span class="s2">&quot;dev&quot;</span><span class="w"> </span><span class="o">}</span><span class="w">
+</span><span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Dev Tests&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">acceptance_integration_tests</span><span class="w"> </span><span class="s2">&quot;dev&quot;</span><span class="w"> </span><span class="o">}</span><span class="w">
 
-</span><span class="n">stage</span><span class="o">(</span><span class="s2">"Deploy to Prod"</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">deploy</span><span class="w"> </span><span class="s2">"prod"</span><span class="w"> </span><span class="o">}</span><span class="w">
-</span><span class="n">stage</span><span class="o">(</span><span class="s2">"Prod Tests"</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">acceptance_integration_tests</span><span class="w"> </span><span class="s2">"prod"</span><span class="w"> </span><span class="o">}</span>
+</span><span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Deploy to Prod&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">deploy</span><span class="w"> </span><span class="s2">&quot;prod&quot;</span><span class="w"> </span><span class="o">}</span><span class="w">
+</span><span class="n">stage</span><span class="o">(</span><span class="s2">&quot;Prod Tests&quot;</span><span class="o">)</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">acceptance_integration_tests</span><span class="w"> </span><span class="s2">&quot;prod&quot;</span><span class="w"> </span><span class="o">}</span>
 </pre>
 <p>The <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt> closure is used in two different <tt class="docutils literal">stage</tt>s.
 Each <tt class="docutils literal">stage</tt> is passed an anonymous closure,
-which invokes the parallel tests at a suitable time.</p>
-<p>The use of closures and Groovy’s <a class="reference external" href="http://docs.groovy-lang.org/docs/latest/html/documentation/core-domain-specific-languages.html"><span class="caps">DSL</span></a> facilities
-is powerful, terse, and expressive.</p>
+which invokes the parallel tests at a suitable&nbsp;time.</p>
+<p>The use of closures and Groovy&#8217;s <a class="reference external" href="http://docs.groovy-lang.org/docs/latest/html/documentation/core-domain-specific-languages.html"><span class="caps">DSL</span></a> facilities
+is powerful, terse, and&nbsp;expressive.</p>
 
     <footer>
         

@@ -41,28 +41,28 @@
 We need a recent version of Docker
 but our <a class="reference external" href="https://www.atlassian.com/software/bamboo/">Bamboo</a> build agents are running on Ubuntu 14.04,
 which has a very old version of Docker.
-The script upgrades Docker when it’s first run.
+The script upgrades Docker when it&#8217;s first run.
 The script may be run more than once during the lifetime of the agent,
-so the second and subsequent calls should not upgrade Docker.</p>
-<p>Basically, I wanted</p>
+so the second and subsequent calls should not upgrade&nbsp;Docker.</p>
+<p>Basically, I&nbsp;wanted</p>
 <pre class="code bash literal-block">
-<span class="k">if</span> <span class="nv">$DOCKER_VERSION</span> < <span class="m">1</span>.9<span class="p">;</span> <span class="k">then</span> upgrade_docker<span class="p">;</span> <span class="k">fi</span>
+<span class="k">if</span> <span class="nv">$DOCKER_VERSION</span> &lt; <span class="m">1</span>.9<span class="p">;</span> <span class="k">then</span> upgrade_docker<span class="p">;</span> <span class="k">fi</span>
 </pre>
-<p>Un&shy;for&shy;tu&shy;nate&shy;ly, it’s not that easy in Bash.
-Here’s what I came up with.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s not that easy in Bash.
+Here&#8217;s what I came up&nbsp;with.</p>
 <pre class="code bash literal-block">
 install_latest_docker<span class="o">()</span> <span class="o">{</span>
-    <span class="k">if</span> docker --version <span class="p">|</span> python -c <span class="s2">"min=[1, 9]; import sys; ↩
+    <span class="k">if</span> docker --version <span class="p">|</span> python -c <span class="s2">&quot;min=[1, 9]; import sys; ↩
 v=[int(x) for x in sys.stdin.read().split()[2].split(',')[0].split('.')]; ↩
-sys.exit(v < min)"</span><span class="p">;</span>
+sys.exit(v &lt; min)&quot;</span><span class="p">;</span>
     <span class="k">then</span>
-        <span class="nb">echo</span> <span class="s2">"Docker up to date"</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Docker up to date&quot;</span>
         <span class="k">return</span>
     <span class="k">fi</span>
     <span class="c1"># Install Docker ...</span>
 </pre>
-<p>Let’s unpack that ugly <tt class="docutils literal">if</tt> one-liner.
-Note: the <tt class="docutils literal">↩</tt> denotes linebreaks introduced for pre&shy;sen&shy;ta&shy;tion purposes; it’s all one line.</p>
+<p>Let&#8217;s unpack that ugly <tt class="docutils literal">if</tt> one-liner.
+Note: the <tt class="docutils literal">↩</tt> denotes linebreaks introduced for pre&shy;sen&shy;ta&shy;tion purposes; it&#8217;s all one&nbsp;line.</p>
 <pre class="code bash literal-block">
 $ docker --version
 Docker version <span class="m">1</span>.9.1, build a34a1d5
@@ -92,11 +92,11 @@ Docker version <span class="m">1</span>.9.1, build a34a1d5
 <span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'9'</span><span class="p">,</span> <span class="s1">'1'</span><span class="p">]</span>
 
 <span class="c1"># String comparisons aren't good enough for version numbers</span>
-<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'10'</span><span class="p">]</span> <span class="o"><</span> <span class="p">[</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'9'</span><span class="p">]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'10'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">[</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'9'</span><span class="p">]</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="kc">True</span>
 
 <span class="c1"># We have to convert each token to an integer, then lexicographically compare</span>
-<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span> <span class="o"><</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="kc">False</span>
 
 <span class="c1"># Convert to list of integers</span>
@@ -107,27 +107,27 @@ Docker version <span class="m">1</span>.9.1, build a34a1d5
 <span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">version</span><span class="p">,</span> <span class="nb">min</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">version</span> <span class="o"><</span> <span class="nb">min</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">version</span> <span class="o">&lt;</span> <span class="nb">min</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="kc">False</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o"><</span> <span class="nb">min</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nb">min</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="kc">True</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="nb">int</span><span class="p">(</span><span class="n">version</span> <span class="o"><</span> <span class="nb">min</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="nb">int</span><span class="p">(</span><span class="n">version</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">)</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="mi">0</span>
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="nb">int</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o"><</span> <span class="nb">min</span><span class="p">)</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="nb">int</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">)</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="mi">1</span>
 </pre>
 <p>The ugly triple split inside the list com&shy;pre&shy;hen&shy;sion
 produces a list of integers,
 which can be compared lex&shy;i&shy;co&shy;graph&shy;i&shy;cal&shy;ly against
 <tt class="docutils literal">min</tt>, another list.
-<tt class="docutils literal">sys.exit</tt> is called with <tt class="docutils literal">1</tt> when Docker’s version is less than <tt class="docutils literal">min</tt>.</p>
+<tt class="docutils literal">sys.exit</tt> is called with <tt class="docutils literal">1</tt> when Docker&#8217;s version is less than <tt class="docutils literal">min</tt>.</p>
 <p>When <tt class="docutils literal">$?</tt> is non-zero in Bash, then <tt class="docutils literal">if some_&shy;com&shy;mand</tt> fails
-and the <tt class="docutils literal">else</tt> clause (none here) is executed.</p>
+and the <tt class="docutils literal">else</tt> clause (none here) is&nbsp;executed.</p>
 <p>I came across <a class="reference external" href="http://python-oneliner.readthedocs.org/en/latest/">Python Oneliner</a>, while debugging my script.
-I might use Oneliner in other cir&shy;cum&shy;stances.</p>
+I might use Oneliner in other&nbsp;cir&shy;cum&shy;stances.</p>
 
     <footer>
         

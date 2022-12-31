@@ -39,29 +39,29 @@ as a s..." />
     </header>
     <p>During an internal training exercise today,
 as a sort of one-man <a class="reference external" href="https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey">Chaos Monkey</a>,
-I de&shy;lib&shy;er&shy;ate&shy;ly broke a test system by changing a config setting to read:</p>
+I de&shy;lib&shy;er&shy;ate&shy;ly broke a test system by changing a config setting to&nbsp;read:</p>
 <pre class="literal-block">
 itemfinder.url = http://test-іtemfinder.example.com/
 </pre>
-<p>The correct value should have been:</p>
+<p>The correct value should have&nbsp;been:</p>
 <pre class="literal-block">
 itemfinder.url = http://test-itemfinder.example.com/
 </pre>
-<p>What’s that, you say? There’s no difference, you say?</p>
-<p>There <em>is</em> a difference, but it’s subtle.
+<p>What&#8217;s that, you say? There&#8217;s no difference, you&nbsp;say?</p>
+<p>There <em>is</em> a difference, but it&#8217;s subtle.
 The first <tt class="docutils literal">i</tt> in the <span class="caps">URL</span> is
-<a class="reference external" href="http://www.fileformat.info/info/unicode/char/0456/index.htm">‘<span class="caps">CYRILLIC</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> <span class="caps">BYELORUSS&shy;IAN</span>-<span class="caps">UKRAINIAN</span> I’ (U+0456)</a>,
-not <a class="reference external" href="http://www.fileformat.info/info/unicode/char/0069/index.htm">‘<span class="caps">LATIN</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> I’ (U+0069)</a>.
+<a class="reference external" href="http://www.fileformat.info/info/unicode/char/0456/index.htm">&#8216;<span class="caps">CYRILLIC</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> <span class="caps">BYELORUSS&shy;IAN</span>-<span class="caps">UKRAINIAN</span> I&#8217; (U+0456)</a>,
+not <a class="reference external" href="http://www.fileformat.info/info/unicode/char/0069/index.htm">&#8216;<span class="caps">LATIN</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> I&#8217; (U+0069)</a>.
 Depending upon the font, the two <tt class="docutils literal">i</tt>s may be visually in&shy;dis&shy;tin&shy;guish&shy;able,
-very similar looking, or the Cyrillic <tt class="docutils literal">i</tt> may not render.</p>
+very similar looking, or the Cyrillic <tt class="docutils literal">i</tt> may not&nbsp;render.</p>
 <p>This is an example of an <a class="reference external" href="https://en.wikipedia.org/wiki/IDN_homograph_attack">In&shy;ter&shy;na&shy;tion&shy;al Domain Name Homograph Attack</a>.
 There are Greek letters and Cyrillic letters that look very similar to Latin letters,
 but which have distinct meanings, histories, and code points.
-In&shy;ter&shy;na&shy;tion&shy;al Domain Names permit the con&shy;struc&shy;tion of non-Latin domain names.</p>
+In&shy;ter&shy;na&shy;tion&shy;al Domain Names permit the con&shy;struc&shy;tion of non-Latin domain&nbsp;names.</p>
 <p>Since domain name labels may only contain Latin letters, digits, and hyphens,
 an encoding scheme known as <a class="reference external" href="https://www.punycoder.com/">Punycode</a> transforms Unicode domain names into <span class="caps">ASCII</span> domain names.
 For example, <tt class="docutils literal"><span class="pre">test-іtemfinder.example.com</span></tt> (Cyrillic <tt class="docutils literal">i</tt>)
-becomes <tt class="docutils literal"><span class="pre">xn--test-temfinder-99l.example.com</span></tt> in Punycode.</p>
+becomes <tt class="docutils literal"><span class="pre">xn--test-temfinder-99l.example.com</span></tt> in&nbsp;Punycode.</p>
 <p>Obviously, homographs can be used to spoof URLs.
 Browsers generally present the Punycode form of an <span class="caps">IDN</span>
 if it looks like suspicious homographs might be present in the address bar,

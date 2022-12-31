@@ -52,9 +52,9 @@ celebrated Victorian soldier,
 winner of the Victoria Cross,
 survivor of the charge of the Light Brigade,
 the battle of Little Big Horn,
-and the raid on Harper’s Ferry,
+and the raid on Harper&#8217;s Ferry,
 reveals himself in this frank memoir published long after his death
-to be “a scoundrel, a liar, a cheat, a thief, a coward—and, oh yes, a toady.”</p>
+to be “a scoundrel, a liar, a cheat, a thief, a coward—and, oh yes, a&nbsp;toady.”</p>
 <p>The central conceit of the fictional <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>
 is that Flashy, writing frankly in his old age about his remarkable set of adventures,
 is perfectly willing to put himself <span>&#8230;<a href="/blog/2016/06/22/ReviewFlashman.html" class="continue">continue</a>.</span></p>
@@ -89,18 +89,18 @@ is perfectly willing to put himself <span>&#8230;<a href="/blog/2016/06/22/Revie
     </header>
     <p></p>
 <blockquote>
-[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>I attended <a class="reference external" href="http://web.archive.org/web/20161121204237/http://2016.dockercon.com/">DockerCon 2016</a> in Seattle
 over the last two days and I learned a lot.
-It was a well-run conference with an en­thu­si­as­tic audience.</p>
-<p>I’m astounded at the growth of Docker.
+It was a well-run conference with an en&shy;thu&shy;si&shy;as&shy;tic&nbsp;audience.</p>
+<p>I&#8217;m astounded at the growth of Docker.
 Three-and-a-quarter years ago,
 Docker was revealed to the public for the first time,
 in a <a class="reference external" href="https://www.youtube.com/watch?v=wW9CAH9nSLs">five-minute lightning talk</a> at PyCon 2013.
 In January 2016, Docker Hub had received <a class="reference external" href="https://blog.docker.com/2016/02/docker-hub-two-billion-pulls/">1.6 billion image pulls</a>;
 by this month, that number had jumped to over 4 billion pulls!
 DockerCon had over 4,000 attendees and nearly 100 exhibitors,
-who clearly believe there’s a multi-billion dollar market for containers.
+who clearly believe there&#8217;s a multi-billion dollar market for containers.
 DataDog concurs, in a report on <a class="reference external" href="https://www.datadoghq.com/docker-adoption/">Docker adoption</a>.</p>
 <div class="section" id="the-sad-state-of-clustering">
 <h2>The Sad <span>&#8230;<a href="/blog/2016/06/21/DockerCon2016.html" class="continue">continue</a>.</span></h2></div>
@@ -130,19 +130,19 @@ DataDog concurs, in a report on <a class="reference external" href="https://www.
             <a href="/blog/2016/06/18/DeployingDockerContainersOnAWSPart3.html" rel="bookmark canonical">Deploying Docker Containers on AWS, part 3</a>
         </h1>
     </header>
-    <p>I complained <a class="reference external" href="/blog/2016/06/18/17/DeployingDockerContainersOnAWSPart2.html">yesterday</a> about my dif­fi­cul­ties in deploying Docker containers on <span class="caps">AWS</span>.
-I have since succeeded in getting my app to deploy on Elas­ticBeanstalk,
-though I have not quite ironed out all the problems.</p>
-<p>I found several problems:</p>
+    <p>I complained <a class="reference external" href="/blog/2016/06/18/17/DeployingDockerContainersOnAWSPart2.html">yesterday</a> about my dif&shy;fi&shy;cul&shy;ties in deploying Docker containers on <span class="caps">AWS</span>.
+I have since succeeded in getting my app to deploy on Elas&shy;ticBeanstalk,
+though I have not quite ironed out all the&nbsp;problems.</p>
+<p>I found several&nbsp;problems:</p>
 <blockquote>
 <ul class="simple">
-<li>I had to revert from a Multi-Container Docker en­vi­ron­ment
-to a Single-Container Docker en­vi­ron­ment
-because <span class="caps">ECS</span> wasn’t starting in the multi-container en­vi­ron­ment.
+<li>I had to revert from a Multi-Container Docker en&shy;vi&shy;ron&shy;ment
+to a Single-Container Docker en&shy;vi&shy;ron&shy;ment
+because <span class="caps">ECS</span> wasn&#8217;t starting in the multi-container en&shy;vi&shy;ron&shy;ment.
 That meant I had to revert to a v1 <tt class="docutils literal">Dockerrun.aws.json</tt>.</li>
 <li>I had to ensure that the Instance Profile had the
-Ama­zonEC2­Con­tain­erReg­istryRead­On­ly policy attached,
-so that I could pull from the <span class="caps">EC2</span> Container Repository.</li>
+Ama&shy;zonEC2&shy;Con&shy;tain&shy;erReg&shy;istryRead&shy;On&shy;ly policy attached,
+so that I could pull from the <span class="caps">EC2</span> Container&nbsp;Repository.</li>
 </ul>
 </blockquote>
 
@@ -172,16 +172,16 @@ so that I could pull from the <span class="caps">EC2</span> Container Repositor
             <a href="/blog/2016/06/17/DeployingDockerContainersOnAWSPart2.html" rel="bookmark canonical">Deploying Docker Containers on AWS, part 2</a>
         </h1>
     </header>
-    <p>I complained <a class="reference external" href="/blog/2016/05/24/DeployingADockerContainerOnAWS.html">a few weeks ago</a> about how hard it was to deploy Docker containers on <span class="caps">AWS</span>.</p>
-<p>This week has been nothing but container-related frus­tra­tion.
+    <p>I complained <a class="reference external" href="/blog/2016/05/24/DeployingADockerContainerOnAWS.html">a few weeks ago</a> about how hard it was to deploy Docker containers on&nbsp;<span class="caps">AWS</span>.</p>
+<p>This week has been nothing but container-related frus&shy;tra&shy;tion.
 We have two apps running in Kubernetes clusters on top of <span class="caps">AWS</span>.
 This is not a well-supported scenario and we have a fragile script
 that spends a lot of time sitting in polling loops,
 waiting for various things to happen like <span class="caps">DNS</span> updates taking effect,
 the new cluster being available, and so on.
 One of the apps has decided to stop deploying.
-I do not know why.</p>
-<p>I’ve been trying to get a new app deployed on <span class="caps">ECS</span>, the <span class="caps">EC2</span> Container Service.
+I do not know&nbsp;why.</p>
+<p>I&#8217;ve been trying to get a new app deployed on <span class="caps">ECS</span>, the <span class="caps">EC2</span> Container Service.
 The way to deploy an <span>&#8230;<a href="/blog/2016/06/17/DeployingDockerContainersOnAWSPart2.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -221,14 +221,14 @@ The way to deploy an <span>&#8230;<a href="/blog/2016/06/17/DeployingDockerConta
 <div class="line">Keywords: crime</div>
 <div class="line">Reading period: 11 June, 2016</div>
 </div>
-<p>Nick Behrends wakes up after a party at a drug dealer’s house on Ibiza
+<p>Nick Behrends wakes up after a party at a drug dealer&#8217;s house on Ibiza
 with a gun in his hand,
 no memory of the last few hours,
 and a roomful of dead people.
 He goes on the run,
 and soon encounters a Russian hitman
-who’s looking for his abducted 12-year-old daughter.</p>
-<p>Pre­dictable plot, cardboard characters.</p>
+who&#8217;s looking for his abducted 12-year-old&nbsp;daughter.</p>
+<p>Pre&shy;dictable plot, cardboard&nbsp;characters.</p>
 
     <footer>
         
@@ -263,10 +263,10 @@ we had one more rehearsal to go before
 our <a class="reference external" href="http://www.wildgeeseseattle.org/Joyce/Bloomsday/2016.html">2016 Reading</a> of <em>Ulysses</em> for Bloomsday.
 That was tonight.
 Mostly we worked out seating and other logistics.
-We are in­ter­cut­ting two different chapters,
+We are in&shy;ter&shy;cut&shy;ting two different chapters,
 with the readers playing different roles in each chapter,
-so it’s a small but satisfying ac­com­plish­ment
-to have a seating arrange­ment that works for both chapters.</p>
+so it&#8217;s a small but satisfying ac&shy;com&shy;plish&shy;ment
+to have a seating arrange&shy;ment that works for both&nbsp;chapters.</p>
 
     <footer>
         
@@ -291,18 +291,18 @@ to have a seating arrange­ment that works for both chapters.</p>
             <a href="/blog/2016/06/14/PulseMassacreDay3.html" rel="bookmark canonical">Pulse Massacre, Day 3</a>
         </h1>
     </header>
-    <p>I wrote this last night on Facebook:</p>
+    <p>I wrote this last night on&nbsp;Facebook:</p>
 <blockquote>
 <p>Even 25 years after coming out as bisexual,
 I still censor myself and still check myself about coming out yet again.
 Even though Seattle is about as safe as it gets
-and most people here are queer-friendly, it’s reflexive.
+and most people here are queer-friendly, it&#8217;s reflexive.
 And even in Seattle, queer bashings happen.
 We came very close to an even bigger tragedy in a gay nightclub in Seattle
-on New Year’s Eve 2013,
+on New Year&#8217;s Eve 2013,
 when an arsonist lit a fire in Neighbours while 750 people were present.
 The fire was promptly detected and put out,
-no-one was injured, and the per­pe­tra­tor is in prison.</p>
+no-one was injured, and the per&shy;pe&shy;tra&shy;tor is in&nbsp;prison.</p>
 <p>I became aware of my sexuality in a very different <span>&#8230;<a href="/blog/2016/06/14/PulseMassacreDay3.html" class="continue">continue</a>.</span></p></blockquote>
     <footer>
         
@@ -332,17 +332,17 @@ no-one was injured, and the per­pe­tra­tor is in prison.</p>
         </h1>
     </header>
     <p>I spent the last 90 minutes reading Facebook,
-and my feed has been absolutely over­whelmed with Orlando-related posts,
+and my feed has been absolutely over&shy;whelmed with Orlando-related posts,
 be they grieving, discussing homophobia, calling for gun control,
 or reacting to reactions.
-I’ve never seen such a skewed set of posts.
+I&#8217;ve never seen such a skewed set of posts.
 Some of it is surely Facebook catering to what it knows are my interests,
 but it seems like the vast majority of my friends
 and the pages that I follow can talk of nothing else.
 Even Trump/Clinton/Sanders articles, except as they pertain to this,
-have tem­porar­i­ly dis­ap­peared.</p>
-<p>So far, I have seen nothing useful from Republican politi­cians
-regarding gun control or homophobia.</p>
+have tem&shy;porar&shy;i&shy;ly&nbsp;dis&shy;ap&shy;peared.</p>
+<p>So far, I have seen nothing useful from Republican politi&shy;cians
+regarding gun control or&nbsp;homophobia.</p>
 
     <footer>
         
@@ -374,12 +374,12 @@ regarding gun control or homophobia.</p>
     <p>I woke up this morning to news of another American massacre:
 a lone gunman had murdered 50 people at Pulse, a gay nightclub in Orlando,
 and injured another 53 people.
-It was the worst mass shooting in <span class="caps">US</span> history and also the worst hate crime.</p>
-<p>I put it out of my head for the afternoon while I attended an old friend’s wedding,
-but it’s been at the forefront of my mind ever since.</p>
+It was the worst mass shooting in <span class="caps">US</span> history and also the worst hate&nbsp;crime.</p>
+<p>I put it out of my head for the afternoon while I attended an old friend&#8217;s wedding,
+but it&#8217;s been at the forefront of my mind ever&nbsp;since.</p>
 <p>Only in America could we put up with massacre after massacre,
 yet not find the political will to do anything meaningful about gun violence.
-Craven politi­cians in thrall to the <span class="caps">NRA</span> mouth platitudes,
+Craven politi&shy;cians in thrall to the <span class="caps">NRA</span> mouth platitudes,
 but will not make any <span>&#8230;<a href="/blog/2016/06/12/50MurderedInOrlando.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -422,12 +422,12 @@ but will not make any <span>&#8230;<a href="/blog/2016/06/12/50MurderedInOrlando
 </div>
 <p><a class="reference external" href="https://en.wikipedia.org/wiki/The_Simple_Art_of_Murder">The Simple Art of Murder</a> comprises the essay of the same name
 and four early non–Philip Marlowe stories (in some editions, there are eight stories).
-The essay is jus­ti­fi­ably famous and worth reading;
-the stories are of middling quality.</p>
+The essay is jus&shy;ti&shy;fi&shy;ably famous and worth reading;
+the stories are of middling&nbsp;quality.</p>
 <p>All are available online:
 <a class="reference external" href="http://www.en.utexas.edu/amlit/amlitprivate/scans/chandlerart.html">The Simple Art of Murder Essay</a>, <a class="reference external" href="http://ae-lib.org.ua/texts-c/chandler__spanish_blood__en.htm">Spanish Blood</a>,
-<a class="reference external" href="http://ae-lib.org.ua/texts-c/chandler__ill_be_waiting__en.htm">I’ll be Waiting</a>, <a class="reference external" href="http://ae-lib.org.ua/texts-c/chandler__the_king_in_yellow__en.htm">The King in Yellow</a>, and <a class="reference external" href="http://ae-lib.org.ua/texts-c/chandler__pearls_are_a_nuisance__en.htm">Pearls are a Nuisance</a>.</p>
-<p>In the essay, Chandler takes aim at the sterile con­fec­tions of deduction
+<a class="reference external" href="http://ae-lib.org.ua/texts-c/chandler__ill_be_waiting__en.htm">I&#8217;ll be Waiting</a>, <a class="reference external" href="http://ae-lib.org.ua/texts-c/chandler__the_king_in_yellow__en.htm">The King in Yellow</a>, and <a class="reference external" href="http://ae-lib.org.ua/texts-c/chandler__pearls_are_a_nuisance__en.htm">Pearls are a Nuisance</a>.</p>
+<p>In the essay, Chandler takes aim at the sterile con&shy;fec&shy;tions of deduction
 that comprised most detective fiction written in the 1920s and 1930s,
 which “do not <span>&#8230;<a href="/blog/2016/06/11/ReviewTheSimpleArtOfMurder.html" class="continue">continue</a>.</span></p>
     <footer>

@@ -43,11 +43,11 @@
 <span class="n"><span class="caps">ERROR</span></span><span class="p">:</span> <span class="n">Failure</span><span class="p">:</span> <span class="ne">TypeError</span> <span class="p">(</span><span class="nb">type</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">3</span> <span class="n">arguments</span><span class="p">)</span>
 <span class="o">----------------------------------------------------------------------</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
-  <span class="n">File</span> <span class="s2">".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">523</span><span class="p">,</span> <span class="ow">in</span> <span class="n">makeTest</span>
+  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">523</span><span class="p">,</span> <span class="ow">in</span> <span class="n">makeTest</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_makeTest</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
-  <span class="n">File</span> <span class="s2">".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">582</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_makeTest</span>
+  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">582</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_makeTest</span>
     <span class="k">return</span> <span class="n">MethodTestCase</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
-  <span class="n">File</span> <span class="s2">".../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/case.py"</span><span class="p">,</span> <span class="n">line</span> <span class="mi">345</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__init__</span>
+  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/case.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">345</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__init__</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cls</span><span class="p">()</span>
 <span class="ne">TypeError</span><span class="p">:</span> <span class="nb">type</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">3</span> <span class="n">arguments</span>
 </pre>
@@ -55,13 +55,13 @@
 which had a <tt class="docutils literal">class&shy;method</tt> called <tt class="docutils literal">run_in&shy;te&shy;gra&shy;tion_tests</tt>.
 The module itself had no tests; it just declared a class called <tt class="docutils literal">TestO&shy;b&shy;fus&shy;cat&shy;ed&shy;Mix&shy;in</tt>,
 which used some other <tt class="docutils literal">class&shy;method</tt>s on <tt class="docutils literal">TestApi</tt>.
-Nose’s <a class="reference external" href="http://nose.readthedocs.org/en/latest/writing_tests.html">test discovery</a> considered <tt class="docutils literal">run_in&shy;te&shy;gra&shy;tion_tests</tt> to be a test because
+Nose&#8217;s <a class="reference external" href="http://nose.readthedocs.org/en/latest/writing_tests.html">test discovery</a> considered <tt class="docutils literal">run_in&shy;te&shy;gra&shy;tion_tests</tt> to be a test because
 both the class and the function matched the <tt class="docutils literal">testMatch</tt> regular expression,
 i.e., a name that has <tt class="docutils literal">test</tt> or <tt class="docutils literal">Test</tt> at a word boundary
 or following a <tt class="docutils literal">-</tt> or <tt class="docutils literal">_</tt>.</p>
 <p>I renamed it to <tt class="docutils literal">run_in&shy;te&shy;gra&shy;tion_t3sts</tt> [sic].
-It’s hard to find a good synonym for "tests".</p>
-<p>Tip: to run a particular test from the command line:</p>
+It&#8217;s hard to find a good synonym for&nbsp;&quot;tests&quot;.</p>
+<p>Tip: to run a particular test from the command&nbsp;line:</p>
 <pre class="literal-block">
 nosetests path/to/test_module.py:SomeTestClass.test_whatever
 </pre>

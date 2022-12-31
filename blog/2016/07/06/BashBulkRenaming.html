@@ -47,10 +47,10 @@ Bash supports <tt class="docutils literal">${var/Pattern/Re&shy;place&shy;men&sh
 <pre class="code bash literal-block">
 <span class="k">for</span> f <span class="k">in</span> *.png.jpg<span class="p">;</span>
 <span class="k">do</span>
-    mv <span class="nv">$f</span> <span class="s2">"</span><span class="si">${</span><span class="nv">f</span><span class="p">/.png</span><span class="si">}</span><span class="s2">"</span>
+    mv <span class="nv">$f</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">f</span><span class="p">/.png</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="k">done</span>
 </pre>
-<p>The target expression could also have been written as <tt class="docutils literal"><span class="pre">"${f/.png.jpg/.jpg}"</span></tt></p>
+<p>The target expression could also have been written as <tt class="docutils literal"><span class="pre">&quot;${f/.png.jpg/.jpg}&quot;</span></tt></p>
 
     <footer>
         

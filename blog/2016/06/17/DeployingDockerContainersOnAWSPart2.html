@@ -36,7 +36,7 @@
             <a href="/blog/2016/06/17/DeployingDockerContainersOnAWSPart2.html" rel="bookmark canonical">Deploying Docker Containers on AWS, part 2</a>
         </h1>
     </header>
-    <p>I complained <a class="reference external" href="/blog/2016/05/24/DeployingADockerContainerOnAWS.html">a few weeks ago</a> about how hard it was to deploy Docker containers on <span class="caps">AWS</span>.</p>
+    <p>I complained <a class="reference external" href="/blog/2016/05/24/DeployingADockerContainerOnAWS.html">a few weeks ago</a> about how hard it was to deploy Docker containers on&nbsp;<span class="caps">AWS</span>.</p>
 <p>This week has been nothing but container-related frus&shy;tra&shy;tion.
 We have two apps running in Kubernetes clusters on top of <span class="caps">AWS</span>.
 This is not a well-supported scenario and we have a fragile script
@@ -44,29 +44,29 @@ that spends a lot of time sitting in polling loops,
 waiting for various things to happen like <span class="caps">DNS</span> updates taking effect,
 the new cluster being available, and so on.
 One of the apps has decided to stop deploying.
-I do not know why.</p>
-<p>I’ve been trying to get a new app deployed on <span class="caps">ECS</span>, the <span class="caps">EC2</span> Container Service.
+I do not know&nbsp;why.</p>
+<p>I&#8217;ve been trying to get a new app deployed on <span class="caps">ECS</span>, the <span class="caps">EC2</span> Container Service.
 The way to deploy an updated app is to take an existing Task Definition,
 update the tag on the image name, and create a new revision.
 I have not figured out the right in&shy;can&shy;ta&shy;tion to get the cluster service
 to start running the new task con&shy;sis&shy;tent&shy;ly,
 much less how to do this without any downtime.
-It’s insanely difficult to bring up a new cluster,
+It&#8217;s insanely difficult to bring up a new cluster,
 or, more specif&shy;i&shy;cal&shy;ly, to configure an <span class="caps">EC2</span> instance for the new cluster.
-There’s a huge list of non-obvious pieces that need to be configured.
+There&#8217;s a huge list of non-obvious pieces that need to be configured.
 I discovered that you could append <tt class="docutils literal">#/firstRun</tt> to the <span class="caps">URL</span>
 to get the first-run wizard to reappear.
 That causes no less than 15 pieces of <span class="caps">AWS</span> in&shy;fra&shy;struc&shy;ture to start up,
 which is sig&shy;nif&shy;i&shy;cant&shy;ly more than you get when you create an <span class="caps">ECS</span> cluster the other way.
-However, the <span class="caps">ELB</span> Load Balancer is not configured correctly.</p>
+However, the <span class="caps">ELB</span> Load Balancer is not configured&nbsp;correctly.</p>
 <p>I tried going back to Elas&shy;ticBeanstalk,
-since we’ve suc&shy;cess&shy;ful&shy;ly deployed a Docker container on <span class="caps">EB</span> for the last two years.
+since we&#8217;ve suc&shy;cess&shy;ful&shy;ly deployed a Docker container on <span class="caps">EB</span> for the last two years.
 I realized that the way to bootstrap a new en&shy;vi&shy;ron&shy;ment is to upload <tt class="docutils literal">Dockerrun.aws.json</tt>.
 However, I have yet to get the new en&shy;vi&shy;ron&shy;ment to start up correctly.
-I SSHed into the <span class="caps">EC2</span> instance and found that the Docker daemon wasn’t running
-and refuses to start.</p>
+I SSHed into the <span class="caps">EC2</span> instance and found that the Docker daemon wasn&#8217;t running
+and refuses to&nbsp;start.</p>
 <p><span class="caps">UPDATE</span>: <a class="reference external" href="../18/DeployingDockerContainersOnAWSPart3.html">fixed some problems with Elas&shy;ticBeanstalk</a>.</p>
-<p>I am very, very unhappy with <span class="caps">AWS</span> this week.</p>
+<p>I am very, very unhappy with <span class="caps">AWS</span> this&nbsp;week.</p>
 
     <footer>
         

@@ -45,26 +45,26 @@
 we made an ill-considered decision to use recipe names for image URLs,
 which simplified image management with our then-rudi&shy;men&shy;ta&shy;ry tools.
 For example, the recipe named
-<tt class="docutils literal">"Twisted Pasta With Browned Butter, Sage, and Walnuts"</tt>
+<tt class="docutils literal">&quot;Twisted Pasta With Browned Butter, Sage, and Walnuts&quot;</tt>
 becomes a <span class="caps">URL</span> ending in
-<tt class="docutils literal">"Twist&shy;ed%20&shy;Pas&shy;ta%20With&shy;%20Browned%20But&shy;ter%2C%20Sage%2C%20and%20Wal&shy;nuts.jpg"</tt>.</p>
+<tt class="docutils literal">&quot;Twist&shy;ed%20&shy;Pas&shy;ta%20With&shy;%20Browned%20But&shy;ter%2C%20Sage%2C%20and%20Wal&shy;nuts.jpg&quot;</tt>.</p>
 <p>Life becomes more in&shy;ter&shy;est&shy;ing when you escape the confines of 7-bit <span class="caps">ASCII</span> and use Unicode.
-How should <tt class="docutils literal">u"Sautéed crème fraîche Provençale"</tt> be handled?
+How should <tt class="docutils literal">u&quot;Sautéed crème fraîche Provençale&quot;</tt> be handled?
 The only reasonable thing to do is to first convert the Unicode string to <span class="caps">UTF</span>-8
 and then hex-encode those octets:
-<tt class="docutils literal">"Saut%C3%A9ed%20cr%C3%A8me%20fra%C3%AEche%20Proven%C3%A7ale"</tt>.</p>
+<tt class="docutils literal">&quot;Saut%C3%A9ed%20cr%C3%A8me%20fra%C3%AEche%20Proven%C3%A7ale&quot;</tt>.</p>
 <p>That seems reasonable, but it was giving us in&shy;con&shy;sis&shy;tent results
 when the images were uploaded to an S3 bucket.
 When I in&shy;ves&shy;ti&shy;gat&shy;ed, I discovered that it was a problem of <a class="reference external" href="https://en.wikipedia.org/wiki/Unicode_equivalence">Unicode equiv&shy;a&shy;lence</a>.
 There are two ways to represent,
 say, the <em>e-acute</em> character in Unicode:
 as a composed character,
-<tt class="docutils literal">é</tt> = ‘<span class="caps">LATIN</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> E <span class="caps">WITH</span> <span class="caps">ACUTE</span>’ <tt class="docutils literal">(U+00E9)</tt>,
+<tt class="docutils literal">é</tt> = &#8216;<span class="caps">LATIN</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> E <span class="caps">WITH</span> <span class="caps">ACUTE</span>&#8217; <tt class="docutils literal">(U+00E9)</tt>,
 or as a decomposed pair,
-<tt class="docutils literal">e´</tt> = ‘<span class="caps">LATIN</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> E’ <tt class="docutils literal">(U+0065)</tt> and ‘<span class="caps">COMBINING</span> <span class="caps">ACUTE</span> <span class="caps">ACCENT</span>’ <tt class="docutils literal">(U+0301)</tt>.
+<tt class="docutils literal">e´</tt> = &#8216;<span class="caps">LATIN</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> E&#8217; <tt class="docutils literal">(U+0065)</tt> and &#8216;<span class="caps">COMBINING</span> <span class="caps">ACUTE</span> <span class="caps">ACCENT</span>&#8217; <tt class="docutils literal">(U+0301)</tt>.
 Thus the name of our fictitious recipe can be rep&shy;re&shy;sent&shy;ed as
-<tt class="docutils literal">u"Saut\u00E9ed cr\u00E8me fra\u00EEche Proven\u00E7ale"</tt> (composed, <span class="caps">NFC</span>) <em>or</em>
-<tt class="docutils literal">u"Saute\u0301ed cre\u0300me frai\u0302che Provenc\u0327ale"</tt> (decomposed, <span class="caps">NFD</span>).</p>
+<tt class="docutils literal">u&quot;Saut\u00E9ed cr\u00E8me fra\u00EEche Proven\u00E7ale&quot;</tt> (composed, <span class="caps">NFC</span>) <em>or</em>
+<tt class="docutils literal">u&quot;Saute\u0301ed cre\u0300me frai\u0302che Provenc\u0327ale&quot;</tt> (decomposed,&nbsp;<span class="caps">NFD</span>).</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="14%"/>
@@ -117,8 +117,8 @@ which stores filenames in decomposed form.
 Our client apps always used the composed form of the recipe name
 and generated image URLs ac&shy;cord&shy;ing&shy;ly.
 This led to 404s for recipe images that had been uploaded from a Mac.
-If S3 had handled the Unicode equiv&shy;a&shy;lence, we’d never have noticed.</p>
-<p>We’re switching to using numeric iden&shy;ti&shy;fiers for the recipe im&shy;ages—they’re much harder to get wrong.</p>
+If S3 had handled the Unicode equiv&shy;a&shy;lence, we&#8217;d never have&nbsp;noticed.</p>
+<p>We&#8217;re switching to using numeric iden&shy;ti&shy;fiers for the recipe im&shy;ages—they&#8217;re much harder to get&nbsp;wrong.</p>
 
     <footer>
         

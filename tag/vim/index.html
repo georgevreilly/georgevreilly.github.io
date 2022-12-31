@@ -40,12 +40,12 @@ Vim provides a couple of command-line options that can help:
 <tt class="docutils literal">+NUM</tt> goes to line number <tt class="docutils literal">NUM</tt>,
 while <tt class="docutils literal">+/PAT</tt> searches for the first occurrence of <tt class="docutils literal">PAT</tt>.
 It's also possible to execute an Ex command with <tt class="docutils literal">+CMD</tt>,
-such as <tt class="docutils literal">"+set fenc=latin1"</tt>.
+such as <tt class="docutils literal">&quot;+set fenc=latin1&quot;</tt>.
 You can supply up to ten <tt class="docutils literal">+</tt> options.</p>
 <pre class="code bash literal-block">
 vim +23 ~/.bashrc
 vim <span class="s1">'+/ASIN\|ISBN'</span> template.rst
-vim <span class="s2">"+set fenc=latin1"</span> some.csv
+vim <span class="s2">&quot;+set fenc=latin1&quot;</span> some.csv
 </pre>
 
     <footer>
@@ -72,14 +72,14 @@ vim <span class="s2">"+set fenc=latin1"</span> some.csv
     <a class="reference external image-reference" href="https://www.jetbrains.com/pycharm/"></a>
 <p>I did a <a class="reference external" href="/blog/2015/01/17/YosemiteCleanInstall.html">clean install of OS X 10.10</a> on my home laptop a week ago.
 I tried to launch <a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a> 4.0.4 on it today.
-It im­me­di­ate­ly failed. Every time.</p>
+It im&shy;me&shy;di&shy;ate&shy;ly failed. Every time.</p>
 <p>When I looked in the System Console, I saw:</p>
 <pre class="literal-block">
 1/25/15 7:46:00.557 PM pycharm[1160]: No matching VM found.
 1/25/15 7:46:00.711 PM com.apple.xpc.launchd[1]: (com.jetbrains.pycharm.58252[1160]) Service exited with abnormal code: 1
 </pre>
 <p>The JetBrains website wasn't very helpful when I looked there.
-In time, I found a <a class="reference external" href="http://stackoverflow.com/questions/26438628/crash-jetbrains-ide-with-yosemite-mac-osx-webstorm-intellij">Stack­Over­flow answer</a> that put me on the right track
+In time, I found a <a class="reference external" href="http://stackoverflow.com/questions/26438628/crash-jetbrains-ide-with-yosemite-mac-osx-webstorm-intellij">Stack&shy;Over&shy;flow answer</a> that put me on the right track
 (and reminded me that I had previously solved this problem about a year ago, at work).
 PyCharm and some of the other JetBrains IDEs require JDK 1.6,
 as <span>&#8230;<a href="/blog/2015/01/25/PyCharmYosemite.html" class="continue">continue</a>.</span></p>
@@ -145,7 +145,7 @@ In Vim, just place the cursor on a function name
 and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its definition.</p>
 <p>Ctags works well for most of the languages that I deal with,
 but falls down badly on modern JavaScript.
-Its built-in parser simply doesn't handle de­c­la­ra­tions like these:</p>
+Its built-in parser simply doesn't handle de&shy;c&shy;la&shy;ra&shy;tions like these:</p>
 <pre class="code javascript literal-block">
 <span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// ...</span><span class="w">
 </span><span class="nx">ajaxSetup</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="w"> </span><span class="nx">settings</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -186,20 +186,20 @@ His code didn't work for me, so I hacked on it until it did:</p>
         </h1>
     </header>
     
-<p>Vim has had <a class="reference external" href="http://vimdoc.sourceforge.net/htmldoc/syntax.html">syntax high­light­ing</a> since version 5.0 in 1998.
-It quickly became in­dis­pens­able.
-It's hard to go back to looking at mono­chro­mat­ic source code
-after you've become accustomed to syntax high­light­ing.</p>
-<p>The syntax high­light­ing is tied into Vim's support for col­orschemes,
-which define colors for the fun­da­men­tal syntax groups
+<p>Vim has had <a class="reference external" href="http://vimdoc.sourceforge.net/htmldoc/syntax.html">syntax high&shy;light&shy;ing</a> since version 5.0 in 1998.
+It quickly became in&shy;dis&shy;pens&shy;able.
+It's hard to go back to looking at mono&shy;chro&shy;mat&shy;ic source code
+after you've become accustomed to syntax high&shy;light&shy;ing.</p>
+<p>The syntax high&shy;light&shy;ing is tied into Vim's support for col&shy;orschemes,
+which define colors for the fun&shy;da&shy;men&shy;tal syntax groups
 like <tt class="docutils literal">Number</tt>, <tt class="docutils literal">Comment</tt>, and <tt class="docutils literal">String</tt>.
-The syntax high­light­ing for a particular language
+The syntax high&shy;light&shy;ing for a particular language
 defines custom syntax groups for specific language features,
-such as <tt class="docutils literal">cppEx­cep­tions</tt> or <tt class="docutils literal">htmlEndTag</tt>,</p>
-<p>The custom syntax groups are <em>linked</em> to the underlying fun­da­men­tal syntax groups.
-Hence, if you change your col­orscheme, your syntax high­light­ing is updated au­to­mat­i­cal­ly.</p>
-<p>The re­Struc­tured­Text syntax high­light­ing in Vim 7.2
-has some short­com­ings, in my opinion.
+such as <tt class="docutils literal">cppEx&shy;cep&shy;tions</tt> or <tt class="docutils literal">htmlEndTag</tt>,</p>
+<p>The custom syntax groups are <em>linked</em> to the underlying fun&shy;da&shy;men&shy;tal syntax groups.
+Hence, if you change your col&shy;orscheme, your syntax high&shy;light&shy;ing is updated au&shy;to&shy;mat&shy;i&shy;cal&shy;ly.</p>
+<p>The re&shy;Struc&shy;tured&shy;Text syntax high&shy;light&shy;ing in Vim 7.2
+has some short&shy;com&shy;ings, in my opinion.
 For example, <span>&#8230;<a href="/blog/2009/03/07/reStructuredTextSyntaxHighlighting.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -275,13 +275,13 @@ I noticed his <a class="reference external" href="http://esr.ibiblio.org/?p=578"
 just about <em>every</em> cellphone and browser has some of his software
 running in it.</p>
 <p>That got me thinking about my own reach and
-where software that I've con­tributed to can be found.</p>
+where software that I've con&shy;tributed to can be found.</p>
 <blockquote>
 <p>‘Oh that a man's reach should exceed his grasp, or what's a Heaven for?’</p>
-<p class="attribution">—Robert Browning</p>
+<p class="attribution">&mdash;Robert Browning</p>
 </blockquote>
-<p>I spent seven years on the IIS (<a class="reference external" href="http://en.wikipedia.org/wiki/Internet_Information_Services">Internet In­for­ma­tion Services</a>)
-de­vel­op­ment team at Microsoft.
+<p>I spent seven years on the IIS (<a class="reference external" href="http://en.wikipedia.org/wiki/Internet_Information_Services">Internet In&shy;for&shy;ma&shy;tion Services</a>)
+de&shy;vel&shy;op&shy;ment team at Microsoft.
 By any measure, that's a successful product,
 running one-third of all websites.
 There are over 100 million registered websites.
@@ -315,15 +315,15 @@ but that's millions, perhaps tens <span>&#8230;<a href="/blog/2008/11/29/Reach.h
     <a class="reference external image-reference" href="http://code.google.com/p/vim-win3264/"></a>
 <p>Fifteen months after the release of Vim 7.1,
 Bram <a class="reference external" href="http://groups.google.com/group/vim_announce/browse_thread/thread/2c89671dd928812f">announced</a> the release of Vim 7.2 last weekend.
-No major new features, just the con­sol­i­da­tion of more than 300 patches.
-He also included a mention of the new dis­tri­b­u­tion point
+No major new features, just the con&shy;sol&shy;i&shy;da&shy;tion of more than 300 patches.
+He also included a mention of the new dis&shy;tri&shy;b&shy;u&shy;tion point
 for Win64 binaries, the <a class="reference external" href="http://code.google.com/p/vim-win3264/">vim-win3264</a> project that I set up at Google Code.</p>
 <p>Bram has no way of testing the Win64 version,
 so I'm providing the official build at vim-win3264.
 I will no longer provide Win64 binaries for Vim from my own site.
 The Vim 7.2 sources compile the Win64 binaries cleanly
 (unlike the 7.1 release).
-I'll provide occasional in­ter­me­di­ate releases up there too,
+I'll provide occasional in&shy;ter&shy;me&shy;di&shy;ate releases up there too,
 for both Win32 and Win64.</p>
 <p>I'm rather surprised to <span>&#8230;<a href="/blog/2008/08/17/Vim72IsReleased.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -351,28 +351,28 @@ for both Win32 and Win64.</p>
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.socialtext.net/"></a>
-<p>Mis­cel­la­neous links.</p>
+<p>Mis&shy;cel&shy;la&shy;neous links.</p>
 <ul class="simple">
-<li>I've uploaded <a class="reference external" href="/vim/stwiki/">Vim syntax high­light­ing for Socialtext</a>,
+<li>I've uploaded <a class="reference external" href="/vim/stwiki/">Vim syntax high&shy;light&shy;ing for Socialtext</a>,
 the wiki we use at <a class="reference external" href="http://www.cozi.com/">Cozi</a>.
 Amusingly, it's derived from code
 that I found on the Socialtext website, which in turn is derived from
-<a class="reference external" href="/blog/2006/05/04/VimSyntaxHighlightingForFlexWiki.html">my syntax high­light­ing for Flexwiki</a>.</li>
+<a class="reference external" href="/blog/2006/05/04/VimSyntaxHighlightingForFlexWiki.html">my syntax high&shy;light&shy;ing for Flexwiki</a>.</li>
 </ul>
 <ul class="simple">
 <li><a class="reference external" href="http://www.igniteseattle.com/2008/01/ignite-seattle-on-219-submit-your-talk/">Ignite Seattle is back on 2/19</a>.
-There were lots of in­ter­est­ing, geeky talks the
+There were lots of in&shy;ter&shy;est&shy;ing, geeky talks the
 <a class="reference external" href="/blog/2007/04/02/IgniteSeattle.html">last time I went</a>.</li>
 </ul>
 <ul>
-<li><p class="first">Via <a class="reference external" href="http://science.slashdot.org/article.pl?sid=08/01/27/2221228">Slashdot</a>, Walter Kirn on the failure of <a class="reference external" href="http://www.theatlantic.com/doc/200711/multitasking">mul­ti­task­ing</a></p>
+<li><p class="first">Via <a class="reference external" href="http://science.slashdot.org/article.pl?sid=08/01/27/2221228">Slashdot</a>, Walter Kirn on the failure of <a class="reference external" href="http://www.theatlantic.com/doc/200711/multitasking">mul&shy;ti&shy;task&shy;ing</a></p>
 <blockquote>
-<p>Through a variety of ex­per­i­ments, many using functional magnetic
+<p>Through a variety of ex&shy;per&shy;i&shy;ments, many using functional magnetic
 resonance imaging to measure brain activity,
-[sci­en­tists have] torn the mask off mul­ti­task­ing and revealed its true face,
+[sci&shy;en&shy;tists have] torn the mask off mul&shy;ti&shy;task&shy;ing and revealed its true face,
 which is blank and pale and drawn.</p>
 </blockquote>
-<p>I have a moderately bad case of mul­ti­task­ing myself.</p>
+<p>I have a moderately bad case of mul&shy;ti&shy;task&shy;ing myself.</p>
 </li>
 </ul>
 
@@ -403,7 +403,7 @@ which is blank and pale and drawn.</p>
     <a class="reference external image-reference" href="//www.georgevreilly.com/vim/"></a>
 <p>I have updated the <a class="reference external" href="/vim/">Win64 port of Vim</a>.
 It now includes a working installer,
-a working "Edit with Vim" shell extension,
+a working &quot;Edit with Vim&quot; shell extension,
 and the first 195 patches for Vim 7.0.
 Get it while it's hot!</p>
 

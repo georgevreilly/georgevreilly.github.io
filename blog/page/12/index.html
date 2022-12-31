@@ -39,7 +39,7 @@ which always joins path segments with <tt class="docutils literal">/</tt>.
 On Windows, <tt class="docutils literal">os.path.join</tt> is an alias for <tt class="docutils literal">ntpath.join</tt>,
 which always uses <tt class="docutils literal">\</tt>.
 When dealing with URLs, we always want forward slashes,
-regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build <span class="caps">URL</span> paths.</p>
+regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build <span class="caps">URL</span>&nbsp;paths.</p>
 <p>Running:</p>
 <pre class="code python literal-block">
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
@@ -52,7 +52,7 @@ regardless of platform, so <tt class="docutils literal">posixpath.join</tt> shou
 
 <span class="k">def</span> <span class="nf">test_join</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"'</span><span class="si">{0}</span><span class="s2">' + '</span><span class="si">{1}</span><span class="s2">'</span><span class="se">\n\t</span><span class="s2">-> '</span><span class="si">{2}</span><span class="s2">'"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;'</span><span class="si">{0}</span><span class="s2">' + '</span><span class="si">{1}</span><span class="s2">'</span><span class="se">\n\t</span><span class="s2">-&gt; '</span><span class="si">{2}</span><span class="s2">'&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">result</span>
 
 <span class="n">local_path</span> <span class="o">=</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="s1">'2016'</span><span class="p">,</span> <span class="s1">'07'</span><span class="p">,</span> <span class="s1">'12'</span><span class="p">,</span> <span class="s1">'release'</span><span class="p">,</span> <span class="s1">'index.html'</span><span class="p">)</span>
@@ -91,16 +91,16 @@ regardless of platform, so <tt class="docutils literal">posixpath.join</tt> shou
     </header>
     <p>Python 2.6 introduced the <a class="reference external" href="https://pyformat.info/">format method</a> to strings.
 In general, <tt class="docutils literal">format</tt> is now the preferred way to build strings
-instead of the old <tt class="docutils literal">%</tt> formatting operator.</p>
+instead of the old <tt class="docutils literal">%</tt> formatting&nbsp;operator.</p>
 <p>One exception is with the <tt class="docutils literal">logging</tt> module,
 where the best practice is to use <tt class="docutils literal">%s</tt> and <tt class="docutils literal">%d</tt>.
 Why?
 First, <tt class="docutils literal">%s</tt> is the idiomatic way to use <tt class="docutils literal">logging</tt>,
 which was built years before <tt class="docutils literal">format</tt> was introduced.
-Second, if there’s a literal <tt class="docutils literal">%</tt> in the in­ter­po­lat­ed values,
+Second, if there&#8217;s a literal <tt class="docutils literal">%</tt> in the in&shy;ter&shy;po&shy;lat&shy;ed values,
 <tt class="docutils literal">logging</tt> will be unhappy,
-since there won’t be cor­re­spond­ing arguments in the call.
-It won’t fall over, since
+since there won&#8217;t be cor&shy;re&shy;spond&shy;ing arguments in the call.
+It won&#8217;t fall over, since
 “The logging package is designed to swallow exceptions which occur while logging in production.
 This is so that errors which occur while handling logging events
 - <span>&#8230;<a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" class="continue">continue</a>.</span></p>
@@ -140,14 +140,14 @@ This is so that errors which occur while handling logging events
 <div class="line">Reading period: 29 June–10 July, 2016</div>
 <div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> <span class="caps">IX</span>: 1845–46</div>
 </div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman_and_the_Mountain_of_Light">Flashman and the Mountain of Light</a> takes place just after <a class="reference external" href="/blog/2016/07/05/ReviewFlashmansLady.html">Flashman’s Lady</a>,
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman_and_the_Mountain_of_Light">Flashman and the Mountain of Light</a> takes place just after <a class="reference external" href="/blog/2016/07/05/ReviewFlashmansLady.html">Flashman&#8217;s Lady</a>,
 and it also falls between the two parts of <a class="reference external" href="/blog/2016/06/26/ReviewRoyalFlash.html">Royal Flash</a>,
-making it the fourth book chrono­log­i­cal­ly of the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>
-and the ninth book published.</p>
+making it the fourth book chrono&shy;log&shy;i&shy;cal&shy;ly of the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>
+and the ninth book&nbsp;published.</p>
 <p>In the prologue,
 our hero finds himself telling Queen Victoria
 a much-edited version of how he came to acquire the <a class="reference external" href="https://en.wikipedia.org/wiki/Koh-i-Noor">Koh-i-Noor</a> diamond
-on the crown’s behalf forty years earlier during the
+on the crown&#8217;s behalf forty years earlier during the
 <a class="reference external" href="https://en.wikipedia.org/wiki/First_Anglo-Sikh_War">First Anglo-Sikh War</a>.
 The <em>actual</em> story—at least according to Flashman and Fraser—is that <span>&#8230;<a href="/blog/2016/07/10/ReviewFlashmanAndTheMountainOfLight.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -187,7 +187,7 @@ Both shootings were caught on video, which inflamed passions.
 On Thursday night at a peaceful rally in Dallas protesting police violence,
 two snipers killed five police officers and wounded seven others.
 Micah Johnson was later killed by police in a standoff;
-three others were arrested.</p>
+three others were&nbsp;arrested.</p>
 <p>The police should not have killed Alton Sterling or Philando Castile—or Tamir Rice or Freddie Gray or <span>&#8230;<a href="/blog/2016/07/09/BlackLivesMatterAltonPhilandoAndDallas.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -215,17 +215,17 @@ three others were arrested.</p>
     <a class="reference external image-reference" href="https://zinzanni.com/seattle/"></a>
 <p>Teatro Zinzanni is a long-running circus dinner theater in Seattle.
 Six of us went tonight and enjoyed
-a blend of cabaret, circus arts, fine dining, and vaudeville.</p>
-<p>The current show, Hotel L’Amour, is ostensibly set in a fine hotel,
-where the oc­to­ge­nar­i­an Madame reminisces about her career,
+a blend of cabaret, circus arts, fine dining, and&nbsp;vaudeville.</p>
+<p>The current show, Hotel L&#8217;Amour, is ostensibly set in a fine hotel,
+where the oc&shy;to&shy;ge&shy;nar&shy;i&shy;an Madame reminisces about her career,
 while Caesar the lounge lizard hams it up,
 Maestro Voronin brings a puppet girl to life,
 one aerialist cavorts around an enormous martini glass,
-a juggler dazzles with his ver­sa­til­i­ty,
+a juggler dazzles with his ver&shy;sa&shy;til&shy;i&shy;ty,
 another aerialist works the straps,
 and the soprano trills.
-All this while the audience eats a fairly decent meal spread out over three hours.</p>
-<p>‘Twas enjoyable to be sure and the acts were good
+All this while the audience eats a fairly decent meal spread out over three&nbsp;hours.</p>
+<p>&#8216;Twas enjoyable to be sure and the acts were good
 but it was hard <span>&#8230;<a href="/blog/2016/07/08/TeatroZinzanni.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -261,14 +261,14 @@ but it was hard <span>&#8230;<a href="/blog/2016/07/08/TeatroZinzanni.html" clas
 </div>
 <p>Andy Osnard (Pierce Brosnan) is a disgraced <span class="caps">MI6</span> officer, packed off to Panama,
 where he recruits Harry Pendel (Geoffrey Rush), the eponymous tailor.
-Osnard is an un­scrupu­lous dirtbag;
+Osnard is an un&shy;scrupu&shy;lous dirtbag;
 Pendel is a fabulist in need of money;
-they’re made for each other.
-Panama is “Casablan­ca without the heroes”
+they&#8217;re made for each other.
+Panama is “Casablan&shy;ca without the heroes”
 and Pendel spins tall tales that make their way back to London.
 Eventually, he outdoes himself, claiming that the Canal is to be sold to the Chinese.
 Osnard manages to procure $15 million to fund a revolution,
-which he plans to abscond with.</p>
+which he plans to abscond&nbsp;with.</p>
 <p>Brosnan plays against type <span>&#8230;<a href="/blog/2016/07/07/ReviewTheTailorOfPanama.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -297,20 +297,20 @@ which he plans to abscond with.</p>
         </h1>
     </header>
     <p>I had to rename several hundred thousand files today.
-Thanks to a botched invocation of Im­ageMag­ick,
-they all looked like <tt class="docutils literal">unique_pre­fix.png.jpg</tt>,
-whereas we simply wanted <tt class="docutils literal">unique_pre­fix.jpg</tt>.</p>
-<p>I found a <a class="reference external" href="http://unix.stackexchange.com/a/102653/4060">suitable answer at the Unix Stack­Ex­change</a>.
-As one of the many variants of <a class="reference external" href="http://tldp.org/LDP/abs/html/parameter-substitution.html">parameter sub­sti­tu­tion</a>,
-Bash supports <tt class="docutils literal">${var/Pattern/Re­place­men­t}</tt>:
-“first match of <tt class="docutils literal">Pattern</tt> within <tt class="docutils literal">var</tt> replaced with <tt class="docutils literal">Re­place­ment</tt>.”</p>
+Thanks to a botched invocation of Im&shy;ageMag&shy;ick,
+they all looked like <tt class="docutils literal">unique_pre&shy;fix.png.jpg</tt>,
+whereas we simply wanted <tt class="docutils literal">unique_pre&shy;fix.jpg</tt>.</p>
+<p>I found a <a class="reference external" href="http://unix.stackexchange.com/a/102653/4060">suitable answer at the Unix Stack&shy;Ex&shy;change</a>.
+As one of the many variants of <a class="reference external" href="http://tldp.org/LDP/abs/html/parameter-substitution.html">parameter sub&shy;sti&shy;tu&shy;tion</a>,
+Bash supports <tt class="docutils literal">${var/Pattern/Re&shy;place&shy;men&shy;t}</tt>:
+“first match of <tt class="docutils literal">Pattern</tt> within <tt class="docutils literal">var</tt> replaced with <tt class="docutils literal">Re&shy;place&shy;ment</tt>.”</p>
 <pre class="code bash literal-block">
 <span class="k">for</span> f <span class="k">in</span> *.png.jpg<span class="p">;</span>
 <span class="k">do</span>
-    mv <span class="nv">$f</span> <span class="s2">"</span><span class="si">${</span><span class="nv">f</span><span class="p">/.png</span><span class="si">}</span><span class="s2">"</span>
+    mv <span class="nv">$f</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">f</span><span class="p">/.png</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="k">done</span>
 </pre>
-<p>The target expression could also have been written as <tt class="docutils literal"><span class="pre">"${f/.png.jpg/.jpg}"</span></tt></p>
+<p>The target expression could also have been written as <tt class="docutils literal"><span class="pre">&quot;${f/.png.jpg/.jpg}&quot;</span></tt></p>
 
     <footer>
         
@@ -337,7 +337,7 @@ Bash supports <tt class="docutils literal">${var/Pattern/Re­place­men­t}</tt>
     </header>
     <a class="reference external image-reference" href="https://www.amazon.com/dp/0452264898/?tag=georgvreill-20"></a>
 <div class="line-block">
-<div class="line">Title: Flashman’s Lady</div>
+<div class="line">Title: Flashman&#8217;s Lady</div>
 <div class="line">Author: George MacDonald Fraser</div>
 <div class="line">Rating: ★ ★ ★ ★</div>
 <div class="line">Publisher: Plume</div>
@@ -348,15 +348,15 @@ Bash supports <tt class="docutils literal">${var/Pattern/Re­place­men­t}</tt>
 <div class="line">Reading period: 24–29 June, 2016</div>
 <div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> <span class="caps">VI</span>: 1842–45</div>
 </div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman%27s_Lady">Flashman’s Lady</a> takes place between the two parts of <a class="reference external" href="/blog/2016/06/26/ReviewRoyalFlash.html">Royal Flash</a>,
-making it the third book chrono­log­i­cal­ly of the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>
-and the sixth book published.</p>
+<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman%27s_Lady">Flashman&#8217;s Lady</a> takes place between the two parts of <a class="reference external" href="/blog/2016/06/26/ReviewRoyalFlash.html">Royal Flash</a>,
+making it the third book chrono&shy;log&shy;i&shy;cal&shy;ly of the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>
+and the sixth book&nbsp;published.</p>
 <p>Flashman and his wife, Elspeth, become friendly with Don Solomon Haslam,
 a rich merchant from the East Indies.
 Losing a wager to Haslam, who is smitten with Elspeth,
 Flashy has to let Haslam take Elspeth and her father on a trip to Singapore.
 As things have become hot for him in England, he sails east with them.
-Haslam’s feelings for <span>&#8230;<a href="/blog/2016/07/05/ReviewFlashmansLady.html" class="continue">continue</a>.</span></p>
+Haslam&#8217;s feelings for <span>&#8230;<a href="/blog/2016/07/05/ReviewFlashmansLady.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/05/ReviewFlashmansLady.html#disqus_thread">Comment</a>
@@ -389,15 +389,15 @@ Haslam’s feelings for <span>&#8230;<a href="/blog/2016/07/05/ReviewFlashmansLa
     
 <p>I have an ambivalent relation to the notion of patriotism
 because all too often those who most loudly proclaim themselves to be patriots
-are the worst sort of jingoistic, know-nothing, blowhard­s—be they Trump supporters, Brexiters, or Irish na­tion­al­ists.</p>
+are the worst sort of jingoistic, know-nothing, blowhard&shy;s—be they Trump supporters, Brexiters, or Irish&nbsp;na&shy;tion&shy;al&shy;ists.</p>
 <p>And yet, for all the flaws and failures of the American Experiment,
 there are still things to celebrate.
-America’s optimism and can-do spirit,
+America&#8217;s optimism and can-do spirit,
 although much abraded in recent years, is still exemplary.
-Millions continue to flock here, drawn to the land of op­por­tu­ni­ty.
+Millions continue to flock here, drawn to the land of op&shy;por&shy;tu&shy;ni&shy;ty.
 The Founding Fathers created a great and lasting democracy,
 albeit with a franchise and a set of rights that had to be widened several times.
-The world can’t get enough <span>&#8230;<a href="/blog/2016/07/04/IndependenceDay.html" class="continue">continue</a>.</span></p>
+The world can&#8217;t get enough <span>&#8230;<a href="/blog/2016/07/04/IndependenceDay.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/04/IndependenceDay.html#disqus_thread">Comment</a>
@@ -422,13 +422,13 @@ The world can’t get enough <span>&#8230;<a href="/blog/2016/07/04/Independence
         </h1>
     </header>
     <a class="reference external image-reference" href="https://eshop.macsales.com/shop/internal_storage/Data_Doubler"></a>
-<p>My mid-2012 15" MacBook Pro has been getting ever slower.
+<p>My mid-2012 15&quot; MacBook Pro has been getting ever slower.
 My last two work laptops came with SSDs, but this older machine has a <span class="caps">768GB</span> hard disk drive.
 It was time to get a solid-state drive, which are far more affordable now than four years ago.
 Rather than replace the <span class="caps">HDD</span>, I bought a <a class="reference external" href="https://eshop.macsales.com/shop/internal_storage/Data_Doubler">Data Doubler</a> kit and a <span class="caps">480GB</span> <span class="caps">SSD</span>.
 I removed the optical drive and installed the Data Doubler with <span class="caps">SSD</span> in that space.
-I rarely used the <span class="caps">DVD</span> drive, so I won’t miss it.</p>
-<p>The Data Doubler kit came with a set of screw­drivers and
+I rarely used the <span class="caps">DVD</span> drive, so I won&#8217;t miss&nbsp;it.</p>
+<p>The Data Doubler kit came with a set of screw&shy;drivers and
 a detailed manual that covered multiple MacBook models.
 The manual had <span>&#8230;<a href="/blog/2016/07/03/SSDUpgradeFor2012MacBook.html" class="continue">continue</a>.</span></p>
     <footer>

@@ -53,25 +53,25 @@
 </div>
 </div>
 </blockquote>
-<p>I want to step down as the webmaster of the <a class="reference external" href="http://nwcpp.org/">Northwest C++ Users’ Group</a>
+<p>I want to step down as the webmaster of the <a class="reference external" href="http://nwcpp.org/">Northwest C++ Users&#8217; Group</a>
 after serving for four years.
 The <a class="reference external" href="http://nwcpp.org/2013-website-refresh.html"><span class="caps">NWCPP</span> website is built</a>
 with the <a class="reference external" href="http://blog.getpelican.com/">Pelican</a> static site generator.
-I don’t know who will succeed me as webmaster,
-but it’s likely that they’ll be a Windows user.
+I don&#8217;t know who will succeed me as webmaster,
+but it&#8217;s likely that they&#8217;ll be a Windows user.
 Pelican runs fine on Mac and Linux,
-but Windows support has never been great in Pelican.</p>
-<p>I’ve been trying to make sure that Pelican can generate the <span class="caps">NWCPP</span> website on Windows.
-That simple goal cascaded into a series of problems.</p>
+but Windows support has never been great in&nbsp;Pelican.</p>
+<p>I&#8217;ve been trying to make sure that Pelican can generate the <span class="caps">NWCPP</span> website on Windows.
+That simple goal cascaded into a series of&nbsp;problems.</p>
 <p>First, I had to update the <a class="reference external" href="https://github.com/nwcpp/pelican-site/blob/master/README.rst">website <span class="caps">README</span></a>,
 to clarify the in&shy;struc&shy;tions about vir&shy;tualen&shy;vs
-and custom in&shy;stal&shy;la&shy;tion of various packages.</p>
+and custom in&shy;stal&shy;la&shy;tion of various&nbsp;packages.</p>
 <p>Then, I had to update my stale <a class="reference external" href="https://github.com/davisp/ghp-import/pull/25">ghp-import pull request</a>, which adds Windows support.
-Ghp-import is used to publish the website’s content on the <tt class="docutils literal"><span class="pre">gh-pages</span></tt> branch.</p>
+Ghp-import is used to publish the website&#8217;s content on the <tt class="docutils literal"><span class="pre">gh-pages</span></tt> branch.</p>
 <p>After that, I tried to get the website to build on Windows.
 It did at one point, I think, about a year ago.
 At least, I removed the <a class="reference external" href="https://github.com/getpelican/pelican/pull/1550">gra&shy;tu&shy;itious Unixisms</a> from the Fabfile back in April,
-though I only got around to submitting a pull request for it a few weeks ago.</p>
+though I only got around to submitting a pull request for it a few weeks&nbsp;ago.</p>
 <p>Getting the website to build required several <a class="reference external" href="https://github.com/georgevreilly/pelican/tree/win-paths">Windows fixes for Pelican</a>.
 I had to fix the handling of internal links,
 which use the syntax <tt class="docutils literal">{file&shy;name}&shy;path/to/file</tt>.
@@ -82,15 +82,15 @@ so I built the website and published it with ghp-import,
 only to find that <a class="reference external" href="http://nwcpp.org">http://nwcpp.org</a> was no longer serving content.
 I instantly realized that the <a class="reference external" href="https://help.github.com/articles/setting-up-a-custom-domain-with-github-pages/"><span class="caps">CNAME</span> file for GitHub Pages</a> was missing
 (having painfully debugged that issue a number of months back).
-That meant that I had to fix some other path handling in Pelican.</p>
+That meant that I had to fix some other path handling in&nbsp;Pelican.</p>
 <p>At that point, I tried to get the Pelican unit tests to pass,
 intending to write some new ones for the changes I had made.
 When I tried to <tt class="docutils literal">pip install <span class="pre">-r</span> de&shy;v_re&shy;quire&shy;ments.txt</tt>,
 I ran into problems trying to install <a class="reference external" href="http://lxml.de/">lxml</a>.
-I quickly found <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml">Christoph Gohlke’s Windows binary</a>,
+I quickly found <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml">Christoph Gohlke&#8217;s Windows binary</a>,
 but then I had a series of problems with <a class="reference external" href="http://wheel.readthedocs.org/en/latest/">Python Wheels</a>
-and updating out-of-date in&shy;stal&shy;la&shy;tions of Pip and Setuptools and Virtualenv.</p>
-<p>The unit tests didn’t pass—of course.
+and updating out-of-date in&shy;stal&shy;la&shy;tions of Pip and Setuptools and&nbsp;Virtualenv.</p>
+<p>The unit tests didn&#8217;t pass—of course.
 The first big problem that I ran into
 was that a number of tests generate a tree of content
 and use <a class="reference external" href="http://git-scm.com/docs/git-diff">git diff</a> to compare the output tree
@@ -98,27 +98,27 @@ with a reference copy of good output.
 After I fixed the invocation of <tt class="docutils literal">git diff</tt>,
 I got a ton of errors, most of which were more path separator issues,
 Still, I was still getting a lot of errors about
-"<span class="caps">LF</span> will be replaced by <span class="caps">CRLF</span> … The file will have its original line endings".</p>
-<p>I couldn’t figure out how to invoke <tt class="docutils literal">git diff</tt> to ignore <span class="caps">CRLF</span> issues,
+&quot;<span class="caps">LF</span> will be replaced by <span class="caps">CRLF</span> &#8230; The file will have its original line&nbsp;endings&quot;.</p>
+<p>I couldn&#8217;t figure out how to invoke <tt class="docutils literal">git diff</tt> to ignore <span class="caps">CRLF</span> issues,
 so I spent a couple of hours trying to compare directory trees
 with <a class="reference external" href="https://docs.python.org/2/library/filecmp.html#filecmp.dircmp">dircmp</a> and <a class="reference external" href="https://docs.python.org/2/library/difflib.html">difflib</a>.
 That more or less worked, but I was having difficulty with
 both ignoring whitespace dif&shy;fer&shy;ences, yet rendering a legible diff.
 Eventually I realized that I should just use <tt class="docutils literal">git diff</tt> again
 but filter the errors to remove the <span class="caps">CRLF</span> warnings.
-Hey presto, that worked!</p>
+Hey presto, that&nbsp;worked!</p>
 <p>While writing this post, I realized that the mysterious accented filenames
-that I had been seeing with <tt class="docutils literal">git status</tt> in my Mac’s working copy of Pelican
+that I had been seeing with <tt class="docutils literal">git status</tt> in my Mac&#8217;s working copy of Pelican
 (<tt class="docutils literal">pelican/tests/output/cus&shy;tom_lo&shy;cale/posts/2010/décembre/</tt> and <tt class="docutils literal"><span class="pre">.../201*/février/</span></tt>)
 could be stopped by <a class="reference external" href="http://makandracards.com/makandra/17827-git-mac-working-with-unicode-filenames">setting core.pre&shy;com&shy;pose&shy;u&shy;ni&shy;code</a>.</p>
-<p>All for the want of a nail…</p>
+<p>All for the want of a&nbsp;nail&#8230;</p>
 <p><strong>Update</strong>: <a class="reference external" href="https://github.com/getpelican/pelican/pull/1581">Pull Request for Windows fixes</a>.</p>
-<p>Today’s round of fixes led me through
+<p>Today&#8217;s round of fixes led me through
 fixing the remaining tests;
 providing a <a class="reference external" href="https://pythonhosted.org/six/">six-based</a> answer to <a class="reference external" href="http://stackoverflow.com/a/14298190/6364">converting a filepath to a file <span class="caps">URL</span></a>;
 more updates to the <a class="reference external" href="https://github.com/nwcpp/pelican-site/blob/master/README.rst">website <span class="caps">README</span></a>;
 fixing some warnings in the <span class="caps">NWCPP</span> website;
-and finding an <a class="reference external" href="https://github.com/pypa/pip/issues/1140">issue in Pip</a> with unzipping paths that are not <span class="caps">ASCII</span>.</p>
+and finding an <a class="reference external" href="https://github.com/pypa/pip/issues/1140">issue in Pip</a> with unzipping paths that are not&nbsp;<span class="caps">ASCII</span>.</p>
 
     <footer>
         

@@ -44,18 +44,18 @@
 <p>I spent some time today struggling with <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/">setuptools</a>,
 trying to make a Python source package
 not only include a data file,
-but also <em>install</em> that file.</p>
+but also <em>install</em> that&nbsp;file.</p>
 <div class="section" id="building-the-installer">
-<h2>Building the installer</h2>
-<p>Consider the following source tree layout:</p>
+<h2>Building the&nbsp;installer</h2>
+<p>Consider the following source tree&nbsp;layout:</p>
 <pre class="literal-block">
 ├── MANIFEST.in
 ├── README.md
 ├── my_stuff/
-│   ├── bar.py
-│   ├── foo.py
-│   ├── __init__.py
-│   └── quux.py
+│&nbsp;&nbsp; ├── bar.py
+│&nbsp;&nbsp; ├── foo.py
+│&nbsp;&nbsp; ├── __init__.py
+│&nbsp;&nbsp; └── quux.py
 ├── models/
 │   └── long_ugly_name_20151221.json
 └── setup.py*
@@ -64,7 +64,7 @@ but also <em>install</em> that file.</p>
 which contains the code in the <tt class="docutils literal">my_stuff</tt> directory,
 as well as <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>,
 using <tt class="docutils literal">python setup.py sdist</tt>.</p>
-<p>It’s not that hard to get <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>
+<p>It&#8217;s not that hard to get <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>
 included in the tarball.
 Add an entry in <tt class="docutils literal"><span class="caps">MANIFEST</span>.in</tt>:</p>
 <pre class="literal-block">
@@ -87,7 +87,7 @@ to the <tt class="docutils literal">setup()</tt> call.</p>
 <p>However, neither is sufficient to have the <span class="caps">JSON</span> file <em>installed</em>
 when you run <tt class="docutils literal">pip install <span class="pre">some_&shy;pack&shy;age-<span class="caps">N.N.N.</span>tar.gz</span></tt>.
 The trick is to convince setuptools that <tt class="docutils literal">models</tt> is actually a <em>module</em>
-by placing an empty <tt class="docutils literal">__init__.py</tt> in the <tt class="docutils literal">models</tt> source directory:</p>
+by placing an empty <tt class="docutils literal">__init__.py</tt> in the <tt class="docutils literal">models</tt> source&nbsp;directory:</p>
 <pre class="literal-block">
 models/
 ├── __init__.py
@@ -96,8 +96,8 @@ models/
 <p>More at <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/userguide/datafiles.html">setuptools: Including Data Files</a>.</p>
 </div>
 <div class="section" id="using-the-json-file-at-runtime">
-<h2>Using the <span class="caps">JSON</span> file at runtime</h2>
-<p>As you might guess, the rest of the package doesn’t actually know
+<h2>Using the <span class="caps">JSON</span> file at&nbsp;runtime</h2>
+<p>As you might guess, the rest of the package doesn&#8217;t actually know
 the actual name of the <span class="caps">JSON</span> file.
 So how do we discover the name at runtime so that we can load it?
 We use <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/pkg_resources.html">pkg_re&shy;sources</a>:</p>
@@ -111,7 +111,7 @@ We use <a class="reference external" href="https://setuptools.readthedocs.io/en/
 </pre>
 </div>
 <div class="section" id="package-data-versus-data-files">
-<h2>pack&shy;age_&shy;da&shy;ta versus data_files</h2>
+<h2>pack&shy;age_&shy;da&shy;ta versus&nbsp;data_files</h2>
 <p>Note: there are two similarly named arguments to <tt class="docutils literal">setup()</tt> with distinct semantics,
 <tt class="docutils literal">pack&shy;age_&shy;da&shy;ta</tt> and <tt class="docutils literal">data_files</tt>.</p>
 <p>Use <tt class="docutils literal">pack&shy;age_&shy;da&shy;ta</tt> to install files into the package;

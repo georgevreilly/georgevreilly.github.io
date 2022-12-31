@@ -36,12 +36,12 @@
     </header>
     <p></p>
 <blockquote>
-[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
-<p>A collection of mis­cel­la­neous tips on using Pipelines in Jenkins 2.0.</p>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>A collection of mis&shy;cel&shy;la&shy;neous tips on using Pipelines in Jenkins 2.0.</p>
 <p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#6 in a series on Jenkins Pipelines</a></p>
 <div class="section" id="environment-variables">
-<h2>En­vi­ron­ment Variables</h2>
-<p>Use the <tt class="docutils literal">withEnv</tt> step to set en­vi­ron­ment variables.
+<h2>En&shy;vi&shy;ron&shy;ment Variables</h2>
+<p>Use the <tt class="docutils literal">withEnv</tt> step to set en&shy;vi&shy;ron&shy;ment variables.
 Don't manipulate the <tt class="docutils literal">env</tt> global variable.</p>
 <p>The confusing example that you see in the documents,
 <tt class="docutils literal"><span class="pre">PATH+WHATEVER=/something</span></tt>,
@@ -49,9 +49,9 @@ simply means to <em>prepend</em> <tt class="docutils literal">/something</tt> to
 The <tt class="docutils literal">+WHATEVER</tt> has no other effect.</p>
 </div>
 <div class="section" id="credentials">
-<h2>Cre­den­tials</h2>
-<p>The <tt class="docutils literal">withEnv</tt> step should not be used to introduce secrets into the build en­vi­ron­ment.
-Use the <a class="reference external" href="https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin">with­Cre­den­tials</a> plugin instead.</p>
+<h2>Cre&shy;den&shy;tials</h2>
+<p>The <tt class="docutils literal">withEnv</tt> step should not be used to introduce secrets into the build en&shy;vi&shy;ron&shy;ment.
+Use the <a class="reference external" href="https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin">with&shy;Cre&shy;den&shy;tials</a> plugin instead.</p>
 <pre class="code groovy literal-block">
 <span class="n">withCredentials</span><span class="o">([</span><span class="w">
     </span><span class="o">[</span><span class="n">$class</span><span class="o">:</span><span class="w"> </span><span class="s1">'StringBinding'</span><span class="o">,</span><span class="w"> </span><span class="nl">credentialsId:</span><span class="w"> </span><span class="s1">'GPG_SECRET'</span><span class="o">,</span><span class="w"> </span><span class="nl">variable:</span><span class="w"> </span><span class="s1">'GPG_SECRET'</span><span class="o">],</span><span class="w">
@@ -85,7 +85,7 @@ Use the <a class="reference external" href="https://wiki.jenkins-ci.org/display/
     </header>
     <p></p>
 <blockquote>
-[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>Jenkins Pipelines are written in a Groovy DSL.
 This is a good choice but there are surprises.</p>
 <p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#5 in a series on Jenkins Pipelines</a></p>
@@ -93,15 +93,15 @@ This is a good choice but there are surprises.</p>
 <h2>Groovy as a DSL</h2>
 <p>Groovy <a class="reference external" href="https://docs.groovy-lang.org/docs/latest/html/documentation/core-domain-specific-languages.html">lends</a> itself to <a class="reference external" href="https://dzone.com/articles/groovy-dsl-simple-example">writing</a> DSLs (<a class="reference external" href="https://en.wikipedia.org/wiki/Domain-specific_language">Domain-Specific Languages</a>)
 with a minimum of syntactic overhead.
-You can frequently omit the paren­the­ses, commas, and semicolons that litter other languages.</p>
-<p>Groovy has <a class="reference external" href="https://groovy-lang.org/syntax.html#_string_interpolation">in­ter­po­lat­ed GStrings</a>, lists, maps, functions, and closures.</p>
+You can frequently omit the paren&shy;the&shy;ses, commas, and semicolons that litter other languages.</p>
+<p>Groovy has <a class="reference external" href="https://groovy-lang.org/syntax.html#_string_interpolation">in&shy;ter&shy;po&shy;lat&shy;ed GStrings</a>, lists, maps, functions, and closures.</p>
 <div class="section" id="closures">
 <h3>Closures</h3>
-<p><a class="reference external" href="https://groovy-lang.org/closures.html">Closures</a> are anonymous functions where state can be captured at de­c­la­ra­tion time
+<p><a class="reference external" href="https://groovy-lang.org/closures.html">Closures</a> are anonymous functions where state can be captured at de&shy;c&shy;la&shy;ra&shy;tion time
 to be executed later.
 The blocks that follow many Pipeline steps (<tt class="docutils literal">node</tt>, <tt class="docutils literal">stage</tt>, etc) are closures.</p>
-<p>Here's an example of a <tt class="docutils literal">Closure</tt> called <tt class="docutils literal">ac­cep­tance_in­te­gra­tion_tests</tt>,
-where the <tt class="docutils literal">re­lease_lev­el</tt> parameter <span>&#8230;<a href="/blog/2017/02/08/Jenkins05-Groovy.html" class="continue">continue</a>.</span></p></div></div>
+<p>Here's an example of a <tt class="docutils literal">Closure</tt> called <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt>,
+where the <tt class="docutils literal">re&shy;lease_lev&shy;el</tt> parameter <span>&#8230;<a href="/blog/2017/02/08/Jenkins05-Groovy.html" class="continue">continue</a>.</span></p></div></div>
     <footer>
         
         
@@ -128,14 +128,14 @@ where the <tt class="docutils literal">re­lease_lev­el</tt> parameter <span>&#
     </header>
     <p></p>
 <blockquote>
-[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>If there isn't a built-in Pipeline step to accomplish something,
 you'll almost certainly use the <a class="reference external" href="https://jenkins.io/doc/pipeline/steps/workflow-durable-task-step/#code-sh-code-shell-script">sh step</a>.</p>
 <p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#4 in a series on Jenkins Pipelines</a></p>
 <p>The <tt class="docutils literal">sh</tt> step runs the Bourne shell—<tt class="docutils literal">/bin/sh</tt>, <em>not</em> Bash aka the Bourne-again shell—with the <tt class="docutils literal"><span class="pre">-x</span></tt> (<tt class="docutils literal">xtrace</tt>) and <tt class="docutils literal"><span class="pre">-e</span></tt> (<tt class="docutils literal">errexit</tt>) options.</p>
 <p>The <tt class="docutils literal">xtrace</tt> option means that every step in the <tt class="docutils literal">sh</tt> block is echoed to the Jenkins log,
 after commands have been expanded by the shell.
-This is useful but you could echo the contents of passwords or secret keys in­ad­ver­tent­ly.
+This is useful but you could echo the contents of passwords or secret keys in&shy;ad&shy;ver&shy;tent&shy;ly.
 Use <tt class="docutils literal">set +x</tt> in your <tt class="docutils literal">sh</tt> block to control this.</p>
 <p>The <tt class="docutils literal">errexit</tt> option means that the <span>&#8230;<a href="/blog/2017/02/07/Jenkins04-shStep.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -164,24 +164,24 @@ Use <tt class="docutils literal">set +x</tt> in your <tt class="docutils literal
     </header>
     <p></p>
 <blockquote>
-[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>Much of our code is in one large GitHub repository,
-from which several different ap­pli­ca­tions are built.
+from which several different ap&shy;pli&shy;ca&shy;tions are built.
 When changes are pushed to the <em>master</em> branch,
-we want only the ap­pli­ca­tions in affected di­rec­to­ries to be built.
+we want only the ap&shy;pli&shy;ca&shy;tions in affected di&shy;rec&shy;to&shy;ries to be built.
 This was not easy to get right with “Pipeline script from SCM” builds.</p>
 <p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#3 in a series on Jenkins Pipelines</a></p>
 <div class="section" id="configuration">
-<h2>Con­fig­u­ra­tion</h2>
+<h2>Con&shy;fig&shy;u&shy;ra&shy;tion</h2>
 <ul>
 <li><p class="first">To get builds to trigger upon a push to GitHub,
 you need to <a class="reference external" href="https://support.cloudbees.com/hc/en-us/articles/224543927-GitHub-webhook-configuration">configure a webhook</a> pointing to your Jenkins Master.</p>
 </li>
 <li><p class="first"><a class="reference external" href="https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/">Create an SSH key</a> for Jenkins/GitHub.
-A passphrase is rec­om­mend­ed.</p>
+A passphrase is rec&shy;om&shy;mend&shy;ed.</p>
 <ul class="simple">
 <li><em>Public Key</em>: Upload the <a class="reference external" href="https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/">SSH public key to GitHub</a></li>
-<li><em>Private Key</em>: Go to Jenkins > Cre­den­tials <span>&#8230;<a href="/blog/2017/02/06/Jenkins03-GitHubIntegration.html" class="continue">continue</a>.</span></li></ul></li></ul></div>
+<li><em>Private Key</em>: Go to Jenkins &gt; Cre&shy;den&shy;tials <span>&#8230;<a href="/blog/2017/02/06/Jenkins03-GitHubIntegration.html" class="continue">continue</a>.</span></li></ul></li></ul></div>
     <footer>
         
         
@@ -208,15 +208,15 @@ A passphrase is rec­om­mend­ed.</p>
     </header>
     <p></p>
 <blockquote>
-[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
-<p>The “slave” ter­mi­nol­o­gy is un­for­tu­nate,
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>The “slave” ter&shy;mi&shy;nol&shy;o&shy;gy is un&shy;for&shy;tu&shy;nate,
 but the utility of running a Jenkins build on a node that you've configured
 at Amazon's EC2 is undeniable.</p>
 <p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#2 in a series on Jenkins Pipelines</a></p>
 <p>We needed to install system packages on our build nodes,
 such as Docker or Postgres.
 For obvious reasons,
-Cloud­Bees—our Jenkins hosting provider—­won't let you do that on their systems.
+Cloud&shy;Bees—our Jenkins hosting provider—&shy;won't let you do that on their systems.
 You must provide your own build nodes,
 where you are free to install whatever you like.</p>
 <p>We already use Amazon Web Services,
@@ -249,9 +249,9 @@ which I <span>&#8230;<a href="/blog/2017/02/05/Jenkins02-EC2Slaves.html" class="
     </header>
     <p></p>
 <blockquote>
-[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>The MetaBrite dev team migrated most of their builds
-from At­las­sian's Bamboo Cloud to Jenkins Pipelines in late 2016/early 2017.
+from At&shy;las&shy;sian's Bamboo Cloud to Jenkins Pipelines in late 2016/early 2017.
 This is a series of blog posts about that experience.</p>
 <div class="section" id="jenkins-pipeline-series">
 <h2>Jenkins Pipeline Series</h2>
@@ -259,20 +259,20 @@ This is a series of blog posts about that experience.</p>
 <ul class="simple">
 <li><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">Jenkins #1: Migrating to Pipelines</a></li>
 <li><a class="reference external" href="/blog/2017/02/05/Jenkins02-EC2Slaves.html">Jenkins #2: EC2 Slaves</a></li>
-<li><a class="reference external" href="/blog/2017/02/06/Jenkins03-GitHubIntegration.html">Jenkins #3: GitHub In­te­gra­tion</a></li>
+<li><a class="reference external" href="/blog/2017/02/06/Jenkins03-GitHubIntegration.html">Jenkins #3: GitHub In&shy;te&shy;gra&shy;tion</a></li>
 <li><a class="reference external" href="/blog/2017/02/07/Jenkins04-shStep.html">Jenkins #4: The sh step</a></li>
 <li><a class="reference external" href="/blog/2017/02/08/Jenkins05-Groovy.html">Jenkins #5: Groovy</a></li>
-<li><a class="reference external" href="/blog/2017/02/09/Jenkins06-Miscellenea.html">Jenkins #6: Mis­cel­le­nea</a></li>
+<li><a class="reference external" href="/blog/2017/02/09/Jenkins06-Miscellenea.html">Jenkins #6: Mis&shy;cel&shy;le&shy;nea</a></li>
 </ul>
 </div>
 <div class="section" id="eviction">
 <h2>Eviction</h2>
-<p>For three years, we used At­las­sian's hosted <a class="reference external" href="https://confluence.atlassian.com/bamboocloud/">Bamboo Cloud</a> service
+<p>For three years, we used At&shy;las&shy;sian's hosted <a class="reference external" href="https://confluence.atlassian.com/bamboocloud/">Bamboo Cloud</a> service
 to build and deploy most of our code.
 In the summer of 2016,
 Atlassian announced that they were
-going to dis­con­tin­ue Bamboo Cloud on January 31st, 2017.</p>
-<p>We looked around for a suitable re­place­ment.
+going to dis&shy;con&shy;tin&shy;ue Bamboo Cloud on January 31st, 2017.</p>
+<p>We looked around for a suitable re&shy;place&shy;ment.
 We did not find <span>&#8230;<a href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html" class="continue">continue</a>.</span></p></div>
     <footer>
         
@@ -300,10 +300,10 @@ We did not find <span>&#8230;<a href="/blog/2017/02/04/Jenkins01-MigratingToPipe
     </header>
     <p></p>
 <blockquote>
-[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>I attended <a class="reference external" href="http://web.archive.org/web/20161121204237/http://2016.dockercon.com/">DockerCon 2016</a> in Seattle
 over the last two days and I learned a lot.
-It was a well-run conference with an en­thu­si­as­tic audience.</p>
+It was a well-run conference with an en&shy;thu&shy;si&shy;as&shy;tic audience.</p>
 <p>I'm astounded at the growth of Docker.
 Three-and-a-quarter years ago,
 Docker was revealed to the public for the first time,
@@ -345,16 +345,16 @@ Adam Porad and I were one of five teams
 pitching our startups at the
 PuPPy-organized <a class="reference external" href="https://www.meetup.com/PSPPython/events/229206293/">PyCon Startup Row Pitch Night</a>:</p>
 <blockquote>
-Techstars Seattle and PuPPy [Puget Sound Pro­gram­ming Python]
+Techstars Seattle and PuPPy [Puget Sound Pro&shy;gram&shy;ming Python]
 presents PyCon Startup Row Pitch Night.
 The time has come again for you, the members of PuPPy,
-to select Seattle’s startup rep­re­sen­ta­tive to travel
+to select Seattle’s startup rep&shy;re&shy;sen&shy;ta&shy;tive to travel
 to <a class="reference external" href="https://us.pycon.org/2016/">PyCon</a> in Portland to represent our Python community and startup scene
 at the annual conference produced by the Python Software Foundation.</blockquote>
 <p>We were pitching <a class="reference external" href="https://www.metabrite.com/">MetaBrite</a>
 and our technology that captures receipts,
-yielding receipt in­for­ma­tion to users and onsumer insights.
-We use Python ex­ten­sive­ly—we've written 120,000 lines of Python code
+yielding receipt in&shy;for&shy;ma&shy;tion to users and onsumer insights.
+We use Python ex&shy;ten&shy;sive&shy;ly—we've written 120,000 lines of Python code
 for web services, web apps, machine learning, image processing, and <span>&#8230;<a href="/blog/2016/03/22/PuPPyStartupRowPitchNight.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -382,18 +382,18 @@ for web services, web apps, machine learning, image processing, and <span>&#8230
     </header>
     <p></p>
 <blockquote>
-[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>I needed to sort a Python dictionary by <em>value</em> today, rather than by <em>key</em>.
 I found it confusing, so I'll share what I learned.</p>
 <p>Assume the following dictionary, where each value is a tuple of (ID, score).
 How do we sort by score; i.e., the second item in the value tuple?
-(For the purposes of this discussion, ignore the meaning of the dic­tio­nary's key.)</p>
+(For the purposes of this discussion, ignore the meaning of the dic&shy;tio&shy;nary's key.)</p>
 <pre class="code python literal-block">
-<span class="o">>>></span> <span class="n">some_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="n">b</span><span class="o">=</span><span class="p">(</span><span class="mi">372</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">e</span><span class="o">=</span><span class="p">(</span><span class="mi">456</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">),</span> <span class="n">d</span><span class="o">=</span><span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
-<span class="o">>>></span> <span class="n">some_dict</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">some_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="n">b</span><span class="o">=</span><span class="p">(</span><span class="mi">372</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">e</span><span class="o">=</span><span class="p">(</span><span class="mi">456</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">),</span> <span class="n">d</span><span class="o">=</span><span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">some_dict</span>
 <span class="p">{</span><span class="s1">'a'</span><span class="p">:</span> <span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="s1">'c'</span><span class="p">:</span> <span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="s1">'b'</span><span class="p">:</span> <span class="p">(</span><span class="mi">372</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="s1">'e'</span><span class="p">:</span> <span class="p">(</span><span class="mi">456</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">),</span> <span class="s1">'d'</span><span class="p">:</span> <span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">)}</span>
 </pre>
-<p>Python dic­tio­nar­ies are inherently unsorted,
+<p>Python dic&shy;tio&shy;nar&shy;ies are inherently unsorted,
 unless you <span>&#8230;<a href="/blog/2016/02/16/SortingPythonDictionariesByValue.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -421,20 +421,20 @@ unless you <span>&#8230;<a href="/blog/2016/02/16/SortingPythonDictionariesByVal
     </header>
     <p></p>
 <blockquote>
-[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>Some time ago,
 we made an ill-considered decision to use recipe names for image URLs,
-which simplified image management with our then-rudi­men­ta­ry tools.
+which simplified image management with our then-rudi&shy;men&shy;ta&shy;ry tools.
 For example, the recipe named
-<tt class="docutils literal">"Twisted Pasta With Browned Butter, Sage, and Walnuts"</tt>
+<tt class="docutils literal">&quot;Twisted Pasta With Browned Butter, Sage, and Walnuts&quot;</tt>
 becomes a URL ending in
-<tt class="docutils literal">"Twist­ed%20­Pas­ta%20With­%20Browned%20But­ter%2C%20Sage%2C%20and%20Wal­nuts.jpg"</tt>.</p>
-<p>Life becomes more in­ter­est­ing when you escape the confines of 7-bit ASCII and use Unicode.
-How should <tt class="docutils literal">u"Sautéed crème fraîche Provençale"</tt> be handled?
+<tt class="docutils literal">&quot;Twist&shy;ed%20&shy;Pas&shy;ta%20With&shy;%20Browned%20But&shy;ter%2C%20Sage%2C%20and%20Wal&shy;nuts.jpg&quot;</tt>.</p>
+<p>Life becomes more in&shy;ter&shy;est&shy;ing when you escape the confines of 7-bit ASCII and use Unicode.
+How should <tt class="docutils literal">u&quot;Sautéed crème fraîche Provençale&quot;</tt> be handled?
 The only reasonable thing to do is to first convert the Unicode string to UTF-8
 and then hex-encode those octets:
-<tt class="docutils literal">"Saut%C3%A9ed%20cr%C3%A8me%20fra%C3%AEche%20Proven%C3%A7ale"</tt>.</p>
-<p>That seems reasonable, but it was giving us in­con­sis­tent results
+<tt class="docutils literal">&quot;Saut%C3%A9ed%20cr%C3%A8me%20fra%C3%AEche%20Proven%C3%A7ale&quot;</tt>.</p>
+<p>That seems reasonable, but it was giving us in&shy;con&shy;sis&shy;tent results
 when the images were uploaded to an S3 bucket.
 When <span>&#8230;<a href="/blog/2016/01/31/URLsFromUnicodeStrings.html" class="continue">continue</a>.</span></p>
     <footer>

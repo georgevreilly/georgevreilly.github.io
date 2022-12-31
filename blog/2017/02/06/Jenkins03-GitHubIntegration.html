@@ -45,58 +45,58 @@
 from which several different ap&shy;pli&shy;ca&shy;tions are built.
 When changes are pushed to the <em>master</em> branch,
 we want only the ap&shy;pli&shy;ca&shy;tions in affected di&shy;rec&shy;to&shy;ries to be built.
-This was not easy to get right with “Pipeline script from <span class="caps">SCM</span>” builds.</p>
-<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#3 in a series on Jenkins Pipelines</a></p>
+This was not easy to get right with “Pipeline script from <span class="caps">SCM</span>”&nbsp;builds.</p>
+<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#3 in a series on Jenkins&nbsp;Pipelines</a></p>
 <div class="section" id="configuration">
 <h2>Con&shy;fig&shy;u&shy;ra&shy;tion</h2>
 <ul>
 <li><p class="first">To get builds to trigger upon a push to GitHub,
-you need to <a class="reference external" href="https://support.cloudbees.com/hc/en-us/articles/224543927-GitHub-webhook-configuration">configure a webhook</a> pointing to your Jenkins Master.</p>
+you need to <a class="reference external" href="https://support.cloudbees.com/hc/en-us/articles/224543927-GitHub-webhook-configuration">configure a webhook</a> pointing to your Jenkins&nbsp;Master.</p>
 </li>
 <li><p class="first"><a class="reference external" href="https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/">Create an <span class="caps">SSH</span> key</a> for Jenkins/GitHub.
-A passphrase is rec&shy;om&shy;mend&shy;ed.</p>
+A passphrase is&nbsp;rec&shy;om&shy;mend&shy;ed.</p>
 <ul class="simple">
-<li><em>Public Key</em>: Upload the <a class="reference external" href="https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/"><span class="caps">SSH</span> public key to GitHub</a></li>
-<li><em>Private Key</em>: Go to Jenkins > Cre&shy;den&shy;tials > <span class="caps">SSH</span> Username with Private Key.
-Add the private key with a meaningful <span class="caps">ID</span></li>
-<li>In your <a class="reference external" href="/blog/2017/02/05/Jenkins02-EC2Slaves.html"><span class="caps">AMI</span></a>, make sure that you’ve run
-<tt class="docutils literal"><span class="pre">ssh-keyscan</span> <span class="pre">-H</span> github.com >> <span class="pre">~/.ssh/known_hosts</span></tt>
-to prevent Git from asking about the au&shy;then&shy;tic&shy;i&shy;ty of github.com</li>
-<li>Do not install the <span class="caps">SSH</span> private key into your <span class="caps">AMI</span></li>
+<li><em>Public Key</em>: Upload the <a class="reference external" href="https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/"><span class="caps">SSH</span> public key to&nbsp;GitHub</a></li>
+<li><em>Private Key</em>: Go to Jenkins &gt; Cre&shy;den&shy;tials &gt; <span class="caps">SSH</span> Username with Private Key.
+Add the private key with a meaningful&nbsp;<span class="caps">ID</span></li>
+<li>In your <a class="reference external" href="/blog/2017/02/05/Jenkins02-EC2Slaves.html"><span class="caps">AMI</span></a>, make sure that you&#8217;ve run
+<tt class="docutils literal"><span class="pre">ssh-keyscan</span> <span class="pre">-H</span> github.com &gt;&gt; <span class="pre">~/.ssh/known_hosts</span></tt>
+to prevent Git from asking about the au&shy;then&shy;tic&shy;i&shy;ty of&nbsp;github.com</li>
+<li>Do not install the <span class="caps">SSH</span> private key into your&nbsp;<span class="caps">AMI</span></li>
 </ul>
 </li>
-<li><p class="first">In your Jenkins job con&shy;fig&shy;u&shy;ra&shy;tion:</p>
+<li><p class="first">In your Jenkins job&nbsp;con&shy;fig&shy;u&shy;ra&shy;tion:</p>
 <ul>
-<li><p class="first">Build Trigger > Build when a change is pushed to GitHub</p>
+<li><p class="first">Build Trigger &gt; Build when a change is pushed to&nbsp;GitHub</p>
 </li>
-<li><p class="first">Pipeline > Definition > Pipeline script from <span class="caps">SCM</span></p>
+<li><p class="first">Pipeline &gt; Definition &gt; Pipeline script from&nbsp;<span class="caps">SCM</span></p>
 </li>
-<li><p class="first">Repository <span class="caps">URL</span>: <tt class="docutils literal">git@github.com:<span class="caps">OR&shy;GA&shy;NI&shy;ZA&shy;TION</span>/<span class="caps">REPOSITORY</span>.git</tt>
-(the <span class="caps">SSH</span> form of the <span class="caps">URL</span>, not the <span class="caps">HTTPS</span>)</p>
+<li><p class="first">Repository <span class="caps">URL</span>: <tt class="docutils literal">git&#64;github.com:<span class="caps">OR&shy;GA&shy;NI&shy;ZA&shy;TION</span>/<span class="caps">REPOSITORY</span>.git</tt>
+(the <span class="caps">SSH</span> form of the <span class="caps">URL</span>, not the&nbsp;<span class="caps">HTTPS</span>)</p>
 </li>
-<li><p class="first">Cre&shy;den&shy;tials: the <span class="caps">ID</span> of your GitHub <span class="caps">SSH</span> credential</p>
+<li><p class="first">Cre&shy;den&shy;tials: the <span class="caps">ID</span> of your GitHub <span class="caps">SSH</span>&nbsp;credential</p>
 </li>
 <li><p class="first">To build only when changes affect the <tt class="docutils literal">/foo</tt> and <tt class="docutils literal">/bar</tt> di&shy;rec&shy;to&shy;ries of your repository:
-Additional Behaviors > Polling ignores commits in certain paths > Included Regions:</p>
+Additional Behaviors &gt; Polling ignores commits in certain paths &gt; Included&nbsp;Regions:</p>
 <pre class="literal-block">
 ^foo/.*
 ^bar/.*
 </pre>
 </li>
-<li><p class="first">Script Path: path-to-your-Jenk&shy;ins&shy;file</p>
+<li><p class="first">Script Path:&nbsp;path-to-your-Jenk&shy;ins&shy;file</p>
 </li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="section" id="pipeline-jenkinsfile">
-<h2>Pipeline (Jenk&shy;ins&shy;file)</h2>
+<h2>Pipeline&nbsp;(Jenk&shy;ins&shy;file)</h2>
 <ul class="simple">
 <li>Use the <tt class="docutils literal">checkout scm</tt> step, not the <tt class="docutils literal">git</tt> step.
-The former plays well with GitHub polling; the latter doesn’t.</li>
+The former plays well with GitHub polling; the latter&nbsp;doesn&#8217;t.</li>
 <li>If you need to clean up your workspace, do not remove the <tt class="docutils literal">.git</tt> directory.
 Otherwise, you are likely to have un&shy;nec&shy;es&shy;sary builds as the Git Plugin
-doesn’t do polling well without a persistent workspace.</li>
+doesn&#8217;t do polling well without a persistent&nbsp;workspace.</li>
 <li>Do not use <tt class="docutils literal">sshagent</tt> to check out code from GitHub.
 The <span class="caps">SSH</span> credential configured on the Repository <span class="caps">URL</span> will be used during <tt class="docutils literal">checkout scm</tt>.</li>
 </ul>

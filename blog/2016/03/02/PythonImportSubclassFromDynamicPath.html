@@ -37,8 +37,8 @@
         </h1>
     </header>
     <p>I needed to import some plugin code written in Python
-from a directory whose path isn’t known until runtime.
-Further, I needed a class object that was a subclass of the plugin base class.</p>
+from a directory whose path isn&#8217;t known until runtime.
+Further, I needed a class object that was a subclass of the plugin base&nbsp;class.</p>
 <pre class="code python literal-block">
 <span class="kn">from</span> <span class="nn">somewhere</span> <span class="kn">import</span> <span class="n">PluginBase</span>
 
@@ -66,7 +66,7 @@ Then you can find the plugin subclass using <a class="reference external" href="
                 <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">base_class</span><span class="p">)</span>
                 <span class="ow">and</span> <span class="n">obj</span> <span class="o">!=</span> <span class="n">base_class</span><span class="p">):</span>
                     <span class="k">return</span> <span class="n">obj</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"No subclass of </span><span class="si">{0}</span><span class="s2"> in </span><span class="si">{1}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No subclass of </span><span class="si">{0}</span><span class="s2"> in </span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
                 <span class="n">base_class</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">implementation_filename</span><span class="p">))</span>
     <span class="k">finally</span><span class="p">:</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>

@@ -36,13 +36,13 @@
             <a href="/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html" rel="bookmark canonical">reStructuredText Anonymous Hyperlinks</a>
         </h1>
     </header>
-    <p>While re&shy;search&shy;ing <a class="reference external" href="/blog/2016/06/29/reStructuredTextNestedMarkup.html">yes&shy;ter&shy;day’s post</a> about nested markup in Re&shy;Struc&shy;tured&shy;Text,
+    <p>While re&shy;search&shy;ing <a class="reference external" href="/blog/2016/06/29/reStructuredTextNestedMarkup.html">yesterday&#8217;s post</a> about nested markup in Re&shy;Struc&shy;tured&shy;Text,
 I finally learned how to use <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#anonymous-hyperlinks">anonymous hyperlinks</a>.</p>
-<p>Hitherto, I used one of these three forms for hyperlinks:</p>
+<p>Hitherto, I used one of these three forms for&nbsp;hyperlinks:</p>
 <pre class="literal-block">
 1. The central conceit of the fictional `Flashman Papers`_ is that Flashy
 2. besieging Breda_ in 1625.
-3. my club, `Freely Speaking Toastmasters <http://freelyspeaking.org/>`_.
+3. my club, `Freely Speaking Toastmasters &lt;http://freelyspeaking.org/&gt;`_.
 
 .. _Flashman Papers:
     https://en.wikipedia.org/wiki/The_Flashman_Papers
@@ -52,16 +52,16 @@ I finally learned how to use <a class="reference external" href="http://docutils
 which refers to an <em>external hyperlink target</em>, <tt class="docutils literal">.. _Flashman Papers: <span class="caps">URI</span></tt>.
 Note that the reference name starts with a backquote, <tt class="docutils literal">`</tt>,
 and ends with backquote-underscore, <tt class="docutils literal">`_</tt>.</p>
-<p>The second, <tt class="docutils literal">Breda_</tt>, is a <em>simple reference name</em>—the backquotes are optional.</p>
-<p><tt class="docutils literal">`Freely Speaking Toast&shy;mas&shy;ters <span class="pre"><http://freelyspeak&shy;ing.org/>`_</span></tt>,
+<p>The second, <tt class="docutils literal">Breda_</tt>, is a <em>simple reference name</em>—the backquotes are&nbsp;optional.</p>
+<p><tt class="docutils literal">`Freely Speaking Toast&shy;mas&shy;ters <span class="pre">&lt;http://freelyspeak&shy;ing.org/&gt;`_</span></tt>,
 is an <em>embedded <span class="caps">URI</span></em>.
-The syntax is <tt class="docutils literal">`</tt>, reference-name, <tt class="docutils literal"><</tt>, <span class="caps">URI</span>, <tt class="docutils literal">>`</tt>.</p>
+The syntax is <tt class="docutils literal">`</tt>, reference-name, <tt class="docutils literal">&lt;</tt>, <span class="caps">URI</span>, <tt class="docutils literal">&gt;`</tt>.</p>
 <p>With anonymous hyperlinks,
 the reference name does not need to be repeated in the hyperlink target.
 Instead, the reference name ends with a double-underscore, <tt class="docutils literal">__</tt>,
 and the target looks like either <tt class="docutils literal">.. __: <span class="caps">URI</span></tt> or <tt class="docutils literal">__ <span class="caps">URI</span></tt>.
 The targets must appear in the order they are referenced.
-It’s best if they’re close to the references in the text, for main&shy;tain&shy;abil&shy;i&shy;ty.</p>
+It&#8217;s best if they&#8217;re close to the references in the text, for&nbsp;main&shy;tain&shy;abil&shy;i&shy;ty.</p>
 <pre class="literal-block">
 researching `yesterday's post`__ about ...,
 I learned how to use `anonymous hyperlinks`__.
@@ -70,10 +70,10 @@ I learned how to use `anonymous hyperlinks`__.
 __ http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#anonymous-hyperlinks
 </pre>
 <p>To handle escaping backquotes inside code literals for this post,
-I used the <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/roles.html#literal">literal role</a> instead of double backquotes:</p>
+I used the <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/roles.html#literal">literal role</a> instead of double&nbsp;backquotes:</p>
 <pre class="literal-block">
 The first, :literal:`\`Flashman Papers\`_`, is a *named hyperlink reference*
-Normally, I use double-backquotes to bracket code: ``a += b <span class="amp">&</span> c[i]``.
+Normally, I use double-backquotes to bracket code: ``a += b <span class="amp">&amp;</span> c[i]``.
 </pre>
 
     <footer>

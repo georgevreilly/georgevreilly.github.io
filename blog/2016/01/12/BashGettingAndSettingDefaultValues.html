@@ -37,19 +37,19 @@
         </h1>
     </header>
     <p>Bash has some handy syntax for getting and setting default values.
-Un&shy;for&shy;tu&shy;nate&shy;ly, it’s a collection of punc&shy;tu&shy;a&shy;tion characters,
-which makes it hard to Google when you can’t quite remember the syntax.</p>
+Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s a collection of punc&shy;tu&shy;a&shy;tion characters,
+which makes it hard to Google when you can&#8217;t quite remember the&nbsp;syntax.</p>
 <p>Getting a default value using <tt class="docutils literal"><span class="pre">${var:-fallback}</span></tt>:</p>
 <pre class="code bash literal-block">
-<span class="c1"># set $<span class="caps">LOGDIR</span> to $1 if $1 has a value; otherwise set $<span class="caps">LOGDIR</span> to "/var/log"
-</span><span class="nv"><span class="caps">LOGDIR</span></span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/var/log</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1"># set $<span class="caps">LOGDIR</span> to $1 if $1 has a value; otherwise set $<span class="caps">LOGDIR</span> to &quot;/var/log&quot;
+</span><span class="nv"><span class="caps">LOGDIR</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/var/log</span><span class="si">}</span><span class="s2">&quot;</span>
 
 <span class="c1"># use $<span class="caps">VERSION</span> unless it's empty or unset; fall back to extracting someprog's version num
 </span><span class="nv">build_version</span><span class="o">=</span><span class="si">${</span><span class="nv"><span class="caps">VERSION</span></span><span class="k">:-$(</span>someprog --version <span class="p">|</span> sed <span class="s1">'s/[^0-9.]*\([0-9.]*\).*/\1/'</span><span class="k">)</span><span class="si">}</span>
 </pre>
 <p>The colon-dash con&shy;struc&shy;tion is known as the
-<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog’s bollocks</a>
-in typography.</p>
+<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog&#8217;s bollocks</a>
+in&nbsp;typography.</p>
 <p>Setting a default value, using <tt class="docutils literal"><span class="pre">${var:=fallback}</span></tt>:</p>
 <pre class="code bash literal-block">
 $ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
@@ -66,8 +66,8 @@ $ cd<span class="p">;</span> <span class="nb">pwd</span>
 </pre>
 <p>Note: <tt class="docutils literal">:=</tt> uses the new value in two cases.
 First, when the shell variable is not set;
-second, when the variable is set but empty.</p>
-<p>If you want to assign the variable only when it’s previously unset, omit the colon,
+second, when the variable is set but&nbsp;empty.</p>
+<p>If you want to assign the variable only when it&#8217;s previously unset, omit the colon,
 <tt class="docutils literal">${var=fallback}</tt>.</p>
 
     <footer>

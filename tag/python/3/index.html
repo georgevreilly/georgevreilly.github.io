@@ -38,14 +38,14 @@
 <blockquote>
 <p>Generators decouple iteration from the code
 that uses the results of the iteration.</p>
-<p class="attribution">—David Beazley, <a class="reference external" href="https://www.dabeaz.com/generators/">Generators</a></p>
+<p class="attribution">&mdash;David Beazley, <a class="reference external" href="https://www.dabeaz.com/generators/">Generators</a></p>
 </blockquote>
 <blockquote>
-[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>Python generators have a <a class="reference external" href="https://www.dabeaz.com/generators/">variety of uses</a>.
 One such is to lazily evaluate sequences.
 Another is for <a class="reference external" href="https://www.dabeaz.com/coroutines/">coroutines</a>.
-Yet another is to re­cur­sive­ly traverse a tree or a graph,
+Yet another is to re&shy;cur&shy;sive&shy;ly traverse a tree or a graph,
 yielding an iterable sequence.</p>
 <p>Consider this simple tree of nodes:</p>
 <pre class="code python literal-block">
@@ -83,23 +83,23 @@ yielding an iterable sequence.</p>
 <pre class="code bash literal-block">
 $ ./foo/bar/script.py some parameters
 Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
-  File <span class="s2">"foo/bar/script.py"</span>, line <span class="m">16</span>, <span class="k">in</span> <module>
+  File <span class="s2">&quot;foo/bar/script.py&quot;</span>, line <span class="m">16</span>, <span class="k">in</span> &lt;module&gt;
     from .quux import find_vcs
 ValueError: Attempted relative import <span class="k">in</span> non-package
-</module>
+</pre>
 <p>I prefer to use <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">absolute imports</a> to minimize ambiguity and confusion,
 and most of my Python modules begin with:</p>
 <pre class="code python literal-block">
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span>
 </pre>
-<p>(Using <a class="reference external" href="https://www.python.org/dev/peps/pep-3112/">uni­code_lit­er­als</a> and <a class="reference external" href="https://www.python.org/dev/peps/pep-3105/">print­_­func­tion</a> makes porting to Python 3 easier.)</p>
+<p>(Using <a class="reference external" href="https://www.python.org/dev/peps/pep-3112/">uni&shy;code_lit&shy;er&shy;als</a> and <a class="reference external" href="https://www.python.org/dev/peps/pep-3105/">print&shy;_&shy;func&shy;tion</a> makes porting to Python 3 easier.)</p>
 <p>I recently read the accepted answer to <a class="reference external" href="http://stackoverflow.com/questions/14132789/python-relative-imports-for-the-billionth-time">Python relative imports for the billionth time</a>
 and the solution to the above <tt class="docutils literal">ValueError</tt> occurred to me:
 Use <tt class="docutils literal">python <span class="pre">-m</span> package</tt> instead:</p>
 <pre class="code bash literal-block">
 $ python -m foo.bar.script some parameters
 </pre>
-<p>(Assuming that </p></pre><span>&#8230;<a href="/blog/2016/01/17/RelativeImportsInAPythonScript.html" class="continue">continue</a>.</span>
+<p>(Assuming that <span>&#8230;<a href="/blog/2016/01/17/RelativeImportsInAPythonScript.html" class="continue">continue</a>.</span></p>
     <footer>
         
         
@@ -126,7 +126,7 @@ It comes with Python 2.7.6,
 but we need Python 2.7.9+ to get the some important SSL fixes
 and work with a recent version of the <a class="reference external" href="http://docs.python-requests.org/en/latest/">Requests</a> library.</p>
 <p>Felix Krull maintains a Personal Package Archive for <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes-python2.7">Python 2.7 Updates</a>,
-which makes it straight­for­ward to upgrade to Python 2.7.11
+which makes it straight&shy;for&shy;ward to upgrade to Python 2.7.11
 on supported versions of Ubuntu.</p>
 <pre class="code bash literal-block">
 sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
@@ -134,7 +134,7 @@ sudo apt-get update
 sudo apt-get install python2.7 python2.7-dev
 </pre>
 <p>Be sure not to use Felix Krull's <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes">other Python PPA</a> by mistake.
-I did that on a col­league's machine yesterday.
+I did that on a col&shy;league's machine yesterday.
 In our attempts to figure out why we still had Python 2.7.6,
 we managed to mess up the <span>&#8230;<a href="/blog/2016/01/16/InstallingPython2_7_11onUbuntu.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -166,7 +166,7 @@ from both a base class and some mixins,
 I am always tempted to write:</p>
 <pre class="code python literal-block">
 <span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">Mixin1</span><span class="p">,</span> <span class="n">Mixin2</span><span class="p">):</span>
-    <span class="s2">"Some class"</span>
+    <span class="s2">&quot;Some class&quot;</span>
 </pre>
 <p>My reasoning is that <tt class="docutils literal">Derived</tt> is a <tt class="docutils literal">Base</tt>
 with some <tt class="docutils literal">Mixin1</tt> and <tt class="docutils literal">Mixin2</tt> goodness sprinkled on.
@@ -174,9 +174,9 @@ Generally, that's fine.
 The exception is when I want one of the mixins to override
 a method or attribute that's defined in <tt class="docutils literal">Base</tt>.
 Because the <a class="reference external" href="http://python-history.blogspot.com/2010/06/method-resolution-order.html">Method Resolution Order</a> is left-to-right,
-then <tt class="docutils literal">Base</tt>'s im­ple­men­ta­tion will always be found first.</p>
+then <tt class="docutils literal">Base</tt>'s im&shy;ple&shy;men&shy;ta&shy;tion will always be found first.</p>
 <p>To get the desired behavior of the mixin overriding the base,
-<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in­her­i­tance list.</p>
+<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance list.</p>
 <pre class="code python literal-block">
 <span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
@@ -205,25 +205,25 @@ then <tt class="docutils literal">Base</tt>'s im­ple­men­ta­tion will always
     </header>
     <p></p>
 <blockquote>
-[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p><a class="reference external" href="https://www.ietf.org/rfc/rfc1738.txt">RFC 1738</a> allows passwords in URLs,
-in the form <tt class="docutils literal"><span class="pre"><scheme>://<username>:<pass&shy;word>@<host>:<port>/<url-path></url-path></port>.
+in the form <tt class="docutils literal"><span class="pre">&lt;scheme&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;host&gt;:&lt;port&gt;/&lt;url-path&gt;</span></tt>.
 Although passwords are deprecated by <a class="reference external" href="https://www.ietf.org/rfc/rfc3986.txt">RFC 3986</a> and other newer RFCs,
-it's oc­ca­sion­al­ly useful.
+it's oc&shy;ca&shy;sion&shy;al&shy;ly useful.
 Several important packages in the Python world allow such URLs,
-including <a class="reference external" href="https://www.sqlalchemy.org/">SQLAlchemy</a> (<tt class="docutils literal"><span class="pre">'post­gresql://scott:tiger@lo­cal­host:5432/my­data­base'</span></tt>)
-and <a class="reference external" href="https://docs.celeryproject.org/en/stable/">Celery</a> (<tt class="docutils literal"><span class="pre">'amqp://guest:guest@lo­cal­host:5672//'</span></tt>).
-It's also useful to be able to log such URLs without exposing the password.</host>
+including <a class="reference external" href="https://www.sqlalchemy.org/">SQLAlchemy</a> (<tt class="docutils literal"><span class="pre">'post&shy;gresql://scott:tiger&#64;localhost:5432/my&shy;data&shy;base'</span></tt>)
+and <a class="reference external" href="https://docs.celeryproject.org/en/stable/">Celery</a> (<tt class="docutils literal"><span class="pre">'amqp://guest:guest&#64;localhost:5672//'</span></tt>).
+It's also useful to be able to log such URLs without exposing the password.</p>
 <p>Python 2 has <a class="reference external" href="https://docs.python.org/2/library/urlparse.html#urlparse.urlparse">urlparse.urlparse</a>
 (known as <a class="reference external" href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.urlparse">urllib.parse.urlparse</a> in Python 3
-and <tt class="docutils literal">six.moves.url­lib_­parse.urlparse</tt> in the <a class="reference external" href="https://six.readthedocs.io/">Six</a> com­pat­i­bil­i­ty library)
+and <tt class="docutils literal">six.moves.url&shy;lib_&shy;parse.urlparse</tt> in the <a class="reference external" href="https://six.readthedocs.io/">Six</a> com&shy;pat&shy;i&shy;bil&shy;i&shy;ty library)
 to split a URL into six components,
 <em>scheme</em>, <em>netloc</em>, <em>path</em>, <em>parameters</em>, <em>query</em>, and <em>fragment</em>.
-The <em>netloc</em> cor­re­sponds to <tt class="docutils literal"><span class="pre"><user>:<pass&shy;word>@<host>:<port></port></host>.</pass&shy;word>
-<p>Un­for­tu­nate­ly, neither Python 2 nor 3's <tt class="docutils literal">urlparse</tt>
+The <em>netloc</em> cor&shy;re&shy;sponds to <tt class="docutils literal"><span class="pre">&lt;user&gt;:&lt;password&gt;&#64;&lt;host&gt;:&lt;port&gt;</span></tt>.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, neither Python 2 nor 3's <tt class="docutils literal">urlparse</tt>
 properly handle the <em>userinfo</em>
 (<em>username</em> + optional <em>password</em> in the <em>netloc</em>),
-as <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class="continue">continue</a>.</span></p></user></span></tt></p></pass&shy;word></username></scheme></span></tt></p>
+as <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class="continue">continue</a>.</span></p>
     <footer>
         
         
@@ -250,7 +250,7 @@ as <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class
         </h1>
     </header>
     <p>New MetaBrite Dev Blog post,
-<a class="reference external" href="http://www.metabrite.com/devblog/posts/python-obfuscate-url-password/">Ob­fus­cat­ing Passwords in URLs in Python</a>.</p>
+<a class="reference external" href="http://www.metabrite.com/devblog/posts/python-obfuscate-url-password/">Ob&shy;fus&shy;cat&shy;ing Passwords in URLs in Python</a>.</p>
 
     <footer>
         
@@ -276,14 +276,14 @@ as <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class
     <p>I wanted to turn a list like
 <tt class="docutils literal"><span class="pre">['*.zip',</span> <span class="pre">'*.pyc',</span> <span class="pre">'*.log']</span></tt> into
 <tt class="docutils literal"><span class="pre">['--exclude',</span> <span class="pre">'*.zip',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.pyc',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.log']</span></tt>.</p>
-<p>A simple list com­pre­hen­sion doesn't work as desired:</p>
+<p>A simple list com&shy;pre&shy;hen&shy;sion doesn't work as desired:</p>
 <pre class="code python literal-block">
 <span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">excludes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">]</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">)]</span>
 </pre>
-<p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com­pre­hen­sion</a>:</p>
+<p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com&shy;pre&shy;hen&shy;sion</a>:</p>
 <pre class="code python literal-block">
 <span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="n">arg</span> <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">excludes</span>
              <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">pattern</span><span class="p">]]</span>
@@ -312,7 +312,7 @@ as <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class
         </h1>
     </header>
     <a class="reference external image-reference" href="http://cube-drone.com/comics/c/version-sacrifice"></a>
-<p>I worked on a Bash script today that sets up various pre­req­ui­sites for our build.
+<p>I worked on a Bash script today that sets up various pre&shy;req&shy;ui&shy;sites for our build.
 We need a recent version of Docker
 but our <a class="reference external" href="https://www.atlassian.com/software/bamboo/">Bamboo</a> build agents are running on Ubuntu 14.04,
 which has a very old version of Docker.
@@ -321,13 +321,13 @@ The script may be run more than once during the lifetime of the agent,
 so the second and subsequent calls should not upgrade Docker.</p>
 <p>Basically, I wanted</p>
 <pre class="code bash literal-block">
-<span class="k">if</span> <span class="nv">$DOCKER_VERSION</span> < <span class="m">1</span>.9<span class="p">;</span> <span class="k">then</span> upgrade_docker<span class="p">;</span> <span class="k">fi</span>
+<span class="k">if</span> <span class="nv">$DOCKER_VERSION</span> &lt; <span class="m">1</span>.9<span class="p">;</span> <span class="k">then</span> upgrade_docker<span class="p">;</span> <span class="k">fi</span>
 </pre>
-<p>Un­for­tu­nate­ly, it's not that easy in Bash.
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, it's not that easy in Bash.
 Here's what I came up with.</p>
 <pre class="code bash literal-block">
 install_latest_docker<span class="o">()</span> <span class="o">{</span>
-    <span class="k">if</span> docker --version <span class="p">|</span> python -c <span class="s2">"min=[1, 9]; import sys; ↩
+    <span class="k">if</span> docker --version <span class="p">|</span> python -c <span class="s2">&quot;min=[1, 9]; import sys; ↩
 v=[int(x) </span></pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
     <footer>
         
@@ -355,7 +355,7 @@ v=[int(x) </span></pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.ht
     </header>
     <p></p>
 <blockquote>
-[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://www.metabrite.com/devblog/posts/including-data-files-in-python-packages/">MetaBrite Dev Blog</a>.]</blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://www.metabrite.com/devblog/posts/including-data-files-in-python-packages/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>I spent some time today struggling with <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/">setuptools</a>,
 trying to make a Python source package
 not only include a data file,
@@ -367,25 +367,25 @@ but also <em>install</em> that file.</p>
 ├── MANIFEST.in
 ├── README.md
 ├── my_stuff/
-│   ├── bar.py
-│   ├── foo.py
-│   ├── __init__.py
-│   └── quux.py
+│&nbsp;&nbsp; ├── bar.py
+│&nbsp;&nbsp; ├── foo.py
+│&nbsp;&nbsp; ├── __init__.py
+│&nbsp;&nbsp; └── quux.py
 ├── models/
 │   └── long_ugly_name_20151221.json
 └── setup.py*
 </pre>
-<p>I wanted to create a Python source dis­tri­b­u­tion, <tt class="docutils literal"><span class="pre">some_­pack­age-N.N.N.tar.gz</span></tt>,
+<p>I wanted to create a Python source dis&shy;tri&shy;b&shy;u&shy;tion, <tt class="docutils literal"><span class="pre">some_&shy;pack&shy;age-N.N.N.tar.gz</span></tt>,
 which contains the code in the <tt class="docutils literal">my_stuff</tt> directory,
-as well as <tt class="docutils literal">models/long_ug­ly_­name_20151221.json</tt>,
+as well as <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>,
 using <tt class="docutils literal">python setup.py sdist</tt>.</p>
-<p>It's not that hard to get <tt class="docutils literal">models/long_ug­ly_­name_20151221.json</tt>
+<p>It's not that hard to get <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>
 included in the tarball.
 Add an entry in <tt class="docutils literal">MANIFEST.in</tt>:</p>
 <pre class="literal-block">
 include models/*.json
 </pre>
-<p>Then be sure to set <tt class="docutils literal">in­clude_­pack­age_­da­ta=True</tt>
+<p>Then be sure to set <tt class="docutils literal">in&shy;clude_&shy;pack&shy;age_&shy;da&shy;ta=True</tt>
 in the call to <tt class="docutils literal">setup()</tt>:</p>
 <pre class="code python literal-block">
 <span class="kn">from</span> <span class="nn">setuptools</span> </pre><span>&#8230;<a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" class="continue">continue</a>.</span></div>
@@ -413,24 +413,24 @@ in the call to <tt class="docutils literal">setup()</tt>:</p>
             <a href="/blog/2015/12/15/PythonFStrings.html" rel="bookmark canonical">Python f-strings</a>
         </h1>
     </header>
-    <p>At this month's <a class="reference external" href="http://www.meetup.com/PSPPython/">PuPPy (Puget Sound Pro­gram­ming Python) Meetup</a>,
+    <p>At this month's <a class="reference external" href="http://www.meetup.com/PSPPython/">PuPPy (Puget Sound Pro&shy;gram&shy;ming Python) Meetup</a>,
 I heard a brief mention of <a class="reference external" href="https://www.python.org/dev/peps/pep-0498/">Python f-strings</a>
 as a new feature coming in Python 3.6.</p>
 <p>In essence, they offer a simpler, more versatile method
-of string formatting and in­ter­po­la­tion
+of string formatting and in&shy;ter&shy;po&shy;la&shy;tion
 over existing methods.
 F-strings can include not only symbol names
-but Python <em>ex­pres­sions</em> within strings.
+but Python <em>ex&shy;pres&shy;sions</em> within strings.
 With <a class="reference external" href="https://docs.python.org/3/library/string.html#formatstrings">str.format</a>, you can write
 <tt class="docutils literal">'Hello, <span class="pre">{name}'.format(name=some_name)</span></tt>.
 You can control various aspects of how <tt class="docutils literal">name</tt> is formatted,
 such as being centered within a field—see <a class="reference external" href="https://pyformat.info/">PyFormat</a> and <a class="reference external" href="https://mkaz.github.io/2012/10/10/python-string-format/">Python String Format Cookbook</a>
-for ex­am­ples—but no more complex expression is allowed between the braces.</p>
-<p>Herewith some examples of f-string ex­pres­sions
+for ex&shy;am&shy;ples—but no more complex expression is allowed between the braces.</p>
+<p>Herewith some examples of f-string ex&shy;pres&shy;sions
 drawn from <a class="reference external" href="https://www.python.org/dev/peps/pep-0498/">PEP 0498</a>:</p>
 <pre class="code python literal-block">
-<span class="o">>>></span> <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1991</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-<span class="o">>>></span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1"> was on a </span></pre><span>&#8230;<a href="/blog/2015/12/15/PythonFStrings.html" class="continue">continue</a>.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1991</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1"> was on a </span></pre><span>&#8230;<a href="/blog/2015/12/15/PythonFStrings.html" class="continue">continue</a>.</span>
     <footer>
         
         

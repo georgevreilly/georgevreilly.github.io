@@ -41,18 +41,18 @@
 <p>I had a NameVal&shy;ueCol&shy;lec&shy;tion embedded inside a larger object.
 I needed to serialize the larger object into <span class="caps">XML</span> and back.
 Un&shy;for&shy;tu&shy;nate&shy;ly, NameVal&shy;ueCol&shy;lec&shy;tion is not <span class="caps">XML</span> se&shy;ri&shy;al&shy;iz&shy;able.
-Why I do not know.</p>
+Why I do not&nbsp;know.</p>
 <p>A blog comment from <a class="reference external" href="http://nayyeri.net/archive/2006/08/11/Serialize-NameValueCollection.aspx#72442">Tim Erwin</a> got me started in the right direction.
 Implement <tt class="docutils literal">IXmlSe&shy;ri&shy;al&shy;iz&shy;able</tt> and do the work by hand in
 <tt class="docutils literal">ReadXml</tt> and <tt class="docutils literal">WriteXml</tt>.</p>
-<p>Tim’s im&shy;ple&shy;men&shy;ta&shy;tion turned out to be overly simple.
-It didn’t handle an empty collection well,
-nor did it leave the <tt class="docutils literal">XmlReader</tt> in a good state.</p>
+<p>Tim&#8217;s im&shy;ple&shy;men&shy;ta&shy;tion turned out to be overly simple.
+It didn&#8217;t handle an empty collection well,
+nor did it leave the <tt class="docutils literal">XmlReader</tt> in a good&nbsp;state.</p>
 <p>I used <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/bk3w6240(vs.80).aspx">SGen</a> to examine the de&shy;se&shy;ri&shy;al&shy;iza&shy;tion of a
-<tt class="docutils literal">List<String></tt> to figure out what else needed to be done.</p>
+<tt class="docutils literal">List&lt;String&gt;</tt> to figure out what else needed to be&nbsp;done.</p>
 <p>The following <tt class="docutils literal">ReadXml</tt> seems to work.
 If I expected to receive <span class="caps">XML</span> from untrusted sources,
-I would make this more robust.</p>
+I would make this more&nbsp;robust.</p>
 <pre class="code csharp literal-block">
 <span class="k">public</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">ReadXml</span><span class="p">(</span><span class="n">XmlReader</span><span class="w"> </span><span class="n">reader</span><span class="p">)</span><span class="w">
 </span><span class="p">{</span><span class="w">
@@ -60,14 +60,14 @@ I would make this more robust.</p>
         </span><span class="k">return</span><span class="p">;</span><span class="w">
 
     </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">Read</span><span class="p">()</span><span class="w">
-        </span><span class="p">&&</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span><span class="w"> </span><span class="p">!=</span><span class="w"> </span><span class="n">XmlNodeType</span><span class="p">.</span><span class="n">EndElement</span><span class="w">
-        </span><span class="p">&&</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span><span class="w"> </span><span class="p">!=</span><span class="w"> </span><span class="n">XmlNodeType</span><span class="p">.</span><span class="n">None</span><span class="p">)</span><span class="w">
+        </span><span class="p">&amp;&amp;</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span><span class="w"> </span><span class="p">!=</span><span class="w"> </span><span class="n">XmlNodeType</span><span class="p">.</span><span class="n">EndElement</span><span class="w">
+        </span><span class="p">&amp;&amp;</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span><span class="w"> </span><span class="p">!=</span><span class="w"> </span><span class="n">XmlNodeType</span><span class="p">.</span><span class="n">None</span><span class="p">)</span><span class="w">
     </span><span class="p">{</span><span class="w">
-        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">XmlNodeType</span><span class="p">.</span><span class="n">Element</span><span class="w"> </span><span class="p">&&</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">LocalName</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">"Header"</span><span class="p">)</span><span class="w">
+        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">XmlNodeType</span><span class="p">.</span><span class="n">Element</span><span class="w"> </span><span class="p">&amp;&amp;</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">LocalName</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">&quot;Header&quot;</span><span class="p">)</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="n">reader</span><span class="p">.</span><span class="n">MoveToAttribute</span><span class="p">(</span><span class="s">"name"</span><span class="p">);</span><span class="w">
+            </span><span class="n">reader</span><span class="p">.</span><span class="n">MoveToAttribute</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">);</span><span class="w">
             </span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span><span class="w">
-            </span><span class="n">reader</span><span class="p">.</span><span class="n">MoveToAttribute</span><span class="p">(</span><span class="s">"value"</span><span class="p">);</span><span class="w">
+            </span><span class="n">reader</span><span class="p">.</span><span class="n">MoveToAttribute</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">);</span><span class="w">
             </span><span class="kt">string</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span><span class="w">
             </span><span class="n">Add</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">value</span><span class="p">);</span><span class="w">
         </span><span class="p">}</span><span class="w">
@@ -79,10 +79,10 @@ I would make this more robust.</p>
 </span><span class="p">{</span><span class="w">
    </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">nvc</span><span class="p">.</span><span class="n">Keys</span><span class="p">)</span><span class="w">
    </span><span class="p">{</span><span class="w">
-       </span><span class="n">writer</span><span class="p">.</span><span class="n">WriteStartElement</span><span class="p">(</span><span class="s">"Header"</span><span class="p">);</span><span class="w">
+       </span><span class="n">writer</span><span class="p">.</span><span class="n">WriteStartElement</span><span class="p">(</span><span class="s">&quot;Header&quot;</span><span class="p">);</span><span class="w">
        </span><span class="kt">string</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">nvc</span><span class="p">[</span><span class="n">name</span><span class="p">];</span><span class="w">
-       </span><span class="n">writer</span><span class="p">.</span><span class="n">WriteAttributeString</span><span class="p">(</span><span class="s">"name"</span><span class="p">,</span><span class="w">  </span><span class="n">name</span><span class="p">);</span><span class="w">
-       </span><span class="n">writer</span><span class="p">.</span><span class="n">WriteAttributeString</span><span class="p">(</span><span class="s">"value"</span><span class="p">,</span><span class="w"> </span><span class="k">value</span><span class="p">);</span><span class="w">
+       </span><span class="n">writer</span><span class="p">.</span><span class="n">WriteAttributeString</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span><span class="w">  </span><span class="n">name</span><span class="p">);</span><span class="w">
+       </span><span class="n">writer</span><span class="p">.</span><span class="n">WriteAttributeString</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">value</span><span class="p">);</span><span class="w">
        </span><span class="n">writer</span><span class="p">.</span><span class="n">WriteEndElement</span><span class="p">();</span><span class="w">
    </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -94,7 +94,7 @@ I would make this more robust.</p>
 </pre>
 <p>I also found that I needed to implement custom <tt class="docutils literal">Equals</tt>
 and <tt class="docutils literal">GetH&shy;ash&shy;Code</tt>, as the <tt class="docutils literal">NameVal&shy;ueCol&shy;lec&shy;tion</tt>
-im&shy;ple&shy;men&shy;ta&shy;tions didn’t seem to do what I wanted.</p>
+im&shy;ple&shy;men&shy;ta&shy;tions didn&#8217;t seem to do what I&nbsp;wanted.</p>
 <pre class="code csharp literal-block">
 <span class="c1">// Have to override GetHashCode() as two apparently identical NameValueCollections
 // will have different hash codes.

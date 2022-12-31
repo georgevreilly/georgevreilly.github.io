@@ -34,7 +34,7 @@
             <a href="/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html" rel="bookmark canonical">Accidentally Quadratic: Python List Membership</a>
         </h1>
     </header>
-    <p>We had a per­for­mance regression in a test suite recently
+    <p>We had a per&shy;for&shy;mance regression in a test suite recently
 when the median test time jumped by two minutes.</p>
 <a class="reference external image-reference" href="https://www.bigocheatsheet.com/"></a>
 <p>We tracked it down to this (simplified) code fragment:</p>
@@ -43,10 +43,10 @@ when the median test time jumped by two minutes.</p>
 <span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span>
                  <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
 </pre>
-<p>This looks fairly in­nocu­ous—and it was—until the size of the result returned from <tt class="docutils literal">some_­col­lec­tion_of_­tasks()</tt>
+<p>This looks fairly in&shy;nocu&shy;ous—and it was—until the size of the result returned from <tt class="docutils literal">some_&shy;col&shy;lec&shy;tion_of_&shy;tasks()</tt>
 jumped from a few hundred to a few thousand.</p>
-<p>The <a class="reference external" href="https://docs.python.org/3/reference/expressions.html#membership-test-operations">in comparison operator</a> con­ve­nient­ly works
-with all of Python's standard sequences and col­lec­tions,
+<p>The <a class="reference external" href="https://docs.python.org/3/reference/expressions.html#membership-test-operations">in comparison operator</a> con&shy;ve&shy;nient&shy;ly works
+with all of Python's standard sequences and col&shy;lec&shy;tions,
 but its efficiency varies.
 For a <tt class="docutils literal">list</tt> and other sequences,
 <tt class="docutils literal">in</tt> must search <span>&#8230;<a href="/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html" class="continue">continue</a>.</span></p>
@@ -74,24 +74,24 @@ For a <tt class="docutils literal">list</tt> and other sequences,
             <a href="/blog/2017/02/21/OrderedDictInitialization.html" rel="bookmark canonical">OrderedDict Initialization</a>
         </h1>
     </header>
-    <p>An <a class="reference external" href="https://docs.python.org/2/library/collections.html#collections.OrderedDict">Or­dered­Dict</a> is a Python <tt class="docutils literal">dict</tt> which remembers insertion order.
-When iterating over an <tt class="docutils literal">Or­dered­Dict</tt>, items are returned in that order.
-Ordinary <tt class="docutils literal">dicts</tt> return their items in an un­spec­i­fied order.</p>
-<p>Ironically, most of the ways of con­struct­ing an ini­tial­ized <tt class="docutils literal">Or­dered­Dict</tt>
+    <p>An <a class="reference external" href="https://docs.python.org/2/library/collections.html#collections.OrderedDict">Or&shy;dered&shy;Dict</a> is a Python <tt class="docutils literal">dict</tt> which remembers insertion order.
+When iterating over an <tt class="docutils literal">Or&shy;dered&shy;Dict</tt>, items are returned in that order.
+Ordinary <tt class="docutils literal">dicts</tt> return their items in an un&shy;spec&shy;i&shy;fied order.</p>
+<p>Ironically, most of the ways of con&shy;struct&shy;ing an ini&shy;tial&shy;ized <tt class="docutils literal">Or&shy;dered&shy;Dict</tt>
 end up breaking the ordering in Python 2.x and in Python 3.5 and below.
-Specif­i­cal­ly, using keyword arguments or passing a <tt class="docutils literal">dict</tt> (mapping)
+Specif&shy;i&shy;cal&shy;ly, using keyword arguments or passing a <tt class="docutils literal">dict</tt> (mapping)
 will not retain the insertion order of the source code.</p>
 <pre class="code pycon literal-block">
 <span class="go">Python 2.7.13 (default, Dec 18 2016, 07:03:39)
-</span><span class="gp">>>> </span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+</span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="go">
-</span><span class="gp">>>> </span><span class="n">odict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-<span class="gp">>>> </span><span class="n">odict</span><span class="p">[</span><span class="s1">'one'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="gp">>>> </span><span class="n">odict</span><span class="p">[</span><span class="s1">'two'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="gp">>>> </span><span class="n">odict</span><span class="p">[</span><span class="s1">'three'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="gp">>>> </span><span class="n">odict</span><span class="p">[</span><span class="s1">'four'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="gp">>>> </span><span class="n">odict</span><span class="p">[</span><span class="s1">'five'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="gp">>>> </span><span class="n">odict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'one'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'two'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'three'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'four'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'five'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
 <span class="go">[('one', 1), ('two', 2), ('three', </span></pre><span>&#8230;<a href="/blog/2017/02/21/OrderedDictInitialization.html" class="continue">continue</a>.</span>
     <footer>
         
@@ -126,7 +126,7 @@ I added a non-NULL Boolean <tt class="docutils literal">stooge</tt> column to th
 with a default value of <tt class="docutils literal">FALSE</tt>.
 I wanted to update certain rows to have <tt class="docutils literal">stooge=TRUE</tt> as part of the migration.
 The following works with PostgreSQL.</p>
-<p>Note the <tt class="docutils literal">server_de­fault=sa.false()</tt> in the de­c­la­ra­tion of the <tt class="docutils literal">stooge</tt> column,
+<p>Note the <tt class="docutils literal">server_de&shy;fault=sa.false()</tt> in the de&shy;c&shy;la&shy;ra&shy;tion of the <tt class="docutils literal">stooge</tt> column,
 which is needed to initially set all instances of <tt class="docutils literal">stooge=FALSE</tt>.
 I then declare a <tt class="docutils literal">table</tt> which has only the <span>&#8230;<a href="/blog/2016/09/06/AlembicDataMigrations.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -153,7 +153,7 @@ I then declare a <tt class="docutils literal">table</tt> which has only the <spa
             <a href="/blog/2016/08/06/Rounding.html" rel="bookmark canonical">Rounding</a>
         </h1>
     </header>
-    <p>I recently learned from a <a class="reference external" href="http://stackoverflow.com/questions/10825926/python-3-x-rounding-behavior">Stack­Over­flow question</a>
+    <p>I recently learned from a <a class="reference external" href="http://stackoverflow.com/questions/10825926/python-3-x-rounding-behavior">Stack&shy;Over&shy;flow question</a>
 that the rounding behavior in Python 3.x is different from Python 2.x:</p>
 <blockquote>
 The round() function rounding strategy and return type have changed.
@@ -237,9 +237,9 @@ The “nearest even” strategy is also known as “banker’s rounding”.</p>
             <a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" rel="bookmark canonical">SQLAlchemy got me Killed</a>
         </h1>
     </header>
-    <p>I ran a script this afternoon that died mys­te­ri­ous­ly without any output.
+    <p>I ran a script this afternoon that died mys&shy;te&shy;ri&shy;ous&shy;ly without any output.
 It was using <a class="reference external" href="http://www.sqlalchemy.org/">SQLAlchemy</a> to query all the rows from a large table
-so that they could be trans­formed into <a class="reference external" href="http://jsonlines.org/">JSON Lines</a> to be loaded into Elas­tic­search.
+so that they could be trans&shy;formed into <a class="reference external" href="http://jsonlines.org/">JSON Lines</a> to be loaded into Elas&shy;tic&shy;search.
 When I reran my script,
 I noticed this time that something had printed <tt class="docutils literal">Killed</tt> at the very end.</p>
 <p>A little research convinced me that the <a class="reference external" href="http://stackoverflow.com/questions/726690/who-killed-my-process-and-why">OOM Killer</a> was the likely assassin.
@@ -287,7 +287,7 @@ regardless of platform, so <tt class="docutils literal">posixpath.join</tt> shou
 
 <span class="k">def</span> <span class="nf">test_join</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"'</span><span class="si">{0}</span><span class="s2">' + '</span><span class="si">{1}</span><span class="s2">'</span><span class="se">\n\t</span><span class="s2">-> '</span><span class="si">{2}</span><span class="s2">'"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;'</span><span class="si">{0}</span><span class="s2">' + '</span><span class="si">{1}</span><span class="s2">'</span><span class="se">\n\t</span><span class="s2">-&gt; '</span><span class="si">{2}</span><span class="s2">'&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">result</span>
 
 <span class="n">local_path</span> <span class="o">=</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="s1">'2016'</span><span class="p">,</span> <span class="s1">'07'</span><span class="p">,</span> <span class="s1">'12'</span><span class="p">,</span> <span class="s1">'release'</span><span class="p">,</span> <span class="s1">'index.html'</span><span class="p">)</span>
@@ -330,9 +330,9 @@ where the best practice is to use <tt class="docutils literal">%s</tt> and <tt c
 Why?
 First, <tt class="docutils literal">%s</tt> is the idiomatic way to use <tt class="docutils literal">logging</tt>,
 which was built years before <tt class="docutils literal">format</tt> was introduced.
-Second, if there's a literal <tt class="docutils literal">%</tt> in the in­ter­po­lat­ed values,
+Second, if there's a literal <tt class="docutils literal">%</tt> in the in&shy;ter&shy;po&shy;lat&shy;ed values,
 <tt class="docutils literal">logging</tt> will be unhappy,
-since there won't be cor­re­spond­ing arguments in the call.
+since there won't be cor&shy;re&shy;spond&shy;ing arguments in the call.
 It won't fall over, since
 “The logging package is designed to swallow exceptions which occur while logging in production.
 This is so that errors which occur while handling logging <span>&#8230;<a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" class="continue">continue</a>.</span></p>
@@ -359,10 +359,10 @@ This is so that errors which occur while handling logging <span>&#8230;<a href="
     </header>
     <p>Yesterday, while at PyCon,
 I whipped up a quick, brute-force answer
-to the <a class="reference external" href="https://github.com/housecanary/PyCon2016">House­Ca­nary PyCon2016 Progamming Challenge</a>
+to the <a class="reference external" href="https://github.com/housecanary/PyCon2016">House&shy;Ca&shy;nary PyCon2016 Progamming Challenge</a>
 in a few minutes.
 That was sufficient to pass the first two test cases
-and win me a very pretty House­Ca­nary t-shirt.</p>
+and win me a very pretty House&shy;Ca&shy;nary t-shirt.</p>
 <p>The answer ran in <em>O(n⁴)</em> time, so it failed miserably on the larger problem sets
 in the third and fourth cases.
 I mulled it over and came up with an <em>O(n²)</em> solution that runs in reasonable time
@@ -393,8 +393,8 @@ I'll learn on Monday if I won the speed challenge.</p>
         </h1>
     </header>
     <a class="reference external image-reference" href="http://flyingcloud.readthedocs.io/"></a>
-<p>I made a number of updates to the <a class="reference external" href="http://flyingcloud.readthedocs.io/">Fly­ing­Cloud Doc­u­men­ta­tion</a> tonight.
-I hope to give a lightning talk about Fly­ing­Cloud
+<p>I made a number of updates to the <a class="reference external" href="http://flyingcloud.readthedocs.io/">Fly&shy;ing&shy;Cloud Doc&shy;u&shy;men&shy;ta&shy;tion</a> tonight.
+I hope to give a lightning talk about Fly&shy;ing&shy;Cloud
 at PyCon on Monday evening or Tuesday morning,
 and I put together some slides for that too.</p>
 
@@ -426,11 +426,11 @@ and I put together some slides for that too.</p>
 as it's Python 3–ready
 <tt class="docutils literal">io.StringIO</tt> is also a <a class="reference external" href="https://docs.python.org/2/reference/datamodel.html#context-managers">context manager</a>:
 if you use it in a <tt class="docutils literal">with</tt> statement,
-the string buffer is au­to­mat­i­cal­ly <tt class="docutils literal">close</tt>d as you go out of scope.</p>
+the string buffer is au&shy;to&shy;mat&shy;i&shy;cal&shy;ly <tt class="docutils literal">close</tt>d as you go out of scope.</p>
 <p>I tried using <tt class="docutils literal">io.StringIO</tt> with <a class="reference external" href="https://github.com/jdunck/python-unicodecsv">unicodecsv</a>,
 as I wanted to capture the CSV output into a string buffer
 for use with unit tests.
-<tt class="docutils literal">unicodecsv</tt> is a drop-in re­place­ment for Python's built-in <tt class="docutils literal">csv</tt> module,
+<tt class="docutils literal">unicodecsv</tt> is a drop-in re&shy;place&shy;ment for Python's built-in <tt class="docutils literal">csv</tt> module,
 which supports Unicode strings.</p>
 <pre class="code python literal-block">
 <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>

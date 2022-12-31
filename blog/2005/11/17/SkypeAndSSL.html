@@ -38,15 +38,15 @@
     </header>
     <p>A year ago, I ran into a problem with <a class="reference external" href="http://weblogs.asp.net/george_v_reilly/archive/2004/09/15/230281.aspx">Skype squatting on port 80</a>,
 which I had long forgotten about.
-Today, I ran into one with Skype squatting on port 443.</p>
+Today, I ran into one with Skype squatting on port&nbsp;443.</p>
 <p>I was trying to set up <span class="caps">SSL</span> on my Windows Server 2003 dev box.
 My ultimate goal is to experiment with client certs and server certs for <span class="caps">SOAP</span>,
-but that’s a story for another time.
+but that&#8217;s a story for another time.
 I was running into all kinds of strange problems,
-ex&shy;ac&shy;er&shy;bat&shy;ed by the relatively strange <span class="caps">IIS</span> con&shy;fig&shy;u&shy;ra&shy;tion on my machine.</p>
+ex&shy;ac&shy;er&shy;bat&shy;ed by the relatively strange <span class="caps">IIS</span> con&shy;fig&shy;u&shy;ra&shy;tion on my&nbsp;machine.</p>
 <p>I tried <a class="reference external" href="https://www.iis.net/downloads/community/2009/09/ssl-diagnostics-tool-for-iis-7">SslDiag</a>.
 In hindsight, it pointed me towards the underlying problem,
-but I couldn’t see it at the time.
+but I couldn&#8217;t see it at the time.
 I did a lot of digging around on Google.
 Eventually, a <a class="reference external" href="http://www.issociate.de/board/goto/1018679/server2003_and_default_website.html%23msg_1018679">newsgroup thread</a> on Lis&shy;tenOn&shy;lyList gave me <a class="reference external" href="http://www.nirsoft.net/utils/cports.html">CurrPorts</a>,
 which showed me that Skype was listening on port 443.
@@ -54,7 +54,7 @@ I suppose <tt class="docutils literal">netstat <span class="pre">-anob</span></t
 would have told me the same thing,
 though CurrPorts had the friend&shy;liest view.
 WFetch from the <a class="reference external" href="http://www.microsoft.com/technet/prodtechnol/WindowsServer2003/Library/IIS/993a8a36-5761-448f-889e-9ae58d072c09.mspx"><span class="caps">IIS</span> 6 Resource Kit Tools</a> was also useful
-in looking at raw requests and responses.</p>
+in looking at raw requests and&nbsp;responses.</p>
 
     <footer>
         

@@ -36,88 +36,88 @@
             <a href="/blog/2005/06/16/XMLScriptsForTheTheatre.html" rel="bookmark canonical">XML Scripts -- For the Theater</a>
         </h1>
     </header>
-    <p>For the last three years, I’ve been involved with
+    <p>For the last three years, I&#8217;ve been involved with
 <a class="reference external" href="http://www.wildgeeseseattle.org/">The Wild Geese Players of Seattle</a>,
 an amateur group that does readings of Irish literature,
-par&shy;tic&shy;u&shy;lar&shy;ly the works of James Joyce and W.B. Yeats.
+par&shy;tic&shy;u&shy;lar&shy;ly the works of James Joyce and W.B.&nbsp;Yeats.
 Our big event every year is <a class="reference external" href="http://en.wikipedia.org/wiki/Bloomsday">Bloomsday</a>,
-June 16th, com&shy;mem&shy;o&shy;rat&shy;ing Joyce’s Ulysses,
+June 16th, com&shy;mem&shy;o&shy;rat&shy;ing Joyce&#8217;s Ulysses,
 which takes place on June 16th, 1904.
-It’s a tale of a Jewish everyman, Leopold Bloom,
+It&#8217;s a tale of a Jewish everyman, Leopold Bloom,
 wandering through Dublin one day,
-and of the young writer (and Joyce’s alter ego), Stephen Dedalus.
-We’re working our way through the book,
+and of the young writer (and Joyce&#8217;s alter ego), Stephen Dedalus.
+We&#8217;re working our way through the book,
 reading a chapter or two each year.
-In this, our eighth year, we’ll be reading Chapter 11, <a class="reference external" href="http://www.wildgeeseseattle.org/Joyce/Bloomsday/2005.html">Sirens</a>,
+In this, our eighth year, we&#8217;ll be reading Chapter&nbsp;11, <a class="reference external" href="http://www.wildgeeseseattle.org/Joyce/Bloomsday/2005.html">Sirens</a>,
 at the Brechemin Auditorium in the School of Music
 at the University of Washington, on Thursday 16th and Saturday 18th.
 Con&shy;gress&shy;man Jim McDermott will be reading
-the part of Bloom on the Saturday.</p>
+the part of Bloom on the&nbsp;Saturday.</p>
 <p>Last year and this year, I have been the assistant dramaturge,
 helping to turn chapters into a script to be read by 15-20 readers.
 In previous years, the director made a photocopy of the book,
-wrote at&shy;tri&shy;bu&shy;tions ("Narrator 1", "Bloom", "Stephen", etc)
+wrote at&shy;tri&shy;bu&shy;tions (&quot;Narrator&nbsp;1&quot;, &quot;Bloom&quot;, &quot;Stephen&quot;, etc)
 on the paper, then pho&shy;to&shy;copied that text and handed it out to the readers.
 Since the script was a moving target,
 everyone ended up with a set of scruffy, tatty,
 in&shy;con&shy;sis&shy;tent&shy;ly hand-annotated sheets.
-It was a mess.</p>
+It was a&nbsp;mess.</p>
 <p>I knew there had to be a better way.
-Now, we’ve adapted the <a class="reference external" href="http://www.gutenberg.org/etext/4300">etext</a>
+Now, we&#8217;ve adapted the <a class="reference external" href="http://www.gutenberg.org/etext/4300">etext</a>
 of the 1922 Paris Edition, prepared by <a class="reference external" href="http://www.gutenberg.org/">Project Gutenberg</a>,
 which saves a lot of typing.
 The script is marked up in <span class="caps">XML</span> and styled with <span class="caps">XSLT</span>
 to produce an <span class="caps">HTML</span> page.
 After a rehearsal or two,
-when it’s apparent that the script isn’t quite right,
-it’s an easy matter to make a few changes,
-render fresh <span class="caps">HTML</span>, and print new scripts.</p>
+when it&#8217;s apparent that the script isn&#8217;t quite right,
+it&#8217;s an easy matter to make a few changes,
+render fresh <span class="caps">HTML</span>, and print new&nbsp;scripts.</p>
 <p>The <span class="caps">XSLT</span> required is fairly straight&shy;for&shy;ward.
 About the only mildly in&shy;ter&shy;est&shy;ing thing is defining
 one template in terms of another;
 e.g., I want all the speakers to share the same styling,
 so I defined a pa&shy;ra&shy;me&shy;ter&shy;ized <tt class="docutils literal">speaker</tt> template:</p>
 <pre class="code xslt literal-block">
-<span class="k"><xsl:template</span> <span class="na">name=</span><span class="s">"speaker"</span><span class="nt">></span>
-    <span class="k"><xsl:param</span> <span class="na">name=</span><span class="s">"name"</span> <span class="nt">/></span>
-    <span class="nt"><div</span> <span class="na">class=</span><span class="s">"speaker"</span><span class="nt">></span>
-        <span class="nt"><span</span> <span class="na">class=</span><span class="s">"speaker"</span><span class="nt">></span><span class="k"><xsl:value-of</span> <span class="na">select=</span><span class="s">"$name"</span><span class="nt">/></span>: <span class="nt"></span></span>
-        <span class="k"><xsl:apply-templates</span> <span class="nt">/></span>
-    <span class="nt"></div></span>
-<span class="k"></xsl:template></span>
+<span class="k">&lt;xsl:template</span> <span class="na">name=</span><span class="s">&quot;speaker&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;speaker&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;speaker&quot;</span><span class="nt">&gt;</span><span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$name&quot;</span><span class="nt">/&gt;</span>: <span class="nt">&lt;/span&gt;</span>
+        <span class="k">&lt;xsl:apply-templates</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
 </pre>
-<p>which is called thus:</p>
+<p>which is called&nbsp;thus:</p>
 <pre class="code xslt literal-block">
-<span class="k"><xsl:template</span> <span class="na">match=</span><span class="s">"bloom"</span><span class="nt">></span>
-    <span class="k"><xsl:call-template</span> <span class="na">name=</span><span class="s">"speaker"</span><span class="nt">></span>
-        <span class="k"><xsl:with-param</span> <span class="na">name=</span><span class="s">"name"</span><span class="nt">></span>Bloom<span class="k"></xsl:with-param></span>
-    <span class="k"></xsl:call-template></span>
-<span class="k"></xsl:template></span>
+<span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;bloom&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;speaker&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span><span class="nt">&gt;</span>Bloom<span class="k">&lt;/xsl:with-param&gt;</span>
+    <span class="k">&lt;/xsl:call-template&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
 </pre>
 <p>The <em>real</em> challenge in preparing the script is dra&shy;matur&shy;gi&shy;cal.
 <em>Ulysses</em> is a no&shy;to&shy;ri&shy;ous&shy;ly difficult and dense text,
-woven through with Bloom’s stream-of-con&shy;scious&shy;ness interior monologue.
+woven through with Bloom&#8217;s stream-of-con&shy;scious&shy;ness interior monologue.
 Each chapter is written in a different style.
 Sirens, for example, has musical themes running through it,
-and we’ll be ac&shy;com&shy;pa&shy;nied by a piano player this year.</p>
-<p>What would you do with this?</p>
+and we&#8217;ll be ac&shy;com&shy;pa&shy;nied by a piano player this&nbsp;year.</p>
+<p>What would you do with&nbsp;this?</p>
 <blockquote>
-Bloom heard a jing, a little sound. He’s off. Light sob of breath Bloom
-sighed on the silent bluehued flowers. Jingling. He’s gone. Jingle. Hear.</blockquote>
-<p>Here’s what we came up with:</p>
+Bloom heard a jing, a little sound. He&#8217;s off. Light sob of breath Bloom
+sighed on the silent bluehued flowers. Jingling. He&#8217;s gone. Jingle. Hear.</blockquote>
+<p>Here&#8217;s what we came up&nbsp;with:</p>
 <b>N1:</b> Bloom heard a jing, a little sound.<br>
-<b>Bloom:</b> He’s off.<br>
+<b>Bloom:</b> He&#8217;s off.<br>
 <b>N1:</b> Light sob of breath Bloom sighed on the silent bluehued flowers.
            Jingling.<br>
-<b>Bloom:</b> He’s gone.<br>
+<b>Bloom:</b> He&#8217;s gone.<br>
 <b>N1:</b> Jingle.<br>
-<b>Bloom:</b> Hear.<p>Or with this paragraph?</p>
+<b>Bloom:</b> Hear.<p>Or with this&nbsp;paragraph?</p>
 <blockquote>
-–Yes, Mr Bloom said, teasing the curling catgut line. It certainly is.
+&#8211;Yes, Mr Bloom said, teasing the curling catgut line. It certainly is.
 Few lines will do. My present. All that Italian florid music is. Who is
 this wrote? Know the name you know better. Take out sheet notepaper,
-envelope: un&shy;con&shy;cerned. It’s so char&shy;ac&shy;ter&shy;is&shy;tic.</blockquote>
-<p>We chose this:</p>
+envelope: un&shy;con&shy;cerned. It&#8217;s so char&shy;ac&shy;ter&shy;is&shy;tic.</blockquote>
+<p>We chose&nbsp;this:</p>
 <b>Bloom (Aloud):</b> Yes.<br>
 <b>N1:</b> Mr Bloom said, teasing the curling catgut line.<br>
 <b>Bloom (Aloud):</b> It certainly is.<br>
@@ -125,14 +125,14 @@ envelope: un&shy;con&shy;cerned. It’s so char&shy;ac&shy;ter&shy;is&shy;tic.</
 <b>Bloom (Aloud):</b> All that Italian florid music is.<br>
 <b>Bloom:</b> Who is this wrote? Know the name you know better.
               Take out sheet notepaper, envelope: un&shy;con&shy;cerned.<br>
-<b>Bloom (Aloud):</b> It’s so char&shy;ac&shy;ter&shy;is&shy;tic.<p>We ended up with three narrators in this chapter:
+<b>Bloom (Aloud):</b> It&#8217;s so char&shy;ac&shy;ter&shy;is&shy;tic.<p>We ended up with three narrators in this chapter:
 N1 deals with Bloom, primarily;
 N2 is mostly for Miss Douce and Miss Kennedy, the siren barmaids;
-and N3 handles the other characters.</p>
+and N3 handles the other&nbsp;characters.</p>
 <p>Lest I scare you off, much of the chapter is quite clear
-and often very funny, even for people who are unfamiliar with the book.</p>
+and often very funny, even for people who are unfamiliar with the&nbsp;book.</p>
 <p>The <a class="reference external" href="http://www.robotwisdom.com/jaj/portal.html">James Joyce Portal</a>
-is a good starting point for matters Joycean.</p>
+is a good starting point for matters&nbsp;Joycean.</p>
 
     <footer>
         

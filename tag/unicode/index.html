@@ -39,21 +39,21 @@ just fixed an actively exploited path traversal flaw.</p>
 <blockquote class="twitter-tweet">
 <p lang="en" dir="ltr">
 🚨 Apache has disclosed an *actively exploited* Path traversal flaw
-in the <a href="https://twitter.com/hashtag/opensource?src=hash&amp;ref_src=twsrc%5Etfw">#open­source</a>
-"httpd" server.
+in the <a href="https://twitter.com/hashtag/opensource?src=hash&amp;ref_src=twsrc%5Etfw">#open&shy;source</a>
+&quot;httpd&quot; server.
 Over 112,000 exposed Apache servers run version 2.4.49,
 and should be upgraded now!<br>
 New fix checks for encoded path traversal characters
 e.g. /../.%2E/<a href="https://t.co/1tLNc3LAul">https://t.co/1tLNc3LAul</a>
 <a href="https://t.co/mDHLEU3k9N">pic.twitter.com/mDHLEU3k9N</a>
-</br>— Ax Sharma (@Ax_Sharma)
+</br>&mdash; Ax Sharma (@Ax_Sharma)
 <a href="https://twitter.com/Ax_Sharma/status/1445391350053183500?ref_src=twsrc%5Etfw">October 5, 2021</a>
 </p>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><p>Apparently, it was <a class="reference external" href="https://github.com/apache/httpd/commit/4c79fd280dfa3eede5a6f3baebc7ef2e55b3eb6a">introduced over a year ago</a>.</p>
 <p>I'm gobsmacked that Apache didn't have a robust suite of tests for this.</p>
 <p>Directory Traversal attacks have been a problem for web servers
 since the beginning.
-<a class="reference external" href="https://owasp.org/www-community/attacks/Path_Traversal">OWASP</a>, <a class="reference external" href="https://portswigger.net/web-security/file-path-traversal">PortSwig­ger</a>, and <a class="reference external" href="https://spanning.com/blog/directory-traversal-web-based-application-security-part-8/">Spanning</a> all have ex­pla­na­tions that you can read.
+<a class="reference external" href="https://owasp.org/www-community/attacks/Path_Traversal">OWASP</a>, <a class="reference external" href="https://portswigger.net/web-security/file-path-traversal">PortSwig&shy;ger</a>, and <a class="reference external" href="https://spanning.com/blog/directory-traversal-web-based-application-security-part-8/">Spanning</a> all have ex&shy;pla&shy;na&shy;tions that you can read.
 The essence is that you make <span>&#8230;<a href="/blog/2021/10/05/PathTraversalAttacks.html" class="continue">continue</a>.</span></p></blockquote>
     <footer>
         
@@ -82,7 +82,7 @@ The essence is that you make <span>&#8230;<a href="/blog/2021/10/05/PathTraversa
     </header>
     <p>During an internal training exercise today,
 as a sort of one-man <a class="reference external" href="https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey">Chaos Monkey</a>,
-I de­lib­er­ate­ly broke a test system by changing a config setting to read:</p>
+I de&shy;lib&shy;er&shy;ate&shy;ly broke a test system by changing a config setting to read:</p>
 <pre class="literal-block">
 itemfinder.url = http://test-іtemfinder.example.com/
 </pre>
@@ -93,11 +93,11 @@ itemfinder.url = http://test-itemfinder.example.com/
 <p>What's that, you say? There's no difference, you say?</p>
 <p>There <em>is</em> a difference, but it's subtle.
 The first <tt class="docutils literal">i</tt> in the URL is
-<a class="reference external" href="http://www.fileformat.info/info/unicode/char/0456/index.htm">'CYRILLIC SMALL LETTER BYELORUSS­IAN-UKRAINIAN I' (U+0456)</a>,
+<a class="reference external" href="http://www.fileformat.info/info/unicode/char/0456/index.htm">'CYRILLIC SMALL LETTER BYELORUSS&shy;IAN-UKRAINIAN I' (U+0456)</a>,
 not <a class="reference external" href="http://www.fileformat.info/info/unicode/char/0069/index.htm">'LATIN SMALL LETTER I' (U+0069)</a>.
-Depending upon the font, the two <tt class="docutils literal">i</tt>s may be visually in­dis­tin­guish­able,
+Depending upon the font, the two <tt class="docutils literal">i</tt>s may be visually in&shy;dis&shy;tin&shy;guish&shy;able,
 very similar looking, or the Cyrillic <tt class="docutils literal">i</tt> may not render.</p>
-<p>This is an example of an <a class="reference external" href="https://en.wikipedia.org/wiki/IDN_homograph_attack">In­ter­na­tion­al Domain Name Homograph Attack</a>.
+<p>This is an example of an <a class="reference external" href="https://en.wikipedia.org/wiki/IDN_homograph_attack">In&shy;ter&shy;na&shy;tion&shy;al Domain Name Homograph Attack</a>.
 There are Greek letters and Cyrillic letters that look <span>&#8230;<a href="/blog/2016/08/26/HomographAttacks.html" class="continue">continue</a>.</span></p>
     <footer>
         
@@ -123,12 +123,12 @@ There are Greek letters and Cyrillic letters that look <span>&#8230;<a href="/bl
             <a href="/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html" rel="bookmark canonical">Unicode Upside-Down Mapping, Part 2</a>
         </h1>
     </header>
-    <p><a class="reference external" href="/blog/2016/02/11/UnicodeUpsideDownMapping.html">Yesterday</a> I showed File­For­mat's <a class="reference external" href="http://www.fileformat.info/convert/text/upside-down.htm">ɹǝʇɹǝʌuoↃ uʍo◖-ǝpısd∩ ǝpoɔıu∩</a>.
+    <p><a class="reference external" href="/blog/2016/02/11/UnicodeUpsideDownMapping.html">Yesterday</a> I showed File&shy;For&shy;mat's <a class="reference external" href="http://www.fileformat.info/convert/text/upside-down.htm">ɹǝʇɹǝʌuoↃ uʍo◖-ǝpısd∩ ǝpoɔıu∩</a>.
 Although the lowercase letters generally looked good,
-several of the uppercase letters and numerals were un­sat­is­fac­to­ry.
+several of the uppercase letters and numerals were un&shy;sat&shy;is&shy;fac&shy;to&shy;ry.
 Looking through the <a class="reference external" href="http://unicode-table.com/en/">Unicode Table</a> site,
 I came across the <a class="reference external" href="http://unicode-table.com/en/blocks/lisu/">Fraser Lisu alphabet</a>,
-which is un­for­tu­nate­ly not well supported in most fonts.
+which is un&shy;for&shy;tu&shy;nate&shy;ly not well supported in most fonts.
 The following renders in <a class="reference external" href="http://sourcefoundry.org/hack/">Hack</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Source_Code_Pro">Source Code Pro</a> in MacVim,
 but not in the <a class="reference external" href="https://www.google.com/fonts/specimen/Source+Code+Pro">Source Code Pro webfont</a> from Google Fonts:</p>
 <pre class="literal-block">
@@ -199,20 +199,20 @@ More at <a class="reference external" href="http://www.fileformat.info/convert/t
     </header>
     <p></p>
 <blockquote>
-[Pre­vi­ous­ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
 <p>Some time ago,
 we made an ill-considered decision to use recipe names for image URLs,
-which simplified image management with our then-rudi­men­ta­ry tools.
+which simplified image management with our then-rudi&shy;men&shy;ta&shy;ry tools.
 For example, the recipe named
-<tt class="docutils literal">"Twisted Pasta With Browned Butter, Sage, and Walnuts"</tt>
+<tt class="docutils literal">&quot;Twisted Pasta With Browned Butter, Sage, and Walnuts&quot;</tt>
 becomes a URL ending in
-<tt class="docutils literal">"Twist­ed%20­Pas­ta%20With­%20Browned%20But­ter%2C%20Sage%2C%20and%20Wal­nuts.jpg"</tt>.</p>
-<p>Life becomes more in­ter­est­ing when you escape the confines of 7-bit ASCII and use Unicode.
-How should <tt class="docutils literal">u"Sautéed crème fraîche Provençale"</tt> be handled?
+<tt class="docutils literal">&quot;Twist&shy;ed%20&shy;Pas&shy;ta%20With&shy;%20Browned%20But&shy;ter%2C%20Sage%2C%20and%20Wal&shy;nuts.jpg&quot;</tt>.</p>
+<p>Life becomes more in&shy;ter&shy;est&shy;ing when you escape the confines of 7-bit ASCII and use Unicode.
+How should <tt class="docutils literal">u&quot;Sautéed crème fraîche Provençale&quot;</tt> be handled?
 The only reasonable thing to do is to first convert the Unicode string to UTF-8
 and then hex-encode those octets:
-<tt class="docutils literal">"Saut%C3%A9ed%20cr%C3%A8me%20fra%C3%AEche%20Proven%C3%A7ale"</tt>.</p>
-<p>That seems reasonable, but it was giving us in­con­sis­tent results
+<tt class="docutils literal">&quot;Saut%C3%A9ed%20cr%C3%A8me%20fra%C3%AEche%20Proven%C3%A7ale&quot;</tt>.</p>
+<p>That seems reasonable, but it was giving us in&shy;con&shy;sis&shy;tent results
 when the images were uploaded to an S3 bucket.
 When <span>&#8230;<a href="/blog/2016/01/31/URLsFromUnicodeStrings.html" class="continue">continue</a>.</span></p>
     <footer>

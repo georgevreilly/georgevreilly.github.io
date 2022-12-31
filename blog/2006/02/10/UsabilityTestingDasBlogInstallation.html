@@ -36,9 +36,9 @@
             <a href="/blog/2006/02/10/UsabilityTestingDasBlogInstallation.html" rel="bookmark canonical">Usability testing dasBlog installation</a>
         </h1>
     </header>
-    <p>I’ve been hanging out on the dasBlog de&shy;vel&shy;op&shy;er&shy;s’ mailing list for the last
-couple of months, and I’ve made some minor con&shy;tri&shy;bu&shy;tions to the code.</p>
-<p>I sent the following email to the de&shy;vel&shy;op&shy;er&shy;s’ list last night.</p>
+    <p>I&#8217;ve been hanging out on the dasBlog developers&#8217; mailing list for the last
+couple of months, and I&#8217;ve made some minor con&shy;tri&shy;bu&shy;tions to the&nbsp;code.</p>
+<p>I sent the following email to the developers&#8217; list last&nbsp;night.</p>
 <hr class="docutils"/>
 <p>My wife has decided to start a blog for
 <a class="reference external" href="http://thewheel.biz/TeamIreland">Team Ireland</a> in the
@@ -47,121 +47,121 @@ and she asked me to install <a class="reference external" href="http://dasblog.i
 I decided that this was an excellent op&shy;por&shy;tu&shy;ni&shy;ty to do some usability testing
 on the in&shy;stal&shy;la&shy;tion in&shy;struc&shy;tions for dasBlog. I asked her to try installing
 dasBlog, while I watched. I promised that I would bail her out if she got
-mired too deeply.</p>
+mired too&nbsp;deeply.</p>
 <p>Emma has worked as a black-box software tester for several years. She
 writes <span class="caps">SQL</span> scripts by hand, but is not otherwise a programmer. I figured
 that she could probably install a project like dasBlog, with an intended
-audience of Advanced End Users.</p>
+audience of Advanced End&nbsp;Users.</p>
 <p>First, we obtained a graphical <span class="caps">FTP</span> client
 (<a class="reference external" href="http://filezilla.sourceforge.net/">FileZilla</a>) and checked that she
-could suc&shy;cess&shy;ful&shy;ly upload a one-line <span class="caps">ASP</span>.<span class="caps">NET</span> program to her website:</p>
+could suc&shy;cess&shy;ful&shy;ly upload a one-line <span class="caps">ASP</span>.<span class="caps">NET</span> program to her&nbsp;website:</p>
 <pre class="literal-block">
-The time is <% = DateTime.Now %>
+The time is &lt;% = DateTime.Now %&gt;
 </pre>
 <p>Then it was time to start installing dasBlog. I told her to start at
-<a class="reference external" href="http://dasblog.info">http://dasblog.info</a> and figure out how to get dasBlog and how to install it.</p>
+<a class="reference external" href="http://dasblog.info">http://dasblog.info</a> and figure out how to get dasBlog and how to install&nbsp;it.</p>
 <p>She totally ignored the al&shy;pha&shy;bet&shy;i&shy;cal table of contents on the left-hand
 side, which is formatted as a rather large set of <span class="caps">RSS</span> feeds. Instead, she
-read through the long blogpost on the right-hand side, which didn’t
+read through the long blogpost on the right-hand side, which didn&#8217;t
 enlighten her. After a while, I pointed to the left column. Her reaction:
 why do I want to subscribe to feeds? I pointed out to the <a class="reference external" href="http://dasblog.info/CategoryView,category,Install/Setup.aspx">Install/Setup</a>
 feed. (Reviewing the frontpage post now, I see that the Install/Setup link
-also appears there.)</p>
+also appears&nbsp;there.)</p>
 <blockquote>
 There needs to be a prominent link on the front page to a Getting
 Started guide.  <a class="reference external" href="http://dasblog.info">http://dasblog.info</a> and <a class="reference external" href="http://dasblog.us">http://dasblog.us</a> are
 a huge im&shy;prove&shy;ment on the state of the doc&shy;u&shy;men&shy;ta&shy;tion a couple of
 months ago, but they still need work.</blockquote>
-<p>She found the Install/Setup in&shy;struc&shy;tions confusing. They don’t cover well
+<p>She found the Install/Setup in&shy;struc&shy;tions confusing. They don&#8217;t cover well
 the case of doing a remote install to a commercial host provider.
-Obviously, it’s not possible to write a com&shy;pre&shy;hen&shy;sive guide on this, as
+Obviously, it&#8217;s not possible to write a com&shy;pre&shy;hen&shy;sive guide on this, as
 providers have many different con&shy;fig&shy;u&shy;ra&shy;tion utilities. Our provider is
-using Ensim’s WEBp&shy;pli&shy;ance, which I find painful to use.</p>
+using Ensim&#8217;s WEBp&shy;pli&shy;ance, which I find painful to&nbsp;use.</p>
 <p>There needs to be a Point #0 on the Install/Setup in&shy;struc&shy;tions: download
 the files. After some more head&shy;scratch&shy;ing, she found her way to the
 <a class="reference external" href="http://sourceforge.net/project/showfiles.php?group_id=127624">download page</a>.
-She was pretty sure that she didn’t want to download
-<tt class="docutils literal"><span class="pre">DasBlog-1.8.5223.2-Source.zip</span></tt>, but she wasn’t too sure if she should
+She was pretty sure that she didn&#8217;t want to download
+<tt class="docutils literal"><span class="pre">DasBlog-1.8.5223.2-Source.zip</span></tt>, but she wasn&#8217;t too sure if she should
 download <tt class="docutils literal"><span class="pre">DasBlog-1.8.5223.2-Web-Files.zip</span></tt>.</p>
 <p>She created a local directory, <tt class="docutils literal"><span class="pre">C:\dasblogce</span></tt> and unzipped the files there.
 That of course meant that the files she needed to upload were in
 <tt class="docutils literal"><span class="pre">C:\das&shy;blogce\&shy;das&shy;blogce</span></tt>.</p>
 <p>Point #1 of <a class="reference external" href="http://dasblog.info/CategoryView,category,Install/Setup.aspx">Setup/Install</a>
 is unhelpful to the unini&shy;ti&shy;at&shy;ed.
-Point #2 isn’t all that clear either.</p>
+Point #2 isn&#8217;t all that clear&nbsp;either.</p>
 <p>Using FileZilla, she uploaded the files from <tt class="docutils literal"><span class="pre">C:\das&shy;blogce\&shy;das&shy;blogce</span></tt> to
 <tt class="docutils literal">\inet&shy;pub&shy;\www&shy;root\&shy;das&shy;blogce</tt> on her server. Then, with some help from me, she
 figured out enough of the horrible Ensim interface to create a virtual
-directory, TeamIre&shy;land, pointing to the dasblogce folder.</p>
-<p>At this point, we went to <a class="reference external" href="http://thewheel.biz/TeamIreland">http://thewheel.biz/TeamIre&shy;land</a> but we weren’t
+directory, TeamIre&shy;land, pointing to the dasblogce&nbsp;folder.</p>
+<p>At this point, we went to <a class="reference external" href="http://thewheel.biz/TeamIreland">http://thewheel.biz/TeamIre&shy;land</a> but we weren&#8217;t
 able to get in. We got some fairly unfriendly <span class="caps">ASP</span>.<span class="caps">NET</span> errors.
 I had to wade through the Ensim <span class="caps">UI</span> and grant write access
-to the content, siteconfig, and logs sub&shy;di&shy;rec&shy;to&shy;ries, per the Install page.</p>
-<p>Finally, we saw the default page provided by dasBlog!</p>
+to the content, siteconfig, and logs sub&shy;di&shy;rec&shy;to&shy;ries, per the Install&nbsp;page.</p>
+<p>Finally, we saw the default page provided by&nbsp;dasBlog!</p>
 <p>She had read enough of the Install in&shy;struc&shy;tions earlier to know that she
-needed to modify <tt class="docutils literal">site.config</tt> and <tt class="docutils literal">siteSe&shy;cu&shy;ri&shy;ty.config</tt>, but she wasn’t sure
+needed to modify <tt class="docutils literal">site.config</tt> and <tt class="docutils literal">siteSe&shy;cu&shy;ri&shy;ty.config</tt>, but she wasn&#8217;t sure
 how to modify them on the server. I suggested modifying the local copies
-and uploading them.</p>
+and uploading&nbsp;them.</p>
 <p>Her first reaction on seeing <tt class="docutils literal">site.config</tt> was that there needs to be some
-paragraphs (blank lines) for read&shy;abil&shy;i&shy;ty. She nearly overlooked the <Root>
-setting, but got that configured correctly.</p>
+paragraphs (blank lines) for read&shy;abil&shy;i&shy;ty. She nearly overlooked the &lt;Root&gt;
+setting, but got that configured&nbsp;correctly.</p>
 <blockquote>
 The default in&shy;stal&shy;la&shy;tion of <tt class="docutils literal">site.config</tt> needs some comments. The stuff
 that you really have to modify should be in a clearly delimited block
 at the top. Something like this:</blockquote>
 <pre class="literal-block">
-<!-- Modify this section before installing -->
+&lt;!-- Modify this section before installing --&gt;
 
-<!-- Important: set this to the base URL of this blog, such as
-     http://example com/joeuser/blog/ -->
-<Root>http://localhost/DasBlog/</Root>
-<!-- Banner text. (Note: not all themes show the Subtitle or Description.) -->
-<Title>My DasBlog!</Title>
-<Subtitle>newtelligence powered</Subtitle>
-<Description>A blog about my interests: computers, games, beer, etc.</Description>
-<!-- Email address of blog adminstrator -->
-<Contact>dasblog@example.com</Contact>
-<Copyright>Your Name Here</Copyright>
-<!-- Default visual theme -->
-<Theme>dasBlog</Theme>
-<!-- End of essential modifications -->
+&lt;!-- Important: set this to the base URL of this blog, such as
+     http://example com/joeuser/blog/ --&gt;
+&lt;Root&gt;http://localhost/DasBlog/&lt;/Root&gt;
+&lt;!-- Banner text. (Note: not all themes show the Subtitle or Description.) --&gt;
+&lt;Title&gt;My DasBlog!&lt;/Title&gt;
+&lt;Subtitle&gt;newtelligence powered&lt;/Subtitle&gt;
+&lt;Description&gt;A blog about my interests: computers, games, beer, etc.&lt;/Description&gt;
+&lt;!-- Email address of blog adminstrator --&gt;
+&lt;Contact&gt;dasblog&#64;example.com&lt;/Contact&gt;
+&lt;Copyright&gt;Your Name Here&lt;/Copyright&gt;
+&lt;!-- Default visual theme --&gt;
+&lt;Theme&gt;dasBlog&lt;/Theme&gt;
+&lt;!-- End of essential modifications --&gt;
 </pre>
 <p>She was less sure what to do with <tt class="docutils literal">siteSe&shy;cu&shy;ri&shy;ty.config</tt>. She thought she
 needed to use the same Name and Password as she uses to log in to the
-server. (No. It’s arbitrary.) She also needed to add a few additional
-Users, since it’s going to be a group blog.</p>
+server. (No. It&#8217;s arbitrary.) She also needed to add a few additional
+Users, since it&#8217;s going to be a group&nbsp;blog.</p>
 <p>There should be a commented-out example of a con&shy;trib&shy;u&shy;tor user in
 <tt class="docutils literal">siteSe&shy;cu&shy;ri&shy;ty.config</tt>:</p>
 <pre class="literal-block">
-<!-- example of a non-administrator user
-  <User>
-    <Name>SomeOtherUser</Name>
-    <Password>blog-password</Password>
-    <Role>contributor</Role>
-    <Ask>true</Ask>
-    <DisplayName>Some Other User</DisplayName>
-    <EmailAddress>SomeOther@example.com</EmailAddress>
-  </User>
--->
+&lt;!-- example of a non-administrator user
+  &lt;User&gt;
+    &lt;Name&gt;SomeOtherUser&lt;/Name&gt;
+    &lt;Password&gt;blog-password&lt;/Password&gt;
+    &lt;Role&gt;contributor&lt;/Role&gt;
+    &lt;Ask&gt;true&lt;/Ask&gt;
+    &lt;DisplayName&gt;Some Other User&lt;/DisplayName&gt;
+    &lt;EmailAddress&gt;SomeOther&#64;example.com&lt;/EmailAddress&gt;
+  &lt;/User&gt;
+--&gt;
 </pre>
 <p>She uploaded the modified <tt class="docutils literal">site.config</tt> and <tt class="docutils literal">siteSe&shy;cu&shy;ri&shy;ty.config</tt>. It failed
 horribly when she went to log in. I had to download the events.log file to
-realize that she had deleted the </Users> in <tt class="docutils literal">siteSe&shy;cu&shy;ri&shy;ty.config</tt>.</p>
-<p>That fixed, she was able finally log in and create a post. I won’t detail
-the pain we went through to upload images via Free&shy;TextBox.</p>
-<p>The dasBlog admin interface has not been working for her. It’s unable to
+realize that she had deleted the &lt;/Users&gt; in <tt class="docutils literal">siteSe&shy;cu&shy;ri&shy;ty.config</tt>.</p>
+<p>That fixed, she was able finally log in and create a post. I won&#8217;t detail
+the pain we went through to upload images via&nbsp;Free&shy;TextBox.</p>
+<p>The dasBlog admin interface has not been working for her. It&#8217;s unable to
 write to the siteconfig directory. At some point last night, the content
-directory somehow became unreadable and the site started throwing <span class="caps">ASP</span>.<span class="caps">NET</span> errors.</p>
+directory somehow became unreadable and the site started throwing <span class="caps">ASP</span>.<span class="caps">NET</span>&nbsp;errors.</p>
 <p>I was able to fix that tonight by blowing away the content directory in
-FileZilla and uploading a backup. I <em>think</em> I’ve fixed everything, by
+FileZilla and uploading a backup. I <em>think</em> I&#8217;ve fixed everything, by
 explicitly granting read and write to the siteconfig and content
-di&shy;rec&shy;to&shy;ries and everything contained therein.</p>
+di&shy;rec&shy;to&shy;ries and everything contained&nbsp;therein.</p>
 <hr class="docutils"/>
 <p><strong>Epilogue</strong>: Every new entry in the TeamIre&shy;land blog is being created with the
 wrong per&shy;mis&shy;sions, causing dasBlog to puke. It can be fixed by setting the
 per&shy;mis&shy;sions for each new file to read/write through the Ensim interface,
-but it’s hardly a good experience for a group blog. I’m still waiting for
-<a class="reference external" href="http://www.ihostsites.net/">iHostSites</a>‘ support people to set the ACLs properly.</p>
+but it&#8217;s hardly a good experience for a group blog. I&#8217;m still waiting for
+<a class="reference external" href="http://www.ihostsites.net/">iHostSites</a>&#8216; support people to set the ACLs&nbsp;properly.</p>
 
     <footer>
         

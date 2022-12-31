@@ -36,9 +36,9 @@
             <a href="/blog/2015/12/15/PythonFStrings.html" rel="bookmark canonical">Python f-strings</a>
         </h1>
     </header>
-    <p>At this month’s <a class="reference external" href="http://www.meetup.com/PSPPython/">PuPPy (Puget Sound Pro&shy;gram&shy;ming Python) Meetup</a>,
+    <p>At this month&#8217;s <a class="reference external" href="http://www.meetup.com/PSPPython/">PuPPy (Puget Sound Pro&shy;gram&shy;ming Python) Meetup</a>,
 I heard a brief mention of <a class="reference external" href="https://www.python.org/dev/peps/pep-0498/">Python f-strings</a>
-as a new feature coming in Python 3.6.</p>
+as a new feature coming in Python&nbsp;3.6.</p>
 <p>In essence, they offer a simpler, more versatile method
 of string formatting and in&shy;ter&shy;po&shy;la&shy;tion
 over existing methods.
@@ -48,25 +48,25 @@ With <a class="reference external" href="https://docs.python.org/3/library/strin
 <tt class="docutils literal">'Hello, <span class="pre">{name}'.format(name=some_name)</span></tt>.
 You can control various aspects of how <tt class="docutils literal">name</tt> is formatted,
 such as being centered within a field—see <a class="reference external" href="https://pyformat.info/">PyFormat</a> and <a class="reference external" href="https://mkaz.github.io/2012/10/10/python-string-format/">Python String Format Cookbook</a>
-for ex&shy;am&shy;ples—but no more complex expression is allowed between the braces.</p>
+for ex&shy;am&shy;ples—but no more complex expression is allowed between the&nbsp;braces.</p>
 <p>Herewith some examples of f-string ex&shy;pres&shy;sions
 drawn from <a class="reference external" href="https://www.python.org/dev/peps/pep-0498/"><span class="caps">PEP</span> 0498</a>:</p>
 <pre class="code python literal-block">
-<span class="o">>>></span> <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1991</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-<span class="o">>>></span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1"> was on a </span><span class="si">{</span><span class="n">date</span><span class="si">:</span><span class="s1">%A</span><span class="si">}</span><span class="s1">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1991</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1"> was on a </span><span class="si">{</span><span class="n">date</span><span class="si">:</span><span class="s1">%A</span><span class="si">}</span><span class="s1">'</span>
 <span class="s1">'1991-10-12 was on a Saturday'</span>
 
-<span class="o">>>></span> <span class="sa">f</span><span class="s1">'Column=</span><span class="si">{</span><span class="n">col_idx</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">'</span>
-<span class="o">>>></span> <span class="sa">f</span><span class="s1">'number of items: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'Column=</span><span class="si">{</span><span class="n">col_idx</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'number of items: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span>
 
-<span class="o">>>></span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">extra</span><span class="si">}</span><span class="s1">,waiters:</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_waiters</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span>
-<span class="o">>>></span> <span class="n">message</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">" [line </span><span class="si">{</span><span class="n">lineno</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">]"</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">extra</span><span class="si">}</span><span class="s1">,waiters:</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_waiters</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">message</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot; [line </span><span class="si">{</span><span class="n">lineno</span><span class="si">:</span><span class="s2">2d</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
 </pre>
 <p>It looks moderately useful,
 but—as with any new language feature—it can only be used in brand-new code.
-Python 3.6 is scheduled to be released in a year’s time,
+Python 3.6 is scheduled to be released in a year&#8217;s time,
 in December 2016.
-Here’s <a class="reference external" href="https://docs.python.org/3.6/whatsnew/3.6.html">What’s New in Python 3.6</a>.</p>
+Here&#8217;s <a class="reference external" href="https://docs.python.org/3.6/whatsnew/3.6.html">What&#8217;s New in Python 3.6</a>.</p>
 
     <footer>
         

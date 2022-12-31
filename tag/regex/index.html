@@ -37,23 +37,23 @@
     <p></p>
 <blockquote>
 <p>Some people, when confronted with a problem, think
-“I know, I'll use regular ex­pres­sions.”
+“I know, I'll use regular ex&shy;pres&shy;sions.”
 <a class="reference external" href="http://regex.info/blog/2006-09-15/247">Now they have two problems</a>.</p>
 <blockquote>
 — Jaime Zawinksi</blockquote>
 </blockquote>
 <p>A Twitter thread about <a class="reference external" href="https://twitter.com/nbashaw/status/1253186961482715136">very long regexes</a>
 reminded me of the <a class="reference external" href="/blog/2009/07/11/64bitWindows7.html">longest regex</a> that I ever ran afoul of,
-a par­tic­u­lar­ly horrible multilevel mess
+a par&shy;tic&shy;u&shy;lar&shy;ly horrible multilevel mess
 that had worked acceptably on the 32-bit .NET CLR,
 but brought the 64-bit CLR to its knees.</p>
 <blockquote>
-<p>Whenever I ran our ASP.NET web ap­pli­ca­tion [on Win64],
+<p>Whenever I ran our ASP.NET web ap&shy;pli&shy;ca&shy;tion [on Win64],
 it would go berserk, eat up all 4GB of my physical RAM,
 push the working set of IIS's w3wp.exe to <em>12GB</em>,
-and max out one of my 4 cores!
+and max out one of my 4&nbsp;cores!
 The only way to maintain any sanity was to run <tt class="docutils literal">iisreset</tt>
-every 20 minutes to <span>&#8230;<a href="/blog/2020/04/23/regex-32-problems.html" class="continue">continue</a>.</span></p></blockquote>
+every 20&nbsp;minutes to <span>&#8230;<a href="/blog/2020/04/23/regex-32-problems.html" class="continue">continue</a>.</span></p></blockquote>
     <footer>
         
         
@@ -94,7 +94,7 @@ using Python's raw string notation to avoid the
 <a class="reference external" href="https://docs.python.org/2/howto/regex.html#the-backslash-plague">backslash plague</a>.
 Also, the <tt class="docutils literal">?</tt> wildcard character becomes the <tt class="docutils literal">.</tt> regex special character,
 while the <tt class="docutils literal">*</tt> wildcard becomes the <tt class="docutils literal">.*</tt> greedy regex.</p>
-<p>A <a class="reference external" href="http://stackoverflow.com/a/11998653/6364">Stack­Over­flow answer partially explains</a>,
+<p>A <a class="reference external" href="http://stackoverflow.com/a/11998653/6364">Stack&shy;Over&shy;flow answer partially explains</a>,
 which set me on the right track.
 <tt class="docutils literal"><span class="pre">(?ms)</span></tt> is equivalent to compiling the regex with <tt class="docutils literal">re.MULTILINE | re.DOTALL</tt>.
 The <tt class="docutils literal">re.DOTALL</tt> modifier makes the <tt class="docutils literal">.</tt> special character match <em>any</em> <span>&#8230;<a href="/blog/2015/12/01/ExplainingEpilogFnmatchTranslate.html" class="continue">continue</a>.</span></p>
@@ -124,14 +124,14 @@ The <tt class="docutils literal">re.DOTALL</tt> modifier makes the <tt class="do
     </header>
     <a class="reference external image-reference" href="/content/binary/win64-clr-jit-leak.png"></a>
 <p>I mentioned <a class="reference external" href="/blog/2009/06/20/WhenVideoCardsGoBad.html">three weeks ago</a> that I had just repaved my work dev box
-and installed the 64-bit version of the Windows 7 RC.
+and installed the 64-bit version of the Windows&nbsp;7&nbsp;RC.
 Nine or ten years after I first ported parts of IIS to Win64,
 I am finally running my main desktop on 64-bit Windows.
 With one exception, it's been painless.
 Programs have just worked, devices have just worked.
-There are relatively few native x64 ap­pli­ca­tions,
+There are relatively few native x64 ap&shy;pli&shy;ca&shy;tions,
 but for the most part it doesn't matter.
-The cases where it does matter—e.g., shell extensions such as <a class="reference external" href="http://tortoisesvn.net/">Tor­tois­eSVN</a>—are available as 64-bit binaries.</p>
+The cases where it does matter—e.g., shell extensions such as <a class="reference external" href="http://tortoisesvn.net/">Tor&shy;tois&shy;eSVN</a>—are available as 64-bit binaries.</p>
 <p>I briefly flirted with using the 64-bit build of Python,
 but realized that I would have to recompile several eggs as <span>&#8230;<a href="/blog/2009/07/11/64bitWindows7.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -159,8 +159,8 @@ but realized that I would have to recompile several eggs as <span>&#8230;<a href
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.betterthangrep.com/"></a>
-<p>On a Stack­Over­flow question about <a class="reference external" href="http://stackoverflow.com/questions/21725/favorite-gvim-plugins-scripts">favorite Vim plugins</a>, I learned about <a class="reference external" href="http://www.betterthangrep.com/">Ack</a>,
-a re­place­ment for grep that's smarter about searching source trees.</p>
+<p>On a Stack&shy;Over&shy;flow question about <a class="reference external" href="http://stackoverflow.com/questions/21725/favorite-gvim-plugins-scripts">favorite Vim plugins</a>, I learned about <a class="reference external" href="http://www.betterthangrep.com/">Ack</a>,
+a re&shy;place&shy;ment for grep that's smarter about searching source trees.</p>
 <p>Ack is written in Perl.
 The built-in <tt class="docutils literal">:vimgrep</tt> is rather slow.
 It seems to have some Vim-specific overhead,
@@ -206,7 +206,7 @@ In Vim, just place the cursor on a function name
 and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its definition.</p>
 <p>Ctags works well for most of the languages that I deal with,
 but falls down badly on modern JavaScript.
-Its built-in parser simply doesn't handle de­c­la­ra­tions like these:</p>
+Its built-in parser simply doesn't handle de&shy;c&shy;la&shy;ra&shy;tions like these:</p>
 <pre class="code javascript literal-block">
 <span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// ...</span><span class="w">
 </span><span class="nx">ajaxSetup</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="w"> </span><span class="nx">settings</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -249,8 +249,8 @@ His code didn't work for me, so I hacked on it until it did:</p>
     
 
 
-<p>I want to be able to write some reviews and graph­i­cal­ly rate them with stars.
-I put together some trans­par­ent stars in Gimp and added a macro to dasBlog.</p>
+<p>I want to be able to write some reviews and graph&shy;i&shy;cal&shy;ly rate them with stars.
+I put together some trans&shy;par&shy;ent stars in Gimp and added a macro to dasBlog.</p>
 <p>I'm going to rate this effort:</p>
 <p>$stars(4.5)</p>
 <p>To get this effect, I simply wrote <tt class="docutils literal">$</tt><tt class="docutils literal">stars(4.5)</tt>.</p>
