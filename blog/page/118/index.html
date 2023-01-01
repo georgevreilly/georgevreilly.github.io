@@ -29,6 +29,77 @@
     
         <article>
     <header>
+        <time datetime="2006-03-02">2006-03-02</time>
+        <h1>
+            <a href="/blog/2006/03/02/ATalibAtYale.html" rel="bookmark canonical">A Talib at Yale</a>
+        </h1>
+    </header>
+    <p>A very in&shy;ter&shy;est&shy;ing piece in last Sunday&#8217;s New York Times magazine:
+<a class="reference external" href="http://www.nytimes.com/2006/02/26/magazine/26taliban.html">A Talib at Yale</a>.
+Sayed Rah&shy;mat&shy;ul&shy;lah Hashemi is the former &quot;roving ambassador&quot; for the
+Taliban, now studying at Yale.
+An in&shy;ter&shy;est&shy;ing and improbable life&nbsp;story.</p>
+<p>The right-wing bl&shy;o&shy;gos&shy;phere is furious about it. I say it&#8217;s better to co-opt
+moderate former Talibs than to freeze them&nbsp;out.</p>
+<p>Besides, his B-grades at Yale are better than George Bush&#8217;s&nbsp;&quot;Gentleman&#8217;s-C&quot;.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/03/02/ATalibAtYale.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/politics/" rel="tag">politics</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-03-02">2006-03-02</time>
+        <h1>
+            <a href="/blog/2006/03/02/ThrowingFromXSLT.html" rel="bookmark canonical">Throwing from XSLT</a>
+        </h1>
+    </header>
+    <p>I needed to add some de&shy;clar&shy;a&shy;tive error checking to some <span class="caps">XSLT</span> templates
+recently. Specif&shy;i&shy;cal&shy;ly, I wanted to throw an error if my selects yielded an
+empty string, indicating that the input <span class="caps">XML</span> was&nbsp;wrong.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, there seems to be no easy way of doing this in <span class="caps">XSLT</span>, nor in
+<tt class="docutils literal">XslTrans&shy;form</tt>. The approved way is to validate against an <span class="caps">XSD</span> schema,
+but for various reasons, I didn&#8217;t want to go to the hassle of creating&nbsp;one.</p>
+<p>I found a partial solution using <tt class="docutils literal">xsl:message</tt> with the
+<tt class="docutils literal"><span class="pre">terminate=&quot;yes&quot;</span></tt> attribute. Under <tt class="docutils literal">XslTrans&shy;form.Transform()</tt> the
+following code throws an exception if the XPath expression is&nbsp;empty.</p>
+<pre class="code xslt literal-block">
+<span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:message</span> <span class="na">terminate=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>Missing expression<span class="k">&lt;/xsl:message&gt;</span>
+<span class="k">&lt;/xsl:if&gt;</span>
+<span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;/some/xpath/expression&quot;</span> <span class="nt">/&gt;</span>
+</pre>
+<p>It doesn&#8217;t do <span>&#8230;<a href="/blog/2006/03/02/ThrowingFromXSLT.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/03/02/ThrowingFromXSLT.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-02-19">2006-02-19</time>
         <h1>
             <a href="/blog/2006/02/19/OlympicsRazorthinMargins.html" rel="bookmark canonical">Olympics: Razor-thin Margins</a>
@@ -300,71 +371,6 @@ others prefer an al&shy;phanu&shy;mer&shy;ic&nbsp;username.</p>
         
             <p>tagged as
                 <a href="/tag/security/" rel="tag">security</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-02-05">2006-02-05</time>
-        <h1>
-            <a href="/blog/2006/02/05/BrokebackToTheFuture.html" rel="bookmark canonical">Brokeback to the Future</a>
-        </h1>
-    </header>
-    <p>Via Amer&shy;i&shy;ca&shy;Blog, it&#8217;s `
-Brokeback to the Future &lt;<a class="reference external" href="https://www.youtube.com/watch?v=zfODSPIYwpQ">https://www.youtube.com/watch?v=zfOD&shy;SPIY&shy;w&shy;pQ</a>&gt;`_.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/02/05/BrokebackToTheFuture.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/humor/" rel="tag">humor</a>
-                    and
-                    
-                <a href="/tag/lgbt/" rel="tag">lgbt</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-02-03">2006-02-03</time>
-        <h1>
-            <a href="/blog/2006/02/03/AtlasPartnerSummit.html" rel="bookmark canonical">Atlas Partner Summit</a>
-        </h1>
-    </header>
-    <p>Back in October, I joined Atlas Solutions as a senior software engineer.
-The company just held its first &quot;partner summit&quot;,
-to educate some of our key partners
-on the kind of work we&#8217;re doing and new de&shy;vel&shy;op&shy;ments.
-An attendee <a class="reference external" href="http://lindaburlison.blogspot.com/2006/02/atlas-partner-summit.html">blogged</a> it.
-I&#8217;m working on video on demand, the stuff that Scott Ferris talked&nbsp;about.</p>
-<p>I saw some of the pre&shy;sen&shy;ta&shy;tions being rehearsed last week,
-but a lot of this is stuff that I&#8217;ve never seen before.
-I come from a software background, after all, not an ad&shy;ver&shy;tis&shy;ing&nbsp;background.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/02/03/AtlasPartnerSummit.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/tech/" rel="tag">tech</a>
-                    and
-                    
-                <a href="/tag/atlas/" rel="tag">atlas</a>
                 
             </p>
         

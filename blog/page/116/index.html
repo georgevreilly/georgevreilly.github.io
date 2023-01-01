@@ -29,6 +29,87 @@
     
         <article>
     <header>
+        <time datetime="2006-04-24">2006-04-24</time>
+        <h1>
+            <a href="/blog/2006/04/24/SubversiveActivity.html" rel="bookmark canonical">Subversive activity</a>
+        </h1>
+    </header>
+    <p><a class="reference external" href="http://svn.sourceforge.net/viewcvs.cgi/vim/">Vim</a>
+and <a class="reference external" href="http://svn.sourceforge.net/viewcvs.cgi/dasblogce/">DasBlog</a>,
+two open source projects that I&#8217;m associated with,
+have both switched over to using the
+<a class="reference external" href="http://subversion.tigris.org/">Subversion</a>
+source code control system in the last week.
+In both cases, the prolonged problems with
+<a class="reference external" href="http://sourceforge.net/docman/display_doc.php?docid=2352&amp;group_id=1">anonymous <span class="caps">CVS</span> access at Source&shy;Forge</a>
+proved the final straw.
+And I provided the impetus, by bringing up the need for a change on the
+<a class="reference external" href="http://marc.theaimsgroup.com/?l=vim-dev&amp;m=114527322425296&amp;w=2">vim-dev</a>
+and <a class="reference external" href="http://sourceforge.net/mailarchive/forum.php?thread_id=10191521&amp;forum_id=43543">dasblogce-developers</a>
+mailing lists.
+I take no credit for doing the work, however,
+as that was done by&nbsp;others.</p>
+<p>(Vim&#8217;s primary repository continues to be <span class="caps">CVS</span>, with Subversion acting as
+a mirror for anonymous access. Bram didn&#8217;t want to change over until
+after Vim-7&nbsp;ships.)</p>
+<p>Earlier this year, we switched over to Subversion at work, after years of
+using Visual SourceSafe. It <span>&#8230;<a href="/blog/2006/04/24/SubversiveActivity.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/04/24/SubversiveActivity.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/subversion/" rel="tag">subversion</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-04-22">2006-04-22</time>
+        <h1>
+            <a href="/blog/2006/04/22/Win64PortOfVim.html" rel="bookmark canonical">Win64 port of Vim</a>
+        </h1>
+    </header>
+    <p>I&#8217;ve ported Vim to Win64. Native binaries for <span class="caps">AMD64</span> can be found on my
+<a class="reference external" href="//www.georgevreilly.com/vim/">Vim page</a>.</p>
+<p>In the end, it wasn&#8217;t all that hard. Last weekend, I fixed ap&shy;prox&shy;i&shy;mate&shy;ly
+400 warnings that were thrown up by the x86_amd64 cross compiler.
+Most of them were due to the widening of <tt class="docutils literal">size_t</tt> (especially the value
+returned from <tt class="docutils literal">strlen()</tt>) and <tt class="docutils literal">ptrdiff_t</tt> to 64-bits.
+Several years ago, I went through a similar exercise in fixing these
+warnings for Vim6, but I never finished the&nbsp;port.</p>
+<p>This week, I scrounged access to an <span class="caps">AMD64</span> box at work. Today, I turned on
+the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/yt4xw8fh(VS.80).aspx">/Wp64 flag</a>,
+which found several new, subtler problems, where pointers where being
+truncated to <tt class="docutils literal">__int32</tt>s <span>&#8230;<a href="/blog/2006/04/22/Win64PortOfVim.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/04/22/Win64PortOfVim.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/windows/" rel="tag">windows</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-04-19">2006-04-19</time>
         <h1>
             <a href="/blog/2006/04/19/BarbecueUniversity.html" rel="bookmark canonical">Barbecue University</a>
@@ -306,66 +387,6 @@ reported, or that a particular passage <span>&#8230;<a href="/blog/2006/04/07/Th
                     and
                     
                 <a href="/tag/media/" rel="tag">media</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-04-03">2006-04-03</time>
-        <h1>
-            <a href="/blog/2006/04/03/GodsOwnParty.html" rel="bookmark canonical">God's Own Party</a>
-        </h1>
-    </header>
-    <p>More on the Ta&shy;l&shy;abap&shy;tist front.
-In yesterday&#8217;s Washinton Post, Kevin Phillips on
-<a class="reference external" href="http://www.washingtonpost.com/wp-dyn/content/article/2006/04/01/AR2006040100004.html">How the <span class="caps">GOP</span> Became God&#8217;s Own Party</a>.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/04/03/GodsOwnParty.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/politics/" rel="tag">politics</a>
-                    and
-                    
-                <a href="/tag/religion/" rel="tag">religion</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-03-24">2006-03-24</time>
-        <h1>
-            <a href="/blog/2006/03/24/TheocracyInAction.html" rel="bookmark canonical">Theocracy in Action</a>
-        </h1>
-    </header>
-    <p>Rolling Stone magazine profiles Senator Sam Brownback in
-<a class="reference external" href="http://www.rollingstone.com/politics/story/9178374/gods_senator">God&#8217;s Senator</a>.
-It&#8217;s a scary look at the Christian far&nbsp;Right.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/03/24/TheocracyInAction.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/politics/" rel="tag">politics</a>
-                    and
-                    
-                <a href="/tag/religion/" rel="tag">religion</a>
                 
             </p>
         

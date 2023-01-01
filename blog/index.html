@@ -29,6 +29,99 @@
     
         <article>
     <header>
+        <time datetime="2022-12-31">2022-12-31</time>
+        <h1>
+            <a href="/blog/2022/12/31/FSymbolsForUnicodeWeirdness.html" rel="bookmark canonical">fsymbols for Unicode weirdness</a>
+        </h1>
+    </header>
+    <p>My display name on Twitter currently looks like @ɢᴇᴏʀɢᴇᴠʀᴇɪʟʟʏ@ᴛᴇᴄʜ.ʟɢʙᴛ,
+an attempt to route around Twitter&#8217;s apparent censorship of Mastodon&nbsp;in&shy;for&shy;ma&shy;tion.</p>
+<p>I used the <a href="https://fsymbols.com/generators/">FSymbols Generators</a> to produce several&nbsp;variants.</p>
+<div class="codehilite"><pre><span></span>@𝕘𝕖𝕠𝕣𝕘𝕖𝕧𝕣𝕖𝕚𝕝𝕝𝕪@𝕥𝕖𝕔𝕙.𝕝𝕘𝕓𝕥
+ʇqƃʅ.ɥɔǝʇ@ʎʅʅᴉǝɹʌǝƃɹoǝƃ@
+@𝗀𝖾𝗈𝗋𝗀𝖾𝗏𝗋𝖾𝗂𝗅𝗅𝗒@𝗍𝖾𝖼𝗁.𝗅𝗀𝖻𝗍
+@𝘨𝘦𝘰𝘳𝘨𝘦𝘷𝘳𝘦𝘪𝘭𝘭𝘺@𝘵𝘦𝘤𝘩.𝘭𝘨𝘣𝘵
+@𝑔𝑒𝑜𝑟𝑔𝑒𝑣𝑟𝑒𝑖𝑙𝑙𝑦@𝑡𝑒𝑐ℎ.𝑙𝑔𝑏𝑡
+@𝙜𝙚𝙤𝙧𝙜𝙚𝙫𝙧𝙚𝙞𝙡𝙡𝙮@𝙩𝙚𝙘𝙝.𝙡𝙜𝙗𝙩
+@𝚐𝚎𝚘𝚛𝚐𝚎𝚟𝚛𝚎𝚒𝚕𝚕𝚢@𝚝𝚎𝚌𝚑.𝚕𝚐𝚋𝚝
+@𝔤𝔢𝔬𝔯𝔤𝔢𝔳𝔯𝔢𝔦𝔩𝔩𝔶@𝔱𝔢𝔠𝔥.𝔩𝔤𝔟𝔱
+</pre></div>
+
+
+<p>Many of these variants come from
+<a href="https://www.compart.com/en/unicode/block/U+1D400">Unicode Block &#8220;Math&shy;e&shy;mat&shy;i&shy;cal Al&shy;phanu&shy;mer&shy;ic Symbols&#8221;</a>.</p>
+<p>There are a lot more things you can do with Unicode
+than just <a href="/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html">upside-down text</a>.</p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2022/12/31/FSymbolsForUnicodeWeirdness.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/font/" rel="tag">font</a>,
+                <a href="/tag/unicode/" rel="tag">unicode</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2022-12-19">2022-12-19</time>
+        <h1>
+            <a href="/blog/2022/12/19/BackwardsRangesInPython.html" rel="bookmark canonical">Backwards Ranges in Python</a>
+        </h1>
+    </header>
+    <p>In Python, if you want to specify a sequence of numbers
+from <code>a</code> up to (but excluding) <code>b</code>,
+you can write <code>range(a, b)</code>.
+This generates the sequence <code>a, a+1, a+2, ..., b-1</code>.
+You start at <code>a</code> and keep going until the next number would be <code>b</code>.</p>
+<p>In Python 3, <code>range</code> is <em>lazy</em>
+and the values in the sequence do not ma&shy;te&shy;ri&shy;al&shy;ize
+until you consume the&nbsp;range.</p>
+<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+<span class="go">range(3, 12)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+<span class="go">[3, 4, 5, 6, 7, 8, 9, 10, 11]</span>
+</pre></div>
+
+
+<p>Trey Hunner makes the point that
+<a href="https://treyhunner.com/2018/02/python-range-is-not-an-iterator/">range is a lazy iterable</a>
+rather than an&nbsp;iterator.</p>
+<p>You can also <em>step</em> by an increment other than one:
+<code>range(a, b, s)</code>.
+This generates <code>a, a+s, a+2*s, ..., b-s</code>
+(assuming that <code>(b - </code><span>&#8230;<a href="/blog/2022/12/19/BackwardsRangesInPython.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2022/12/19/BackwardsRangesInPython.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2022-02-02">2022-02-02</time>
         <h1>
             <a href="/blog/2022/02/02/UlyssesAt100.html" rel="bookmark canonical">Ulysses at 100</a>
@@ -371,93 +464,6 @@ mean that I rarely ever have to actually type any of those ugly messes&nbsp;in.<
                     and
                     
                 <a href="/tag/security/" rel="tag">security</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2021-05-08">2021-05-08</time>
-        <h1>
-            <a href="/blog/2021/05/08/PunctuatingJamesJoyce.html" rel="bookmark canonical">Punctuating James Joyce</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.writermag.com/improve-your-writing/revision-grammar/punctuation-bootcamp/"></a>
-<p>In <a class="reference external" href="https://lithub.com/the-punctuation-marks-loved-and-hated-by-famous-writers/">The Punc&shy;tu&shy;a&shy;tion Marks Loved (and Hated) by Famous Writers</a>,
-Emily Temple relays a range of opinions from writers
-such as Tom Wolfe, Elmore Leonard, and Ursula K. Le Guin
-on periods, semicolons, hyphens and&nbsp;more.</p>
-<p>On&nbsp;commas:</p>
-<blockquote>
-<p>Listens to the sound of the sentence, and is always right, Bob: Toni&nbsp;Morrison</p>
-<blockquote>
-[On her editor, Bob Gottlieb, who famously
-“was always inserting commas into Morrison’s sentences
-and she was always taking them out”]
-We read the same way.
-We think the same way.
-He is over&shy;whelm&shy;ing&shy;ly aggressive about commas and all sorts of things.
-He does not understand that commas are for pauses and breath.
-He thinks commas are for gram&shy;mat&shy;i&shy;cal things.
-We have come to an <span>&#8230;<a href="/blog/2021/05/08/PunctuatingJamesJoyce.html" class="continue">continue</a>.</span></blockquote></blockquote>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2021/05/08/PunctuatingJamesJoyce.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/jamesjoyce/" rel="tag">jamesjoyce</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2020-04-23">2020-04-23</time>
-        <h1>
-            <a href="/blog/2020/04/23/regex-32-problems.html" rel="bookmark canonical">Now You Have 32 Problems</a>
-        </h1>
-    </header>
-    <p></p>
-<blockquote>
-<p>Some people, when confronted with a problem, think
-“I know, I&#8217;ll use regular ex&shy;pres&shy;sions.”
-<a class="reference external" href="http://regex.info/blog/2006-09-15/247">Now they have two problems</a>.</p>
-<blockquote>
-— Jaime Zawinksi</blockquote>
-</blockquote>
-<p>A Twitter thread about <a class="reference external" href="https://twitter.com/nbashaw/status/1253186961482715136">very long regexes</a>
-reminded me of the <a class="reference external" href="/blog/2009/07/11/64bitWindows7.html">longest regex</a> that I ever ran afoul of,
-a par&shy;tic&shy;u&shy;lar&shy;ly horrible multilevel mess
-that had worked acceptably on the 32-bit .<span class="caps">NET</span> <span class="caps">CLR</span>,
-but brought the 64-bit <span class="caps">CLR</span> to its&nbsp;knees.</p>
-<blockquote>
-<p>Whenever I ran our <span class="caps">ASP</span>.<span class="caps">NET</span> web ap&shy;pli&shy;ca&shy;tion [on Win64],
-it would go berserk, eat up all <span class="caps">4GB</span> of my physical <span class="caps">RAM</span>,
-push the working set of <span class="caps">IIS</span>&#8217;s w3wp.exe to <em><span class="caps">12GB</span></em>,
-and max out one of my 4&nbsp;cores!
-The only way to maintain any sanity was to run <tt class="docutils literal">iisreset</tt>
-every 20&nbsp;minutes to gently <span>&#8230;<a href="/blog/2020/04/23/regex-32-problems.html" class="continue">continue</a>.</span></p></blockquote>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2020/04/23/regex-32-problems.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/regex/" rel="tag">regex</a>
-                    and
-                    
-                <a href="/tag/performance/" rel="tag">performance</a>
                 
             </p>
         

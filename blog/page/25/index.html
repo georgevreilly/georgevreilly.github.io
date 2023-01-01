@@ -29,6 +29,99 @@
     
         <article>
     <header>
+        <time datetime="2016-03-03">2016-03-03</time>
+        <h1>
+            <a href="/blog/2016/03/03/ReviewWaysToDieInGlasgow.html" rel="bookmark canonical">Review: Ways to Die in Glasgow</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.amazon.com/dp/B00QKUW8TU/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: Ways to Die in Glasgow</div>
+<div class="line">Author: Jay Stringer</div>
+<div class="line">Rating: ★ ★ ★ ½</div>
+<div class="line">Publisher: Thomas <span class="amp">&amp;</span> Mercer</div>
+<div class="line">Copyright: 2015</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/B00QKUW8TU/?tag=georgvreill-20"><span class="caps">B00QKUW8TU</span></a></div>
+<div class="line">Pages: 289</div>
+<div class="line">Keywords: crime, tartan noir, black comedy</div>
+<div class="line">Reading period: 7 December 2015—25 February 2016</div>
+</div>
+<p>New private in&shy;ves&shy;ti&shy;ga&shy;tor Sam Ireland
+is hired to track down a gangster-turned-memoirist.
+She can&#8217;t find him, but she&#8217;s not the only one looking.
+His lethal nephew also wants to find him, after dealing with two hit men.
+All of this searching is drawing unwelcome attention to long-held secrets,
+and more blood will be&nbsp;shed.</p>
+<p>A darkly amusing, frenetic tour through Glasgow&#8217;s&nbsp;underbelly.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/03/ReviewWaysToDieInGlasgow.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>,
+                <a href="/tag/crime/" rel="tag">crime</a>
+                    and
+                    
+                <a href="/tag/humor/" rel="tag">humor</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-03-02">2016-03-02</time>
+        <h1>
+            <a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" rel="bookmark canonical">Python: Import subclass from dynamic path</a>
+        </h1>
+    </header>
+    <p>I needed to import some plugin code written in Python
+from a directory whose path isn&#8217;t known until runtime.
+Further, I needed a class object that was a subclass of the plugin base&nbsp;class.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">somewhere</span> <span class="kn">import</span> <span class="n">PluginBase</span>
+
+<span class="k">class</span> <span class="nc">SomePlugin</span><span class="p">(</span><span class="n">PluginBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">f2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+</pre>
+<p>You can use the <a class="reference external" href="https://pymotw.com/2/imp/">imp</a> module to actually load the module from <tt class="docutils literal">impl_dir</tt>.
+Note that <tt class="docutils literal">impl_dir</tt> needs to be tem&shy;porar&shy;i&shy;ly prepended to <tt class="docutils literal">sys.path</tt>.
+Then you can find the plugin subclass using <a class="reference external" href="https://docs.python.org/2/library/functions.html#dir">dir</a> and <a class="reference external" href="https://docs.python.org/2/library/functions.html#issubclass">issubclass</a>.</p>
+<pre class="code python literal-block">
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">imp</span>
+
+<span class="k">def</span> <span class="nf">import_class</span><span class="p">(</span><span class="n">implementation_filename</span><span class="p">,</span> <span class="n">base_class</span><span class="p">):</span>
+    <span class="n">impl_dir</span><span class="p">,</span> <span class="n">impl_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">implementation_filename</span><span class="p">)</span>
+    <span class="n">module_name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">impl_filename</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+ </pre><span>&#8230;<a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-03-01">2016-03-01</time>
         <h1>
             <a href="/blog/2016/03/01/AskingForHelp.html" rel="bookmark canonical">Asking for Help</a>
@@ -338,108 +431,6 @@ I&#8217;m long overdue for another&nbsp;visit.</p>
         
             <p>tagged as
                 <a href="/tag/history/" rel="tag">history</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-02-22">2016-02-22</time>
-        <h1>
-            <a href="/blog/2016/02/22/ReviewGraveyardDust.html" rel="bookmark canonical">Review: Graveyard Dust</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/0553102591/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Graveyard Dust</div>
-<div class="line">Author: Barbara Hambly</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Bantam</div>
-<div class="line">Copyright: 1999</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0553102591/?tag=georgvreill-20">0553102591</a></div>
-<div class="line">Pages: 315</div>
-<div class="line">Keywords: historical mystery</div>
-<div class="line">Reading period: 21 February, 2016</div>
-</div>
-<p>New Orleans, 1834.
-Benjamin January is a free man of color
-and a Paris-trained surgeon who must support himself as a musician.
-His sister Olympe, a <a class="reference external" href="https://en.wikipedia.org/wiki/Louisiana_Voodoo">voodooi&shy;enne</a>, and another woman, Célie,
-are accused of murdering Célie&#8217;s husband,
-and Ben must save them from hanging.
-As a pro&shy;fes&shy;sion&shy;al musician and a colored man,
-Ben moves between the high society of the old French in&shy;hab&shy;i&shy;tants
-and the new American merchants,
-the poor white areas of town,
-the many slaves,
-and the small free black middle class.
-Hambly adeptly explores slavery,
-the uneasy crossover between French and American <span>&#8230;<a href="/blog/2016/02/22/ReviewGraveyardDust.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/02/22/ReviewGraveyardDust.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/mystery/" rel="tag">mystery</a>
-                    and
-                    
-                <a href="/tag/history/" rel="tag">history</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-02-21">2016-02-21</time>
-        <h1>
-            <a href="/blog/2016/02/21/ReviewDeathInAStrangeCountry.html" rel="bookmark canonical">Review: Death In A Strange Country</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/0099469375/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Death In A Strange Country</div>
-<div class="line">Author: Donna Leon</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Arrow Books</div>
-<div class="line">Copyright: 1993</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0099469375/?tag=georgvreill-20">0099469375</a></div>
-<div class="line">Pages: 373</div>
-<div class="line">Keywords: mystery</div>
-<div class="line">Reading period: 19–21 February, 2016</div>
-</div>
-<p>A body has washed up in the canals of Venice,
-that of an American soldier from the nearby <span class="caps">US</span> base at Vicenza.
-Com&shy;mis&shy;sario Guido Brunetti doesn&#8217;t believe that it&#8217;s a mugging gone wrong,
-especially when he sees the fear in the eyes
-of the female army doctor who&#8217;s sent to identify the body.
-He digs and finds corruption among the rich and powerful, in a toxic&nbsp;coverup.</p>
-<p>Brunetti is a decent and honorable family man,
-whose sense of justice is undi&shy;min&shy;ished by working for
-an in&shy;com&shy;pe&shy;tent func&shy;tionary in <span>&#8230;<a href="/blog/2016/02/21/ReviewDeathInAStrangeCountry.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/02/21/ReviewDeathInAStrangeCountry.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/mystery/" rel="tag">mystery</a>
                 
             </p>
         

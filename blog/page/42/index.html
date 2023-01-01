@@ -29,6 +29,91 @@
     
         <article>
     <header>
+        <time datetime="2013-12-12">2013-12-12</time>
+        <h1>
+            <a href="/blog/2013/12/12/SampleASPComponentsNowAtGithub.html" rel="bookmark canonical">Sample ASP Components: now at Github</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.amazon.com/dp/1861001207/?tag=georgvreill-20"></a>
+<p>From October 1996 to May 1997, I wrote a number of sample components
+for the then-new <a class="reference external" href="http://en.wikipedia.org/wiki/Active_Server_Pages">Active Server Pages</a>
+(Classic <span class="caps">ASP</span>).
+I worked for Mi&shy;cro&shy;Crafts, a consulting company in Redmond, <span class="caps">WA</span>;
+the samples were written for Microsoft&#8217;s
+<a class="reference external" href="http://en.wikipedia.org/wiki/Internet_Information_Services">Internet In&shy;for&shy;ma&shy;tion Server</a>
+(<span class="caps">IIS</span>) team.
+Most of the components used Microsoft&#8217;s new
+<a class="reference external" href="http://en.wikipedia.org/wiki/Active_Template_Library">Active Template Library</a> (<span class="caps">ATL</span>),
+a C++ library for&nbsp;<span class="caps">COM</span>.</p>
+<p>This work had two important con&shy;se&shy;quences for me:
+Microsoft recruited me to join the <span class="caps">IIS</span> de&shy;vel&shy;op&shy;ment team
+to work on improving <span class="caps">ASP</span> per&shy;for&shy;mance for <span class="caps">IIS</span> 3,
+and Wrox Press invited me to write
+<a class="reference external" href="http://www.amazon.com/gp/product/1861000111/ref=as_li_qf_sp_asin_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1861000111&amp;linkCode=as2&amp;tag=georgvreill-20">Beginning <span class="caps">ATL</span> <span class="caps">COM</span> Pro&shy;gram&shy;ming</a>
+I was originally supposed to be the sole author of the book,
+but I was a slow writer and I was caught <span>&#8230;<a href="/blog/2013/12/12/SampleASPComponentsNowAtGithub.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2013/12/12/SampleASPComponentsNowAtGithub.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>,
+                <a href="/tag/iis/" rel="tag">iis</a>,
+                <a href="/tag/c++/" rel="tag">c++</a>
+                    and
+                    
+                <a href="/tag/writing/" rel="tag">writing</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2013-11-11">2013-11-11</time>
+        <h1>
+            <a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" rel="bookmark canonical">Turn off Windows Defender on your builds</a>
+        </h1>
+    </header>
+    <p>I&#8217;ve spent some time this evening profiling a Python ap&shy;pli&shy;ca&shy;tion on Windows,
+trying to find out why it was so much slower than on Mac or Linux.
+The ap&shy;pli&shy;ca&shy;tion is an in-house build tool which reads a number of config files,
+then writes some output&nbsp;files.</p>
+<p>Using the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run&shy;SnakeRun</a> Python profile viewer on Windows,
+two things im&shy;me&shy;di&shy;ate&shy;ly leapt out at me:
+we were running <tt class="docutils literal">os.stat</tt> a lot
+and <tt class="docutils literal">file.close</tt> was really&nbsp;expensive.</p>
+<p>A quick test convinced me that we were <a class="reference external" href="http://docs.python.org/2/library/stat.html">stat-ing</a> the same files over and over.
+It was a com&shy;bi&shy;na&shy;tion of explicit checks and implicit code,
+like <tt class="docutils literal">os.walk</tt> calling <tt class="docutils literal">os.path.isdir</tt>.
+I wrote a little cache that memoizes the results,
+which brought the cost <span>&#8230;<a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/windows/" rel="tag">windows</a>
+                    and
+                    
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2013-10-24">2013-10-24</time>
         <h1>
             <a href="/blog/2013/10/24/ReviewBackbonejsTesting.html" rel="bookmark canonical">Review: Backbone.js Testing</a>
@@ -360,85 +445,6 @@ so I wrote a post a couple of weeks ago on
         
             <p>tagged as
                 <a href="/tag/security/" rel="tag">security</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2011-04-03">2011-04-03</time>
-        <h1>
-            <a href="/blog/2011/04/03/The1911Census.html" rel="bookmark canonical">The 1911 Census</a>
-        </h1>
-    </header>
-    <p>It&#8217;s the 100th an&shy;niver&shy;sary of the 1911 census of the United Kingdom,
-which was taken on the night of Sunday, April 2nd.
-Ireland was still part of the <span class="caps">UK</span> and hence was included in the&nbsp;census.</p>
-<p>The census results are online.
-The <a class="reference external" href="http://en.wikipedia.org/wiki/Census_of_Ireland,_1911">Irish results</a> are freely browsable.
-The <a class="reference external" href="http://www.1911census.co.uk/"><span class="caps">UK</span> results</a> cost&nbsp;money.</p>
-<p>Three of my grand&shy;par&shy;ents were born in the 18 months following the&nbsp;census.</p>
-<p><strong>George&nbsp;Clery</strong></p>
-<p>My maternal grand&shy;fa&shy;ther, George Victor Clery, was born on March 30th, 1900.
-He died on March 3rd, 1965, twelve days before I was born.
-I am called George after him and Vincent after my&nbsp;father.</p>
-<p>Gen&shy;er&shy;a&shy;tions of Clerys worked for the Munster <span class="amp">&amp;</span> Leinster bank,
-which became Allied Irish Bank <span>&#8230;<a href="/blog/2011/04/03/The1911Census.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2011/04/03/The1911Census.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/ireland/" rel="tag">ireland</a>
-                    and
-                    
-                <a href="/tag/personal/" rel="tag">personal</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2010-11-30">2010-11-30</time>
-        <h1>
-            <a href="/blog/2010/11/30/ReviewLetTheDeadLie.html" rel="bookmark canonical">Review: Let the Dead Lie</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/1416586229/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Let the Dead Lie</div>
-<div class="line">Author: Malla Nunn</div>
-<div class="line">Rating: ★ ★ ★</div>
-<div class="line">Publisher: Washington Square Press</div>
-<div class="line">Copyright: 2010</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/1416586229/?tag=georgvreill-20">1416586229</a></div>
-<div class="line">Pages: 382</div>
-<div class="line">Keywords: crime</div>
-<div class="line">Reading period: 24–<span class="caps">DD</span> November, 2010</div>
-</div>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2010/11/30/ReviewLetTheDeadLie.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/crime/" rel="tag">crime</a>
                 
             </p>
         

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2022-12-31">2022-12-31</time>
+        <h1>
+            <a href="/blog/2022/12/31/FSymbolsForUnicodeWeirdness.html" rel="bookmark canonical">fsymbols for Unicode weirdness</a>
+        </h1>
+    </header>
+    <p>My display name on Twitter currently looks like @ɢᴇᴏʀɢᴇᴠʀᴇɪʟʟʏ@ᴛᴇᴄʜ.ʟɢʙᴛ,
+an attempt to route around Twitter's apparent censorship of Mastodon in&shy;for&shy;ma&shy;tion.</p>
+<p>I used the <a href="https://fsymbols.com/generators/">FSymbols Generators</a> to produce several variants.</p>
+<div class="codehilite"><pre><span></span>@𝕘𝕖𝕠𝕣𝕘𝕖𝕧𝕣𝕖𝕚𝕝𝕝𝕪@𝕥𝕖𝕔𝕙.𝕝𝕘𝕓𝕥
+ʇqƃʅ.ɥɔǝʇ@ʎʅʅᴉǝɹʌǝƃɹoǝƃ@
+@𝗀𝖾𝗈𝗋𝗀𝖾𝗏𝗋𝖾𝗂𝗅𝗅𝗒@𝗍𝖾𝖼𝗁.𝗅𝗀𝖻𝗍
+@𝘨𝘦𝘰𝘳𝘨𝘦𝘷𝘳𝘦𝘪𝘭𝘭𝘺@𝘵𝘦𝘤𝘩.𝘭𝘨𝘣𝘵
+@𝑔𝑒𝑜𝑟𝑔𝑒𝑣𝑟𝑒𝑖𝑙𝑙𝑦@𝑡𝑒𝑐ℎ.𝑙𝑔𝑏𝑡
+@𝙜𝙚𝙤𝙧𝙜𝙚𝙫𝙧𝙚𝙞𝙡𝙡𝙮@𝙩𝙚𝙘𝙝.𝙡𝙜𝙗𝙩
+@𝚐𝚎𝚘𝚛𝚐𝚎𝚟𝚛𝚎𝚒𝚕𝚕𝚢@𝚝𝚎𝚌𝚑.𝚕𝚐𝚋𝚝
+@𝔤𝔢𝔬𝔯𝔤𝔢𝔳𝔯𝔢𝔦𝔩𝔩𝔶@𝔱𝔢𝔠𝔥.𝔩𝔤𝔟𝔱
+</pre></div>
+
+
+<p>Many of these variants come from
+<a href="https://www.compart.com/en/unicode/block/U+1D400">Unicode Block "Math&shy;e&shy;mat&shy;i&shy;cal Al&shy;phanu&shy;mer&shy;ic Symbols"</a>.</p>
+<p>There are a lot more things you can do with Unicode
+than just <a href="/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html">upside-down text</a>.</p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/font/" rel="tag">font</a>,
+                <a href="/tag/unicode/" rel="tag">unicode</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2022-12-19">2022-12-19</time>
+        <h1>
+            <a href="/blog/2022/12/19/BackwardsRangesInPython.html" rel="bookmark canonical">Backwards Ranges in Python</a>
+        </h1>
+    </header>
+    <p>In Python, if you want to specify a sequence of numbers
+from <code>a</code> up to (but excluding) <code>b</code>,
+you can write <code>range(a, b)</code>.
+This generates the sequence <code>a, a+1, a+2, ..., b-1</code>.
+You start at <code>a</code> and keep going until the next number would be <code>b</code>.</p>
+<p>In Python 3, <code>range</code> is <em>lazy</em>
+and the values in the sequence do not ma&shy;te&shy;ri&shy;al&shy;ize
+until you consume the range.</p>
+<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+<span class="go">range(3, 12)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+<span class="go">[3, 4, 5, 6, 7, 8, 9, 10, 11]</span>
+</pre></div>
+
+
+<p>Trey Hunner makes the point that
+<a href="https://treyhunner.com/2018/02/python-range-is-not-an-iterator/">range is a lazy iterable</a>
+rather than an iterator.</p>
+<p>You can also <em>step</em> by an increment other than one:
+<code>range(a, b, s)</code>.
+This generates <code>a, a+s, a+2*s, ..., b-s</code>
+(assuming that <span>&#8230;<a href="/blog/2022/12/19/BackwardsRangesInPython.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

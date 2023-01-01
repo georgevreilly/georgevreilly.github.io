@@ -29,6 +29,52 @@
     
         <article>
     <header>
+        <time datetime="2022-12-19">2022-12-19</time>
+        <h1>
+            <a href="/blog/2022/12/19/BackwardsRangesInPython.html" rel="bookmark canonical">Backwards Ranges in Python</a>
+        </h1>
+    </header>
+    <p>In Python, if you want to specify a sequence of numbers
+from <code>a</code> up to (but excluding) <code>b</code>,
+you can write <code>range(a, b)</code>.
+This generates the sequence <code>a, a+1, a+2, ..., b-1</code>.
+You start at <code>a</code> and keep going until the next number would be <code>b</code>.</p>
+<p>In Python 3, <code>range</code> is <em>lazy</em>
+and the values in the sequence do not ma&shy;te&shy;ri&shy;al&shy;ize
+until you consume the range.</p>
+<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+<span class="go">range(3, 12)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+<span class="go">[3, 4, 5, 6, 7, 8, 9, 10, 11]</span>
+</pre></div>
+
+
+<p>Trey Hunner makes the point that
+<a href="https://treyhunner.com/2018/02/python-range-is-not-an-iterator/">range is a lazy iterable</a>
+rather than an iterator.</p>
+<p>You can also <em>step</em> by an increment other than one:
+<code>range(a, b, s)</code>.
+This generates <code>a, a+s, a+2*s, ..., b-s</code>
+(assuming that <span>&#8230;<a href="/blog/2022/12/19/BackwardsRangesInPython.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2021-10-04">2021-10-04</time>
         <h1>
             <a href="/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html" rel="bookmark canonical">Accidentally Quadratic: Python List Membership</a>
@@ -405,45 +451,6 @@ and I put together some slides for that too.</p>
                 <a href="/tag/docker/" rel="tag">docker</a>
                     and
                     
-                <a href="/tag/python/" rel="tag">python</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-04-13">2016-04-13</time>
-        <h1>
-            <a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" rel="bookmark canonical">io.StringIO and UnicodeCSV DictWriter</a>
-        </h1>
-    </header>
-    <p>I like to use <a class="reference external" href="https://docs.python.org/2/library/io.html#io.StringIO">io.StringIO</a> rather than the older <a class="reference external" href="https://docs.python.org/2/library/stringio.html#cStringIO.StringIO">cStringIO.StringIO</a>,
-as it's Python 3–ready
-<tt class="docutils literal">io.StringIO</tt> is also a <a class="reference external" href="https://docs.python.org/2/reference/datamodel.html#context-managers">context manager</a>:
-if you use it in a <tt class="docutils literal">with</tt> statement,
-the string buffer is au&shy;to&shy;mat&shy;i&shy;cal&shy;ly <tt class="docutils literal">close</tt>d as you go out of scope.</p>
-<p>I tried using <tt class="docutils literal">io.StringIO</tt> with <a class="reference external" href="https://github.com/jdunck/python-unicodecsv">unicodecsv</a>,
-as I wanted to capture the CSV output into a string buffer
-for use with unit tests.
-<tt class="docutils literal">unicodecsv</tt> is a drop-in re&shy;place&shy;ment for Python's built-in <tt class="docutils literal">csv</tt> module,
-which supports Unicode strings.</p>
-<pre class="code python literal-block">
-<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
-    <span class="n">write_csv_rows</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
-    <span class="n">lines</span> <span class="o">=</span> <span class="n">csv_file</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\r\n</span><span class="s1">'</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">lines</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># drop empty line after trailing \r\n</span>
-</pre>
-<p>It failed horribly with
-<tt class="docutils literal">TypeError: unicode argument expected, <span>&#8230;<a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" class="continue">continue</a>.</span></tt></p>
-    <footer>
-        
-        
-            <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
                 
             </p>
