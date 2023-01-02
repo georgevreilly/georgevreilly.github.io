@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2006-01-22">2006-01-22</time>
+        <h1>
+            <a href="/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html" rel="bookmark canonical">Compiling Vim with Visual C++ 2003 Toolkit</a>
+        </h1>
+    </header>
+    <p>I've been trying to make <a class="reference external" href="http://www.vim.org/develop.php">Vim 7</a>
+compile with the
+<a class="reference external" href="http://msdn.microsoft.com/visualc/vctoolkit2003/">Microsoft Visual C++ 2003 Toolkit</a>,
+as a favor to Bram Moolenaar, the primary author of Vim.
+He wants to be able to use the free compiler as the
+primary build tool for the Win32 version of Vim.</p>
+<p>Oh. My. God.</p>
+<p>The VC2003 toolkit may include a full optimizing compiler,
+but it's certainly far from a complete system for building
+Windows binaries.</p>
+<p>First, I discovered that it came only with the C library headers,
+but not the Windows headers. That was easily rectified. Download the
+<a class="reference external" href="http://www.microsoft.com/msdownload/platformsdk/sdkupdate/">Platform SDK</a>.
+Just the Windows Core SDK subset. This also got me nmake.</p>
+<p>At this point, I was able to <span>&#8230;<a href="/blog/2006/01/22/CompilingVimWithVisualC2003Toolkit.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>,
+                <a href="/tag/c++/" rel="tag">c++</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-01-15">2006-01-15</time>
+        <h1>
+            <a href="/blog/2006/01/15/ChangingTheConsoleFont.html" rel="bookmark canonical">Changing the Console Font</a>
+        </h1>
+    </header>
+    
+<p>I re-read Scott Hansel&shy;man's blog post on
+<a class="reference external" href="http://www.hanselman.com/blog/UsingConsolasAsTheWindowsConsoleFont.aspx">using Consolas as the Windows Console Font</a>,
+and I decided to put together a
+<a class="reference external" href="/content/binary/console-font.reg.txt">registry file</a>
+to make it a little simpler.
+(You'll have to rename the file to <tt class="docutils literal"><span class="pre">console-font.reg</span></tt> after down&shy;load&shy;ing.)</p>
+<p>The registry file includes entries for:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://corefonts.sourceforge.net/">Andale Mono</a></li>
+<li><a class="reference external" href="http://dejavu.sourceforge.net/">DejaVu Sans Mono</a>
+(an extended version of <a class="reference external" href="http://gnome.org/fonts/">Bitstream Vera</a>)</li>
+<li><a class="reference external" href="http://www.poynter.org/column.asp?id=47&amp;aid=78683">Consolas</a></li>
+</ul>
+<dl class="docutils">
+<dt>As Scott says:</dt>
+<dd><em>(I'm afraid I can't distribute Consolas online
+or provide a download out of abject fear.
+That said, you can find it in any version of the Longhorn bits.)</em></dd>
+</dl>
+<p>Or Office 12, I believe.</p>
+<p><strong>Update, 2008/01/15</strong>.
+The <a class="reference external" href="http://www.microsoft.com/downloads/details.aspx?familyid=22e69ae4-7e40-4807-8a86-b3d36fab68d3&amp;displaylang=en">Consolas Font Pack</a> is the easiest way to get Consolas,
+if you don't have Office 2007 or Vista.
+Tech&shy;ni&shy;cal&shy;ly, you are supposed to <span>&#8230;<a href="/blog/2006/01/15/ChangingTheConsoleFont.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/font/" rel="tag">font</a>,
+                <a href="/tag/windows/" rel="tag">windows</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2005-11-17">2005-11-17</time>
+        <h1>
+            <a href="/blog/2005/11/17/SkypeAndSSL.html" rel="bookmark canonical">Skype and SSL</a>
+        </h1>
+    </header>
+    <p>A year ago, I ran into a problem with <a class="reference external" href="http://weblogs.asp.net/george_v_reilly/archive/2004/09/15/230281.aspx">Skype squatting on port 80</a>,
+which I had long forgotten about.
+Today, I ran into one with Skype squatting on port 443.</p>
+<p>I was trying to set up SSL on my Windows Server 2003 dev box.
+My ultimate goal is to experiment with client certs and server certs for SOAP,
+but that's a story for another time.
+I was running into all kinds of strange problems,
+ex&shy;ac&shy;er&shy;bat&shy;ed by the relatively strange IIS con&shy;fig&shy;u&shy;ra&shy;tion on my machine.</p>
+<p>I tried <a class="reference external" href="https://www.iis.net/downloads/community/2009/09/ssl-diagnostics-tool-for-iis-7">SslDiag</a>.
+In hindsight, it pointed me towards the underlying problem,
+but I couldn't see it at the time.
+I did a lot of digging <span>&#8230;<a href="/blog/2005/11/17/SkypeAndSSL.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2005-09-14">2005-09-14</time>
+        <h1>
+            <a href="/blog/2005/09/14/SoapingUpAFlatTire.html" rel="bookmark canonical">Soaping up a Flat Tire</a>
+        </h1>
+    </header>
+    <p>I learned a really clever trick at our <a class="reference external" href="/blog/2005/09/14/KatrinaEvacueesWorkPartiesAndScalingBack.html">workparty</a> on Sunday.</p>
+<p>We were using a dolly that we had borrowed from our neighbor Mary
+to haul a heavy credenza up from the basement.
+One of the tires was flat, which made the exercise even more difficult.</p>
+<p>I got out my bicycle floor pump and started pumping,
+but it was a waste of time.
+The tire was tubeless and without any air,
+so it just slipped loosely around the rim.
+After a few minutes of futility,
+Dale remembered something he had seen years before at a gas station.</p>
+<p>He got a bowl of soapy water and a sponge,
+and coated the metal <span>&#8230;<a href="/blog/2005/09/14/SoapingUpAFlatTire.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/diy/" rel="tag">diy</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2005-06-02">2005-06-02</time>
+        <h1>
+            <a href="/blog/2005/06/02/PrintfTricks.html" rel="bookmark canonical">Printf Tricks</a>
+        </h1>
+    </header>
+    <p>It may be old-fashioned, but I still find <tt class="docutils literal">printf</tt> (and <tt class="docutils literal">sprintf</tt>
+and <tt class="docutils literal">_vsnprintf</tt>) incredibly useful, both for printing debug output
+and for generating formatted strings.</p>
+<p>Here are a few lesser-known formats that I use again and again.
+See MSDN for the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/56e442dc(VS.71).aspx">full reference</a>.</p>
+<div class="section" id="x-4-digit-hex-number-with-leading-zeroes">
+<h2>%04x - 4-digit hex number with leading zeroes</h2>
+<p>A quick review of some of the basics.</p>
+<p><tt class="docutils literal">%x</tt> prints an <tt class="docutils literal">int</tt> in hexa&shy;dec&shy;i&shy;mal.</p>
+<p><tt class="docutils literal">%4x</tt> prints a hex int, right-justified to 4 places.
+If it's less than 4 digits, it's preceded by spaces.
+If it's more than 4 digits, you get the full number.</p>
+<p><tt class="docutils literal">%04x</tt> prints a hex int, right-justified to 4 places.
+If it's less than 4 digits, it's preceded <span>&#8230;<a href="/blog/2005/06/02/PrintfTricks.html" class="continue">continue</a>.</span></p></div>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/c/" rel="tag">c</a>,
+                <a href="/tag/c++/" rel="tag">c++</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+        <a href="/tag/til/10/" class="page floatleft">
+        &laquo; Next
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

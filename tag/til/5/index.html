@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-04-03">2016-04-03</time>
+        <h1>
+            <a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" rel="bookmark canonical">Find remote Git branch with change to a file</a>
+        </h1>
+    </header>
+    <p>I needed to track down a remote branch created a couple of months ago
+on another machine.
+I knew which file had been changed,
+but none of the far-too-many remote branches' names rang a bell.</p>
+<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch --contains</a> in the right way
+finds all the relevant branches.</p>
+<pre class="code bash literal-block">
+git log --all --format<span class="o">=</span>%H FILENAME <span class="se">\
+</span>    <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> f<span class="p">;</span> <span class="k">do</span> git branch --remotes --contains <span class="nv">$f</span><span class="p">;</span> <span class="k">done</span> <span class="se">\
+</span>    <span class="p">|</span> sort -u
+</pre>
+<p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> FILENAME</tt>,
+lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal">FILENAME</tt>.
+The second finds all the branches that contain those hashes
+(I added <tt class="docutils literal"><span class="pre">--remotes</span></tt>).
+The <span>&#8230;<a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/git/" rel="tag">git</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-03-25">2016-03-25</time>
+        <h1>
+            <a href="/blog/2016/03/25/Profiling.html" rel="bookmark canonical">Profiling</a>
+        </h1>
+    </header>
+    <p>Despite being a <em>bona fide</em> per&shy;for&shy;mance expert—I spent a couple of years as the Per&shy;for&shy;mance Lead
+for Mi&shy;crosoft&shy;'s IIS web server product about 15 years ago—I still forget to measure rather than assume.</p>
+<p>I wrote some code today that imported nearly 300,000 nodes into a graph
+from a 500MB XML file.
+The code was not par&shy;tic&shy;u&shy;lar&shy;ly fast and I assumed that it was the XML parser.
+I had been using the built-in streaming parser, <a class="reference external" href="https://docs.python.org/2/library/xml.etree.elementtree.html#xml.etree.ElementTree.iterparse">cEle&shy;ment&shy;Tree iterparse</a>.
+I assumed that using the <a class="reference external" href="http://lxml.de/api/lxml.etree.iterparse-class.html">lmxl iterparse</a> would make the code faster.
+It didn't.</p>
+<p>Then I had the bright idea of tem&shy;porar&shy;i&shy;ly disabling the per-node processing,
+which left only the XML parsing.
+Instead of <span>&#8230;<a href="/blog/2016/03/25/Profiling.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/performance/" rel="tag">performance</a>,
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-03-24">2016-03-24</time>
+        <h1>
+            <a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" rel="bookmark canonical">Raising IOError for 'file not found'</a>
+        </h1>
+    </header>
+    <p>I wanted to raise Python's <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.IOError">IOError</a> for a file-not-found condition,
+but it wasn't obvious what the parameters to the exception should be.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">errno</span> <span class="kn">import</span> <span class="n">ENOENT</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">source_file</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">ENOENT</span><span class="p">,</span> <span class="s1">'Not a file'</span><span class="p">,</span> <span class="n">source_file</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre>
+<p><tt class="docutils literal">IOError</tt> can be in&shy;stan&shy;ti&shy;at&shy;ed with 1, 2, or 3 arguments:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal">IOError(errno, strerror, filename)</tt></dt>
+<dd>These arguments are available
+on the <tt class="docutils literal">errno</tt>, <tt class="docutils literal">strerror</tt>, and <tt class="docutils literal">filename</tt> attributes of the exception object,
+re&shy;spec&shy;tive&shy;ly, in both Python 2 and 3.
+The <tt class="docutils literal">args</tt> attribute contains the verbatim con&shy;struc&shy;tor arguments as a tuple.</dd>
+<dt><tt class="docutils literal">IOError(errno, strerror)</tt></dt>
+<dd>These are available on the <tt class="docutils literal">errno</tt> and <tt class="docutils literal">strerror</tt> attributes of the exception,
+re&shy;spec&shy;tive&shy;ly, in both Python 2 and <span>&#8230;<a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" class="continue">continue</a>.</span></dd></dl>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-03-17">2016-03-17</time>
+        <h1>
+            <a href="/blog/2016/03/17/QuotingInBash.html" rel="bookmark canonical">Quoting in Bash</a>
+        </h1>
+    </header>
+    <p>Various Bash guides recommend putting quotes around just about everything.
+I had a script that contained this line:</p>
+<pre class="code bash literal-block">
+sudo apt-get install --yes <span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$BUILD</span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span>
+</pre>
+<p>While refac&shy;tor&shy;ing, I put another set of quotes around the <tt class="docutils literal">$(cat <span class="pre">...)</span></tt>
+out of an abundance of caution:</p>
+<pre class="code bash literal-block">
+sudo apt-get install --yes <span class="s2">&quot;</span><span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$BUILD</span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+</pre>
+<p>Several other changes later, I couldn't figure out why my script had stopped working.</p>
+<p>Here's what happened:</p>
+<pre class="code bash literal-block">
+$ cat <span class="nv">$HOME</span>/tmp/demo.txt
+foo
+bar
+quux
+
+$ <span class="nb">echo</span> <span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/tmp/demo.txt&quot;</span><span class="k">)</span>
+foo bar quux
+
+$ <span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>cat <span class="nv">$HOME</span>/tmp/demo.txt<span class="k">)</span><span class="s2">&quot;</span>
+foo
+bar
+quux
+</pre>
+<p>The new outer quotes retained the newlines;
+the original replaced newlines with spaces.</p>
+<p>The <a class="reference external" href="http://mywiki.wooledge.org/BashFAQ">Bash FAQ</a> has more: specif&shy;i&shy;cal&shy;ly <a class="reference external" href="http://mywiki.wooledge.org/CommandSubstitution">Command Substition</a> and <a class="reference external" href="http://mywiki.wooledge.org/WordSplitting">Word Splitting</a>.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/bash/" rel="tag">bash</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-03-06">2016-03-06</time>
+        <h1>
+            <a href="/blog/2016/03/06/psutil-kill.html" rel="bookmark canonical">psutil kill</a>
+        </h1>
+    </header>
+    <p>From Python, I needed to find a process
+that was performing SSH tunneling on port 8080
+and kill it.</p>
+<p>The following works in Bash:</p>
+<pre class="code bash literal-block">
+ps aux <span class="p">|</span> grep <span class="o">[</span>s<span class="o">]</span>sh.*:8080 <span class="p">|</span> awk <span class="s1">'{print $2}'</span> <span class="p">|</span> xargs <span class="nb">kill</span> -9
+</pre>
+<p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
+won't make it through to <tt class="docutils literal">awk</tt>.</p>
+<p>Here's what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
+<pre class="code python literal-block">
+<span class="k">def</span> <span class="nf">kill_port_forwarding</span><span class="p">(</span><span class="n">host_port</span><span class="p">):</span>
+    <span class="n">ssh_args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;-L&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">:localhost:</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host_port</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">process_iter</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'ssh'</span><span class="p">):</span>
+       </pre><span>&#8230;<a href="/blog/2016/03/06/psutil-kill.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-03-02">2016-03-02</time>
+        <h1>
+            <a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" rel="bookmark canonical">Python: Import subclass from dynamic path</a>
+        </h1>
+    </header>
+    <p>I needed to import some plugin code written in Python
+from a directory whose path isn't known until runtime.
+Further, I needed a class object that was a subclass of the plugin base class.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">somewhere</span> <span class="kn">import</span> <span class="n">PluginBase</span>
+
+<span class="k">class</span> <span class="nc">SomePlugin</span><span class="p">(</span><span class="n">PluginBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">f2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+</pre>
+<p>You can use the <a class="reference external" href="https://pymotw.com/2/imp/">imp</a> module to actually load the module from <tt class="docutils literal">impl_dir</tt>.
+Note that <tt class="docutils literal">impl_dir</tt> needs to be tem&shy;porar&shy;i&shy;ly prepended to <tt class="docutils literal">sys.path</tt>.
+Then you can find the plugin subclass using <a class="reference external" href="https://docs.python.org/2/library/functions.html#dir">dir</a> and <a class="reference external" href="https://docs.python.org/2/library/functions.html#issubclass">issubclass</a>.</p>
+<pre class="code python literal-block">
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">imp</span>
+
+<span class="k">def</span> <span class="nf">import_class</span><span class="p">(</span><span class="n">implementation_filename</span><span class="p">,</span> <span class="n">base_class</span><span class="p">):</span>
+    <span class="n">impl_dir</span><span class="p">,</span> <span class="n">impl_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">implementation_filename</span><span class="p">)</span>
+    <span class="n">module_name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">impl_filename</span><span class="p">)</span>
+
+    </pre><span>&#8230;<a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-02-27">2016-02-27</time>
+        <h1>
+            <a href="/blog/2016/02/27/Keybase.html" rel="bookmark canonical">Keybase</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://keybase.io/"></a>
+<p>I was sent an invite to <a class="reference external" href="https://keybase.io/">Keybase</a> a few weeks, which I accepted tonight.</p>
+<p><a class="reference external" href="http://www.fastcompany.com/3044306/keybase-wants-to-make-serious-encryption-accessible-to-mere-mortals">Keybase Wants To Make Serious Encryption Accessible To Mere Mortals</a>
+explains:</p>
+<blockquote>
+<p>From a cryp&shy;to&shy;graph&shy;ic standpoint, PGP is rock solid.
+In practice, using it is very messy.
+Its complexity has deterred the vast majority of people
+who might otherwise benefit from using encryption.</p>
+<p>The first problem is es&shy;tab&shy;lish&shy;ing a valid identity,
+especially with other people located oceans away.
+The second is dis&shy;trib&shy;ut&shy;ing public keys
+without nefarious types posting al&shy;ter&shy;na&shy;tive keys
+that appear to be registered to the same person.
+...
+The third issue is getting people to install and use PGP software.</p>
+</blockquote>
+<p>I can now be reached via <a class="reference external" href="https://keybase.io/georgevreilly">https://keybase.io/georgevreil&shy;ly</a>.
+I've proved my <span>&#8230;<a href="/blog/2016/02/27/Keybase.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/security/" rel="tag">security</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-02-16">2016-02-16</time>
+        <h1>
+            <a href="/blog/2016/02/16/SortingPythonDictionariesByValue.html" rel="bookmark canonical">Sorting Python Dictionaries by Value</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>I needed to sort a Python dictionary by <em>value</em> today, rather than by <em>key</em>.
+I found it confusing, so I'll share what I learned.</p>
+<p>Assume the following dictionary, where each value is a tuple of (ID, score).
+How do we sort by score; i.e., the second item in the value tuple?
+(For the purposes of this discussion, ignore the meaning of the dic&shy;tio&shy;nary's key.)</p>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="n">some_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="n">b</span><span class="o">=</span><span class="p">(</span><span class="mi">372</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">e</span><span class="o">=</span><span class="p">(</span><span class="mi">456</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">),</span> <span class="n">d</span><span class="o">=</span><span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">some_dict</span>
+<span class="go">{'a': (123, 0.7), 'c': (502, 0.1), 'b': (372, 0.2), 'e': (456, 0.85), 'd': (148, 0.23)}</span>
+</pre>
+<p>Python dic&shy;tio&shy;nar&shy;ies are inherently unsorted,
+unless you <span>&#8230;<a href="/blog/2016/02/16/SortingPythonDictionariesByValue.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-02-12">2016-02-12</time>
+        <h1>
+            <a href="/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html" rel="bookmark canonical">Unicode Upside-Down Mapping, Part 2</a>
+        </h1>
+    </header>
+    <p><a class="reference external" href="/blog/2016/02/11/UnicodeUpsideDownMapping.html">Yesterday</a> I showed File&shy;For&shy;mat's <a class="reference external" href="http://www.fileformat.info/convert/text/upside-down.htm">ɹǝʇɹǝʌuoↃ uʍo◖-ǝpısd∩ ǝpoɔıu∩</a>.
+Although the lowercase letters generally looked good,
+several of the uppercase letters and numerals were un&shy;sat&shy;is&shy;fac&shy;to&shy;ry.
+Looking through the <a class="reference external" href="http://unicode-table.com/en/">Unicode Table</a> site,
+I came across the <a class="reference external" href="http://unicode-table.com/en/blocks/lisu/">Fraser Lisu alphabet</a>,
+which is un&shy;for&shy;tu&shy;nate&shy;ly not well supported in most fonts.
+The following renders in <a class="reference external" href="http://sourcefoundry.org/hack/">Hack</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Source_Code_Pro">Source Code Pro</a> in MacVim,
+but not in the <a class="reference external" href="https://www.google.com/fonts/specimen/Source+Code+Pro">Source Code Pro webfont</a> from Google Fonts:</p>
+<pre class="literal-block">
+B: ꓭ u+A4ED  Lisu Letter Gha
+D: ꓷ u+A4F7  Lisu Letter Oe
+J: ꓩ u+A4E9  Lisu Letter Fa
+K: ꓘ u+A4D8  Lisu Letter Kha
+L: ꓶ u+A4F6  Lisu Letter Uh
+R: ꓤ u+A4E4  Lisu Letter Za
+T: ꓕ u+A4D5  Lisu </pre><span>&#8230;<a href="/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/font/" rel="tag">font</a>,
+                <a href="/tag/unicode/" rel="tag">unicode</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-02-11">2016-02-11</time>
+        <h1>
+            <a href="/blog/2016/02/11/UnicodeUpsideDownMapping.html" rel="bookmark canonical">Unicode Upside-Down Mapping</a>
+        </h1>
+    </header>
+    <p>Unicode is so versatile that you can (more or less) invert the Latin alphabet:</p>
+<pre class="literal-block">
+ɐqɔpǝɟƃɥıɾʞʃɯuodbɹsʇnʌʍxʎz ∀𐐒Ↄ◖ƎℲ⅁HIſ⋊⅂WᴎOԀΌᴚS⊥∩ᴧMX⅄Z 012Ɛᔭ59Ɫ86
+abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789
+68Ɫ95ᔭƐ210 Z⅄XMᴧ∩⊥SᴚΌԀOᴎW⅂⋊ſIH⅁ℲƎ◖Ↄ𐐒∀ zʎxʍʌnʇsɹbdouɯʃʞɾıɥƃɟǝpɔqɐ
+</pre>
+<p>Obtained via the <a class="reference external" href="http://www.fileformat.info/convert/text/upside-down.htm">ɹǝʇɹǝʌuoↃ uʍo◖-ǝpısd∩ ǝpoɔıu∩</a>.
+More at <a class="reference external" href="http://www.fileformat.info/convert/text/upside-down-map.htm">Unicode Upside-Down Mapping</a>.</p>
+<p><strong>Update</strong>: more <a class="reference external" href="/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html">tomorrow</a>.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/font/" rel="tag">font</a>,
+                <a href="/tag/unicode/" rel="tag">unicode</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+        <a href="/tag/til/6/" class="page floatright">
+        Previous &raquo;
+        </a>
+    
+    
+        <a href="/tag/til/4/" class="page floatleft">
+        &laquo; Next
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

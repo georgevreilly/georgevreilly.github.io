@@ -121,10 +121,11 @@ sudo docker images --format <span class="s1">'{{.Repository}}:{{.Tag}}'</span> <
             <p>tagged as
                 <a href="/tag/writing/" rel="tag">writing</a>,
                 <a href="/tag/tech/" rel="tag">tech</a>,
-                <a href="/tag/font/" rel="tag">font</a>
+                <a href="/tag/font/" rel="tag">font</a>,
+                <a href="/tag/blogging/" rel="tag">blogging</a>
                     and
                     
-                <a href="/tag/blogging/" rel="tag">blogging</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -192,10 +193,11 @@ GitHub itself seems to use different <span>&#8230;<a href="/blog/2017/01/04/Mark
         
         
             <p>tagged as
-                <a href="/tag/tech/" rel="tag">tech</a>
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/writing/" rel="tag">writing</a>
                     and
                     
-                <a href="/tag/writing/" rel="tag">writing</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -265,10 +267,11 @@ Then there's <a class="reference external" href="https://en.wikipedia.org/wiki/X
         
         
             <p>tagged as
-                <a href="/tag/tech/" rel="tag">tech</a>
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/compression/" rel="tag">compression</a>
                     and
                     
-                <a href="/tag/compression/" rel="tag">compression</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -303,10 +306,11 @@ as we're <span>&#8230;<a href="/blog/2016/08/30/USBChargeOnlyCablesAndCondoms.ht
         
             <p>tagged as
                 <a href="/tag/tech/" rel="tag">tech</a>,
-                <a href="/tag/usb/" rel="tag">usb</a>
+                <a href="/tag/usb/" rel="tag">usb</a>,
+                <a href="/tag/security/" rel="tag">security</a>
                     and
                     
-                <a href="/tag/security/" rel="tag">security</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -344,10 +348,11 @@ that was on-CPU when the <span>&#8230;<a href="/blog/2016/08/23/FlameGraphsAndFl
         
         
             <p>tagged as
-                <a href="/tag/tech/" rel="tag">tech</a>
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/performance/" rel="tag">performance</a>
                     and
                     
-                <a href="/tag/performance/" rel="tag">performance</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -366,34 +371,35 @@ that was on-CPU when the <span>&#8230;<a href="/blog/2016/08/23/FlameGraphsAndFl
     </header>
     <p>I needed to create a wildcard SSL cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/">AWS CloudFront</a> today.</p>
 <p>First, generate a 2048-bit private key. This will prompt you for a passphrase:</p>
-<pre class="literal-block">
-$ openssl genrsa -des3 -out example.key 2048
+<pre class="code bash literal-block">
+$ openssl genrsa -des3 -out example.key <span class="m">2048</span>
 </pre>
 <p>Check which signature algorithm was used (SHA-256 is rec&shy;om&shy;mend&shy;ed):</p>
-<pre class="literal-block">
+<pre class="code bash literal-block">
 $ openssl req -in example.csr -noout -text
 </pre>
 <p>Transform the private key to PEM format:</p>
-<pre class="literal-block">
+<pre class="code bash literal-block">
 $ openssl rsa -outform PEM -in example.key -out example.pem
 </pre>
 <p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server FQDN:</p>
-<pre class="literal-block">
+<pre class="code bash literal-block">
 $ openssl req -new -key example.key -out example.csr
 
-Country Name (2 letter code) [AU]:US
-State or Province Name (full name) [Some-State]:Washington
-Locality Name (eg, city) []:Seattle
-Organization Name (eg, company) [Internet Widgits Pty </pre><span>&#8230;<a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" class="continue">continue</a>.</span>
+Country Name <span class="o">(</span><span class="m">2</span> letter code<span class="o">)</span> <span class="o">[</span>AU<span class="o">]</span>:US
+State or Province Name <span class="o">(</span>full name<span class="o">)</span> <span class="o">[</span>Some-State<span class="o">]</span>:Washington
+Locality Name <span class="o">(</span>eg, city<span class="o">)</span> <span class="o">[]</span>:Seattle
+Organization Name <span class="o">(</span>eg, company<span class="o">)</span> <span class="o">[</span>Internet Widgits Pty </pre><span>&#8230;<a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" class="continue">continue</a>.</span>
     <footer>
         
         
             <p>tagged as
                 <a href="/tag/tech/" rel="tag">tech</a>,
-                <a href="/tag/ssl/" rel="tag">ssl</a>
+                <a href="/tag/ssl/" rel="tag">ssl</a>,
+                <a href="/tag/aws/" rel="tag">aws</a>
                     and
                     
-                <a href="/tag/aws/" rel="tag">aws</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

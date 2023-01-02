@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-08-26">2016-08-26</time>
+        <h1>
+            <a href="/blog/2016/08/26/HomographAttacks.html" rel="bookmark canonical">Homograph Attacks</a>
+        </h1>
+    </header>
+    <p>During an internal training exercise today,
+as a sort of one-man <a class="reference external" href="https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey">Chaos Monkey</a>,
+I de&shy;lib&shy;er&shy;ate&shy;ly broke a test system by changing a config setting to read:</p>
+<pre class="literal-block">
+itemfinder.url = http://test-іtemfinder.example.com/
+</pre>
+<p>The correct value should have been:</p>
+<pre class="literal-block">
+itemfinder.url = http://test-itemfinder.example.com/
+</pre>
+<p>What's that, you say? There's no difference, you say?</p>
+<p>There <em>is</em> a difference, but it's subtle.
+The first <tt class="docutils literal">i</tt> in the URL is
+<a class="reference external" href="http://www.fileformat.info/info/unicode/char/0456/index.htm">'CYRILLIC SMALL LETTER BYELORUSS&shy;IAN-UKRAINIAN I' (U+0456)</a>,
+not <a class="reference external" href="http://www.fileformat.info/info/unicode/char/0069/index.htm">'LATIN SMALL LETTER I' (U+0069)</a>.
+Depending upon the font, the two <tt class="docutils literal">i</tt>s may be visually in&shy;dis&shy;tin&shy;guish&shy;able,
+very similar looking, or the Cyrillic <tt class="docutils literal">i</tt> may not render.</p>
+<p>This is an example of an <a class="reference external" href="https://en.wikipedia.org/wiki/IDN_homograph_attack">In&shy;ter&shy;na&shy;tion&shy;al Domain Name Homograph Attack</a>.
+There are Greek letters and Cyrillic letters that look <span>&#8230;<a href="/blog/2016/08/26/HomographAttacks.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/security/" rel="tag">security</a>,
+                <a href="/tag/unicode/" rel="tag">unicode</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-08-23">2016-08-23</time>
+        <h1>
+            <a href="/blog/2016/08/23/FlameGraphsAndFlameCharts.html" rel="bookmark canonical">Flame Graphs and Flame Charts</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://queue.acm.org/detail.cfm?id=2927301"></a>
+<p>I was in&shy;ves&shy;ti&shy;gat&shy;ing the per&shy;for&shy;mance of a web app today,
+and I spent some time looking at the <a class="reference external" href="https://addyosmani.com/blog/devtools-flame-charts/">Flame Chart</a> vi&shy;su&shy;al&shy;iza&shy;tion
+in Chrome's profiling tools, which helped identify some problems.</p>
+<p>Flame Charts are like Brendan Gregg's <a class="reference external" href="http://www.brendangregg.com/flamegraphs.html">Flame Graphs</a>,
+except that the charts are sorted by time,
+while the graphs are sorted al&shy;pha&shy;bet&shy;i&shy;cal&shy;ly.</p>
+<p>Quoting from Gregg's recent <a class="reference external" href="http://queue.acm.org/detail.cfm?id=2927301">ACM Queue article</a>:</p>
+<blockquote>
+<p>A flame graph has the following char&shy;ac&shy;ter&shy;is&shy;tics:</p>
+<ul class="simple">
+<li>A stack trace is rep&shy;re&shy;sent&shy;ed as a column of boxes,
+where each box represents a function (a stack frame).</li>
+<li>The y-axis shows the stack depth,
+ordered from root at the bottom to leaf at the top.
+The top box shows the function
+that was on-CPU when the <span>&#8230;<a href="/blog/2016/08/23/FlameGraphsAndFlameCharts.html" class="continue">continue</a>.</span></li></ul></blockquote>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/performance/" rel="tag">performance</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-08-06">2016-08-06</time>
+        <h1>
+            <a href="/blog/2016/08/06/Rounding.html" rel="bookmark canonical">Rounding</a>
+        </h1>
+    </header>
+    <p>I recently learned from a <a class="reference external" href="http://stackoverflow.com/questions/10825926/python-3-x-rounding-behavior">Stack&shy;Over&shy;flow question</a>
+that the rounding behavior in Python 3.x is different from Python 2.x:</p>
+<blockquote>
+The round() function rounding strategy and return type have changed.
+Exact halfway cases are now rounded to the nearest even result
+instead of away from zero.
+(For example, round(2.5) now returns 2 rather than 3.)</blockquote>
+<p>The “away from zero” rounding strategy is the one that most of us learned at school.
+The “nearest even” strategy is also known as “banker’s rounding”.</p>
+<p>There are actually <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_floating_point#Rounding_rules">five rounding strategies defined in IEEE 754</a>:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="58%"/>
+<col width="11%"/>
+<col width="11%"/>
+<col width="11%"/>
+<col width="11%"/>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Mode / Example Value</th>
+<th class="head">+11.5</th>
+<th class="head">+12.5</th>
+<th class="head">−11.5</th>
+<th class="head">−12.5</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>to nearest, ties to even</td>
+<td>+12.0</td>
+<td>+12.0</td>
+<td>−12.0</td>
+<td>−12.0</td>
+</tr>
+<tr><td>to nearest, ties away from zero</td>
+<td>+12.0</td>
+<td>+13.0</td>
+<td>−12.0</td>
+<td>−13.0</td>
+</tr>
+<tr><td>toward 0 (truncation)</td>
+<td>+11.0</td>
+<td>+12.0</td>
+<td>−11.0</td>
+<td>−12.0</td>
+</tr>
+<tr><td>toward +∞ (ceiling)</td>
+<td>+12.0</td>
+<td>+13.0</td>
+<td>−11.0</td>
+<td>−12.0</td>
+</tr>
+<tr><td>toward −∞ (floor)</td>
+<td>+11.0</td>
+<td>+12.0</td>
+<td>−12.0</td>
+<td>−13.0</td>
+</tr>
+</tbody>
+</table>
+<p>Further <span>&#8230;<a href="/blog/2016/08/06/Rounding.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/math/" rel="tag">math</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-08-03">2016-08-03</time>
+        <h1>
+            <a href="/blog/2016/08/03/GitCommitVerbose.html" rel="bookmark canonical">git commit --verbose</a>
+        </h1>
+    </header>
+    <p>I learned today about the <tt class="docutils literal"><span class="pre">-v</span></tt> (<tt class="docutils literal"><span class="pre">--verbose</span></tt>) flag to <tt class="docutils literal">git commit</tt> (<a class="reference external" href="https://git-scm.com/docs/git-commit">git-commit</a>),
+which causes a unified diff of what would be committed
+to be appended to the end of the commit message.
+This diff is not part of the commit.
+Set the <tt class="docutils literal">commit.verbose</tt> con&shy;fig&shy;u&shy;ra&shy;tion variable (new in Git 2.9)
+to adjust the default behavior.</p>
+<p>I also learned about using <tt class="docutils literal">git show</tt> (<a class="reference external" href="https://git-scm.com/docs/git-show">git-show</a>)
+to display the diff for the most recent commit.
+I had been using <tt class="docutils literal">git log <span class="pre">-1</span> <span class="pre">--patch</span></tt> (<a class="reference external" href="https://git-scm.com/docs/git-log">git-log</a>).
+More on <a class="reference external" href="http://stackoverflow.com/questions/25608809/git-log-p-vs-git-show-vs-git-diff">git log -p vs. git show vs. git diff</a>.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/git/" rel="tag">git</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-08-01">2016-08-01</time>
+        <h1>
+            <a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" rel="bookmark canonical">Creating External SSL Certificates for CloudFront</a>
+        </h1>
+    </header>
+    <p>I needed to create a wildcard SSL cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/">AWS CloudFront</a> today.</p>
+<p>First, generate a 2048-bit private key. This will prompt you for a passphrase:</p>
+<pre class="code bash literal-block">
+$ openssl genrsa -des3 -out example.key <span class="m">2048</span>
+</pre>
+<p>Check which signature algorithm was used (SHA-256 is rec&shy;om&shy;mend&shy;ed):</p>
+<pre class="code bash literal-block">
+$ openssl req -in example.csr -noout -text
+</pre>
+<p>Transform the private key to PEM format:</p>
+<pre class="code bash literal-block">
+$ openssl rsa -outform PEM -in example.key -out example.pem
+</pre>
+<p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server FQDN:</p>
+<pre class="code bash literal-block">
+$ openssl req -new -key example.key -out example.csr
+
+Country Name <span class="o">(</span><span class="m">2</span> letter code<span class="o">)</span> <span class="o">[</span>AU<span class="o">]</span>:US
+State or Province Name <span class="o">(</span>full name<span class="o">)</span> <span class="o">[</span>Some-State<span class="o">]</span>:Washington
+Locality Name <span class="o">(</span>eg, city<span class="o">)</span> <span class="o">[]</span>:Seattle
+Organization Name <span class="o">(</span>eg, company<span class="o">)</span> <span class="o">[</span>Internet Widgits Pty </pre><span>&#8230;<a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/ssl/" rel="tag">ssl</a>,
+                <a href="/tag/aws/" rel="tag">aws</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-07-19">2016-07-19</time>
+        <h1>
+            <a href="/blog/2016/07/19/UndeletingNotesInEvernote.html" rel="bookmark canonical">Undeleting Notes in Evernote</a>
+        </h1>
+    </header>
+    <p>I ac&shy;ci&shy;den&shy;tal&shy;ly deleted a note that I shouldn't have in Evernote.
+It wasn't obvious how to undelete it.
+I had to resort to the <a class="reference external" href="https://help.evernote.com/hc/en-us/articles/208313438-How-to-recover-deleted-notes">help</a>:</p>
+<ul class="simple">
+<li>Open <em>Notebooks</em></li>
+<li>Scroll all the way to the <em>bottom</em></li>
+<li>Open the <em>Trash</em> notebook, which is unlabeled in the Mac desktop version of Evernote</li>
+<li>Restore the deleted Note</li>
+</ul>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-07-14">2016-07-14</time>
+        <h1>
+            <a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" rel="bookmark canonical">SQLAlchemy got me Killed</a>
+        </h1>
+    </header>
+    <p>I ran a script this afternoon that died mys&shy;te&shy;ri&shy;ous&shy;ly without any output.
+It was using <a class="reference external" href="http://www.sqlalchemy.org/">SQLAlchemy</a> to query all the rows from a large table
+so that they could be trans&shy;formed into <a class="reference external" href="http://jsonlines.org/">JSON Lines</a> to be loaded into Elas&shy;tic&shy;search.
+When I reran my script,
+I noticed this time that something had printed <tt class="docutils literal">Killed</tt> at the very end.</p>
+<p>A little research convinced me that the <a class="reference external" href="http://stackoverflow.com/questions/726690/who-killed-my-process-and-why">OOM Killer</a> was the likely assassin.
+I looked in <tt class="docutils literal">/var/log/kern.log</tt>
+and I found that my process had used up almost all of the 8GB on this system
+before being killed.</p>
+<p>The query had to be the problem.
+A little more research led me to augment my <span>&#8230;<a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-07-13">2016-07-13</time>
+        <h1>
+            <a href="/blog/2016/07/13/DisablingVibratingNotificationsInFacebookAndroidApp.html" rel="bookmark canonical">Disabling Vibrating Notifications in the Facebook Android App</a>
+        </h1>
+    </header>
+    <p>I've had to figure this out twice in recent months,
+and it was no easier the second time than the first.</p>
+<p>If you reinstall the Facebook app on Android,
+you will be plagued by the phone buzzing every few minutes
+to notify you that someone posted something.</p>
+<p>The relevant setting is buried deeply.</p>
+<ul class="simple">
+<li>Open the Facebook app</li>
+<li>Click the gray-on-white hamburger icon. Top right, second row.</li>
+<li>Scroll all the way down to App Settings. Click.</li>
+<li>Click No&shy;ti&shy;fi&shy;ca&shy;tions. It's <em>not</em> obvious that it's clickable.</li>
+<li>Change the Vibrate setting to OFF</li>
+<li>Curse Facebook.</li>
+</ul>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/android/" rel="tag">android</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-07-12">2016-07-12</time>
+        <h1>
+            <a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" rel="bookmark canonical">Python: Joining URLs with posixpath.join</a>
+        </h1>
+    </header>
+    <p>On Mac/Linux, <a class="reference external" href="https://docs.python.org/2/library/os.path.html#os.path.join">os.path.join</a> is an alias for <tt class="docutils literal">posixpath.join</tt>,
+which always joins path segments with <tt class="docutils literal">/</tt>.
+On Windows, <tt class="docutils literal">os.path.join</tt> is an alias for <tt class="docutils literal">ntpath.join</tt>,
+which always uses <tt class="docutils literal">\</tt>.
+When dealing with URLs, we always want forward slashes,
+regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build URL paths.</p>
+<p>Running:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">from</span> <span class="nn">six.moves.urllib_parse</span> <span class="kn">import</span> <span class="n">urljoin</span> <span class="k">as</span> <span class="n">abs_urljoin</span>
+<span class="kn">from</span> <span class="nn">posixpath</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">path_urljoin</span>
+
+<span class="k">def</span> <span class="nf">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">abs_urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_join</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;'</span><span class="si">{0}</span><span class="s2">' + '</span><span class="si">{1}</span><span class="s2">'</span><span class="se">\n\t</span><span class="s2">-&gt; '</span><span class="si">{2}</span><span class="s2">'&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="n">local_path</span> <span class="o">=</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="s1">'2016'</span><span class="p">,</span> <span class="s1">'07'</span><span class="p">,</span> <span class="s1">'12'</span><span class="p">,</span> <span class="s1">'release'</span><span class="p">,</span> <span class="s1">'index.html'</span><span class="p">)</span>
+
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="s1">'foo/bar/quux.js'</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/prefix'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+</pre>
+<p>Yields:</p>
+<pre class="literal-block">
+'https://www.example.com' + 'foo/bar/quux.js'
+  </pre><span>&#8230;<a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-07-11">2016-07-11</time>
+        <h1>
+            <a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" rel="bookmark canonical">Logging in Python: Don't use new-fangled format</a>
+        </h1>
+    </header>
+    <p>Python 2.6 introduced the <a class="reference external" href="https://pyformat.info/">format method</a> to strings.
+In general, <tt class="docutils literal">format</tt> is now the preferred way to build strings
+instead of the old <tt class="docutils literal">%</tt> formatting operator.</p>
+<p>One exception is with the <tt class="docutils literal">logging</tt> module,
+where the best practice is to use <tt class="docutils literal">%s</tt> and <tt class="docutils literal">%d</tt>.
+Why?
+First, <tt class="docutils literal">%s</tt> is the idiomatic way to use <tt class="docutils literal">logging</tt>,
+which was built years before <tt class="docutils literal">format</tt> was introduced.
+Second, if there's a literal <tt class="docutils literal">%</tt> in the in&shy;ter&shy;po&shy;lat&shy;ed values,
+<tt class="docutils literal">logging</tt> will be unhappy,
+since there won't be cor&shy;re&shy;spond&shy;ing arguments in the call.
+It won't fall over, since
+“The logging package is designed to swallow exceptions which occur while logging in production.
+This is so that errors which occur while handling logging <span>&#8230;<a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+        <a href="/tag/til/4/" class="page floatright">
+        Previous &raquo;
+        </a>
+    
+    
+        <a href="/tag/til/2/" class="page floatleft">
+        &laquo; Next
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

@@ -84,12 +84,12 @@ will run <tt class="docutils literal"><span class="pre">d:\some\path</span> or o
 <p>The first set of nested loops attempts to find
 <tt class="docutils literal">python.cmd</tt>, <tt class="docutils literal">python.bat</tt>, and <tt class="docutils literal">python.exe</tt>, re&shy;spec&shy;tive&shy;ly,
 along your&nbsp;<span class="caps">PATH</span>:</p>
-<pre class="literal-block">
-for %%i in (cmd bat exe) do (
-    for %%j in (python.%%i) do (
-        call :SetPythonExe &quot;%%~$PATH:j&quot;
-    )
-)
+<pre class="code batch literal-block">
+<span class="k">for</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span>cmd bat exe<span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
+    <span class="k">for</span> <span class="se">%%</span>j <span class="k">in</span> <span class="p">(</span>python.<span class="se">%%</span>i<span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
+        <span class="k">call</span> <span class="p">:</span><span class="nl">SetPythonExe</span> <span class="s2">&quot;</span><span class="se">%%</span><span class="s2">~$<span class="caps">PATH</span>:j&quot;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
 </pre>
 <p>The <tt class="docutils literal"><span class="pre">%%~$<span class="caps">PATH</span>:j</span></tt> expression searches the <span class="caps">PATH</span> for <tt class="docutils literal">%%j</tt>
 (i.e., <tt class="docutils literal">python.cmd</tt>, etc).
@@ -105,14 +105,14 @@ As explained at <a class="reference external" href="http://ss64.com/nt/for.html"
 en&shy;vi&shy;ron&shy;ment variables in the body of the loop are
 evaluated once <em>before</em> the loop starts and
 won&#8217;t change until after the loop&nbsp;terminates:</p>
-<pre class="literal-block">
-:SetPythonExe
-if not [%1]==[&quot;&quot;] (
-    if [&quot;%PythonExe%&quot;]==[&quot;&quot;] (
-        set PythonExe=%~1
-    )
-)
-goto :EOF
+<pre class="code batch literal-block">
+<span class="p">:</span><span class="nl">SetPythonExe</span>
+<span class="k">if</span> <span class="k">not</span> [<span class="nv">%1</span>]<span class="o">==</span>[<span class="s2">&quot;&quot;</span>] <span class="p">(</span>
+    <span class="k">if</span> [<span class="s2">&quot;</span><span class="nv">%PythonExe%</span><span class="s2">&quot;</span>]<span class="o">==</span>[<span class="s2">&quot;&quot;</span>] <span class="p">(</span>
+        <span class="k">set</span> <span class="nv">PythonExe</span><span class="p">=</span><span class="nv">%~1</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="k">goto</span> <span class="p">:</span><span class="nl"><span class="caps">EOF</span></span>
 </pre>
 <p>Note: the <tt class="docutils literal">%~1</tt> notation strips off any sur&shy;round&shy;ing double quotes.
 (ss64.com has details on <a class="reference external" href="http://ss64.com/ntsyntax/parameters.html">parameter syntax</a>.)</p>
@@ -120,14 +120,14 @@ goto :EOF
 if either <tt class="docutils literal">%PythonEx&shy;e%</tt> or <tt class="docutils literal">%1</tt> contains spaces.
 Getting this right was one of the hardest parts of the whole&nbsp;exercise.</p>
 <p>The second set of nested loops are&nbsp;scarier:</p>
-<pre class="literal-block">
-for /f &quot;tokens=2 delims==&quot; %%i in ('assoc .py') do (
-    for /f &quot;tokens=2 delims==&quot; %%j in ('ftype %%i') do (
-        for /f &quot;tokens=1&quot; %%k in (&quot;%%j&quot;) do (
-            call :SetPythonExe %%k
-        )
-    )
-)
+<pre class="code batch literal-block">
+<span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;tokens=2 delims==&quot;</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="s1">'assoc .py'</span><span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
+    <span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;tokens=2 delims==&quot;</span> <span class="se">%%</span>j <span class="k">in</span> <span class="p">(</span><span class="s1">'ftype </span><span class="se">%%</span><span class="s1">i'</span><span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
+        <span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;tokens=1&quot;</span> <span class="se">%%</span>k <span class="k">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">%%</span><span class="s2">j&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
+            <span class="k">call</span> <span class="p">:</span><span class="nl">SetPythonExe</span> <span class="se">%%</span>k
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
 </pre>
 <p>The outer loop runs once:
 <tt class="docutils literal">assoc .py</tt> yields <tt class="docutils literal">.py=Python.File</tt>
@@ -144,9 +144,9 @@ which is passed in to <tt class="docutils literal">Set&shy;PythonExe</tt>.</p>
 or the <tt class="docutils literal">.py</tt> extension was&nbsp;registered.</p>
 <p>If it doesn&#8217;t have a value, then the invocation of <tt class="docutils literal">&quot;%PythonEx&shy;e%&quot;</tt> will
 fail, setting <tt class="docutils literal">%er&shy;ror&shy;level%</tt> to&nbsp;9009:</p>
-<pre class="literal-block">
-&quot;%PythonExe%&quot; %PythonExeFlags% &quot;%~dpn0.py&quot; %*
-goto :EOF
+<pre class="code batch literal-block">
+<span class="s2">&quot;</span><span class="nv">%PythonExe%</span><span class="s2">&quot;</span> <span class="nv">%PythonExeFlags%</span> <span class="s2">&quot;</span><span class="nv">%~dpn0</span><span class="s2">.py&quot;</span> <span class="nv">%*</span>
+<span class="k">goto</span> <span class="p">:</span><span class="nl"><span class="caps">EOF</span></span>
 </pre>
 <p><tt class="docutils literal">%PythonEx&shy;e&shy;Flags%</tt> was set to <tt class="docutils literal"><span class="pre">-u</span></tt> at the beginning of the script.
 As explained in my <a class="reference external" href="/blog/2006/12/29/PythonBatchfileWrapper.html">Python Batchfile Wrapper</a> post,
@@ -169,13 +169,13 @@ It takes a Python script and turns it into a batchfile,
 by relying on a couple of&nbsp;tricks.</p>
 <p>I&#8217;ve adapted py2bat into a new script, <a class="reference external" href="/Python/py2cmd/">py2cmd</a>.
 In essence, the generated batchfile looks like&nbsp;this:</p>
-<pre class="literal-block">
-&#64;echo off
-REM=&quot;&quot;&quot;
+<pre class="code batch literal-block">
+<span class="p">&#64;</span><span class="k">echo</span> off
+<span class="c1"><span class="caps">REM</span>=&quot;&quot;&quot;</span>
 ... set PythonExe as above ...
-&quot;%PythonExe%&quot; -x %0
-goto :EOF
-&quot;&quot;&quot;
+<span class="s2">&quot;</span><span class="nv">%PythonExe%</span><span class="s2">&quot;</span> -x <span class="nv">%0</span>
+<span class="k">goto</span> <span class="p">:</span><span class="nl"><span class="caps">EOF</span></span>
+<span class="s2">&quot;&quot;&quot;</span>
 
 # python code starts here
 # ...

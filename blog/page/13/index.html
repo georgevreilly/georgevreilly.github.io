@@ -197,23 +197,22 @@ the struggle between <span>&#8230;<a href="/blog/2016/07/01/ReviewJimmysHall.htm
     <p>While re&shy;search&shy;ing <a class="reference external" href="/blog/2016/06/29/reStructuredTextNestedMarkup.html">yesterday&#8217;s post</a> about nested markup in Re&shy;Struc&shy;tured&shy;Text,
 I finally learned how to use <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#anonymous-hyperlinks">anonymous hyperlinks</a>.</p>
 <p>Hitherto, I used one of these three forms for&nbsp;hyperlinks:</p>
-<pre class="literal-block">
-1. The central conceit of the fictional `Flashman Papers`_ is that Flashy
-2. besieging Breda_ in 1625.
-3. my club, `Freely Speaking Toastmasters &lt;http://freelyspeaking.org/&gt;`_.
+<pre class="code rst literal-block">
+<span class="m">1.</span> The central conceit of the fictional <span class="s">`Flashman Papers`_</span> is that Flashy
+<span class="m">2.</span> besieging Breda_ in 1625.
+<span class="m">3.</span> my club, <span class="s">`Freely Speaking Toastmasters </span><span class="si">&lt;http://freelyspeaking.org/&gt;</span><span class="s">`_</span>.
 
-.. _Flashman Papers:
+<span class="p">..</span> <span class="nt">_Flashman Papers:</span>
     https://en.wikipedia.org/wiki/The_Flashman_Papers
-.. _Breda: http://en.wikipedia.org/wiki/Siege_of_Breda
+<span class="p">..</span> <span class="nt">_Breda:</span> http://en.wikipedia.org/wiki/Siege_of_Breda
 </pre>
 <p>The first, <tt class="docutils literal">`Flashman Papers`_</tt>, is a <em>named hyperlink reference</em>,
 which refers to an <em>external hyperlink target</em>, <tt class="docutils literal">.. _Flashman Papers: <span class="caps">URI</span></tt>.
 Note that the reference name starts with a backquote, <tt class="docutils literal">`</tt>,
 and ends with backquote-underscore, <tt class="docutils literal">`_</tt>.</p>
-<p>The second, <tt class="docutils literal">Breda_</tt>, is a <em>simple reference name</em>—the backquotes are&nbsp;optional.</p>
-<p><tt class="docutils literal">`Freely Speaking Toast&shy;mas&shy;ters <span class="pre">&lt;http://freelyspeak&shy;ing.org/&gt;`_</span></tt>,
-is an <em>embedded <span class="caps">URI</span></em>.
-The syntax <span>&#8230;<a href="/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html" class="continue">continue</a>.</span></p>
+<p>The second, <tt class="docutils literal">Breda_</tt>, is a <em>simple reference name</em>—the backquotes are optional,
+but the trailing <tt class="docutils literal">_</tt> is&nbsp;crucial.</p>
+<p><tt class="docutils literal">`Freely Speaking Toast&shy;mas&shy;ters <span>&#8230;<a href="/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html" class="continue">continue</a>.</span></tt></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html#disqus_thread">Comment</a>
@@ -221,6 +220,9 @@ The syntax <span>&#8230;<a href="/blog/2016/06/30/ReStructuredTextAnonymousHyper
         
             <p>tagged as
                 <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -260,6 +262,9 @@ for every such link that you wish to&nbsp;style.</p>
         
             <p>tagged as
                 <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -284,24 +289,25 @@ Most database servers are capable of managing many databases&nbsp;si&shy;mul&shy
 I already had an <span class="caps">RDS</span> instance; I needed a new database on that instance.
 My Google searches turned up various recipes for creating a new <span class="caps">RDS</span>&nbsp;instance.</p>
 <p>The following worked for&nbsp;me:</p>
-<ul>
-<li><p class="first"><span class="caps">SSH</span> to an <span class="caps">EC2</span> instance inside our <span class="caps">VPC</span>,
-so that I could connect to the <span class="caps">RDS</span> instance using <a class="reference external" href="http://postgresguide.com/utilities/psql.html">psql</a>.</p>
-</li>
-<li><p class="first">Then&nbsp;run:</p>
-<pre class="literal-block">
-psql --host=SOME-DBMS-HOST --dbname EXISTING_DB \
-   </pre><span>&#8230;<a href="/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html" class="continue">continue</a>.</span></li></ul>
+<ul class="simple">
+<li><span class="caps">SSH</span> to an <span class="caps">EC2</span> instance inside our <span class="caps">VPC</span>,
+so that I could connect to the <span class="caps">RDS</span> instance using <a class="reference external" href="http://postgresguide.com/utilities/psql.html">psql</a>.</li>
+<li>Then&nbsp;run:</li>
+</ul>
+<pre class="code bash literal-block">
+psql --host<span class="o">=</span><span class="caps">SOME</span>-<span class="caps">DBMS</span>-<span class="caps">HOST</span> --dbname EXISTING_DB <span class="se">\
+</span>   </pre><span>&#8230;<a href="/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html#disqus_thread">Comment</a>
         
         
             <p>tagged as
-                <a href="/tag/postgres/" rel="tag">postgres</a>
+                <a href="/tag/postgres/" rel="tag">postgres</a>,
+                <a href="/tag/aws/" rel="tag">aws</a>
                     and
                     
-                <a href="/tag/aws/" rel="tag">aws</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

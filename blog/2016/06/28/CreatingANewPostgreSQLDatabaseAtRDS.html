@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="Many of us are guilty of saying “database” when we..." />
-    <meta name="keywords" content="postgres, aws" />
+    <meta name="keywords" content="postgres, aws, til" />
 </head>
 <body>
   <header>
@@ -44,36 +44,34 @@ Most database servers are capable of managing many databases&nbsp;si&shy;mul&shy
 I already had an <span class="caps">RDS</span> instance; I needed a new database on that instance.
 My Google searches turned up various recipes for creating a new <span class="caps">RDS</span>&nbsp;instance.</p>
 <p>The following worked for&nbsp;me:</p>
-<ul>
-<li><p class="first"><span class="caps">SSH</span> to an <span class="caps">EC2</span> instance inside our <span class="caps">VPC</span>,
-so that I could connect to the <span class="caps">RDS</span> instance using <a class="reference external" href="http://postgresguide.com/utilities/psql.html">psql</a>.</p>
-</li>
-<li><p class="first">Then&nbsp;run:</p>
-<pre class="literal-block">
-psql --host=SOME-DBMS-HOST --dbname EXISTING_DB \
-     --username=YOUR-USERNAME --password \
-     --command=&quot;CREATE DATABASE new_database WITH OWNER some_owner&quot;
+<ul class="simple">
+<li><span class="caps">SSH</span> to an <span class="caps">EC2</span> instance inside our <span class="caps">VPC</span>,
+so that I could connect to the <span class="caps">RDS</span> instance using <a class="reference external" href="http://postgresguide.com/utilities/psql.html">psql</a>.</li>
+<li>Then&nbsp;run:</li>
+</ul>
+<pre class="code bash literal-block">
+psql --host<span class="o">=</span><span class="caps">SOME</span>-<span class="caps">DBMS</span>-<span class="caps">HOST</span> --dbname EXISTING_DB <span class="se">\
+</span>     --username<span class="o">=</span><span class="caps">YOUR</span>-<span class="caps">USERNAME</span> --password <span class="se">\
+</span>     --command<span class="o">=</span><span class="s2">&quot;<span class="caps">CREATE</span> <span class="caps">DATABASE</span> new_database <span class="caps">WITH</span> <span class="caps">OWNER</span> some_owner&quot;</span>
 </pre>
-</li>
-<li><p class="first">Using <tt class="docutils literal"><span class="pre">--password</span></tt> will prompt you for a password.
-If you&#8217;ve set up <a class="reference external" href="https://blog.sleeplessbeastie.eu/2014/03/23/how-to-non-interactively-provide-password-for-the-postgresql-interactive-terminal/"><tt class="docutils literal"><span class="pre">~/.pgpass</span></tt></a>, you can specify <tt class="docutils literal"><span class="pre">--no-password</span></tt> instead.</p>
-</li>
-<li><p class="first">The critical part that was hard to figure out is that I had to specify
+<ul class="simple">
+<li>Using <tt class="docutils literal"><span class="pre">--password</span></tt> will prompt you for a password.
+If you&#8217;ve set up <a class="reference external" href="https://blog.sleeplessbeastie.eu/2014/03/23/how-to-non-interactively-provide-password-for-the-postgresql-interactive-terminal/"><tt class="docutils literal"><span class="pre">~/.pgpass</span></tt></a>, you can specify <tt class="docutils literal"><span class="pre">--no-password</span></tt> instead.</li>
+<li>The critical part that was hard to figure out is that I had to specify
 <tt class="docutils literal"><span class="pre">--dbname</span> EX&shy;IST&shy;ING_DB</tt>.
-Otherwise, psql kept trying to connect to a database called&nbsp;<span class="caps">YOUR</span>-<span class="caps">USERNAME</span>.</p>
-</li>
-<li><p class="first">This should work for any PostgreSQL server, not just one hosted at&nbsp;<span class="caps">RDS</span>.</p>
-</li>
+Otherwise, psql kept trying to connect to a database called&nbsp;<span class="caps">YOUR</span>-<span class="caps">USERNAME</span>.</li>
+<li>This should work for any PostgreSQL server, not just one hosted at&nbsp;<span class="caps">RDS</span>.</li>
 </ul>
 
     <footer>
         
         
             <p>tagged as
-                <a href="/tag/postgres/" rel="tag">postgres</a>
+                <a href="/tag/postgres/" rel="tag">postgres</a>,
+                <a href="/tag/aws/" rel="tag">aws</a>
                     and
                     
-                <a href="/tag/aws/" rel="tag">aws</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

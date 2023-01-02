@@ -58,6 +58,9 @@ which used some <span>&#8230;<a href="/blog/2016/01/24/NoseTestDiscovery.html" c
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -99,10 +102,11 @@ yielding an iterable sequence.</p>
         
         
             <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
                     and
                     
-                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -145,6 +149,9 @@ $ python -m foo.bar.script some parameters
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -181,10 +188,11 @@ we managed to mess up the <span>&#8230;<a href="/blog/2016/01/16/InstallingPytho
         
         
             <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/linux/" rel="tag">linux</a>
                     and
                     
-                <a href="/tag/linux/" rel="tag">linux</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -227,6 +235,9 @@ then <tt class="docutils literal">Base</tt>'s im&shy;ple&shy;men&shy;ta&shy;tion
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -269,10 +280,11 @@ as <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>,
-                <a href="/tag/urls/" rel="tag">urls</a>
+                <a href="/tag/urls/" rel="tag">urls</a>,
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
                     and
                     
-                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -317,17 +329,17 @@ as <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class
 <tt class="docutils literal"><span class="pre">['*.zip',</span> <span class="pre">'*.pyc',</span> <span class="pre">'*.log']</span></tt> into
 <tt class="docutils literal"><span class="pre">['--exclude',</span> <span class="pre">'*.zip',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.pyc',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.log']</span></tt>.</p>
 <p>A simple list com&shy;pre&shy;hen&shy;sion doesn't work as desired:</p>
-<pre class="code python literal-block">
-<span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">excludes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
+<pre class="code pycon literal-block">
+<span class="go">In [1]: excludes = ['*.zip', '*.pyc', '*.log']
 
-<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">excludes</span><span class="p">]</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">),</span> <span class="p">(</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">)]</span>
+In [2]: [('--exclude', e) for e in excludes]
+Out[2]: [('--exclude', '*.zip'), ('--exclude', '*.pyc'), ('--exclude', '*.log')]</span>
 </pre>
 <p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com&shy;pre&shy;hen&shy;sion</a>:</p>
-<pre class="code python literal-block">
-<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="n">arg</span> <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">excludes</span>
-             <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="n">pattern</span><span class="p">]]</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.zip'</span><span class="p">,</span> <span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.pyc'</span><span class="p">,</span> <span class="s1">'--exclude'</span><span class="p">,</span> <span class="s1">'*.log'</span><span class="p">]</span>
+<pre class="code pycon literal-block">
+<span class="go">In [5]: [arg for pattern in excludes
+             for arg in ['--exclude', pattern]]
+Out[5]: ['--exclude', '*.zip', '--exclude', '*.pyc', '--exclude', '*.log']</span>
 </pre>
 
     <footer>
@@ -335,6 +347,9 @@ as <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -373,10 +388,11 @@ v=[int(x) </span></pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.ht
         
         
             <p>tagged as
-                <a href="/tag/bash/" rel="tag">bash</a>
+                <a href="/tag/bash/" rel="tag">bash</a>,
+                <a href="/tag/python/" rel="tag">python</a>
                     and
                     
-                <a href="/tag/python/" rel="tag">python</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -433,10 +449,11 @@ in the call to <tt class="docutils literal">setup()</tt>:</p>
         
         
             <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
                     and
                     
-                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

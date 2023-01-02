@@ -137,7 +137,7 @@ is over. &lt;boggle/&gt;</p>
                 <a href="/tag/programming/" rel="tag">programming</a>,
                 <a href="/tag/javascript/" rel="tag">javascript</a>,
                 <a href="/tag/c++/" rel="tag">c++</a>,
-                <a href="/tag/c/" rel="tag">c#</a>,
+                <a href="/tag/c-sharp/" rel="tag">c-sharp</a>,
                 <a href="/tag/python/" rel="tag">python</a>,
                 <a href="/tag/ruby/" rel="tag">ruby</a>
                     and
@@ -184,10 +184,12 @@ It took less time to get working than it did to write this blog post.</p>
         
         
             <p>tagged as
-                <a href="/tag/net/" rel="tag">.NET</a>
+                <a href="/tag/net/" rel="tag">.NET</a>,
+                <a href="/tag/c++/" rel="tag">C++</a>,
+                <a href="/tag/c-sharp/" rel="tag">c-sharp</a>
                     and
                     
-                <a href="/tag/c++/" rel="tag">C++</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -228,10 +230,11 @@ for overflow.</p>
         
         
             <p>tagged as
-                <a href="/tag/c++/" rel="tag">c++</a>
+                <a href="/tag/c++/" rel="tag">c++</a>,
+                <a href="/tag/octal/" rel="tag">octal</a>
                     and
                     
-                <a href="/tag/octal/" rel="tag">octal</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -304,10 +307,50 @@ Just the Windows Core SDK subset. This also got me nmake.</p>
         
         
             <p>tagged as
-                <a href="/tag/vim/" rel="tag">vim</a>
+                <a href="/tag/vim/" rel="tag">vim</a>,
+                <a href="/tag/c++/" rel="tag">c++</a>
                     and
                     
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2005-06-02">2005-06-02</time>
+        <h1>
+            <a href="/blog/2005/06/02/PrintfTricks.html" rel="bookmark canonical">Printf Tricks</a>
+        </h1>
+    </header>
+    <p>It may be old-fashioned, but I still find <tt class="docutils literal">printf</tt> (and <tt class="docutils literal">sprintf</tt>
+and <tt class="docutils literal">_vsnprintf</tt>) incredibly useful, both for printing debug output
+and for generating formatted strings.</p>
+<p>Here are a few lesser-known formats that I use again and again.
+See MSDN for the <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/56e442dc(VS.71).aspx">full reference</a>.</p>
+<div class="section" id="x-4-digit-hex-number-with-leading-zeroes">
+<h2>%04x - 4-digit hex number with leading zeroes</h2>
+<p>A quick review of some of the basics.</p>
+<p><tt class="docutils literal">%x</tt> prints an <tt class="docutils literal">int</tt> in hexa&shy;dec&shy;i&shy;mal.</p>
+<p><tt class="docutils literal">%4x</tt> prints a hex int, right-justified to 4 places.
+If it's less than 4 digits, it's preceded by spaces.
+If it's more than 4 digits, you get the full number.</p>
+<p><tt class="docutils literal">%04x</tt> prints a hex int, right-justified to 4 places.
+If it's less than 4 digits, it's preceded <span>&#8230;<a href="/blog/2005/06/02/PrintfTricks.html" class="continue">continue</a>.</span></p></div>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/c/" rel="tag">c</a>,
                 <a href="/tag/c++/" rel="tag">c++</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

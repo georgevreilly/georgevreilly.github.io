@@ -42,21 +42,22 @@ Most database servers are capable of managing many databases si&shy;mul&shy;ta&s
 I already had an RDS instance; I needed a new database on that instance.
 My Google searches turned up various recipes for creating a new RDS instance.</p>
 <p>The following worked for me:</p>
-<ul>
-<li><p class="first">SSH to an EC2 instance inside our VPC,
-so that I could connect to the RDS instance using <a class="reference external" href="http://postgresguide.com/utilities/psql.html">psql</a>.</p>
-</li>
-<li><p class="first">Then run:</p>
-<pre class="literal-block">
-psql --host=SOME-DBMS-HOST --dbname </pre><span>&#8230;<a href="/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html" class="continue">continue</a>.</span></li></ul>
+<ul class="simple">
+<li>SSH to an EC2 instance inside our VPC,
+so that I could connect to the RDS instance using <a class="reference external" href="http://postgresguide.com/utilities/psql.html">psql</a>.</li>
+<li>Then run:</li>
+</ul>
+<pre class="code bash literal-block">
+psql --host<span class="o">=</span>SOME-DBMS-HOST --dbname </pre><span>&#8230;<a href="/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html" class="continue">continue</a>.</span>
     <footer>
         
         
             <p>tagged as
-                <a href="/tag/postgres/" rel="tag">postgres</a>
+                <a href="/tag/postgres/" rel="tag">postgres</a>,
+                <a href="/tag/aws/" rel="tag">aws</a>
                     and
                     
-                <a href="/tag/aws/" rel="tag">aws</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -92,6 +93,9 @@ At that point, I realized that during my most recent <tt class="docutils literal
         
             <p>tagged as
                 <a href="/tag/postgres/" rel="tag">postgres</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

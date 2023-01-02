@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-03-07">2009-03-07</time>
+        <h1>
+            <a href="/blog/2009/03/07/reStructuredTextSyntaxHighlighting.html" rel="bookmark canonical">reStructuredText syntax highlighting</a>
+        </h1>
+    </header>
+    
+<p>Vim has had <a class="reference external" href="http://vimdoc.sourceforge.net/htmldoc/syntax.html">syntax high&shy;light&shy;ing</a> since version 5.0 in 1998.
+It quickly became in&shy;dis&shy;pens&shy;able.
+It's hard to go back to looking at mono&shy;chro&shy;mat&shy;ic source code
+after you've become accustomed to syntax high&shy;light&shy;ing.</p>
+<p>The syntax high&shy;light&shy;ing is tied into Vim's support for col&shy;orschemes,
+which define colors for the fun&shy;da&shy;men&shy;tal syntax groups
+like <tt class="docutils literal">Number</tt>, <tt class="docutils literal">Comment</tt>, and <tt class="docutils literal">String</tt>.
+The syntax high&shy;light&shy;ing for a particular language
+defines custom syntax groups for specific language features,
+such as <tt class="docutils literal">cppEx&shy;cep&shy;tions</tt> or <tt class="docutils literal">htmlEndTag</tt>,</p>
+<p>The custom syntax groups are <em>linked</em> to the underlying fun&shy;da&shy;men&shy;tal syntax groups.
+Hence, if you change your col&shy;orscheme, your syntax high&shy;light&shy;ing is updated au&shy;to&shy;mat&shy;i&shy;cal&shy;ly.</p>
+<p>The re&shy;Struc&shy;tured&shy;Text syntax high&shy;light&shy;ing in Vim 7.2
+has some short&shy;com&shy;ings, in my opinion.
+For example, <span>&#8230;<a href="/blog/2009/03/07/reStructuredTextSyntaxHighlighting.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>,
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-02">2009-03-02</time>
+        <h1>
+            <a href="/blog/2009/03/02/HashTableAttacks.html" rel="bookmark canonical">Hash Table Attacks</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf"></a>
+<p>At lunch today, I told Eric about <a class="reference external" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf">Hash Attacks</a>:
+for many hash functions,
+it's possible to construct a large set of keys that collide.
+This can be used to cause a Denial of Service
+as hashtable operations can be induced
+to take <em>O(n)</em> time instead of <em>O(1)</em>.</p>
+<p>Crosby and Wallach suc&shy;cess&shy;ful&shy;ly <a class="reference external" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf">demon&shy;strat&shy;ed</a> this
+against a number of ap&shy;pli&shy;ca&shy;tions.</p>
+<p>Andrew has a good writeup of <a class="reference external" href="http://web.archive.org/web/20120318203841/http://www.team5150.com/~andrew/blog/2007/03/hash_algorithm_attacks.html">Hash Algorithm Attacks</a>.</p>
+<p>There are various mit&shy;i&shy;ga&shy;tions suggested.
+The one that I used when I first became aware of this problem
+is to use a <em>salt</em> to the hash function.</p>
+<p>In other words, change:</p>
+<pre class="code C literal-block">
+<span class="kt">unsigned</span><span class="w"> </span><span class="nf">hash</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+    </span><span class="k">while</span><span class="w"> </span></pre><span>&#8230;<a href="/blog/2009/03/02/HashTableAttacks.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-11-24">2008-11-24</time>
+        <h1>
+            <a href="/blog/2008/11/24/reStructuredText.html" rel="bookmark canonical">reStructuredText</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://docutils.sourceforge.net/"></a>
+<p>I hate composing anything longer than a couple of paragraphs
+in an online HTML editor.
+Specif&shy;i&shy;cal&shy;ly, I hate writing posts for this blog online.
+I'd much rather write in Vim and upload HTML.
+But I don't want to compose in raw HTML either.</p>
+<p>I use <a class="reference external" href="http://docutils.sourceforge.net/docs/user/rst/quickstart.html">re&shy;Struc&shy;tured&shy;Text</a> (reST), an un&shy;ob&shy;tru&shy;sive plaintext markup language
+popular in the Python world.
+reST can generate HTML, LaTeX, <a class="reference external" href="http://code.google.com/p/rst2pdf/">native PDF</a>, ODF, and other formats.
+The picture at right shows a draft of this document in <a class="reference external" href="http://code.google.com/p/macvim/">MacVim</a>;
+reST is, as you can see, quite readable
+(though I work with a larger font).
+I use <a class="reference external" href="http://mg.pov.lt/restview/">restview</a> to preview the HTML locally
+and <a class="reference external" href="http://pygments.org/">Pygments</a> for syntax high&shy;light&shy;ing of code.
+Vim has its <span>&#8230;<a href="/blog/2008/11/24/reStructuredText.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2008-05-14">2008-05-14</time>
+        <h1>
+            <a href="/blog/2008/05/14/SharingDotfilesBetweenWindowsAndNix.html" rel="bookmark canonical">Sharing Dotfiles between Windows and \*nix</a>
+        </h1>
+    </header>
+    
+<p>Tomas Restrepo wrote a post about
+<a class="reference external" href="http://www.winterdom.com/weblog/2008/05/09/SharingDotfilesBetweenWindowsAndUbuntu.aspx">sharing dotfiles between Windows and Ubuntu</a>,
+specif&shy;i&shy;cal&shy;ly about sharing <tt class="docutils literal">.vimrc</tt> (Linux) and <tt class="docutils literal">_vimrc</tt> (Windows)
+and the <tt class="docutils literal">.vim</tt> (Linux) and <tt class="docutils literal">vimfiles</tt> (Windows) di&shy;rec&shy;to&shy;ries.</p>
+<p>I have a different solution.
+On Windows, my <tt class="docutils literal"><span class="pre">C:\AutoExec.bat</span></tt> includes:</p>
+<pre class="literal-block">
+set HOME=C:\gvr
+set VIM=C:\Vim
+set VIMDIR=%VIM%\vim71
+set EDITOR=%VIMDIR%\gvim.exe
+set PATH=%PATH%;C:\Win32app;C:\GnuWin32\bin;C:\UnxUtils;C:\SysInternals;C:\Python25\Scripts
+</pre>
+<p><tt class="docutils literal">%HOME%</tt> (<tt class="docutils literal"><span class="pre">C:\gvr</span></tt>) contains <tt class="docutils literal">_vimrc</tt>, <tt class="docutils literal">vimfiles</tt>,
+and other stuff ac&shy;cu&shy;mu&shy;lat&shy;ed over many years.
+This directory is stored in a personal Subversion repository at <a class="reference external" href="http://www.devjavu.com/">DevjaVu</a>.
+All my Vim files are stored with Unix LF endings, not Windows CR-LFs,
+so that they'll work on my Mac OS X and Linux boxen.
+I play some games with <tt class="docutils literal">if <span class="pre">has(&quot;win32&quot;)</span></tt> and
+<tt class="docutils literal">if <span class="pre">has('gui_&shy;macvim')</span></tt> to ensure that my <tt class="docutils literal">_vimrc</tt>
+works cross-platform.</p>
+<p>On my *nix boxes, the <tt class="docutils literal">gvr</tt> <span>&#8230;<a href="/blog/2008/05/14/SharingDotfilesBetweenWindowsAndNix.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>,
+                <a href="/tag/windows/" rel="tag">windows</a>,
+                <a href="/tag/linux/" rel="tag">linux</a>,
+                <a href="/tag/mac/" rel="tag">mac</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-10-25">2007-10-25</time>
+        <h1>
+            <a href="/blog/2007/10/25/ErEr.html" rel="bookmark canonical">Er, er</a>
+        </h1>
+    </header>
+    
+<p>I've grown fond of the JavaScript <tt class="docutils literal">||</tt> idiom:</p>
+<pre class="literal-block">
+function FrobImage(img) {
+    var width  = img.width  || 400;
+    var height = img.height || 300;
+    // ...
+}
+
+FrobImage({height: 100, name: &quot;example.png&quot;});
+</pre>
+<p>If <tt class="docutils literal">img.width</tt> exists and it's <a class="reference external" href="http://mattsnider.com/wp-content/uploads/2007/04/FalseTest.html">truthy</a>,
+then <tt class="docutils literal">width = img.width</tt>; otherwise, <tt class="docutils literal">width = 400</tt>.
+Here, it will be <tt class="docutils literal">400</tt> since the <tt class="docutils literal">img</tt> hash
+has no <tt class="docutils literal">width</tt> property.
+More than two al&shy;ter&shy;na&shy;tives may be used:
+<tt class="docutils literal">x = a || b || c || ... || q;</tt></p>
+<p>A few weeks ago, while cleaning up the error handling in some batch files,
+I came across a <a class="reference external" href="http://www.ss64.com/ntsyntax/conditional.html">similar idiom</a>:</p>
+<pre class="literal-block">
+foo.exe bar 123 &quot;some stuff&quot;  </pre><span>&#8230;<a href="/blog/2007/10/25/ErEr.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-10-11">2007-10-11</time>
+        <h1>
+            <a href="/blog/2007/10/11/GreasemonkeyForDemosAndMockups.html" rel="bookmark canonical">Greasemonkey for demos and mockups</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.greasespot.net/"></a>
+<p>I've been meaning to play around with <a class="reference external" href="http://www.greasespot.net/">Grease&shy;mon&shy;key</a> for a couple of years.
+Grease&shy;mon&shy;key is a Firefox extension that allows users to install
+scripts that make on-the-fly changes to the look and feel of third-party websites.
+For example, adding price com&shy;par&shy;isons to Amazon
+or thumbnail images to Google search results.
+<a class="reference external" href="http://userscripts.org/">User&shy;Scripts.org</a> has a large repository of Grease&shy;mon&shy;key scripts.</p>
+<p>I finally built my first script the other day.
+We're putting together a new feature at <a class="reference external" href="http://www.cozi.com/">Cozi</a> that integrates
+partner websites with our site.
+Since the feature is not yet announced, I'll just say that partners
+will add a link to Cozi on many of their database-driven pages.
+That link has a complex, <span>&#8230;<a href="/blog/2007/10/11/GreasemonkeyForDemosAndMockups.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>,
+                <a href="/tag/javascript/" rel="tag">javascript</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-07-20">2007-07-20</time>
+        <h1>
+            <a href="/blog/2007/07/20/SerializingANameValueCollection.html" rel="bookmark canonical">Serializing a NameValueCollection</a>
+        </h1>
+    </header>
+    
+<p>I had a NameVal&shy;ueCol&shy;lec&shy;tion embedded inside a larger object.
+I needed to serialize the larger object into XML and back.
+Un&shy;for&shy;tu&shy;nate&shy;ly, NameVal&shy;ueCol&shy;lec&shy;tion is not XML se&shy;ri&shy;al&shy;iz&shy;able.
+Why I do not know.</p>
+<p>A blog comment from <a class="reference external" href="http://nayyeri.net/archive/2006/08/11/Serialize-NameValueCollection.aspx#72442">Tim Erwin</a> got me started in the right direction.
+Implement <tt class="docutils literal">IXmlSe&shy;ri&shy;al&shy;iz&shy;able</tt> and do the work by hand in
+<tt class="docutils literal">ReadXml</tt> and <tt class="docutils literal">WriteXml</tt>.</p>
+<p>Tim's im&shy;ple&shy;men&shy;ta&shy;tion turned out to be overly simple.
+It didn't handle an empty collection well,
+nor did it leave the <tt class="docutils literal">XmlReader</tt> in a good state.</p>
+<p>I used <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/bk3w6240(vs.80).aspx">SGen</a> to examine the de&shy;se&shy;ri&shy;al&shy;iza&shy;tion of a
+<tt class="docutils literal">List&lt;String&gt;</tt> to figure out what else needed to be done.</p>
+<p>The following <tt class="docutils literal">ReadXml</tt> seems to work.
+If I expected to receive XML from <span>&#8230;<a href="/blog/2007/07/20/SerializingANameValueCollection.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/c-sharp/" rel="tag">c-sharp</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-03-21">2007-03-21</time>
+        <h1>
+            <a href="/blog/2007/03/21/NUnitCallingCppUnit.html" rel="bookmark canonical">NUnit calling CppUnit</a>
+        </h1>
+    </header>
+    
+<p>Over the last few days, I've been adapting an existing native C++ library
+so that it can be called from managed code.
+I had written a large number of unit tests with <a class="reference external" href="http://cppunit.sourceforge.net/">CppUnit</a>
+and I wanted to be able to call the tests from <a class="reference external" href="http://www.nunit.org/">NUnit</a>.</p>
+<p>I suppose that I could have written a new CppUnit <a class="reference external" href="http://cppunit.sourceforge.net/cppunit-wiki/TestRunner">TestRunner</a> so that I
+could call it from NUnit.
+Instead, I took the cheap-n-dirty route, playing with <tt class="docutils literal">#define</tt>
+and include paths.
+It took less time to get working than it did to write this blog post.</p>
+<p>Here's the original native CppUnit test code</p>
+<pre class="code cpp literal-block">
+<span class="c1">//-------------------------------
+// native\FooTest.h
+//-------------------------------
+</span><span class="w">
+</span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cppunit/extensions/HelperMacros.h&gt;</span><span class="cp">
+</span><span class="w">
+</span><span class="k">class</span><span class="w"> </span><span class="nc">FooTest</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">CppUnit</span><span class="o">::</span><span class="n">TestFixture</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="n">CPPUNIT_TEST_SUITE</span><span class="p">(</span><span class="w"> </span><span class="n">FooTest</span><span class="w"> </span></pre><span>&#8230;<a href="/blog/2007/03/21/NUnitCallingCppUnit.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/net/" rel="tag">.NET</a>,
+                <a href="/tag/c++/" rel="tag">C++</a>,
+                <a href="/tag/c-sharp/" rel="tag">c-sharp</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-03-14">2007-03-14</time>
+        <h1>
+            <a href="/blog/2007/03/14/NVelocityLoadingTemplatesFromEmbeddedResources.html" rel="bookmark canonical">NVelocity: loading templates from embedded resources</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.castleproject.org/others/nvelocity/index.html"></a>
+<p>In last week's tip on
+using the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/index.html">NVelocity</a> template formatting engine,
+I described what to set to load a template from
+an <a class="reference external" href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html">absolute path</a>.</p>
+<p>Here's the magic necessary to get NVelocity to load a template from an
+embedded resource:</p>
+<pre class="code csharp literal-block">
+<span class="n">VelocityEngine</span><span class="w"> </span><span class="n">engine</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">VelocityEngine</span><span class="p">();</span><span class="w">
+</span><span class="n">ExtendedProperties</span><span class="w"> </span><span class="n">properties</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExtendedProperties</span><span class="p">();</span><span class="w">
+</span><span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;resource.loader&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;assembly&quot;</span><span class="p">);</span><span class="w">
+</span><span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;assembly.resource.loader.class&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="s">&quot;NVelocity.Runtime.Resource.Loader.AssemblyResourceLoader, NVelocity&quot;</span><span class="p">);</span><span class="w">
+</span><span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;assembly.resource.loader.assembly&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;StencilFormatter&quot;</span><span class="p">);</span><span class="w">
+</span><span class="n">engine</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">properties</span><span class="p">);</span>
+</pre>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/net/" rel="tag">.NET</a>,
+                <a href="/tag/c-sharp/" rel="tag">c-sharp</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-03-07">2007-03-07</time>
+        <h1>
+            <a href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html" rel="bookmark canonical">NVelocity templates and absolute paths</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.castleproject.org/others/nvelocity/index.html"></a>
+<p>We've started using the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/index.html">NVelocity</a> template formatting engine.
+We were absolutely stymied for an hour, trying to figure
+out how to get it working with an absolute path to the template file,
+instead of the relative path shown in the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/usingit.html">doc&shy;u&shy;men&shy;ta&shy;tion</a>.</p>
+<p>The trick is to set <tt class="docutils literal">file.resource.loader.path</tt>.
+Here's how to load <tt class="docutils literal"><span class="pre">C:\foo\bar\&shy;some&shy;file.vm</span></tt>:</p>
+<pre class="code csharp literal-block">
+<span class="n">ExtendedProperties</span><span class="w"> </span><span class="n">props</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExtendedProperties</span><span class="p">();</span><span class="w">
+</span><span class="n">props</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;file.resource.loader.path&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">string</span><span class="p">[]{</span><span class="s">&quot;.&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;C:\\&quot;</span><span class="p">}));</span><span class="w">
+</span><span class="n">velocity</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">props</span><span class="p">);</span><span class="w">
+
+</span><span class="n">template</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">velocity</span><span class="p">.</span><span class="n">GetTemplate</span><span class="p">(</span><span class="s">&quot;foo\\bar\\somefile.vm&quot;</span><span class="p">);</span>
+</pre>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/net/" rel="tag">.NET</a>,
+                <a href="/tag/c-sharp/" rel="tag">c-sharp</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+        <a href="/tag/til/10/" class="page floatright">
+        Previous &raquo;
+        </a>
+    
+    
+        <a href="/tag/til/8/" class="page floatleft">
+        &laquo; Next
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

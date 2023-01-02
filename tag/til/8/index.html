@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2009-10-15">2009-10-15</time>
+        <h1>
+            <a href="/blog/2009/10/15/GittingAlong.html" rel="bookmark canonical">Gitting Along</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://git-scm.com/"></a>
+<p>In the last few weeks, I've switched over to <a class="reference external" href="http://git-scm.com/">Git</a> for most of my version-control needs,
+at home and at work, after putting it on the long finger for months.</p>
+<p>We continue to use <a class="reference external" href="http://subversion.tigris.org/">Subversion</a> at work,
+but I've recently followed Pavel and Eric's lead in using <a class="reference external" href="http://andy.delcambre.com/2008/03/04/git-svn-workflow.html">git-svn</a>.
+I work locally on my own private branches and
+<tt class="docutils literal">git svn dcommit</tt> and <tt class="docutils literal">git svn rebase</tt> oc&shy;ca&shy;sion&shy;al&shy;ly.
+I'm primarily on Windows at work, but I have a Linux box and a Mac Mini too,
+while at home, I have a MacBook, a Linux netbook, and a Vista desktop.
+I'm using <a class="reference external" href="http://code.google.com/p/msysgit/">msysGit</a>, oc&shy;ca&shy;sion&shy;al&shy;ly sup&shy;ple&shy;ment&shy;ed by <a class="reference external" href="http://code.google.com/p/tortoisegit/">Tor&shy;toise&shy;Git</a> and <a class="reference external" href="http://sourceforge.net/projects/qgit/files/">QGit</a>.
+Pavel's on a Mac <span>&#8230;<a href="/blog/2009/10/15/GittingAlong.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/git/" rel="tag">git</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-09-12">2009-09-12</time>
+        <h1>
+            <a href="/blog/2009/09/12/Launching32bitApplicationsFromBatchfilesOnWin64.html" rel="bookmark canonical">Launching 32-bit applications from batchfiles on Win64</a>
+        </h1>
+    </header>
+    
+<p>I've been running the <a class="reference external" href="/blog/2009/06/20/WhenVideoCardsGoBad.html">64-bit version of Windows 7 RC</a> since June.
+It's been quite painless on the whole.</p>
+<p>One wrinkle that I ran into was with some batchfiles which
+launch ap&shy;pli&shy;ca&shy;tions in <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> (normally <tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files</span></tt>).
+Due to the magic <a class="reference external" href="http://blogs.msdn.com/craigmcmurtry/archive/2004/12/14/301155.aspx">WOW64 redirector</a>, 32-bit ap&shy;pli&shy;ca&shy;tions
+are actually installed into <tt class="docutils literal">%Pro&shy;gram&shy;Files(x86)%</tt>—normally <tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files&nbsp;(x86)</span></tt>—instead of <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt>.
+This is trans&shy;par&shy;ent to the 32-bit ap&shy;pli&shy;ca&shy;tions,
+which think they're running in <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> (<tt class="docutils literal"><span class="pre">C:\Program&nbsp;Files</span></tt>).</p>
+<p>However, the cmd.exe shell is 64-bit
+(unless you make a special effort to run the 32-bit cmd.exe in SysWOW64),
+so batchfiles see the 64-bit <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt> which contains 64-bit ap&shy;pli&shy;ca&shy;tions.</p>
+<p>Hence, a batchfile that launches an installed 32-bit ap&shy;pli&shy;ca&shy;tion on Win64
+must use <tt class="docutils literal">%Pro&shy;gram&shy;Files(x86)%</tt>, not <tt class="docutils literal">%Pro&shy;gram&shy;Files%</tt>.</p>
+<p>It sounds <span>&#8230;<a href="/blog/2009/09/12/Launching32bitApplicationsFromBatchfilesOnWin64.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/windows/" rel="tag">windows</a>,
+                <a href="/tag/cmd/" rel="tag">cmd</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-08-16">2009-08-16</time>
+        <h1>
+            <a href="/blog/2009/08/16/MovingPhotosInLightroom.html" rel="bookmark canonical">Moving Photos in Lightroom</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.peachpit.com/guides/content.aspx?g=lightroom&amp;seqNum=168"></a>
+<p>When using Lightroom before, I was never able to figure out how
+to move photos from one folder to another.
+You'd think that you could just click on a photo and drag it.
+I just spent twenty minutes figuring out what I've been doing wrong.
+After you've selected multiple photos,
+click on the <em>photo thumbnail</em> and <em>not</em> the sur&shy;round&shy;ing gray frame,
+and then you can drag the photos to the target folder.</p>
+<p>I had become accustomed to clicking on the frames to multi-select photos,
+so naturally I assumed that was also how you dragged a set of photos.
+But clicking on a frame of a selected photo merely deselects <span>&#8230;<a href="/blog/2009/08/16/MovingPhotosInLightroom.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-07-11">2009-07-11</time>
+        <h1>
+            <a href="/blog/2009/07/11/64bitWindows7.html" rel="bookmark canonical">64-bit Windows 7</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="/content/binary/win64-clr-jit-leak.png"></a>
+<p>I mentioned <a class="reference external" href="/blog/2009/06/20/WhenVideoCardsGoBad.html">three weeks ago</a> that I had just repaved my work dev box
+and installed the 64-bit version of the Windows&nbsp;7&nbsp;RC.
+Nine or ten years after I first ported parts of IIS to Win64,
+I am finally running my main desktop on 64-bit Windows.
+With one exception, it's been painless.
+Programs have just worked, devices have just worked.
+There are relatively few native x64 ap&shy;pli&shy;ca&shy;tions,
+but for the most part it doesn't matter.
+The cases where it does matter—e.g., shell extensions such as <a class="reference external" href="http://tortoisesvn.net/">Tor&shy;tois&shy;eSVN</a>—are available as 64-bit binaries.</p>
+<p>I briefly flirted with using the 64-bit build of Python,
+but realized that I would have to recompile several eggs as <span>&#8230;<a href="/blog/2009/07/11/64bitWindows7.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/windows/" rel="tag">windows</a>,
+                <a href="/tag/regex/" rel="tag">regex</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-04-23">2009-04-23</time>
+        <h1>
+            <a href="/blog/2009/04/23/PythonStringFormatting.html" rel="bookmark canonical">Python String Formatting</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://docs.python.org/library/string.html#format-string-syntax"></a>
+<p>Python has long had a string in&shy;ter&shy;po&shy;la&shy;tion operator, <tt class="docutils literal">%</tt>.</p>
+<p>Python 2.6 and 3.0 introduced a new, richer set of <a class="reference external" href="http://docs.python.org/library/string.html#format-string-syntax">string formatting operations</a>.
+See <a class="reference external" href="http://www.python.org/dev/peps/pep-3101/">PEP 3101</a> for the rationale.</p>
+<p>One trick that I liked with the old way of formatting was
+to put the <a class="reference external" href="http://docs.python.org/library/functions.html#locals">locals()</a> dictionary or <tt class="docutils literal">self.__dict__</tt>
+on the right-hand side</p>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
+<span class="gp">... </span> <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%(a)s</span><span class="s2">, </span><span class="si">%(b)s</span><span class="s2">, </span><span class="si">%(c)s</span><span class="s2">, </span><span class="si">%(d)s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuff</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
+<span class="go">'3, 17, 20, -14'</span>
+</pre>
+<p>It took me a few minutes to figure out how to do the equivalent with <tt class="docutils literal">string.format</tt>:
+use the <tt class="docutils literal">**</tt> syntax to unpack the dict into <tt class="docutils literal">kwargs</tt>.</p>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+<span class="gp">... </span></pre><span>&#8230;<a href="/blog/2009/04/23/PythonStringFormatting.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-04-02">2009-04-02</time>
+        <h1>
+            <a href="/blog/2009/04/02/ContrastingColorsForTextAndBackground.html" rel="bookmark canonical">Contrasting Colors for Text and Background</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://colorschemedesigner.com/"></a>
+<p>About three weeks ago, I answered a question on Stack&shy;Over&shy;flow
+about generating the <a class="reference external" href="http://stackoverflow.com/questions/646068/find-most-readable-colour-of-text-that-is-drawn-on-a-coloured-surface/646328#646328">most readable color</a> of text
+on a colored background.</p>
+<p>I suggested flipping the top bit of each component,
+<tt class="docutils literal">(r ^ 0x80, g ^ 0x80, b ^ 0x80)</tt>.
+This has the same effect as adding 128 if the component is less than 128,
+and sub&shy;tract&shy;ing 128 otherwise.</p>
+<p>Another way to think about it is to imagine the 256x256x256 color cube.
+Inside that cube, erect another cube half as wide.
+One corner is at your original color
+and the diagonally opposite corner is the one computed above.</p>
+<p>The questioner liked my answer the best,
+but I decided to experiment further.
+I wrote <span>&#8230;<a href="/blog/2009/04/02/ContrastingColorsForTextAndBackground.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/color/" rel="tag">color</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-31">2009-03-31</time>
+        <h1>
+            <a href="/blog/2009/03/31/AugmentingPythonsStrftime.html" rel="bookmark canonical">Augmenting Python's strftime</a>
+        </h1>
+    </header>
+    
+<p>The Cozi Tech Blog needed some love,
+so I wrote a post on <a class="reference external" href="http://blogs.cozi.com/tech/2009/03/augmenting-pythons-strftime.html">augmenting Python's strftime</a>.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-25">2009-03-25</time>
+        <h1>
+            <a href="/blog/2009/03/25/AckBetterThanGrep.html" rel="bookmark canonical">Ack - Better than Grep</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.betterthangrep.com/"></a>
+<p>On a Stack&shy;Over&shy;flow question about <a class="reference external" href="http://stackoverflow.com/questions/21725/favorite-gvim-plugins-scripts">favorite Vim plugins</a>, I learned about <a class="reference external" href="http://www.betterthangrep.com/">Ack</a>,
+a re&shy;place&shy;ment for grep that's smarter about searching source trees.</p>
+<p>Ack is written in Perl.
+The built-in <tt class="docutils literal">:vimgrep</tt> is rather slow.
+It seems to have some Vim-specific overhead,
+such as creating swap files and executing <tt class="docutils literal">BufRead</tt> autocmds.
+Ack is noticeably faster,
+though somewhat slower than GNU grep.</p>
+<p>Which would you rather type to search a tree,
+ignoring the <tt class="docutils literal">.svn</tt> and <tt class="docutils literal">.git</tt> subtrees?</p>
+<pre class="code bash literal-block">
+$ ack -i -l foobar
+$ grep --exclude<span class="o">=</span><span class="s1">'*.svn*'</span> --exclude<span class="o">=</span><span class="s1">'*.git*'</span> -i -l -r foobar .
+</pre>
+<p>The ack takes 6 seconds to search 4500 files, while the grep completes in 2.
+This does not count the time that I spent trying <span>&#8230;<a href="/blog/2009/03/25/AckBetterThanGrep.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/regex/" rel="tag">regex</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-23">2009-03-23</time>
+        <h1>
+            <a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" rel="bookmark canonical">Exuberant Ctags and JavaScript</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://ctags.sourceforge.net/"></a>
+<p><a class="reference external" href="http://ctags.sourceforge.net/">Exuberant Ctags</a> is an essential complement to Vim:
+it generates an index of symbol names (tags) for a set of source files.
+In Vim, just place the cursor on a function name
+and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its definition.</p>
+<p>Ctags works well for most of the languages that I deal with,
+but falls down badly on modern JavaScript.
+Its built-in parser simply doesn't handle de&shy;c&shy;la&shy;ra&shy;tions like these:</p>
+<pre class="code javascript literal-block">
+<span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// ...</span><span class="w">
+</span><span class="nx">ajaxSetup</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="w"> </span><span class="nx">settings</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</pre>
+<p>I came across <a class="reference external" href="http://www.unbad.net/blog/ctags-and-relevant-support-for-javascript">Unbad</a>'s workaround earlier tonight.
+His code didn't work for me, so I hacked on it until it did:</p>
+<pre class="literal-block">
+--langdef=js
+--langmap=js:.js
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
+--regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
+--regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\(([^)])\)/\1/,function/
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
+--regex-js=/([^= ]+)[ </pre><span>&#8230;<a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>,
+                <a href="/tag/javascript/" rel="tag">javascript</a>,
+                <a href="/tag/regex/" rel="tag">regex</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-20">2009-03-20</time>
+        <h1>
+            <a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" rel="bookmark canonical">Flattening List Comprehensions in Python</a>
+        </h1>
+    </header>
+    
+<p>Python has <a class="reference external" href="http://docs.python.org/tutorial/datastructures.html#list-comprehensions">list com&shy;pre&shy;hen&shy;sions</a>,
+syntactic sugar for building lists from an expression.</p>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
+<span class="go">[4, 6, 10, 14, 22]</span>
+</pre>
+<p>This doesn't work so well when the com&shy;pre&shy;hen&shy;sion expression
+is itself a list: you end up with a list of lists.</p>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]:</span>
+<span class="gp">... </span>        <span class="k">yield</span> <span class="n">l</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()]</span>
+<span class="go">[['a', 'b'], ['c'], ['d', 'e', 'f']]</span>
+</pre>
+<p>This is ugly. Here's one way to build a flattened list,
+but it's less elegant than the com&shy;pre&shy;hen&shy;sion.</p>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> </pre><span>&#8230;<a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+        <a href="/tag/til/9/" class="page floatright">
+        Previous &raquo;
+        </a>
+    
+    
+        <a href="/tag/til/7/" class="page floatleft">
+        &laquo; Next
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

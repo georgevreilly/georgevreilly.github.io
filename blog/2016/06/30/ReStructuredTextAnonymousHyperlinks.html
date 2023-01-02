@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="While researching `yesterday&#39;s post`__ about neste..." />
-    <meta name="keywords" content="reStructuredText" />
+    <meta name="keywords" content="reStructuredText, til" />
 </head>
 <body>
   <header>
@@ -39,20 +39,21 @@
     <p>While re&shy;search&shy;ing <a class="reference external" href="/blog/2016/06/29/reStructuredTextNestedMarkup.html">yesterday&#8217;s post</a> about nested markup in Re&shy;Struc&shy;tured&shy;Text,
 I finally learned how to use <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#anonymous-hyperlinks">anonymous hyperlinks</a>.</p>
 <p>Hitherto, I used one of these three forms for&nbsp;hyperlinks:</p>
-<pre class="literal-block">
-1. The central conceit of the fictional `Flashman Papers`_ is that Flashy
-2. besieging Breda_ in 1625.
-3. my club, `Freely Speaking Toastmasters &lt;http://freelyspeaking.org/&gt;`_.
+<pre class="code rst literal-block">
+<span class="m">1.</span> The central conceit of the fictional <span class="s">`Flashman Papers`_</span> is that Flashy
+<span class="m">2.</span> besieging Breda_ in 1625.
+<span class="m">3.</span> my club, <span class="s">`Freely Speaking Toastmasters </span><span class="si">&lt;http://freelyspeaking.org/&gt;</span><span class="s">`_</span>.
 
-.. _Flashman Papers:
+<span class="p">..</span> <span class="nt">_Flashman Papers:</span>
     https://en.wikipedia.org/wiki/The_Flashman_Papers
-.. _Breda: http://en.wikipedia.org/wiki/Siege_of_Breda
+<span class="p">..</span> <span class="nt">_Breda:</span> http://en.wikipedia.org/wiki/Siege_of_Breda
 </pre>
 <p>The first, <tt class="docutils literal">`Flashman Papers`_</tt>, is a <em>named hyperlink reference</em>,
 which refers to an <em>external hyperlink target</em>, <tt class="docutils literal">.. _Flashman Papers: <span class="caps">URI</span></tt>.
 Note that the reference name starts with a backquote, <tt class="docutils literal">`</tt>,
 and ends with backquote-underscore, <tt class="docutils literal">`_</tt>.</p>
-<p>The second, <tt class="docutils literal">Breda_</tt>, is a <em>simple reference name</em>—the backquotes are&nbsp;optional.</p>
+<p>The second, <tt class="docutils literal">Breda_</tt>, is a <em>simple reference name</em>—the backquotes are optional,
+but the trailing <tt class="docutils literal">_</tt> is&nbsp;crucial.</p>
 <p><tt class="docutils literal">`Freely Speaking Toast&shy;mas&shy;ters <span class="pre">&lt;http://freelyspeak&shy;ing.org/&gt;`_</span></tt>,
 is an <em>embedded <span class="caps">URI</span></em>.
 The syntax is <tt class="docutils literal">`</tt>, reference-name, <tt class="docutils literal">&lt;</tt>, <span class="caps">URI</span>, <tt class="docutils literal">&gt;`</tt>.</p>
@@ -62,11 +63,11 @@ Instead, the reference name ends with a double-underscore, <tt class="docutils l
 and the target looks like either <tt class="docutils literal">.. __: <span class="caps">URI</span></tt> or <tt class="docutils literal">__ <span class="caps">URI</span></tt>.
 The targets must appear in the order they are referenced.
 It&#8217;s best if they&#8217;re close to the references in the text, for&nbsp;main&shy;tain&shy;abil&shy;i&shy;ty.</p>
-<pre class="literal-block">
-researching `yesterday's post`__ about ...,
-I learned how to use `anonymous hyperlinks`__.
+<pre class="code rst literal-block">
+researching <span class="s">`yesterday's post`__</span> about ...,
+I learned how to use <span class="s">`anonymous hyperlinks`__</span>.
 
-.. __: /blog/2016/06/29/reStructuredTextNestedMarkup.html
+<span class="p">..</span> <span class="nt">__:</span> /blog/2016/06/29/reStructuredTextNestedMarkup.html
 __ http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#anonymous-hyperlinks
 </pre>
 <p>To handle escaping backquotes inside code literals for this post,
@@ -81,6 +82,9 @@ Normally, I use double-backquotes to bracket code: ``a += b <span class="amp">&a
         
             <p>tagged as
                 <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

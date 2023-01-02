@@ -186,6 +186,7 @@ I posted some &lt;a class=&#34;reference external&#34; href=&#34;https://www.wil
         <updated>2022-01-31T08:00:00Z</updated>
         <category term="programming" />
         <category term="bash" />
+        <category term="til" />
         
         <author>
             <name>George V. Reilly</name>
@@ -512,6 +513,7 @@ but to my knowledge, there were no further vulnerabilities in URL handling.&lt;/
         <updated>2021-10-04T08:00:00Z</updated>
         <category term="python" />
         <category term="performance" />
+        <category term="til" />
         
         <author>
             <name>George V. Reilly</name>
@@ -805,6 +807,7 @@ when they encounter a ‘≀’ symbol.&lt;/p&gt;
         <updated>2020-04-23T08:00:00Z</updated>
         <category term="regex" />
         <category term="performance" />
+        <category term="til" />
         
         <author>
             <name>George V. Reilly</name>
@@ -1054,7 +1057,7 @@ and shift left or right by &lt;span class=&#34;formula&#34;&gt;(&lt;i&gt;k&lt;/i
 Now, divisions are not cheap to implement in hardware,
 so they needed to come up with an alternate approach
 to calculate the modulus.&lt;/p&gt;
-&lt;p&gt;My friend tried to do something with the factors of 36: &lt;span class=&#34;formula&#34;&gt;4 × 9&lt;/span&gt;.
+&lt;p&gt;My friend tried to do something with the factors of 36: &lt;span class=&#34;formula&#34;&gt;4×9&lt;/span&gt;.
 Four and nine are &lt;a class=&#34;reference external&#34; href=&#34;https://artofproblemsolving.com/wiki/index.php/Relatively_prime&#34;&gt;relatively prime&lt;/a&gt;:
 they have no common factors other than one.
 By the &lt;a class=&#34;reference external&#34; href=&#34;https://medium.com/@astartekraus/the-chinese-remainder-theorem-ea110f48248c&#34;&gt;Chinese Remainder Theorem&lt;/a&gt; therefore,
@@ -1062,7 +1065,7 @@ the combination of &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;s
 and &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9&lt;/span&gt; is enough to uniquely
 determine &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;36&lt;/span&gt;.
 By inspection, this is true for the following table of “residues”.
-All the integers in the range &lt;span class=&#34;formula&#34;&gt;[0, 36)&lt;/span&gt; appear exactly once.&lt;/p&gt;
+All the integers in the range &lt;span class=&#34;formula&#34;&gt;[0, 36)&lt;/span&gt; appear exactly once.&lt;/p&gt;
 &lt;table border=&#34;1&#34; class=&#34;docutils align-right&#34;&gt;
 &lt;colgroup&gt;
 &lt;col width=&#34;18%&#34;/&gt;
@@ -1148,11 +1151,11 @@ and the &lt;tt class=&#34;docutils literal&#34;&gt;0o&lt;/tt&gt; prefix for octa
 See the discussion in &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/golang/proposal/blob/master/design/19308-number-literals.md&#34;&gt;Go number literals&lt;/a&gt; for more detail on &lt;tt class=&#34;docutils literal&#34;&gt;0b&lt;/tt&gt;,
 including a list of languages that now support this notation.&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;, written in binary, looks like &lt;tt class=&#34;docutils literal&#34;&gt;1&lt;/tt&gt; followed by &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt;&amp;nbsp;&lt;tt class=&#34;docutils literal&#34;&gt;0&lt;/tt&gt;s.
-For example, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;3&lt;/sup&gt; = 1000&lt;sub&gt;2&lt;/sub&gt;&lt;/span&gt;.
+For example, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;3&lt;/sup&gt; = 1000&lt;sub&gt;2&lt;/sub&gt;&lt;/span&gt;.
 In C-like languages, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt; can be written as &lt;tt class=&#34;docutils literal&#34;&gt;1 &amp;lt;&amp;lt; n&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;Similarly, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; − 1&lt;/span&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;(1 &amp;lt;&amp;lt; n) - 1&lt;/tt&gt;,
+&lt;p&gt;Similarly, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; − 1&lt;/span&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;(1 &amp;lt;&amp;lt; n) - 1&lt;/tt&gt;,
 written in binary, looks like &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt;&amp;nbsp;&lt;tt class=&#34;docutils literal&#34;&gt;1&lt;/tt&gt;s.
-For example, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;5&lt;/sup&gt; − 1 = 31&lt;sub&gt;10&lt;/sub&gt; = 11111&lt;sub&gt;2&lt;/sub&gt;&lt;/span&gt;.&lt;/p&gt;
+For example, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;5&lt;/sup&gt; − 1 = 31&lt;sub&gt;10&lt;/sub&gt; = 11111&lt;sub&gt;2&lt;/sub&gt;&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;We can &lt;strong&gt;multiply&lt;/strong&gt; an unsigned integer, &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt;, by &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;
 by &lt;strong&gt;shifting&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; &lt;strong&gt;left&lt;/strong&gt; by &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; bits, &lt;tt class=&#34;docutils literal&#34;&gt;u &amp;lt;&amp;lt; n&lt;/tt&gt;,
 introducing &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt;&amp;nbsp;zeroes as the low-order bits.
@@ -1183,7 +1186,7 @@ However, sign extension is not guaranteed in C/C++.&lt;/p&gt;
 &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_1001_0110&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_1110_0101&lt;/span&gt;
 &lt;/pre&gt;
 &lt;p&gt;Finally, we can find the &lt;strong&gt;remainder&lt;/strong&gt; of dividing &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; by &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;
-by &lt;strong&gt;masking&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; with &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; − 1&lt;/span&gt;,
+by &lt;strong&gt;masking&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; with &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; − 1&lt;/span&gt;,
 that is, &lt;strong&gt;bitwise-and&lt;/strong&gt; with &lt;tt class=&#34;docutils literal&#34;&gt;(1 &amp;lt;&amp;lt; n) - 1&lt;/tt&gt;,
 to extract the &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt;&amp;nbsp;&lt;strong&gt;low-order bits&lt;/strong&gt;:&lt;/p&gt;
 &lt;pre class=&#34;code rust literal-block&#34;&gt;
@@ -1199,69 +1202,69 @@ known as &lt;a class=&#34;reference external&#34; href=&#34;http://mathworld.wol
 &lt;p&gt;Add up the decimal digits of each number.
 Apply the arithmetic operation to these digit sums.
 They should be &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Congruence_relation&#34;&gt;congruent&lt;/a&gt;, modulo 9.&lt;/p&gt;
-&lt;p&gt;For example, &lt;span class=&#34;formula&#34;&gt;12, 345 × 8, 765 = 108, 203, 925&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;For example, &lt;span class=&#34;formula&#34;&gt;12, 345×8, 765 = 108, 203, 925&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;To check the multiplication,
 compute the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Digit_sum&#34;&gt;digit sum&lt;/a&gt; of each number,
 by adding up each decimal digit:&lt;/p&gt;
 &lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;1 + 2 + 3 + 4 + 5 = 15 ≡ 6 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;12, 345&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 6&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;1 + 2 + 3 + 4 + 5 = 15 ≡ 6 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;12, 345&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 6&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;and&lt;/p&gt;
 &lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;8 + 7 + 6 + 5 = 26 ≡ 8 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;8, 765&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 8&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;8 + 7 + 6 + 5 = 26 ≡ 8 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;8, 765&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 8&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;Take the first two digit sums, modulo 9, and multiply them:&lt;/p&gt;
 &lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;6 × 8 = 48 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;15 × 26 = 390 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;6×8 = 48 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;15×26 = 390 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;Check against the sum of the digits of the product:&lt;/p&gt;
 &lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;1 + 0 + 8 + 2 + 0 + 3 + 9 + 2 + 5 = 30 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;108, 203, 925&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 3&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;1 + 0 + 8 + 2 + 0 + 3 + 9 + 2 + 5 = 30 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;108, 203, 925&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 3&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;This works because &lt;span class=&#34;formula&#34;&gt;10&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡ 1 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;This works because &lt;span class=&#34;formula&#34;&gt;10&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡ 1 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;Consider 758:&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
-758 = 7 × 100 + 5 × 10 + 8
+758 = 7×100 + 5×10 + 8
 &lt;/div&gt;
 &lt;div class=&#34;formula&#34;&gt;
-758 = 7 × (9 + 1) × (9 + 1) + 5 × (9 + 1) + 8
+758 = 7×(9 + 1)×(9 + 1) + 5×(9 + 1) + 8
 &lt;/div&gt;
 &lt;div class=&#34;formula&#34;&gt;
-758 = 7 × (9&lt;sup&gt;2&lt;/sup&gt; + 2 × 9 + 1) + 5 × (9 + 1) + 8
+758 = 7×(9&lt;sup&gt;2&lt;/sup&gt; + 2×9 + 1) + 5×(9 + 1) + 8
 &lt;/div&gt;
 &lt;p&gt;Dropping the nines from each term leaves the digit sum,
 which is &lt;em&gt;congruent&lt;/em&gt; to the original number modulo nine:&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
-7 × 1 + 5 × 1 + 8 = 7 + 5 + 8 = 20 ≡ 2 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
+7×1 + 5×1 + 8 = 7 + 5 + 8 = 20 ≡ 2 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
 &lt;/div&gt;
-&lt;p&gt;Checking: &lt;span class=&#34;formula&#34;&gt;758&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 2&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Checking: &lt;span class=&#34;formula&#34;&gt;758&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 2&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://www.math.nyu.edu/faculty/hausner/congruence.pdf&#34;&gt;Congruences&lt;/a&gt; have a number of useful properties.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;section&#34; id=&#34;casting-out-elevens&#34;&gt;
 &lt;h3&gt;Casting Out Elevens&lt;/h3&gt;
 &lt;p&gt;Let&#39;s use 11, instead of 9.
-Since &lt;span class=&#34;formula&#34;&gt;10 = 11 − 1&lt;/span&gt;, then &lt;span class=&#34;formula&#34;&gt;10&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡  − 1&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; (&lt;span class=&#34;textrm&#34;&gt;mod &lt;/span&gt;11)&lt;/span&gt;.&lt;/p&gt;
+Since &lt;span class=&#34;formula&#34;&gt;10 = 11 − 1&lt;/span&gt;, then &lt;span class=&#34;formula&#34;&gt;10&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡  − 1&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; (&lt;span class=&#34;textrm&#34;&gt;mod &lt;/span&gt;11)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;Consider 5234:&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
-5234 = 5 × 10&lt;sup&gt;3&lt;/sup&gt; + 2 × 10&lt;sup&gt;2&lt;/sup&gt; + 3 × 10&lt;sup&gt;1&lt;/sup&gt; + 4 × 10&lt;sup&gt;0&lt;/sup&gt;
+5234 = 5×10&lt;sup&gt;3&lt;/sup&gt; + 2×10&lt;sup&gt;2&lt;/sup&gt; + 3×10&lt;sup&gt;1&lt;/sup&gt; + 4×10&lt;sup&gt;0&lt;/sup&gt;
 &lt;/div&gt;
 &lt;div class=&#34;formula&#34;&gt;
-5234 = 5 × (11 − 1) × (11 − 1) × (11 − 1) + 2 × (11 − 1) × (11 − 1) + 3 × (11 − 1) + 4
+5234 = 5×(11 − 1)×(11 − 1)×(11 − 1) + 2×(11 − 1)×(11 − 1) + 3×(11 − 1) + 4
 &lt;/div&gt;
 &lt;div class=&#34;formula&#34;&gt;
-5234 = 5 × (11&lt;sup&gt;3&lt;/sup&gt; − 3 × 11&lt;sup&gt;2&lt;/sup&gt; × 1 + 3 × 11 × 1&lt;sup&gt;2&lt;/sup&gt; − 1&lt;sup&gt;3&lt;/sup&gt;) + 2 × (11&lt;sup&gt;2&lt;/sup&gt; − 2 × 11 × 1 + 1&lt;sup&gt;2&lt;/sup&gt;) + 3 × (11 − 1) + 4
+5234 = 5×(11&lt;sup&gt;3&lt;/sup&gt; − 3×11&lt;sup&gt;2&lt;/sup&gt;×1 + 3×11×1&lt;sup&gt;2&lt;/sup&gt; − 1&lt;sup&gt;3&lt;/sup&gt;) + 2×(11&lt;sup&gt;2&lt;/sup&gt; − 2×11×1 + 1&lt;sup&gt;2&lt;/sup&gt;) + 3×(11 − 1) + 4
 &lt;/div&gt;
 &lt;p&gt;Dropping the elevens from each term leaves the alternating digit sum:&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
-5 ×  − 1 + 2 × 1 + 3 ×  − 1 + 4 =  − 5 + 2 − 3 + 4 =  − 2 ≡ 9 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;11)
+5× − 1 + 2×1 + 3× − 1 + 4 =  − 5 + 2 − 3 + 4 =  − 2 ≡ 9 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;11)
 &lt;/div&gt;
 &lt;p&gt;It&#39;s more convenient to proceed rightwards from the least significant digit,
-&lt;span class=&#34;formula&#34;&gt;4 − 3 + 2 − 5&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;Checking: &lt;span class=&#34;formula&#34;&gt;5234&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;11 = 9&lt;/span&gt;.&lt;/p&gt;
+&lt;span class=&#34;formula&#34;&gt;4 − 3 + 2 − 5&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Checking: &lt;span class=&#34;formula&#34;&gt;5234&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;11 = 9&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;To cast out elevens,
 we calculate the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Alternating_sum&#34;&gt;alternating sum&lt;/a&gt; &lt;em&gt;from right to left&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Casting out elevens catches some &lt;a class=&#34;reference external&#34; href=&#34;http://mathyear2013.blogspot.com/2013/01/casting-out-elevens.html&#34;&gt;transposition errors&lt;/a&gt;, unlike casting out nines.
@@ -1274,13 +1277,13 @@ and &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/
 Nine bears the same relationship
 to eight in octal,
 as eleven does to ten in decimal:
-&lt;span class=&#34;formula&#34;&gt;9&lt;sub&gt;10&lt;/sub&gt; = 11&lt;sub&gt;8&lt;/sub&gt;&lt;/span&gt;,
+&lt;span class=&#34;formula&#34;&gt;9&lt;sub&gt;10&lt;/sub&gt; = 11&lt;sub&gt;8&lt;/sub&gt;&lt;/span&gt;,
 base plus one,
-and &lt;span class=&#34;formula&#34;&gt;8&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡  − 1&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; (&lt;span class=&#34;textrm&#34;&gt;mod &lt;/span&gt;9)&lt;/span&gt;.&lt;/p&gt;
+and &lt;span class=&#34;formula&#34;&gt;8&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡  − 1&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; (&lt;span class=&#34;textrm&#34;&gt;mod &lt;/span&gt;9)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;We can calculate &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9&lt;/span&gt; in base 8 by alternately
 adding and subtracting the octal digits, from right to left.
 For example,
-&lt;span class=&#34;formula&#34;&gt;1234&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 4 − 3 + 2 − 1 = 2&lt;/span&gt;.
+&lt;span class=&#34;formula&#34;&gt;1234&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 4 − 3 + 2 − 1 = 2&lt;/span&gt;.
 This gives the right answer.&lt;/p&gt;
 &lt;p&gt;Here&#39;s a simple, albeit incomplete, algorithm in Go.
 We&#39;re masking and shifting three bits at a time,
@@ -1301,21 +1304,21 @@ which is tantamount to working with the octal representation of &lt;tt class=&#3
 &lt;/pre&gt;
 &lt;p&gt;What about &lt;span class=&#34;formula&#34;&gt;617&lt;sub&gt;8&lt;/sub&gt;&lt;/span&gt;?&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
-7 − 1 + 6 = 12 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
+7 − 1 + 6 = 12 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
 &lt;/div&gt;
 &lt;div class=&#34;formula&#34;&gt;
-617&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 3
+617&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 3
 &lt;/div&gt;
 &lt;p&gt;And &lt;span class=&#34;formula&#34;&gt;6172&lt;sub&gt;8&lt;/sub&gt;&lt;/span&gt;?&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
-2 − 7 + 1 − 6 =  − 10 ≡ 8 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
+2 − 7 + 1 − 6 =  − 10 ≡ 8 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
 &lt;/div&gt;
 &lt;div class=&#34;formula&#34;&gt;
-6172&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 8
+6172&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 8
 &lt;/div&gt;
 &lt;p&gt;Almost there!&lt;/p&gt;
 &lt;blockquote&gt;
-Casting out “octal-elevens” (&lt;span class=&#34;formula&#34;&gt;11&lt;sub&gt;8&lt;/sub&gt; = 9&lt;sub&gt;10&lt;/sub&gt;&lt;/span&gt;) in octal,
+Casting out “octal-elevens” (&lt;span class=&#34;formula&#34;&gt;11&lt;sub&gt;8&lt;/sub&gt; = 9&lt;sub&gt;10&lt;/sub&gt;&lt;/span&gt;) in octal,
 by an alternating sum of the base-eight digits,
 computes a small number
 &lt;em&gt;congruent&lt;/em&gt; to the original number number modulo nine.&lt;/blockquote&gt;
@@ -1324,7 +1327,7 @@ that are congruent to the correct answer modulo nine,
 but which may be outside the desired range.
 If the intermediate sum dips below zero or rises above eight,
 we have to add nine or subtract nine respectively
-to keep the running total in the range &lt;span class=&#34;formula&#34;&gt;[0, 9)&lt;/span&gt;.&lt;/p&gt;
+to keep the running total in the range &lt;span class=&#34;formula&#34;&gt;[0, 9)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;Here&#39;s a complete algorithm for Modulo 9 in Go,
 computing the alternating sum of the octal digits:&lt;/p&gt;
 &lt;pre class=&#34;code go literal-block&#34;&gt;
@@ -1384,14 +1387,14 @@ There was no mention of it in Warren&#39;s marvelous
 &lt;p&gt;I tried to come up with an analytic way to calculate the
 elements of the &lt;span class=&#34;formula&#34;&gt;9&lt;i&gt;x&lt;/i&gt;4&lt;/span&gt; table.
 The best that I found is
-&lt;span class=&#34;formula&#34;&gt;(72 − 8 × (&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9) + 9 × (&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;4))&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;36&lt;/span&gt;!
-The inner expression yields a number in the range &lt;span class=&#34;formula&#34;&gt;[0, 99]&lt;/span&gt;,
-which can be reduced to &lt;span class=&#34;formula&#34;&gt;[0, 36)&lt;/span&gt;
+&lt;span class=&#34;formula&#34;&gt;(72 − 8×(&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9) + 9×(&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;4))&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;36&lt;/span&gt;!
+The inner expression yields a number in the range &lt;span class=&#34;formula&#34;&gt;[0, 99]&lt;/span&gt;,
+which can be reduced to &lt;span class=&#34;formula&#34;&gt;[0, 36)&lt;/span&gt;
 by subtracting 36 at most twice.
 From &lt;a class=&#34;reference external&#34; href=&#34;http://www-cs-faculty.stanford.edu/~knuth/gkp.html&#34;&gt;Concrete Mathematics&lt;/a&gt;,
 mod 36 can be derived from mod 4 and mod 9
 by looking at the [0][1] and [1][0] elements of the table:
-&lt;span class=&#34;formula&#34;&gt;(9 × (&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;4) + 28 × (&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9))&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;36&lt;/span&gt;.
+&lt;span class=&#34;formula&#34;&gt;(9×(&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;4) + 28×(&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9))&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;36&lt;/span&gt;.
 It works, but it&#39;s even worse.
 A table lookup is clearly more efficient.&lt;/p&gt;
 &lt;p&gt;Most, if not all, of the computer architectures
@@ -2095,6 +2098,7 @@ especially online.&lt;/p&gt;
         <id>tag:www.georgevreilly.com,2017-12-26:/blog/2017/12/26/GitDiffTips.html</id>
         <updated>2017-12-26T08:00:00Z</updated>
         <category term="git" />
+        <category term="til" />
         
         <author>
             <name>George V. Reilly</name>

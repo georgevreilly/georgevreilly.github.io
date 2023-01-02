@@ -424,19 +424,23 @@ Two prominent Brahmins are murdered in <span>&#8230;<a href="/blog/2007/02/12/Re
 including the <em>Edit with Vim</em> shell extension not working very well.
 When I built the shell extension with <span class="caps">VS</span> 2005 on x86, I would
 get the following whenever I right-clicked in&nbsp;Explorer:</p>
-<blockquote>
-<p>Microsoft Visual C++ Runtime&nbsp;Library</p>
-<p>Runtime&nbsp;Error!</p>
-<p>Program:&nbsp;C:WIN&shy;DOW&shy;S&shy;Ex&shy;plor&shy;er.<span class="caps">EXE</span></p>
-<p>R6034</p>
-<p>An ap&shy;pli&shy;ca&shy;tion has made an attempt to load the C runtime library in&shy;cor&shy;rect&shy;ly.
-Please contact the ap&shy;pli&shy;ca&shy;tion&#8217;s support team for more&nbsp;in&shy;for&shy;ma&shy;tion.</p>
-</blockquote>
+<pre class="literal-block">
+Microsoft Visual C++ Runtime Library
+
+Runtime Error!
+
+Program: C:\WINDOWS\Explorer.EXE
+
+R6034
+
+An application has made an attempt to load the C runtime library incorrectly.
+Please contact the application's support team for more information.
+</pre>
 <p>There was no mention of which ap&shy;pli&shy;ca&shy;tion was at fault,
 though it was obvious in this case.
 I have also seen some mention of <tt class="docutils literal">verclsid</tt> in the error dialog,
 though not when I took this&nbsp;snapshot.</p>
-<p>The underlying problem relates to SxS, Fusion, <span>&#8230;<a href="/blog/2007/02/11/ShellExtensionThrowingR6034Errors.html" class="continue">continue</a>.</span></p>
+<p>The underlying problem <span>&#8230;<a href="/blog/2007/02/11/ShellExtensionThrowingR6034Errors.html" class="continue">continue</a>.</span></p>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2007/02/11/ShellExtensionThrowingR6034Errors.html#disqus_thread">Comment</a>

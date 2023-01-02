@@ -101,10 +101,11 @@ works cross-platform.</p>
             <p>tagged as
                 <a href="/tag/programming/" rel="tag">programming</a>,
                 <a href="/tag/windows/" rel="tag">windows</a>,
-                <a href="/tag/linux/" rel="tag">linux</a>
+                <a href="/tag/linux/" rel="tag">linux</a>,
+                <a href="/tag/mac/" rel="tag">mac</a>
                     and
                     
-                <a href="/tag/mac/" rel="tag">mac</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -320,14 +321,18 @@ Get it while it's hot!</p>
 including the <em>Edit with Vim</em> shell extension not working very well.
 When I built the shell extension with VS 2005 on x86, I would
 get the following whenever I right-clicked in Explorer:</p>
-<blockquote>
-<p>Microsoft Visual C++ Runtime Library</p>
-<p>Runtime Error!</p>
-<p>Program: C:WIN&shy;DOW&shy;S&shy;Ex&shy;plor&shy;er.EXE</p>
-<p>R6034</p>
-<p>An ap&shy;pli&shy;ca&shy;tion has made an attempt to load the C runtime library in&shy;cor&shy;rect&shy;ly.
-Please contact the ap&shy;pli&shy;ca&shy;tion's support team for more in&shy;for&shy;ma&shy;tion.</p>
-</blockquote>
+<pre class="literal-block">
+Microsoft Visual C++ Runtime Library
+
+Runtime Error!
+
+Program: C:\WINDOWS\Explorer.EXE
+
+R6034
+
+An application has made an attempt to load the C runtime library incorrectly.
+Please contact the application's support team for more information.
+</pre>
 <p>There was no mention of which ap&shy;pli&shy;ca&shy;tion was at fault,
 though it was obvious in this case.
 I have also seen some mention of <tt class="docutils literal">verclsid</tt> in the error dialog,
@@ -402,7 +407,6 @@ wasn't making any progress and that my dual-proc system was stuck at 50%
 CPU uti&shy;liza&shy;tion. I attached a debugger to the offending process, regsvcs,
 and found that it was stuck in the following infinite loop
 (dis&shy;as&shy;sem&shy;bly courtesy of <a class="reference external" href="http://www.aisto.com/roeder/dotnet/">Reflector</a>):</p>
-
 <pre class="code csharp literal-block">
 <span class="k">internal</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">EnterpriseServices</span><span class="p">.</span><span class="n">CatalogSync</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span><span class="w">
 </span><span class="p">{</span><span class="w">
@@ -418,10 +422,11 @@ and found that it was stuck in the following infinite loop
         
         
             <p>tagged as
-                <a href="/tag/c/" rel="tag">c#</a>
+                <a href="/tag/c-sharp/" rel="tag">c-sharp</a>,
+                <a href="/tag/windows/" rel="tag">windows</a>
                     and
                     
-                <a href="/tag/windows/" rel="tag">windows</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

@@ -52,6 +52,9 @@ The default diff algorithm is <tt class="docutils literal"><span class="pre">--m
         
             <p>tagged as
                 <a href="/tag/git/" rel="tag">git</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -93,6 +96,9 @@ But what's that <tt class="docutils literal">100</tt> prefix?</p>
         
             <p>tagged as
                 <a href="/tag/git/" rel="tag">git</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -137,6 +143,9 @@ these require further in&shy;ves&shy;ti&shy;ga&shy;tion.</li>
         
             <p>tagged as
                 <a href="/tag/git/" rel="tag">git</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -169,6 +178,9 @@ More on <a class="reference external" href="http://stackoverflow.com/questions/2
         
             <p>tagged as
                 <a href="/tag/git/" rel="tag">git</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -189,7 +201,8 @@ More on <a class="reference external" href="http://stackoverflow.com/questions/2
 on another machine.
 I knew which file had been changed,
 but none of the far-too-many remote branches' names rang a bell.</p>
-<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch --contains</a> in the right way finds all the relevant branches.</p>
+<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch --contains</a> in the right way
+finds all the relevant branches.</p>
 <pre class="code bash literal-block">
 git log --all --format<span class="o">=</span>%H FILENAME <span class="se">\
 </span>    <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> f<span class="p">;</span> <span class="k">do</span> git branch --remotes --contains <span class="nv">$f</span><span class="p">;</span> <span class="k">done</span> <span class="se">\
@@ -198,12 +211,16 @@ git log --all --format<span class="o">=</span>%H FILENAME <span class="se">\
 <p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> FILENAME</tt>,
 lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal">FILENAME</tt>.
 The second finds all the branches that contain those hashes
-(I added <span>&#8230;<a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" class="continue">continue</a>.</span></p>
+(I added <tt class="docutils literal"><span class="pre">--remotes</span></tt>).
+The <span>&#8230;<a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" class="continue">continue</a>.</span></p>
     <footer>
         
         
             <p>tagged as
                 <a href="/tag/git/" rel="tag">git</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -322,6 +339,9 @@ Pavel's on a Mac <span>&#8230;<a href="/blog/2009/10/15/GittingAlong.html" class
         
             <p>tagged as
                 <a href="/tag/git/" rel="tag">git</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

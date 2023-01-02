@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>George V. Reilly</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2016-07-06">2016-07-06</time>
+        <h1>
+            <a href="/blog/2016/07/06/BashBulkRenaming.html" rel="bookmark canonical">Bash: Bulk Renaming</a>
+        </h1>
+    </header>
+    <p>I had to rename several hundred thousand files today.
+Thanks to a botched invocation of Im&shy;ageMag&shy;ick,
+they all looked like <tt class="docutils literal">unique_pre&shy;fix.png.jpg</tt>,
+whereas we simply wanted <tt class="docutils literal">unique_pre&shy;fix.jpg</tt>.</p>
+<p>I found a <a class="reference external" href="http://unix.stackexchange.com/a/102653/4060">suitable answer at the Unix Stack&shy;Ex&shy;change</a>.
+As one of the many variants of <a class="reference external" href="http://tldp.org/LDP/abs/html/parameter-substitution.html">parameter sub&shy;sti&shy;tu&shy;tion</a>,
+Bash supports <tt class="docutils literal">${var/Pattern/Re&shy;place&shy;men&shy;t}</tt>:
+“first match of <tt class="docutils literal">Pattern</tt> within <tt class="docutils literal">var</tt> replaced with <tt class="docutils literal">Re&shy;place&shy;ment</tt>.”</p>
+<pre class="code bash literal-block">
+<span class="k">for</span> f <span class="k">in</span> *.png.jpg<span class="p">;</span>
+<span class="k">do</span>
+    mv <span class="nv">$f</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">f</span><span class="p">/.png</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre>
+<p>The target expression could also have been written as <tt class="docutils literal"><span class="pre">&quot;${f/.png.jpg/.jpg}&quot;</span></tt></p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/bash/" rel="tag">bash</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-06-30">2016-06-30</time>
+        <h1>
+            <a href="/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html" rel="bookmark canonical">reStructuredText Anonymous Hyperlinks</a>
+        </h1>
+    </header>
+    <p>While re&shy;search&shy;ing <a class="reference external" href="/blog/2016/06/29/reStructuredTextNestedMarkup.html">yes&shy;ter&shy;day's post</a> about nested markup in Re&shy;Struc&shy;tured&shy;Text,
+I finally learned how to use <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#anonymous-hyperlinks">anonymous hyperlinks</a>.</p>
+<p>Hitherto, I used one of these three forms for hyperlinks:</p>
+<pre class="code rst literal-block">
+<span class="m">1.</span> The central conceit of the fictional <span class="s">`Flashman Papers`_</span> is that Flashy
+<span class="m">2.</span> besieging Breda_ in 1625.
+<span class="m">3.</span> my club, <span class="s">`Freely Speaking Toastmasters </span><span class="si">&lt;http://freelyspeaking.org/&gt;</span><span class="s">`_</span>.
+
+<span class="p">..</span> <span class="nt">_Flashman Papers:</span>
+    https://en.wikipedia.org/wiki/The_Flashman_Papers
+<span class="p">..</span> <span class="nt">_Breda:</span> http://en.wikipedia.org/wiki/Siege_of_Breda
+</pre>
+<p>The first, <tt class="docutils literal">`Flashman Papers`_</tt>, is a <em>named hyperlink reference</em>,
+which refers to an <em>external hyperlink target</em>, <tt class="docutils literal">.. _Flashman Papers: URI</tt>.
+Note that the reference name starts with a backquote, <tt class="docutils literal">`</tt>,
+and ends with backquote-underscore, <tt class="docutils literal">`_</tt>.</p>
+<p>The second, <tt class="docutils literal">Breda_</tt>, is a <em>simple reference name</em>—the backquotes are optional,
+but the trailing <tt class="docutils literal">_</tt> is crucial.</p>
+<p><tt class="docutils literal">`Freely <span>&#8230;<a href="/blog/2016/06/30/ReStructuredTextAnonymousHyperlinks.html" class="continue">continue</a>.</span></tt></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-06-29">2016-06-29</time>
+        <h1>
+            <a href="/blog/2016/06/29/reStructuredTextNestedMarkup.html" rel="bookmark canonical">reStructuredText Nested Markup</a>
+        </h1>
+    </header>
+    <p>I use <a class="reference external" href="https://en.wikipedia.org/wiki/ReStructuredText">re&shy;Struc&shy;tured&shy;Text</a> for both this blog and the <a class="reference external" href="http://www.metabrite.com/devblog/">MetaBrite DevBlog</a>.
+This blog is built with <a class="reference external" href="https://posativ.org/acrylamid/">Acrylamid</a>, while the MetaBrite blog is built with <a class="reference external" href="https://getnikola.com/">Nikola</a>.</p>
+<p><a class="reference external" href="/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html">Yesterday</a> I used a link (<a class="reference external" href="https://blog.sleeplessbeastie.eu/2014/03/23/how-to-non-interactively-provide-password-for-the-postgresql-interactive-terminal/"><tt class="docutils literal"><span class="pre">~/.pgpass</span></tt></a>) that styled the link as an <em>inline literal</em>;
+i.e., in the <tt class="docutils literal">code</tt> font.
+Re&shy;Struc&shy;tured&shy;Text doesn't support nested markup,
+but you can <a class="reference external" href="http://stackoverflow.com/a/4836544/6364">pull it together</a> with a two-step <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#substitution-references">sub&shy;sti&shy;tu&shy;tion reference</a>:</p>
+<pre class="literal-block">
+Here you have |optparse.OptionParser|_.
+
+.. |optparse.OptionParser| replace:: ``optparse.OptionParser`` documentation
+.. _optparse.OptionParser: http://docs.python.org/library/optparse.html
+</pre>
+<p>This is tedious as you have to create a pair of directives
+for every such link that you wish to style.</p>
+<p>Nested inline markup has been on the todo list for 15 years—it ain't happening.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-06-28">2016-06-28</time>
+        <h1>
+            <a href="/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html" rel="bookmark canonical">Creating a New PostgreSQL Database at RDS</a>
+        </h1>
+    </header>
+    <p>Many of us are guilty of saying “database” when we mean a database server or a DBMS.
+A database is a collection of tables storing related data,
+schemas, stored procs, and per&shy;mis&shy;sions.
+Most database servers are capable of managing many databases si&shy;mul&shy;ta&shy;ne&shy;ous&shy;ly.</p>
+<p>I needed to create a new PostgreSQL database at Amazon's RDS last week.
+I already had an RDS instance; I needed a new database on that instance.
+My Google searches turned up various recipes for creating a new RDS instance.</p>
+<p>The following worked for me:</p>
+<ul class="simple">
+<li>SSH to an EC2 instance inside our VPC,
+so that I could connect to the RDS instance using <a class="reference external" href="http://postgresguide.com/utilities/psql.html">psql</a>.</li>
+<li>Then run:</li>
+</ul>
+<pre class="code bash literal-block">
+psql --host<span class="o">=</span>SOME-DBMS-HOST --dbname </pre><span>&#8230;<a href="/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/postgres/" rel="tag">postgres</a>,
+                <a href="/tag/aws/" rel="tag">aws</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-06-10">2016-06-10</time>
+        <h1>
+            <a href="/blog/2016/06/10/What3Words.html" rel="bookmark canonical">What3Words</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://what3words.com/about/"></a>
+<p><a class="reference external" href="https://howwegettonext.com/without-an-address-youre-no-one-51704526f558#.z8obtkdwg">Without an Address, You’re No One</a> introduced me to <a class="reference external" href="https://what3words.com/">What3Words</a>,
+an innovative system that uses just three English words to address
+any 3m×3m square on the planet.
+These words are drawn from a 40,000-word vocabulary.
+A 3m×3m square is precise enough to identify a particular doorway in a large building
+or a towel on a crowded beach.</p>
+<p>I spent much of my childhood living at <a class="reference external" href="http://w3w.co/uses.pills.crunch">uses.pills.crunch</a> (Dublin).
+I spent ten years working at <a class="reference external" href="http://w3w.co/navy.clear.poems">navy.clear.poems</a> (Mi&shy;crosoft&shy;'s Redmond campus).
+If I pinpointed the buildings that I worked in,
+they would each have completely different w3w addresses.</p>
+<p>It reminds me a little of <a class="reference external" href="/blog/2016/01/07/DicewareAndLastpass.html">Diceware</a> which strings together several words
+to form an easy-to-remember but <span>&#8230;<a href="/blog/2016/06/10/What3Words.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-05-26">2016-05-26</time>
+        <h1>
+            <a href="/blog/2016/05/26/ShrinkingPDFFileSize.html" rel="bookmark canonical">Shrinking PDF File Size</a>
+        </h1>
+    </header>
+    <p>Our poster designer sent me a PDF of this year's <a class="reference external" href="http://www.wildgeeseseattle.org/Joyce/Bloomsday/2016.html">Bloomsday poster</a>.
+I thought the file was too large at 7.2MB and I wanted to reduce the file size
+without sig&shy;nif&shy;i&shy;cant loss of image quality.
+I was unable to achieve this in Preview or Acrobat Reader,
+but Ghost&shy;script did the trick,
+thanks to an answer on <a class="reference external" href="http://askubuntu.com/a/256449/956">AskUbuntu</a>:</p>
+<pre class="literal-block">
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 \
+    -dPDFSETTINGS=/prepress -dNOPAUSE -dQUIET -dBATCH \
+    -sOutputFile=output.pdf input.pdf
+</pre>
+<p>The results speak for themselves.</p>
+<div class="figure">
+
+<p class="caption">Crop of the Original PDF, size 7.2MB.</p>
+</div>
+<div class="figure">
+
+<p class="caption">Crop of <tt class="docutils literal"><span class="pre">-dPDF&shy;SET&shy;TINGS=/screen</span></tt>. PDF size: 78KB</p>
+</div>
+<div class="figure">
+
+<p class="caption">Crop of <tt class="docutils literal"><span class="pre">-dPDF&shy;SET&shy;TINGS=/ebook</span></tt>. PDF size: 234KB</p>
+</div>
+<div class="figure">
+
+<p class="caption">Crop of <tt class="docutils literal"><span class="pre">-dPDF&shy;SET&shy;TINGS=/prepress</span></tt>. PDF size: 1.75MB</p>
+</div>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/pdf/" rel="tag">pdf</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-05-17">2016-05-17</time>
+        <h1>
+            <a href="/blog/2016/05/17/SubtractingCompoundObjects.html" rel="bookmark canonical">Subtracting Compound Objects</a>
+        </h1>
+    </header>
+    <p>Quick!
+How many days between <tt class="docutils literal"><span class="pre">2014-11-29</span></tt> and <tt class="docutils literal"><span class="pre">2016-05-17</span></tt>?
+What's the angle between the hour hand and the minute hand on an analog clock
+when the time reads 11:37?</p>
+<p>The hard way to compute the difference between the two dates
+is to start counting back months and days until you reach the earlier date,
+or equiv&shy;a&shy;lent&shy;ly to count forward from the beginning.
+(Don't forget that Feb 2016 has 29 days but Feb 2015 has 28.)
+Similarly with the angle between the hands.</p>
+<p>The easier way is to compute the number of units between the first point
+and some reference (or base) point,
+to do the same for the second point,
+and to subtract <span>&#8230;<a href="/blog/2016/05/17/SubtractingCompoundObjects.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-04-29">2016-04-29</time>
+        <h1>
+            <a href="/blog/2016/04/29/UnixFileCommand.html" rel="bookmark canonical">The Unix file Command</a>
+        </h1>
+    </header>
+    <p>I had forgotten all about the <a class="reference external" href="https://en.wikipedia.org/wiki/File_(command)">file command</a>
+until it was mentioned in a Stack&shy;Over&shy;flow answer today.
+If you run <tt class="docutils literal">file some.iso</tt>, it will display the label embedded in the disk image.
+More generally, you can run <tt class="docutils literal">file</tt> on many different kinds of files
+and it will do a decent job of iden&shy;ti&shy;fy&shy;ing the type of data.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/linux/" rel="tag">linux</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-04-13">2016-04-13</time>
+        <h1>
+            <a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" rel="bookmark canonical">io.StringIO and UnicodeCSV DictWriter</a>
+        </h1>
+    </header>
+    <p>I like to use <a class="reference external" href="https://docs.python.org/2/library/io.html#io.StringIO">io.StringIO</a> rather than the older <a class="reference external" href="https://docs.python.org/2/library/stringio.html#cStringIO.StringIO">cStringIO.StringIO</a>,
+as it's Python 3–ready
+<tt class="docutils literal">io.StringIO</tt> is also a <a class="reference external" href="https://docs.python.org/2/reference/datamodel.html#context-managers">context manager</a>:
+if you use it in a <tt class="docutils literal">with</tt> statement,
+the string buffer is au&shy;to&shy;mat&shy;i&shy;cal&shy;ly <tt class="docutils literal">close</tt>d as you go out of scope.</p>
+<p>I tried using <tt class="docutils literal">io.StringIO</tt> with <a class="reference external" href="https://github.com/jdunck/python-unicodecsv">unicodecsv</a>,
+as I wanted to capture the CSV output into a string buffer
+for use with unit tests.
+<tt class="docutils literal">unicodecsv</tt> is a drop-in re&shy;place&shy;ment for Python's built-in <tt class="docutils literal">csv</tt> module,
+which supports Unicode strings.</p>
+<pre class="code python literal-block">
+<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+    <span class="n">write_csv_rows</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">csv_file</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\r\n</span><span class="s1">'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lines</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># drop empty line after trailing \r\n</span>
+</pre>
+<p>It failed horribly with
+<tt class="docutils literal">TypeError: unicode argument expected, <span>&#8230;<a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" class="continue">continue</a>.</span></tt></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-04-05">2016-04-05</time>
+        <h1>
+            <a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" rel="bookmark canonical">Doctests, Unicode Literals, and Python 2/3 Compatibility</a>
+        </h1>
+    </header>
+    <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses them.</p>
+<p>Although I still mostly write Python 2,
+I usually import several features of Python 3:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+</pre>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni&shy;code_lit&shy;er&shy;als</a> doesn't play well with doctests.</p>
+<p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
+but not with <tt class="docutils literal">python3</tt>:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+
+<span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;
+    Convert `s` to upper case.
+
+    &gt;&gt;&gt; upper('Hello!')
+    u'HELLO!'
+    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+</pre>
+<p>Python 3 complains:</p>
+<pre class="literal-block">
+Failed example:
+    upper('Hello!')
+Expected:
+    u'HELLO!'
+Got:
+    'HELLO!'
+</pre>
+<p>The <span>&#8230;<a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+        <a href="/tag/til/5/" class="page floatright">
+        Previous &raquo;
+        </a>
+    
+    
+        <a href="/tag/til/3/" class="page floatleft">
+        &laquo; Next
+        </a>
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

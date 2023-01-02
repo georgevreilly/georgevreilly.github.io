@@ -109,22 +109,23 @@ setting, but got that configured&nbsp;correctly.</p>
 The default in&shy;stal&shy;la&shy;tion of <tt class="docutils literal">site.config</tt> needs some comments. The stuff
 that you really have to modify should be in a clearly delimited block
 at the top. Something like this:</blockquote>
-<pre class="literal-block">
-&lt;!-- Modify this section before installing --&gt;
+<p>:</p>
+<pre class="code xml literal-block">
+<span class="cm">&lt;!-- Modify this section before installing --&gt;</span>
 
-&lt;!-- Important: set this to the base URL of this blog, such as
-     http://example com/joeuser/blog/ --&gt;
-&lt;Root&gt;http://localhost/DasBlog/&lt;/Root&gt;
-&lt;!-- Banner text. (Note: not all themes show the Subtitle or Description.) --&gt;
-&lt;Title&gt;My DasBlog!&lt;/Title&gt;
-&lt;Subtitle&gt;newtelligence powered&lt;/Subtitle&gt;
-&lt;Description&gt;A blog about my interests: computers, games, beer, etc.&lt;/Description&gt;
-&lt;!-- Email address of blog adminstrator --&gt;
-&lt;Contact&gt;dasblog&#64;example.com&lt;/Contact&gt;
-&lt;Copyright&gt;Your Name Here&lt;/Copyright&gt;
-&lt;!-- Default visual theme --&gt;
-&lt;Theme&gt;dasBlog&lt;/Theme&gt;
-&lt;!-- End of essential modifications --&gt;
+<span class="cm">&lt;!-- Important: set this to the base <span class="caps">URL</span> of this blog, such as
+     http://example com/joeuser/blog/ --&gt;</span>
+<span class="nt">&lt;Root&gt;</span>http://localhost/DasBlog/<span class="nt">&lt;/Root&gt;</span>
+<span class="cm">&lt;!-- Banner text. (Note: not all themes show the Subtitle or Description.) --&gt;</span>
+<span class="nt">&lt;Title&gt;</span>My DasBlog!<span class="nt">&lt;/Title&gt;</span>
+<span class="nt">&lt;Subtitle&gt;</span>newtelligence powered<span class="nt">&lt;/Subtitle&gt;</span>
+<span class="nt">&lt;Description&gt;</span>A blog about my interests: computers, games, beer, etc.<span class="nt">&lt;/Description&gt;</span>
+<span class="cm">&lt;!-- Email address of blog adminstrator --&gt;</span>
+<span class="nt">&lt;Contact&gt;</span>dasblog&#64;example.com<span class="nt">&lt;/Contact&gt;</span>
+<span class="nt">&lt;Copyright&gt;</span>Your Name Here<span class="nt">&lt;/Copyright&gt;</span>
+<span class="cm">&lt;!-- Default visual theme --&gt;</span>
+<span class="nt">&lt;Theme&gt;</span>dasBlog<span class="nt">&lt;/Theme&gt;</span>
+<span class="cm">&lt;!-- End of essential modifications --&gt;</span>
 </pre>
 <p>She was less sure what to do with <tt class="docutils literal">siteSe&shy;cu&shy;ri&shy;ty.config</tt>. She thought she
 needed to use the same Name and Password as she uses to log in to the
@@ -132,8 +133,8 @@ server. (No. It&#8217;s arbitrary.) She also needed to add a few additional
 Users, since it&#8217;s going to be a group&nbsp;blog.</p>
 <p>There should be a commented-out example of a con&shy;trib&shy;u&shy;tor user in
 <tt class="docutils literal">siteSe&shy;cu&shy;ri&shy;ty.config</tt>:</p>
-<pre class="literal-block">
-&lt;!-- example of a non-administrator user
+<pre class="code xml literal-block">
+<span class="cm">&lt;!-- example of a non-administrator user
   &lt;User&gt;
     &lt;Name&gt;SomeOtherUser&lt;/Name&gt;
     &lt;Password&gt;blog-password&lt;/Password&gt;
@@ -142,7 +143,7 @@ Users, since it&#8217;s going to be a group&nbsp;blog.</p>
     &lt;DisplayName&gt;Some Other User&lt;/DisplayName&gt;
     &lt;EmailAddress&gt;SomeOther&#64;example.com&lt;/EmailAddress&gt;
   &lt;/User&gt;
---&gt;
+--&gt;</span>
 </pre>
 <p>She uploaded the modified <tt class="docutils literal">site.config</tt> and <tt class="docutils literal">siteSe&shy;cu&shy;ri&shy;ty.config</tt>. It failed
 horribly when she went to log in. I had to download the events.log file to

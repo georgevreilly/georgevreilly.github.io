@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="It may be old-fashioned, but I still find ``printf..." />
-    <meta name="keywords" content="c" />
+    <meta name="keywords" content="c, c++, til" />
 </head>
 <body>
   <header>
@@ -96,16 +96,16 @@ you can use <tt class="docutils literal">%*</tt>.
 This says the next argument is the width,
 followed by whatever type you want to&nbsp;print.</p>
 <p>For example, the following can be used to print a&nbsp;tree:</p>
-<pre class="literal-block">
-void Tree::Print(Node* pNode, int level)
-{
-    if (NULL != pNode)
-    {
-        Print(pNode-&gt;Left, level+1);
-        printf(&quot;%*d%s\n&quot;, 2 * level, pNode-&gt;Key);
-        Print(pNode-&gt;Right, level+1);
-    }
-}
+<pre class="code cpp literal-block">
+<span class="kt">void</span><span class="w"> </span><span class="nf">Tree::Print</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span><span class="w"> </span><span class="n">pNode</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">level</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb"><span class="caps">NULL</span></span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">pNode</span><span class="p">)</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="n">Print</span><span class="p">(</span><span class="n">pNode</span><span class="o">-&gt;</span><span class="n">Left</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span><span class="w">
+        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%*d%s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">level</span><span class="p">,</span><span class="w"> </span><span class="n">pNode</span><span class="o">-&gt;</span><span class="n">Key</span><span class="p">);</span><span class="w">
+        </span><span class="n">Print</span><span class="p">(</span><span class="n">pNode</span><span class="o">-&gt;</span><span class="n">Right</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span>
 </pre>
 </div>
 <div class="section" id="s-print-a-substring">
@@ -157,7 +157,11 @@ to guarantee that your strings are&nbsp;<span class="caps">NUL</span>-terminated
         
         
             <p>tagged as
-                <a href="/tag/c/" rel="tag">c</a>
+                <a href="/tag/c/" rel="tag">c</a>,
+                <a href="/tag/c++/" rel="tag">c++</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

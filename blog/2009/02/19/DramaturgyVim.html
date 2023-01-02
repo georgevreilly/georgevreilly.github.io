@@ -65,39 +65,39 @@ Patrick, Andrew, David, George, be thou anointed!
 <p>The Gutenberg tran&shy;scriber has converted all italics to uppercase.
 All accents on letters have been lost (there were none in this&nbsp;fragment).</p>
 <p>Here&#8217;s the cor&shy;re&shy;spond&shy;ing LaTeX that I derived from the&nbsp;above:</p>
-<pre class="literal-block">
-\stage{(Bloom's weather.
-A sunburst appears in the northwest.)}
+<pre class="code latex literal-block">
+<span class="k">\stage</span><span class="nb">{</span>(Bloom's weather.
+A sunburst appears in the northwest.)<span class="nb">}</span>
 
-\DownConnor:
-\gab{1470}
+<span class="k">\DownConnor</span>:
+<span class="k">\gab</span><span class="nb">{</span>1470<span class="nb">}</span>
 I here present your undoubted emperor-president and king-chairman,
 the most serene and potent and very puissant ruler of this realm.
 God save Leopold the First!
 
-\All:
+<span class="k">\All</span>:
 God save Leopold the First!
 
-\Bloom:
-\stage{(in dalmatic and purple mantle,
-to the bishop of Down and Connor, with dignity)}
+<span class="k">\Bloom</span>:
+<span class="k">\stage</span><span class="nb">{</span>(in dalmatic and purple mantle,
+to the bishop of Down and Connor, with dignity)<span class="nb">}</span>
 Thanks, somewhat eminent sir.
 
-\WillArmagh:
-\stage{(in purple stock and shovel hat)}
-\gab{1480}
+<span class="k">\WillArmagh</span>:
+<span class="k">\stage</span><span class="nb">{</span>(in purple stock and shovel hat)<span class="nb">}</span>
+<span class="k">\gab</span><span class="nb">{</span>1480<span class="nb">}</span>
 Will you to your power cause law and mercy to be executed
 in all your judgments in Ireland and territories thereunto belonging?
 
-\Bloom:
-\stage{(placing his right hand on his testicles, swears)}
+<span class="k">\Bloom</span>:
+<span class="k">\stage</span><span class="nb">{</span>(placing his right hand on his testicles, swears)<span class="nb">}</span>
 So may the Creator deal with me.
 All this I promise to do.
 
-\MikeArmagh:
-\stage{(pours a cruse of hairoil over Bloom's head)}
-\latin{Gaudium magnum annuntio vobis.
-Habemus carneficem.}
+<span class="k">\MikeArmagh</span>:
+<span class="k">\stage</span><span class="nb">{</span>(pours a cruse of hairoil over Bloom's head)<span class="nb">}</span>
+<span class="k">\latin</span><span class="nb">{</span>Gaudium magnum annuntio vobis.
+Habemus carneficem.<span class="nb">}</span>
 Leopold, Patrick, Andrew, David, George, be thou anointed!
 </pre>
 <p>I could simply have used <tt class="docutils literal">\em</tt> to get italics,
@@ -109,12 +109,12 @@ are defined in terms of the <tt class="docutils literal">\role</tt> macro.
 The <tt class="docutils literal">\gab</tt> macro lists the line number
 in the Gabler edition of <em>Ulysses</em>.
 It&#8217;s useful for looking up reference works
-and it would have been hard to do in&nbsp;re&shy;Struc&shy;tured&shy;Text.</p>
-<pre class="literal-block">
-\newcommand{\stage}[1]{\emph{#1}}
-\newcommand{\role}[1]{{\textsc{#1}}}
-\newcommand{\Bloom}{\role{Bloom}}
-\newcommand{\gab}[1]{\marginpar{#1}}
+and it would have been hard to do in re&shy;Struc&shy;tured&shy;Text.&nbsp;:</p>
+<pre class="code latex literal-block">
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\stage</span><span class="nb">}</span>[1]<span class="nb">{</span><span class="k">\emph</span><span class="nb">{</span>#1<span class="nb">}}</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\role</span><span class="nb">}</span>[1]<span class="nb">{{</span><span class="k">\textsc</span><span class="nb">{</span>#1<span class="nb">}}}</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\Bloom</span><span class="nb">}{</span><span class="k">\role</span><span class="nb">{</span>Bloom<span class="nb">}}</span>
+<span class="k">\newcommand</span><span class="nb">{</span><span class="k">\gab</span><span class="nb">}</span>[1]<span class="nb">{</span><span class="k">\marginpar</span><span class="nb">{</span>#1<span class="nb">}}</span>
 </pre>
 <p>I used Vim to massage the&nbsp;text.</p>
 <ul class="simple">
@@ -130,10 +130,10 @@ The rest needs to be treated as <tt class="docutils literal">\latin{}</tt>, <tt 
 and so&nbsp;on.</li>
 </ul>
 <p>I used the following Vim macro to bracket the <a class="reference external" href="http://jmcpherson.org/editing.html">visual selection</a>
-with <tt class="docutils literal">\stage{}</tt>.</p>
-<pre class="literal-block">
-&quot; ;s =&gt; SELECTION -&gt; \stage{selection}
-vnoremap &lt;buffer&gt; &lt;silent&gt; ;s u`&gt;a}&lt;Esc&gt;`&lt;i\stage{&lt;Esc&gt;
+with <tt class="docutils literal">\stage{}</tt>.&nbsp;:</p>
+<pre class="code vim literal-block">
+<span class="c">&quot; ;s =&gt; <span class="caps">SELECTION</span> -&gt; \stage{selection}</span>
+<span class="nb">vnoremap</span> <span class="p">&lt;</span>buffer<span class="p">&gt;</span> <span class="p">&lt;</span><span class="k">silent</span><span class="p">&gt;</span> ;s <span class="k">u</span>`<span class="p">&gt;</span><span class="k">a</span>}<span class="p">&lt;</span>Esc<span class="p">&gt;</span>`<span class="p">&lt;</span><span class="k">i</span>\stage{<span class="p">&lt;</span>Esc<span class="p">&gt;</span>
 </pre>
 <p>Breaking it down, since that looks like line&nbsp;noise.</p>
 <table border="1" class="docutils">

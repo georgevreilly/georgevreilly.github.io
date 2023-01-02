@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="I needed to create a wildcard SSL certificate and..." />
-    <meta name="keywords" content="tech, ssl, aws" />
+    <meta name="keywords" content="tech, ssl, aws, til" />
 </head>
 <body>
   <header>
@@ -38,46 +38,46 @@
     </header>
     <p>I needed to create a wildcard <span class="caps">SSL</span> cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/"><span class="caps">AWS</span> CloudFront</a>&nbsp;today.</p>
 <p>First, generate a 2048-bit private key. This will prompt you for a&nbsp;passphrase:</p>
-<pre class="literal-block">
-$ openssl genrsa -des3 -out example.key 2048
+<pre class="code bash literal-block">
+$ openssl genrsa -des3 -out example.key <span class="m">2048</span>
 </pre>
 <p>Check which signature algorithm was used (<span class="caps">SHA</span>-256 is&nbsp;rec&shy;om&shy;mend&shy;ed):</p>
-<pre class="literal-block">
+<pre class="code bash literal-block">
 $ openssl req -in example.csr -noout -text
 </pre>
 <p>Transform the private key to <span class="caps">PEM</span>&nbsp;format:</p>
-<pre class="literal-block">
+<pre class="code bash literal-block">
 $ openssl rsa -outform PEM -in example.key -out example.pem
 </pre>
 <p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server&nbsp;<span class="caps">FQDN</span>:</p>
-<pre class="literal-block">
+<pre class="code bash literal-block">
 $ openssl req -new -key example.key -out example.csr
 
-Country Name (2 letter code) [AU]:US
-State or Province Name (full name) [Some-State]:Washington
-Locality Name (eg, city) []:Seattle
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:Example GmbH
-Organizational Unit Name (eg, section) []:
-Common Name (e.g. server FQDN or YOUR name) []:*.example.com
-Email Address []:
+Country Name <span class="o">(</span><span class="m">2</span> letter code<span class="o">)</span> <span class="o">[</span><span class="caps">AU</span><span class="o">]</span>:<span class="caps">US</span>
+State or Province Name <span class="o">(</span>full name<span class="o">)</span> <span class="o">[</span>Some-State<span class="o">]</span>:Washington
+Locality Name <span class="o">(</span>eg, city<span class="o">)</span> <span class="o">[]</span>:Seattle
+Organization Name <span class="o">(</span>eg, company<span class="o">)</span> <span class="o">[</span>Internet Widgits Pty Ltd<span class="o">]</span>:Example GmbH
+Organizational Unit Name <span class="o">(</span>eg, section<span class="o">)</span> <span class="o">[]</span>:
+Common Name <span class="o">(</span>e.g. server <span class="caps">FQDN</span> or <span class="caps">YOUR</span> name<span class="o">)</span> <span class="o">[]</span>:*.example.com
+Email Address <span class="o">[]</span>:
 
-Please enter the following 'extra' attributes
+Please enter the following <span class="s1">'extra'</span> attributes
 to be sent with your certificate request
-A challenge password []:
-An optional company name []:
+A challenge password <span class="o">[]</span>:
+An optional company name <span class="o">[]</span>:
 </pre>
 <p>Upload the <span class="caps">CSR</span> to your Cer&shy;tifi&shy;cate Authority and generate a signed cer&shy;tifi&shy;cate.
 We used <a class="reference external" href="https://www.ssl.com/"><span class="caps">SSL</span>.com</a>.</p>
 <p>Be sure to save the keys and cer&shy;tifi&shy;cates in a secure place.
 The private key is a <em>secret</em>: treat it as&nbsp;such.</p>
 <p>Finally, <a class="reference external" href="http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs_manage.html#UploadSignedCert">upload the cer&shy;tifi&shy;cate to <span class="caps">IAM</span> (<span class="caps">AWS</span> Identity and Access Management)</a>:</p>
-<pre class="literal-block">
-$ aws iam upload-server-certificate \
-    --server-certificate-name 'Example_Wildcard_Cert' \
-    --certificate-body file://STAR_example_com.crt \
-    --private-key file://example.pem \
-    --certificate-chain file://ca-chain-amazon.crt \
-    --path /cloudfront/production/
+<pre class="code bash literal-block">
+$ aws iam upload-server-certificate <span class="se">\
+</span>    --server-certificate-name <span class="s1">'Example_Wildcard_Cert'</span> <span class="se">\
+</span>    --certificate-body file://STAR_example_com.crt <span class="se">\
+</span>    --private-key file://example.pem <span class="se">\
+</span>    --certificate-chain file://ca-chain-amazon.crt <span class="se">\
+</span>    --path /cloudfront/production/
 </pre>
 <p>Note the <tt class="docutils literal"><span class="pre">--path</span></tt> argument, which is required for CloudFront&nbsp;dis&shy;tri&shy;b&shy;u&shy;tions.</p>
 <p>Bryce Fisher-Fleig has <a class="reference external" href="https://bryce.fisher-fleig.org/blog/setting-up-ssl-on-aws-cloudfront-and-s3/">more</a>.
@@ -88,10 +88,11 @@ $ aws iam upload-server-certificate \
         
             <p>tagged as
                 <a href="/tag/tech/" rel="tag">tech</a>,
-                <a href="/tag/ssl/" rel="tag">ssl</a>
+                <a href="/tag/ssl/" rel="tag">ssl</a>,
+                <a href="/tag/aws/" rel="tag">aws</a>
                     and
                     
-                <a href="/tag/aws/" rel="tag">aws</a>
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
