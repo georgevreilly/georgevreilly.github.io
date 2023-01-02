@@ -1312,7 +1312,8 @@ which was managed by Blackbox:&lt;/p&gt;
 &lt;span class=&#34;c1&#34;&gt;# Save current value of xtrace option from $-; disable echoing of executed commands
 &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -q &lt;span class=&#34;s2&#34;&gt;&amp;quot;x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;XT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;-x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;XT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;+x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; +x&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&amp;gt;/dev/null
 
-&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;AWS_ACCESS_KEY_ID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;...&#39;&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# export environment variables, many containing secrets
+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;AWS_ACCESS_KEY_ID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;...&#39;&lt;/span&gt;
 &lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;AWS_SECRET_ACCESS_KEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;...&#39;&lt;/span&gt;
 
 &lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PYPI_USER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;build&#39;&lt;/span&gt;
@@ -1347,28 +1348,30 @@ update the secrets in the file,
 encrypt the updated secrets file,
 and commit that encrypted file into the VCS.
 Administrators can be removed from a Blackbox installation,
-after which they will not be able to decrypt the updated secrets files&lt;a class=&#34;footnote-reference&#34; href=&#34;https://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html/#revocation&#34; id=&#34;id1&#34;&gt;[1]&lt;/a&gt;.&lt;/p&gt;
+after which they will not be able to decrypt the updated secrets files&lt;a class=&#34;footnote-reference&#34; href=&#34;https://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html/#revocation&#34; id=&#34;footnote-reference-1&#34;&gt;[1]&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;How does Blackbox encrypt a file so that any administrator can decrypt it?
 It uses GPG to encrypt the file for multiple recipients,
 say, &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Alice_and_Bob#Cast_of_characters&#34;&gt;Alice, Bob, and Carol&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;When GPG encrypts a file, it:&lt;/p&gt;
 &lt;ul class=&#34;simple&#34;&gt;
 &lt;li&gt;creates a random &lt;em&gt;session key&lt;/em&gt; for &lt;a class=&#34;reference external&#34; href=&#34;https://www.ssl2buy.com/wiki/symmetric-vs-asymmetric-encryption-what-are-differences&#34;&gt;symmetric encryption&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;writes a header for each recipient, containing:&lt;ul&gt;
+&lt;li&gt;writes a header for &lt;em&gt;each recipient&lt;/em&gt;, containing:&lt;ul&gt;
 &lt;li&gt;the ID of the recipient&#39;s public key&lt;/li&gt;
-&lt;li&gt;the result of encrypting the session key with the recipient&#39;s public key&lt;/li&gt;
+&lt;li&gt;the result of asymmetrically encrypting the session key
+with the recipient&#39;s public key&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;possibly signs the data&lt;/li&gt;
 &lt;li&gt;compresses the (signed) data&lt;/li&gt;
-&lt;li&gt;encrypts the compressed data with the session key&lt;/li&gt;
+&lt;li&gt;symmetrically encrypts the compressed data with the session key&lt;/li&gt;
 &lt;li&gt;writes the encrypted, compressed data&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Only the recipients have the private keys (in theory, at least).
 Therefore, only a recipient can decrypt the encrypted file.&lt;/p&gt;
 &lt;p&gt;To decrypt the file for a recipient, GPG:&lt;/p&gt;
 &lt;ul class=&#34;simple&#34;&gt;
-&lt;li&gt;finds the encrypted session key packet whose keyID matches the recipient&#39;s public key&lt;/li&gt;
+&lt;li&gt;finds the encrypted session key packet
+whose keyID matches the recipient&#39;s public key&lt;/li&gt;
 &lt;li&gt;decrypts the session key using the recipient&#39;s private key&lt;/li&gt;
 &lt;li&gt;decrypts the encrypted, compressed data using the session key&lt;/li&gt;
 &lt;li&gt;decompresses the decrypted data&lt;/li&gt;
@@ -1376,14 +1379,18 @@ Therefore, only a recipient can decrypt the encrypted file.&lt;/p&gt;
 &lt;li&gt;writes the cleartext&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;This is a hybrid scheme.
-Symmetric encryption is a lot faster than public key/private key asymmetric encryption,
+Symmetric encryption is a lot &lt;a class=&#34;reference external&#34; href=&#34;https://www.ssl2buy.com/wiki/symmetric-vs-asymmetric-encryption-what-are-differences&#34;&gt;faster and more compact&lt;/a&gt;
+than public key/private key asymmetric encryption,
 so it&#39;s used to encrypt the actual data.
 Furthermore, if the data were entirely encrypted with a recipient&#39;s public key,
 then encrypting for &lt;em&gt;N&lt;/em&gt; recipients would mean that the size of the result
-would be proportional to the number of recipients times the length of the original data.
-With the hybrid scheme, the header grows a &lt;a class=&#34;reference external&#34; href=&#34;https://security.stackexchange.com/questions/8245/gpg-file-size-with-multiple-recipients&#34;&gt;few hundred bytes&lt;/a&gt; for each recipient
+would be proportional to the
+(number of recipients) × (the length of the original data).
+With the hybrid scheme,
+the header grows a &lt;a class=&#34;reference external&#34; href=&#34;https://security.stackexchange.com/questions/8245/gpg-file-size-with-multiple-recipients&#34;&gt;few hundred bytes&lt;/a&gt; for each recipient
 but the data is encrypted only once, with faster encryption.&lt;/p&gt;
-&lt;p&gt;Blackbox encrypts a registered file with all of the administrators as the recipients,
+&lt;p&gt;Blackbox encrypts a registered file
+with all of the administrators as the recipients,
 so any administrator can decrypt the file.&lt;/p&gt;
 &lt;div class=&#34;figure&#34;&gt;
 &lt;a class=&#34;reference external image-reference&#34; href=&#34;http://www.cse.tkk.fi/fi/opinnot/T-110.5240/2009/luennot-files/Lecture%202.pdf&#34;&gt;&lt;img alt=&#34;Typical PGP Message&#34; src=&#34;https://www.georgevreilly.com/content/binary/typical-pgp-message.jpg&#34;/&gt;&lt;/a&gt;
@@ -1402,7 +1409,7 @@ comparing two versions in cleartext is tricky.&lt;/p&gt;
 &lt;table class=&#34;docutils footnote&#34; frame=&#34;void&#34; id=&#34;revocation&#34; rules=&#34;none&#34;&gt;
 &lt;colgroup&gt;&lt;col class=&#34;label&#34;/&gt;&lt;col /&gt;&lt;/colgroup&gt;
 &lt;tbody valign=&#34;top&#34;&gt;
-&lt;tr&gt;&lt;td class=&#34;label&#34;&gt;&lt;a class=&#34;fn-backref&#34; href=&#34;https://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html/#id1&#34;&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;If they have a snapshot of the VCS before their access was revoked,
+&lt;tr&gt;&lt;td class=&#34;label&#34;&gt;&lt;a class=&#34;fn-backref&#34; href=&#34;https://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html/#footnote-reference-1&#34;&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;If they have a snapshot of the VCS before their access was revoked,
 they will still be able to decrypt the secrets as they were then.
 In principle, you should be changing passwords and certificates
 every time someone&#39;s access is revoked.&lt;/td&gt;&lt;/tr&gt;

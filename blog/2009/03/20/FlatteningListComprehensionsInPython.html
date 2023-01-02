@@ -39,64 +39,64 @@
     <img alt="List Comprehension" class="right-float" src="https://3.bp.blogspot.com/_GrwhB3fzGXM/R3pbFbVFxQI/AAAAAAAAADU/Tg7y0mtUHi8/s320/listcomprehension.png"/>
 <p>Python has <a class="reference external" href="http://docs.python.org/tutorial/datastructures.html#list-comprehensions">list com&shy;pre&shy;hen&shy;sions</a>,
 syntactic sugar for building lists from an&nbsp;expression.</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
-<span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">22</span><span class="p">]</span>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
+<span class="go">[4, 6, 10, 14, 22]</span>
 </pre>
 <p>This doesn&#8217;t work so well when the com&shy;pre&shy;hen&shy;sion expression
 is itself a list: you end up with a list of&nbsp;lists.</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
-<span class="o">...</span>     <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]:</span>
-<span class="o">...</span>         <span class="k">yield</span> <span class="n">l</span>
-<span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()]</span>
-<span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]</span>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]:</span>
+<span class="gp">... </span>        <span class="k">yield</span> <span class="n">l</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()]</span>
+<span class="go">[['a', 'b'], ['c'], ['d', 'e', 'f']]</span>
 </pre>
 <p>This is ugly. Here&#8217;s one way to build a flattened list,
 but it&#8217;s less elegant than the&nbsp;com&shy;pre&shy;hen&shy;sion.</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">():</span>
-<span class="o">...</span>     <span class="n">x</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
-<span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
-<span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]</span>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span>
+<span class="go">['a', 'b', 'c', 'd', 'e', 'f']</span>
 </pre>
 <p>It took me a while to find a readable list com&shy;pre&shy;hen&shy;sion,
 with a little <a class="reference external" href="http://www.google.com/search?q=python+list+comprehension+flatten">help from Google</a>.
 Use <a class="reference external" href="http://docs.python.org/library/functions.html#sum">sum()</a> on the outer list and prime it with an empty list, <tt class="docutils literal">[]</tt>.
 Python will con&shy;cate&shy;nate the inner lists, producing a flattened&nbsp;list.</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">([</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()],</span> <span class="p">[])</span>
-<span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]</span>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sum</span><span class="p">([</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()],</span> <span class="p">[])</span>
+<span class="go">['a', 'b', 'c', 'd', 'e', 'f']</span>
 </pre>
 <p>Al&shy;ter&shy;na&shy;tive&shy;ly, you can use <a class="reference external" href="http://docs.python.org/library/itertools.html#itertools.chain">itertools.chain()</a>.</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">itertools</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">gen</span><span class="p">()))</span>
-<span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]</span>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">gen</span><span class="p">()))</span>
+<span class="go">['a', 'b', 'c', 'd', 'e', 'f']</span>
 </pre>
 <p>That might be slightly more efficient,
 though I find the <tt class="docutils literal">sum()</tt> to be a little more&nbsp;readable.</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">itertools</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">gen</span><span class="p">()))</span>
-<span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]</span>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">itertools</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">gen</span><span class="p">()))</span>
+<span class="go">['a', 'b', 'c', 'd', 'e', 'f']</span>
 </pre>
 <p>That might be slightly more efficient,
 though I find the <tt class="docutils literal">sum()</tt> to be a little more&nbsp;readable.</p>
 <p><strong>Edit</strong>: I forgot about nested&nbsp;com&shy;pre&shy;hen&shy;sions</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">inner</span>
-<span class="o">...</span>     <span class="k">for</span> <span class="n">outer</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()</span>
-<span class="o">...</span>         <span class="k">for</span> <span class="n">inner</span> <span class="ow">in</span> <span class="n">outer</span><span class="p">]</span>
-<span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]</span>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">inner</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">outer</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()</span>
+<span class="gp">... </span>        <span class="k">for</span> <span class="n">inner</span> <span class="ow">in</span> <span class="n">outer</span><span class="p">]</span>
+<span class="go">['a', 'b', 'c', 'd', 'e', 'f']</span>
 </pre>
 <p>Somewhat cryptic on one line&nbsp;however:</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">j</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">i</span><span class="p">]</span>
-<span class="p">[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">,</span> <span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]</span>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">j</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">i</span><span class="p">]</span>
+<span class="go">['a', 'b', 'c', 'd', 'e', 'f']</span>
 </pre>
 <p><strong>Update</strong>: The nested com&shy;pre&shy;hen&shy;sion became one of my most <a class="reference external" href="http://stackoverflow.com/a/716761/6364">popular Stack&shy;Over&shy;flow answers</a>.</p>
 

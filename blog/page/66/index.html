@@ -115,20 +115,20 @@ See <a class="reference external" href="http://www.python.org/dev/peps/pep-3101/
 <p>One trick that I liked with the old way of formatting was
 to put the <a class="reference external" href="http://docs.python.org/library/functions.html#locals">locals()</a> dictionary or <tt class="docutils literal">self.__dict__</tt>
 on the right-hand&nbsp;side</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="o">...</span>  <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
-<span class="o">...</span>  <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%(a)s</span><span class="s2">, </span><span class="si">%(b)s</span><span class="s2">, </span><span class="si">%(c)s</span><span class="s2">, </span><span class="si">%(d)s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span>
-<span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">stuff</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
-<span class="s1">'3, 17, 20, -14'</span>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="gp">... </span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
+<span class="gp">... </span> <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%(a)s</span><span class="s2">, </span><span class="si">%(b)s</span><span class="s2">, </span><span class="si">%(c)s</span><span class="s2">, </span><span class="si">%(d)s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stuff</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
+<span class="go">'3, 17, 20, -14'</span>
 </pre>
 <p>It took me a few minutes to figure out how to do the equivalent with <tt class="docutils literal">string.format</tt>:
 use the <tt class="docutils literal">**</tt> syntax to unpack the dict into <tt class="docutils literal">kwargs</tt>.</p>
-<pre class="code python literal-block">
-<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="o">...</span>  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
-<span class="o">...</span>   </pre><span>&#8230;<a href="/blog/2009/04/23/PythonStringFormatting.html" class="continue">continue</a>.</span>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+<span class="gp">... </span>  </pre><span>&#8230;<a href="/blog/2009/04/23/PythonStringFormatting.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/23/PythonStringFormatting.html#disqus_thread">Comment</a>

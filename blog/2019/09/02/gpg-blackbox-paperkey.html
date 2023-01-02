@@ -11,7 +11,7 @@
   <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
   <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
     <meta name="description" content="“Security is 1% technology plus 99% following..." />
-    <meta name="keywords" content="gpg, blackbox, jenkins" />
+    <meta name="keywords" content="gpg, blackbox, jenkins, bash" />
 </head>
 <body>
   <header>
@@ -54,7 +54,8 @@ which was managed by&nbsp;Blackbox:</p>
 <span class="c1"># Save current value of xtrace option from $-; disable echoing of executed commands
 </span><span class="o">{</span> <span class="k">if</span> <span class="nb">echo</span> <span class="nv">$-</span> <span class="p">|</span> grep -q <span class="s2">&quot;x&quot;</span><span class="p">;</span> <span class="k">then</span> <span class="nv"><span class="caps">XT</span></span><span class="o">=</span><span class="s2">&quot;-x&quot;</span><span class="p">;</span> <span class="k">else</span> <span class="nv"><span class="caps">XT</span></span><span class="o">=</span><span class="s2">&quot;+x&quot;</span><span class="p">;</span> <span class="k">fi</span><span class="p">;</span> <span class="nb">set</span> +x<span class="p">;</span> <span class="o">}</span> <span class="m">2</span>&gt;/dev/null
 
-<span class="nb">export</span> <span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s1">'...'</span>
+<span class="c1"># export environment variables, many containing secrets
+</span><span class="nb">export</span> <span class="nv">AWS_ACCESS_KEY_ID</span><span class="o">=</span><span class="s1">'...'</span>
 <span class="nb">export</span> <span class="nv">AWS_SECRET_ACCESS_KEY</span><span class="o">=</span><span class="s1">'...'</span>
 
 <span class="nb">export</span> <span class="nv">PYPI_USER</span><span class="o">=</span><span class="s1">'build'</span>
@@ -89,28 +90,30 @@ update the secrets in the file,
 encrypt the updated secrets file,
 and commit that encrypted file into the <span class="caps">VCS</span>.
 Ad&shy;min&shy;is&shy;tra&shy;tors can be removed from a Blackbox in&shy;stal&shy;la&shy;tion,
-after which they will not be able to decrypt the updated secrets files<a class="footnote-reference" href="#revocation" id="id1">[1]</a>.</p>
+after which they will not be able to decrypt the updated secrets files<a class="footnote-reference" href="#revocation" id="footnote-reference-1">[1]</a>.</p>
 <p>How does Blackbox encrypt a file so that any ad&shy;min&shy;is&shy;tra&shy;tor can decrypt it?
 It uses <span class="caps">GPG</span> to encrypt the file for multiple recipients,
 say, <a class="reference external" href="https://en.wikipedia.org/wiki/Alice_and_Bob#Cast_of_characters">Alice, Bob, and Carol</a>.</p>
 <p>When <span class="caps">GPG</span> encrypts a file,&nbsp;it:</p>
 <ul class="simple">
 <li>creates a random <em>session key</em> for <a class="reference external" href="https://www.ssl2buy.com/wiki/symmetric-vs-asymmetric-encryption-what-are-differences">symmetric&nbsp;encryption</a></li>
-<li>writes a header for each recipient, containing:<ul>
+<li>writes a header for <em>each recipient</em>, containing:<ul>
 <li>the <span class="caps">ID</span> of the recipient&#8217;s public&nbsp;key</li>
-<li>the result of encrypting the session key with the recipient&#8217;s public&nbsp;key</li>
+<li>the result of asym&shy;met&shy;ri&shy;cal&shy;ly encrypting the session key
+with the recipient&#8217;s public&nbsp;key</li>
 </ul>
 </li>
 <li>possibly signs the&nbsp;data</li>
 <li>compresses the (signed)&nbsp;data</li>
-<li>encrypts the compressed data with the session&nbsp;key</li>
+<li>sym&shy;met&shy;ri&shy;cal&shy;ly encrypts the compressed data with the session&nbsp;key</li>
 <li>writes the encrypted, compressed&nbsp;data</li>
 </ul>
 <p>Only the recipients have the private keys (in theory, at least).
 Therefore, only a recipient can decrypt the encrypted&nbsp;file.</p>
 <p>To decrypt the file for a recipient,&nbsp;<span class="caps">GPG</span>:</p>
 <ul class="simple">
-<li>finds the encrypted session key packet whose keyID matches the recipient&#8217;s public&nbsp;key</li>
+<li>finds the encrypted session key packet
+whose keyID matches the recipient&#8217;s public&nbsp;key</li>
 <li>decrypts the session key using the recipient&#8217;s private&nbsp;key</li>
 <li>decrypts the encrypted, compressed data using the session&nbsp;key</li>
 <li>de&shy;com&shy;press&shy;es the decrypted&nbsp;data</li>
@@ -118,14 +121,18 @@ Therefore, only a recipient can decrypt the encrypted&nbsp;file.</p>
 <li>writes the&nbsp;cleartext</li>
 </ul>
 <p>This is a hybrid scheme.
-Symmetric encryption is a lot faster than public key/private key asymmetric encryption,
+Symmetric encryption is a lot <a class="reference external" href="https://www.ssl2buy.com/wiki/symmetric-vs-asymmetric-encryption-what-are-differences">faster and more compact</a>
+than public key/private key asymmetric encryption,
 so it&#8217;s used to encrypt the actual data.
 Fur&shy;ther&shy;more, if the data were entirely encrypted with a recipient&#8217;s public key,
 then encrypting for <em>N</em> recipients would mean that the size of the result
-would be pro&shy;por&shy;tion&shy;al to the number of recipients times the length of the original data.
-With the hybrid scheme, the header grows a <a class="reference external" href="https://security.stackexchange.com/questions/8245/gpg-file-size-with-multiple-recipients">few hundred bytes</a> for each recipient
+would be pro&shy;por&shy;tion&shy;al to the
+(number of recipients) × (the length of the original data).
+With the hybrid scheme,
+the header grows a <a class="reference external" href="https://security.stackexchange.com/questions/8245/gpg-file-size-with-multiple-recipients">few hundred bytes</a> for each recipient
 but the data is encrypted only once, with faster&nbsp;encryption.</p>
-<p>Blackbox encrypts a registered file with all of the ad&shy;min&shy;is&shy;tra&shy;tors as the recipients,
+<p>Blackbox encrypts a registered file
+with all of the ad&shy;min&shy;is&shy;tra&shy;tors as the recipients,
 so any ad&shy;min&shy;is&shy;tra&shy;tor can decrypt the&nbsp;file.</p>
 <div class="figure">
 <a class="reference external image-reference" href="http://www.cse.tkk.fi/fi/opinnot/T-110.5240/2009/luennot-files/Lecture%202.pdf"><img alt="Typical PGP Message" src="/content/binary/typical-pgp-message.jpg"/></a>
@@ -144,7 +151,7 @@ comparing two versions in cleartext is&nbsp;tricky.</p>
 <table class="docutils footnote" frame="void" id="revocation" rules="none">
 <colgroup><col class="label"/><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>If they have a snapshot of the <span class="caps">VCS</span> before their access was revoked,
+<tr><td class="label"><a class="fn-backref" href="#footnote-reference-1">[1]</a></td><td>If they have a snapshot of the <span class="caps">VCS</span> before their access was revoked,
 they will still be able to decrypt the secrets as they were then.
 In principle, you should be changing passwords and cer&shy;tifi&shy;cates
 every time someone&#8217;s access is revoked.</td></tr>
@@ -297,10 +304,11 @@ run <tt class="docutils literal">black&shy;box_shred_al&shy;l_&shy;files</tt> to
         
             <p>tagged as
                 <a href="/tag/gpg/" rel="tag">gpg</a>,
-                <a href="/tag/blackbox/" rel="tag">blackbox</a>
+                <a href="/tag/blackbox/" rel="tag">blackbox</a>,
+                <a href="/tag/jenkins/" rel="tag">jenkins</a>
                     and
                     
-                <a href="/tag/jenkins/" rel="tag">jenkins</a>
+                <a href="/tag/bash/" rel="tag">bash</a>
                 
             </p>
         
