@@ -359,13 +359,26 @@ div.warning p.admonition-title {
 
 a.continue {
   background-color: #b5cbee;
-  margin-left: 0.5rem;
   padding: 0 0.25rem 0 0.5rem;
-  font-style: italic;
+  font-style: normal;
+  font-size: smaller;
+  font-weight: bold;
+  font-family: sans-serif;
+  text-transform: uppercase;
+}
+
+a.continue, a.continue:visited {
+  color: #03501c;
+}
+
+a.continue:hover, a.continue:focus {
+  background-color: #719fe8;
+  color: #660b42;
+  font-weight: bolder;
 }
 
 a.continue::after {
   padding-left: 0.5rem;
-  content: "\25B8";
+  content: "\25B8"; /* &blacktriangleright; */
   font-style: normal;
 }
