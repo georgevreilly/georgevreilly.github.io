@@ -68,22 +68,22 @@ otherwise, they anchor to the beginning and end of the string.
 <p>Another way of saying&nbsp;this:</p>
 <pre class="code pycon literal-block">
 <span class="go"># No multiline, so ^ and $ anchor beginning and end of string
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^\.git$(?s)'</span><span class="p">,</span> <span class="s1">'.git'</span><span class="p">)</span>
-<span class="go">&lt;_sre.SRE_Match object at 0x10e73a850&gt;
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^\.git$(?s)'</span><span class="p">,</span> <span class="s1">'.git'</span><span class="p">)</span><span class="w">
+</span><span class="go">&lt;_sre.SRE_Match object at 0x10e73a850&gt;
 
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^\.git$(?s)'</span><span class="p">,</span> <span class="s1">'bar</span><span class="se">\n</span><span class="s1">.git</span><span class="se">\n</span><span class="s1">foo'</span><span class="p">)</span>
-<span class="go"># Nope
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^\.git$(?s)'</span><span class="p">,</span> <span class="s1">'bar</span><span class="se">\n</span><span class="s1">.git</span><span class="se">\n</span><span class="s1">foo'</span><span class="p">)</span><span class="w">
+</span><span class="go"># Nope
 
 # Multiline =&gt; ^ matches after \n and $ before \n
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^\.git$(?ms)'</span><span class="p">,</span> <span class="s1">'bar</span><span class="se">\n</span><span class="s1">.git</span><span class="se">\n</span><span class="s1">foo'</span><span class="p">)</span>
-<span class="go">&lt;_sre.SRE_Match object at 0x10e73a988&gt;
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^\.git$(?ms)'</span><span class="p">,</span> <span class="s1">'bar</span><span class="se">\n</span><span class="s1">.git</span><span class="se">\n</span><span class="s1">foo'</span><span class="p">)</span><span class="w">
+</span><span class="go">&lt;_sre.SRE_Match object at 0x10e73a988&gt;
 
 # \A and \Z always anchor beginning and end of string
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\A\.git\Z(?ms)'</span><span class="p">,</span> <span class="s1">'.git'</span><span class="p">)</span>
-<span class="go">&lt;_sre.SRE_Match object at 0x10e73a850&gt;
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\A\.git\Z(?ms)'</span><span class="p">,</span> <span class="s1">'.git'</span><span class="p">)</span><span class="w">
+</span><span class="go">&lt;_sre.SRE_Match object at 0x10e73a850&gt;
 
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\A\.git\Z(?ms)'</span><span class="p">,</span> <span class="s1">'foo</span><span class="se">\n</span><span class="s1">.git'</span><span class="p">)</span>
-<span class="go"># Nope</span>
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s1">'\A\.git\Z(?ms)'</span><span class="p">,</span> <span class="s1">'foo</span><span class="se">\n</span><span class="s1">.git'</span><span class="p">)</span><span class="w">
+</span><span class="go"># Nope</span>
 </pre>
 <p>So, <tt class="docutils literal"><span class="pre">\Z(?ms)</span></tt> at the end of the pattern&nbsp;means:</p>
 <ul class="simple">

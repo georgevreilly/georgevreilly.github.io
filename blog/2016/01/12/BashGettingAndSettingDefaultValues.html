@@ -42,27 +42,27 @@ which makes it hard to Google when you can&#8217;t quite remember the&nbsp;synta
 <p>Getting a default value using <tt class="docutils literal"><span class="pre">${var:-fallback}</span></tt>:</p>
 <pre class="code bash literal-block">
 <span class="c1"># set $<span class="caps">LOGDIR</span> to $1 if $1 has a value; otherwise set $<span class="caps">LOGDIR</span> to &quot;/var/log&quot;
-</span><span class="nv"><span class="caps">LOGDIR</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/var/log</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class="nv"><span class="caps">LOGDIR</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/var/log</span><span class="si">}</span><span class="s2">&quot;</span><span class="w">
 
-<span class="c1"># use $<span class="caps">VERSION</span> unless it's empty or unset; fall back to extracting someprog's version num
-</span><span class="nv">build_version</span><span class="o">=</span><span class="si">${</span><span class="nv"><span class="caps">VERSION</span></span><span class="k">:-$(</span>someprog --version <span class="p">|</span> sed <span class="s1">'s/[^0-9.]*\([0-9.]*\).*/\1/'</span><span class="k">)</span><span class="si">}</span>
+</span><span class="c1"># use $<span class="caps">VERSION</span> unless it's empty or unset; fall back to extracting someprog's version num
+</span><span class="nv">build_version</span><span class="o">=</span><span class="si">${</span><span class="nv"><span class="caps">VERSION</span></span><span class="k">:-$(</span>someprog<span class="w"> </span>--version<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">'s/[^0-9.]*\([0-9.]*\).*/\1/'</span><span class="k">)</span><span class="si">}</span>
 </pre>
 <p>The colon-dash con&shy;struc&shy;tion is known as the
 <a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog&#8217;s bollocks</a>
 in&nbsp;typography.</p>
 <p>Setting a default value, using <tt class="docutils literal"><span class="pre">${var:=fallback}</span></tt>:</p>
 <pre class="code bash literal-block">
-$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
-/Users/georgevreilly
-$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
-/Users/georgevreilly
-$ <span class="nb">unset</span> <span class="caps">HOME</span>
-$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
-/tmp
-$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
-/tmp
-$ cd<span class="p">;</span> <span class="nb">pwd</span>
-/tmp
+$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$<span class="caps">HOME</span></span><span class="w">
+</span>/Users/georgevreilly<span class="w">
+</span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span><span class="w">
+</span>/Users/georgevreilly<span class="w">
+</span>$<span class="w"> </span><span class="nb">unset</span><span class="w"> </span><span class="caps">HOME</span><span class="w">
+</span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span><span class="w">
+</span>/tmp<span class="w">
+</span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$<span class="caps">HOME</span></span><span class="w">
+</span>/tmp<span class="w">
+</span>$<span class="w"> </span>cd<span class="p">;</span><span class="w"> </span><span class="nb">pwd</span><span class="w">
+</span>/tmp
 </pre>
 <p>Note: <tt class="docutils literal">:=</tt> uses the new value in two cases.
 First, when the shell variable is not set;

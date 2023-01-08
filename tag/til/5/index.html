@@ -41,9 +41,9 @@ but none of the far-too-many remote branches' names rang a bell.</p>
 <p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch --contains</a> in the right way
 finds all the relevant branches.</p>
 <pre class="code bash literal-block">
-git log --all --format<span class="o">=</span>%H FILENAME <span class="se">\
-</span>    <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> f<span class="p">;</span> <span class="k">do</span> git branch --remotes --contains <span class="nv">$f</span><span class="p">;</span> <span class="k">done</span> <span class="se">\
-</span>    <span class="p">|</span> sort -u
+git<span class="w"> </span>log<span class="w"> </span>--all<span class="w"> </span>--format<span class="o">=</span>%H<span class="w"> </span>FILENAME<span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>f<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>git<span class="w"> </span>branch<span class="w"> </span>--remotes<span class="w"> </span>--contains<span class="w"> </span><span class="nv">$f</span><span class="p">;</span><span class="w"> </span><span class="k">done</span><span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u
 </pre>
 <p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> FILENAME</tt>,
 lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal">FILENAME</tt>.
@@ -113,12 +113,12 @@ Instead of <span>&#8230;<a href="/blog/2016/03/25/Profiling.html" class="continu
     <p>I wanted to raise Python's <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.IOError">IOError</a> for a file-not-found condition,
 but it wasn't obvious what the parameters to the exception should be.</p>
 <pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">errno</span> <span class="kn">import</span> <span class="n">ENOENT</span>
+<span class="kn">from</span> <span class="nn">errno</span> <span class="kn">import</span> <span class="n">ENOENT</span><span class="w">
 
-<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">source_file</span><span class="p">):</span>
-    <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">ENOENT</span><span class="p">,</span> <span class="s1">'Not a file'</span><span class="p">,</span> <span class="n">source_file</span><span class="p">)</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">source_file</span><span class="p">):</span><span class="w">
+</span>    <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">ENOENT</span><span class="p">,</span> <span class="s1">'Not a file'</span><span class="p">,</span> <span class="n">source_file</span><span class="p">)</span><span class="w">
+</span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span><span class="w">
+</span>    <span class="k">return</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </pre>
 <p><tt class="docutils literal">IOError</tt> can be in&shy;stan&shy;ti&shy;at&shy;ed with 1, 2, or 3 arguments:</p>
 <dl class="docutils">
@@ -157,28 +157,28 @@ re&shy;spec&shy;tive&shy;ly, in both Python 2 and <span>&#8230;<a href="/blog/20
     <p>Various Bash guides recommend putting quotes around just about everything.
 I had a script that contained this line:</p>
 <pre class="code bash literal-block">
-sudo apt-get install --yes <span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$BUILD</span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>--yes<span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BUILD</span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span>
 </pre>
 <p>While refac&shy;tor&shy;ing, I put another set of quotes around the <tt class="docutils literal">$(cat <span class="pre">...)</span></tt>
 out of an abundance of caution:</p>
 <pre class="code bash literal-block">
-sudo apt-get install --yes <span class="s2">&quot;</span><span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$BUILD</span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>--yes<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$BUILD</span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
 </pre>
 <p>Several other changes later, I couldn't figure out why my script had stopped working.</p>
 <p>Here's what happened:</p>
 <pre class="code bash literal-block">
-$ cat <span class="nv">$HOME</span>/tmp/demo.txt
-foo
-bar
-quux
+$<span class="w"> </span>cat<span class="w"> </span><span class="nv">$HOME</span>/tmp/demo.txt<span class="w">
+</span>foo<span class="w">
+</span>bar<span class="w">
+</span>quux<span class="w">
 
-$ <span class="nb">echo</span> <span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/tmp/demo.txt&quot;</span><span class="k">)</span>
-foo bar quux
+</span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$HOME</span><span class="s2">/tmp/demo.txt&quot;</span><span class="k">)</span><span class="w">
+</span>foo<span class="w"> </span>bar<span class="w"> </span>quux<span class="w">
 
-$ <span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>cat <span class="nv">$HOME</span>/tmp/demo.txt<span class="k">)</span><span class="s2">&quot;</span>
-foo
-bar
-quux
+</span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span><span class="nv">$HOME</span>/tmp/demo.txt<span class="k">)</span><span class="s2">&quot;</span><span class="w">
+</span>foo<span class="w">
+</span>bar<span class="w">
+</span>quux
 </pre>
 <p>The new outer quotes retained the newlines;
 the original replaced newlines with spaces.</p>
@@ -213,18 +213,18 @@ that was performing SSH tunneling on port 8080
 and kill it.</p>
 <p>The following works in Bash:</p>
 <pre class="code bash literal-block">
-ps aux <span class="p">|</span> grep <span class="o">[</span>s<span class="o">]</span>sh.*:8080 <span class="p">|</span> awk <span class="s1">'{print $2}'</span> <span class="p">|</span> xargs <span class="nb">kill</span> -9
+ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="o">[</span>s<span class="o">]</span>sh.*:8080<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $2}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>-9
 </pre>
 <p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
 won't make it through to <tt class="docutils literal">awk</tt>.</p>
 <p>Here's what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
 <pre class="code python literal-block">
-<span class="k">def</span> <span class="nf">kill_port_forwarding</span><span class="p">(</span><span class="n">host_port</span><span class="p">):</span>
-    <span class="n">ssh_args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;-L&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">:localhost:</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host_port</span><span class="p">)]</span>
-    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">process_iter</span><span class="p">():</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'ssh'</span><span class="p">):</span>
-       </pre><span>&#8230;<a href="/blog/2016/03/06/psutil-kill.html" class="continue">continue</a>.</span>
+<span class="k">def</span> <span class="nf">kill_port_forwarding</span><span class="p">(</span><span class="n">host_port</span><span class="p">):</span><span class="w">
+</span>    <span class="n">ssh_args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;-L&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">:localhost:</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host_port</span><span class="p">)]</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">process_iter</span><span class="p">():</span><span class="w">
+</span>        <span class="k">try</span><span class="p">:</span><span class="w">
+</span>            <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'ssh'</span><span class="p">):</span><span class="w">
+</span>       </pre><span>&#8230;<a href="/blog/2016/03/06/psutil-kill.html" class="continue">continue</a>.</span>
     <footer>
         
         
@@ -253,23 +253,23 @@ won't make it through to <tt class="docutils literal">awk</tt>.</p>
 from a directory whose path isn't known until runtime.
 Further, I needed a class object that was a subclass of the plugin base class.</p>
 <pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">somewhere</span> <span class="kn">import</span> <span class="n">PluginBase</span>
+<span class="kn">from</span> <span class="nn">somewhere</span> <span class="kn">import</span> <span class="n">PluginBase</span><span class="w">
 
-<span class="k">class</span> <span class="nc">SomePlugin</span><span class="p">(</span><span class="n">PluginBase</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
-    <span class="k">def</span> <span class="nf">f2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
+</span><span class="k">class</span> <span class="nc">SomePlugin</span><span class="p">(</span><span class="n">PluginBase</span><span class="p">):</span><span class="w">
+</span>    <span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span><span class="w">
+</span>    <span class="k">def</span> <span class="nf">f2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
 </pre>
 <p>You can use the <a class="reference external" href="https://pymotw.com/2/imp/">imp</a> module to actually load the module from <tt class="docutils literal">impl_dir</tt>.
 Note that <tt class="docutils literal">impl_dir</tt> needs to be tem&shy;porar&shy;i&shy;ly prepended to <tt class="docutils literal">sys.path</tt>.
 Then you can find the plugin subclass using <a class="reference external" href="https://docs.python.org/2/library/functions.html#dir">dir</a> and <a class="reference external" href="https://docs.python.org/2/library/functions.html#issubclass">issubclass</a>.</p>
 <pre class="code python literal-block">
-<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">imp</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">imp</span><span class="w">
 
-<span class="k">def</span> <span class="nf">import_class</span><span class="p">(</span><span class="n">implementation_filename</span><span class="p">,</span> <span class="n">base_class</span><span class="p">):</span>
-    <span class="n">impl_dir</span><span class="p">,</span> <span class="n">impl_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">implementation_filename</span><span class="p">)</span>
-    <span class="n">module_name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">impl_filename</span><span class="p">)</span>
+</span><span class="k">def</span> <span class="nf">import_class</span><span class="p">(</span><span class="n">implementation_filename</span><span class="p">,</span> <span class="n">base_class</span><span class="p">):</span><span class="w">
+</span>    <span class="n">impl_dir</span><span class="p">,</span> <span class="n">impl_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">implementation_filename</span><span class="p">)</span><span class="w">
+</span>    <span class="n">module_name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">impl_filename</span><span class="p">)</span><span class="w">
 
-    </pre><span>&#8230;<a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" class="continue">continue</a>.</span>
+</span>    </pre><span>&#8230;<a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" class="continue">continue</a>.</span>
     <footer>
         
         
@@ -347,9 +347,9 @@ I found it confusing, so I'll share what I learned.</p>
 How do we sort by score; i.e., the second item in the value tuple?
 (For the purposes of this discussion, ignore the meaning of the dic&shy;tio&shy;nary's key.)</p>
 <pre class="code pycon literal-block">
-<span class="gp">&gt;&gt;&gt; </span><span class="n">some_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="n">b</span><span class="o">=</span><span class="p">(</span><span class="mi">372</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">e</span><span class="o">=</span><span class="p">(</span><span class="mi">456</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">),</span> <span class="n">d</span><span class="o">=</span><span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">some_dict</span>
-<span class="go">{'a': (123, 0.7), 'c': (502, 0.1), 'b': (372, 0.2), 'e': (456, 0.85), 'd': (148, 0.23)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">some_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="n">b</span><span class="o">=</span><span class="p">(</span><span class="mi">372</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">e</span><span class="o">=</span><span class="p">(</span><span class="mi">456</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">),</span> <span class="n">d</span><span class="o">=</span><span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span><span class="w">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">some_dict</span><span class="w">
+</span><span class="go">{'a': (123, 0.7), 'c': (502, 0.1), 'b': (372, 0.2), 'e': (456, 0.85), 'd': (148, 0.23)}</span>
 </pre>
 <p>Python dic&shy;tio&shy;nar&shy;ies are inherently unsorted,
 unless you <span>&#8230;<a href="/blog/2016/02/16/SortingPythonDictionariesByValue.html" class="continue">continue</a>.</span></p>

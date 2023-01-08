@@ -55,13 +55,13 @@ do not cause the ap&shy;pli&shy;ca&shy;tion using logging to terminate&nbsp;pre&
 <p>In other systems, an <a class="reference external" href="https://en.wikipedia.org/wiki/Uncontrolled_format_string">un&shy;con&shy;trolled format string</a> can lead to serious&nbsp;vul&shy;ner&shy;a&shy;bil&shy;i&shy;ties.</p>
 <p><span class="caps">TL</span>;<span class="caps">DR</span>,&nbsp;write:</p>
 <pre class="code python literal-block">
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Report: Processing </span><span class="si">%d</span><span class="s2"> annotations for id </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="nb">len</span><span class="p">(</span><span class="n">annotations</span><span class="p">),</span> <span class="n">report_id</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Report: Processing </span><span class="si">%d</span><span class="s2"> annotations for id </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span><span class="w">
+</span>            <span class="nb">len</span><span class="p">(</span><span class="n">annotations</span><span class="p">),</span> <span class="n">report_id</span><span class="p">)</span>
 </pre>
 <p>not:</p>
 <pre class="code python literal-block">
-<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Report: Processing </span><span class="si">{}</span><span class="s2"> annotations for id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="nb">len</span><span class="p">(</span><span class="n">annotations</span><span class="p">),</span> <span class="n">report_id</span><span class="p">))</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Report: Processing </span><span class="si">{}</span><span class="s2"> annotations for id </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="w">
+</span>            <span class="nb">len</span><span class="p">(</span><span class="n">annotations</span><span class="p">),</span> <span class="n">report_id</span><span class="p">))</span>
 </pre>
 
     <footer>

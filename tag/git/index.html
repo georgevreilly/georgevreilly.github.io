@@ -132,9 +132,9 @@ these require further in&shy;ves&shy;ti&shy;ga&shy;tion.</li>
 </ul>
 <p>Here's an example for <a class="reference external" href="https://github.com/cookbrite/flyingcloud">fly&shy;ing&shy;cloud</a>:</p>
 <pre class="code console literal-block">
-<span class="gp">$ </span>git <span class="k">for</span>-each-ref --sort<span class="o">=</span>-committerdate <span class="se">\
-</span>    --format<span class="o">=</span><span class="s1">'%(committerdate:short) %(refname)'</span> refs/heads refs/remotes
-<span class="go">2016-12-29 refs/remotes/origin/master
+<span class="gp">$ </span>git<span class="w"> </span><span class="k">for</span>-each-ref<span class="w"> </span>--sort<span class="o">=</span>-committerdate<span class="w"> </span><span class="se">\
+</span><span class="w">    </span>--format<span class="o">=</span><span class="s1">'%(committerdate:short) %(refname)'</span><span class="w"> </span>refs/heads<span class="w"> </span>refs/remotes<span class="w">
+</span><span class="go">2016-12-29 refs/remotes/origin/master
 2016-12-29 refs/remotes/origin/HEAD
 2016-12-29 refs/heads/master
 2016-12-11 </span></pre><span>&#8230;<a href="/blog/2017/01/05/GitPruningUnusedBranches.html" class="continue">continue</a>.</span>
@@ -204,9 +204,9 @@ but none of the far-too-many remote branches' names rang a bell.</p>
 <p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch --contains</a> in the right way
 finds all the relevant branches.</p>
 <pre class="code bash literal-block">
-git log --all --format<span class="o">=</span>%H FILENAME <span class="se">\
-</span>    <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> f<span class="p">;</span> <span class="k">do</span> git branch --remotes --contains <span class="nv">$f</span><span class="p">;</span> <span class="k">done</span> <span class="se">\
-</span>    <span class="p">|</span> sort -u
+git<span class="w"> </span>log<span class="w"> </span>--all<span class="w"> </span>--format<span class="o">=</span>%H<span class="w"> </span>FILENAME<span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>f<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>git<span class="w"> </span>branch<span class="w"> </span>--remotes<span class="w"> </span>--contains<span class="w"> </span><span class="nv">$f</span><span class="p">;</span><span class="w"> </span><span class="k">done</span><span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u
 </pre>
 <p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> FILENAME</tt>,
 lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal">FILENAME</tt>.

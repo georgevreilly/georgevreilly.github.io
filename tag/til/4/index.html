@@ -43,10 +43,10 @@ As one of the many variants of <a class="reference external" href="http://tldp.o
 Bash supports <tt class="docutils literal">${var/Pattern/Re&shy;place&shy;men&shy;t}</tt>:
 “first match of <tt class="docutils literal">Pattern</tt> within <tt class="docutils literal">var</tt> replaced with <tt class="docutils literal">Re&shy;place&shy;ment</tt>.”</p>
 <pre class="code bash literal-block">
-<span class="k">for</span> f <span class="k">in</span> *.png.jpg<span class="p">;</span>
-<span class="k">do</span>
-    mv <span class="nv">$f</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">f</span><span class="p">/.png</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="k">done</span>
+<span class="k">for</span><span class="w"> </span>f<span class="w"> </span><span class="k">in</span><span class="w"> </span>*.png.jpg<span class="p">;</span><span class="w">
+</span><span class="k">do</span><span class="w">
+    </span>mv<span class="w"> </span><span class="nv">$f</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">f</span><span class="p">/.png</span><span class="si">}</span><span class="s2">&quot;</span><span class="w">
+</span><span class="k">done</span>
 </pre>
 <p>The target expression could also have been written as <tt class="docutils literal"><span class="pre">&quot;${f/.png.jpg/.jpg}&quot;</span></tt></p>
 
@@ -78,13 +78,13 @@ Bash supports <tt class="docutils literal">${var/Pattern/Re&shy;place&shy;men&sh
 I finally learned how to use <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html#anonymous-hyperlinks">anonymous hyperlinks</a>.</p>
 <p>Hitherto, I used one of these three forms for hyperlinks:</p>
 <pre class="code rst literal-block">
-<span class="m">1.</span> The central conceit of the fictional <span class="s">`Flashman Papers`_</span> is that Flashy
-<span class="m">2.</span> besieging Breda_ in 1625.
-<span class="m">3.</span> my club, <span class="s">`Freely Speaking Toastmasters </span><span class="si">&lt;http://freelyspeaking.org/&gt;</span><span class="s">`_</span>.
+<span class="m">1.</span> The central conceit of the fictional <span class="s">`Flashman Papers`_</span> is that Flashy<span class="w">
+</span><span class="m">2.</span> besieging Breda_ in 1625.<span class="w">
+</span><span class="m">3.</span> my club, <span class="s">`Freely Speaking Toastmasters </span><span class="si">&lt;http://freelyspeaking.org/&gt;</span><span class="s">`_</span>.<span class="w">
 
-<span class="p">..</span> <span class="nt">_Flashman Papers:</span>
-    https://en.wikipedia.org/wiki/The_Flashman_Papers
-<span class="p">..</span> <span class="nt">_Breda:</span> http://en.wikipedia.org/wiki/Siege_of_Breda
+</span><span class="p">..</span> <span class="nt">_Flashman Papers:</span><span class="w">
+</span>    https://en.wikipedia.org/wiki/The_Flashman_Papers<span class="w">
+</span><span class="p">..</span> <span class="nt">_Breda:</span> http://en.wikipedia.org/wiki/Siege_of_Breda
 </pre>
 <p>The first, <tt class="docutils literal">`Flashman Papers`_</tt>, is a <em>named hyperlink reference</em>,
 which refers to an <em>external hyperlink target</em>, <tt class="docutils literal">.. _Flashman Papers: URI</tt>.
@@ -171,7 +171,7 @@ so that I could connect to the RDS instance using <a class="reference external" 
 <li>Then run:</li>
 </ul>
 <pre class="code bash literal-block">
-psql --host<span class="o">=</span>SOME-DBMS-HOST --dbname </pre><span>&#8230;<a href="/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html" class="continue">continue</a>.</span>
+psql<span class="w"> </span>--host<span class="o">=</span>SOME-DBMS-HOST<span class="w"> </span>--dbname<span class="w"> </span></pre><span>&#8230;<a href="/blog/2016/06/28/CreatingANewPostgreSQLDatabaseAtRDS.html" class="continue">continue</a>.</span>
     <footer>
         
         
@@ -366,10 +366,10 @@ for use with unit tests.
 <tt class="docutils literal">unicodecsv</tt> is a drop-in re&shy;place&shy;ment for Python's built-in <tt class="docutils literal">csv</tt> module,
 which supports Unicode strings.</p>
 <pre class="code python literal-block">
-<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
-    <span class="n">write_csv_rows</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
-    <span class="n">lines</span> <span class="o">=</span> <span class="n">csv_file</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\r\n</span><span class="s1">'</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">lines</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># drop empty line after trailing \r\n</span>
+<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span><span class="w">
+</span>    <span class="n">write_csv_rows</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span><span class="w">
+</span>    <span class="n">lines</span> <span class="o">=</span> <span class="n">csv_file</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\r\n</span><span class="s1">'</span><span class="p">)</span><span class="w">
+</span>    <span class="k">return</span> <span class="n">lines</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># drop empty line after trailing \r\n</span>
 </pre>
 <p>It failed horribly with
 <tt class="docutils literal">TypeError: unicode argument expected, <span>&#8230;<a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" class="continue">continue</a>.</span></tt></p>
@@ -407,16 +407,16 @@ I usually import several features of Python 3:</p>
 <p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
 but not with <tt class="docutils literal">python3</tt>:</p>
 <pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="w">
 
-<span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;
+</span><span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span><span class="w">
+    </span><span class="sd">&quot;&quot;&quot;
     Convert `s` to upper case.
 
     &gt;&gt;&gt; upper('Hello!')
     u'HELLO!'
-    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    &quot;&quot;&quot;</span><span class="w">
+</span>    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 </pre>
 <p>Python 3 complains:</p>
 <pre class="literal-block">

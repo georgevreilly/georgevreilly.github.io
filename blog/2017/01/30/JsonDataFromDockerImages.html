@@ -45,18 +45,18 @@ Adrian Mouat gives some useful starting points at <a class="reference external" 
 and notes that formatting is built around <a class="reference external" href="https://golang.org/pkg/text/template/">Go templates</a>.</p>
 <p>I quickly figured out that this format would meet my immediate&nbsp;need.</p>
 <pre class="code bash literal-block">
-sudo docker images --format <span class="s1">'{{.Repository}}:{{.Tag}}'</span> <span class="se">\
-</span>    <span class="p">|</span> grep <span class="nv">$IMAGE_NAME</span> <span class="se">\
-</span>    <span class="p">|</span> grep -v latest <span class="se">\
-</span>    <span class="p">|</span> head -1
+sudo<span class="w"> </span>docker<span class="w"> </span>images<span class="w"> </span>--format<span class="w"> </span><span class="s1">'{{.Repository}}:{{.Tag}}'</span><span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">$IMAGE_NAME</span><span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>latest<span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
 </pre>
 <p>That&#8217;s fine, but I still had no idea what other possible names
 could be used in the format template.
 While getting there, I learned that <a class="reference external" href="https://nathanleclaire.com/blog/2015/11/12/using-curl-and-the-unix-socket-to-talk-to-the-docker-api/">Curl can be used with a Unix socket</a>
 to talk to the Docker&nbsp;daemon.</p>
 <pre class="code bash literal-block">
-sudo curl --unix-socket /var/run/docker.sock <span class="se">\
-</span>    http://localhost/images/json <span class="p">|</span> python -m json.tool
+sudo<span class="w"> </span>curl<span class="w"> </span>--unix-socket<span class="w"> </span>/var/run/docker.sock<span class="w"> </span><span class="se">\
+</span><span class="w">    </span>http://localhost/images/json<span class="w"> </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>json.tool
 </pre>
 <p>This produces a pret&shy;typrint&shy;ed list of all the Docker images.
 However, the names are not the same as those that can be used in the format&nbsp;template.</p>

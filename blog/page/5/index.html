@@ -271,9 +271,9 @@ the negative circled san-serif digits, ➊ ➋ ➌ ➍ ➎ ➏ ➐ ➑ ➒ ➓&n
 <p>I&#8217;ve started using them to label points of interest in code.
 They play well with the <tt class="docutils literal"><span class="pre">code-block</span></tt> directive in&nbsp;re&shy;Struc&shy;tured&shy;Text.</p>
 <pre class="code bash literal-block">
-sudo docker images --format <span class="s1">'{{.Repository}}:{{.Tag}}'</span> <span class="se">\ </span>   ➊
-    <span class="p">|</span> grep <span class="nv">$IMAGE_NAME</span> <span class="se">\ </span>                                   ➋
-    <span class="p">|</span> grep </pre><span>&#8230;<a href="/blog/2017/01/31/NegativeCircledDigits.html" class="continue">continue</a>.</span>
+sudo<span class="w"> </span>docker<span class="w"> </span>images<span class="w"> </span>--format<span class="w"> </span><span class="s1">'{{.Repository}}:{{.Tag}}'</span><span class="w"> </span><span class="se">\ </span><span class="w">   </span>➊<span class="w">
+    </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">$IMAGE_NAME</span><span class="w"> </span><span class="se">\ </span><span class="w">                                   </span>➋<span class="w">
+    </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span></pre><span>&#8230;<a href="/blog/2017/01/31/NegativeCircledDigits.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2017/01/31/NegativeCircledDigits.html#disqus_thread">Comment</a>
@@ -312,10 +312,10 @@ Adrian Mouat gives some useful starting points at <a class="reference external" 
 and notes that formatting is built around <a class="reference external" href="https://golang.org/pkg/text/template/">Go templates</a>.</p>
 <p>I quickly figured out that this format would meet my immediate&nbsp;need.</p>
 <pre class="code bash literal-block">
-sudo docker images --format <span class="s1">'{{.Repository}}:{{.Tag}}'</span> <span class="se">\
-</span>    <span class="p">|</span> grep <span class="nv">$IMAGE_NAME</span> <span class="se">\
-</span>    <span class="p">|</span> grep -v latest <span class="se">\
-</span>    <span class="p">|</span> head -1
+sudo<span class="w"> </span>docker<span class="w"> </span>images<span class="w"> </span>--format<span class="w"> </span><span class="s1">'{{.Repository}}:{{.Tag}}'</span><span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">$IMAGE_NAME</span><span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>latest<span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
 </pre>
 <p>That&#8217;s fine, but I <span>&#8230;<a href="/blog/2017/01/30/JsonDataFromDockerImages.html" class="continue">continue</a>.</span></p>
     <footer>

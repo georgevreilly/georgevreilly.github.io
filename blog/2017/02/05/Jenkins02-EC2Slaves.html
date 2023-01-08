@@ -77,38 +77,38 @@ We <span class="caps">SSH</span> into the instance, then run this&nbsp;script.</
 <pre class="code bash literal-block">
 <span class="ch">#!/bin/bash
 </span><span class="c1"># Provision an Ubuntu 16.04 <span class="caps">AMI</span> for MetaBrite <span class="caps">CI</span> and Jenkins
-</span>
-<span class="nb">echo</span> <span class="s2">&quot;Adding PPAs&quot;</span>
-<span class="c1"># jo: <span class="caps">JSON</span> output from shell: https://github.com/jpmens/jo
-</span>sudo apt-add-repository ppa:duggan/jo --yes
+</span><span class="w">
+</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Adding PPAs&quot;</span><span class="w">
+</span><span class="c1"># jo: <span class="caps">JSON</span> output from shell: https://github.com/jpmens/jo
+</span>sudo<span class="w"> </span>apt-add-repository<span class="w"> </span>ppa:duggan/jo<span class="w"> </span>--yes<span class="w">
 
-<span class="nb">echo</span> <span class="s2">&quot;Updating package list&quot;</span>
-sudo apt-get update -q
+</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Updating package list&quot;</span><span class="w">
+</span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span>-q<span class="w">
 
-<span class="nb">echo</span> <span class="s2">&quot;Install Docker&quot;</span>
-curl -sSL https://get.docker.com/ <span class="p">|</span> sh                      ➊
+</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Install Docker&quot;</span><span class="w">
+</span>curl<span class="w"> </span>-sSL<span class="w"> </span>https://get.docker.com/<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh<span class="w">                      </span>➊<span class="w">
 
-<span class="nb">echo</span> <span class="s2">&quot;Installing Ubuntu packages&quot;</span>
-sudo apt-get --yes install <span class="se">\
-</span>    build-essential default-jre <span class="se">\ </span>                          ➋
-    git vim wget <span class="se">\
-</span>    paperkey gnupg <span class="se">\ </span>                                       ➌
-    libffi-dev libpq-dev libxslt1-dev libyaml-dev <span class="se">\
-</span>    python libpython2.7-dev python-dev python-lxml  <span class="se">\
-</span>    postgresql python-psycopg2 <span class="se">\
-</span>    jo jq <span class="se">\
-</span>    unzip zip
+</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Installing Ubuntu packages&quot;</span><span class="w">
+</span>sudo<span class="w"> </span>apt-get<span class="w"> </span>--yes<span class="w"> </span>install<span class="w"> </span><span class="se">\
+</span><span class="w">    </span>build-essential<span class="w"> </span>default-jre<span class="w"> </span><span class="se">\ </span><span class="w">                          </span>➋<span class="w">
+    </span>git<span class="w"> </span>vim<span class="w"> </span>wget<span class="w"> </span><span class="se">\
+</span><span class="w">    </span>paperkey<span class="w"> </span>gnupg<span class="w"> </span><span class="se">\ </span><span class="w">                                       </span>➌<span class="w">
+    </span>libffi-dev<span class="w"> </span>libpq-dev<span class="w"> </span>libxslt1-dev<span class="w"> </span>libyaml-dev<span class="w"> </span><span class="se">\
+</span><span class="w">    </span>python<span class="w"> </span>libpython2.7-dev<span class="w"> </span>python-dev<span class="w"> </span>python-lxml<span class="w">  </span><span class="se">\
+</span><span class="w">    </span>postgresql<span class="w"> </span>python-psycopg2<span class="w"> </span><span class="se">\
+</span><span class="w">    </span>jo<span class="w"> </span>jq<span class="w"> </span><span class="se">\
+</span><span class="w">    </span>unzip<span class="w"> </span>zip<span class="w">
 
-<span class="nb">echo</span> <span class="s2">&quot;Installing Python packages&quot;</span>                           ➍
-curl -sSL --retry <span class="m">5</span> https://bootstrap.pypa.io/get-pip.py <span class="p">|</span> sudo -H python2.7
-sudo -H pip install --upgrade virtualenvwrapper setuptools  ➎
+</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Installing Python packages&quot;</span><span class="w">                           </span>➍<span class="w">
+</span>curl<span class="w"> </span>-sSL<span class="w"> </span>--retry<span class="w"> </span><span class="m">5</span><span class="w"> </span>https://bootstrap.pypa.io/get-pip.py<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>-H<span class="w"> </span>python2.7<span class="w">
+</span>sudo<span class="w"> </span>-H<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>virtualenvwrapper<span class="w"> </span>setuptools<span class="w">  </span>➎<span class="w">
 
-<span class="nv">KNOWN_HOSTS</span><span class="o">=</span>~/.ssh/known_hosts
-<span class="nb">echo</span> <span class="s2">&quot;Adding GitHub to </span><span class="nv">$KNOWN_HOSTS</span><span class="s2">&quot;</span>
-mkdir -p ~/.ssh/                                            ➏
-touch <span class="nv">$KNOWN_HOSTS</span>
-ssh-keyscan -H github.com &gt;&gt; <span class="nv">$KNOWN_HOSTS</span>                   ➐
-chmod <span class="m">600</span> <span class="nv">$KNOWN_HOSTS</span>
+</span><span class="nv">KNOWN_HOSTS</span><span class="o">=</span>~/.ssh/known_hosts<span class="w">
+</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Adding GitHub to </span><span class="nv">$KNOWN_HOSTS</span><span class="s2">&quot;</span><span class="w">
+</span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/.ssh/<span class="w">                                            </span>➏<span class="w">
+</span>touch<span class="w"> </span><span class="nv">$KNOWN_HOSTS</span><span class="w">
+</span>ssh-keyscan<span class="w"> </span>-H<span class="w"> </span>github.com<span class="w"> </span>&gt;&gt;<span class="w"> </span><span class="nv">$KNOWN_HOSTS</span><span class="w">                   </span>➐<span class="w">
+</span>chmod<span class="w"> </span><span class="m">600</span><span class="w"> </span><span class="nv">$KNOWN_HOSTS</span>
 </pre>
 <ol class="arabic simple">
 <li>This installs the latest stable Docker package,
@@ -155,13 +155,13 @@ It&#8217;s the number im&shy;me&shy;di&shy;ate&shy;ly after the snapshot&nbsp;na
 <pre class="code bash literal-block">
 <span class="ch">#!/bin/bash
 </span><span class="c1"># based on https://github.com/jenkinsci/ec2-plugin/blob/master/src/main/webapp/<span class="caps">AMI</span>-Scripts/ubuntu-ami-setup.sh
-</span>
-<span class="nb">echo</span> <span class="s2">&quot;Downloading boot script&quot;</span>                              ➊
-sudo curl https://&lt;JENKINS_MASTER&gt;/plugin/ec2/<span class="caps">AMI</span>-Scripts/ubuntu-init.py -o /usr/bin/userdata
-sudo chmod +x /usr/bin/userdata
+</span><span class="w">
+</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Downloading boot script&quot;</span><span class="w">                              </span>➊<span class="w">
+</span>sudo<span class="w"> </span>curl<span class="w"> </span>https://&lt;JENKINS_MASTER&gt;/plugin/ec2/<span class="caps">AMI</span>-Scripts/ubuntu-init.py<span class="w"> </span>-o<span class="w"> </span>/usr/bin/userdata<span class="w">
+</span>sudo<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>/usr/bin/userdata<span class="w">
 
-<span class="nb">echo</span> <span class="s2">&quot;Adding boot script to run after boot is complete&quot;</span>     ➋
-sudo sed -i <span class="s1">'/^[^#]/ s/exit 0/python \/usr\/bin\/userdata\n&amp;/'</span> /etc/rc.local
+</span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Adding boot script to run after boot is complete&quot;</span><span class="w">     </span>➋<span class="w">
+</span>sudo<span class="w"> </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">'/^[^#]/ s/exit 0/python \/usr\/bin\/userdata\n&amp;/'</span><span class="w"> </span>/etc/rc.local
 </pre>
 <ol class="arabic simple">
 <li>Adjust <tt class="docutils literal">&lt;JENK&shy;IN&shy;S_&shy;MAS&shy;TER&gt;</tt>. You may need to change <tt class="docutils literal">https</tt> to <tt class="docutils literal">http</tt>.</li>
@@ -171,42 +171,42 @@ as a boot script at <tt class="docutils literal">/etc/rc.local</tt>.</li>
 <p>Let&#8217;s examine the <a class="reference external" href="https://github.com/jenkinsci/ec2-plugin/blob/master/src/main/webapp/AMI-Scripts/ubuntu-init.py">ubuntu-init.py</a> boot script.
 You don&#8217;t need to copy this, as it&#8217;s available from your Jenkins&nbsp;Master.</p>
 <pre class="code python literal-block">
-<span class="ch">#!/usr/bin/python</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">httplib</span>
-<span class="kn">import</span> <span class="nn">string</span>
+<span class="ch">#!/usr/bin/python</span><span class="w">
+</span><span class="kn">import</span> <span class="nn">os</span><span class="w">
+</span><span class="kn">import</span> <span class="nn">httplib</span><span class="w">
+</span><span class="kn">import</span> <span class="nn">string</span><span class="w">
 
-<span class="c1"># To install run:</span>
-<span class="c1"># sudo wget http://$JENKINS_URL/plugin/ec2/<span class="caps">AMI</span>-Scripts/ubuntu-init.py -O /usr/bin/userdata</span>
-<span class="c1"># sudo chmod +x /etc/init.d/userdata</span>
-<span class="c1"># add the following line to /etc/rc.local &quot;python /usr/bin/userdata&quot;</span>
+</span><span class="c1"># To install run:</span><span class="w">
+</span><span class="c1"># sudo wget http://$JENKINS_URL/plugin/ec2/<span class="caps">AMI</span>-Scripts/ubuntu-init.py -O /usr/bin/userdata</span><span class="w">
+</span><span class="c1"># sudo chmod +x /etc/init.d/userdata</span><span class="w">
+</span><span class="c1"># add the following line to /etc/rc.local &quot;python /usr/bin/userdata&quot;</span><span class="w">
 
-<span class="c1"># If java is installed it will be zero</span>
-<span class="c1"># If java is not installed it will be non-zero</span>
-<span class="n">hasJava</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;java -version&quot;</span><span class="p">)</span>
+</span><span class="c1"># If java is installed it will be zero</span><span class="w">
+</span><span class="c1"># If java is not installed it will be non-zero</span><span class="w">
+</span><span class="n">hasJava</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;java -version&quot;</span><span class="p">)</span><span class="w">
 
-<span class="k">if</span> <span class="n">hasJava</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;sudo apt-get update&quot;</span><span class="p">)</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;sudo apt-get install openjdk-7-jre -y&quot;</span><span class="p">)</span>      <span class="err">➊</span>
+</span><span class="k">if</span> <span class="n">hasJava</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span><span class="w">
+</span>    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;sudo apt-get update&quot;</span><span class="p">)</span><span class="w">
+</span>    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;sudo apt-get install openjdk-7-jre -y&quot;</span><span class="p">)</span>      <span class="err">➊</span><span class="w">
 
-<span class="n">conn</span> <span class="o">=</span> <span class="n">httplib</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="p">(</span><span class="s2">&quot;169.254.169.254&quot;</span><span class="p">)</span>            <span class="err">➋</span>
-<span class="n">conn</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;<span class="caps">GET</span>&quot;</span><span class="p">,</span> <span class="s2">&quot;/latest/user-data&quot;</span><span class="p">)</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span>
-<span class="n">userdata</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</span><span class="n">conn</span> <span class="o">=</span> <span class="n">httplib</span><span class="o">.</span><span class="n">HTTPConnection</span><span class="p">(</span><span class="s2">&quot;169.254.169.254&quot;</span><span class="p">)</span>            <span class="err">➋</span><span class="w">
+</span><span class="n">conn</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;<span class="caps">GET</span>&quot;</span><span class="p">,</span> <span class="s2">&quot;/latest/user-data&quot;</span><span class="p">)</span><span class="w">
+</span><span class="n">response</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">getresponse</span><span class="p">()</span><span class="w">
+</span><span class="n">userdata</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="w">
 
-<span class="n">args</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">userdata</span><span class="p">,</span> <span class="s2">&quot;&amp;&quot;</span><span class="p">)</span>
-<span class="n">jenkinsUrl</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-<span class="n">slaveName</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+</span><span class="n">args</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">userdata</span><span class="p">,</span> <span class="s2">&quot;&amp;&quot;</span><span class="p">)</span><span class="w">
+</span><span class="n">jenkinsUrl</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="w">
+</span><span class="n">slaveName</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="w">
 
-<span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;JENKINS_URL&quot;</span><span class="p">:</span>
-        <span class="n">jenkinsUrl</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;SLAVE_NAME&quot;</span><span class="p">:</span>
-        <span class="n">slaveName</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+</span><span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span><span class="w">
+</span>    <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;JENKINS_URL&quot;</span><span class="p">:</span><span class="w">
+</span>        <span class="n">jenkinsUrl</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="w">
+</span>    <span class="k">if</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;SLAVE_NAME&quot;</span><span class="p">:</span><span class="w">
+</span>        <span class="n">slaveName</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="w">
 
-<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;wget &quot;</span> <span class="o">+</span> <span class="n">jenkinsUrl</span> <span class="o">+</span> <span class="s2">&quot;jnlpJars/slave.jar -O slave.jar&quot;</span><span class="p">)</span>     <span class="err">➌</span>
-<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;java -jar slave.jar -jnlpUrl &quot;</span> <span class="o">+</span> <span class="n">jenkinsUrl</span> <span class="o">+</span> <span class="s2">&quot;computer/&quot;</span> <span class="o">+</span> <span class="n">slaveName</span> <span class="o">+</span> <span class="s2">&quot;/slave-agent.jnlp&quot;</span><span class="p">)</span>
-<span class="err">➍</span>
+</span><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;wget &quot;</span> <span class="o">+</span> <span class="n">jenkinsUrl</span> <span class="o">+</span> <span class="s2">&quot;jnlpJars/slave.jar -O slave.jar&quot;</span><span class="p">)</span>     <span class="err">➌</span><span class="w">
+</span><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;java -jar slave.jar -jnlpUrl &quot;</span> <span class="o">+</span> <span class="n">jenkinsUrl</span> <span class="o">+</span> <span class="s2">&quot;computer/&quot;</span> <span class="o">+</span> <span class="n">slaveName</span> <span class="o">+</span> <span class="s2">&quot;/slave-agent.jnlp&quot;</span><span class="p">)</span><span class="w">
+</span><span class="err">➍</span>
 </pre>
 <ol class="arabic simple">
 <li>Note that installing <tt class="docutils literal"><span class="pre">openjdk-7-jre</span></tt> will not work on stock Ubuntu 16.04,

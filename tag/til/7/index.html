@@ -85,13 +85,13 @@ The script may be run more than once during the lifetime of the agent,
 so the second and subsequent calls should not upgrade Docker.</p>
 <p>Basically, I wanted</p>
 <pre class="code bash literal-block">
-<span class="k">if</span> <span class="nv">$DOCKER_VERSION</span> &lt; <span class="m">1</span>.9<span class="p">;</span> <span class="k">then</span> upgrade_docker<span class="p">;</span> <span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="nv">$DOCKER_VERSION</span><span class="w"> </span>&lt;<span class="w"> </span><span class="m">1</span>.9<span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span>upgrade_docker<span class="p">;</span><span class="w"> </span><span class="k">fi</span>
 </pre>
 <p>Un&shy;for&shy;tu&shy;nate&shy;ly, it's not that easy in Bash.
 Here's what I came up with.</p>
 <pre class="code bash literal-block">
-install_latest_docker<span class="o">()</span> <span class="o">{</span>
-    <span class="k">if</span> docker --version <span class="p">|</span> python -c <span class="s2">&quot;min=[1, 9]; import sys; ↩
+install_latest_docker<span class="o">()</span><span class="w"> </span><span class="o">{</span><span class="w">
+    </span><span class="k">if</span><span class="w"> </span>docker<span class="w"> </span>--version<span class="w"> </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;min=[1, 9]; import sys; ↩
 v=[int(x) </span></pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
     <footer>
         
@@ -195,8 +195,8 @@ for ex&shy;am&shy;ples—but no more complex expression is allowed between the b
 <p>Herewith some examples of f-string ex&shy;pres&shy;sions
 drawn from <a class="reference external" href="https://www.python.org/dev/peps/pep-0498/">PEP 0498</a>:</p>
 <pre class="code pycon literal-block">
-<span class="gp">&gt;&gt;&gt; </span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1991</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1"> was on a </span></pre><span>&#8230;<a href="/blog/2015/12/15/PythonFStrings.html" class="continue">continue</a>.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mi">1991</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span><span class="w">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1"> was on a </span></pre><span>&#8230;<a href="/blog/2015/12/15/PythonFStrings.html" class="continue">continue</a>.</span>
     <footer>
         
         

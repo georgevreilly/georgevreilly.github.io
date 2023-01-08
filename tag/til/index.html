@@ -37,7 +37,7 @@
     <p>My display name on Twitter currently looks like @ɢᴇᴏʀɢᴇᴠʀᴇɪʟʟʏ@ᴛᴇᴄʜ.ʟɢʙᴛ,
 an attempt to route around Twitter's apparent censorship of Mastodon in&shy;for&shy;ma&shy;tion.</p>
 <p>I used the <a href="https://fsymbols.com/generators/">FSymbols Generators</a> to produce several variants.</p>
-<div class="codehilite"><pre><span></span>@𝕘𝕖𝕠𝕣𝕘𝕖𝕧𝕣𝕖𝕚𝕝𝕝𝕪@𝕥𝕖𝕔𝕙.𝕝𝕘𝕓𝕥
+<div class="codehilite"><pre><span></span><code>@𝕘𝕖𝕠𝕣𝕘𝕖𝕧𝕣𝕖𝕚𝕝𝕝𝕪@𝕥𝕖𝕔𝕙.𝕝𝕘𝕓𝕥
 ʇqƃʅ.ɥɔǝʇ@ʎʅʅᴉǝɹʌǝƃɹoǝƃ@
 @𝗀𝖾𝗈𝗋𝗀𝖾𝗏𝗋𝖾𝗂𝗅𝗅𝗒@𝗍𝖾𝖼𝗁.𝗅𝗀𝖻𝗍
 @𝘨𝘦𝘰𝘳𝘨𝘦𝘷𝘳𝘦𝘪𝘭𝘭𝘺@𝘵𝘦𝘤𝘩.𝘭𝘨𝘣𝘵
@@ -45,8 +45,7 @@ an attempt to route around Twitter's apparent censorship of Mastodon in&shy;for&
 @𝙜𝙚𝙤𝙧𝙜𝙚𝙫𝙧𝙚𝙞𝙡𝙡𝙮@𝙩𝙚𝙘𝙝.𝙡𝙜𝙗𝙩
 @𝚐𝚎𝚘𝚛𝚐𝚎𝚟𝚛𝚎𝚒𝚕𝚕𝚢@𝚝𝚎𝚌𝚑.𝚕𝚐𝚋𝚝
 @𝔤𝔢𝔬𝔯𝔤𝔢𝔳𝔯𝔢𝔦𝔩𝔩𝔶@𝔱𝔢𝔠𝔥.𝔩𝔤𝔟𝔱
-</pre></div>
-
+</code></pre></div>
 
 <p>Many of these variants come from
 <a href="https://www.compart.com/en/unicode/block/U+1D400">Unicode Block "Math&shy;e&shy;mat&shy;i&shy;cal Al&shy;phanu&shy;mer&shy;ic Symbols"</a>.</p>
@@ -85,12 +84,11 @@ You start at <code>a</code> and keep going until the next number would be <code>
 <p>In Python 3, <code>range</code> is <em>lazy</em>
 and the values in the sequence do not ma&shy;te&shy;ri&shy;al&shy;ize
 until you consume the range.</p>
-<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
 <span class="go">range(3, 12)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
 <span class="go">[3, 4, 5, 6, 7, 8, 9, 10, 11]</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Trey Hunner makes the point that
 <a href="https://treyhunner.com/2018/02/python-range-is-not-an-iterator/">range is a lazy iterable</a>
@@ -129,7 +127,7 @@ I wanted to check that the dif&shy;fer&shy;ences were minimal.
 Let's say that the extracted code had been between
 lines 123 and 456 of <tt class="docutils literal">large_old_&shy;file</tt>.</p>
 <pre class="code bash literal-block">
-diff -u &lt;<span class="o">(</span>sed -n <span class="s1">'123,456p;457q'</span> large_old_file<span class="o">)</span> new_file
+diff<span class="w"> </span>-u<span class="w"> </span>&lt;<span class="o">(</span>sed<span class="w"> </span>-n<span class="w"> </span><span class="s1">'123,456p;457q'</span><span class="w"> </span>large_old_file<span class="o">)</span><span class="w"> </span>new_file
 </pre>
 <p>What's happening here?</p>
 <ul class="simple">
@@ -171,9 +169,9 @@ when the median test time jumped by two minutes.</p>
 <a class="reference external image-reference" href="https://www.bigocheatsheet.com/"></a>
 <p>We tracked it down to this (simplified) code fragment:</p>
 <pre class="code python literal-block">
-<span class="n">task_inclusions</span> <span class="o">=</span> <span class="p">[</span> <span class="n">some_collection_of_tasks</span><span class="p">()</span> <span class="p">]</span>
-<span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span>
-                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
+<span class="n">task_inclusions</span> <span class="o">=</span> <span class="p">[</span> <span class="n">some_collection_of_tasks</span><span class="p">()</span> <span class="p">]</span><span class="w">
+</span><span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span><span class="w">
+</span>                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
 </pre>
 <p>This looks fairly in&shy;nocu&shy;ous—and it was—until the size of the result returned from <tt class="docutils literal">some_&shy;col&shy;lec&shy;tion_of_&shy;tasks()</tt>
 jumped from a few hundred to a few thousand.</p>
@@ -298,16 +296,16 @@ Specif&shy;i&shy;cal&shy;ly, using keyword arguments or passing a <tt class="doc
 will not retain the insertion order of the source code.</p>
 <pre class="code pycon literal-block">
 <span class="go">Python 2.7.13 (default, Dec 18 2016, 07:03:39)
-</span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
-<span class="go">
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'one'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'two'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'three'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'four'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'five'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-<span class="go">[('one', 1), ('two', 2), ('three', </span></pre><span>&#8230;<a href="/blog/2017/02/21/OrderedDictInitialization.html" class="continue">continue</a>.</span>
+</span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span><span class="w">
+</span><span class="go">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span><span class="w">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'one'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="w">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'two'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="w">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'three'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="w">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'four'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="w">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'five'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span><span class="w">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span><span class="w">
+</span><span class="go">[('one', 1), ('two', 2), ('three', </span></pre><span>&#8230;<a href="/blog/2017/02/21/OrderedDictInitialization.html" class="continue">continue</a>.</span>
     <footer>
         
         
@@ -375,9 +373,9 @@ the negative circled san-serif digits, ➊ ➋ ➌ ➍ ➎ ➏ ➐ ➑ ➒ ➓ .
 <p>I've started using them to label points of interest in code.
 They play well with the <tt class="docutils literal"><span class="pre">code-block</span></tt> directive in re&shy;Struc&shy;tured&shy;Text.</p>
 <pre class="code bash literal-block">
-sudo docker images --format <span class="s1">'{{.Repository}}:{{.Tag}}'</span> <span class="se">\ </span>   ➊
-    <span class="p">|</span> grep <span class="nv">$IMAGE_NAME</span> <span class="se">\ </span>                                   ➋
-    </pre><span>&#8230;<a href="/blog/2017/01/31/NegativeCircledDigits.html" class="continue">continue</a>.</span>
+sudo<span class="w"> </span>docker<span class="w"> </span>images<span class="w"> </span>--format<span class="w"> </span><span class="s1">'{{.Repository}}:{{.Tag}}'</span><span class="w"> </span><span class="se">\ </span><span class="w">   </span>➊<span class="w">
+    </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">$IMAGE_NAME</span><span class="w"> </span><span class="se">\ </span><span class="w">                                   </span>➋<span class="w">
+    </span></pre><span>&#8230;<a href="/blog/2017/01/31/NegativeCircledDigits.html" class="continue">continue</a>.</span>
     <footer>
         
         
@@ -414,10 +412,10 @@ Adrian Mouat gives some useful starting points at <a class="reference external" 
 and notes that formatting is built around <a class="reference external" href="https://golang.org/pkg/text/template/">Go templates</a>.</p>
 <p>I quickly figured out that this format would meet my immediate need.</p>
 <pre class="code bash literal-block">
-sudo docker images --format <span class="s1">'{{.Repository}}:{{.Tag}}'</span> <span class="se">\
-</span>    <span class="p">|</span> grep <span class="nv">$IMAGE_NAME</span> <span class="se">\
-</span>    <span class="p">|</span> grep -v latest <span class="se">\
-</span>    <span class="p">|</span> head -1
+sudo<span class="w"> </span>docker<span class="w"> </span>images<span class="w"> </span>--format<span class="w"> </span><span class="s1">'{{.Repository}}:{{.Tag}}'</span><span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">$IMAGE_NAME</span><span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>latest<span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1
 </pre>
 <p>That's fine, but <span>&#8230;<a href="/blog/2017/01/30/JsonDataFromDockerImages.html" class="continue">continue</a>.</span></p>
     <footer>

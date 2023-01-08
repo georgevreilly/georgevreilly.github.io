@@ -163,10 +163,10 @@ and found that it was stuck in the following infinite loop
   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">_set</span><span class="p">)</span><span class="w">
   </span><span class="p">{</span><span class="w">
     </span><span class="n">RegistryKey</span><span class="w"> </span><span class="n">key1</span><span class="w">
-      </span><span class="p">=</span><span class="w"> </span><span class="n">Registry</span><span class="p">.</span><span class="n">LocalMachine</span><span class="p">.</span><span class="n">OpenSubKey</span><span class="p">(</span><span class="s">&#64;&quot;SOFTWARE\Classes\CLSID&quot;</span><span class="p">);</span><span class="w">
+      </span><span class="o">=</span><span class="w"> </span><span class="n">Registry</span><span class="p">.</span><span class="n">LocalMachine</span><span class="p">.</span><span class="n">OpenSubKey</span><span class="p">(</span><span class="s">&#64;&quot;SOFTWARE\Classes\CLSID&quot;</span><span class="p">);</span><span class="w">
     </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="k">true</span><span class="p">)</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="kt">int</span><span class="w"> </span><span class="n">num1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="n">key1</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="s">&quot;CLBVersion&quot;</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">);</span><span class="w">
+      </span><span class="kt">int</span><span class="w"> </span><span class="n">num1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="n">key1</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="s">&quot;CLBVersion&quot;</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">);</span><span class="w">
  </span></pre><span>&#8230;<a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" class="continue">continue</a>.</span>
     <footer>
         
@@ -372,10 +372,10 @@ but for various reasons, I didn't want to go to the hassle of creating one.</p>
 <tt class="docutils literal"><span class="pre">terminate=&quot;yes&quot;</span></tt> attribute. Under <tt class="docutils literal">XslTrans&shy;form.Transform()</tt> the
 following code throws an exception if the XPath expression is empty.</p>
 <pre class="code xslt literal-block">
-<span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span>
-    <span class="k">&lt;xsl:message</span> <span class="na">terminate=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>Missing expression<span class="k">&lt;/xsl:message&gt;</span>
-<span class="k">&lt;/xsl:if&gt;</span>
-<span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;/some/xpath/expression&quot;</span> </pre><span>&#8230;<a href="/blog/2006/03/02/ThrowingFromXSLT.html" class="continue">continue</a>.</span>
+<span class="k">&lt;xsl:if</span><span class="w"> </span><span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span><span class="w">
+    </span><span class="k">&lt;xsl:message</span><span class="w"> </span><span class="na">terminate=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>Missing<span class="w"> </span>expression<span class="k">&lt;/xsl:message&gt;</span><span class="w">
+</span><span class="k">&lt;/xsl:if&gt;</span><span class="w">
+</span><span class="k">&lt;xsl:value-of</span><span class="w"> </span><span class="na">select=</span><span class="s">&quot;/some/xpath/expression&quot;</span><span class="w"> </span></pre><span>&#8230;<a href="/blog/2006/03/02/ThrowingFromXSLT.html" class="continue">continue</a>.</span>
     <footer>
         
         

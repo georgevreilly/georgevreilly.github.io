@@ -112,32 +112,26 @@ You no longer need to be&nbsp;invited.</p>
     <header>
         <time datetime="2007-02-07">2007-02-07</time>
         <h1>
-            <a href="/blog/2007/02/07/PrintfN.html" rel="bookmark canonical">Printf %n</a>
+            <a href="/blog/2007/02/07/DoctorWhoAndTheFrenchDalek.html" rel="bookmark canonical">Doctor Who and the French Dalek</a>
         </h1>
     </header>
-    
-<p>In my post about <a class="reference external" href="/blog/2005/06/02/PrintfTricks.html">Printf Tricks</a> a couple of years ago,
-I mentioned that &quot;<tt class="docutils literal">%n</tt> is dangerous and disabled by default in Visual Studio&nbsp;2005.&quot;</p>
-<p>I got email today from someone who was porting a large codebase to <span class="caps">VS</span> 2005.
-He was getting an assert from <tt class="docutils literal">%n</tt> and he needed a way to get past it.
-He intends to fix the uses of <tt class="docutils literal">%n</tt> when he has a&nbsp;chance.</p>
-<p>I spent several minutes digging around in <span class="caps">MSDN</span> and came up with
-<a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms175782(VS.80).aspx">set_print&shy;f_&shy;coun&shy;t_out&shy;put</a>. Wikipedia&#8217;s <a class="reference external" href="http://en.wikipedia.org/wiki/Format_string_attack">Format string attack</a> page
-led me to <a class="reference external" href="http://julianor.tripod.com/bc/formatstring-1.2.pdf">Exploiting Format String Vul&shy;ner&shy;a&shy;bil&shy;i&shy;ties</a>, which
-describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="docutils literal">%s</tt>) may be&nbsp;exploited.</p>
-<p>In short, if you have <tt class="docutils literal">printf(un&shy;val&shy;i&shy;dat&shy;ed_user_in&shy;put)</tt>,
-instead of <span>&#8230;<a href="/blog/2007/02/07/PrintfN.html" class="continue">continue</a>.</span></p>
+    <div align="center">
+<object width="425" height="350">
+    <param name="movie" value="http://www.youtube.com/v/GfNfDiqAF9Q"></param>
+    <param name="wmode" value="transparent"></param>
+    <embed src="http://www.youtube.com/v/GfNfDiqAF9Q" type="application/x-shockwave-flash" wmode="transparent" width="425" height="350"></embed>
+</object><br />
+Doctor Who and the French Dalek
+</div><p>Via <a class="reference external" href="http://andrewsullivan.theatlantic.com/the_daily_dish/2007/02/beyond_good_and.html">Andrew Sullivan</a>, an extremely well cut YouTube mashup of Doctor Who and
+Monty&nbsp;Python.</p>
+
     <footer>
         
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2007/02/07/PrintfN.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2007/02/07/DoctorWhoAndTheFrenchDalek.html#disqus_thread">Comment</a>
         
         
             <p>tagged as
-                <a href="/tag/security/" rel="tag">security</a>,
-                <a href="/tag/c/" rel="tag">c</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
+                <a href="/tag/humor/" rel="tag">humor</a>
                 
             </p>
         
@@ -197,26 +191,32 @@ have their marriage classed as&nbsp;“un&shy;rec&shy;og&shy;nized;”</li>
     <header>
         <time datetime="2007-02-07">2007-02-07</time>
         <h1>
-            <a href="/blog/2007/02/07/DoctorWhoAndTheFrenchDalek.html" rel="bookmark canonical">Doctor Who and the French Dalek</a>
+            <a href="/blog/2007/02/07/PrintfN.html" rel="bookmark canonical">Printf %n</a>
         </h1>
     </header>
-    <div align="center">
-<object width="425" height="350">
-    <param name="movie" value="http://www.youtube.com/v/GfNfDiqAF9Q"></param>
-    <param name="wmode" value="transparent"></param>
-    <embed src="http://www.youtube.com/v/GfNfDiqAF9Q" type="application/x-shockwave-flash" wmode="transparent" width="425" height="350"></embed>
-</object><br />
-Doctor Who and the French Dalek
-</div><p>Via <a class="reference external" href="http://andrewsullivan.theatlantic.com/the_daily_dish/2007/02/beyond_good_and.html">Andrew Sullivan</a>, an extremely well cut YouTube mashup of Doctor Who and
-Monty&nbsp;Python.</p>
-
+    
+<p>In my post about <a class="reference external" href="/blog/2005/06/02/PrintfTricks.html">Printf Tricks</a> a couple of years ago,
+I mentioned that &quot;<tt class="docutils literal">%n</tt> is dangerous and disabled by default in Visual Studio&nbsp;2005.&quot;</p>
+<p>I got email today from someone who was porting a large codebase to <span class="caps">VS</span> 2005.
+He was getting an assert from <tt class="docutils literal">%n</tt> and he needed a way to get past it.
+He intends to fix the uses of <tt class="docutils literal">%n</tt> when he has a&nbsp;chance.</p>
+<p>I spent several minutes digging around in <span class="caps">MSDN</span> and came up with
+<a class="reference external" href="http://msdn2.microsoft.com/en-us/library/ms175782(VS.80).aspx">set_print&shy;f_&shy;coun&shy;t_out&shy;put</a>. Wikipedia&#8217;s <a class="reference external" href="http://en.wikipedia.org/wiki/Format_string_attack">Format string attack</a> page
+led me to <a class="reference external" href="http://julianor.tripod.com/bc/formatstring-1.2.pdf">Exploiting Format String Vul&shy;ner&shy;a&shy;bil&shy;i&shy;ties</a>, which
+describes in detail how <tt class="docutils literal">%n</tt> (and <tt class="docutils literal">%s</tt>) may be&nbsp;exploited.</p>
+<p>In short, if you have <tt class="docutils literal">printf(un&shy;val&shy;i&shy;dat&shy;ed_user_in&shy;put)</tt>,
+instead of <span>&#8230;<a href="/blog/2007/02/07/PrintfN.html" class="continue">continue</a>.</span></p>
     <footer>
         
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2007/02/07/DoctorWhoAndTheFrenchDalek.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2007/02/07/PrintfN.html#disqus_thread">Comment</a>
         
         
             <p>tagged as
-                <a href="/tag/humor/" rel="tag">humor</a>
+                <a href="/tag/security/" rel="tag">security</a>,
+                <a href="/tag/c/" rel="tag">c</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -358,44 +358,29 @@ underway in America that requires Christian youth to <span>&#8230;<a href="/blog
     <header>
         <time datetime="2007-02-04">2007-02-04</time>
         <h1>
-            <a href="/blog/2007/02/04/ReviewLakeOfSorrows.html" rel="bookmark canonical">Review: Lake of Sorrows</a>
+            <a href="/blog/2007/02/04/AttackingIranTheCantwellResponse.html" rel="bookmark canonical">Attacking Iran - The Cantwell Response</a>
         </h1>
     </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/0743247965/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Lake of Sorrows</div>
-<div class="line">Author: <a class="reference external" href="http://www.erinhart.com/">Erin Hart</a></div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Simon <span class="amp">&amp;</span> Schuster</div>
-<div class="line">Copyright: 2004</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.amazon.com/dp/0743247965/?tag=georgvreill-20">0743247965</a></div>
-<div class="line">Pages: 329</div>
-<div class="line">Keywords: mystery</div>
-<div class="line">Reading period: 29 January-3rd February, 2007</div>
-</div>
-<p>This is the second mystery featuring Nora Gavin,
-an American forensic pathol&shy;o&shy;gist living in Ireland.
-The body of a ritually murdered Iron Age man is found
-preserved in a bog, and Gavin is called in to examine the body.
-Shortly thereafter, another similarly murdered body is found
-in the bog, but this one is wearing a&nbsp;wristwatch.</p>
-<p>Hart writes lean, clear prose, with believable characters,
-and a not-completely improbable plot.
-Her Irish characters sound and act like Irish people,
-rather than refugees from a Lucky Charms&nbsp;outtake.</p>
-<p>My main complaint with <span>&#8230;<a href="/blog/2007/02/04/ReviewLakeOfSorrows.html" class="continue">continue</a>.</span></p>
+    
+<p>I got a reply from Maria Cantwell&#8217;s office, regarding the email that I sent
+about <a class="reference external" href="/blog/2007/02/02/AttackingIran.html">Attacking Iran</a>. Clearly no brain cells were used in sending out
+this form&nbsp;response.</p>
+<blockquote>
+<p>Dear Mr.&nbsp;Reilly,</p>
+<p>Thank you for contacting me to express your concerns for the de&shy;vel&shy;op&shy;ment of
+nuclear weapons in Iran.  I appreciate hearing from you on this important&nbsp;issue.</p>
+<p>As you may know, in&shy;ter&shy;na&shy;tion&shy;al nuclear inspectors continue to monitor
+whether Iran is developing nuclear weapons.  Such a program would be in
+con&shy;tra&shy;ven&shy;tion to the nuclear non-pro&shy;lif&shy;er&shy;a&shy;tion agreement that Iran has
+signed.  In November 2004, the countries of Britain, France, and Germany
+negotiated an agreement with Iran, in which Iran agreed to <span>&#8230;<a href="/blog/2007/02/04/AttackingIranTheCantwellResponse.html" class="continue">continue</a>.</span></p></blockquote>
     <footer>
         
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2007/02/04/ReviewLakeOfSorrows.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2007/02/04/AttackingIranTheCantwellResponse.html#disqus_thread">Comment</a>
         
         
             <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/mystery/" rel="tag">mystery</a>
-                    and
-                    
-                <a href="/tag/ireland/" rel="tag">ireland</a>
+                <a href="/tag/politics/" rel="tag">politics</a>
                 
             </p>
         

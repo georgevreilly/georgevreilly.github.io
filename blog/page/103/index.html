@@ -340,8 +340,8 @@ an <a class="reference external" href="/blog/2007/03/07/NVelocityTemplatesAndAbs
 <p>Here&#8217;s the magic necessary to get NVelocity to load a template from an
 embedded&nbsp;resource:</p>
 <pre class="code csharp literal-block">
-<span class="n">VelocityEngine</span><span class="w"> </span><span class="n">engine</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">VelocityEngine</span><span class="p">();</span><span class="w">
-</span><span class="n">ExtendedProperties</span><span class="w"> </span><span class="n">properties</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExtendedProperties</span><span class="p">();</span><span class="w">
+<span class="n">VelocityEngine</span><span class="w"> </span><span class="n">engine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">VelocityEngine</span><span class="p">();</span><span class="w">
+</span><span class="n">ExtendedProperties</span><span class="w"> </span><span class="n">properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExtendedProperties</span><span class="p">();</span><span class="w">
 </span><span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;resource.loader&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;assembly&quot;</span><span class="p">);</span><span class="w">
 </span><span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;assembly.resource.loader.class&quot;</span><span class="p">,</span><span class="w">
     </span><span class="s">&quot;NVelocity.Runtime.Resource.Loader.AssemblyResourceLoader, NVelocity&quot;</span><span class="p">);</span><span class="w">
@@ -384,11 +384,11 @@ instead of the relative path shown in the <a class="reference external" href="ht
 <p>The trick is to set <tt class="docutils literal">file.resource.loader.path</tt>.
 Here&#8217;s how to load <tt class="docutils literal"><span class="pre">C:\foo\bar\&shy;some&shy;file.vm</span></tt>:</p>
 <pre class="code csharp literal-block">
-<span class="n">ExtendedProperties</span><span class="w"> </span><span class="n">props</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExtendedProperties</span><span class="p">();</span><span class="w">
+<span class="n">ExtendedProperties</span><span class="w"> </span><span class="n">props</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExtendedProperties</span><span class="p">();</span><span class="w">
 </span><span class="n">props</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;file.resource.loader.path&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">string</span><span class="p">[]{</span><span class="s">&quot;.&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;C:\\&quot;</span><span class="p">}));</span><span class="w">
 </span><span class="n">velocity</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">props</span><span class="p">);</span><span class="w">
 
-</span><span class="n">template</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">velocity</span><span class="p">.</span><span class="n">GetTemplate</span><span class="p">(</span><span class="s">&quot;foo\\bar\\somefile.vm&quot;</span><span class="p">);</span>
+</span><span class="n">template</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">velocity</span><span class="p">.</span><span class="n">GetTemplate</span><span class="p">(</span><span class="s">&quot;foo\\bar\\somefile.vm&quot;</span><span class="p">);</span>
 </pre>
 
     <footer>
@@ -402,6 +402,52 @@ Here&#8217;s how to load <tt class="docutils literal"><span class="pre">C:\foo\b
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2007-03-01">2007-03-01</time>
+        <h1>
+            <a href="/blog/2007/03/01/Macalicious.html" rel="bookmark canonical">Macalicious</a>
+        </h1>
+    </header>
+    
+<p>I ordered a 17&quot; <a class="reference external" href="http://www.apple.com/macbookpro/">Mac Book Pro</a> on Friday night.
+It shipped from Shanghai on Monday and arrived at work this morning.
+Scha-weet! And&nbsp;spendy.</p>
+<p>I&#8217;ve been busy ramping up all day.
+I estimate that my total lifetime usage of Macs was about one day
+before today.
+I definitely have some new habits to&nbsp;learn.</p>
+<p>So far, I&#8217;ve installed <a class="reference external" href="http://www.macvim.org/">Mac Vim</a>,
+<a class="reference external" href="http://www.mozilla.com/en-US/firefox/">Firefox</a> (browser),
+<a class="reference external" href="http://www.caminobrowser.org/">Camino</a> (browser),
+<a class="reference external" href="http://www.mozilla.com/en-US/thunderbird/">Thun&shy;der&shy;bird</a> (email),
+<a class="reference external" href="http://quicksilver.blacktree.com/">Quick&shy;sil&shy;ver</a> (fast launch utility),
+<a class="reference external" href="http://www.manytricks.com/witch/">Witch</a> (window switcher),
+<a class="reference external" href="http://tech.inhelsinki.nl/antirsi/">AntiRSI</a> (<span class="caps">RSI</span> preventer),
+<a class="reference external" href="http://www.adiumx.com/">Adium</a> (multi-protocol chat),
+<a class="reference external" href="http://www.skype.com/download/skype/macosx/">Skype</a> (Internet telephony),
+<a class="reference external" href="http://www.microsoft.com/mac/otherproducts/otherproducts.aspx?pid=remotedesktopclient">Remote Desktop Connection</a> (connecting to Windows desktops),
+<a class="reference external" href="http://www.stuffit.com/mac/expander/">StuffIt Expander</a> (for classic archives), and
+<a class="reference external" href="http://keepassx.sourceforge.net/">KeePassX</a> (password&nbsp;manager).</p>
+<p>Some of these have built-in equiv&shy;a&shy;lents of course, but I&#8217;m using these
+for com&shy;pat&shy;i&shy;bil&shy;i&shy;ty with my existing Windows and Linux setups and data
+(e.g., Thun&shy;der&shy;bird, <span>&#8230;<a href="/blog/2007/03/01/Macalicious.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2007/03/01/Macalicious.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/mac/" rel="tag">mac</a>
                 
             </p>
         
@@ -453,52 +499,6 @@ against the trou&shy;ble&shy;some <span>&#8230;<a href="/blog/2007/03/01/ReviewA
                     and
                     
                 <a href="/tag/fantasy/" rel="tag">fantasy</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2007-03-01">2007-03-01</time>
-        <h1>
-            <a href="/blog/2007/03/01/Macalicious.html" rel="bookmark canonical">Macalicious</a>
-        </h1>
-    </header>
-    
-<p>I ordered a 17&quot; <a class="reference external" href="http://www.apple.com/macbookpro/">Mac Book Pro</a> on Friday night.
-It shipped from Shanghai on Monday and arrived at work this morning.
-Scha-weet! And&nbsp;spendy.</p>
-<p>I&#8217;ve been busy ramping up all day.
-I estimate that my total lifetime usage of Macs was about one day
-before today.
-I definitely have some new habits to&nbsp;learn.</p>
-<p>So far, I&#8217;ve installed <a class="reference external" href="http://www.macvim.org/">Mac Vim</a>,
-<a class="reference external" href="http://www.mozilla.com/en-US/firefox/">Firefox</a> (browser),
-<a class="reference external" href="http://www.caminobrowser.org/">Camino</a> (browser),
-<a class="reference external" href="http://www.mozilla.com/en-US/thunderbird/">Thun&shy;der&shy;bird</a> (email),
-<a class="reference external" href="http://quicksilver.blacktree.com/">Quick&shy;sil&shy;ver</a> (fast launch utility),
-<a class="reference external" href="http://www.manytricks.com/witch/">Witch</a> (window switcher),
-<a class="reference external" href="http://tech.inhelsinki.nl/antirsi/">AntiRSI</a> (<span class="caps">RSI</span> preventer),
-<a class="reference external" href="http://www.adiumx.com/">Adium</a> (multi-protocol chat),
-<a class="reference external" href="http://www.skype.com/download/skype/macosx/">Skype</a> (Internet telephony),
-<a class="reference external" href="http://www.microsoft.com/mac/otherproducts/otherproducts.aspx?pid=remotedesktopclient">Remote Desktop Connection</a> (connecting to Windows desktops),
-<a class="reference external" href="http://www.stuffit.com/mac/expander/">StuffIt Expander</a> (for classic archives), and
-<a class="reference external" href="http://keepassx.sourceforge.net/">KeePassX</a> (password&nbsp;manager).</p>
-<p>Some of these have built-in equiv&shy;a&shy;lents of course, but I&#8217;m using these
-for com&shy;pat&shy;i&shy;bil&shy;i&shy;ty with my existing Windows and Linux setups and data
-(e.g., Thun&shy;der&shy;bird, <span>&#8230;<a href="/blog/2007/03/01/Macalicious.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2007/03/01/Macalicious.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/mac/" rel="tag">mac</a>
                 
             </p>
         

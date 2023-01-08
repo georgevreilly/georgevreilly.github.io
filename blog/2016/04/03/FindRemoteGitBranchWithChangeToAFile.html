@@ -43,9 +43,9 @@ but none of the far-too-many remote branches&#8217; names rang a&nbsp;bell.</p>
 <p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch &#8211;contains</a> in the right way
 finds all the relevant&nbsp;branches.</p>
 <pre class="code bash literal-block">
-git log --all --format<span class="o">=</span>%H <span class="caps">FILENAME</span> <span class="se">\
-</span>    <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> f<span class="p">;</span> <span class="k">do</span> git branch --remotes --contains <span class="nv">$f</span><span class="p">;</span> <span class="k">done</span> <span class="se">\
-</span>    <span class="p">|</span> sort -u
+git<span class="w"> </span>log<span class="w"> </span>--all<span class="w"> </span>--format<span class="o">=</span>%H<span class="w"> </span><span class="caps">FILENAME</span><span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>f<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>git<span class="w"> </span>branch<span class="w"> </span>--remotes<span class="w"> </span>--contains<span class="w"> </span><span class="nv">$f</span><span class="p">;</span><span class="w"> </span><span class="k">done</span><span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u
 </pre>
 <p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> <span class="caps">FILENAME</span></tt>,
 lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal"><span class="caps">FILENAME</span></tt>.

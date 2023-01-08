@@ -50,9 +50,9 @@ so that I could connect to the <span class="caps">RDS</span> instance using <a c
 <li>Then&nbsp;run:</li>
 </ul>
 <pre class="code bash literal-block">
-psql --host<span class="o">=</span><span class="caps">SOME</span>-<span class="caps">DBMS</span>-<span class="caps">HOST</span> --dbname EXISTING_DB <span class="se">\
-</span>     --username<span class="o">=</span><span class="caps">YOUR</span>-<span class="caps">USERNAME</span> --password <span class="se">\
-</span>     --command<span class="o">=</span><span class="s2">&quot;<span class="caps">CREATE</span> <span class="caps">DATABASE</span> new_database <span class="caps">WITH</span> <span class="caps">OWNER</span> some_owner&quot;</span>
+psql<span class="w"> </span>--host<span class="o">=</span><span class="caps">SOME</span>-<span class="caps">DBMS</span>-<span class="caps">HOST</span><span class="w"> </span>--dbname<span class="w"> </span>EXISTING_DB<span class="w"> </span><span class="se">\
+</span><span class="w">     </span>--username<span class="o">=</span><span class="caps">YOUR</span>-<span class="caps">USERNAME</span><span class="w"> </span>--password<span class="w"> </span><span class="se">\
+</span><span class="w">     </span>--command<span class="o">=</span><span class="s2">&quot;<span class="caps">CREATE</span> <span class="caps">DATABASE</span> new_database <span class="caps">WITH</span> <span class="caps">OWNER</span> some_owner&quot;</span>
 </pre>
 <ul class="simple">
 <li>Using <tt class="docutils literal"><span class="pre">--password</span></tt> will prompt you for a password.

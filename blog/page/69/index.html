@@ -60,6 +60,50 @@ Very&nbsp;pleasant.</p>
     <header>
         <time datetime="2009-03-25">2009-03-25</time>
         <h1>
+            <a href="/blog/2009/03/25/AckBetterThanGrep.html" rel="bookmark canonical">Ack - Better than Grep</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.betterthangrep.com/"></a>
+<p>On a Stack&shy;Over&shy;flow question about <a class="reference external" href="http://stackoverflow.com/questions/21725/favorite-gvim-plugins-scripts">favorite Vim plugins</a>, I learned about <a class="reference external" href="http://www.betterthangrep.com/">Ack</a>,
+a re&shy;place&shy;ment for grep that&#8217;s smarter about searching source&nbsp;trees.</p>
+<p>Ack is written in Perl.
+The built-in <tt class="docutils literal">:vimgrep</tt> is rather slow.
+It seems to have some Vim-specific overhead,
+such as creating swap files and executing <tt class="docutils literal">BufRead</tt> autocmds.
+Ack is noticeably faster,
+though somewhat slower than <span class="caps">GNU</span>&nbsp;grep.</p>
+<p>Which would you rather type to search a tree,
+ignoring the <tt class="docutils literal">.svn</tt> and <tt class="docutils literal">.git</tt> subtrees?</p>
+<pre class="code bash literal-block">
+$<span class="w"> </span>ack<span class="w"> </span>-i<span class="w"> </span>-l<span class="w"> </span>foobar<span class="w">
+</span>$<span class="w"> </span>grep<span class="w"> </span>--exclude<span class="o">=</span><span class="s1">'*.svn*'</span><span class="w"> </span>--exclude<span class="o">=</span><span class="s1">'*.git*'</span><span class="w"> </span>-i<span class="w"> </span>-l<span class="w"> </span>-r<span class="w"> </span>foobar<span class="w"> </span>.
+</pre>
+<p>The ack takes 6 seconds to search 4500 files, while the grep completes in 2.
+This does not count the time that I spent trying to figure <span>&#8230;<a href="/blog/2009/03/25/AckBetterThanGrep.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/25/AckBetterThanGrep.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/regex/" rel="tag">regex</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-25">2009-03-25</time>
+        <h1>
             <a href="/blog/2009/03/25/Refinancing.html" rel="bookmark canonical">Refinancing</a>
         </h1>
     </header>
@@ -85,50 +129,6 @@ Sanjay Pitroda of <a class="reference external" href="http://www.metlifehomeloan
         
             <p>tagged as
                 <a href="/tag/personal/" rel="tag">personal</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-25">2009-03-25</time>
-        <h1>
-            <a href="/blog/2009/03/25/AckBetterThanGrep.html" rel="bookmark canonical">Ack - Better than Grep</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.betterthangrep.com/"></a>
-<p>On a Stack&shy;Over&shy;flow question about <a class="reference external" href="http://stackoverflow.com/questions/21725/favorite-gvim-plugins-scripts">favorite Vim plugins</a>, I learned about <a class="reference external" href="http://www.betterthangrep.com/">Ack</a>,
-a re&shy;place&shy;ment for grep that&#8217;s smarter about searching source&nbsp;trees.</p>
-<p>Ack is written in Perl.
-The built-in <tt class="docutils literal">:vimgrep</tt> is rather slow.
-It seems to have some Vim-specific overhead,
-such as creating swap files and executing <tt class="docutils literal">BufRead</tt> autocmds.
-Ack is noticeably faster,
-though somewhat slower than <span class="caps">GNU</span>&nbsp;grep.</p>
-<p>Which would you rather type to search a tree,
-ignoring the <tt class="docutils literal">.svn</tt> and <tt class="docutils literal">.git</tt> subtrees?</p>
-<pre class="code bash literal-block">
-$ ack -i -l foobar
-$ grep --exclude<span class="o">=</span><span class="s1">'*.svn*'</span> --exclude<span class="o">=</span><span class="s1">'*.git*'</span> -i -l -r foobar .
-</pre>
-<p>The ack takes 6 seconds to search 4500 files, while the grep completes in 2.
-This does not count the time that I spent trying to figure <span>&#8230;<a href="/blog/2009/03/25/AckBetterThanGrep.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/25/AckBetterThanGrep.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/tech/" rel="tag">tech</a>,
-                <a href="/tag/regex/" rel="tag">regex</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -283,6 +283,55 @@ as I doubt I&#8217;ve seen one over the 20 years that I&#8217;ve been in the&nbs
     <header>
         <time datetime="2009-03-20">2009-03-20</time>
         <h1>
+            <a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" rel="bookmark canonical">Flattening List Comprehensions in Python</a>
+        </h1>
+    </header>
+    
+<p>Python has <a class="reference external" href="http://docs.python.org/tutorial/datastructures.html#list-comprehensions">list com&shy;pre&shy;hen&shy;sions</a>,
+syntactic sugar for building lists from an&nbsp;expression.</p>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span><span class="w">
+</span><span class="go">[4, 6, 10, 14, 22]</span>
+</pre>
+<p>This doesn&#8217;t work so well when the com&shy;pre&shy;hen&shy;sion expression
+is itself a list: you end up with a list of&nbsp;lists.</p>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">gen</span><span class="p">():</span><span class="w">
+</span><span class="gp">... </span>    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]:</span><span class="w">
+</span><span class="gp">... </span>        <span class="k">yield</span> <span class="n">l</span><span class="w">
+</span><span class="gp">...</span><span class="w">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()]</span><span class="w">
+</span><span class="go">[['a', 'b'], ['c'], ['d', 'e', 'f']]</span>
+</pre>
+<p>This is ugly. Here&#8217;s one way to build a flattened list,
+but it&#8217;s less elegant than the&nbsp;com&shy;pre&shy;hen&shy;sion.</p>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[]</span><span class="w">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">():</span><span class="w">
+</span><span class="gp">... </span></pre><span>&#8230;<a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/20/FlatteningListComprehensionsInPython.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-20">2009-03-20</time>
+        <h1>
             <a href="/blog/2009/03/20/ReviewTheChoirboys.html" rel="bookmark canonical">Review: The Choirboys</a>
         </h1>
     </header>
@@ -333,55 +382,6 @@ martinets <span>&#8230;<a href="/blog/2009/03/20/ReviewTheChoirboys.html" class=
     
         <article>
     <header>
-        <time datetime="2009-03-20">2009-03-20</time>
-        <h1>
-            <a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" rel="bookmark canonical">Flattening List Comprehensions in Python</a>
-        </h1>
-    </header>
-    
-<p>Python has <a class="reference external" href="http://docs.python.org/tutorial/datastructures.html#list-comprehensions">list com&shy;pre&shy;hen&shy;sions</a>,
-syntactic sugar for building lists from an&nbsp;expression.</p>
-<pre class="code pycon literal-block">
-<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
-<span class="go">[4, 6, 10, 14, 22]</span>
-</pre>
-<p>This doesn&#8217;t work so well when the com&shy;pre&shy;hen&shy;sion expression
-is itself a list: you end up with a list of&nbsp;lists.</p>
-<pre class="code pycon literal-block">
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
-<span class="gp">... </span>    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]:</span>
-<span class="gp">... </span>        <span class="k">yield</span> <span class="n">l</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()]</span>
-<span class="go">[['a', 'b'], ['c'], ['d', 'e', 'f']]</span>
-</pre>
-<p>This is ugly. Here&#8217;s one way to build a flattened list,
-but it&#8217;s less elegant than the&nbsp;com&shy;pre&shy;hen&shy;sion.</p>
-<pre class="code pycon literal-block">
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">():</span>
-<span class="gp">... </span></pre><span>&#8230;<a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/20/FlatteningListComprehensionsInPython.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
         <time datetime="2009-03-18">2009-03-18</time>
         <h1>
             <a href="/blog/2009/03/18/CircePart1.html" rel="bookmark canonical">Circe, part 1</a>
@@ -417,43 +417,22 @@ We&#8217;ll need several more rehearsals, but it&#8217;s starting to come&nbsp;t
     <header>
         <time datetime="2009-03-17">2009-03-17</time>
         <h1>
-            <a href="/blog/2009/03/17/ReviewFleshmarketClose.html" rel="bookmark canonical">Review: Fleshmarket Close</a>
+            <a href="/blog/2009/03/17/AIGBonuses.html" rel="bookmark canonical">AIG Bonuses</a>
         </h1>
     </header>
-    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0752865633"></a>
-<div class="line-block">
-<div class="line">Title: Flesh&shy;mar&shy;ket Close</div>
-<div class="line">Author: Ian Rankin</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Orion</div>
-<div class="line">Copyright: 2004</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0752865633">0752865633</a></div>
-<div class="line">Pages: 484</div>
-<div class="line">Keywords: crime, fiction</div>
-<div class="line">Reading period: 14–16 March, 2009</div>
-</div>
-<p><span class="caps">DI</span> John Rebus in&shy;ves&shy;ti&shy;gates the murder of an illegal immigrant,
-who had ties to asylum seekers in Edinburgh.
-<span class="caps">DS</span> Siobhan Clarke looks into the dis&shy;ap&shy;pear&shy;ance of a teenaged girl;
-soon, the rapist of the girl&#8217;s sister is&nbsp;murdered.</p>
-<p>Rebus and Siobhan struggle with the uglier side of life in Edinburgh,
-notably, racism, latter-day slavery, and the increasing numbers of asylum seekers.
-As usual, their personal lives are in a mess:
-Rebus drinks too much;
-Siobhan falls asleep with a tub of ice&nbsp;cream.</p>
-<p>As in other <a class="reference external" href="/blog/2008/12/24/ReviewResurrectionMen.html">Rebus books</a>, the two in&shy;ves&shy;ti&shy;ga&shy;tions end up
-being <span>&#8230;<a href="/blog/2009/03/17/ReviewFleshmarketClose.html" class="continue">continue</a>.</span></p>
+    
+<p>It takes a special … talent? … chutzpah? … to fuck up the global economic system
+to the point where you need four enormous bailouts totaling $170 billion
+and then to give your senior people $165 million in&nbsp;bonuses.</p>
+<p>It&#8217;s like they&#8217;re taunting the lynch&nbsp;mob.</p>
+
     <footer>
         
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/17/ReviewFleshmarketClose.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/17/AIGBonuses.html#disqus_thread">Comment</a>
         
         
             <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/mystery/" rel="tag">mystery</a>
+                <a href="/tag/politics/" rel="tag">politics</a>
                 
             </p>
         

@@ -106,13 +106,13 @@ The script may be run more than once during the lifetime of the agent,
 so the second and subsequent calls should not upgrade&nbsp;Docker.</p>
 <p>Basically, I&nbsp;wanted</p>
 <pre class="code bash literal-block">
-<span class="k">if</span> <span class="nv">$DOCKER_VERSION</span> &lt; <span class="m">1</span>.9<span class="p">;</span> <span class="k">then</span> upgrade_docker<span class="p">;</span> <span class="k">fi</span>
+<span class="k">if</span><span class="w"> </span><span class="nv">$DOCKER_VERSION</span><span class="w"> </span>&lt;<span class="w"> </span><span class="m">1</span>.9<span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span>upgrade_docker<span class="p">;</span><span class="w"> </span><span class="k">fi</span>
 </pre>
 <p>Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s not that easy in Bash.
 Here&#8217;s what I came up&nbsp;with.</p>
 <pre class="code bash literal-block">
-install_latest_docker<span class="o">()</span> <span class="o">{</span>
-    <span class="k">if</span> docker --version <span class="p">|</span> python -c <span class="s2">&quot;min=[1, 9]; import sys; ↩
+install_latest_docker<span class="o">()</span><span class="w"> </span><span class="o">{</span><span class="w">
+    </span><span class="k">if</span><span class="w"> </span>docker<span class="w"> </span>--version<span class="w"> </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;min=[1, 9]; import sys; ↩
 v=[int(x) for x in </span></pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
     <footer>
         
@@ -205,10 +205,10 @@ include models/*.json
 <p>Then be sure to set <tt class="docutils literal">in&shy;clude_&shy;pack&shy;age_&shy;da&shy;ta=True</tt>
 in the call to <tt class="docutils literal">setup()</tt>:</p>
 <pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
+<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span><span class="w">
 
-<span class="n">setup</span><span class="p">(</span>
- </pre><span>&#8230;<a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" class="continue">continue</a>.</span></div>
+</span><span class="n">setup</span><span class="p">(</span><span class="w">
+</span> </pre><span>&#8230;<a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" class="continue">continue</a>.</span></div>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/21/IncludingDataFilesInPythonPackages.html#disqus_thread">Comment</a>

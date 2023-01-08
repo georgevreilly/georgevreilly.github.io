@@ -60,15 +60,15 @@ I would make this more&nbsp;robust.</p>
         </span><span class="k">return</span><span class="p">;</span><span class="w">
 
     </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">Read</span><span class="p">()</span><span class="w">
-        </span><span class="p">&amp;&amp;</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span><span class="w"> </span><span class="p">!=</span><span class="w"> </span><span class="n">XmlNodeType</span><span class="p">.</span><span class="n">EndElement</span><span class="w">
-        </span><span class="p">&amp;&amp;</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span><span class="w"> </span><span class="p">!=</span><span class="w"> </span><span class="n">XmlNodeType</span><span class="p">.</span><span class="n">None</span><span class="p">)</span><span class="w">
+        </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">XmlNodeType</span><span class="p">.</span><span class="n">EndElement</span><span class="w">
+        </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">XmlNodeType</span><span class="p">.</span><span class="n">None</span><span class="p">)</span><span class="w">
     </span><span class="p">{</span><span class="w">
-        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">XmlNodeType</span><span class="p">.</span><span class="n">Element</span><span class="w"> </span><span class="p">&amp;&amp;</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">LocalName</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s">&quot;Header&quot;</span><span class="p">)</span><span class="w">
+        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">reader</span><span class="p">.</span><span class="n">NodeType</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">XmlNodeType</span><span class="p">.</span><span class="n">Element</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">LocalName</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&quot;Header&quot;</span><span class="p">)</span><span class="w">
         </span><span class="p">{</span><span class="w">
             </span><span class="n">reader</span><span class="p">.</span><span class="n">MoveToAttribute</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">);</span><span class="w">
-            </span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span><span class="w">
+            </span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span><span class="w">
             </span><span class="n">reader</span><span class="p">.</span><span class="n">MoveToAttribute</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">);</span><span class="w">
-            </span><span class="kt">string</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span><span class="w">
+            </span><span class="kt">string</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reader</span><span class="p">.</span><span class="n">Value</span><span class="p">;</span><span class="w">
             </span><span class="n">Add</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">value</span><span class="p">);</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
@@ -80,7 +80,7 @@ I would make this more&nbsp;robust.</p>
    </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">nvc</span><span class="p">.</span><span class="n">Keys</span><span class="p">)</span><span class="w">
    </span><span class="p">{</span><span class="w">
        </span><span class="n">writer</span><span class="p">.</span><span class="n">WriteStartElement</span><span class="p">(</span><span class="s">&quot;Header&quot;</span><span class="p">);</span><span class="w">
-       </span><span class="kt">string</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">nvc</span><span class="p">[</span><span class="n">name</span><span class="p">];</span><span class="w">
+       </span><span class="kt">string</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvc</span><span class="p">[</span><span class="n">name</span><span class="p">];</span><span class="w">
        </span><span class="n">writer</span><span class="p">.</span><span class="n">WriteAttributeString</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="p">,</span><span class="w">  </span><span class="n">name</span><span class="p">);</span><span class="w">
        </span><span class="n">writer</span><span class="p">.</span><span class="n">WriteAttributeString</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">value</span><span class="p">);</span><span class="w">
        </span><span class="n">writer</span><span class="p">.</span><span class="n">WriteEndElement</span><span class="p">();</span><span class="w">
@@ -100,11 +100,11 @@ im&shy;ple&shy;men&shy;ta&shy;tions didn&#8217;t seem to do what I&nbsp;wanted.<
 // will have different hash codes.
 </span><span class="k">public</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">GetHashCode</span><span class="p">()</span><span class="w">
 </span><span class="p">{</span><span class="w">
-    </span><span class="kt">int</span><span class="w"> </span><span class="n">hash</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">nvc</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span><span class="w">
+    </span><span class="kt">int</span><span class="w"> </span><span class="n">hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nvc</span><span class="p">.</span><span class="n">Count</span><span class="p">;</span><span class="w">
 
     </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">nvc</span><span class="p">)</span><span class="w">
     </span><span class="p">{</span><span class="w">
-        </span><span class="n">hash</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="m">757</span><span class="w"> </span><span class="p">*</span><span class="w"> </span><span class="n">hash</span><span class="w">  </span><span class="p">+</span><span class="w">  </span><span class="m">101</span><span class="w"> </span><span class="p">*</span><span class="w"> </span><span class="n">nvc</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">GetHashCode</span><span class="p">()</span><span class="w">  </span><span class="p">+</span><span class="w">  </span><span class="n">name</span><span class="p">.</span><span class="n">GetHashCode</span><span class="p">();</span><span class="w">
+        </span><span class="n">hash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">757</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">hash</span><span class="w">  </span><span class="o">+</span><span class="w">  </span><span class="m">101</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">nvc</span><span class="p">[</span><span class="n">name</span><span class="p">].</span><span class="n">GetHashCode</span><span class="p">()</span><span class="w">  </span><span class="o">+</span><span class="w">  </span><span class="n">name</span><span class="p">.</span><span class="n">GetHashCode</span><span class="p">();</span><span class="w">
     </span><span class="p">}</span><span class="w">
 
     </span><span class="k">return</span><span class="w"> </span><span class="n">hash</span><span class="p">;</span><span class="w">
@@ -121,12 +121,12 @@ im&shy;ple&shy;men&shy;ta&shy;tions didn&#8217;t seem to do what I&nbsp;wanted.<
     </span><span class="c1">// Have to explicitly compare the contents of the collections
 </span><span class="w">    </span><span class="c1">// as NameValueCollection.Equals doesn't seem to do what we want.
 </span><span class="w">    </span><span class="c1">// Note: this is independent of order.
-</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nvc</span><span class="p">.</span><span class="n">Count</span><span class="w"> </span><span class="p">!=</span><span class="w"> </span><span class="n">that</span><span class="p">.</span><span class="n">nvc</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span><span class="w">
+</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nvc</span><span class="p">.</span><span class="n">Count</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">that</span><span class="p">.</span><span class="n">nvc</span><span class="p">.</span><span class="n">Count</span><span class="p">)</span><span class="w">
         </span><span class="k">return</span><span class="w"> </span><span class="k">false</span><span class="p">;</span><span class="w">
 
     </span><span class="k">foreach</span><span class="w"> </span><span class="p">(</span><span class="kt">string</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">nvc</span><span class="p">)</span><span class="w">
     </span><span class="p">{</span><span class="w">
-        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nvc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="w"> </span><span class="p">!=</span><span class="w"> </span><span class="n">that</span><span class="p">.</span><span class="n">nvc</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">name</span><span class="p">))</span><span class="w">
+        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">nvc</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">that</span><span class="p">.</span><span class="n">nvc</span><span class="p">.</span><span class="n">Get</span><span class="p">(</span><span class="n">name</span><span class="p">))</span><span class="w">
             </span><span class="k">return</span><span class="w"> </span><span class="k">false</span><span class="p">;</span><span class="w">
     </span><span class="p">}</span><span class="w">
 
@@ -135,8 +135,8 @@ im&shy;ple&shy;men&shy;ta&shy;tions didn&#8217;t seem to do what I&nbsp;wanted.<
 
 </span><span class="k">public</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">Equals</span><span class="p">(</span><span class="n">HeadersCollection</span><span class="w"> </span><span class="n">headersA</span><span class="p">,</span><span class="w"> </span><span class="n">HeadersCollection</span><span class="w"> </span><span class="n">headersB</span><span class="p">)</span><span class="w">
 </span><span class="p">{</span><span class="w">
-    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">headersA</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="k">null</span><span class="p">)</span><span class="w">
-        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">headersB</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="k">null</span><span class="p">);</span><span class="w">
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">headersA</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">null</span><span class="p">)</span><span class="w">
+        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">headersB</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">null</span><span class="p">);</span><span class="w">
 
     </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ReferenceEquals</span><span class="p">(</span><span class="n">headersA</span><span class="p">,</span><span class="w"> </span><span class="n">headersB</span><span class="p">))</span><span class="w">
         </span><span class="k">return</span><span class="w"> </span><span class="k">true</span><span class="p">;</span><span class="w">
@@ -195,8 +195,8 @@ im&shy;ple&shy;men&shy;ta&shy;tions didn&#8217;t seem to do what I&nbsp;wanted.<
 
     
     
-        <a href="/blog/2007/07/16/ReviewTheAccusers.html" class="page floatright">
-        Review: The Accusers &raquo;
+        <a href="/blog/2007/07/16/ReviewHarryPotterAndTheOrderOfThePhoenix.html" class="page floatright">
+        Review: The Order of the Phoenix &raquo;
         </a>
     
     

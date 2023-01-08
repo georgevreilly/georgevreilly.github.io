@@ -138,8 +138,8 @@ an <a class="reference external" href="/blog/2007/03/07/NVelocityTemplatesAndAbs
 <p>Here's the magic necessary to get NVelocity to load a template from an
 embedded resource:</p>
 <pre class="code csharp literal-block">
-<span class="n">VelocityEngine</span><span class="w"> </span><span class="n">engine</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">VelocityEngine</span><span class="p">();</span><span class="w">
-</span><span class="n">ExtendedProperties</span><span class="w"> </span><span class="n">properties</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExtendedProperties</span><span class="p">();</span><span class="w">
+<span class="n">VelocityEngine</span><span class="w"> </span><span class="n">engine</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">VelocityEngine</span><span class="p">();</span><span class="w">
+</span><span class="n">ExtendedProperties</span><span class="w"> </span><span class="n">properties</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExtendedProperties</span><span class="p">();</span><span class="w">
 </span><span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;resource.loader&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;assembly&quot;</span><span class="p">);</span><span class="w">
 </span><span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;assembly.resource.loader.class&quot;</span><span class="p">,</span><span class="w">
     </span><span class="s">&quot;NVelocity.Runtime.Resource.Loader.AssemblyResourceLoader, NVelocity&quot;</span><span class="p">);</span><span class="w">
@@ -180,11 +180,11 @@ instead of the relative path shown in the <a class="reference external" href="ht
 <p>The trick is to set <tt class="docutils literal">file.resource.loader.path</tt>.
 Here's how to load <tt class="docutils literal"><span class="pre">C:\foo\bar\&shy;some&shy;file.vm</span></tt>:</p>
 <pre class="code csharp literal-block">
-<span class="n">ExtendedProperties</span><span class="w"> </span><span class="n">props</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExtendedProperties</span><span class="p">();</span><span class="w">
+<span class="n">ExtendedProperties</span><span class="w"> </span><span class="n">props</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExtendedProperties</span><span class="p">();</span><span class="w">
 </span><span class="n">props</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;file.resource.loader.path&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">string</span><span class="p">[]{</span><span class="s">&quot;.&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;C:\\&quot;</span><span class="p">}));</span><span class="w">
 </span><span class="n">velocity</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">props</span><span class="p">);</span><span class="w">
 
-</span><span class="n">template</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">velocity</span><span class="p">.</span><span class="n">GetTemplate</span><span class="p">(</span><span class="s">&quot;foo\\bar\\somefile.vm&quot;</span><span class="p">);</span>
+</span><span class="n">template</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">velocity</span><span class="p">.</span><span class="n">GetTemplate</span><span class="p">(</span><span class="s">&quot;foo\\bar\\somefile.vm&quot;</span><span class="p">);</span>
 </pre>
 
     <footer>

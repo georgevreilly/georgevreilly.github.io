@@ -38,11 +38,11 @@
     </header>
     <p>Have you ever attempted a <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">relative import</a> in a Python&nbsp;script?</p>
 <pre class="code bash literal-block">
-$ ./foo/bar/script.py some parameters
-Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
-  File <span class="s2">&quot;foo/bar/script.py&quot;</span>, line <span class="m">16</span>, <span class="k">in</span> &lt;module&gt;
-    from .quux import find_vcs
-ValueError: Attempted relative import <span class="k">in</span> non-package
+$<span class="w"> </span>./foo/bar/script.py<span class="w"> </span>some<span class="w"> </span>parameters<span class="w">
+</span>Traceback<span class="w"> </span><span class="o">(</span>most<span class="w"> </span>recent<span class="w"> </span>call<span class="w"> </span>last<span class="o">)</span>:<span class="w">
+  </span>File<span class="w"> </span><span class="s2">&quot;foo/bar/script.py&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">16</span>,<span class="w"> </span><span class="k">in</span><span class="w"> </span>&lt;module&gt;<span class="w">
+    </span>from<span class="w"> </span>.quux<span class="w"> </span>import<span class="w"> </span>find_vcs<span class="w">
+</span>ValueError:<span class="w"> </span>Attempted<span class="w"> </span>relative<span class="w"> </span>import<span class="w"> </span><span class="k">in</span><span class="w"> </span>non-package
 </pre>
 <p>I prefer to use <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">absolute imports</a> to minimize ambiguity and confusion,
 and most of my Python modules begin&nbsp;with:</p>
@@ -54,7 +54,7 @@ and most of my Python modules begin&nbsp;with:</p>
 and the solution to the above <tt class="docutils literal">ValueError</tt> occurred to me:
 Use <tt class="docutils literal">python <span class="pre">-m</span> package</tt> instead:</p>
 <pre class="code bash literal-block">
-$ python -m foo.bar.script some parameters
+$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>foo.bar.script<span class="w"> </span>some<span class="w"> </span>parameters
 </pre>
 <p>(Assuming that package <tt class="docutils literal">foo</tt> exists.)</p>
 

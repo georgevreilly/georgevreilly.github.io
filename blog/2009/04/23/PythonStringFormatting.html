@@ -45,34 +45,34 @@ See <a class="reference external" href="http://www.python.org/dev/peps/pep-3101/
 to put the <a class="reference external" href="http://docs.python.org/library/functions.html#locals">locals()</a> dictionary or <tt class="docutils literal">self.__dict__</tt>
 on the right-hand&nbsp;side</p>
 <pre class="code pycon literal-block">
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="gp">... </span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
-<span class="gp">... </span> <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%(a)s</span><span class="s2">, </span><span class="si">%(b)s</span><span class="s2">, </span><span class="si">%(c)s</span><span class="s2">, </span><span class="si">%(d)s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">stuff</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
-<span class="go">'3, 17, 20, -14'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span><span class="w">
+</span><span class="gp">... </span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="w">
+</span><span class="gp">... </span> <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%(a)s</span><span class="s2">, </span><span class="si">%(b)s</span><span class="s2">, </span><span class="si">%(c)s</span><span class="s2">, </span><span class="si">%(d)s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span><span class="w">
+</span><span class="gp">...</span><span class="w">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">stuff</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span><span class="w">
+</span><span class="go">'3, 17, 20, -14'</span>
 </pre>
 <p>It took me a few minutes to figure out how to do the equivalent with <tt class="docutils literal">string.format</tt>:
 use the <tt class="docutils literal">**</tt> syntax to unpack the dict into <tt class="docutils literal">kwargs</tt>.</p>
 <pre class="code pycon literal-block">
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="gp">... </span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
-<span class="gp">... </span>  <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-<span class="gp">... </span>  <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
-<span class="gp">... </span> <span class="k">def</span> <span class="nf">old</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="gp">... </span>  <span class="k">return</span> <span class="s2">&quot;name=</span><span class="si">%(name)s</span><span class="s2">, age=</span><span class="si">%(age)d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span>
-<span class="gp">... </span> <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="gp">... </span>  <span class="k">return</span> <span class="s2">&quot;name=</span><span class="si">{name}</span><span class="s2">, age=</span><span class="si">{age}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
-<span class="gp">... </span> <span class="k">def</span> <span class="nf">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="gp">... </span>  <span class="k">return</span> <span class="s2">&quot;name=</span><span class="si">{0[name]}</span><span class="s2">, age=</span><span class="si">{0[age]}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gb</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s1">'George Burns'</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">gb</span><span class="o">.</span><span class="n">old</span><span class="p">()</span>
-<span class="go">'name=George Burns, age=100'
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">gb</span><span class="o">.</span><span class="n">new</span><span class="p">()</span>
-<span class="go">'name=George Burns, age=100'
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">gb</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span>
-<span class="go">'name=George Burns, age=100'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span><span class="w">
+</span><span class="gp">... </span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span><span class="w">
+</span><span class="gp">... </span>  <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="w">
+</span><span class="gp">... </span>  <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span><span class="w">
+</span><span class="gp">... </span> <span class="k">def</span> <span class="nf">old</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span><span class="gp">... </span>  <span class="k">return</span> <span class="s2">&quot;name=</span><span class="si">%(name)s</span><span class="s2">, age=</span><span class="si">%(age)d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="w">
+</span><span class="gp">... </span> <span class="k">def</span> <span class="nf">new</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span><span class="gp">... </span>  <span class="k">return</span> <span class="s2">&quot;name=</span><span class="si">{name}</span><span class="s2">, age=</span><span class="si">{age}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span><span class="w">
+</span><span class="gp">... </span> <span class="k">def</span> <span class="nf">dict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span><span class="w">
+</span><span class="gp">... </span>  <span class="k">return</span> <span class="s2">&quot;name=</span><span class="si">{0[name]}</span><span class="s2">, age=</span><span class="si">{0[age]}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span><span class="w">
+</span><span class="gp">...</span><span class="w">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">gb</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s1">'George Burns'</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span><span class="w">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">gb</span><span class="o">.</span><span class="n">old</span><span class="p">()</span><span class="w">
+</span><span class="go">'name=George Burns, age=100'
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">gb</span><span class="o">.</span><span class="n">new</span><span class="p">()</span><span class="w">
+</span><span class="go">'name=George Burns, age=100'
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">gb</span><span class="o">.</span><span class="n">dict</span><span class="p">()</span><span class="w">
+</span><span class="go">'name=George Burns, age=100'</span>
 </pre>
 <p>The <tt class="docutils literal">getitem</tt> variant (<tt class="docutils literal">{0[name]}</tt>) might be slightly more efficient,
 since the dict does not need to be flattened,
@@ -120,13 +120,13 @@ but I doubt it makes a per&shy;cep&shy;ti&shy;ble difference in&nbsp;practice.</
 
     
     
-        <a href="/blog/2009/04/23/InstantShot.html" class="page floatright">
-        InstantShot! &raquo;
+        <a href="/blog/2009/04/22/Tulips.html" class="page floatright">
+        Tulips &raquo;
         </a>
     
     
-        <a href="/blog/2009/04/25/UbuntuNetbookRemix904.html" class="page floatleft">
-        &laquo; Ubuntu Netbook Remix 9.04
+        <a href="/blog/2009/04/23/InstantShot.html" class="page floatleft">
+        &laquo; InstantShot!
         </a>
 <footer>
     

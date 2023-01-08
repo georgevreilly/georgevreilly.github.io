@@ -66,7 +66,7 @@ and shift left or right by <span class="formula">(<i>k</i><span class="textrm"> 
 Now, divisions are not cheap to implement in hardware,
 so they needed to come up with an alternate approach
 to calculate the&nbsp;modulus.</p>
-<p>My friend tried to do something with the factors of 36: <span class="formula">4×9</span>.
+<p>My friend tried to do something with the factors of 36: <span class="formula">4 × 9</span>.
 Four and nine are <a class="reference external" href="https://artofproblemsolving.com/wiki/index.php/Relatively_prime">relatively prime</a>:
 they have no common factors other than one.
 By the <a class="reference external" href="https://medium.com/@astartekraus/the-chinese-remainder-theorem-ea110f48248c">Chinese Remainder Theorem</a> therefore,
@@ -74,7 +74,7 @@ the com&shy;bi&shy;na&shy;tion of <span class="formula"><i>k</i><span class="tex
 and <span class="formula"><i>k</i><span class="textrm"> mod </span>9</span> is enough to uniquely
 determine <span class="formula"><i>k</i><span class="textrm"> mod </span>36</span>.
 By inspection, this is true for the following table of “residues”.
-All the integers in the range <span class="formula">[0, 36)</span> appear exactly&nbsp;once.</p>
+All the integers in the range <span class="formula">[0, 36)</span> appear exactly&nbsp;once.</p>
 <table border="1" class="docutils align-right">
 <colgroup>
 <col width="18%"/>
@@ -160,11 +160,11 @@ and the <tt class="docutils literal">0o</tt> prefix for octal literals.
 See the discussion in <a class="reference external" href="https://github.com/golang/proposal/blob/master/design/19308-number-literals.md">Go number literals</a> for more detail on <tt class="docutils literal">0b</tt>,
 including a list of languages that now support this&nbsp;notation.</p>
 <p><span class="formula">2<sup><i>n</i></sup></span>, written in binary, looks like <tt class="docutils literal">1</tt> followed by <span class="formula"><i>n</i></span>&nbsp;<tt class="docutils literal">0</tt>s.
-For example, <span class="formula">2<sup>3</sup> = 1000<sub>2</sub></span>.
+For example, <span class="formula">2<sup>3</sup> = 1000<sub>2</sub></span>.
 In C-like languages, <span class="formula">2<sup><i>n</i></sup></span> can be written as <tt class="docutils literal">1 &lt;&lt; n</tt>.</p>
-<p>Similarly, <span class="formula">2<sup><i>n</i></sup> − 1</span>, <tt class="docutils literal">(1 &lt;&lt; n) - 1</tt>,
+<p>Similarly, <span class="formula">2<sup><i>n</i></sup> − 1</span>, <tt class="docutils literal">(1 &lt;&lt; n) - 1</tt>,
 written in binary, looks like <span class="formula"><i>n</i></span>&nbsp;<tt class="docutils literal">1</tt>s.
-For example, <span class="formula">2<sup>5</sup> − 1 = 31<sub>10</sub> = 11111<sub>2</sub></span>.</p>
+For example, <span class="formula">2<sup>5</sup> − 1 = 31<sub>10</sub> = 11111<sub>2</sub></span>.</p>
 <p>We can <strong>multiply</strong> an unsigned integer, <tt class="docutils literal">u</tt>, by <span class="formula">2<sup><i>n</i></sup></span>
 by <strong>shifting</strong> <tt class="docutils literal">u</tt> <strong>left</strong> by <span class="formula"><i>n</i></span> bits, <tt class="docutils literal">u &lt;&lt; n</tt>,
 in&shy;tro&shy;duc&shy;ing <span class="formula"><i>n</i></span>&nbsp;zeroes as the low-order bits.
@@ -195,7 +195,7 @@ However, sign extension is not guaranteed in&nbsp;C/C++.</p>
 </span><span class="mb">0b_1001_0110</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b_1110_0101</span>
 </pre>
 <p>Finally, we can find the <strong>remainder</strong> of dividing <tt class="docutils literal">u</tt> by <span class="formula">2<sup><i>n</i></sup></span>
-by <strong>masking</strong> <tt class="docutils literal">u</tt> with <span class="formula">2<sup><i>n</i></sup> − 1</span>,
+by <strong>masking</strong> <tt class="docutils literal">u</tt> with <span class="formula">2<sup><i>n</i></sup> − 1</span>,
 that is, <strong>bitwise-and</strong> with <tt class="docutils literal">(1 &lt;&lt; n) - 1</tt>,
 to extract the <span class="formula"><i>n</i></span>&nbsp;<strong>low-order bits</strong>:</p>
 <pre class="code rust literal-block">
@@ -211,69 +211,69 @@ known as <a class="reference external" href="http://mathworld.wolfram.com/Castin
 <p>Add up the decimal digits of each number.
 Apply the arithmetic operation to these digit sums.
 They should be <a class="reference external" href="https://en.wikipedia.org/wiki/Congruence_relation">congruent</a>, modulo&nbsp;9.</p>
-<p>For example, <span class="formula">12, 345×8, 765 = 108, 203, 925</span>.</p>
+<p>For example, <span class="formula">12, 345 × 8, 765 = 108, 203, 925</span>.</p>
 <p>To check the mul&shy;ti&shy;pli&shy;ca&shy;tion,
 compute the <a class="reference external" href="https://en.wikipedia.org/wiki/Digit_sum">digit sum</a> of each number,
 by adding up each decimal&nbsp;digit:</p>
 <div class="line-block">
-<div class="line"><span class="formula">1 + 2 + 3 + 4 + 5 = 15 ≡ 6 (<span class="textrm"> mod </span>9)</span></div>
-<div class="line">Note: <span class="formula">12, 345<span class="textrm">  mod </span>9 = 6</span></div>
+<div class="line"><span class="formula">1 + 2 + 3 + 4 + 5 = 15 ≡ 6 (<span class="textrm"> mod </span>9)</span></div>
+<div class="line">Note: <span class="formula">12, 345<span class="textrm">  mod </span>9 = 6</span></div>
 </div>
 <p>and</p>
 <div class="line-block">
-<div class="line"><span class="formula">8 + 7 + 6 + 5 = 26 ≡ 8 (<span class="textrm"> mod </span>9)</span></div>
-<div class="line">Note: <span class="formula">8, 765<span class="textrm">  mod </span>9 = 8</span></div>
+<div class="line"><span class="formula">8 + 7 + 6 + 5 = 26 ≡ 8 (<span class="textrm"> mod </span>9)</span></div>
+<div class="line">Note: <span class="formula">8, 765<span class="textrm">  mod </span>9 = 8</span></div>
 </div>
 <p>Take the first two digit sums, modulo 9, and multiply&nbsp;them:</p>
 <div class="line-block">
-<div class="line"><span class="formula">6×8 = 48 ≡ 3 (<span class="textrm"> mod </span>9)</span></div>
-<div class="line">Note: <span class="formula">15×26 = 390 ≡ 3 (<span class="textrm"> mod </span>9)</span></div>
+<div class="line"><span class="formula">6 × 8 = 48 ≡ 3 (<span class="textrm"> mod </span>9)</span></div>
+<div class="line">Note: <span class="formula">15 × 26 = 390 ≡ 3 (<span class="textrm"> mod </span>9)</span></div>
 </div>
 <p>Check against the sum of the digits of the&nbsp;product:</p>
 <div class="line-block">
-<div class="line"><span class="formula">1 + 0 + 8 + 2 + 0 + 3 + 9 + 2 + 5 = 30 ≡ 3 (<span class="textrm"> mod </span>9)</span></div>
-<div class="line">Note: <span class="formula">108, 203, 925<span class="textrm">  mod </span>9 = 3</span></div>
+<div class="line"><span class="formula">1 + 0 + 8 + 2 + 0 + 3 + 9 + 2 + 5 = 30 ≡ 3 (<span class="textrm"> mod </span>9)</span></div>
+<div class="line">Note: <span class="formula">108, 203, 925<span class="textrm">  mod </span>9 = 3</span></div>
 </div>
-<p>This works because <span class="formula">10<sup><i>n</i></sup> ≡ 1 (<span class="textrm"> mod </span>9)</span>.</p>
+<p>This works because <span class="formula">10<sup><i>n</i></sup> ≡ 1 (<span class="textrm"> mod </span>9)</span>.</p>
 <p>Consider&nbsp;758:</p>
 <div class="formula">
-758 = 7×100 + 5×10 + 8
+758 = 7 × 100 + 5 × 10 + 8
 </div>
 <div class="formula">
-758 = 7×(9 + 1)×(9 + 1) + 5×(9 + 1) + 8
+758 = 7 × (9 + 1) × (9 + 1) + 5 × (9 + 1) + 8
 </div>
 <div class="formula">
-758 = 7×(9<sup>2</sup> + 2×9 + 1) + 5×(9 + 1) + 8
+758 = 7 × (9<sup>2</sup> + 2 × 9 + 1) + 5 × (9 + 1) + 8
 </div>
 <p>Dropping the nines from each term leaves the digit sum,
 which is <em>congruent</em> to the original number modulo&nbsp;nine:</p>
 <div class="formula">
-7×1 + 5×1 + 8 = 7 + 5 + 8 = 20 ≡ 2 (<span class="textrm"> mod </span>9)
+7 × 1 + 5 × 1 + 8 = 7 + 5 + 8 = 20 ≡ 2 (<span class="textrm"> mod </span>9)
 </div>
-<p>Checking: <span class="formula">758<span class="textrm">  mod </span>9 = 2</span>.</p>
+<p>Checking: <span class="formula">758<span class="textrm">  mod </span>9 = 2</span>.</p>
 <p><a class="reference external" href="https://www.math.nyu.edu/faculty/hausner/congruence.pdf">Con&shy;gru&shy;ences</a> have a number of useful&nbsp;properties.</p>
 </div>
 <div class="section" id="casting-out-elevens">
 <h2>Casting Out&nbsp;Elevens</h2>
 <p>Let&#8217;s use 11, instead of 9.
-Since <span class="formula">10 = 11 − 1</span>, then <span class="formula">10<sup><i>n</i></sup> ≡  − 1<sup><i>n</i></sup> (<span class="textrm">mod </span>11)</span>.</p>
+Since <span class="formula">10 = 11 − 1</span>, then <span class="formula">10<sup><i>n</i></sup> ≡  − 1<sup><i>n</i></sup> (<span class="textrm">mod </span>11)</span>.</p>
 <p>Consider&nbsp;5234:</p>
 <div class="formula">
-5234 = 5×10<sup>3</sup> + 2×10<sup>2</sup> + 3×10<sup>1</sup> + 4×10<sup>0</sup>
+5234 = 5 × 10<sup>3</sup> + 2 × 10<sup>2</sup> + 3 × 10<sup>1</sup> + 4 × 10<sup>0</sup>
 </div>
 <div class="formula">
-5234 = 5×(11 − 1)×(11 − 1)×(11 − 1) + 2×(11 − 1)×(11 − 1) + 3×(11 − 1) + 4
+5234 = 5 × (11 − 1) × (11 − 1) × (11 − 1) + 2 × (11 − 1) × (11 − 1) + 3 × (11 − 1) + 4
 </div>
 <div class="formula">
-5234 = 5×(11<sup>3</sup> − 3×11<sup>2</sup>×1 + 3×11×1<sup>2</sup> − 1<sup>3</sup>) + 2×(11<sup>2</sup> − 2×11×1 + 1<sup>2</sup>) + 3×(11 − 1) + 4
+5234 = 5 × (11<sup>3</sup> − 3 × 11<sup>2</sup> × 1 + 3 × 11 × 1<sup>2</sup> − 1<sup>3</sup>) + 2 × (11<sup>2</sup> − 2 × 11 × 1 + 1<sup>2</sup>) + 3 × (11 − 1) + 4
 </div>
 <p>Dropping the elevens from each term leaves the al&shy;ter&shy;nat&shy;ing digit&nbsp;sum:</p>
 <div class="formula">
-5× − 1 + 2×1 + 3× − 1 + 4 =  − 5 + 2 − 3 + 4 =  − 2 ≡ 9 (<span class="textrm"> mod </span>11)
+5 ×  − 1 + 2 × 1 + 3 ×  − 1 + 4 =  − 5 + 2 − 3 + 4 =  − 2 ≡ 9 (<span class="textrm"> mod </span>11)
 </div>
 <p>It&#8217;s more convenient to proceed rightwards from the least sig&shy;nif&shy;i&shy;cant digit,
-<span class="formula">4 − 3 + 2 − 5</span>.</p>
-<p>Checking: <span class="formula">5234<span class="textrm">  mod </span>11 = 9</span>.</p>
+<span class="formula">4 − 3 + 2 − 5</span>.</p>
+<p>Checking: <span class="formula">5234<span class="textrm">  mod </span>11 = 9</span>.</p>
 <p>To cast out elevens,
 we calculate the <a class="reference external" href="https://en.wikipedia.org/wiki/Alternating_sum">al&shy;ter&shy;nat&shy;ing sum</a> <em>from right to left</em>.</p>
 <p>Casting out elevens catches some <a class="reference external" href="http://mathyear2013.blogspot.com/2013/01/casting-out-elevens.html">trans&shy;po&shy;si&shy;tion errors</a>, unlike casting out nines.
@@ -286,13 +286,13 @@ and <a class="reference external" href="https://en.wikipedia.org/wiki/Divisibili
 Nine bears the same re&shy;la&shy;tion&shy;ship
 to eight in octal,
 as eleven does to ten in decimal:
-<span class="formula">9<sub>10</sub> = 11<sub>8</sub></span>,
+<span class="formula">9<sub>10</sub> = 11<sub>8</sub></span>,
 base plus one,
-and <span class="formula">8<sup><i>n</i></sup> ≡  − 1<sup><i>n</i></sup> (<span class="textrm">mod </span>9)</span>.</p>
+and <span class="formula">8<sup><i>n</i></sup> ≡  − 1<sup><i>n</i></sup> (<span class="textrm">mod </span>9)</span>.</p>
 <p>We can calculate <span class="formula"><i>k</i><span class="textrm"> mod </span>9</span> in base 8 by al&shy;ter&shy;nate&shy;ly
 adding and sub&shy;tract&shy;ing the octal digits, from right to left.
 For example,
-<span class="formula">1234<sub>8</sub><span class="textrm">  mod </span>9 = 4 − 3 + 2 − 1 = 2</span>.
+<span class="formula">1234<sub>8</sub><span class="textrm">  mod </span>9 = 4 − 3 + 2 − 1 = 2</span>.
 This gives the right&nbsp;answer.</p>
 <p>Here&#8217;s a simple, albeit incomplete, algorithm in Go.
 We&#8217;re masking and shifting three bits at a time,
@@ -313,21 +313,21 @@ which is tantamount to working with the octal rep&shy;re&shy;sen&shy;ta&shy;tion
 </pre>
 <p>What about <span class="formula">617<sub>8</sub></span>?</p>
 <div class="formula">
-7 − 1 + 6 = 12 ≡ 3 (<span class="textrm"> mod </span>9)
+7 − 1 + 6 = 12 ≡ 3 (<span class="textrm"> mod </span>9)
 </div>
 <div class="formula">
-617<sub>8</sub><span class="textrm">  mod </span>9 = 3
+617<sub>8</sub><span class="textrm">  mod </span>9 = 3
 </div>
 <p>And <span class="formula">6172<sub>8</sub></span>?</p>
 <div class="formula">
-2 − 7 + 1 − 6 =  − 10 ≡ 8 (<span class="textrm"> mod </span>9)
+2 − 7 + 1 − 6 =  − 10 ≡ 8 (<span class="textrm"> mod </span>9)
 </div>
 <div class="formula">
-6172<sub>8</sub><span class="textrm">  mod </span>9 = 8
+6172<sub>8</sub><span class="textrm">  mod </span>9 = 8
 </div>
 <p>Almost&nbsp;there!</p>
 <blockquote>
-Casting out “octal-elevens” (<span class="formula">11<sub>8</sub> = 9<sub>10</sub></span>) in octal,
+Casting out “octal-elevens” (<span class="formula">11<sub>8</sub> = 9<sub>10</sub></span>) in octal,
 by an al&shy;ter&shy;nat&shy;ing sum of the base-eight digits,
 computes a small number
 <em>congruent</em> to the original number number modulo nine.</blockquote>
@@ -336,7 +336,7 @@ that are congruent to the correct answer modulo nine,
 but which may be outside the desired range.
 If the in&shy;ter&shy;me&shy;di&shy;ate sum dips below zero or rises above eight,
 we have to add nine or subtract nine re&shy;spec&shy;tive&shy;ly
-to keep the running total in the range <span class="formula">[0, 9)</span>.</p>
+to keep the running total in the range <span class="formula">[0, 9)</span>.</p>
 <p>Here&#8217;s a complete algorithm for Modulo 9 in Go,
 computing the al&shy;ter&shy;nat&shy;ing sum of the octal&nbsp;digits:</p>
 <pre class="code go literal-block">
@@ -396,14 +396,14 @@ There was no mention of it in Warren&#8217;s marvelous
 <p>I tried to come up with an analytic way to calculate the
 elements of the <span class="formula">9<i>x</i>4</span> table.
 The best that I found is
-<span class="formula">(72 − 8×(<i>k</i><span class="textrm"> mod </span>9) + 9×(<i>k</i><span class="textrm"> mod </span>4))<span class="textrm">  mod </span>36</span>!
-The inner expression yields a number in the range <span class="formula">[0, 99]</span>,
-which can be reduced to <span class="formula">[0, 36)</span>
+<span class="formula">(72 − 8 × (<i>k</i><span class="textrm"> mod </span>9) + 9 × (<i>k</i><span class="textrm"> mod </span>4))<span class="textrm">  mod </span>36</span>!
+The inner expression yields a number in the range <span class="formula">[0, 99]</span>,
+which can be reduced to <span class="formula">[0, 36)</span>
 by sub&shy;tract&shy;ing 36 at most twice.
 From <a class="reference external" href="http://www-cs-faculty.stanford.edu/~knuth/gkp.html">Concrete Math&shy;e&shy;mat&shy;ics</a>,
 mod 36 can be derived from mod 4 and mod 9
 by looking at the [0][1] and [1][0] elements of the table:
-<span class="formula">(9×(<i>k</i><span class="textrm"> mod </span>4) + 28×(<i>k</i><span class="textrm"> mod </span>9))<span class="textrm">  mod </span>36</span>.
+<span class="formula">(9 × (<i>k</i><span class="textrm"> mod </span>4) + 28 × (<i>k</i><span class="textrm"> mod </span>9))<span class="textrm">  mod </span>36</span>.
 It works, but it&#8217;s even worse.
 A table lookup is clearly more&nbsp;efficient.</p>
 <p>Most, if not all, of the computer ar&shy;chi&shy;tec&shy;tures
