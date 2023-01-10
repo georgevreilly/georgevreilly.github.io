@@ -195,6 +195,16 @@ def dump_links(permalink_titles, filename_links):
         print(f, filename_links[f])
 
 
+def convert_bool(value: str) -> bool:
+    v = value.lower()
+    if v in {"true", "yes", "1", "on"}:
+        return True
+    elif v in {"false", "no", "0", "off"}:
+        return False
+    else:
+        raise ValueError(f"{value} is not boolean")
+
+
 class ReMatcher(object):
     def __init__(self, value=None):
         self.value = value
@@ -209,6 +219,7 @@ class ReMatcher(object):
 
 title_re = re.compile(r"^.. title:: (?P<title>.*)$")
 tags_re = re.compile(r"^.. tags: (?P<tags>.*)$")
+draft_re = re.compile(r"^.. draft: (?P<draft>.*)$")
 vim_re = re.compile(r"^.. vim:set.*")
 emacs_re = re.compile(r"^.. -\*- .* -\*-")
 image_content_binary_re = re.compile(r"(?P<directive>.. image::) +(?P<path>content/binary/.*)$")
@@ -224,7 +235,7 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
     target_file, ext = os.path.splitext(os.path.split(fname)[1])
     target_file = os.path.join(subdirs, target_file)
 
-    data, title, tags, matcher = [], None, None, ReMatcher()
+    data, title, tags, draft, matcher = [], None, None, None, ReMatcher()
     with io.open(source_file, "r", encoding="utf8") as fp:
         while True:
             line = fp.readline()
@@ -240,6 +251,9 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
             elif matcher.match(tags_re, line):
                 tags = matcher.group('tags').strip()
                 continue
+            elif matcher.match(draft_re, line):
+                draft = convert_bool(matcher.group('draft').strip())
+                continue
 
             data.append(line)
 
@@ -251,6 +265,9 @@ def migrate_file(source_dir, base_dir, target_dir, fname, permalink):
             'permalink: "/blog{0}"'.format(permalink.replace(".aspx", ".html")),
         ] + (
             ['tags: {0}'.format(tags)] if tags else []
+        ) + [
+        ] + (
+            ['draft: true'] if draft else []
         ) + [
             "---",
         ]
