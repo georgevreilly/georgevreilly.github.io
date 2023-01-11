@@ -1,0 +1,44 @@
+---
+title: "Shell extension throwing R6034 errors"
+date: "2007-02-11"
+permalink: "/blog/2007/02/11/ShellExtensionThrowingR6034Errors.html"
+tags: [vim, windows]
+---
+
+
+
+.. image:: /content/binary/R6034.png
+    :alt: Shell extension throwing R6034 errors
+    :class: right-float
+
+I have been cleaning up some issues with the `Win64 port of Vim`_,
+including the *Edit with Vim* shell extension not working very well.
+When I built the shell extension with VS 2005 on x86, I would
+get the following whenever I right-clicked in Explorer::
+
+    Microsoft Visual C++ Runtime Library
+
+    Runtime Error!
+
+    Program: C:\WINDOWS\Explorer.EXE
+
+    R6034
+
+    An application has made an attempt to load the C runtime library incorrectly.
+    Please contact the application's support team for more information.
+
+There was no mention of which application was at fault,
+though it was obvious in this case.
+I have also seen some mention of ``verclsid`` in the error dialog,
+though not when I took this snapshot.
+
+The underlying problem relates to SxS, Fusion, and all that good stuff.
+By far the simplest fix was for me to statically link with ``libcmt.lib``,
+instead of ``msvcrt.lib``, rather than figure out the necessary
+manifest magic.
+
+.. _Win64 port of Vim:
+    /blog/2006/04/22/Win64PortOfVim.html
+
+.. _permalink:
+    /blog/2007/02/11/ShellExtensionThrowingR6034Errors.html
