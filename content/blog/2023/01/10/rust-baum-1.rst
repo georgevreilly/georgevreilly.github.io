@@ -99,9 +99,12 @@ but will be in future.
 I'm using ``String`` here, but ``OsString`` is probably a better choice,
 since it holds a `platform-native string`__.
 ``String`` has to be valid UTF-8; ``OsString`` doesn't.
-File and directory names are not guaranteed to be UTF-8.
+File and directory paths are not guaranteed to be UTF-8.
+Indeed, Unix file paths an `arbitrary sequence of bytes`__,
+while Windows file paths are an opaque sequence of 16-bit integers.
 
 __ https://doc.rust-lang.org/std/ffi/struct.OsString.html
+__ https://docs.rs/bstr/0.2.8/bstr/#file-paths-and-os-strings
 
 The obvious way to represent a file tree node in Rust
 is as an `enum`__ with three tuple-like variants.
@@ -209,6 +212,55 @@ __ https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort_by
         let a_name: String = a.path().file_name().unwrap().to_str().unwrap().into();
         let b_name: String = b.path().file_name().unwrap().to_str().unwrap().into();
         a_name.cmp(&b_name)
+    }
+
+The ``dir_walk`` function
+-------------------------
+
+.. code-block:: rust
+
+    pub fn dir_walk(
+        root: &PathBuf,
+        filter: fn(name: &str) -> bool,
+        compare: fn(a: &fs::DirEntry, b: &fs::DirEntry) -> Ordering,
+    ) -> io::Result<Directory> {
+        let mut entries: Vec<fs::DirEntry> = fs::read_dir(root)?.filter_map(|r| r.ok()).collect();
+        entries.sort_by(compare);
+        let mut directory: Vec<FileTreeNode> = Vec::with_capacity(entries.len());
+        for e in entries {
+            let path = e.path();
+            let name: String = path.file_name().unwrap().to_str().unwrap().into();
+            if !filter(&name) {
+                continue;
+            };
+            let metadata = fs::metadata(&path).unwrap();
+            let entry = match path {
+                path if path.is_dir() => {
+                    FileTreeNode::Directory(dir_walk(&root.join(name), filter, compare)?)
+                }
+                path if path.is_symlink() => FileTreeNode::Symlink(Symlink {
+                    name: name.into(),
+                    target: fs::read_link(path).unwrap().to_string_lossy().to_string(),
+                    metadata: metadata,
+                }),
+                path if path.is_file() => FileTreeNode::File(File {
+                    name: name.into(),
+                    metadata: metadata,
+                }),
+                _ => unreachable!(),
+            };
+            directory.push(entry);
+        }
+        let name = root
+            .file_name()
+            .unwrap_or(OsStr::new("."))
+            .to_str()
+            .unwrap()
+            .into();
+        Ok(Directory {
+            name: name,
+            entries: directory,
+        })
     }
 
 
