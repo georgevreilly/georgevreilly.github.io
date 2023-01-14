@@ -72,6 +72,7 @@ __ https://doc.rust-lang.org/std/fs/struct.FileType.html
 * ``Symlink`` has a name, a target, and metadata;
 * ``Directory`` has a name and a list of child file tree nodes.
 
+Here, *name* refers to the last component of a path.
 The file system metadata is not currently used,
 but will be in future.
 
@@ -96,12 +97,15 @@ but will be in future.
         pub entries: Vec<FileTreeNode>,
     }
 
-I'm using ``String`` here, but ``OsString`` is probably a better choice,
+File and directory paths are not guaranteed to be UTF-8.
+Indeed, Unix file paths are an arbitrary sequence of bytes,
+while Windows file paths are an opaque sequence of 16-bit integers.
+You might think that I should be using ``OsString`` here,
 since it holds a `platform-native string`__.
 ``String`` has to be valid UTF-8; ``OsString`` doesn't.
-File and directory paths are not guaranteed to be UTF-8.
-Indeed, Unix file paths an `arbitrary sequence of bytes`__,
-while Windows file paths are an opaque sequence of 16-bit integers.
+Unfortunately, it's not easy to look at the actual data in an ``OsString``,
+unless you convert it (possibly lossily) to a ``String``.
+See `File paths and OS strings`__ for more.
 
 __ https://doc.rust-lang.org/std/ffi/struct.OsString.html
 __ https://docs.rs/bstr/0.2.8/bstr/#file-paths-and-os-strings
@@ -156,7 +160,7 @@ We almost always want to skip `hidden files and directories`__\
 Every directory includes entries
 for ``.`` (itself) and ``..`` (parent directory),
 and may include other hidden files or directories,
-such as ``.python-version`` or ``.git``.
+such as ``.vimrc`` or ``.git``.
 
 __ https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory
 
@@ -199,6 +203,7 @@ Mac filesystems (APFS and HFS+) are case-insensitive by default,
 although they preserve the case of the original filename.
 Windows' filesystems (NTFS, exFAT, and FAT32)
 are `likewise`__ case-preserving and case-insensitive.
+Unix filesystems are case-sensitive.
 
 __ https://learn.microsoft.com/en-us/windows/win32/fileio/filesystem-functionality-comparison
 
@@ -217,6 +222,9 @@ __ https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort_by
 The ``dir_walk`` function
 -------------------------
 
+Finally, the recursive ``dir_walk`` function that
+creates the tree of ``FileTreeNode``\ s.
+
 .. code-block:: rust
 
     pub fn dir_walk(
@@ -224,19 +232,22 @@ The ``dir_walk`` function
         filter: fn(name: &str) -> bool,
         compare: fn(a: &fs::DirEntry, b: &fs::DirEntry) -> Ordering,
     ) -> io::Result<Directory> {
-        let mut entries: Vec<fs::DirEntry> = fs::read_dir(root)?.filter_map(|r| r.ok()).collect();
+        let mut entries: Vec<fs::DirEntry> = fs::read_dir(root)?
+            .filter_map(|result| result.ok())
+     ➊      .collect();                                                           
         entries.sort_by(compare);
         let mut directory: Vec<FileTreeNode> = Vec::with_capacity(entries.len());
         for e in entries {
             let path = e.path();
-            let name: String = path.file_name().unwrap().to_str().unwrap().into();
-            if !filter(&name) {
+     ➋      let name: String = path.file_name().unwrap().to_str().unwrap().into();
+     ➌      if !filter(&name) {
                 continue;
             };
             let metadata = fs::metadata(&path).unwrap();
-            let entry = match path {
+     ➍      let node = match path {
                 path if path.is_dir() => {
-                    FileTreeNode::Directory(dir_walk(&root.join(name), filter, compare)?)
+     ➎              FileTreeNode::Directory(
+                        dir_walk(&root.join(name), filter, compare)?)
                 }
                 path if path.is_symlink() => FileTreeNode::Symlink(Symlink {
                     name: name.into(),
@@ -249,24 +260,42 @@ The ``dir_walk`` function
                 }),
                 _ => unreachable!(),
             };
-            directory.push(entry);
+            directory.push(node);
         }
         let name = root
             .file_name()
-            .unwrap_or(OsStr::new("."))
+     ➏      .unwrap_or(OsStr::new("."))
             .to_str()
             .unwrap()
             .into();
-        Ok(Directory {
+     ➐  Ok(Directory {
             name: name,
             entries: directory,
         })
     }
 
+1. Read directory.
+   Discard any ``Error`` results.
+   Collect into a ``Vec``.
+2. This messy expression is necessary to get the *name* as a ``String``.
+3. Use ``filter`` to discard names that won't be visited.
+4. Match the path as a ``Directory``, ``Symlink``, or ``File`` node,
+   by using `match guards`__.
+5. Recurse into child directory.
+6. If ``root`` was ``"."``, the ``file_name()`` will be ``None``.
+7. Return a ``Directory`` for this directory.
+
+In **Part 2**, we'll print the directory tree.
+
+
+__ https://doc.rust-lang.org/book/ch18-03-pattern-syntax.html#extra-conditionals-with-match-guards
 
 .. pipe, elbow, tee
 .. _python tree generator:
     https://realpython.com/directory-tree-generator-python/
+
+.. _css draw tree:
+    https://two-wrongs.com/draw-a-tree-structure-with-only-css.html
 
 .. _permalink:
     /blog/2023/01/10/TreeInRust1WalkDirectories.html
