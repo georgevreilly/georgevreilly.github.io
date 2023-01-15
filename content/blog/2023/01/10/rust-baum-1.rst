@@ -72,7 +72,8 @@ __ https://doc.rust-lang.org/std/fs/struct.FileType.html
 * ``Symlink`` has a name, a target, and metadata;
 * ``Directory`` has a name and a list of child file tree nodes.
 
-Here, *name* refers to the last component of a path.
+Here, *name* refers to the last component of a path;
+e.g., the ``gamma`` in ``alpha/beta/gamma``.
 The file system metadata is not currently used,
 but will be in future.
 
@@ -94,7 +95,7 @@ but will be in future.
     #[derive(Debug)]
     pub struct Directory {
         pub name: String,
-        pub entries: Vec<FileTreeNode>,
+        pub entries: Vec<FileTree>,
     }
 
 File and directory paths are not guaranteed to be UTF-8.
@@ -118,13 +119,13 @@ __ https://hashrust.com/blog/why-rust-enums-are-so-cool/
 .. code-block:: rust
 
     #[derive(Debug)]
-    pub enum FileTreeNode {
-        Directory(Directory),
-        File(File),
-        Symlink(Symlink),
+    pub enum FileTree {
+        DirNode(Directory),
+        FileNode(File),
+        LinkNode(Symlink),
     }
 
-Here, each variant in the enum holds a struct of the same name.
+Here, each variant in the enum holds a struct of similar name.
 We will be able to take advantage of Rust's `pattern matching`__
 to handle each variant.
 
@@ -192,18 +193,19 @@ there's still a `cost to the syscall`__ to retrieve that data from the kernel.
 __ https://louwrentius.com/understanding-storage-performance-iops-and-latency.html 
 __ https://gms.tf/on-the-costs-of-syscalls.html
 
-There is `no specific order`__ to entries in a directory.
+There is `no specific order`__ to entries in a directory
+or to the results returned by low-level APIs like ``fs::read_dir``.
 By default, ``ls`` sorts entries alphabetically,
 but it can also sort by creation time, modification time, or size,
 in ascending or descending order.
 
 __ https://stackoverflow.com/a/8977490/6364
 
-Mac filesystems (APFS and HFS+) are case-insensitive by default,
+Unix filesystems are case-sensitive,
+but Mac filesystems (APFS and HFS+) are case-insensitive by default,
 although they preserve the case of the original filename.
 Windows' filesystems (NTFS, exFAT, and FAT32)
 are `likewise`__ case-preserving and case-insensitive.
-Unix filesystems are case-sensitive.
 
 __ https://learn.microsoft.com/en-us/windows/win32/fileio/filesystem-functionality-comparison
 
@@ -214,16 +216,21 @@ __ https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort_by
 .. code-block:: rust
 
     pub fn sort_by_name(a: &fs::DirEntry, b: &fs::DirEntry) -> Ordering {
-        let a_name: String = a.path().file_name().unwrap().to_str().unwrap().into();
-        let b_name: String = b.path().file_name().unwrap().to_str().unwrap().into();
+        let a_name: String =
+            a.path().file_name().unwrap().to_str().unwrap().into();     ➊
+        let b_name: String =
+            b.path().file_name().unwrap().to_str().unwrap().into();
         a_name.cmp(&b_name)
     }
+
+1. This messy expression is necessary to get the *name* as a ``String``.
+
 
 The ``dir_walk`` function
 -------------------------
 
 Finally, the recursive ``dir_walk`` function that
-creates the tree of ``FileTreeNode``\ s.
+creates the tree of ``FileTree`` nodes.
 
 .. code-block:: rust
 
@@ -234,27 +241,28 @@ creates the tree of ``FileTreeNode``\ s.
     ) -> io::Result<Directory> {
         let mut entries: Vec<fs::DirEntry> = fs::read_dir(root)?
             .filter_map(|result| result.ok())
-     ➊      .collect();                                                           
+            .collect();                                 ➊
         entries.sort_by(compare);
-        let mut directory: Vec<FileTreeNode> = Vec::with_capacity(entries.len());
+        let mut directory: Vec<FileTree> =
+            Vec::with_capacity(entries.len());          ➋
         for e in entries {
             let path = e.path();
-     ➋      let name: String = path.file_name().unwrap().to_str().unwrap().into();
-     ➌      if !filter(&name) {
+            let name: String = path.file_name().unwrap().to_str().unwrap().into();
+            if !filter(&name) {                         ➌
                 continue;
             };
             let metadata = fs::metadata(&path).unwrap();
-     ➍      let node = match path {
+            let node = match path {                     ➍
                 path if path.is_dir() => {
-     ➎              FileTreeNode::Directory(
+                    FileTree::DirNode(                  ➎
                         dir_walk(&root.join(name), filter, compare)?)
                 }
-                path if path.is_symlink() => FileTreeNode::Symlink(Symlink {
+                path if path.is_symlink() => FileTree::LinkNode(Symlink {
                     name: name.into(),
                     target: fs::read_link(path).unwrap().to_string_lossy().to_string(),
                     metadata: metadata,
                 }),
-                path if path.is_file() => FileTreeNode::File(File {
+                path if path.is_file() => FileTree::FileNode(File {
                     name: name.into(),
                     metadata: metadata,
                 }),
@@ -264,11 +272,11 @@ creates the tree of ``FileTreeNode``\ s.
         }
         let name = root
             .file_name()
-     ➏      .unwrap_or(OsStr::new("."))
+            .unwrap_or(OsStr::new("."))                 ➏
             .to_str()
             .unwrap()
             .into();
-     ➐  Ok(Directory {
+        Ok(Directory {                                  ➐
             name: name,
             entries: directory,
         })
@@ -277,11 +285,11 @@ creates the tree of ``FileTreeNode``\ s.
 1. Read directory.
    Discard any ``Error`` results.
    Collect into a ``Vec``.
-2. This messy expression is necessary to get the *name* as a ``String``.
+2. We'll need at most this many entries.
 3. Use ``filter`` to discard names that won't be visited.
-4. Match the path as a ``Directory``, ``Symlink``, or ``File`` node,
+4. Match the path as a ``DirNode``, ``LinkNode``, or ``FileNode``,
    by using `match guards`__.
-5. Recurse into child directory.
+5. Visit the subdirectory recursively.
 6. If ``root`` was ``"."``, the ``file_name()`` will be ``None``.
 7. Return a ``Directory`` for this directory.
 
