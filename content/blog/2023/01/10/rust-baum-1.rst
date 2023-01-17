@@ -227,7 +227,7 @@ __ https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort_by
 
 
 The ``dir_walk`` function
--------------------------
+=========================
 
 Finally, the recursive ``dir_walk`` function that
 creates the tree of ``FileTree`` nodes.
