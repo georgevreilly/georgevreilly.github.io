@@ -6,13 +6,14 @@ tags: [rust]
 draft: true
 ---
 
-In `Part 1`__, we saw how to walk directory trees,
+In `Part 1`_, we saw how to walk directory trees,
 recursively using ``fs::read_dir``
 to construct an in-memory tree of ``FileNode``\ s.
 In Part 2, we'll implement the rest of the core of the `tree command`_:
 printing the tree with `Box Drawing`_ characters.
 
-__ /blog/...
+.. _Part 1:
+    /blog/...
 .. _tree command:
     https://en.wikipedia.org/wiki/Tree_(command)
 .. _Box Drawing:
@@ -152,30 +153,55 @@ with the initial set of parameters to recursively visit.
 9. ``visit`` returns a tuple of the counts of directories and files
    that were recursively visited.
 
+One subtlety that is not obvious from the above is that
+``OTHER_CHILD`` actually contains two `non-breaking spaces`__:
+
+.. code-block:: rust
+
+    const OTHER_CHILD: &str = "│\u{00A0}\u{00A0} "; // prefix: pipe
+
+This is for compatibility with the output of ``tree``:
+
+.. code-block:: bash
+
+    $ diff <(cargo run -q -- ./tests) <(tree ./tests) && echo "no difference"
+    no difference
+
+Using `process substitution`__ to generate two different inputs for ``diff``.
+
 __ https://doc.rust-lang.org/reference/patterns.html#destructuring
+__ https://en.wikipedia.org/wiki/Non-breaking_space
+__ /blog/2022/01/31/DiffFileFragment.html
 
 
 The ``main`` function
-===========================
+=====================
+
+Let's tie it all together.
 
 .. code-block:: rust
 
     fn main() -> io::Result<()> {
         let root = env::args().nth(1).unwrap_or(".".to_string());   ➊
         let dir: Directory = dir_walk(                              ➋
-            &PathBuf::from(root.clone()),
+            &PathBuf::from(root.clone()),                           ➌
             is_not_hidden,
-            sort_by_name)?;
-        print_tree(&root, &dir);                                    ➌
-        Ok(())                                                      ➍
+            sort_by_name)?;                                         ➍
+        print_tree(&root, &dir);                                    ➎
+        Ok(())                                                      ➏
     }
 
 1. The simplest possible way to get a single, optional command-line argument.
    If omitted, we default to ``.``, the current directory.
-2. Use ``dir_walk`` from Part 1 to recursively build
+   For more sophisticated argument parsing, we could use Clap__.
+2. Use ``dir_walk`` from `Part 1`_ to recursively build
    a directory of ``FileTree`` nodes.
-   Use the `postfix question mark operator`__, ``?``, to propagate errors.
-3. Let ``print_tree`` draw the diagram.
-4. Return the empty ``Ok`` result to indicate success.
+3. Create a ``PathBuf`` from ``root``, a string;
+   ``clone`` is needed because ``PathBuf::from`` takes ownership of the string.
+   Use the ``is_not_hidden`` filter and the ``sort_by_name`` comparator.
+4. The `postfix question mark operator`__, ``?``, is used to propagate errors.
+5. Let ``print_tree`` draw the diagram.
+6. Return the empty ``Ok`` result to indicate success.
 
+__ https://docs.rs/clap/latest/clap/
 __ https://doc.rust-lang.org/reference/expressions/operator-expr.html#the-question-mark-operator
