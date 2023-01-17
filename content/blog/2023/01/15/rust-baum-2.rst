@@ -205,3 +205,12 @@ Let's tie it all together.
 
 __ https://docs.rs/clap/latest/clap/
 __ https://doc.rust-lang.org/reference/expressions/operator-expr.html#the-question-mark-operator
+
+
+Baum
+====
+
+You can find the Baum_ source code on GitHub.
+
+.. _Baum:
+    https://github.com/georgevreilly/baum
