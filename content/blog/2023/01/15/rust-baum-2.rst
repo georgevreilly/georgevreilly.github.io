@@ -27,11 +27,11 @@ Let's take a look at some output from ``tree``::
     ├── os
     │   ├── wasi
     │   │   ├── ffi.rs
-    │   │   ├── mod.rs
-    │   │   └── net
+    │   │   ├── mod.rs          ➊
+    │   │   └── net             ➋
     │   │       └── mod.rs
     │   └── windows
-    │       ├── ffi.rs
+    │       ├── ffi.rs          ➌
     │       ├── fs.rs
     │       ├── io
     │       │   └── tests.rs
@@ -47,8 +47,9 @@ Let's take a look at some output from ``tree``::
     └── personality.rs
 
 The first thing that we notice is that
-most entries at any level are preceded by ``├──``,
-while the last entry is preceded by ``└──``.
+most entries at any level, such as ➊,
+are preceded by ``├──``,
+while the last entry, ➋, is preceded by ``└──``.
 This article__ about building a directory tree generator
 in Python calls them the *tee* and *elbow* connectors,
 and I'm going to use that terminology.
@@ -59,13 +60,13 @@ either :literal:`│  \ ` (*pipe*) or
 :literal:`\    \ ` (*space*),
 one prefix for each level.
 The rule is that children of a last entry,
-such as ``os/windows``, get the space prefix,
+such as ``os/windows`` ➌, get the space prefix,
 while children of other entries,
 such as ``os/wasi`` or ``personality``,
 get the pipe prefix.
 
 For both connectors and prefixes,
-the last entry at a particular level gets different treatment.
+the last entry at a particular level gets special treatment.
 
 __ https://realpython.com/directory-tree-generator-python/
 
@@ -73,9 +74,12 @@ __ https://realpython.com/directory-tree-generator-python/
 The ``print_tree`` function
 ===========================
 
-A classic pattern with recursion is for
-an outer public function to call a hidden helper
-with the initial set of parameters to recursively visit.
+A classic pattern with recursion is to create a pair of functions:
+an outer public function that calls a private helper function
+with the initial set of parameters to visit recursively.
+
+Our ``print_tree`` function uses an inner ``visit`` function
+to recursively do almost all of the work.
 
 .. code-block:: rust
 
@@ -129,8 +133,8 @@ with the initial set of parameters to recursively visit.
    simply prints the name of the root node on a line by itself;
    calls the inner ``visit`` function with the ``dir`` node and an empty prefix;
    and finally prints the number of directories and files visited.
-   This is compatible with the output of ``tree``.
-2. The inner ``visit`` takes two parameters,
+   This is for compatibility with the output of ``tree``.
+2. The inner ``visit`` takes two parameters:
    ``node``, a ``Directory``, and
    ``prefix``, a string which is initially empty.
 3. Keep track of the number of ``dirs`` and ``files`` seen at this level
@@ -147,7 +151,7 @@ with the initial set of parameters to recursively visit.
    by appending the appropriate sub-prefix to the current prefix.
    If there are further entries (``count > 0``),
    the sub-prefix for the current level is :literal:`│  \ ` (*pipe*);
-   otherwise, it's spaces.
+   otherwise, it's :literal:`\    \ ` (*spaces*).
 8. Call ``visit`` recursively, then add to the
    running totals of ``dirs`` and ``files``.
 9. ``visit`` returns a tuple of the counts of directories and files
@@ -197,14 +201,15 @@ Let's tie it all together.
 2. Use ``dir_walk`` from `Part 1`_ to recursively build
    a directory of ``FileTree`` nodes.
 3. Create a ``PathBuf`` from ``root``, a string;
-   ``clone`` is needed because ``PathBuf::from`` takes ownership of the string.
-   Use the ``is_not_hidden`` filter and the ``sort_by_name`` comparator.
+   ``clone`` is needed because ``PathBuf::from`` takes ownership of the string buffer.
+   Use the ``is_not_hidden`` filter and the ``sort_by_name`` comparator from `Part 1`_.
 4. The `postfix question mark operator`__, ``?``, is used to propagate errors.
 5. Let ``print_tree`` draw the diagram.
-6. Return the empty ``Ok`` result to indicate success.
+6. Return the ``Ok`` unit__ result to indicate success.
 
 __ https://docs.rs/clap/latest/clap/
 __ https://doc.rust-lang.org/reference/expressions/operator-expr.html#the-question-mark-operator
+__ https://doc.rust-lang.org/std/primitive.unit.html 
 
 
 Baum
@@ -214,3 +219,30 @@ You can find the Baum_ source code on GitHub.
 
 .. _Baum:
     https://github.com/georgevreilly/baum
+
+In Part 3, we'll discuss testing.
+
+
+Resources
+=========
+
+* `Official tree source`_:
+  The actual source for ``tree``, written in old-school C.
+* `Draw a Tree Structure With Only CSS`_:
+  Use CSS to draw links in nested, unordered lists.
+* `Build a Python Directory Tree Generator for the Command Line`_.
+* Kevin Newton has implemented `Tree in Multiple Languages`_.
+* Tre_ is a modern alternative to ``tree`` in Rust.
+
+
+
+.. _Draw a Tree Structure With Only CSS:
+    https://two-wrongs.com/draw-a-tree-structure-with-only-css.html
+.. _Build a Python Directory Tree Generator for the Command Line:
+    https://realpython.com/directory-tree-generator-python/
+.. _Tree in Multiple Languages:
+    https://github.com/kddnewton/tree
+.. _Tre:
+    https://github.com/dduan/tre
+.. _Official tree source: 
+    https://github.com/Old-Man-Programmer/tree/

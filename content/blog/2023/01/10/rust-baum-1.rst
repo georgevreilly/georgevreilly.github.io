@@ -31,18 +31,19 @@ using some of the Unicode `Box Drawing`_ characters
 to show the hierarchical relationship,
 as in the image at right.
 
-I've split the code into two phases:
+I've split the code into two phases,
+which will be covered in two blog posts.
 
 1. Walking the directory tree on disk to build an in-memory tree.
 2. Pretty-printing the in-memory tree.
 
 While it's certainly possible to print a subtree as it's being read,
 separating the two phases
-yields code that is cleaner and simpler and more testable.
+yields code that is cleaner, simpler, and more testable.
 
 In future, I will insert a third phase, *processing*,
 between the reading and writing phases,
-by weak analogy with Extract-Transform-Load (`ETL`_).
+by a weak analogy with Extract-Transform-Load (`ETL`_).
 
 .. _Rust in Action:
     https://www.manning.com/books/rust-in-action
@@ -165,7 +166,7 @@ such as ``.vimrc`` or ``.git``.
 
 __ https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory
 
-On Windows, hidden files are controlled by an attribute__, not their name.
+On Windows, hidden files are controlled by an attribute__, not by their name.
 
 __ https://www.raymond.cc/blog/reset-system-and-hidden-attributes-for-files-or-folders-caused-by-virus/
 
@@ -220,10 +221,16 @@ __ https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort_by
             a.path().file_name().unwrap().to_str().unwrap().into();     ➊
         let b_name: String =
             b.path().file_name().unwrap().to_str().unwrap().into();
-        a_name.cmp(&b_name)
+        a_name.cmp(&b_name)                                             ➋
     }
 
 1. This messy expression is necessary to get the *name* as a ``String``.
+2. ``cmp`` returns ``Less``, ``Equal``, or ``Greater`` from the ``Ordering`` enum.
+
+More on ``Ordering`` here__.
+
+__ https://www.philipdaniels.com/blog/2019/rust-equality-and-ordering/
+
 
 
 The ``dir_walk`` function
@@ -236,25 +243,25 @@ creates the tree of ``FileTree`` nodes.
 
     pub fn dir_walk(
         root: &PathBuf,
-        filter: fn(name: &str) -> bool,
+        filter: fn(name: &str) -> bool,                 ➊
         compare: fn(a: &fs::DirEntry, b: &fs::DirEntry) -> Ordering,
     ) -> io::Result<Directory> {
         let mut entries: Vec<fs::DirEntry> = fs::read_dir(root)?
             .filter_map(|result| result.ok())
-            .collect();                                 ➊
+            .collect();                                 ➋
         entries.sort_by(compare);
         let mut directory: Vec<FileTree> =
-            Vec::with_capacity(entries.len());          ➋
+            Vec::with_capacity(entries.len());          ➌
         for e in entries {
             let path = e.path();
             let name: String = path.file_name().unwrap().to_str().unwrap().into();
-            if !filter(&name) {                         ➌
+            if !filter(&name) {                         ➍
                 continue;
             };
             let metadata = fs::metadata(&path).unwrap();
-            let node = match path {                     ➍
+            let node = match path {                     ➎
                 path if path.is_dir() => {
-                    FileTree::DirNode(                  ➎
+                    FileTree::DirNode(                  ➏
                         dir_walk(&root.join(name), filter, compare)?)
                 }
                 path if path.is_symlink() => FileTree::LinkNode(Symlink {
@@ -272,38 +279,36 @@ creates the tree of ``FileTree`` nodes.
         }
         let name = root
             .file_name()
-            .unwrap_or(OsStr::new("."))                 ➏
+            .unwrap_or(OsStr::new("."))                 ➐
             .to_str()
             .unwrap()
             .into();
-        Ok(Directory {                                  ➐
+        Ok(Directory {                                  ➑
             name: name,
             entries: directory,
         })
     }
 
-1. Read directory.
+1. Currently, the ``filter`` and ``compare`` parameters are ``fn``\ s.
+   They could probably be ``FnMut`` traits.
+2. Read directory.
    Discard any ``Error`` results.
    Collect into a ``Vec``.
-2. We'll need at most this many entries.
-3. Use ``filter`` to discard names that won't be visited.
-4. Match the path as a ``DirNode``, ``LinkNode``, or ``FileNode``,
+3. We'll need at most this many entries.
+4. Use ``filter`` to discard names that won't be visited.
+5. Match the path as a ``DirNode``, ``LinkNode``, or ``FileNode``,
    by using `match guards`__.
-5. Visit the subdirectory recursively.
-6. If ``root`` was ``"."``, the ``file_name()`` will be ``None``.
-7. Return a ``Directory`` for this directory.
+6. Visit the subdirectory recursively.
+7. If ``root`` was ``"."``, the ``file_name()`` will be ``None``.
+8. Return a ``Directory`` for this directory, wrapped in an ``io::Result``.
 
-In **Part 2**, we'll print the directory tree.
+In `Part 2`_, we'll print the directory tree.
 
 
 __ https://doc.rust-lang.org/book/ch18-03-pattern-syntax.html#extra-conditionals-with-match-guards
 
-.. pipe, elbow, tee
-.. _python tree generator:
-    https://realpython.com/directory-tree-generator-python/
-
-.. _css draw tree:
-    https://two-wrongs.com/draw-a-tree-structure-with-only-css.html
+.. _Part 2:
+    /blog/...
 
 .. _permalink:
     /blog/2023/01/10/TreeInRust1WalkDirectories.html
