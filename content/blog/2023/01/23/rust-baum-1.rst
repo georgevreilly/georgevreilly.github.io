@@ -1,11 +1,9 @@
 ---
 title: "Implementing the Tree command in Rust, part 1: Walking Directories"
-date: "2023-01-10"
-permalink: "/blog/2023/01/10/TreeInRust1WalkDirectories.html"
+date: "2023-01-23"
+permalink: "/blog/2023/01/23/TreeInRust1WalkDirectories.html"
 tags: [rust]
-draft: true
 ---
-
 
 
 .. image:: /content/binary/rust-core-src-num-tree.png

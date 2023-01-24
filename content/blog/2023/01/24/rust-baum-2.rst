@@ -1,7 +1,7 @@
 ---
 title: "Implementing the Tree command in Rust, part 2: Printing Trees"
-date: "2023-01-15"
-permalink: "/blog/2023/01/15/TreeInRust2PrintingTrees.html"
+date: "2023-01-24"
+permalink: "/blog/2023/01/24/TreeInRust2PrintingTrees.html"
 tags: [rust]
 draft: true
 ---
