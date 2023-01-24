@@ -29,6 +29,51 @@
     
         <article>
     <header>
+        <time datetime="2016-07-15">2016-07-15</time>
+        <h1>
+            <a href="/blog/2016/07/15/Elysium.html" rel="bookmark canonical">Review: Elysium</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Elysium_(film)"></a>
+<div class="line-block">
+<div class="line">Title: Elysium</div>
+<div class="line">Director: Neill Blomkamp</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Released: 2013</div>
+<div class="line">Keywords: sf</div>
+<div class="line">Watched: 15 July, 2016</div>
+</div>
+<p>By 2154, the rich have moved off-planet to a utopic habitat,
+while the teeming billions languish in slums below.
+Elysium has Med-Bays which can cure anything; Earth scrapes by.
+Max (Matt Damon), an ex-con des&shy;per&shy;ate&shy;ly in need of a cure,
+agrees to shoot down the shuttle of an Elysian <span class="caps">CEO</span> and hijack his brain.
+This lethal variety of industrial espionage leaves him holding the keys of the kingdom
+and makes him Los Angeles&#8217; most&nbsp;wanted.</p>
+<p>Blomkamp has taken the ever-growing gap that exists between rich and poor today,
+and ex&shy;ag&shy;ger&shy;at&shy;ed it into an un&shy;scaleable cliff
+with the have-nots <span>&#8230;<a href="/blog/2016/07/15/Elysium.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/15/Elysium.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/movies/" rel="tag">movies</a>
+                    and
+                    
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-07-14">2016-07-14</time>
         <h1>
             <a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" rel="bookmark canonical">SQLAlchemy got me Killed</a>
@@ -120,25 +165,25 @@ When dealing with URLs, we always want forward slashes,
 regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build <span class="caps">URL</span>&nbsp;paths.</p>
 <p>Running:</p>
 <pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="w">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-</span><span class="kn">from</span> <span class="nn">six.moves.urllib_parse</span> <span class="kn">import</span> <span class="n">urljoin</span> <span class="k">as</span> <span class="n">abs_urljoin</span><span class="w">
-</span><span class="kn">from</span> <span class="nn">posixpath</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">path_urljoin</span><span class="w">
+<span class="kn">from</span> <span class="nn">six.moves.urllib_parse</span> <span class="kn">import</span> <span class="n">urljoin</span> <span class="k">as</span> <span class="n">abs_urljoin</span>
+<span class="kn">from</span> <span class="nn">posixpath</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">path_urljoin</span>
 
-</span><span class="k">def</span> <span class="nf">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span><span class="w">
-</span>    <span class="k">return</span> <span class="n">abs_urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span><span class="w">
+<span class="k">def</span> <span class="nf">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">abs_urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 
-</span><span class="k">def</span> <span class="nf">test_join</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span><span class="w">
-</span>    <span class="n">result</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span><span class="w">
-</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;'</span><span class="si">{0}</span><span class="s2">' + '</span><span class="si">{1}</span><span class="s2">'</span><span class="se">\n\t</span><span class="s2">-&gt; '</span><span class="si">{2}</span><span class="s2">'&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span><span class="w">
-</span>    <span class="k">return</span> <span class="n">result</span><span class="w">
+<span class="k">def</span> <span class="nf">test_join</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;'</span><span class="si">{0}</span><span class="s2">' + '</span><span class="si">{1}</span><span class="s2">'</span><span class="se">\n\t</span><span class="s2">-&gt; '</span><span class="si">{2}</span><span class="s2">'&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">result</span>
 
-</span><span class="n">local_path</span> <span class="o">=</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="s1">'2016'</span><span class="p">,</span> <span class="s1">'07'</span><span class="p">,</span> <span class="s1">'12'</span><span class="p">,</span> <span class="s1">'release'</span><span class="p">,</span> <span class="s1">'index.html'</span><span class="p">)</span><span class="w">
+<span class="n">local_path</span> <span class="o">=</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="s1">'2016'</span><span class="p">,</span> <span class="s1">'07'</span><span class="p">,</span> <span class="s1">'12'</span><span class="p">,</span> <span class="s1">'release'</span><span class="p">,</span> <span class="s1">'index.html'</span><span class="p">)</span>
 
-</span><span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="s1">'foo/bar/quux.js'</span><span class="p">)</span><span class="w">
-</span><span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span><span class="w">
-</span><span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span><span class="w">
-</span><span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/prefix'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="s1">'foo/bar/quux.js'</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/prefix'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
 </pre>
 <p>Yields:</p>
 <pre class="literal-block">
@@ -389,10 +434,10 @@ As one of the many variants of <a class="reference external" href="http://tldp.o
 Bash supports <tt class="docutils literal">${var/Pattern/Re&shy;place&shy;men&shy;t}</tt>:
 “first match of <tt class="docutils literal">Pattern</tt> within <tt class="docutils literal">var</tt> replaced with <tt class="docutils literal">Re&shy;place&shy;ment</tt>.”</p>
 <pre class="code bash literal-block">
-<span class="k">for</span><span class="w"> </span>f<span class="w"> </span><span class="k">in</span><span class="w"> </span>*.png.jpg<span class="p">;</span><span class="w">
-</span><span class="k">do</span><span class="w">
-    </span>mv<span class="w"> </span><span class="nv">$f</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">f</span><span class="p">/.png</span><span class="si">}</span><span class="s2">&quot;</span><span class="w">
-</span><span class="k">done</span>
+<span class="k">for</span> f <span class="k">in</span> *.png.jpg<span class="p">;</span>
+<span class="k">do</span>
+    mv <span class="nv">$f</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">f</span><span class="p">/.png</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
 </pre>
 <p>The target expression could also have been written as <tt class="docutils literal"><span class="pre">&quot;${f/.png.jpg/.jpg}&quot;</span></tt></p>
 
@@ -406,57 +451,6 @@ Bash supports <tt class="docutils literal">${var/Pattern/Re&shy;place&shy;men&sh
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-05">2016-07-05</time>
-        <h1>
-            <a href="/blog/2016/07/05/ReviewFlashmansLady.html" rel="bookmark canonical">Review: Flashman's Lady</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/0452264898/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Flashman&#8217;s Lady</div>
-<div class="line">Author: George MacDonald Fraser</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Plume</div>
-<div class="line">Copyright: 1977</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0452264898/?tag=georgvreill-20">0452264898</a></div>
-<div class="line">Pages: 330</div>
-<div class="line">Keywords: historical fiction, humor</div>
-<div class="line">Reading period: 24–29 June, 2016</div>
-<div class="line"><a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a> <span class="caps">VI</span>: 1842–45</div>
-</div>
-<p><a class="reference external" href="https://en.wikipedia.org/wiki/Flashman%27s_Lady">Flashman&#8217;s Lady</a> takes place between the two parts of <a class="reference external" href="/blog/2016/06/26/ReviewRoyalFlash.html">Royal Flash</a>,
-making it the third book chrono&shy;log&shy;i&shy;cal&shy;ly of the <a class="reference external" href="https://en.wikipedia.org/wiki/The_Flashman_Papers">Flashman Papers</a>
-and the sixth book&nbsp;published.</p>
-<p>Flashman and his wife, Elspeth, become friendly with Don Solomon Haslam,
-a rich merchant from the East Indies.
-Losing a wager to Haslam, who is smitten with Elspeth,
-Flashy has to let Haslam take Elspeth and her father on a trip to Singapore.
-As things have become hot for him in England, he sails east with them.
-Haslam&#8217;s feelings for <span>&#8230;<a href="/blog/2016/07/05/ReviewFlashmansLady.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/05/ReviewFlashmansLady.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/fiction/" rel="tag">fiction</a>,
-                <a href="/tag/history/" rel="tag">history</a>
-                    and
-                    
-                <a href="/tag/humor/" rel="tag">humor</a>
                 
             </p>
         

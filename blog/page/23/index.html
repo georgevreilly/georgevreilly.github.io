@@ -29,6 +29,53 @@
     
         <article>
     <header>
+        <time datetime="2016-03-24">2016-03-24</time>
+        <h1>
+            <a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" rel="bookmark canonical">Raising IOError for 'file not found'</a>
+        </h1>
+    </header>
+    <p>I wanted to raise Python&#8217;s <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.IOError">IOError</a> for a file-not-found condition,
+but it wasn&#8217;t obvious what the parameters to the exception should&nbsp;be.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">errno</span> <span class="kn">import</span> <span class="n"><span class="caps">ENOENT</span></span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">source_file</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n"><span class="caps">ENOENT</span></span><span class="p">,</span> <span class="s1">'Not a file'</span><span class="p">,</span> <span class="n">source_file</span><span class="p">)</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre>
+<p><tt class="docutils literal">IOError</tt> can be in&shy;stan&shy;ti&shy;at&shy;ed with 1, 2, or 3&nbsp;arguments:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal">IOError(errno, strerror, filename)</tt></dt>
+<dd>These arguments are available
+on the <tt class="docutils literal">errno</tt>, <tt class="docutils literal">strerror</tt>, and <tt class="docutils literal">filename</tt> attributes of the exception object,
+re&shy;spec&shy;tive&shy;ly, in both Python 2 and 3.
+The <tt class="docutils literal">args</tt> attribute contains the verbatim con&shy;struc&shy;tor arguments as a&nbsp;tuple.</dd>
+<dt><tt class="docutils literal">IOError(errno, strerror)</tt></dt>
+<dd>These are available on the <tt class="docutils literal">errno</tt> and <tt class="docutils literal">strerror</tt> attributes of the exception,
+re&shy;spec&shy;tive&shy;ly, in both Python 2 and 3,
+while the <tt class="docutils literal">filename</tt> <span>&#8230;<a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" class="continue">continue</a>.</span></dd></dl>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/24/RaisingIOErrorForFileNotFound.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-03-23">2016-03-23</time>
         <h1>
             <a href="/blog/2016/03/23/MoleRemoval.html" rel="bookmark canonical">Mole Removal</a>
@@ -314,28 +361,28 @@ and the body count&nbsp;rises.</p>
     <p>Various Bash guides recommend putting quotes around just about everything.
 I had a script that contained this&nbsp;line:</p>
 <pre class="code bash literal-block">
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>--yes<span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$<span class="caps">BUILD</span></span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span>
+sudo apt-get install --yes <span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$<span class="caps">BUILD</span></span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span>
 </pre>
 <p>While refac&shy;tor&shy;ing, I put another set of quotes around the <tt class="docutils literal">$(cat <span class="pre">...)</span></tt>
 out of an abundance of&nbsp;caution:</p>
 <pre class="code bash literal-block">
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>--yes<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$<span class="caps">BUILD</span></span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+sudo apt-get install --yes <span class="s2">&quot;</span><span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$<span class="caps">BUILD</span></span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
 </pre>
 <p>Several other changes later, I couldn&#8217;t figure out why my script had stopped&nbsp;working.</p>
 <p>Here&#8217;s what&nbsp;happened:</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>cat<span class="w"> </span><span class="nv">$<span class="caps">HOME</span></span>/tmp/demo.txt<span class="w">
-</span>foo<span class="w">
-</span>bar<span class="w">
-</span>quux<span class="w">
+$ cat <span class="nv">$<span class="caps">HOME</span></span>/tmp/demo.txt
+foo
+bar
+quux
 
-</span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$<span class="caps">HOME</span></span><span class="s2">/tmp/demo.txt&quot;</span><span class="k">)</span><span class="w">
-</span>foo<span class="w"> </span>bar<span class="w"> </span>quux<span class="w">
+$ <span class="nb">echo</span> <span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$<span class="caps">HOME</span></span><span class="s2">/tmp/demo.txt&quot;</span><span class="k">)</span>
+foo bar quux
 
-</span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span><span class="nv">$<span class="caps">HOME</span></span>/tmp/demo.txt<span class="k">)</span><span class="s2">&quot;</span><span class="w">
-</span>foo<span class="w">
-</span>bar<span class="w">
-</span>quux
+$ <span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>cat <span class="nv">$<span class="caps">HOME</span></span>/tmp/demo.txt<span class="k">)</span><span class="s2">&quot;</span>
+foo
+bar
+quux
 </pre>
 <p>The new outer quotes retained the newlines;
 the original replaced newlines with&nbsp;spaces.</p>
@@ -434,44 +481,6 @@ Eventually, late on the night of my <span>&#8230;<a href="/blog/2016/03/15/25Yea
         
             <p>tagged as
                 <a href="/tag/bi/" rel="tag">bi</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-03-14">2016-03-14</time>
-        <h1>
-            <a href="/blog/2016/03/14/HappyPiDay.html" rel="bookmark canonical">Happy Pi Day</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Pi"></a>
-<p>3/14 is considered to be <a class="reference external" href="https://en.wikipedia.org/wiki/Pi_Day">Pi Day</a> by many geeks, as <a class="reference external" href="https://en.wikipedia.org/wiki/Pi">π</a> is ap&shy;prox&shy;i&shy;mate&shy;ly 3.14.
-I wish I could say that I had celebrated by eating pie,
-but I&nbsp;didn&#8217;t.</p>
-<p>π is surely the most important irrational number,
-which has been known since&nbsp;antiquity.</p>
-<p>π shows up in so many different formulas.
-My own favorite is <a class="reference external" href="https://en.wikipedia.org/wiki/Euler%27s_identity">Euler&#8217;s Identity</a>,
-<span class="formula"><i>e</i><sup><i>i</i><i>π</i></sup> + 1 = 0</span>.
-(This marks the first use of the <a class="reference external" href="http://docutils.sourceforge.net/docs/ref/rst/roles.html#math">re&shy;Struc&shy;tured&shy;Text math role</a> in my&nbsp;blog.)</p>
-<p>I am also find of the ap&shy;prox&shy;i&shy;mate fraction <span class="formula">355 ⁄ 113</span>.</p>
-<p>The <a class="reference external" href="https://en.wikipedia.org/wiki/Pi">Wikipedia article on π</a> has much more on&nbsp;π.</p>
-<p><strong>Update</strong>:
-<a class="reference external" href="https://www.washingtonpost.com/news/wonk/wp/2015/03/14/10-stunning-images-show-the-beauty-hidden-in-pi/">Wonkblog: 10 stunning images show the beauty hidden in&nbsp;pi</a></p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/14/HappyPiDay.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/math/" rel="tag">math</a>
                 
             </p>
         

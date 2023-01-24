@@ -29,6 +29,57 @@
     
         <article>
     <header>
+        <time datetime="2015-12-26">2015-12-26</time>
+        <h1>
+            <a href="/blog/2015/12/26/ReviewTheMagicians.html" rel="bookmark canonical">Review: The Magicians</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.amazon.com/dp/0670020559/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: The Magicians</div>
+<div class="line">Author: Lev Grossman</div>
+<div class="line">Rating: ★ ★ ★ ★ ½</div>
+<div class="line">Publisher: Plume</div>
+<div class="line">Copyright: 2009</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0670020559/?tag=georgvreill-20">0670020559</a></div>
+<div class="line">Pages: 402</div>
+<div class="line">Keywords: adult fantasy</div>
+<div class="line">Reading period: 20–26 December, 2015</div>
+</div>
+<p>Take a heavy dose of <a class="reference external" href="https://en.wikipedia.org/wiki/The_Chronicles_of_Narnia">Narnia</a>,
+add a hefty dollop of <a class="reference external" href="https://en.wikipedia.org/wiki/Harry_Potter">Harry Potter</a>,
+stir in some <a class="reference external" href="https://en.wikipedia.org/wiki/Bret_Easton_Ellis">Bret Easton Ellis</a>
+and a dash of <a class="reference external" href="https://en.wikipedia.org/wiki/The_Catcher_in_the_Rye">The Catcher in the Rye</a>,
+then cook for adults.
+That glib de&shy;scrip&shy;tion short&shy;changes <a class="reference external" href="https://en.wikipedia.org/wiki/The_Magicians_(Grossman_novel)">The Magicians</a>,
+even though Fillory clearly owes a major debt to Narnia
+and the preppy Brakebills College for Magical Pedagogy somewhat resembles&nbsp;Hogwarts.</p>
+<p>Quentin Coldwater is an over&shy;achiev&shy;ing, solitary math nerd from Brooklyn,
+who thinks he&#8217;s attending an entrance interview for Princeton
+but instead gains admittance to Brakebills.
+Magic turns out to be real, but difficult, requiring <span>&#8230;<a href="/blog/2015/12/26/ReviewTheMagicians.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/26/ReviewTheMagicians.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/fantasy/" rel="tag">fantasy</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-12-25">2015-12-25</time>
         <h1>
             <a href="/blog/2015/12/25/Christmas.html" rel="bookmark canonical">Christmas</a>
@@ -106,13 +157,13 @@ The script may be run more than once during the lifetime of the agent,
 so the second and subsequent calls should not upgrade&nbsp;Docker.</p>
 <p>Basically, I&nbsp;wanted</p>
 <pre class="code bash literal-block">
-<span class="k">if</span><span class="w"> </span><span class="nv">$DOCKER_VERSION</span><span class="w"> </span>&lt;<span class="w"> </span><span class="m">1</span>.9<span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span>upgrade_docker<span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="k">if</span> <span class="nv">$DOCKER_VERSION</span> &lt; <span class="m">1</span>.9<span class="p">;</span> <span class="k">then</span> upgrade_docker<span class="p">;</span> <span class="k">fi</span>
 </pre>
 <p>Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s not that easy in Bash.
 Here&#8217;s what I came up&nbsp;with.</p>
 <pre class="code bash literal-block">
-install_latest_docker<span class="o">()</span><span class="w"> </span><span class="o">{</span><span class="w">
-    </span><span class="k">if</span><span class="w"> </span>docker<span class="w"> </span>--version<span class="w"> </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;min=[1, 9]; import sys; ↩
+install_latest_docker<span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> docker --version <span class="p">|</span> python -c <span class="s2">&quot;min=[1, 9]; import sys; ↩
 v=[int(x) for x in </span></pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
     <footer>
         
@@ -205,10 +256,10 @@ include models/*.json
 <p>Then be sure to set <tt class="docutils literal">in&shy;clude_&shy;pack&shy;age_&shy;da&shy;ta=True</tt>
 in the call to <tt class="docutils literal">setup()</tt>:</p>
 <pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span><span class="w">
+<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
 
-</span><span class="n">setup</span><span class="p">(</span><span class="w">
-</span> </pre><span>&#8230;<a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" class="continue">continue</a>.</span></div>
+<span class="n">setup</span><span class="p">(</span>
+ </pre><span>&#8230;<a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" class="continue">continue</a>.</span></div>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/21/IncludingDataFilesInPythonPackages.html#disqus_thread">Comment</a>
@@ -366,97 +417,6 @@ for Star Wars: The Force Turns Over in Bed and Goes Back To&nbsp;Sleep.</p>
         
             <p>tagged as
                 <a href="/tag/humor/" rel="tag">humor</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-16">2015-12-16</time>
-        <h1>
-            <a href="/blog/2015/12/16/ReviewSaxonTales.html" rel="bookmark canonical">Review: The Saxon Tales by Bernard Cornwell</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/0060887184/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Last Kingdom</div>
-<div class="line">Book: 1</div>
-<div class="line">Author: Bernard Cornwell</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Harper</div>
-<div class="line">Copyright: 2004</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0060887184/?tag=georgvreill-20">0060887184</a></div>
-<div class="line">Pages: 368</div>
-<div class="line">Keywords: historical fiction</div>
-<div class="line">Reading period: 9–17 November, 2015</div>
-</div>
-<a class="reference external image-reference" href="https://www.amazon.com/dp/0061144835/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Pale Horseman</div>
-<div class="line">Book: 2</div>
-<div class="line">Author: Bernard Cornwell</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Harper</div>
-<div class="line">Copyright: 2005</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0061144835/?tag=georgvreill-20">0061144835</a></div>
-<div class="line">Pages: 384</div>
-<div class="line">Keywords: historical fiction</div>
-<div class="line">Reading period: 18–20 November, 2015</div>
-</div>
-<a class="reference external image-reference" href="https://www.amazon.com/dp/0061149047/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Lords of the North</div>
-<div class="line">Book: 3</div>
-<div class="line">Author: Bernard Cornwell</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Harper</div>
-<div class="line">Copyright: 2006</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0061149047/?tag=georgvreill-20">0061149047</a></div>
-<div class="line">Pages: 332</div>
-<div class="line">Keywords: historical fiction</div>
-<div class="line">Reading period: 21–23 November, 2015</div>
-</div>
-<a class="reference external image-reference" href="https://www.amazon.com/dp/0061379743/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Sword Song: The Battle for London</div>
-<div class="line">Book: 4</div>
-<div class="line">Author: Bernard Cornwell</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Harper</div>
-<div class="line">Copyright: 2007</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0061379743/?tag=georgvreill-20">0061379743</a></div>
-<div class="line">Pages: 368</div>
-<div class="line">Keywords: historical fiction</div>
-<div class="line">Reading period: 24–26 November, 2015</div>
-</div>
-<a class="reference external image-reference" href="https://www.amazon.com/dp/0061379743/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Burning Land</div>
-<div class="line">Book: 5</div>
-<div class="line">Author: Bernard Cornwell</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Harper</div>
-<div class="line">Copyright: 2009</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0061379743/?tag=georgvreill-20">0061379743</a></div>
-<div class="line">Pages: 345</div>
-<div class="line">Keywords: <span>&#8230;<a href="/blog/2015/12/16/ReviewSaxonTales.html" class="continue">continue</a>.</span></div></div>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/16/ReviewSaxonTales.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/fiction/" rel="tag">fiction</a>
-                    and
-                    
-                <a href="/tag/history/" rel="tag">history</a>
                 
             </p>
         

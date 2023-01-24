@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Implementing the Tree command in Rust, part 2: Printing Trees</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content="In `Part 1`_, we saw how to walk directory trees,..." />
+    <meta name="keywords" content="rust" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2023-01-24">2023-01-24</time>
+        <h1>
+            <a href="/blog/2023/01/24/TreeInRust2PrintingTrees.html" rel="bookmark canonical">Implementing the Tree command in Rust, part 2: Printing Trees</a>
+        </h1>
+    </header>
+    <p>In <a class="reference external" href="/blog/...">Part 1</a>, we saw how to walk directory trees,
+re&shy;cur&shy;sive&shy;ly using <tt class="docutils literal"><span class="pre">fs::read_dir</span></tt>
+to construct an in-memory tree of <tt class="docutils literal">FileNode</tt>s.
+In Part 2, we&#8217;ll implement the rest of the core of the <a class="reference external" href="https://en.wikipedia.org/wiki/Tree_(command)">tree command</a>:
+printing the tree with <a class="reference external" href="https://www.compart.com/en/unicode/block/U+2500">Box Drawing</a>&nbsp;characters.</p>
+<p>Let&#8217;s take a look at some output from <tt class="docutils literal">tree</tt>:</p>
+<pre class="literal-block">
+.
+├── alloc.rs
+├── ascii.rs
+├── os
+│&nbsp;&nbsp; ├── wasi
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── ffi.rs
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── mod.rs          ➊
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── net             ➋
+│&nbsp;&nbsp; │&nbsp;&nbsp;     └── mod.rs
+│&nbsp;&nbsp; └── windows
+│&nbsp;&nbsp;     ├── ffi.rs          ➌
+│&nbsp;&nbsp;     ├── fs.rs
+│&nbsp;&nbsp;     ├── io
+│&nbsp;&nbsp;     │&nbsp;&nbsp; └── tests.rs
+│&nbsp;&nbsp;     ├── mod.rs
+│&nbsp;&nbsp;     └── thread.rs
+├── personality
+│&nbsp;&nbsp; ├── dwarf
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── eh.rs
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── mod.rs
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── tests.rs
+│&nbsp;&nbsp; ├── emcc.rs
+│&nbsp;&nbsp; └── gcc.rs
+└── personality.rs
+</pre>
+<p>The first thing that we notice is that
+most entries at any level, such as ➊,
+are preceded by <tt class="docutils literal">├──</tt>,
+while the last entry, ➋, is preceded by <tt class="docutils literal">└──</tt>.
+This <a class="reference external" href="https://realpython.com/directory-tree-generator-python/">article</a> about building a directory tree generator
+in Python calls them the <em>tee</em> and <em>elbow</em> connectors,
+and I&#8217;m going to use that&nbsp;ter&shy;mi&shy;nol&shy;o&shy;gy.</p>
+<p>The second thing we notice is that there are
+multiple <em>prefixes</em> before the connectors,
+either <tt class="docutils literal">│&nbsp;&nbsp;</tt>&nbsp;(<em>pipe</em>) or
+<tt class="docutils literal">&nbsp;&nbsp; </tt>&nbsp;(<em>space</em>),
+one prefix for each level.
+The rule is that children of a last entry,
+such as <tt class="docutils literal">os/windows</tt> ➌, get the space prefix,
+while children of other entries,
+such as <tt class="docutils literal">os/wasi</tt> or <tt class="docutils literal">per&shy;son&shy;al&shy;i&shy;ty</tt>,
+get the pipe&nbsp;prefix.</p>
+<p>For both connectors and prefixes,
+the last entry at a particular level gets special&nbsp;treatment.</p>
+<div class="section" id="the-print-tree-function">
+<h2>The <tt class="docutils literal">print_tree</tt> function</h2>
+<p>A classic pattern with recursion is to create a pair of functions:
+an outer public function that calls a private helper function
+with the initial set of parameters to visit&nbsp;re&shy;cur&shy;sive&shy;ly.</p>
+<p>Our <tt class="docutils literal">print_tree</tt> function uses an inner <tt class="docutils literal">visit</tt> function
+to re&shy;cur&shy;sive&shy;ly do almost all of the&nbsp;work.</p>
+<pre class="code rust literal-block">
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">print_tree</span><span class="p">(</span><span class="n">root</span>: <span class="kp">&amp;</span><span class="kt">str</span><span class="p">,</span><span class="w"> </span><span class="n">dir</span>: <span class="kp">&amp;</span><span class="nc">Directory</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="k">const</span><span class="w"> </span><span class="n">OTHER_CHILD</span>: <span class="kp">&amp;</span><span class="kt">str</span> <span class="o">=</span><span class="w"> </span><span class="s">&quot;│   &quot;</span><span class="p">;</span><span class="w">   </span><span class="c1">// prefix: pipe
+</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">OTHER_ENTRY</span>: <span class="kp">&amp;</span><span class="kt">str</span> <span class="o">=</span><span class="w"> </span><span class="s">&quot;├── &quot;</span><span class="p">;</span><span class="w">   </span><span class="c1">// connector: tee
+</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">FINAL_CHILD</span>: <span class="kp">&amp;</span><span class="kt">str</span> <span class="o">=</span><span class="w"> </span><span class="s">&quot;    &quot;</span><span class="p">;</span><span class="w">   </span><span class="c1">// prefix: no more siblings
+</span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">FINAL_ENTRY</span>: <span class="kp">&amp;</span><span class="kt">str</span> <span class="o">=</span><span class="w"> </span><span class="s">&quot;└── &quot;</span><span class="p">;</span><span class="w">   </span><span class="c1">// connector: elbow
+</span><span class="w">
+    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">root</span><span class="p">);</span><span class="w">                                           </span><span class="err">➊</span><span class="w">
+    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">visit</span><span class="p">(</span><span class="n">dir</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">);</span><span class="w">
+    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">{} directories, {} files&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">);</span><span class="w">
+
+    </span><span class="k">fn</span> <span class="nf">visit</span><span class="p">(</span><span class="n">node</span>: <span class="kp">&amp;</span><span class="nc">Directory</span><span class="p">,</span><span class="w"> </span><span class="n">prefix</span>: <span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="p">(</span><span class="kt">usize</span><span class="p">,</span><span class="w"> </span><span class="kt">usize</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">    </span><span class="err">➋</span><span class="w">
+        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">dirs</span>: <span class="kt">usize</span> <span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="c1">// counting this directory         ➌
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">files</span>: <span class="kt">usize</span> <span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">node</span><span class="p">.</span><span class="n">entries</span><span class="p">.</span><span class="n">len</span><span class="p">();</span><span class="w">                         </span><span class="err">➍</span><span class="w">
+        </span><span class="k">for</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">&amp;</span><span class="n">node</span><span class="p">.</span><span class="n">entries</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="n">count</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+            </span><span class="kd">let</span><span class="w"> </span><span class="n">connector</span><span class="w"> </span><span class="o">=</span><span class="w">
+                </span><span class="k">if</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">FINAL_ENTRY</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">OTHER_ENTRY</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="err">➎</span><span class="w">
+            </span><span class="k">match</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">FileTree</span>::<span class="n">DirNode</span><span class="p">(</span><span class="n">sub_dir</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">                     </span><span class="err">➏</span><span class="w">
+                    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{}{}{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">prefix</span><span class="p">,</span><span class="w"> </span><span class="n">connector</span><span class="p">,</span><span class="w"> </span><span class="n">sub_dir</span><span class="p">.</span><span class="n">name</span><span class="p">);</span><span class="w">
+                    </span><span class="kd">let</span><span class="w"> </span><span class="n">new_prefix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">format!</span><span class="p">(</span><span class="w">                       </span><span class="err">➐</span><span class="w">
+                        </span><span class="s">&quot;{}{}&quot;</span><span class="p">,</span><span class="w">
+                        </span><span class="n">prefix</span><span class="p">,</span><span class="w">
+                        </span><span class="k">if</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">FINAL_CHILD</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">OTHER_CHILD</span><span class="w"> </span><span class="p">}</span><span class="w">
+                    </span><span class="p">);</span><span class="w">
+                    </span><span class="kd">let</span><span class="w"> </span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">visit</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sub_dir</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">new_prefix</span><span class="p">);</span><span class="w">      </span><span class="err">➑</span><span class="w">
+                    </span><span class="n">dirs</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">d</span><span class="p">;</span><span class="w">
+                    </span><span class="n">files</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">f</span><span class="p">;</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+                </span><span class="n">FileTree</span>::<span class="n">LinkNode</span><span class="p">(</span><span class="n">symlink</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="fm">println!</span><span class="p">(</span><span class="w">
+                        </span><span class="s">&quot;{}{}{} -&gt; {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">prefix</span><span class="p">,</span><span class="w"> </span><span class="n">connector</span><span class="p">,</span><span class="w">
+                        </span><span class="n">symlink</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">symlink</span><span class="p">.</span><span class="n">target</span><span class="p">);</span><span class="w">
+                    </span><span class="n">files</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+                </span><span class="n">FileTree</span>::<span class="n">FileNode</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&quot;{}{}{}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">prefix</span><span class="p">,</span><span class="w"> </span><span class="n">connector</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="p">.</span><span class="n">name</span><span class="p">);</span><span class="w">
+                    </span><span class="n">files</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+        </span><span class="p">(</span><span class="n">dirs</span><span class="p">,</span><span class="w"> </span><span class="n">files</span><span class="p">)</span><span class="w">                                               </span><span class="err">➒</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span>
+</pre>
+<ol class="arabic simple">
+<li>The outer function, <tt class="docutils literal">print_tree</tt>,
+simply prints the name of the root node on a line by itself;
+calls the inner <tt class="docutils literal">visit</tt> function with the <tt class="docutils literal">dir</tt> node and an empty prefix;
+and finally prints the number of di&shy;rec&shy;to&shy;ries and files visited.
+This is for com&shy;pat&shy;i&shy;bil&shy;i&shy;ty with the output of <tt class="docutils literal">tree</tt>.</li>
+<li>The inner <tt class="docutils literal">visit</tt> takes two parameters:
+<tt class="docutils literal">node</tt>, a <tt class="docutils literal">Directory</tt>, and
+<tt class="docutils literal">prefix</tt>, a string which is initially&nbsp;empty.</li>
+<li>Keep track of the number of <tt class="docutils literal">dirs</tt> and <tt class="docutils literal">files</tt> seen at this level
+and in&nbsp;sub-di&shy;rec&shy;to&shy;ries.</li>
+<li>We count downwards from the number of entries in this directory to zero.
+When <tt class="docutils literal">count</tt> is zero, we are on the last entry, which gets special&nbsp;treatment.</li>
+<li>Compute the connector,
+<tt class="docutils literal">└──</tt> (<em>elbow</em>) for the last entry;
+<tt class="docutils literal">├──</tt> (<em>tee</em>)&nbsp;otherwise.</li>
+<li>Match the <tt class="docutils literal"><span class="pre">FileTree::DirNode</span></tt> variant
+and <a class="reference external" href="https://doc.rust-lang.org/reference/patterns.html#destructuring">de&shy;struc&shy;ture</a> the value into <tt class="docutils literal">sub_dir</tt>, a <tt class="docutils literal">&amp;Directory</tt>.</li>
+<li>Before re&shy;cur&shy;sive&shy;ly visiting a sub-directory,
+we compute a new prefix,
+by appending the ap&shy;pro&shy;pri&shy;ate sub-prefix to the current prefix.
+If there are further entries (<tt class="docutils literal">count &gt; 0</tt>),
+the sub-prefix for the current level is <tt class="docutils literal">│&nbsp;&nbsp;</tt>&nbsp;(<em>pipe</em>);
+otherwise, it&#8217;s <tt class="docutils literal">&nbsp;&nbsp; </tt>&nbsp;(<em>spaces</em>).</li>
+<li>Call <tt class="docutils literal">visit</tt> re&shy;cur&shy;sive&shy;ly, then add to the
+running totals of <tt class="docutils literal">dirs</tt> and <tt class="docutils literal">files</tt>.</li>
+<li><tt class="docutils literal">visit</tt> returns a tuple of the counts of di&shy;rec&shy;to&shy;ries and files
+that were re&shy;cur&shy;sive&shy;ly&nbsp;visited.</li>
+</ol>
+<p>One subtlety that is not obvious from the above is that
+<tt class="docutils literal">OTH&shy;ER_CHILD</tt> actually contains two <a class="reference external" href="https://en.wikipedia.org/wiki/Non-breaking_space">non-breaking spaces</a>:</p>
+<pre class="code rust literal-block">
+<span class="k">const</span><span class="w"> </span><span class="n">OTHER_CHILD</span>: <span class="kp">&amp;</span><span class="kt">str</span> <span class="o">=</span><span class="w"> </span><span class="s">&quot;│</span><span class="se">\u{00A0}\u{00A0}</span><span class="s"> &quot;</span><span class="p">;</span><span class="w"> </span><span class="c1">// prefix: pipe</span>
+</pre>
+<p>This is for com&shy;pat&shy;i&shy;bil&shy;i&shy;ty with the output of <tt class="docutils literal">tree</tt>:</p>
+<pre class="code bash literal-block">
+$ diff &lt;<span class="o">(</span>cargo run -q -- ./tests<span class="o">)</span> &lt;<span class="o">(</span>tree ./tests<span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s2">&quot;no difference&quot;</span>
+no difference
+</pre>
+<p>Using <a class="reference external" href="/blog/2022/01/31/DiffFileFragment.html">process sub&shy;sti&shy;tu&shy;tion</a> to generate two different inputs for <tt class="docutils literal">diff</tt>.</p>
+</div>
+<div class="section" id="the-main-function">
+<h2>The <tt class="docutils literal">main</tt> function</h2>
+<p>Let&#8217;s tie it all&nbsp;together.</p>
+<pre class="code rust literal-block">
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nc">io</span>::<span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="kd">let</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">env</span>::<span class="n">args</span><span class="p">().</span><span class="n">nth</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">unwrap_or</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">.</span><span class="n">to_string</span><span class="p">());</span><span class="w">   </span><span class="err">➊</span><span class="w">
+    </span><span class="kd">let</span><span class="w"> </span><span class="n">dir</span>: <span class="nc">Directory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dir_walk</span><span class="p">(</span><span class="w">                              </span><span class="err">➋</span><span class="w">
+        </span><span class="o">&amp;</span><span class="n">PathBuf</span>::<span class="n">from</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="n">clone</span><span class="p">()),</span><span class="w">                           </span><span class="err">➌</span><span class="w">
+        </span><span class="n">is_not_hidden</span><span class="p">,</span><span class="w">
+        </span><span class="n">sort_by_name</span><span class="p">)</span><span class="o">?</span><span class="p">;</span><span class="w">                                         </span><span class="err">➍</span><span class="w">
+    </span><span class="n">print_tree</span><span class="p">(</span><span class="o">&amp;</span><span class="n">root</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dir</span><span class="p">);</span><span class="w">                                    </span><span class="err">➎</span><span class="w">
+    </span><span class="nb">Ok</span><span class="p">(())</span><span class="w">                                                      </span><span class="err">➏</span><span class="w">
+</span><span class="p">}</span>
+</pre>
+<ol class="arabic simple">
+<li>The simplest possible way to get a single, optional command-line argument.
+If omitted, we default to <tt class="docutils literal">.</tt>, the current directory.
+For more so&shy;phis&shy;ti&shy;cat&shy;ed argument parsing, we could use <a class="reference external" href="https://docs.rs/clap/latest/clap/">Clap</a>.</li>
+<li>Use <tt class="docutils literal">dir_walk</tt> from <a class="reference external" href="/blog/...">Part 1</a> to re&shy;cur&shy;sive&shy;ly build
+a directory of <tt class="docutils literal">FileTree</tt> nodes.</li>
+<li>Create a <tt class="docutils literal">PathBuf</tt> from <tt class="docutils literal">root</tt>, a string;
+<tt class="docutils literal">clone</tt> is needed because <tt class="docutils literal"><span class="pre">PathBuf::from</span></tt> takes ownership of the string buffer.
+Use the <tt class="docutils literal">is_not_hid&shy;den</tt> filter and the <tt class="docutils literal">sort_by_&shy;name</tt> comparator from <a class="reference external" href="/blog/...">Part 1</a>.</li>
+<li>The <a class="reference external" href="https://doc.rust-lang.org/reference/expressions/operator-expr.html#the-question-mark-operator">postfix question mark operator</a>, <tt class="docutils literal">?</tt>, is used to propagate&nbsp;errors.</li>
+<li>Let <tt class="docutils literal">print_tree</tt> draw the&nbsp;diagram.</li>
+<li>Return the <tt class="docutils literal">Ok</tt> <a class="reference external" href="https://doc.rust-lang.org/std/primitive.unit.html">unit</a> result to indicate&nbsp;success.</li>
+</ol>
+</div>
+<div class="section" id="baum">
+<h2>Baum</h2>
+<p>You can find the <a class="reference external" href="https://github.com/georgevreilly/baum">Baum</a> source code on&nbsp;GitHub.</p>
+<p>In Part 3, we&#8217;ll discuss&nbsp;testing.</p>
+</div>
+<div class="section" id="resources">
+<h2>Resources</h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/Old-Man-Programmer/tree/">Official tree source</a>:
+The actual source for <tt class="docutils literal">tree</tt>, written in old-school&nbsp;C.</li>
+<li><a class="reference external" href="https://two-wrongs.com/draw-a-tree-structure-with-only-css.html">Draw a Tree Structure With Only <span class="caps">CSS</span></a>:
+Use <span class="caps">CSS</span> to draw links in nested, unordered&nbsp;lists.</li>
+<li><a class="reference external" href="https://realpython.com/directory-tree-generator-python/">Build a Python Directory Tree Generator for the Command Line</a>.</li>
+<li>Kevin Newton has im&shy;ple&shy;ment&shy;ed <a class="reference external" href="https://github.com/kddnewton/tree">Tree in Multiple Languages</a>.</li>
+<li><a class="reference external" href="https://github.com/dduan/tre">Tre</a> is a modern al&shy;ter&shy;na&shy;tive to <tt class="docutils literal">tree</tt> in&nbsp;Rust.</li>
+</ul>
+</div>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/rust/" rel="tag">rust</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

@@ -41,9 +41,9 @@ when the median test time jumped by two&nbsp;minutes.</p>
 <a class="reference external image-reference" href="https://www.bigocheatsheet.com/"><img alt="Big O Cheat Sheet" src="/content/binary/bigochart.gif"/></a>
 <p>We tracked it down to this (simplified) code&nbsp;fragment:</p>
 <pre class="code python literal-block">
-<span class="n">task_inclusions</span> <span class="o">=</span> <span class="p">[</span> <span class="n">some_collection_of_tasks</span><span class="p">()</span> <span class="p">]</span><span class="w">
-</span><span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span><span class="w">
-</span>                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
+<span class="n">task_inclusions</span> <span class="o">=</span> <span class="p">[</span> <span class="n">some_collection_of_tasks</span><span class="p">()</span> <span class="p">]</span>
+<span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span>
+                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
 </pre>
 <p>This looks fairly in&shy;nocu&shy;ous—and it was—until the size of the result returned from <tt class="docutils literal">some_&shy;col&shy;lec&shy;tion_of_&shy;tasks()</tt>
 jumped from a few hundred to a few&nbsp;thousand.</p>
@@ -81,9 +81,9 @@ and get <span class="formula"><i>O</i>(1)</span> membership testing.
 The <tt class="docutils literal">in&shy;valid_&shy;tasks</tt> list com&shy;pre&shy;hen&shy;sion now takes
 the expected <span class="formula"><i>O</i>(<i>n</i>)</span>&nbsp;time.</p>
 <pre class="code python literal-block">
-<span class="n">task_inclusions</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span> <span class="n">some_collection_of_tasks</span><span class="p">()</span> <span class="p">)</span><span class="w">
-</span><span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span><span class="w">
-</span>                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
+<span class="n">task_inclusions</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span> <span class="n">some_collection_of_tasks</span><span class="p">()</span> <span class="p">)</span>
+<span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span>
+                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
 </pre>
 <p>More at <a class="reference external" href="https://www.coengoedegebure.com/understanding-big-o-notation/">Un&shy;der&shy;stand&shy;ing Big-O Notation</a> and the <a class="reference external" href="https://www.bigocheatsheet.com/">Big-O Cheat Sheet</a>.</p>
 

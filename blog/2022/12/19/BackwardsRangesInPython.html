@@ -44,11 +44,12 @@ You start at <code>a</code> and keep going until the next number would be <code>
 <p>In Python 3, <code>range</code> is <em>lazy</em>
 and the values in the sequence do not ma&shy;te&shy;ri&shy;al&shy;ize
 until you consume the&nbsp;range.</p>
-<div class="codehilite"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
 <span class="go">range(3, 12)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
 <span class="go">[3, 4, 5, 6, 7, 8, 9, 10, 11]</span>
-</code></pre></div>
+</pre></div>
+
 
 <p>Trey Hunner makes the point that
 <a href="https://treyhunner.com/2018/02/python-range-is-not-an-iterator/">range is a lazy iterable</a>
@@ -58,15 +59,17 @@ rather than an&nbsp;iterator.</p>
 This generates <code>a, a+s, a+2*s, ..., b-s</code>
 (assuming that <code>(b - a) % s == 0</code>;
 i.e., <code>a</code> and <code>b</code> are separated by an exact multiple of <code>s</code>.)</p>
-<div class="codehilite"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="go">[3, 6, 9]</span>
-</code></pre></div>
+</pre></div>
+
 
 <p>What if you want to count down?
 <code>range(b, a, -s)</code> won&#8217;t do what you&nbsp;want.</p>
-<div class="codehilite"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">))</span>
+<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">))</span>
 <span class="go">[12, 9, 6]</span>
-</code></pre></div>
+</pre></div>
+
 
 <p>Why? Because you&#8217;re starting at <code>b</code>,
 a value that doesn&#8217;t appear in the forward range,
@@ -75,11 +78,11 @@ a value that is certainly in the forward range.
 You have to subtract <code>s</code> from both <code>b</code> and <code>a</code>:</p>
 <p>When you use <code>range(b-s, a-s, -s)</code>,
 you get <code>b-s, b-2*s, ..., a+s, a</code>.</p>
-<div class="codehilite"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">))</span>
+<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">))</span>
 <span class="go">[9, 6, 3]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">)),</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
 <span class="go">([9, 6, 3], [9, 6, 3])</span>
-</code></pre></div>
+</pre></div>
     <footer>
         
         

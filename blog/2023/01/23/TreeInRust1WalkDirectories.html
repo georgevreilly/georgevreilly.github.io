@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Implementing the Tree command in Rust, part 1: Walking Directories</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content=".. image:: /content/binary/rust-core-src-num-tree...." />
+    <meta name="keywords" content="rust" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2023-01-23">2023-01-23</time>
+        <h1>
+            <a href="/blog/2023/01/23/TreeInRust1WalkDirectories.html" rel="bookmark canonical">Implementing the Tree command in Rust, part 1: Walking Directories</a>
+        </h1>
+    </header>
+    <img alt="tree tree core/src/num for Rust" class="right-float" src="/content/binary/rust-core-src-num-tree.png" style="width: 160px;"/>
+<p>I&#8217;ve been learning Rust lately.
+At first, I read several books,
+including <a class="reference external" href="https://www.manning.com/books/rust-in-action">Rust in Action</a>,
+<a class="reference external" href="https://www.manning.com/books/code-like-a-pro-in-rust">Code Like a Pro in Rust</a>,
+and most of <a class="reference external" href="https://learning.oreilly.com/library/view/programming-rust-2nd/9781492052586/">Pro&shy;gram&shy;ming Rust</a>.
+Now, I&#8217;m starting to actually write&nbsp;code.</p>
+<p>I read the <a class="reference external" href="https://www.goodreads.com/review/show/5183138397">Command-Line Rust</a> book last month,
+which challenged readers to write
+our own im&shy;ple&shy;men&shy;ta&shy;tions of the <a class="reference external" href="https://en.wikipedia.org/wiki/Tree_(command)">tree command</a>.</p>
+<p>I decided to accept the&nbsp;challenge.</p>
+<p>At its simplest, <tt class="docutils literal">tree</tt> simply prints a directory tree,
+using some of the Unicode <a class="reference external" href="https://www.compart.com/en/unicode/block/U+2500">Box Drawing</a> characters
+to show the hi&shy;er&shy;ar&shy;chi&shy;cal re&shy;la&shy;tion&shy;ship,
+as in the image at&nbsp;right.</p>
+<p>I&#8217;ve split the code into two phases,
+which will be covered in two blog&nbsp;posts.</p>
+<ol class="arabic simple">
+<li>Walking the directory tree on disk to build an in-memory&nbsp;tree.</li>
+<li>Pretty-printing the in-memory&nbsp;tree.</li>
+</ol>
+<p>While it&#8217;s certainly possible to print a subtree as it&#8217;s being read,
+separating the two phases
+yields code that is cleaner, simpler, and more&nbsp;testable.</p>
+<p>In future, I will insert a third phase, <em>processing</em>,
+between the reading and writing phases,
+by a weak analogy with Extract-Transform-Load (<a class="reference external" href="https://en.wikipedia.org/wiki/Extract,_transform,_load"><span class="caps">ETL</span></a>).</p>
+<div class="section" id="walking-the-directory-tree">
+<h2>Walking the Directory&nbsp;Tree</h2>
+<p>There are three kinds of file tree node that I care about:
+<tt class="docutils literal">File</tt>, <tt class="docutils literal">Directory</tt>, and <tt class="docutils literal">Symlink</tt>.
+These are the variants exposed by Rust&#8217;s <a class="reference external" href="https://doc.rust-lang.org/std/fs/struct.FileType.html">FileType</a>.</p>
+<ul class="simple">
+<li><tt class="docutils literal">File</tt> has a name and file system&nbsp;metadata;</li>
+<li><tt class="docutils literal">Symlink</tt> has a name, a target, and&nbsp;metadata;</li>
+<li><tt class="docutils literal">Directory</tt> has a name and a list of child file tree&nbsp;nodes.</li>
+</ul>
+<p>Here, <em>name</em> refers to the last component of a path;
+e.g., the <tt class="docutils literal">gamma</tt> in <tt class="docutils literal">alpha/beta/gamma</tt>.
+The file system metadata is not currently used,
+but will be in&nbsp;future.</p>
+<pre class="code rust literal-block">
+<span class="cp">#[derive(Debug)]</span><span class="w">
+</span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">File</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="k">pub</span><span class="w"> </span><span class="n">name</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+    </span><span class="k">pub</span><span class="w"> </span><span class="n">metadata</span>: <span class="nc">fs</span>::<span class="n">Metadata</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="cp">#[derive(Debug)]</span><span class="w">
+</span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">Symlink</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="k">pub</span><span class="w"> </span><span class="n">name</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+    </span><span class="k">pub</span><span class="w"> </span><span class="n">target</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+    </span><span class="k">pub</span><span class="w"> </span><span class="n">metadata</span>: <span class="nc">fs</span>::<span class="n">Metadata</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="cp">#[derive(Debug)]</span><span class="w">
+</span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">Directory</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="k">pub</span><span class="w"> </span><span class="n">name</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+    </span><span class="k">pub</span><span class="w"> </span><span class="n">entries</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">FileTree</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span>
+</pre>
+<p>File and directory paths are not guaranteed to be <span class="caps">UTF</span>-8.
+Indeed, Unix file paths are an arbitrary sequence of bytes,
+while Windows file paths are an opaque sequence of 16-bit integers.
+You might think that I should be using <tt class="docutils literal">OsString</tt> here,
+since it holds a <a class="reference external" href="https://doc.rust-lang.org/std/ffi/struct.OsString.html">platform-native string</a>.
+<tt class="docutils literal">String</tt> has to be valid <span class="caps">UTF</span>-8; <tt class="docutils literal">OsString</tt> doesn&#8217;t.
+Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s not easy to look at the actual data in an <tt class="docutils literal">OsString</tt>,
+unless you convert it (possibly lossily) to a <tt class="docutils literal">String</tt>.
+See <a class="reference external" href="https://docs.rs/bstr/0.2.8/bstr/#file-paths-and-os-strings">File paths and <span class="caps">OS</span> strings</a> for&nbsp;more.</p>
+<p>The obvious way to represent a file tree node in Rust
+is as an <a class="reference external" href="https://hashrust.com/blog/why-rust-enums-are-so-cool/">enum</a> with three tuple-like&nbsp;variants.</p>
+<pre class="code rust literal-block">
+<span class="cp">#[derive(Debug)]</span><span class="w">
+</span><span class="k">pub</span><span class="w"> </span><span class="k">enum</span> <span class="nc">FileTree</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="n">DirNode</span><span class="p">(</span><span class="n">Directory</span><span class="p">),</span><span class="w">
+    </span><span class="n">FileNode</span><span class="p">(</span><span class="n">File</span><span class="p">),</span><span class="w">
+    </span><span class="n">LinkNode</span><span class="p">(</span><span class="n">Symlink</span><span class="p">),</span><span class="w">
+</span><span class="p">}</span>
+</pre>
+<p>Here, each variant in the enum holds a struct of similar name.
+We will be able to take advantage of Rust&#8217;s <a class="reference external" href="https://doc.rust-lang.org/book/ch18-03-pattern-syntax.html#destructuring-enums">pattern matching</a>
+to handle each&nbsp;variant.</p>
+<p>We&#8217;ll use <tt class="docutils literal"><span class="pre">fs::read_dir</span></tt> to read each directory in the hierarchy.
+The <a class="reference external" href="https://doc.rust-lang.org/std/fs/struct.ReadDir.html">read_dir</a> function returns an iterator
+that yields instances of <tt class="docutils literal"><span class="pre">io::Result&lt;DirEntry&gt;</span></tt>.
+If a <tt class="docutils literal">DirEntry</tt> is a directory,
+we can re&shy;cur&shy;sive&shy;ly invoke our <tt class="docutils literal">dir_walk</tt> function
+to read the child directory
+and add its contents to our in-memory&nbsp;tree.</p>
+<p>The <a class="reference external" href="https://docs.rs/walkdir/latest/walkdir/">walkdir</a> crate also walks through a directory tree,
+but it hides the recursion from you.
+It&#8217;s an excellent choice&nbsp;otherwise.</p>
+<div class="section" id="skipping-and-sorting">
+<h3>Skipping and&nbsp;Sorting</h3>
+<p>In each directory that we read,
+we need to consider two&nbsp;factors.</p>
+<ol class="arabic simple">
+<li>Which entries to skip, such as hidden&nbsp;files.</li>
+<li>How to sort the&nbsp;entries.</li>
+</ol>
+<p>We almost always want to skip <a class="reference external" href="https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory">hidden files and di&shy;rec&shy;to&shy;ries</a>—on Unix, those entries whose names start with the <tt class="docutils literal">.</tt> character.
+Every directory includes entries
+for <tt class="docutils literal">.</tt> (itself) and <tt class="docutils literal">..</tt> (parent directory),
+and may include other hidden files or di&shy;rec&shy;to&shy;ries,
+such as <tt class="docutils literal">.vimrc</tt> or <tt class="docutils literal">.git</tt>.</p>
+<p>On Windows, hidden files are controlled by an <a class="reference external" href="https://www.raymond.cc/blog/reset-system-and-hidden-attributes-for-files-or-folders-caused-by-virus/">attribute</a>, not by their&nbsp;name.</p>
+<p>For more com&shy;pli&shy;cat&shy;ed usage,
+we might want to skip <a class="reference external" href="https://git-scm.com/docs/gitignore">ignored files</a>,
+as specified in <tt class="docutils literal">.gitignore</tt>.</p>
+<p>The simplest useful filter for entry names
+is one that rejects hidden files and&nbsp;di&shy;rec&shy;to&shy;ries.</p>
+<pre class="code rust literal-block">
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">is_not_hidden</span><span class="p">(</span><span class="n">name</span>: <span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span> <span class="p">{</span><span class="w">
+    </span><span class="k">return</span><span class="w"> </span><span class="o">!</span><span class="n">name</span><span class="p">.</span><span class="n">starts_with</span><span class="p">(</span><span class="sc">'.'</span><span class="p">);</span><span class="w">
+</span><span class="p">}</span>
+</pre>
+<p>Disk I/O is <a class="reference external" href="https://louwrentius.com/understanding-storage-performance-iops-and-latency.html">costly and slow</a>, compared to memory access.
+It&#8217;s far more efficient to not read a directory at all
+than it is to eliminate a subtree at a later stage.
+Even if the <span class="caps">OS</span> has cached the relevant directory contents,
+there&#8217;s still a <a class="reference external" href="https://gms.tf/on-the-costs-of-syscalls.html">cost to the syscall</a> to retrieve that data from the&nbsp;kernel.</p>
+<p>There is <a class="reference external" href="https://stackoverflow.com/a/8977490/6364">no specific order</a> to entries in a directory
+or to the results returned by low-level APIs like <tt class="docutils literal"><span class="pre">fs::read_dir</span></tt>.
+By default, <tt class="docutils literal">ls</tt> sorts entries al&shy;pha&shy;bet&shy;i&shy;cal&shy;ly,
+but it can also sort by creation time, mod&shy;i&shy;fi&shy;ca&shy;tion time, or size,
+in ascending or descending&nbsp;order.</p>
+<p>Unix filesys&shy;tems are case-sensitive,
+but Mac filesys&shy;tems (<span class="caps">APFS</span> and <span class="caps">HFS</span>+) are case-in&shy;sen&shy;si&shy;tive by default,
+although they preserve the case of the original filename.
+Windows&#8217; filesys&shy;tems (<span class="caps">NTFS</span>, exFAT, and <span class="caps">FAT32</span>)
+are <a class="reference external" href="https://learn.microsoft.com/en-us/windows/win32/fileio/filesystem-functionality-comparison">likewise</a> case-preserving and&nbsp;case-in&shy;sen&shy;si&shy;tive.</p>
+<p>Here is a case-sensitive <a class="reference external" href="https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort_by">comparator</a> for use with <tt class="docutils literal">sort_by</tt>:</p>
+<pre class="code rust literal-block">
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">sort_by_name</span><span class="p">(</span><span class="n">a</span>: <span class="kp">&amp;</span><span class="nc">fs</span>::<span class="n">DirEntry</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="kp">&amp;</span><span class="nc">fs</span>::<span class="n">DirEntry</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Ordering</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="kd">let</span><span class="w"> </span><span class="n">a_name</span>: <span class="nb">String</span> <span class="o">=</span><span class="w">
+        </span><span class="n">a</span><span class="p">.</span><span class="n">path</span><span class="p">().</span><span class="n">file_name</span><span class="p">().</span><span class="n">unwrap</span><span class="p">().</span><span class="n">to_str</span><span class="p">().</span><span class="n">unwrap</span><span class="p">().</span><span class="n">into</span><span class="p">();</span><span class="w">     </span><span class="err">➊</span><span class="w">
+    </span><span class="kd">let</span><span class="w"> </span><span class="n">b_name</span>: <span class="nb">String</span> <span class="o">=</span><span class="w">
+        </span><span class="n">b</span><span class="p">.</span><span class="n">path</span><span class="p">().</span><span class="n">file_name</span><span class="p">().</span><span class="n">unwrap</span><span class="p">().</span><span class="n">to_str</span><span class="p">().</span><span class="n">unwrap</span><span class="p">().</span><span class="n">into</span><span class="p">();</span><span class="w">
+    </span><span class="n">a_name</span><span class="p">.</span><span class="n">cmp</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b_name</span><span class="p">)</span><span class="w">                                             </span><span class="err">➋</span><span class="w">
+</span><span class="p">}</span>
+</pre>
+<ol class="arabic simple">
+<li>This messy expression is necessary to get the <em>name</em> as a <tt class="docutils literal">String</tt>.</li>
+<li><tt class="docutils literal">cmp</tt> returns <tt class="docutils literal">Less</tt>, <tt class="docutils literal">Equal</tt>, or <tt class="docutils literal">Greater</tt> from the <tt class="docutils literal">Ordering</tt> enum.</li>
+</ol>
+<p>More on <tt class="docutils literal">Ordering</tt> <a class="reference external" href="https://www.philipdaniels.com/blog/2019/rust-equality-and-ordering/">here</a>.</p>
+</div>
+</div>
+<div class="section" id="the-dir-walk-function">
+<h2>The <tt class="docutils literal">dir_walk</tt> function</h2>
+<p>Finally, the recursive <tt class="docutils literal">dir_walk</tt> function that
+creates the tree of <tt class="docutils literal">FileTree</tt> nodes.</p>
+<pre class="code rust literal-block">
+<span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">dir_walk</span><span class="p">(</span><span class="w">
+    </span><span class="n">root</span>: <span class="kp">&amp;</span><span class="nc">PathBuf</span><span class="p">,</span><span class="w">
+    </span><span class="n">filter</span>: <span class="nc">fn</span><span class="p">(</span><span class="n">name</span>: <span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span><span class="p">,</span><span class="w">                 </span><span class="err">➊</span><span class="w">
+    </span><span class="n">compare</span>: <span class="nc">fn</span><span class="p">(</span><span class="n">a</span>: <span class="kp">&amp;</span><span class="nc">fs</span>::<span class="n">DirEntry</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="kp">&amp;</span><span class="nc">fs</span>::<span class="n">DirEntry</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Ordering</span><span class="p">,</span><span class="w">
+</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">io</span>::<span class="nb">Result</span><span class="o">&lt;</span><span class="n">Directory</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">entries</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">fs</span>::<span class="n">DirEntry</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fs</span>::<span class="n">read_dir</span><span class="p">(</span><span class="n">root</span><span class="p">)</span><span class="o">?</span><span class="w">
+        </span><span class="p">.</span><span class="n">filter_map</span><span class="p">(</span><span class="o">|</span><span class="n">result</span><span class="o">|</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">ok</span><span class="p">())</span><span class="w">
+        </span><span class="p">.</span><span class="n">collect</span><span class="p">();</span><span class="w">                                 </span><span class="err">➋</span><span class="w">
+    </span><span class="n">entries</span><span class="p">.</span><span class="n">sort_by</span><span class="p">(</span><span class="n">compare</span><span class="p">);</span><span class="w">
+    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">directory</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">FileTree</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w">
+        </span><span class="nb">Vec</span>::<span class="n">with_capacity</span><span class="p">(</span><span class="n">entries</span><span class="p">.</span><span class="n">len</span><span class="p">());</span><span class="w">          </span><span class="err">➌</span><span class="w">
+    </span><span class="k">for</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">entries</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="kd">let</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">path</span><span class="p">();</span><span class="w">
+        </span><span class="kd">let</span><span class="w"> </span><span class="n">name</span>: <span class="nb">String</span> <span class="o">=</span><span class="w"> </span><span class="n">path</span><span class="p">.</span><span class="n">file_name</span><span class="p">().</span><span class="n">unwrap</span><span class="p">().</span><span class="n">to_str</span><span class="p">().</span><span class="n">unwrap</span><span class="p">().</span><span class="n">into</span><span class="p">();</span><span class="w">
+        </span><span class="k">if</span><span class="w"> </span><span class="o">!</span><span class="n">filter</span><span class="p">(</span><span class="o">&amp;</span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">                         </span><span class="err">➍</span><span class="w">
+            </span><span class="k">continue</span><span class="p">;</span><span class="w">
+        </span><span class="p">};</span><span class="w">
+        </span><span class="kd">let</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fs</span>::<span class="n">metadata</span><span class="p">(</span><span class="o">&amp;</span><span class="n">path</span><span class="p">).</span><span class="n">unwrap</span><span class="p">();</span><span class="w">
+        </span><span class="kd">let</span><span class="w"> </span><span class="n">node</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">path</span><span class="w"> </span><span class="p">{</span><span class="w">                     </span><span class="err">➎</span><span class="w">
+            </span><span class="n">path</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">path</span><span class="p">.</span><span class="n">is_dir</span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">FileTree</span>::<span class="n">DirNode</span><span class="p">(</span><span class="w">                  </span><span class="err">➏</span><span class="w">
+                    </span><span class="n">dir_walk</span><span class="p">(</span><span class="o">&amp;</span><span class="n">root</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">name</span><span class="p">),</span><span class="w"> </span><span class="n">filter</span><span class="p">,</span><span class="w"> </span><span class="n">compare</span><span class="p">)</span><span class="o">?</span><span class="p">)</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+            </span><span class="n">path</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">path</span><span class="p">.</span><span class="n">is_symlink</span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">FileTree</span>::<span class="n">LinkNode</span><span class="p">(</span><span class="n">Symlink</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">name</span>: <span class="nc">name</span><span class="p">.</span><span class="n">into</span><span class="p">(),</span><span class="w">
+                </span><span class="n">target</span>: <span class="nc">fs</span>::<span class="n">read_link</span><span class="p">(</span><span class="n">path</span><span class="p">).</span><span class="n">unwrap</span><span class="p">().</span><span class="n">to_string_lossy</span><span class="p">().</span><span class="n">to_string</span><span class="p">(),</span><span class="w">
+                </span><span class="n">metadata</span>: <span class="nc">metadata</span><span class="p">,</span><span class="w">
+            </span><span class="p">}),</span><span class="w">
+            </span><span class="n">path</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">path</span><span class="p">.</span><span class="n">is_file</span><span class="p">()</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">FileTree</span>::<span class="n">FileNode</span><span class="p">(</span><span class="n">File</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="n">name</span>: <span class="nc">name</span><span class="p">.</span><span class="n">into</span><span class="p">(),</span><span class="w">
+                </span><span class="n">metadata</span>: <span class="nc">metadata</span><span class="p">,</span><span class="w">
+            </span><span class="p">}),</span><span class="w">
+            </span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="fm">unreachable!</span><span class="p">(),</span><span class="w">
+        </span><span class="p">};</span><span class="w">
+        </span><span class="n">directory</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">node</span><span class="p">);</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+    </span><span class="kd">let</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">root</span><span class="w">
+        </span><span class="p">.</span><span class="n">file_name</span><span class="p">()</span><span class="w">
+        </span><span class="p">.</span><span class="n">unwrap_or</span><span class="p">(</span><span class="n">OsStr</span>::<span class="n">new</span><span class="p">(</span><span class="s">&quot;.&quot;</span><span class="p">))</span><span class="w">                 </span><span class="err">➐</span><span class="w">
+        </span><span class="p">.</span><span class="n">to_str</span><span class="p">()</span><span class="w">
+        </span><span class="p">.</span><span class="n">unwrap</span><span class="p">()</span><span class="w">
+        </span><span class="p">.</span><span class="n">into</span><span class="p">();</span><span class="w">
+    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Directory</span><span class="w"> </span><span class="p">{</span><span class="w">                                  </span><span class="err">➑</span><span class="w">
+        </span><span class="n">name</span>: <span class="nc">name</span><span class="p">,</span><span class="w">
+        </span><span class="n">entries</span>: <span class="nc">directory</span><span class="p">,</span><span class="w">
+    </span><span class="p">})</span><span class="w">
+</span><span class="p">}</span>
+</pre>
+<ol class="arabic simple">
+<li>Currently, the <tt class="docutils literal">filter</tt> and <tt class="docutils literal">compare</tt> parameters are <tt class="docutils literal">fn</tt>s.
+They could probably be <tt class="docutils literal">FnMut</tt> traits.</li>
+<li>Read directory.
+Discard any <tt class="docutils literal">Error</tt> results.
+Collect into a <tt class="docutils literal">Vec</tt>.</li>
+<li>We&#8217;ll need at most this many&nbsp;entries.</li>
+<li>Use <tt class="docutils literal">filter</tt> to discard names that won&#8217;t be&nbsp;visited.</li>
+<li>Match the path as a <tt class="docutils literal">DirNode</tt>, <tt class="docutils literal">LinkNode</tt>, or <tt class="docutils literal">FileNode</tt>,
+by using <a class="reference external" href="https://doc.rust-lang.org/book/ch18-03-pattern-syntax.html#extra-conditionals-with-match-guards">match guards</a>.</li>
+<li>Visit the sub&shy;di&shy;rec&shy;to&shy;ry&nbsp;re&shy;cur&shy;sive&shy;ly.</li>
+<li>If <tt class="docutils literal">root</tt> was <tt class="docutils literal">&quot;.&quot;</tt>, the <tt class="docutils literal">file_name()</tt> will be <tt class="docutils literal">None</tt>.</li>
+<li>Return a <tt class="docutils literal">Directory</tt> for this directory, wrapped in an <tt class="docutils literal"><span class="pre">io::Result</span></tt>.</li>
+</ol>
+<p>In <a class="reference external" href="/blog/...">Part 2</a>, we&#8217;ll print the directory&nbsp;tree.</p>
+</div>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/rust/" rel="tag">rust</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "https://www.georgevreilly.com/blog/2023/01/23/TreeInRust1WalkDirectories.html";
+            var disqus_url = "https://www.georgevreilly.com/blog/2023/01/23/TreeInRust1WalkDirectories.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="https://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+
+
+    
+    
+        <a href="/blog/2022/12/31/FSymbolsForUnicodeWeirdness.html" class="page floatright">
+        fsymbols for Unicode weirdness &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

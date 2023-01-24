@@ -46,16 +46,16 @@ I usually import several features of Python&nbsp;3:</p>
 <p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
 but not with <tt class="docutils literal">python3</tt>:</p>
 <pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="w">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
 
-</span><span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span><span class="w">
-    </span><span class="sd">&quot;&quot;&quot;
+<span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;
     Convert `s` to upper case.
 
     &gt;&gt;&gt; upper('Hello!')
     u'<span class="caps">HELLO</span>!'
-    &quot;&quot;&quot;</span><span class="w">
-</span>    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 </pre>
 <p>Python 3&nbsp;complains:</p>
 <pre class="literal-block">
@@ -75,18 +75,18 @@ from the <tt class="docutils literal">from __future__ import</tt>,
 but this also removes the benefit of implicitly forcing all string literals to be&nbsp;Unicode.</p>
 <p>Another workaround is to use <a class="reference external" href="https://pythonhosted.org/six/">six</a>&nbsp;thus:</p>
 <pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span><span class="w">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
 
-</span><span class="kn">import</span> <span class="nn">six</span><span class="w">
+<span class="kn">import</span> <span class="nn">six</span>
 
-</span><span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span><span class="w">
-    </span><span class="sd">&quot;&quot;&quot;
+<span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;
     Convert `s` to upper case.
 
     &gt;&gt;&gt; upper('Hello!') == six.text_type(u'<span class="caps">HELLO</span>!')
     True
-    &quot;&quot;&quot;</span><span class="w">
-</span>    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 </pre>
 <p>This works, but is less clear.
 If the assertion fails,

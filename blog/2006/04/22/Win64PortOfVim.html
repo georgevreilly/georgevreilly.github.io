@@ -59,28 +59,28 @@ side-by-side con&shy;fig&shy;u&shy;ra&shy;tion is incorrect. Please see the ap&s
 log for more detail.&quot;) The event log showed&nbsp;nothing.</p>
 <p>After more in&shy;ves&shy;ti&shy;ga&shy;tion, I found a WinSxS manifest for the Windows Common&nbsp;Controls:</p>
 <pre class="code xml literal-block">
-<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;<span class="caps">UTF</span>-8&quot; standalone=&quot;yes&quot;?&gt;</span><span class="w">
-</span><span class="nt">&lt;assembly</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;urn:schemas-microsoft-com:asm.v1&quot;</span><span class="w"> </span><span class="na">manifestVersion=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span><span class="w">
-  </span><span class="nt">&lt;assemblyIdentity</span><span class="w">
-    </span><span class="na">processorArchitecture=</span><span class="s">&quot;X86&quot;</span><span class="w">
-    </span><span class="na">version=</span><span class="s">&quot;6.2.0.0&quot;</span><span class="w">
-    </span><span class="na">type=</span><span class="s">&quot;win32&quot;</span><span class="w">
-    </span><span class="na">name=</span><span class="s">&quot;Vim&quot;</span><span class="w">
-  </span><span class="nt">/&gt;</span><span class="w">
-  </span><span class="nt">&lt;description&gt;</span>Vi<span class="w"> </span>Improved<span class="w"> </span>-<span class="w"> </span>A<span class="w"> </span>Text<span class="w"> </span>Editor<span class="nt">&lt;/description&gt;</span><span class="w">
-  </span><span class="nt">&lt;dependency&gt;</span><span class="w">
-    </span><span class="nt">&lt;dependentAssembly&gt;</span><span class="w">
-      </span><span class="nt">&lt;assemblyIdentity</span><span class="w">
-        </span><span class="na">type=</span><span class="s">&quot;win32&quot;</span><span class="w">
-        </span><span class="na">name=</span><span class="s">&quot;Microsoft.Windows.Common-Controls&quot;</span><span class="w">
-        </span><span class="na">version=</span><span class="s">&quot;6.0.0.0&quot;</span><span class="w">
-        </span><span class="na">publicKeyToken=</span><span class="s">&quot;6595b64144ccf1df&quot;</span><span class="w">
-        </span><span class="na">language=</span><span class="s">&quot;*&quot;</span><span class="w">
-        </span><span class="na">processorArchitecture=</span><span class="s">&quot;X86&quot;</span><span class="w">
-      </span><span class="nt">/&gt;</span><span class="w">
-    </span><span class="nt">&lt;/dependentAssembly&gt;</span><span class="w">
-  </span><span class="nt">&lt;/dependency&gt;</span><span class="w">
-</span><span class="nt">&lt;/assembly&gt;</span>
+<span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;<span class="caps">UTF</span>-8&quot; standalone=&quot;yes&quot;?&gt;</span>
+<span class="nt">&lt;assembly</span> <span class="na">xmlns=</span><span class="s">&quot;urn:schemas-microsoft-com:asm.v1&quot;</span> <span class="na">manifestVersion=</span><span class="s">&quot;1.0&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;assemblyIdentity</span>
+    <span class="na">processorArchitecture=</span><span class="s">&quot;X86&quot;</span>
+    <span class="na">version=</span><span class="s">&quot;6.2.0.0&quot;</span>
+    <span class="na">type=</span><span class="s">&quot;win32&quot;</span>
+    <span class="na">name=</span><span class="s">&quot;Vim&quot;</span>
+  <span class="nt">/&gt;</span>
+  <span class="nt">&lt;description&gt;</span>Vi Improved - A Text Editor<span class="nt">&lt;/description&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;dependentAssembly&gt;</span>
+      <span class="nt">&lt;assemblyIdentity</span>
+        <span class="na">type=</span><span class="s">&quot;win32&quot;</span>
+        <span class="na">name=</span><span class="s">&quot;Microsoft.Windows.Common-Controls&quot;</span>
+        <span class="na">version=</span><span class="s">&quot;6.0.0.0&quot;</span>
+        <span class="na">publicKeyToken=</span><span class="s">&quot;6595b64144ccf1df&quot;</span>
+        <span class="na">language=</span><span class="s">&quot;*&quot;</span>
+        <span class="na">processorArchitecture=</span><span class="s">&quot;X86&quot;</span>
+      <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/dependentAssembly&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/assembly&gt;</span>
 </pre>
 <p>Once the two instances of <tt class="docutils literal"><span class="pre">proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture=&quot;X86&quot;</span></tt> were set to
 <tt class="docutils literal"><span class="pre">proces&shy;so&shy;rAr&shy;chi&shy;tec&shy;ture=&quot;<span class="caps">AMD64</span>&quot;</span></tt>, Vim started working without a hitch.

@@ -29,28 +29,41 @@
     
         <article>
     <header>
-        <time datetime="2006-09-12">2006-09-12</time>
+        <time datetime="2006-09-14">2006-09-14</time>
         <h1>
-            <a href="/blog/2006/09/12/2006911.html" rel="bookmark canonical">9/11</a>
+            <a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" rel="bookmark canonical">Never Sleep(0) in an Infinite Loop</a>
         </h1>
     </header>
     
-<p>Nine-Eleven. The date burned into everyone&#8217;s brain. One of those dates
-where everyone remembers where they were when they heard the news.
-Emma and I awoke to the radio telling us that planes had crashed into the
-World Trade Center. We went downstairs and watched the <span class="caps">TV</span> in&nbsp;horror.</p>
-<p>For a time, an all-too-brief time, the country pulled together
-in a show of unity and grief. The world joined us in an outpouring of&nbsp;support.</p>
-<p>There are many reasons why history will condemn George Bush, but one of the
-most serious is his squan&shy;der&shy;ing that good will for quick partisan
-advantage. A better man could have built a bipartisan consensus <span>&#8230;<a href="/blog/2006/09/12/2006911.html" class="continue">continue</a>.</span></p>
+<p>I ran into a problem installing some <span class="caps">COM</span>+ components today. The installer
+was using <a class="reference external" href="http://msdn2.microsoft.com/en-us/library/04za0hca.aspx">Regsvcs.exe</a>
+to register each <span class="caps">COM</span>+ component. I noticed after a while that the installer
+wasn&#8217;t making any progress and that my dual-proc system was stuck at 50%
+<span class="caps">CPU</span> uti&shy;liza&shy;tion. I attached a debugger to the offending process, regsvcs,
+and found that it was stuck in the following infinite loop
+(dis&shy;as&shy;sem&shy;bly courtesy of <a class="reference external" href="http://www.aisto.com/roeder/dotnet/">Reflector</a>):</p>
+<pre class="code csharp literal-block">
+<span class="k">internal</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="n">System</span><span class="p">.</span><span class="n">EnterpriseServices</span><span class="p">.</span><span class="n">CatalogSync</span><span class="p">.</span><span class="n">Wait</span><span class="p">()</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">_set</span><span class="p">)</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="n">RegistryKey</span><span class="w"> </span><span class="n">key1</span><span class="w">
+      </span><span class="p">=</span><span class="w"> </span><span class="n">Registry</span><span class="p">.</span><span class="n">LocalMachine</span><span class="p">.</span><span class="n">OpenSubKey</span><span class="p">(</span><span class="s">&#64;&quot;<span class="caps">SOFTWARE</span>\Classes\<span class="caps">CLSID</span>&quot;</span><span class="p">);</span><span class="w">
+    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="k">true</span><span class="p">)</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="kt">int</span><span class="w"> </span><span class="n">num1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="n">key1</span><span class="p">.</span><span class="n">GetValue</span><span class="p">(</span><span class="s">&quot;CLBVersion&quot;</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">);</span><span class="w">
+ </span></pre><span>&#8230;<a href="/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html" class="continue">continue</a>.</span>
     <footer>
         
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/09/12/2006911.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/09/14/NeverSleep0InAnInfiniteLoop.html#disqus_thread">Comment</a>
         
         
             <p>tagged as
-                <a href="/tag/politics/" rel="tag">politics</a>
+                <a href="/tag/c-sharp/" rel="tag">c-sharp</a>,
+                <a href="/tag/windows/" rel="tag">windows</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
@@ -95,6 +108,39 @@ sponsored by Vim:
                     and
                     
                 <a href="/tag/personal/" rel="tag">personal</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-09-12">2006-09-12</time>
+        <h1>
+            <a href="/blog/2006/09/12/2006911.html" rel="bookmark canonical">9/11</a>
+        </h1>
+    </header>
+    
+<p>Nine-Eleven. The date burned into everyone&#8217;s brain. One of those dates
+where everyone remembers where they were when they heard the news.
+Emma and I awoke to the radio telling us that planes had crashed into the
+World Trade Center. We went downstairs and watched the <span class="caps">TV</span> in&nbsp;horror.</p>
+<p>For a time, an all-too-brief time, the country pulled together
+in a show of unity and grief. The world joined us in an outpouring of&nbsp;support.</p>
+<p>There are many reasons why history will condemn George Bush, but one of the
+most serious is his squan&shy;der&shy;ing that good will for quick partisan
+advantage. A better man could have built a bipartisan consensus <span>&#8230;<a href="/blog/2006/09/12/2006911.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/09/12/2006911.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/politics/" rel="tag">politics</a>
                 
             </p>
         
@@ -272,6 +318,43 @@ We used the name of the&nbsp;assembly.</p>
     <header>
         <time datetime="2006-08-18">2006-08-18</time>
         <h1>
+            <a href="/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html" rel="bookmark canonical">Posting to dasBlog with Windows Live Writer</a>
+        </h1>
+    </header>
+    <p>From Scott Hanselman,
+I learned about Microsoft&#8217;s new blog posting client, <a class="reference external" href="http://www.hanselman.com/blog/WindowsLiveWriterAndDasBlog19.aspx">Windows Live Writer</a>.
+I&#8217;ve played around with it and it&#8217;s definitely the nicest free blogging client that I&#8217;ve&nbsp;used.</p>
+<p>Here are in&shy;struc&shy;tions on con&shy;fig&shy;ur&shy;ing it to post to dasBlog.
+I&#8217;m showing how to set it up for <a class="reference external" href="http://www.emmabart.com/Meanderings/">Emma&#8217;s blog</a>, since she&#8217;s running dasBlog 1.8.
+I&#8217;m running a recent build of the as-yet unreleased dasBlog 1.9,
+which supports Really Simple Discovery,
+which makes the first part of this exercise simpler,
+as <span class="caps">WLW</span> can infer that it&#8217;s dealing with Metaweblog <span class="caps">API</span>,
+just by pointing it at the root of the&nbsp;blog.</p>
+<p>Launch <span class="caps">WLW</span> and Add a Weblog Account.
+Choose Another weblog&nbsp;service.</p>
+
+<p>Next, enter the <span class="caps">URL</span> <span>&#8230;<a href="/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/dasblog/" rel="tag">dasblog</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2006-08-18">2006-08-18</time>
+        <h1>
             <a href="/blog/2006/08/18/SponsorMeForTheAIDSWalk.html" rel="bookmark canonical">Sponsor me for the AIDS Walk</a>
         </h1>
     </header>
@@ -312,43 +395,6 @@ and most new infections <span>&#8230;<a href="/blog/2006/08/18/SponsorMeForTheAI
     
         <article>
     <header>
-        <time datetime="2006-08-18">2006-08-18</time>
-        <h1>
-            <a href="/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html" rel="bookmark canonical">Posting to dasBlog with Windows Live Writer</a>
-        </h1>
-    </header>
-    <p>From Scott Hanselman,
-I learned about Microsoft&#8217;s new blog posting client, <a class="reference external" href="http://www.hanselman.com/blog/WindowsLiveWriterAndDasBlog19.aspx">Windows Live Writer</a>.
-I&#8217;ve played around with it and it&#8217;s definitely the nicest free blogging client that I&#8217;ve&nbsp;used.</p>
-<p>Here are in&shy;struc&shy;tions on con&shy;fig&shy;ur&shy;ing it to post to dasBlog.
-I&#8217;m showing how to set it up for <a class="reference external" href="http://www.emmabart.com/Meanderings/">Emma&#8217;s blog</a>, since she&#8217;s running dasBlog 1.8.
-I&#8217;m running a recent build of the as-yet unreleased dasBlog 1.9,
-which supports Really Simple Discovery,
-which makes the first part of this exercise simpler,
-as <span class="caps">WLW</span> can infer that it&#8217;s dealing with Metaweblog <span class="caps">API</span>,
-just by pointing it at the root of the&nbsp;blog.</p>
-<p>Launch <span class="caps">WLW</span> and Add a Weblog Account.
-Choose Another weblog&nbsp;service.</p>
-
-<p>Next, enter the <span class="caps">URL</span> <span>&#8230;<a href="/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/dasblog/" rel="tag">dasblog</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
         <time datetime="2006-08-17">2006-08-17</time>
         <h1>
             <a href="/blog/2006/08/17/TheUKTerrorPlot.html" rel="bookmark canonical">The UK Terror Plot</a>
@@ -375,40 +421,6 @@ ticket. Many <span>&#8230;<a href="/blog/2006/08/17/TheUKTerrorPlot.html" class=
         
             <p>tagged as
                 <a href="/tag/politics/" rel="tag">politics</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-08-16">2006-08-16</time>
-        <h1>
-            <a href="/blog/2006/08/16/SomeFamilyPhotos.html" rel="bookmark canonical">Some Family Photos</a>
-        </h1>
-    </header>
-    <p>My brother David sent me this photo earlier today, of
-me, him, and Michelle. I&#8217;m guessing that Michelle is less than a year old,
-so it was taken sometime in 1971, which would make David four and me six.
-(Our youngest brother, Mark, wasn&#8217;t born until&nbsp;1973.)</p>
-
-<p>Emma thinks we&#8217;re adorable and has already made this picture her desktop
-background on her work&nbsp;computer.</p>
-<p>Mark has another photo of the four of us, taken in 1978
-on his website, <a class="reference external" href="http://www.alienresident.net/">alien&shy;res&shy;i&shy;dent.net</a>:</p>
-<a class="reference external image-reference" href="http://www.alienresident.net/contact/contact.html"></a>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/08/16/SomeFamilyPhotos.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/personal/" rel="tag">personal</a>
                 
             </p>
         

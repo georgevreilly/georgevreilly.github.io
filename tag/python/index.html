@@ -42,11 +42,12 @@ You start at <code>a</code> and keep going until the next number would be <code>
 <p>In Python 3, <code>range</code> is <em>lazy</em>
 and the values in the sequence do not ma&shy;te&shy;ri&shy;al&shy;ize
 until you consume the range.</p>
-<div class="codehilite"><pre><span></span><code><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
 <span class="go">range(3, 12)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
 <span class="go">[3, 4, 5, 6, 7, 8, 9, 10, 11]</span>
-</code></pre></div>
+</pre></div>
+
 
 <p>Trey Hunner makes the point that
 <a href="https://treyhunner.com/2018/02/python-range-is-not-an-iterator/">range is a lazy iterable</a>
@@ -84,9 +85,9 @@ when the median test time jumped by two minutes.</p>
 <a class="reference external image-reference" href="https://www.bigocheatsheet.com/"></a>
 <p>We tracked it down to this (simplified) code fragment:</p>
 <pre class="code python literal-block">
-<span class="n">task_inclusions</span> <span class="o">=</span> <span class="p">[</span> <span class="n">some_collection_of_tasks</span><span class="p">()</span> <span class="p">]</span><span class="w">
-</span><span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span><span class="w">
-</span>                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
+<span class="n">task_inclusions</span> <span class="o">=</span> <span class="p">[</span> <span class="n">some_collection_of_tasks</span><span class="p">()</span> <span class="p">]</span>
+<span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span>
+                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
 </pre>
 <p>This looks fairly in&shy;nocu&shy;ous—and it was—until the size of the result returned from <tt class="docutils literal">some_&shy;col&shy;lec&shy;tion_of_&shy;tasks()</tt>
 jumped from a few hundred to a few thousand.</p>
@@ -129,16 +130,16 @@ Specif&shy;i&shy;cal&shy;ly, using keyword arguments or passing a <tt class="doc
 will not retain the insertion order of the source code.</p>
 <pre class="code pycon literal-block">
 <span class="go">Python 2.7.13 (default, Dec 18 2016, 07:03:39)
-</span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span><span class="w">
-</span><span class="go">
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span><span class="w">
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'one'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="w">
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'two'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="w">
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'three'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span><span class="w">
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'four'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span><span class="w">
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'five'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span><span class="w">
-</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span><span class="w">
-</span><span class="go">[('one', 1), ('two', 2), ('three', </span></pre><span>&#8230;<a href="/blog/2017/02/21/OrderedDictInitialization.html" class="continue">continue</a>.</span>
+</span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="go">
+</span><span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'one'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'two'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'three'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'four'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="p">[</span><span class="s1">'five'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">odict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+<span class="go">[('one', 1), ('two', 2), ('three', </span></pre><span>&#8230;<a href="/blog/2017/02/21/OrderedDictInitialization.html" class="continue">continue</a>.</span>
     <footer>
         
         
@@ -330,25 +331,25 @@ When dealing with URLs, we always want forward slashes,
 regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build URL paths.</p>
 <p>Running:</p>
 <pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="w">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-</span><span class="kn">from</span> <span class="nn">six.moves.urllib_parse</span> <span class="kn">import</span> <span class="n">urljoin</span> <span class="k">as</span> <span class="n">abs_urljoin</span><span class="w">
-</span><span class="kn">from</span> <span class="nn">posixpath</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">path_urljoin</span><span class="w">
+<span class="kn">from</span> <span class="nn">six.moves.urllib_parse</span> <span class="kn">import</span> <span class="n">urljoin</span> <span class="k">as</span> <span class="n">abs_urljoin</span>
+<span class="kn">from</span> <span class="nn">posixpath</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">path_urljoin</span>
 
-</span><span class="k">def</span> <span class="nf">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span><span class="w">
-</span>    <span class="k">return</span> <span class="n">abs_urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span><span class="w">
+<span class="k">def</span> <span class="nf">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">abs_urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 
-</span><span class="k">def</span> <span class="nf">test_join</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span><span class="w">
-</span>    <span class="n">result</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span><span class="w">
-</span>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;'</span><span class="si">{0}</span><span class="s2">' + '</span><span class="si">{1}</span><span class="s2">'</span><span class="se">\n\t</span><span class="s2">-&gt; '</span><span class="si">{2}</span><span class="s2">'&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span><span class="w">
-</span>    <span class="k">return</span> <span class="n">result</span><span class="w">
+<span class="k">def</span> <span class="nf">test_join</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;'</span><span class="si">{0}</span><span class="s2">' + '</span><span class="si">{1}</span><span class="s2">'</span><span class="se">\n\t</span><span class="s2">-&gt; '</span><span class="si">{2}</span><span class="s2">'&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">result</span>
 
-</span><span class="n">local_path</span> <span class="o">=</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="s1">'2016'</span><span class="p">,</span> <span class="s1">'07'</span><span class="p">,</span> <span class="s1">'12'</span><span class="p">,</span> <span class="s1">'release'</span><span class="p">,</span> <span class="s1">'index.html'</span><span class="p">)</span><span class="w">
+<span class="n">local_path</span> <span class="o">=</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="s1">'2016'</span><span class="p">,</span> <span class="s1">'07'</span><span class="p">,</span> <span class="s1">'12'</span><span class="p">,</span> <span class="s1">'release'</span><span class="p">,</span> <span class="s1">'index.html'</span><span class="p">)</span>
 
-</span><span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="s1">'foo/bar/quux.js'</span><span class="p">)</span><span class="w">
-</span><span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span><span class="w">
-</span><span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span><span class="w">
-</span><span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/prefix'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="s1">'foo/bar/quux.js'</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/prefix'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
 </pre>
 <p>Yields:</p>
 <pre class="literal-block">

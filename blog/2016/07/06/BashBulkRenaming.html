@@ -45,10 +45,10 @@ As one of the many variants of <a class="reference external" href="http://tldp.o
 Bash supports <tt class="docutils literal">${var/Pattern/Re&shy;place&shy;men&shy;t}</tt>:
 “first match of <tt class="docutils literal">Pattern</tt> within <tt class="docutils literal">var</tt> replaced with <tt class="docutils literal">Re&shy;place&shy;ment</tt>.”</p>
 <pre class="code bash literal-block">
-<span class="k">for</span><span class="w"> </span>f<span class="w"> </span><span class="k">in</span><span class="w"> </span>*.png.jpg<span class="p">;</span><span class="w">
-</span><span class="k">do</span><span class="w">
-    </span>mv<span class="w"> </span><span class="nv">$f</span><span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">f</span><span class="p">/.png</span><span class="si">}</span><span class="s2">&quot;</span><span class="w">
-</span><span class="k">done</span>
+<span class="k">for</span> f <span class="k">in</span> *.png.jpg<span class="p">;</span>
+<span class="k">do</span>
+    mv <span class="nv">$f</span> <span class="s2">&quot;</span><span class="si">${</span><span class="nv">f</span><span class="p">/.png</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">done</span>
 </pre>
 <p>The target expression could also have been written as <tt class="docutils literal"><span class="pre">&quot;${f/.png.jpg/.jpg}&quot;</span></tt></p>
 

@@ -46,78 +46,78 @@ The script may be run more than once during the lifetime of the agent,
 so the second and subsequent calls should not upgrade&nbsp;Docker.</p>
 <p>Basically, I&nbsp;wanted</p>
 <pre class="code bash literal-block">
-<span class="k">if</span><span class="w"> </span><span class="nv">$DOCKER_VERSION</span><span class="w"> </span>&lt;<span class="w"> </span><span class="m">1</span>.9<span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span>upgrade_docker<span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="k">if</span> <span class="nv">$DOCKER_VERSION</span> &lt; <span class="m">1</span>.9<span class="p">;</span> <span class="k">then</span> upgrade_docker<span class="p">;</span> <span class="k">fi</span>
 </pre>
 <p>Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s not that easy in Bash.
 Here&#8217;s what I came up&nbsp;with.</p>
 <pre class="code bash literal-block">
-install_latest_docker<span class="o">()</span><span class="w"> </span><span class="o">{</span><span class="w">
-    </span><span class="k">if</span><span class="w"> </span>docker<span class="w"> </span>--version<span class="w"> </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;min=[1, 9]; import sys; ↩
+install_latest_docker<span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> docker --version <span class="p">|</span> python -c <span class="s2">&quot;min=[1, 9]; import sys; ↩
 v=[int(x) for x in sys.stdin.read().split()[2].split(',')[0].split('.')]; ↩
-sys.exit(v &lt; min)&quot;</span><span class="p">;</span><span class="w">
-    </span><span class="k">then</span><span class="w">
-        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Docker up to date&quot;</span><span class="w">
-        </span><span class="k">return</span><span class="w">
-    </span><span class="k">fi</span><span class="w">
-    </span><span class="c1"># Install Docker ...</span>
+sys.exit(v &lt; min)&quot;</span><span class="p">;</span>
+    <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Docker up to date&quot;</span>
+        <span class="k">return</span>
+    <span class="k">fi</span>
+    <span class="c1"># Install Docker ...</span>
 </pre>
 <p>Let&#8217;s unpack that ugly <tt class="docutils literal">if</tt> one-liner.
 Note: the <tt class="docutils literal">↩</tt> denotes linebreaks introduced for pre&shy;sen&shy;ta&shy;tion purposes; it&#8217;s all one&nbsp;line.</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>docker<span class="w"> </span>--version<span class="w">
-</span>Docker<span class="w"> </span>version<span class="w"> </span><span class="m">1</span>.9.1,<span class="w"> </span>build<span class="w"> </span>a34a1d5
+$ docker --version
+Docker version <span class="m">1</span>.9.1, build a34a1d5
 </pre>
 <pre class="code python literal-block">
-<span class="err">$</span> <span class="n">ipython</span><span class="w">
+<span class="err">$</span> <span class="n">ipython</span>
 
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">dv</span> <span class="o">=</span> <span class="s1">'Docker version 1.9.1, build a34a1d5'</span><span class="w">
+<span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="n">dv</span> <span class="o">=</span> <span class="s1">'Docker version 1.9.1, build a34a1d5'</span>
 
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">dv</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="w">
-</span><span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'Docker'</span><span class="p">,</span> <span class="s1">'version'</span><span class="p">,</span> <span class="s1">'1.9.1,'</span><span class="p">,</span> <span class="s1">'build'</span><span class="p">,</span> <span class="s1">'a34a1d5'</span><span class="p">]</span><span class="w">
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">dv</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'Docker'</span><span class="p">,</span> <span class="s1">'version'</span><span class="p">,</span> <span class="s1">'1.9.1,'</span><span class="p">,</span> <span class="s1">'build'</span><span class="p">,</span> <span class="s1">'a34a1d5'</span><span class="p">]</span>
 
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">dv</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="w">
-</span><span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="s1">'1.9.1,'</span><span class="w">
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">dv</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="s1">'1.9.1,'</span>
 
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="c1"># Remove trailing comma</span><span class="w">
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="c1"># Remove trailing comma</span>
 
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">dv</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span><span class="w">
-</span><span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'1.9.1'</span><span class="p">,</span> <span class="s1">''</span><span class="p">]</span><span class="w">
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">dv</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'1.9.1'</span><span class="p">,</span> <span class="s1">''</span><span class="p">]</span>
 
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">dv</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="w">
-</span><span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="s1">'1.9.1'</span><span class="w">
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">dv</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="s1">'1.9.1'</span>
 
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="c1"># Break apart at dots</span><span class="w">
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="c1"># Break apart at dots</span>
 
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">dv</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span><span class="w">
-</span><span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'9'</span><span class="p">,</span> <span class="s1">'1'</span><span class="p">]</span><span class="w">
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">dv</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'9'</span><span class="p">,</span> <span class="s1">'1'</span><span class="p">]</span>
 
-</span><span class="c1"># String comparisons aren't good enough for version numbers</span><span class="w">
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'10'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">[</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'9'</span><span class="p">]</span><span class="w">
-</span><span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="kc">True</span><span class="w">
+<span class="c1"># String comparisons aren't good enough for version numbers</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="p">[</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'10'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">[</span><span class="s1">'1'</span><span class="p">,</span> <span class="s1">'9'</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="kc">True</span>
 
-</span><span class="c1"># We have to convert each token to an integer, then lexicographically compare</span><span class="w">
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span><span class="w">
-</span><span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="kc">False</span><span class="w">
+<span class="c1"># We have to convert each token to an integer, then lexicographically compare</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span> <span class="o">&lt;</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span> <span class="kc">False</span>
 
-</span><span class="c1"># Convert to list of integers</span><span class="w">
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">version</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dv</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)]</span><span class="w">
+<span class="c1"># Convert to list of integers</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">11</span><span class="p">]:</span> <span class="n">version</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dv</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">','</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)]</span>
 
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="nb">min</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span><span class="w">
+<span class="n">In</span> <span class="p">[</span><span class="mi">12</span><span class="p">]:</span> <span class="nb">min</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">]</span>
 
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">version</span><span class="p">,</span> <span class="nb">min</span><span class="w">
-</span><span class="n">Out</span><span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span><span class="w">
+<span class="n">In</span> <span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="n">version</span><span class="p">,</span> <span class="nb">min</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">13</span><span class="p">]:</span> <span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
 
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">version</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="w">
-</span><span class="n">Out</span><span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="kc">False</span><span class="w">
+<span class="n">In</span> <span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="n">version</span> <span class="o">&lt;</span> <span class="nb">min</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">14</span><span class="p">]:</span> <span class="kc">False</span>
 
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="w">
-</span><span class="n">Out</span><span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="kc">True</span><span class="w">
+<span class="n">In</span> <span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nb">min</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">15</span><span class="p">]:</span> <span class="kc">True</span>
 
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="nb">int</span><span class="p">(</span><span class="n">version</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">)</span><span class="w">
-</span><span class="n">Out</span><span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="mi">0</span><span class="w">
+<span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="nb">int</span><span class="p">(</span><span class="n">version</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="mi">0</span>
 
-</span><span class="n">In</span> <span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="nb">int</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">)</span><span class="w">
-</span><span class="n">Out</span><span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="mi">1</span>
+<span class="n">In</span> <span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="nb">int</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">&lt;</span> <span class="nb">min</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="mi">1</span>
 </pre>
 <p>The ugly triple split inside the list com&shy;pre&shy;hen&shy;sion
 produces a list of integers,

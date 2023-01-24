@@ -52,40 +52,40 @@ which is needed to initially set all instances of <tt class="docutils literal">s
 I then declare a <tt class="docutils literal">table</tt> which has only the two columns needed for the migration.
 Finally, I execute an <tt class="docutils literal">update</tt> on the&nbsp;table.</p>
 <pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">alembic</span> <span class="kn">import</span> <span class="n">op</span><span class="w">
-</span><span class="kn">import</span> <span class="nn">sqlalchemy</span> <span class="k">as</span> <span class="nn">sa</span><span class="w">
-</span><span class="kn">from</span> <span class="nn">sqlalchemy.sql</span> <span class="kn">import</span> <span class="n">table</span><span class="w">
+<span class="kn">from</span> <span class="nn">alembic</span> <span class="kn">import</span> <span class="n">op</span>
+<span class="kn">import</span> <span class="nn">sqlalchemy</span> <span class="k">as</span> <span class="nn">sa</span>
+<span class="kn">from</span> <span class="nn">sqlalchemy.sql</span> <span class="kn">import</span> <span class="n">table</span>
 
-</span><span class="n">StoogeNames</span> <span class="o">=</span> <span class="p">(</span><span class="w">
-</span>    <span class="s2">&quot;Larry - Production&quot;</span><span class="p">,</span><span class="w">
-</span>    <span class="s2">&quot;Moe - Production&quot;</span><span class="p">,</span><span class="w">
-</span>    <span class="s2">&quot;Curly - Production&quot;</span><span class="p">,</span><span class="w">
-</span><span class="p">)</span><span class="w">
+<span class="n">StoogeNames</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;Larry - Production&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Moe - Production&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Curly - Production&quot;</span><span class="p">,</span>
+<span class="p">)</span>
 
-</span><span class="k">def</span> <span class="nf">upgrade</span><span class="p">():</span><span class="w">
-</span>    <span class="n">op</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="w">
-</span>        <span class="s1">'old_timers'</span><span class="p">,</span><span class="w">
-</span>        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">'stooge'</span><span class="p">,</span><span class="w">
-</span>                  <span class="n">sa</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(),</span><span class="w">
-</span>                  <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="w">
-</span>                  <span class="n">server_default</span><span class="o">=</span><span class="n">sa</span><span class="o">.</span><span class="n">false</span><span class="p">()))</span><span class="w">
+<span class="k">def</span> <span class="nf">upgrade</span><span class="p">():</span>
+    <span class="n">op</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span>
+        <span class="s1">'old_timers'</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">'stooge'</span><span class="p">,</span>
+                  <span class="n">sa</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(),</span>
+                  <span class="n">nullable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                  <span class="n">server_default</span><span class="o">=</span><span class="n">sa</span><span class="o">.</span><span class="n">false</span><span class="p">()))</span>
 
-</span>    <span class="n">old_timers</span> <span class="o">=</span> <span class="n">table</span><span class="p">(</span><span class="w">
-</span>        <span class="s1">'old_timers'</span><span class="p">,</span><span class="w">
-</span>        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n"><span class="caps">VARCHAR</span></span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">40</span><span class="p">)),</span><span class="w">
-</span>        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">'stooge'</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">Boolean</span><span class="p">())</span><span class="w">
-</span>        <span class="c1"># Other columns not needed for the data migration</span><span class="w">
-</span>    <span class="p">)</span><span class="w">
+    <span class="n">old_timers</span> <span class="o">=</span> <span class="n">table</span><span class="p">(</span>
+        <span class="s1">'old_timers'</span><span class="p">,</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n"><span class="caps">VARCHAR</span></span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">40</span><span class="p">)),</span>
+        <span class="n">sa</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="s1">'stooge'</span><span class="p">,</span> <span class="n">sa</span><span class="o">.</span><span class="n">Boolean</span><span class="p">())</span>
+        <span class="c1"># Other columns not needed for the data migration</span>
+    <span class="p">)</span>
 
-</span>    <span class="n">op</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="w">
-</span>        <span class="n">old_timers</span><span class="w">
-</span>            <span class="o">.</span><span class="n">update</span><span class="p">()</span><span class="w">
-</span>            <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">old_timers</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">in_</span><span class="p">(</span><span class="n">StoogeNames</span><span class="p">))</span><span class="w">
-</span>            <span class="o">.</span><span class="n">values</span><span class="p">({</span><span class="s1">'stooge'</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span><span class="w">
-</span>    <span class="p">)</span><span class="w">
+    <span class="n">op</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+        <span class="n">old_timers</span>
+            <span class="o">.</span><span class="n">update</span><span class="p">()</span>
+            <span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">old_timers</span><span class="o">.</span><span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">in_</span><span class="p">(</span><span class="n">StoogeNames</span><span class="p">))</span>
+            <span class="o">.</span><span class="n">values</span><span class="p">({</span><span class="s1">'stooge'</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+    <span class="p">)</span>
 
-</span><span class="k">def</span> <span class="nf">downgrade</span><span class="p">():</span><span class="w">
-</span>    <span class="n">op</span><span class="o">.</span><span class="n">drop_column</span><span class="p">(</span><span class="s1">'old_timers'</span><span class="p">,</span> <span class="s1">'stooge'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">downgrade</span><span class="p">():</span>
+    <span class="n">op</span><span class="o">.</span><span class="n">drop_column</span><span class="p">(</span><span class="s1">'old_timers'</span><span class="p">,</span> <span class="s1">'stooge'</span><span class="p">)</span>
 </pre>
 
     <footer>

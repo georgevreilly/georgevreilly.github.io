@@ -76,37 +76,37 @@ which gets executed after <tt class="docutils literal">$<span class="caps">VIMRU
 but then I can&#8217;t provide non-over&shy;ride&shy;able de&shy;f&shy;i&shy;n&shy;i&shy;tions for
 <tt class="docutils literal">rstEm&shy;pha&shy;sis</tt> and <tt class="docutils literal">rst&shy;StrongEm&shy;pha&shy;sis</tt>.</p>
 <pre class="code vim literal-block">
-<span class="k">function</span><span class="p">!</span> s:SynFgColor<span class="p">(</span>hlgrp<span class="p">)</span><span class="w">
-</span>    <span class="k">return</span> synIDattr<span class="p">(</span>synIDtrans<span class="p">(</span>hlID<span class="p">(</span><span class="k">a</span>:hlgrp<span class="p">)),</span> <span class="s1">'fg'</span><span class="p">)</span><span class="w">
-</span><span class="k">endfun</span><span class="w">
+<span class="k">function</span><span class="p">!</span> s:SynFgColor<span class="p">(</span>hlgrp<span class="p">)</span>
+    <span class="k">return</span> synIDattr<span class="p">(</span>synIDtrans<span class="p">(</span>hlID<span class="p">(</span><span class="k">a</span>:hlgrp<span class="p">)),</span> <span class="s1">'fg'</span><span class="p">)</span>
+<span class="k">endfun</span>
 
-</span><span class="k">function</span><span class="p">!</span> s:SynBgColor<span class="p">(</span>hlgrp<span class="p">)</span><span class="w">
-</span>    <span class="k">return</span> synIDattr<span class="p">(</span>synIDtrans<span class="p">(</span>hlID<span class="p">(</span><span class="k">a</span>:hlgrp<span class="p">)),</span> <span class="s1">'bg'</span><span class="p">)</span><span class="w">
-</span><span class="k">endfun</span><span class="w">
+<span class="k">function</span><span class="p">!</span> s:SynBgColor<span class="p">(</span>hlgrp<span class="p">)</span>
+    <span class="k">return</span> synIDattr<span class="p">(</span>synIDtrans<span class="p">(</span>hlID<span class="p">(</span><span class="k">a</span>:hlgrp<span class="p">)),</span> <span class="s1">'bg'</span><span class="p">)</span>
+<span class="k">endfun</span>
 
-</span><span class="k">syn</span> <span class="k">match</span> rstEnumeratedList <span class="sr">/^\s*[0-9#]\{1,3}\.\s/</span><span class="w">
-</span><span class="k">syn</span> <span class="k">match</span> rstBulletedList <span class="sr">/^\s*[+*-]\s/</span><span class="w">
-</span><span class="k">syn</span> <span class="k">match</span> rstNbsp <span class="sr">/[\xA0]/</span><span class="w">
-</span><span class="k">syn</span> <span class="k">match</span> rstEmDash <span class="sr">/[\u2014]/</span><span class="w">
-</span><span class="k">syn</span> <span class="k">match</span> rstUnicode <span class="sr">/[\u2013\u2018\u2019\u201C\u201D]/</span> <span class="c">&quot; – ‘ ’ “ ”</span><span class="w">
+<span class="k">syn</span> <span class="k">match</span> rstEnumeratedList <span class="sr">/^\s*[0-9#]\{1,3}\.\s/</span>
+<span class="k">syn</span> <span class="k">match</span> rstBulletedList <span class="sr">/^\s*[+*-]\s/</span>
+<span class="k">syn</span> <span class="k">match</span> rstNbsp <span class="sr">/[\xA0]/</span>
+<span class="k">syn</span> <span class="k">match</span> rstEmDash <span class="sr">/[\u2014]/</span>
+<span class="k">syn</span> <span class="k">match</span> rstUnicode <span class="sr">/[\u2013\u2018\u2019\u201C\u201D]/</span> <span class="c">&quot; – ‘ ’ “ ”</span>
 
-</span>exec <span class="s1">'hi def rstBold    term=bold cterm=bold gui=bold guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'PreProc'</span><span class="p">)</span><span class="w">
-</span>exec <span class="s1">'hi def rstItalic  term=italic cterm=italic gui=italic guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Statement'</span><span class="p">)</span><span class="w">
-</span>exec <span class="s1">'hi def rstNbsp    gui=underline guibg='</span> . s:SynBgColor<span class="p">(</span><span class="s1">'ErrorMsg'</span><span class="p">)</span><span class="w">
-</span>exec <span class="s1">'hi def rstEmDash  gui=bold guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Title'</span><span class="p">)</span> . <span class="s1">' guibg='</span>. s:SynBgColor<span class="p">(</span><span class="s1">'Folded'</span><span class="p">)</span><span class="w">
-</span>exec <span class="s1">'hi def rstUnicode guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Number'</span><span class="p">)</span><span class="w">
+exec <span class="s1">'hi def rstBold    term=bold cterm=bold gui=bold guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'PreProc'</span><span class="p">)</span>
+exec <span class="s1">'hi def rstItalic  term=italic cterm=italic gui=italic guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Statement'</span><span class="p">)</span>
+exec <span class="s1">'hi def rstNbsp    gui=underline guibg='</span> . s:SynBgColor<span class="p">(</span><span class="s1">'ErrorMsg'</span><span class="p">)</span>
+exec <span class="s1">'hi def rstEmDash  gui=bold guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Title'</span><span class="p">)</span> . <span class="s1">' guibg='</span>. s:SynBgColor<span class="p">(</span><span class="s1">'Folded'</span><span class="p">)</span>
+exec <span class="s1">'hi def rstUnicode guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Number'</span><span class="p">)</span>
 
-</span><span class="k">hi</span> link rstEmphasis       rstItalic<span class="w">
-</span><span class="k">hi</span> link rstStrongEmphasis rstBold<span class="w">
-</span><span class="k">hi</span> link rstEnumeratedList Operator<span class="w">
-</span><span class="k">hi</span> link rstBulletedList   Operator<span class="w">
+<span class="k">hi</span> link rstEmphasis       rstItalic
+<span class="k">hi</span> link rstStrongEmphasis rstBold
+<span class="k">hi</span> link rstEnumeratedList Operator
+<span class="k">hi</span> link rstBulletedList   Operator
 
-</span>source $<span class="caps">VIMRUNTIME</span><span class="sr">/syntax/</span>rst.<span class="k">vim</span><span class="w">
+source $<span class="caps">VIMRUNTIME</span><span class="sr">/syntax/</span>rst.<span class="k">vim</span>
 
-</span><span class="k">syn</span> cluster rstCruft                contains<span class="p">=</span>rstEmphasis<span class="p">,</span>rstStrongEmphasis<span class="p">,</span><span class="w">
-</span>      \ rstInterpretedText<span class="p">,</span>rstInlineLiteral<span class="p">,</span>rstSubstitutionReference<span class="p">,</span><span class="w">
-</span>      \ rstInlineInternalTargets<span class="p">,</span>rstFootnoteReference<span class="p">,</span>rstHyperlinkReference<span class="p">,</span><span class="w">
-</span>      \ rstNbsp<span class="p">,</span>rstEmDash<span class="p">,</span>rstUnicode
+<span class="k">syn</span> cluster rstCruft                contains<span class="p">=</span>rstEmphasis<span class="p">,</span>rstStrongEmphasis<span class="p">,</span>
+      \ rstInterpretedText<span class="p">,</span>rstInlineLiteral<span class="p">,</span>rstSubstitutionReference<span class="p">,</span>
+      \ rstInlineInternalTargets<span class="p">,</span>rstFootnoteReference<span class="p">,</span>rstHyperlinkReference<span class="p">,</span>
+      \ rstNbsp<span class="p">,</span>rstEmDash<span class="p">,</span>rstUnicode
 </pre>
 
     <footer>

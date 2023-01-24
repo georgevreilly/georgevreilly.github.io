@@ -78,21 +78,21 @@ one template in terms of another;
 e.g., I want all the speakers to share the same styling,
 so I defined a pa&shy;ra&shy;me&shy;ter&shy;ized <tt class="docutils literal">speaker</tt> template:</p>
 <pre class="code xslt literal-block">
-<span class="k">&lt;xsl:template</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;speaker&quot;</span><span class="nt">&gt;</span><span class="w">
-    </span><span class="k">&lt;xsl:param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;name&quot;</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w">
-    </span><span class="nt">&lt;div</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;speaker&quot;</span><span class="nt">&gt;</span><span class="w">
-        </span><span class="nt">&lt;span</span><span class="w"> </span><span class="na">class=</span><span class="s">&quot;speaker&quot;</span><span class="nt">&gt;</span><span class="k">&lt;xsl:value-of</span><span class="w"> </span><span class="na">select=</span><span class="s">&quot;$name&quot;</span><span class="nt">/&gt;</span>:<span class="w"> </span><span class="nt">&lt;/span&gt;</span><span class="w">
-        </span><span class="k">&lt;xsl:apply-templates</span><span class="w"> </span><span class="nt">/&gt;</span><span class="w">
-    </span><span class="nt">&lt;/div&gt;</span><span class="w">
-</span><span class="k">&lt;/xsl:template&gt;</span>
+<span class="k">&lt;xsl:template</span> <span class="na">name=</span><span class="s">&quot;speaker&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;speaker&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;speaker&quot;</span><span class="nt">&gt;</span><span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;$name&quot;</span><span class="nt">/&gt;</span>: <span class="nt">&lt;/span&gt;</span>
+        <span class="k">&lt;xsl:apply-templates</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
 </pre>
 <p>which is called&nbsp;thus:</p>
 <pre class="code xslt literal-block">
-<span class="k">&lt;xsl:template</span><span class="w"> </span><span class="na">match=</span><span class="s">&quot;bloom&quot;</span><span class="nt">&gt;</span><span class="w">
-    </span><span class="k">&lt;xsl:call-template</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;speaker&quot;</span><span class="nt">&gt;</span><span class="w">
-        </span><span class="k">&lt;xsl:with-param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;name&quot;</span><span class="nt">&gt;</span>Bloom<span class="k">&lt;/xsl:with-param&gt;</span><span class="w">
-    </span><span class="k">&lt;/xsl:call-template&gt;</span><span class="w">
-</span><span class="k">&lt;/xsl:template&gt;</span>
+<span class="k">&lt;xsl:template</span> <span class="na">match=</span><span class="s">&quot;bloom&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:call-template</span> <span class="na">name=</span><span class="s">&quot;speaker&quot;</span><span class="nt">&gt;</span>
+        <span class="k">&lt;xsl:with-param</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span><span class="nt">&gt;</span>Bloom<span class="k">&lt;/xsl:with-param&gt;</span>
+    <span class="k">&lt;/xsl:call-template&gt;</span>
+<span class="k">&lt;/xsl:template&gt;</span>
 </pre>
 <p>The <em>real</em> challenge in preparing the script is dra&shy;matur&shy;gi&shy;cal.
 <em>Ulysses</em> is a no&shy;to&shy;ri&shy;ous&shy;ly difficult and dense text,
@@ -181,8 +181,8 @@ is a good starting point for matters&nbsp;Joycean.</p>
         </a>
     
     
-        <a href="/blog/2005/07/19/AHarryPotterProphecy.html" class="page floatleft">
-        &laquo; A Harry Potter prophecy
+        <a href="/blog/2005/07/19/CornwellAndOBrian.html" class="page floatleft">
+        &laquo; Cornwell and O'Brian
         </a>
 <footer>
     

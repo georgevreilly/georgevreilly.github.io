@@ -112,9 +112,9 @@ the negative circled san-serif digits, ➊ ➋ ➌ ➍ ➎ ➏ ➐ ➑ ➒ ➓ .
 <p>I've started using them to label points of interest in code.
 They play well with the <tt class="docutils literal"><span class="pre">code-block</span></tt> directive in re&shy;Struc&shy;tured&shy;Text.</p>
 <pre class="code bash literal-block">
-sudo<span class="w"> </span>docker<span class="w"> </span>images<span class="w"> </span>--format<span class="w"> </span><span class="s1">'{{.Repository}}:{{.Tag}}'</span><span class="w"> </span><span class="se">\ </span><span class="w">   </span>➊<span class="w">
-    </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="nv">$IMAGE_NAME</span><span class="w"> </span><span class="se">\ </span><span class="w">                                   </span>➋<span class="w">
-    </span></pre><span>&#8230;<a href="/blog/2017/01/31/NegativeCircledDigits.html" class="continue">continue</a>.</span>
+sudo docker images --format <span class="s1">'{{.Repository}}:{{.Tag}}'</span> <span class="se">\ </span>   ➊
+    <span class="p">|</span> grep <span class="nv">$IMAGE_NAME</span> <span class="se">\ </span>                                   ➋
+    </pre><span>&#8230;<a href="/blog/2017/01/31/NegativeCircledDigits.html" class="continue">continue</a>.</span>
     <footer>
         
         
@@ -372,24 +372,24 @@ that was on-CPU when the <span>&#8230;<a href="/blog/2016/08/23/FlameGraphsAndFl
     <p>I needed to create a wildcard SSL cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/">AWS CloudFront</a> today.</p>
 <p>First, generate a 2048-bit private key. This will prompt you for a passphrase:</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>openssl<span class="w"> </span>genrsa<span class="w"> </span>-des3<span class="w"> </span>-out<span class="w"> </span>example.key<span class="w"> </span><span class="m">2048</span>
+$ openssl genrsa -des3 -out example.key <span class="m">2048</span>
 </pre>
 <p>Check which signature algorithm was used (SHA-256 is rec&shy;om&shy;mend&shy;ed):</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-in<span class="w"> </span>example.csr<span class="w"> </span>-noout<span class="w"> </span>-text
+$ openssl req -in example.csr -noout -text
 </pre>
 <p>Transform the private key to PEM format:</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>openssl<span class="w"> </span>rsa<span class="w"> </span>-outform<span class="w"> </span>PEM<span class="w"> </span>-in<span class="w"> </span>example.key<span class="w"> </span>-out<span class="w"> </span>example.pem
+$ openssl rsa -outform PEM -in example.key -out example.pem
 </pre>
 <p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server FQDN:</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>example.key<span class="w"> </span>-out<span class="w"> </span>example.csr<span class="w">
+$ openssl req -new -key example.key -out example.csr
 
-</span>Country<span class="w"> </span>Name<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="w"> </span>letter<span class="w"> </span>code<span class="o">)</span><span class="w"> </span><span class="o">[</span>AU<span class="o">]</span>:US<span class="w">
-</span>State<span class="w"> </span>or<span class="w"> </span>Province<span class="w"> </span>Name<span class="w"> </span><span class="o">(</span>full<span class="w"> </span>name<span class="o">)</span><span class="w"> </span><span class="o">[</span>Some-State<span class="o">]</span>:Washington<span class="w">
-</span>Locality<span class="w"> </span>Name<span class="w"> </span><span class="o">(</span>eg,<span class="w"> </span>city<span class="o">)</span><span class="w"> </span><span class="o">[]</span>:Seattle<span class="w">
-</span>Organization<span class="w"> </span>Name<span class="w"> </span><span class="o">(</span>eg,<span class="w"> </span>company<span class="o">)</span><span class="w"> </span><span class="o">[</span>Internet<span class="w"> </span>Widgits<span class="w"> </span>Pty<span class="w"> </span></pre><span>&#8230;<a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" class="continue">continue</a>.</span>
+Country Name <span class="o">(</span><span class="m">2</span> letter code<span class="o">)</span> <span class="o">[</span>AU<span class="o">]</span>:US
+State or Province Name <span class="o">(</span>full name<span class="o">)</span> <span class="o">[</span>Some-State<span class="o">]</span>:Washington
+Locality Name <span class="o">(</span>eg, city<span class="o">)</span> <span class="o">[]</span>:Seattle
+Organization Name <span class="o">(</span>eg, company<span class="o">)</span> <span class="o">[</span>Internet Widgits Pty </pre><span>&#8230;<a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" class="continue">continue</a>.</span>
     <footer>
         
         

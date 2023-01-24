@@ -42,21 +42,21 @@ that was performing <span class="caps">SSH</span> tunneling on port 8080
 and kill&nbsp;it.</p>
 <p>The following works in&nbsp;Bash:</p>
 <pre class="code bash literal-block">
-ps<span class="w"> </span>aux<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="o">[</span>s<span class="o">]</span>sh.*:8080<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $2}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>-9
+ps aux <span class="p">|</span> grep <span class="o">[</span>s<span class="o">]</span>sh.*:8080 <span class="p">|</span> awk <span class="s1">'{print $2}'</span> <span class="p">|</span> xargs <span class="nb">kill</span> -9
 </pre>
 <p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
 won&#8217;t make it through to <tt class="docutils literal">awk</tt>.</p>
 <p>Here&#8217;s what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
 <pre class="code python literal-block">
-<span class="k">def</span> <span class="nf">kill_port_forwarding</span><span class="p">(</span><span class="n">host_port</span><span class="p">):</span><span class="w">
-</span>    <span class="n">ssh_args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;-L&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">:localhost:</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host_port</span><span class="p">)]</span><span class="w">
-</span>    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">process_iter</span><span class="p">():</span><span class="w">
-</span>        <span class="k">try</span><span class="p">:</span><span class="w">
-</span>            <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'ssh'</span><span class="p">):</span><span class="w">
-</span>                <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">cmdline</span><span class="p">()[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">ssh_args</span><span class="p">):]</span> <span class="o">==</span> <span class="n">ssh_args</span><span class="p">:</span><span class="w">
-</span>                    <span class="n">process</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span><span class="w">
-</span>        <span class="k">except</span> <span class="n">psutil</span><span class="o">.</span><span class="n">NoSuchProcess</span><span class="p">:</span><span class="w">
-</span>            <span class="k">pass</span>
+<span class="k">def</span> <span class="nf">kill_port_forwarding</span><span class="p">(</span><span class="n">host_port</span><span class="p">):</span>
+    <span class="n">ssh_args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;-L&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">:localhost:</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host_port</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">process_iter</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'ssh'</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">cmdline</span><span class="p">()[</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">ssh_args</span><span class="p">):]</span> <span class="o">==</span> <span class="n">ssh_args</span><span class="p">:</span>
+                    <span class="n">process</span><span class="o">.</span><span class="n">kill</span><span class="p">()</span>
+        <span class="k">except</span> <span class="n">psutil</span><span class="o">.</span><span class="n">NoSuchProcess</span><span class="p">:</span>
+            <span class="k">pass</span>
 </pre>
 <p>Obviously, the process filtering is more rigorous in the Python&nbsp;version.</p>
 

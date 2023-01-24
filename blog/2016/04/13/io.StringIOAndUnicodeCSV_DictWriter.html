@@ -47,24 +47,24 @@ for use with unit tests.
 <tt class="docutils literal">unicodecsv</tt> is a drop-in re&shy;place&shy;ment for Python&#8217;s built-in <tt class="docutils literal">csv</tt> module,
 which supports Unicode&nbsp;strings.</p>
 <pre class="code python literal-block">
-<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span><span class="w">
-</span>    <span class="n">write_csv_rows</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span><span class="w">
-</span>    <span class="n">lines</span> <span class="o">=</span> <span class="n">csv_file</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\r\n</span><span class="s1">'</span><span class="p">)</span><span class="w">
-</span>    <span class="k">return</span> <span class="n">lines</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># drop empty line after trailing \r\n</span>
+<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+    <span class="n">write_csv_rows</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">csv_file</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\r\n</span><span class="s1">'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lines</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># drop empty line after trailing \r\n</span>
 </pre>
 <p>It failed horribly with
 <tt class="docutils literal">TypeError: unicode argument expected, got 'str'</tt>.</p>
 <p>I managed to fix it by using <tt class="docutils literal">cStringIO.StringIO</tt> and <a class="reference external" href="https://docs.python.org/2/library/contextlib.html#contextlib.closing">contextlib.closing</a></p>
 <pre class="code python literal-block">
-<span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">closing</span><span class="p">(</span><span class="n">cStringIO</span><span class="o">.</span><span class="n">StringIO</span><span class="p">())</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span><span class="w">
-</span>    <span class="o">...</span>
+<span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">closing</span><span class="p">(</span><span class="n">cStringIO</span><span class="o">.</span><span class="n">StringIO</span><span class="p">())</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+    <span class="o">...</span>
 </pre>
 <p>Writing this post, however,
 I realized how to fix it properly.
 Use <a class="reference external" href="https://docs.python.org/2/library/io.html#io.BytesIO">io.BytesIO</a>:</p>
 <pre class="code python literal-block">
-<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span><span class="w">
-</span>    <span class="o">...</span>
+<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+    <span class="o">...</span>
 </pre>
 <p>I now realize that <tt class="docutils literal">io.StringIO</tt> is expecting a Unicode string,
 while the classic <tt class="docutils literal">cStringIO.StringIO</tt> is expecting a byte string.

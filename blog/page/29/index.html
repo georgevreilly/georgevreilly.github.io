@@ -29,6 +29,51 @@
     
         <article>
     <header>
+        <time datetime="2016-01-24">2016-01-24</time>
+        <h1>
+            <a href="/blog/2016/01/24/NoseTestDiscovery.html" rel="bookmark canonical">Nose Test Discovery</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://nose.readthedocs.org/"></a>
+<p>I figured out why I saw the following error every time I ran <a class="reference external" href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html">Nose</a>:</p>
+<pre class="code python literal-block">
+<span class="o">======================================================================</span>
+<span class="n"><span class="caps">ERROR</span></span><span class="p">:</span> <span class="n">Failure</span><span class="p">:</span> <span class="ne">TypeError</span> <span class="p">(</span><span class="nb">type</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">3</span> <span class="n">arguments</span><span class="p">)</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">523</span><span class="p">,</span> <span class="ow">in</span> <span class="n">makeTest</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_makeTest</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">582</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_makeTest</span>
+    <span class="k">return</span> <span class="n">MethodTestCase</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/case.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">345</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__init__</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cls</span><span class="p">()</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="nb">type</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">3</span> <span class="n">arguments</span>
+</pre>
+<p>It turns out that one module was importing a class called <tt class="docutils literal">TestApi</tt>
+which had a <tt class="docutils literal">class&shy;method</tt> called <tt class="docutils literal">run_in&shy;te&shy;gra&shy;tion_tests</tt>.
+The module itself had no tests; it just declared a class called <tt class="docutils literal">TestO&shy;b&shy;fus&shy;cat&shy;ed&shy;Mix&shy;in</tt>,
+which used some <span>&#8230;<a href="/blog/2016/01/24/NoseTestDiscovery.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/24/NoseTestDiscovery.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-23">2016-01-23</time>
         <h1>
             <a href="/blog/2016/01/23/ReviewSherlockHolmes2010Film.html" rel="bookmark canonical">Review: Sherlock Holmes (2010 film)</a>
@@ -91,12 +136,12 @@ Yet another is to re&shy;cur&shy;sive&shy;ly traverse a tree or a graph,
 yielding an iterable&nbsp;sequence.</p>
 <p>Consider this simple tree of&nbsp;nodes:</p>
 <pre class="code python literal-block">
-<span class="n">node_tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="w">
-</span>    <span class="s1">'a'</span><span class="p">,</span> <span class="p">[</span><span class="w">
-</span>        <span class="n">Node</span><span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="p">[</span><span class="w">
-</span>            <span class="n">Node</span><span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="p">[</span><span class="w">
-</span>                <span class="n">Node</span><span class="p">(</span><span class="s1">'g'</span><span class="p">)</span><span class="w">
-</span>    </pre><span>&#8230;<a href="/blog/2016/01/22/PythonRecursiveGenerators.html" class="continue">continue</a>.</span>
+<span class="n">node_tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+    <span class="s1">'a'</span><span class="p">,</span> <span class="p">[</span>
+        <span class="n">Node</span><span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="p">[</span>
+            <span class="n">Node</span><span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="p">[</span>
+                <span class="n">Node</span><span class="p">(</span><span class="s1">'g'</span><span class="p">)</span>
+    </pre><span>&#8230;<a href="/blog/2016/01/22/PythonRecursiveGenerators.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/22/PythonRecursiveGenerators.html#disqus_thread">Comment</a>
@@ -295,11 +340,11 @@ American <span>&#8230;<a href="/blog/2016/01/18/FederalHolidaysInadequatelyObser
     </header>
     <p>Have you ever attempted a <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">relative import</a> in a Python&nbsp;script?</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>./foo/bar/script.py<span class="w"> </span>some<span class="w"> </span>parameters<span class="w">
-</span>Traceback<span class="w"> </span><span class="o">(</span>most<span class="w"> </span>recent<span class="w"> </span>call<span class="w"> </span>last<span class="o">)</span>:<span class="w">
-  </span>File<span class="w"> </span><span class="s2">&quot;foo/bar/script.py&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">16</span>,<span class="w"> </span><span class="k">in</span><span class="w"> </span>&lt;module&gt;<span class="w">
-    </span>from<span class="w"> </span>.quux<span class="w"> </span>import<span class="w"> </span>find_vcs<span class="w">
-</span>ValueError:<span class="w"> </span>Attempted<span class="w"> </span>relative<span class="w"> </span>import<span class="w"> </span><span class="k">in</span><span class="w"> </span>non-package
+$ ./foo/bar/script.py some parameters
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">&quot;foo/bar/script.py&quot;</span>, line <span class="m">16</span>, <span class="k">in</span> &lt;module&gt;
+    from .quux import find_vcs
+ValueError: Attempted relative import <span class="k">in</span> non-package
 </pre>
 <p>I prefer to use <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">absolute imports</a> to minimize ambiguity and confusion,
 and most of my Python modules begin&nbsp;with:</p>
@@ -311,7 +356,7 @@ and most of my Python modules begin&nbsp;with:</p>
 and the solution to the above <tt class="docutils literal">ValueError</tt> occurred to me:
 Use <tt class="docutils literal">python <span class="pre">-m</span> package</tt> instead:</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>foo.bar.script<span class="w"> </span>some<span class="w"> </span>parameters
+$ python -m foo.bar.script some parameters
 </pre>
 <p>(Assuming that package <tt class="docutils literal">foo</tt> exists.)</p>
 
@@ -349,9 +394,9 @@ and work with a recent version of the <a class="reference external" href="http:/
 which makes it straight&shy;for&shy;ward to upgrade to Python 2.7.11
 on supported versions of&nbsp;Ubuntu.</p>
 <pre class="code bash literal-block">
-sudo<span class="w"> </span>apt-add-repository<span class="w"> </span>ppa:fkrull/deadsnakes-python2.7<span class="w">
-</span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w">
-</span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>python2.7<span class="w"> </span>python2.7-dev
+sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
+sudo apt-get update
+sudo apt-get install python2.7 python2.7-dev
 </pre>
 <p>Be sure not to use Felix Krull&#8217;s <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes">other Python <span class="caps">PPA</span></a> by mistake.
 I did that on a colleague&#8217;s machine yesterday.
@@ -407,54 +452,6 @@ I hadn&#8217;t known such a thing&nbsp;existed.</p>
         
             <p>tagged as
                 <a href="/tag/tech/" rel="tag">tech</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-14">2016-01-14</time>
-        <h1>
-            <a href="/blog/2016/01/14/PythonBaseClassOrder.html" rel="bookmark canonical">Python Base Class Order</a>
-        </h1>
-    </header>
-    <p>When I declare a derived class that inherits
-from both a base class and some mixins,
-I am always tempted to&nbsp;write:</p>
-<pre class="code python literal-block">
-<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">Mixin1</span><span class="p">,</span> <span class="n">Mixin2</span><span class="p">):</span><span class="w">
-</span>    <span class="s2">&quot;Some class&quot;</span>
-</pre>
-<p>My reasoning is that <tt class="docutils literal">Derived</tt> is a <tt class="docutils literal">Base</tt>
-with some <tt class="docutils literal">Mixin1</tt> and <tt class="docutils literal">Mixin2</tt> goodness sprinkled on.
-Generally, that&#8217;s fine.
-The exception is when I want one of the mixins to override
-a method or attribute that&#8217;s defined in <tt class="docutils literal">Base</tt>.
-Because the <a class="reference external" href="http://python-history.blogspot.com/2010/06/method-resolution-order.html">Method Resolution Order</a> is left-to-right,
-then <tt class="docutils literal">Base</tt>&#8216;s im&shy;ple&shy;men&shy;ta&shy;tion will always be found&nbsp;first.</p>
-<p>To get the desired behavior of the mixin overriding the base,
-<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance&nbsp;list.</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="w">
-
-</span><span class="k">class</span> <span class="nc">Useful</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span><span class="w">
-</span>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span><span class="w">
-</span> </pre><span>&#8230;<a href="/blog/2016/01/14/PythonBaseClassOrder.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/14/PythonBaseClassOrder.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>

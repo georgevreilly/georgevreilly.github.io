@@ -39,28 +39,28 @@
     <p>Various Bash guides recommend putting quotes around just about everything.
 I had a script that contained this&nbsp;line:</p>
 <pre class="code bash literal-block">
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>--yes<span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$<span class="caps">BUILD</span></span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span>
+sudo apt-get install --yes <span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$<span class="caps">BUILD</span></span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span>
 </pre>
 <p>While refac&shy;tor&shy;ing, I put another set of quotes around the <tt class="docutils literal">$(cat <span class="pre">...)</span></tt>
 out of an abundance of&nbsp;caution:</p>
 <pre class="code bash literal-block">
-sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>--yes<span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$<span class="caps">BUILD</span></span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
+sudo apt-get install --yes <span class="s2">&quot;</span><span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$<span class="caps">BUILD</span></span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
 </pre>
 <p>Several other changes later, I couldn&#8217;t figure out why my script had stopped&nbsp;working.</p>
 <p>Here&#8217;s what&nbsp;happened:</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>cat<span class="w"> </span><span class="nv">$<span class="caps">HOME</span></span>/tmp/demo.txt<span class="w">
-</span>foo<span class="w">
-</span>bar<span class="w">
-</span>quux<span class="w">
+$ cat <span class="nv">$<span class="caps">HOME</span></span>/tmp/demo.txt
+foo
+bar
+quux
 
-</span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="k">$(</span>cat<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$<span class="caps">HOME</span></span><span class="s2">/tmp/demo.txt&quot;</span><span class="k">)</span><span class="w">
-</span>foo<span class="w"> </span>bar<span class="w"> </span>quux<span class="w">
+$ <span class="nb">echo</span> <span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$<span class="caps">HOME</span></span><span class="s2">/tmp/demo.txt&quot;</span><span class="k">)</span>
+foo bar quux
 
-</span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span><span class="nv">$<span class="caps">HOME</span></span>/tmp/demo.txt<span class="k">)</span><span class="s2">&quot;</span><span class="w">
-</span>foo<span class="w">
-</span>bar<span class="w">
-</span>quux
+$ <span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>cat <span class="nv">$<span class="caps">HOME</span></span>/tmp/demo.txt<span class="k">)</span><span class="s2">&quot;</span>
+foo
+bar
+quux
 </pre>
 <p>The new outer quotes retained the newlines;
 the original replaced newlines with&nbsp;spaces.</p>

@@ -5,9 +5,235 @@
         <link>https://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Sun, 01 Jan 2023 04:35:00 GMT</pubDate>
+        <pubDate>Mon, 23 Jan 2023 08:00:00 GMT</pubDate>
         <docs>https://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.8.dev0</generator>
+        
+            <item>
+        <title>Implementing the Tree command in Rust, part 1: Walking Directories</title>
+        <link>https://www.georgevreilly.com/blog/2023/01/23/TreeInRust1WalkDirectories.html</link>
+        <description>&lt;img alt=&#34;tree tree core/src/num for Rust&#34; class=&#34;right-float&#34; src=&#34;https://www.georgevreilly.com/content/binary/rust-core-src-num-tree.png&#34; style=&#34;width: 160px;&#34;/&gt;
+&lt;p&gt;I&#39;ve been learning Rust lately.
+At first, I read several books,
+including &lt;a class=&#34;reference external&#34; href=&#34;https://www.manning.com/books/rust-in-action&#34;&gt;Rust in Action&lt;/a&gt;,
+&lt;a class=&#34;reference external&#34; href=&#34;https://www.manning.com/books/code-like-a-pro-in-rust&#34;&gt;Code Like a Pro in Rust&lt;/a&gt;,
+and most of &lt;a class=&#34;reference external&#34; href=&#34;https://learning.oreilly.com/library/view/programming-rust-2nd/9781492052586/&#34;&gt;Programming Rust&lt;/a&gt;.
+Now, I&#39;m starting to actually write code.&lt;/p&gt;
+&lt;p&gt;I read the &lt;a class=&#34;reference external&#34; href=&#34;https://www.goodreads.com/review/show/5183138397&#34;&gt;Command-Line Rust&lt;/a&gt; book last month,
+which challenged readers to write
+our own implementations of the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Tree_(command)&#34;&gt;tree command&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;I decided to accept the challenge.&lt;/p&gt;
+&lt;p&gt;At its simplest, &lt;tt class=&#34;docutils literal&#34;&gt;tree&lt;/tt&gt; simply prints a directory tree,
+using some of the Unicode &lt;a class=&#34;reference external&#34; href=&#34;https://www.compart.com/en/unicode/block/U+2500&#34;&gt;Box Drawing&lt;/a&gt; characters
+to show the hierarchical relationship,
+as in the image at right.&lt;/p&gt;
+&lt;p&gt;I&#39;ve split the code into two phases,
+which will be covered in two blog posts.&lt;/p&gt;
+&lt;ol class=&#34;arabic simple&#34;&gt;
+&lt;li&gt;Walking the directory tree on disk to build an in-memory tree.&lt;/li&gt;
+&lt;li&gt;Pretty-printing the in-memory tree.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;While it&#39;s certainly possible to print a subtree as it&#39;s being read,
+separating the two phases
+yields code that is cleaner, simpler, and more testable.&lt;/p&gt;
+&lt;p&gt;In future, I will insert a third phase, &lt;em&gt;processing&lt;/em&gt;,
+between the reading and writing phases,
+by a weak analogy with Extract-Transform-Load (&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Extract,_transform,_load&#34;&gt;ETL&lt;/a&gt;).&lt;/p&gt;
+&lt;div class=&#34;section&#34; id=&#34;walking-the-directory-tree&#34;&gt;
+&lt;h3&gt;Walking the Directory Tree&lt;/h3&gt;
+&lt;p&gt;There are three kinds of file tree node that I care about:
+&lt;tt class=&#34;docutils literal&#34;&gt;File&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;Directory&lt;/tt&gt;, and &lt;tt class=&#34;docutils literal&#34;&gt;Symlink&lt;/tt&gt;.
+These are the variants exposed by Rust&#39;s &lt;a class=&#34;reference external&#34; href=&#34;https://doc.rust-lang.org/std/fs/struct.FileType.html&#34;&gt;FileType&lt;/a&gt;.&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;File&lt;/tt&gt; has a name and file system metadata;&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;Symlink&lt;/tt&gt; has a name, a target, and metadata;&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;Directory&lt;/tt&gt; has a name and a list of child file tree nodes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Here, &lt;em&gt;name&lt;/em&gt; refers to the last component of a path;
+e.g., the &lt;tt class=&#34;docutils literal&#34;&gt;gamma&lt;/tt&gt; in &lt;tt class=&#34;docutils literal&#34;&gt;alpha/beta/gamma&lt;/tt&gt;.
+The file system metadata is not currently used,
+but will be in future.&lt;/p&gt;
+&lt;pre class=&#34;code rust literal-block&#34;&gt;
+&lt;span class=&#34;cp&#34;&gt;#[derive(Debug)]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;File&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;: &lt;span class=&#34;nb&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;metadata&lt;/span&gt;: &lt;span class=&#34;nc&#34;&gt;fs&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;Metadata&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#[derive(Debug)]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Symlink&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;: &lt;span class=&#34;nb&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;: &lt;span class=&#34;nb&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;metadata&lt;/span&gt;: &lt;span class=&#34;nc&#34;&gt;fs&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;Metadata&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+
+&lt;/span&gt;&lt;span class=&#34;cp&#34;&gt;#[derive(Debug)]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Directory&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;: &lt;span class=&#34;nb&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entries&lt;/span&gt;: &lt;span class=&#34;nb&#34;&gt;Vec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FileTree&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;File and directory paths are not guaranteed to be UTF-8.
+Indeed, Unix file paths are an arbitrary sequence of bytes,
+while Windows file paths are an opaque sequence of 16-bit integers.
+You might think that I should be using &lt;tt class=&#34;docutils literal&#34;&gt;OsString&lt;/tt&gt; here,
+since it holds a &lt;a class=&#34;reference external&#34; href=&#34;https://doc.rust-lang.org/std/ffi/struct.OsString.html&#34;&gt;platform-native string&lt;/a&gt;.
+&lt;tt class=&#34;docutils literal&#34;&gt;String&lt;/tt&gt; has to be valid UTF-8; &lt;tt class=&#34;docutils literal&#34;&gt;OsString&lt;/tt&gt; doesn&#39;t.
+Unfortunately, it&#39;s not easy to look at the actual data in an &lt;tt class=&#34;docutils literal&#34;&gt;OsString&lt;/tt&gt;,
+unless you convert it (possibly lossily) to a &lt;tt class=&#34;docutils literal&#34;&gt;String&lt;/tt&gt;.
+See &lt;a class=&#34;reference external&#34; href=&#34;https://docs.rs/bstr/0.2.8/bstr/#file-paths-and-os-strings&#34;&gt;File paths and OS strings&lt;/a&gt; for more.&lt;/p&gt;
+&lt;p&gt;The obvious way to represent a file tree node in Rust
+is as an &lt;a class=&#34;reference external&#34; href=&#34;https://hashrust.com/blog/why-rust-enums-are-so-cool/&#34;&gt;enum&lt;/a&gt; with three tuple-like variants.&lt;/p&gt;
+&lt;pre class=&#34;code rust literal-block&#34;&gt;
+&lt;span class=&#34;cp&#34;&gt;#[derive(Debug)]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;enum&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;FileTree&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;DirNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Directory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FileNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;File&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;LinkNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Symlink&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Here, each variant in the enum holds a struct of similar name.
+We will be able to take advantage of Rust&#39;s &lt;a class=&#34;reference external&#34; href=&#34;https://doc.rust-lang.org/book/ch18-03-pattern-syntax.html#destructuring-enums&#34;&gt;pattern matching&lt;/a&gt;
+to handle each variant.&lt;/p&gt;
+&lt;p&gt;We&#39;ll use &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;fs::read_dir&lt;/span&gt;&lt;/tt&gt; to read each directory in the hierarchy.
+The &lt;a class=&#34;reference external&#34; href=&#34;https://doc.rust-lang.org/std/fs/struct.ReadDir.html&#34;&gt;read_dir&lt;/a&gt; function returns an iterator
+that yields instances of &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;io::Result&amp;lt;DirEntry&amp;gt;&lt;/span&gt;&lt;/tt&gt;.
+If a &lt;tt class=&#34;docutils literal&#34;&gt;DirEntry&lt;/tt&gt; is a directory,
+we can recursively invoke our &lt;tt class=&#34;docutils literal&#34;&gt;dir_walk&lt;/tt&gt; function
+to read the child directory
+and add its contents to our in-memory tree.&lt;/p&gt;
+&lt;p&gt;The &lt;a class=&#34;reference external&#34; href=&#34;https://docs.rs/walkdir/latest/walkdir/&#34;&gt;walkdir&lt;/a&gt; crate also walks through a directory tree,
+but it hides the recursion from you.
+It&#39;s an excellent choice otherwise.&lt;/p&gt;
+&lt;div class=&#34;section&#34; id=&#34;skipping-and-sorting&#34;&gt;
+&lt;h4&gt;Skipping and Sorting&lt;/h4&gt;
+&lt;p&gt;In each directory that we read,
+we need to consider two factors.&lt;/p&gt;
+&lt;ol class=&#34;arabic simple&#34;&gt;
+&lt;li&gt;Which entries to skip, such as hidden files.&lt;/li&gt;
+&lt;li&gt;How to sort the entries.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We almost always want to skip &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Hidden_file_and_hidden_directory&#34;&gt;hidden files and directories&lt;/a&gt;—on Unix, those entries whose names start with the &lt;tt class=&#34;docutils literal&#34;&gt;.&lt;/tt&gt; character.
+Every directory includes entries
+for &lt;tt class=&#34;docutils literal&#34;&gt;.&lt;/tt&gt; (itself) and &lt;tt class=&#34;docutils literal&#34;&gt;..&lt;/tt&gt; (parent directory),
+and may include other hidden files or directories,
+such as &lt;tt class=&#34;docutils literal&#34;&gt;.vimrc&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;.git&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;On Windows, hidden files are controlled by an &lt;a class=&#34;reference external&#34; href=&#34;https://www.raymond.cc/blog/reset-system-and-hidden-attributes-for-files-or-folders-caused-by-virus/&#34;&gt;attribute&lt;/a&gt;, not by their name.&lt;/p&gt;
+&lt;p&gt;For more complicated usage,
+we might want to skip &lt;a class=&#34;reference external&#34; href=&#34;https://git-scm.com/docs/gitignore&#34;&gt;ignored files&lt;/a&gt;,
+as specified in &lt;tt class=&#34;docutils literal&#34;&gt;.gitignore&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;The simplest useful filter for entry names
+is one that rejects hidden files and directories.&lt;/p&gt;
+&lt;pre class=&#34;code rust literal-block&#34;&gt;
+&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;is_not_hidden&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-&amp;gt; &lt;span class=&#34;kt&#34;&gt;bool&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;return&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;starts_with&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sc&#34;&gt;&#39;.&#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Disk I/O is &lt;a class=&#34;reference external&#34; href=&#34;https://louwrentius.com/understanding-storage-performance-iops-and-latency.html&#34;&gt;costly and slow&lt;/a&gt;, compared to memory access.
+It&#39;s far more efficient to not read a directory at all
+than it is to eliminate a subtree at a later stage.
+Even if the OS has cached the relevant directory contents,
+there&#39;s still a &lt;a class=&#34;reference external&#34; href=&#34;https://gms.tf/on-the-costs-of-syscalls.html&#34;&gt;cost to the syscall&lt;/a&gt; to retrieve that data from the kernel.&lt;/p&gt;
+&lt;p&gt;There is &lt;a class=&#34;reference external&#34; href=&#34;https://stackoverflow.com/a/8977490/6364&#34;&gt;no specific order&lt;/a&gt; to entries in a directory
+or to the results returned by low-level APIs like &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;fs::read_dir&lt;/span&gt;&lt;/tt&gt;.
+By default, &lt;tt class=&#34;docutils literal&#34;&gt;ls&lt;/tt&gt; sorts entries alphabetically,
+but it can also sort by creation time, modification time, or size,
+in ascending or descending order.&lt;/p&gt;
+&lt;p&gt;Unix filesystems are case-sensitive,
+but Mac filesystems (APFS and HFS+) are case-insensitive by default,
+although they preserve the case of the original filename.
+Windows&#39; filesystems (NTFS, exFAT, and FAT32)
+are &lt;a class=&#34;reference external&#34; href=&#34;https://learn.microsoft.com/en-us/windows/win32/fileio/filesystem-functionality-comparison&#34;&gt;likewise&lt;/a&gt; case-preserving and case-insensitive.&lt;/p&gt;
+&lt;p&gt;Here is a case-sensitive &lt;a class=&#34;reference external&#34; href=&#34;https://doc.rust-lang.org/std/vec/struct.Vec.html#method.sort_by&#34;&gt;comparator&lt;/a&gt; for use with &lt;tt class=&#34;docutils literal&#34;&gt;sort_by&lt;/tt&gt;:&lt;/p&gt;
+&lt;pre class=&#34;code rust literal-block&#34;&gt;
+&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;sort_by_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;fs&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;DirEntry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;fs&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;DirEntry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-&amp;gt; &lt;span class=&#34;nc&#34;&gt;Ordering&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a_name&lt;/span&gt;: &lt;span class=&#34;nb&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;file_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;to_str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;into&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;     &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➊&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b_name&lt;/span&gt;: &lt;span class=&#34;nb&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;file_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;to_str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;into&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cmp&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                             &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➋&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;ol class=&#34;arabic simple&#34;&gt;
+&lt;li&gt;This messy expression is necessary to get the &lt;em&gt;name&lt;/em&gt; as a &lt;tt class=&#34;docutils literal&#34;&gt;String&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;cmp&lt;/tt&gt; returns &lt;tt class=&#34;docutils literal&#34;&gt;Less&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;Equal&lt;/tt&gt;, or &lt;tt class=&#34;docutils literal&#34;&gt;Greater&lt;/tt&gt; from the &lt;tt class=&#34;docutils literal&#34;&gt;Ordering&lt;/tt&gt; enum.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;More on &lt;tt class=&#34;docutils literal&#34;&gt;Ordering&lt;/tt&gt; &lt;a class=&#34;reference external&#34; href=&#34;https://www.philipdaniels.com/blog/2019/rust-equality-and-ordering/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;the-dir-walk-function&#34;&gt;
+&lt;h3&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;dir_walk&lt;/tt&gt; function&lt;/h3&gt;
+&lt;p&gt;Finally, the recursive &lt;tt class=&#34;docutils literal&#34;&gt;dir_walk&lt;/tt&gt; function that
+creates the tree of &lt;tt class=&#34;docutils literal&#34;&gt;FileTree&lt;/tt&gt; nodes.&lt;/p&gt;
+&lt;pre class=&#34;code rust literal-block&#34;&gt;
+&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;dir_walk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;PathBuf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;filter&lt;/span&gt;: &lt;span class=&#34;nc&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-&amp;gt; &lt;span class=&#34;kt&#34;&gt;bool&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                 &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➊&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;compare&lt;/span&gt;: &lt;span class=&#34;nc&#34;&gt;fn&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;fs&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;DirEntry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;b&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;fs&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;DirEntry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-&amp;gt; &lt;span class=&#34;nc&#34;&gt;Ordering&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-&amp;gt; &lt;span class=&#34;nc&#34;&gt;io&lt;/span&gt;::&lt;span class=&#34;nb&#34;&gt;Result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Directory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;mut&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entries&lt;/span&gt;: &lt;span class=&#34;nb&#34;&gt;Vec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fs&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;DirEntry&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fs&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;read_dir&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;filter_map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ok&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;collect&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                 &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➋&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entries&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sort_by&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;compare&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;mut&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;directory&lt;/span&gt;: &lt;span class=&#34;nb&#34;&gt;Vec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FileTree&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;Vec&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;with_capacity&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entries&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➌&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;in&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entries&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;: &lt;span class=&#34;nb&#34;&gt;String&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;file_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;to_str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;into&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;!&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;filter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                         &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➍&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;continue&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;metadata&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;fs&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;metadata&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                     &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➎&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_dir&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FileTree&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;DirNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                  &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➏&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dir_walk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;join&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;filter&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;compare&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_symlink&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FileTree&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;LinkNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Symlink&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;: &lt;span class=&#34;nc&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;into&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;: &lt;span class=&#34;nc&#34;&gt;fs&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;read_link&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;to_string_lossy&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;to_string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;metadata&lt;/span&gt;: &lt;span class=&#34;nc&#34;&gt;metadata&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_file&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FileTree&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;FileNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;File&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;: &lt;span class=&#34;nc&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;into&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;metadata&lt;/span&gt;: &lt;span class=&#34;nc&#34;&gt;metadata&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;_&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;unreachable!&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;directory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;push&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;file_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unwrap_or&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OsStr&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;new&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;.&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                 &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➐&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;to_str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unwrap&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;into&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;Ok&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Directory&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                  &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➑&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;: &lt;span class=&#34;nc&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entries&lt;/span&gt;: &lt;span class=&#34;nc&#34;&gt;directory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;ol class=&#34;arabic simple&#34;&gt;
+&lt;li&gt;Currently, the &lt;tt class=&#34;docutils literal&#34;&gt;filter&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;compare&lt;/tt&gt; parameters are &lt;tt class=&#34;docutils literal&#34;&gt;fn&lt;/tt&gt;s.
+They could probably be &lt;tt class=&#34;docutils literal&#34;&gt;FnMut&lt;/tt&gt; traits.&lt;/li&gt;
+&lt;li&gt;Read directory.
+Discard any &lt;tt class=&#34;docutils literal&#34;&gt;Error&lt;/tt&gt; results.
+Collect into a &lt;tt class=&#34;docutils literal&#34;&gt;Vec&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;We&#39;ll need at most this many entries.&lt;/li&gt;
+&lt;li&gt;Use &lt;tt class=&#34;docutils literal&#34;&gt;filter&lt;/tt&gt; to discard names that won&#39;t be visited.&lt;/li&gt;
+&lt;li&gt;Match the path as a &lt;tt class=&#34;docutils literal&#34;&gt;DirNode&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;LinkNode&lt;/tt&gt;, or &lt;tt class=&#34;docutils literal&#34;&gt;FileNode&lt;/tt&gt;,
+by using &lt;a class=&#34;reference external&#34; href=&#34;https://doc.rust-lang.org/book/ch18-03-pattern-syntax.html#extra-conditionals-with-match-guards&#34;&gt;match guards&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Visit the subdirectory recursively.&lt;/li&gt;
+&lt;li&gt;If &lt;tt class=&#34;docutils literal&#34;&gt;root&lt;/tt&gt; was &lt;tt class=&#34;docutils literal&#34;&gt;&amp;quot;.&amp;quot;&lt;/tt&gt;, the &lt;tt class=&#34;docutils literal&#34;&gt;file_name()&lt;/tt&gt; will be &lt;tt class=&#34;docutils literal&#34;&gt;None&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;Return a &lt;tt class=&#34;docutils literal&#34;&gt;Directory&lt;/tt&gt; for this directory, wrapped in an &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;io::Result&lt;/span&gt;&lt;/tt&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;In &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/...&#34;&gt;Part 2&lt;/a&gt;, we&#39;ll print the directory tree.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 23 Jan 2023 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2023-01-23:/blog/2023/01/23/TreeInRust1WalkDirectories.html</guid>
+    </item>
         
             <item>
         <title>fsymbols for Unicode weirdness</title>
@@ -15,7 +241,7 @@
         <description>&lt;p&gt;My display name on Twitter currently looks like @ɢᴇᴏʀɢᴇᴠʀᴇɪʟʟʏ@ᴛᴇᴄʜ.ʟɢʙᴛ,
 an attempt to route around Twitter&#39;s apparent censorship of Mastodon information.&lt;/p&gt;
 &lt;p&gt;I used the &lt;a href=&#34;https://fsymbols.com/generators/&#34;&gt;FSymbols Generators&lt;/a&gt; to produce several variants.&lt;/p&gt;
-&lt;div class=&#34;codehilite&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;@𝕘𝕖𝕠𝕣𝕘𝕖𝕧𝕣𝕖𝕚𝕝𝕝𝕪@𝕥𝕖𝕔𝕙.𝕝𝕘𝕓𝕥
+&lt;div class=&#34;codehilite&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;@𝕘𝕖𝕠𝕣𝕘𝕖𝕧𝕣𝕖𝕚𝕝𝕝𝕪@𝕥𝕖𝕔𝕙.𝕝𝕘𝕓𝕥
 ʇqƃʅ.ɥɔǝʇ@ʎʅʅᴉǝɹʌǝƃɹoǝƃ@
 @𝗀𝖾𝗈𝗋𝗀𝖾𝗏𝗋𝖾𝗂𝗅𝗅𝗒@𝗍𝖾𝖼𝗁.𝗅𝗀𝖻𝗍
 @𝘨𝘦𝘰𝘳𝘨𝘦𝘷𝘳𝘦𝘪𝘭𝘭𝘺@𝘵𝘦𝘤𝘩.𝘭𝘨𝘣𝘵
@@ -23,7 +249,8 @@ an attempt to route around Twitter&#39;s apparent censorship of Mastodon informa
 @𝙜𝙚𝙤𝙧𝙜𝙚𝙫𝙧𝙚𝙞𝙡𝙡𝙮@𝙩𝙚𝙘𝙝.𝙡𝙜𝙗𝙩
 @𝚐𝚎𝚘𝚛𝚐𝚎𝚟𝚛𝚎𝚒𝚕𝚕𝚢@𝚝𝚎𝚌𝚑.𝚕𝚐𝚋𝚝
 @𝔤𝔢𝔬𝔯𝔤𝔢𝔳𝔯𝔢𝔦𝔩𝔩𝔶@𝔱𝔢𝔠𝔥.𝔩𝔤𝔟𝔱
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
 
 &lt;p&gt;Many of these variants come from
 &lt;a href=&#34;https://www.compart.com/en/unicode/block/U+1D400&#34;&gt;Unicode Block &#34;Mathematical Alphanumeric Symbols&#34;&lt;/a&gt;.&lt;/p&gt;
@@ -44,11 +271,12 @@ You start at &lt;code&gt;a&lt;/code&gt; and keep going until the next number wou
 &lt;p&gt;In Python 3, &lt;code&gt;range&lt;/code&gt; is &lt;em&gt;lazy&lt;/em&gt;
 and the values in the sequence do not materialize
 until you consume the range.&lt;/p&gt;
-&lt;div class=&#34;codehilite&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;codehilite&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;span class=&#34;go&#34;&gt;range(3, 12)&lt;/span&gt;
 &lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
 &lt;span class=&#34;go&#34;&gt;[3, 4, 5, 6, 7, 8, 9, 10, 11]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
 
 &lt;p&gt;Trey Hunner makes the point that
 &lt;a href=&#34;https://treyhunner.com/2018/02/python-range-is-not-an-iterator/&#34;&gt;range is a lazy iterable&lt;/a&gt;
@@ -58,15 +286,17 @@ rather than an iterator.&lt;/p&gt;
 This generates &lt;code&gt;a, a+s, a+2*s, ..., b-s&lt;/code&gt;
 (assuming that &lt;code&gt;(b - a) % s == 0&lt;/code&gt;;
 i.e., &lt;code&gt;a&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt; are separated by an exact multiple of &lt;code&gt;s&lt;/code&gt;.)&lt;/p&gt;
-&lt;div class=&#34;codehilite&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;div class=&#34;codehilite&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
 &lt;span class=&#34;go&#34;&gt;[3, 6, 9]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
 
 &lt;p&gt;What if you want to count down?
 &lt;code&gt;range(b, a, -s)&lt;/code&gt; won&#39;t do what you want.&lt;/p&gt;
-&lt;div class=&#34;codehilite&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;div class=&#34;codehilite&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
 &lt;span class=&#34;go&#34;&gt;[12, 9, 6]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
 
 &lt;p&gt;Why? Because you&#39;re starting at &lt;code&gt;b&lt;/code&gt;,
 a value that doesn&#39;t appear in the forward range,
@@ -75,11 +305,11 @@ a value that is certainly in the forward range.
 You have to subtract &lt;code&gt;s&lt;/code&gt; from both &lt;code&gt;b&lt;/code&gt; and &lt;code&gt;a&lt;/code&gt;:&lt;/p&gt;
 &lt;p&gt;When you use &lt;code&gt;range(b-s, a-s, -s)&lt;/code&gt;,
 you get &lt;code&gt;b-s, b-2*s, ..., a+s, a&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;codehilite&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;div class=&#34;codehilite&#34;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
 &lt;span class=&#34;go&#34;&gt;[9, 6, 3]&lt;/span&gt;
 &lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)),&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;list&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;reversed&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;range&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)))&lt;/span&gt;
 &lt;span class=&#34;go&#34;&gt;([9, 6, 3], [9, 6, 3])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;/pre&gt;&lt;/div&gt;</description>
         <pubDate>Mon, 19 Dec 2022 23:20:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2022-12-19:/blog/2022/12/19/BackwardsRangesInPython.html</guid>
     </item>
@@ -148,6 +378,34 @@ I posted some &lt;a class=&#34;reference external&#34; href=&#34;https://www.wil
     </item>
         
             <item>
+        <title>Diffing a fragment of a file</title>
+        <link>https://www.georgevreilly.com/blog/2022/01/31/DiffFileFragment.html</link>
+        <description>&lt;p&gt;A while back, I had extracted some code out of a large file
+into a separate file and made some modifications.
+I wanted to check that the differences were minimal.
+Let&#39;s say that the extracted code had been between
+lines 123 and 456 of &lt;tt class=&#34;docutils literal&#34;&gt;large_old_file&lt;/tt&gt;.&lt;/p&gt;
+&lt;pre class=&#34;code bash literal-block&#34;&gt;
+diff -u &amp;lt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;sed -n &lt;span class=&#34;s1&#34;&gt;&#39;123,456p;457q&#39;&lt;/span&gt; large_old_file&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; new_file
+&lt;/pre&gt;
+&lt;p&gt;What&#39;s happening here?&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;sed &lt;span class=&#34;pre&#34;&gt;-n&lt;/span&gt; &#39;123,456p&#39;&lt;/tt&gt; is printing lines 123–456 of &lt;tt class=&#34;docutils literal&#34;&gt;large_old_file&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;457q&lt;/tt&gt; tells sed to abandon the file at line 457.
+Otherwise, it will keep reading all the way to the end.&lt;/li&gt;
+&lt;li&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;&amp;lt;(sed &lt;span class=&#34;pre&#34;&gt;...)&lt;/span&gt;&lt;/tt&gt; is an example of &lt;a class=&#34;reference external&#34; href=&#34;https://tldp.org/LDP/abs/html/process-sub.html&#34;&gt;process substitution&lt;/a&gt;.
+The &lt;em&gt;output&lt;/em&gt; of the &lt;tt class=&#34;docutils literal&#34;&gt;sed&lt;/tt&gt; invocation
+becomes the first &lt;em&gt;input&lt;/em&gt; of the &lt;tt class=&#34;docutils literal&#34;&gt;diff&lt;/tt&gt; command.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A similar example: &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2017/01/11/DiffTransformedFile.html&#34;&gt;Diff a Transformed File&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;BTW, these days, I usually use &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/dandavison/delta&#34;&gt;delta&lt;/a&gt; for diffing at the command line,
+especially with Git.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 31 Jan 2022 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2022-01-31:/blog/2022/01/31/DiffFileFragment.html</guid>
+    </item>
+        
+            <item>
         <title>40 Years of Programming</title>
         <link>https://www.georgevreilly.com/blog/2022/01/31/40YearsOfProgramming.html</link>
         <description>&lt;p&gt;40 years ago this month,
@@ -167,34 +425,6 @@ There&#39;s always more to learn and to see.&lt;/p&gt;
 </description>
         <pubDate>Mon, 31 Jan 2022 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2022-01-31:/blog/2022/01/31/40YearsOfProgramming.html</guid>
-    </item>
-        
-            <item>
-        <title>Diffing a fragment of a file</title>
-        <link>https://www.georgevreilly.com/blog/2022/01/31/DiffFileFragment.html</link>
-        <description>&lt;p&gt;A while back, I had extracted some code out of a large file
-into a separate file and made some modifications.
-I wanted to check that the differences were minimal.
-Let&#39;s say that the extracted code had been between
-lines 123 and 456 of &lt;tt class=&#34;docutils literal&#34;&gt;large_old_file&lt;/tt&gt;.&lt;/p&gt;
-&lt;pre class=&#34;code bash literal-block&#34;&gt;
-diff&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-u&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&amp;lt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;sed&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-n&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;123,456p;457q&#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;large_old_file&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;new_file
-&lt;/pre&gt;
-&lt;p&gt;What&#39;s happening here?&lt;/p&gt;
-&lt;ul class=&#34;simple&#34;&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;sed &lt;span class=&#34;pre&#34;&gt;-n&lt;/span&gt; &#39;123,456p&#39;&lt;/tt&gt; is printing lines 123–456 of &lt;tt class=&#34;docutils literal&#34;&gt;large_old_file&lt;/tt&gt;.&lt;/li&gt;
-&lt;li&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;457q&lt;/tt&gt; tells sed to abandon the file at line 457.
-Otherwise, it will keep reading all the way to the end.&lt;/li&gt;
-&lt;li&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;&amp;lt;(sed &lt;span class=&#34;pre&#34;&gt;...)&lt;/span&gt;&lt;/tt&gt; is an example of &lt;a class=&#34;reference external&#34; href=&#34;https://tldp.org/LDP/abs/html/process-sub.html&#34;&gt;process substitution&lt;/a&gt;.
-The &lt;em&gt;output&lt;/em&gt; of the &lt;tt class=&#34;docutils literal&#34;&gt;sed&lt;/tt&gt; invocation
-becomes the first &lt;em&gt;input&lt;/em&gt; of the &lt;tt class=&#34;docutils literal&#34;&gt;diff&lt;/tt&gt; command.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;A similar example: &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2017/01/11/DiffTransformedFile.html&#34;&gt;Diff a Transformed File&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;BTW, these days, I usually use &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/dandavison/delta&#34;&gt;delta&lt;/a&gt; for diffing at the command line,
-especially with Git.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 31 Jan 2022 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2022-01-31:/blog/2022/01/31/DiffFileFragment.html</guid>
     </item>
         
             <item>
@@ -437,9 +667,9 @@ when the median test time jumped by two minutes.&lt;/p&gt;
 &lt;a class=&#34;reference external image-reference&#34; href=&#34;https://www.bigocheatsheet.com/&#34;&gt;&lt;img alt=&#34;Big O Cheat Sheet&#34; src=&#34;https://www.georgevreilly.com/content/binary/bigochart.gif&#34;/&gt;&lt;/a&gt;
 &lt;p&gt;We tracked it down to this (simplified) code fragment:&lt;/p&gt;
 &lt;pre class=&#34;code python literal-block&#34;&gt;
-&lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;some_collection_of_tasks&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;invalid_tasks&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;airflow_tasks&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;                 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;some_collection_of_tasks&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;invalid_tasks&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;airflow_tasks&lt;/span&gt;
+                 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
 &lt;/pre&gt;
 &lt;p&gt;This looks fairly innocuous—and it was—until the size of the result returned from &lt;tt class=&#34;docutils literal&#34;&gt;some_collection_of_tasks()&lt;/tt&gt;
 jumped from a few hundred to a few thousand.&lt;/p&gt;
@@ -477,9 +707,9 @@ and get &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;O&lt;/i&gt;(1)&lt;/span&gt;
 The &lt;tt class=&#34;docutils literal&#34;&gt;invalid_tasks&lt;/tt&gt; list comprehension now takes
 the expected &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;O&lt;/i&gt;(&lt;i&gt;n&lt;/i&gt;)&lt;/span&gt; time.&lt;/p&gt;
 &lt;pre class=&#34;code python literal-block&#34;&gt;
-&lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;some_collection_of_tasks&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;invalid_tasks&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;airflow_tasks&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;                 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;some_collection_of_tasks&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;n&#34;&gt;invalid_tasks&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;airflow_tasks&lt;/span&gt;
+                 &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;task_id&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;not&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;task_inclusions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
 &lt;/pre&gt;
 &lt;p&gt;More at &lt;a class=&#34;reference external&#34; href=&#34;https://www.coengoedegebure.com/understanding-big-o-notation/&#34;&gt;Understanding Big-O Notation&lt;/a&gt; and the &lt;a class=&#34;reference external&#34; href=&#34;https://www.bigocheatsheet.com/&#34;&gt;Big-O Cheat Sheet&lt;/a&gt;.&lt;/p&gt;
 </description>
@@ -923,7 +1153,7 @@ and shift left or right by &lt;span class=&#34;formula&#34;&gt;(&lt;i&gt;k&lt;/i
 Now, divisions are not cheap to implement in hardware,
 so they needed to come up with an alternate approach
 to calculate the modulus.&lt;/p&gt;
-&lt;p&gt;My friend tried to do something with the factors of 36: &lt;span class=&#34;formula&#34;&gt;4 × 9&lt;/span&gt;.
+&lt;p&gt;My friend tried to do something with the factors of 36: &lt;span class=&#34;formula&#34;&gt;4×9&lt;/span&gt;.
 Four and nine are &lt;a class=&#34;reference external&#34; href=&#34;https://artofproblemsolving.com/wiki/index.php/Relatively_prime&#34;&gt;relatively prime&lt;/a&gt;:
 they have no common factors other than one.
 By the &lt;a class=&#34;reference external&#34; href=&#34;https://medium.com/@astartekraus/the-chinese-remainder-theorem-ea110f48248c&#34;&gt;Chinese Remainder Theorem&lt;/a&gt; therefore,
@@ -931,7 +1161,7 @@ the combination of &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;s
 and &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9&lt;/span&gt; is enough to uniquely
 determine &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;36&lt;/span&gt;.
 By inspection, this is true for the following table of “residues”.
-All the integers in the range &lt;span class=&#34;formula&#34;&gt;[0, 36)&lt;/span&gt; appear exactly once.&lt;/p&gt;
+All the integers in the range &lt;span class=&#34;formula&#34;&gt;[0, 36)&lt;/span&gt; appear exactly once.&lt;/p&gt;
 &lt;table border=&#34;1&#34; class=&#34;docutils align-right&#34;&gt;
 &lt;colgroup&gt;
 &lt;col width=&#34;18%&#34;/&gt;
@@ -1017,11 +1247,11 @@ and the &lt;tt class=&#34;docutils literal&#34;&gt;0o&lt;/tt&gt; prefix for octa
 See the discussion in &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/golang/proposal/blob/master/design/19308-number-literals.md&#34;&gt;Go number literals&lt;/a&gt; for more detail on &lt;tt class=&#34;docutils literal&#34;&gt;0b&lt;/tt&gt;,
 including a list of languages that now support this notation.&lt;/p&gt;
 &lt;p&gt;&lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;, written in binary, looks like &lt;tt class=&#34;docutils literal&#34;&gt;1&lt;/tt&gt; followed by &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt;&amp;nbsp;&lt;tt class=&#34;docutils literal&#34;&gt;0&lt;/tt&gt;s.
-For example, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;3&lt;/sup&gt; = 1000&lt;sub&gt;2&lt;/sub&gt;&lt;/span&gt;.
+For example, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;3&lt;/sup&gt; = 1000&lt;sub&gt;2&lt;/sub&gt;&lt;/span&gt;.
 In C-like languages, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt; can be written as &lt;tt class=&#34;docutils literal&#34;&gt;1 &amp;lt;&amp;lt; n&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;Similarly, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; − 1&lt;/span&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;(1 &amp;lt;&amp;lt; n) - 1&lt;/tt&gt;,
+&lt;p&gt;Similarly, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; − 1&lt;/span&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;(1 &amp;lt;&amp;lt; n) - 1&lt;/tt&gt;,
 written in binary, looks like &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt;&amp;nbsp;&lt;tt class=&#34;docutils literal&#34;&gt;1&lt;/tt&gt;s.
-For example, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;5&lt;/sup&gt; − 1 = 31&lt;sub&gt;10&lt;/sub&gt; = 11111&lt;sub&gt;2&lt;/sub&gt;&lt;/span&gt;.&lt;/p&gt;
+For example, &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;5&lt;/sup&gt; − 1 = 31&lt;sub&gt;10&lt;/sub&gt; = 11111&lt;sub&gt;2&lt;/sub&gt;&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;We can &lt;strong&gt;multiply&lt;/strong&gt; an unsigned integer, &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt;, by &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;
 by &lt;strong&gt;shifting&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; &lt;strong&gt;left&lt;/strong&gt; by &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt; bits, &lt;tt class=&#34;docutils literal&#34;&gt;u &amp;lt;&amp;lt; n&lt;/tt&gt;,
 introducing &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt;&amp;nbsp;zeroes as the low-order bits.
@@ -1052,7 +1282,7 @@ However, sign extension is not guaranteed in C/C++.&lt;/p&gt;
 &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_1001_0110&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mb&#34;&gt;0b_1110_0101&lt;/span&gt;
 &lt;/pre&gt;
 &lt;p&gt;Finally, we can find the &lt;strong&gt;remainder&lt;/strong&gt; of dividing &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; by &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt;&lt;/span&gt;
-by &lt;strong&gt;masking&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; with &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; − 1&lt;/span&gt;,
+by &lt;strong&gt;masking&lt;/strong&gt; &lt;tt class=&#34;docutils literal&#34;&gt;u&lt;/tt&gt; with &lt;span class=&#34;formula&#34;&gt;2&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; − 1&lt;/span&gt;,
 that is, &lt;strong&gt;bitwise-and&lt;/strong&gt; with &lt;tt class=&#34;docutils literal&#34;&gt;(1 &amp;lt;&amp;lt; n) - 1&lt;/tt&gt;,
 to extract the &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;n&lt;/i&gt;&lt;/span&gt;&amp;nbsp;&lt;strong&gt;low-order bits&lt;/strong&gt;:&lt;/p&gt;
 &lt;pre class=&#34;code rust literal-block&#34;&gt;
@@ -1068,69 +1298,69 @@ known as &lt;a class=&#34;reference external&#34; href=&#34;http://mathworld.wol
 &lt;p&gt;Add up the decimal digits of each number.
 Apply the arithmetic operation to these digit sums.
 They should be &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Congruence_relation&#34;&gt;congruent&lt;/a&gt;, modulo 9.&lt;/p&gt;
-&lt;p&gt;For example, &lt;span class=&#34;formula&#34;&gt;12, 345 × 8, 765 = 108, 203, 925&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;For example, &lt;span class=&#34;formula&#34;&gt;12, 345×8, 765 = 108, 203, 925&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;To check the multiplication,
 compute the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Digit_sum&#34;&gt;digit sum&lt;/a&gt; of each number,
 by adding up each decimal digit:&lt;/p&gt;
 &lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;1 + 2 + 3 + 4 + 5 = 15 ≡ 6 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;12, 345&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 6&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;1 + 2 + 3 + 4 + 5 = 15 ≡ 6 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;12, 345&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 6&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;and&lt;/p&gt;
 &lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;8 + 7 + 6 + 5 = 26 ≡ 8 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;8, 765&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 8&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;8 + 7 + 6 + 5 = 26 ≡ 8 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;8, 765&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 8&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;Take the first two digit sums, modulo 9, and multiply them:&lt;/p&gt;
 &lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;6 × 8 = 48 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;15 × 26 = 390 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;6×8 = 48 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;15×26 = 390 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;p&gt;Check against the sum of the digits of the product:&lt;/p&gt;
 &lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;1 + 0 + 8 + 2 + 0 + 3 + 9 + 2 + 5 = 30 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;108, 203, 925&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 3&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;&lt;span class=&#34;formula&#34;&gt;1 + 0 + 8 + 2 + 0 + 3 + 9 + 2 + 5 = 30 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Note: &lt;span class=&#34;formula&#34;&gt;108, 203, 925&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 3&lt;/span&gt;&lt;/div&gt;
 &lt;/div&gt;
-&lt;p&gt;This works because &lt;span class=&#34;formula&#34;&gt;10&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡ 1 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;This works because &lt;span class=&#34;formula&#34;&gt;10&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡ 1 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;Consider 758:&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
-758 = 7 × 100 + 5 × 10 + 8
+758 = 7×100 + 5×10 + 8
 &lt;/div&gt;
 &lt;div class=&#34;formula&#34;&gt;
-758 = 7 × (9 + 1) × (9 + 1) + 5 × (9 + 1) + 8
+758 = 7×(9 + 1)×(9 + 1) + 5×(9 + 1) + 8
 &lt;/div&gt;
 &lt;div class=&#34;formula&#34;&gt;
-758 = 7 × (9&lt;sup&gt;2&lt;/sup&gt; + 2 × 9 + 1) + 5 × (9 + 1) + 8
+758 = 7×(9&lt;sup&gt;2&lt;/sup&gt; + 2×9 + 1) + 5×(9 + 1) + 8
 &lt;/div&gt;
 &lt;p&gt;Dropping the nines from each term leaves the digit sum,
 which is &lt;em&gt;congruent&lt;/em&gt; to the original number modulo nine:&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
-7 × 1 + 5 × 1 + 8 = 7 + 5 + 8 = 20 ≡ 2 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
+7×1 + 5×1 + 8 = 7 + 5 + 8 = 20 ≡ 2 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
 &lt;/div&gt;
-&lt;p&gt;Checking: &lt;span class=&#34;formula&#34;&gt;758&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 2&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Checking: &lt;span class=&#34;formula&#34;&gt;758&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 2&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://www.math.nyu.edu/faculty/hausner/congruence.pdf&#34;&gt;Congruences&lt;/a&gt; have a number of useful properties.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;section&#34; id=&#34;casting-out-elevens&#34;&gt;
 &lt;h3&gt;Casting Out Elevens&lt;/h3&gt;
 &lt;p&gt;Let&#39;s use 11, instead of 9.
-Since &lt;span class=&#34;formula&#34;&gt;10 = 11 − 1&lt;/span&gt;, then &lt;span class=&#34;formula&#34;&gt;10&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡  − 1&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; (&lt;span class=&#34;textrm&#34;&gt;mod &lt;/span&gt;11)&lt;/span&gt;.&lt;/p&gt;
+Since &lt;span class=&#34;formula&#34;&gt;10 = 11 − 1&lt;/span&gt;, then &lt;span class=&#34;formula&#34;&gt;10&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡  − 1&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; (&lt;span class=&#34;textrm&#34;&gt;mod &lt;/span&gt;11)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;Consider 5234:&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
-5234 = 5 × 10&lt;sup&gt;3&lt;/sup&gt; + 2 × 10&lt;sup&gt;2&lt;/sup&gt; + 3 × 10&lt;sup&gt;1&lt;/sup&gt; + 4 × 10&lt;sup&gt;0&lt;/sup&gt;
+5234 = 5×10&lt;sup&gt;3&lt;/sup&gt; + 2×10&lt;sup&gt;2&lt;/sup&gt; + 3×10&lt;sup&gt;1&lt;/sup&gt; + 4×10&lt;sup&gt;0&lt;/sup&gt;
 &lt;/div&gt;
 &lt;div class=&#34;formula&#34;&gt;
-5234 = 5 × (11 − 1) × (11 − 1) × (11 − 1) + 2 × (11 − 1) × (11 − 1) + 3 × (11 − 1) + 4
+5234 = 5×(11 − 1)×(11 − 1)×(11 − 1) + 2×(11 − 1)×(11 − 1) + 3×(11 − 1) + 4
 &lt;/div&gt;
 &lt;div class=&#34;formula&#34;&gt;
-5234 = 5 × (11&lt;sup&gt;3&lt;/sup&gt; − 3 × 11&lt;sup&gt;2&lt;/sup&gt; × 1 + 3 × 11 × 1&lt;sup&gt;2&lt;/sup&gt; − 1&lt;sup&gt;3&lt;/sup&gt;) + 2 × (11&lt;sup&gt;2&lt;/sup&gt; − 2 × 11 × 1 + 1&lt;sup&gt;2&lt;/sup&gt;) + 3 × (11 − 1) + 4
+5234 = 5×(11&lt;sup&gt;3&lt;/sup&gt; − 3×11&lt;sup&gt;2&lt;/sup&gt;×1 + 3×11×1&lt;sup&gt;2&lt;/sup&gt; − 1&lt;sup&gt;3&lt;/sup&gt;) + 2×(11&lt;sup&gt;2&lt;/sup&gt; − 2×11×1 + 1&lt;sup&gt;2&lt;/sup&gt;) + 3×(11 − 1) + 4
 &lt;/div&gt;
 &lt;p&gt;Dropping the elevens from each term leaves the alternating digit sum:&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
-5 ×  − 1 + 2 × 1 + 3 ×  − 1 + 4 =  − 5 + 2 − 3 + 4 =  − 2 ≡ 9 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;11)
+5× − 1 + 2×1 + 3× − 1 + 4 =  − 5 + 2 − 3 + 4 =  − 2 ≡ 9 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;11)
 &lt;/div&gt;
 &lt;p&gt;It&#39;s more convenient to proceed rightwards from the least significant digit,
-&lt;span class=&#34;formula&#34;&gt;4 − 3 + 2 − 5&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;Checking: &lt;span class=&#34;formula&#34;&gt;5234&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;11 = 9&lt;/span&gt;.&lt;/p&gt;
+&lt;span class=&#34;formula&#34;&gt;4 − 3 + 2 − 5&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Checking: &lt;span class=&#34;formula&#34;&gt;5234&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;11 = 9&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;To cast out elevens,
 we calculate the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Alternating_sum&#34;&gt;alternating sum&lt;/a&gt; &lt;em&gt;from right to left&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Casting out elevens catches some &lt;a class=&#34;reference external&#34; href=&#34;http://mathyear2013.blogspot.com/2013/01/casting-out-elevens.html&#34;&gt;transposition errors&lt;/a&gt;, unlike casting out nines.
@@ -1143,13 +1373,13 @@ and &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/
 Nine bears the same relationship
 to eight in octal,
 as eleven does to ten in decimal:
-&lt;span class=&#34;formula&#34;&gt;9&lt;sub&gt;10&lt;/sub&gt; = 11&lt;sub&gt;8&lt;/sub&gt;&lt;/span&gt;,
+&lt;span class=&#34;formula&#34;&gt;9&lt;sub&gt;10&lt;/sub&gt; = 11&lt;sub&gt;8&lt;/sub&gt;&lt;/span&gt;,
 base plus one,
-and &lt;span class=&#34;formula&#34;&gt;8&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡  − 1&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; (&lt;span class=&#34;textrm&#34;&gt;mod &lt;/span&gt;9)&lt;/span&gt;.&lt;/p&gt;
+and &lt;span class=&#34;formula&#34;&gt;8&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; ≡  − 1&lt;sup&gt;&lt;i&gt;n&lt;/i&gt;&lt;/sup&gt; (&lt;span class=&#34;textrm&#34;&gt;mod &lt;/span&gt;9)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;We can calculate &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9&lt;/span&gt; in base 8 by alternately
 adding and subtracting the octal digits, from right to left.
 For example,
-&lt;span class=&#34;formula&#34;&gt;1234&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 4 − 3 + 2 − 1 = 2&lt;/span&gt;.
+&lt;span class=&#34;formula&#34;&gt;1234&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 4 − 3 + 2 − 1 = 2&lt;/span&gt;.
 This gives the right answer.&lt;/p&gt;
 &lt;p&gt;Here&#39;s a simple, albeit incomplete, algorithm in Go.
 We&#39;re masking and shifting three bits at a time,
@@ -1170,21 +1400,21 @@ which is tantamount to working with the octal representation of &lt;tt class=&#3
 &lt;/pre&gt;
 &lt;p&gt;What about &lt;span class=&#34;formula&#34;&gt;617&lt;sub&gt;8&lt;/sub&gt;&lt;/span&gt;?&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
-7 − 1 + 6 = 12 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
+7 − 1 + 6 = 12 ≡ 3 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
 &lt;/div&gt;
 &lt;div class=&#34;formula&#34;&gt;
-617&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 3
+617&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 3
 &lt;/div&gt;
 &lt;p&gt;And &lt;span class=&#34;formula&#34;&gt;6172&lt;sub&gt;8&lt;/sub&gt;&lt;/span&gt;?&lt;/p&gt;
 &lt;div class=&#34;formula&#34;&gt;
-2 − 7 + 1 − 6 =  − 10 ≡ 8 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
+2 − 7 + 1 − 6 =  − 10 ≡ 8 (&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9)
 &lt;/div&gt;
 &lt;div class=&#34;formula&#34;&gt;
-6172&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 8
+6172&lt;sub&gt;8&lt;/sub&gt;&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;9 = 8
 &lt;/div&gt;
 &lt;p&gt;Almost there!&lt;/p&gt;
 &lt;blockquote&gt;
-Casting out “octal-elevens” (&lt;span class=&#34;formula&#34;&gt;11&lt;sub&gt;8&lt;/sub&gt; = 9&lt;sub&gt;10&lt;/sub&gt;&lt;/span&gt;) in octal,
+Casting out “octal-elevens” (&lt;span class=&#34;formula&#34;&gt;11&lt;sub&gt;8&lt;/sub&gt; = 9&lt;sub&gt;10&lt;/sub&gt;&lt;/span&gt;) in octal,
 by an alternating sum of the base-eight digits,
 computes a small number
 &lt;em&gt;congruent&lt;/em&gt; to the original number number modulo nine.&lt;/blockquote&gt;
@@ -1193,7 +1423,7 @@ that are congruent to the correct answer modulo nine,
 but which may be outside the desired range.
 If the intermediate sum dips below zero or rises above eight,
 we have to add nine or subtract nine respectively
-to keep the running total in the range &lt;span class=&#34;formula&#34;&gt;[0, 9)&lt;/span&gt;.&lt;/p&gt;
+to keep the running total in the range &lt;span class=&#34;formula&#34;&gt;[0, 9)&lt;/span&gt;.&lt;/p&gt;
 &lt;p&gt;Here&#39;s a complete algorithm for Modulo 9 in Go,
 computing the alternating sum of the octal digits:&lt;/p&gt;
 &lt;pre class=&#34;code go literal-block&#34;&gt;
@@ -1253,14 +1483,14 @@ There was no mention of it in Warren&#39;s marvelous
 &lt;p&gt;I tried to come up with an analytic way to calculate the
 elements of the &lt;span class=&#34;formula&#34;&gt;9&lt;i&gt;x&lt;/i&gt;4&lt;/span&gt; table.
 The best that I found is
-&lt;span class=&#34;formula&#34;&gt;(72 − 8 × (&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9) + 9 × (&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;4))&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;36&lt;/span&gt;!
-The inner expression yields a number in the range &lt;span class=&#34;formula&#34;&gt;[0, 99]&lt;/span&gt;,
-which can be reduced to &lt;span class=&#34;formula&#34;&gt;[0, 36)&lt;/span&gt;
+&lt;span class=&#34;formula&#34;&gt;(72 − 8×(&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9) + 9×(&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;4))&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;36&lt;/span&gt;!
+The inner expression yields a number in the range &lt;span class=&#34;formula&#34;&gt;[0, 99]&lt;/span&gt;,
+which can be reduced to &lt;span class=&#34;formula&#34;&gt;[0, 36)&lt;/span&gt;
 by subtracting 36 at most twice.
 From &lt;a class=&#34;reference external&#34; href=&#34;http://www-cs-faculty.stanford.edu/~knuth/gkp.html&#34;&gt;Concrete Mathematics&lt;/a&gt;,
 mod 36 can be derived from mod 4 and mod 9
 by looking at the [0][1] and [1][0] elements of the table:
-&lt;span class=&#34;formula&#34;&gt;(9 × (&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;4) + 28 × (&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9))&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;36&lt;/span&gt;.
+&lt;span class=&#34;formula&#34;&gt;(9×(&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;4) + 28×(&lt;i&gt;k&lt;/i&gt;&lt;span class=&#34;textrm&#34;&gt; mod &lt;/span&gt;9))&lt;span class=&#34;textrm&#34;&gt;  mod &lt;/span&gt;36&lt;/span&gt;.
 It works, but it&#39;s even worse.
 A table lookup is clearly more efficient.&lt;/p&gt;
 &lt;p&gt;Most, if not all, of the computer architectures
@@ -1306,18 +1536,18 @@ but also to be secure.&lt;/p&gt;
 which was managed by Blackbox:&lt;/p&gt;
 &lt;pre class=&#34;code bash literal-block&#34;&gt;
 &lt;span class=&#34;c1&#34;&gt;# Save current value of xtrace option from $-; disable echoing of executed commands
-&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;grep&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-q&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;XT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;-x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;XT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;+x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;+x&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&amp;gt;/dev/null&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$-&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep -q &lt;span class=&#34;s2&#34;&gt;&amp;quot;x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;XT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;-x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;XT&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;+x&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; +x&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;&amp;gt;/dev/null
 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# export environment variables, many containing secrets
-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;AWS_ACCESS_KEY_ID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;...&#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;AWS_SECRET_ACCESS_KEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;...&#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;span class=&#34;c1&#34;&gt;# export environment variables, many containing secrets
+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;AWS_ACCESS_KEY_ID&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;...&#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;AWS_SECRET_ACCESS_KEY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;...&#39;&lt;/span&gt;
 
-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;PYPI_USER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;build&#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;PYPI_PASSWD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;...&#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;PIP_INDEX_URL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;https://&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PYPI_USER&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PYPI_PASSWD&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#64;pypi.example.com/pypi/&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PYPI_USER&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;build&#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PYPI_PASSWD&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;...&#39;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;export&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;PIP_INDEX_URL&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;https://&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PYPI_USER&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PYPI_PASSWD&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#64;pypi.example.com/pypi/&amp;quot;&lt;/span&gt;
 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Restore previous value of xtrace option
-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$XT&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# Restore previous value of xtrace option
+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$XT&lt;/span&gt;
 &lt;/pre&gt;
 &lt;p&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;XT&lt;/tt&gt; prologue ensures that even if this script is &lt;tt class=&#34;docutils literal&#34;&gt;source&lt;/tt&gt;’d
 with &lt;a class=&#34;reference external&#34; href=&#34;https://renenyffenegger.ch/notes/Linux/shell/bash/built-in/set/x&#34;&gt;set -x&lt;/a&gt; (debug tracing) enabled,
@@ -1344,7 +1574,7 @@ update the secrets in the file,
 encrypt the updated secrets file,
 and commit that encrypted file into the VCS.
 Administrators can be removed from a Blackbox installation,
-after which they will not be able to decrypt the updated secrets files&lt;a class=&#34;footnote-reference&#34; href=&#34;https://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html/#revocation&#34; id=&#34;id1&#34;&gt;[1]&lt;/a&gt;.&lt;/p&gt;
+after which they will not be able to decrypt the updated secrets files&lt;a class=&#34;footnote-reference&#34; href=&#34;https://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html/#revocation&#34; id=&#34;footnote-reference-1&#34;&gt;[1]&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;How does Blackbox encrypt a file so that any administrator can decrypt it?
 It uses GPG to encrypt the file for multiple recipients,
 say, &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Alice_and_Bob#Cast_of_characters&#34;&gt;Alice, Bob, and Carol&lt;/a&gt;.&lt;/p&gt;
@@ -1405,7 +1635,7 @@ comparing two versions in cleartext is tricky.&lt;/p&gt;
 &lt;table class=&#34;docutils footnote&#34; frame=&#34;void&#34; id=&#34;revocation&#34; rules=&#34;none&#34;&gt;
 &lt;colgroup&gt;&lt;col class=&#34;label&#34;/&gt;&lt;col /&gt;&lt;/colgroup&gt;
 &lt;tbody valign=&#34;top&#34;&gt;
-&lt;tr&gt;&lt;td class=&#34;label&#34;&gt;&lt;a class=&#34;fn-backref&#34; href=&#34;https://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html/#id1&#34;&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;If they have a snapshot of the VCS before their access was revoked,
+&lt;tr&gt;&lt;td class=&#34;label&#34;&gt;&lt;a class=&#34;fn-backref&#34; href=&#34;https://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html/#footnote-reference-1&#34;&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;If they have a snapshot of the VCS before their access was revoked,
 they will still be able to decrypt the secrets as they were then.
 In principle, you should be changing passwords and certificates
 every time someone&#39;s access is revoked.&lt;/td&gt;&lt;/tr&gt;
@@ -1442,12 +1672,12 @@ follow the portion of the &lt;a class=&#34;reference external&#34; href=&#34;htt
 that create a sub-key with no password for &lt;tt class=&#34;docutils literal&#34;&gt;ci&amp;#64;example.com&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;Then, serialize the public key and the secret with Paperkey:&lt;/p&gt;
 &lt;pre class=&#34;code bash literal-block&#34;&gt;
-&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;/tmp/NEWMASTER&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;gpg&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--homedir&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;.&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--export&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;ci&amp;#64;example.com&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;base64&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&amp;gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;public_key.txt&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;gpg&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--homedir&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;.&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--export-secret-keys&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;ci&amp;#64;example.com&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;paperkey&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--output-type&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;raw&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;base64&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&amp;gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;secret.txt
+&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; /tmp/NEWMASTER
+gpg --homedir . --export ci&amp;#64;example.com &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 &amp;gt; public_key.txt
+gpg --homedir . --export-secret-keys ci&amp;#64;example.com &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; paperkey --output-type&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;raw &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;    &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 &amp;gt; secret.txt
 &lt;/pre&gt;
 &lt;p&gt;Copy and paste the contents of &lt;tt class=&#34;docutils literal&#34;&gt;public_key.txt&lt;/tt&gt;
 to the &lt;tt class=&#34;docutils literal&#34;&gt;GPG_PUBLIC_KEY&lt;/tt&gt; environment variable in the CI.
@@ -1457,83 +1687,83 @@ Similarly, copy &lt;tt class=&#34;docutils literal&#34;&gt;secret.txt&lt;/tt&gt;
 and to decrypt the other secrets from Blackbox:&lt;/p&gt;
 &lt;pre class=&#34;code bash literal-block&#34;&gt;
 &lt;span class=&#34;ch&#34;&gt;#!/usr/bin/env bash
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Run during a CI build to decrypt all Blackbox-encrypted files in this repo.
+&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# Run during a CI build to decrypt all Blackbox-encrypted files in this repo.
 # Can also be used interactively.
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-ex&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -ex
 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Root of Git working tree
-&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;SERVICES_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dirname&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/..&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;span class=&#34;c1&#34;&gt;# Root of Git working tree
+&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;SERVICES_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dirname &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$0&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/..&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
 
-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CI_BUILD&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;true&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-    &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;mktemp&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-d&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-t&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;gnupg.XXX&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-    &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;SECRET_KEY_FILE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/secret.key&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-    &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;PUBLIC_KEY_FILE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/public_key.gpg&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$CI_BUILD&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;true&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;mktemp -d -t gnupg.XXX&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;SECRET_KEY_FILE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/secret.key&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;PUBLIC_KEY_FILE&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/public_key.gpg&amp;quot;&lt;/span&gt;
 
-    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# this variable is how you can customize how GPG is used in Blackbox
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;gpg --homedir=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;span class=&#34;c1&#34;&gt;# this variable is how you can customize how GPG is used in Blackbox
+&lt;/span&gt;    &lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;gpg --homedir=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
 
-    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Remove secrets from filesystem on exit.
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;clean_up&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-        &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# TODO: use shred, if available
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;rm&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-rf&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-    &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;trap&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;clean_up&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;EXIT&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;span class=&#34;c1&#34;&gt;# Remove secrets from filesystem on exit.
+&lt;/span&gt;    &lt;span class=&#34;k&#34;&gt;function&lt;/span&gt; clean_up &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;# TODO: use shred, if available
+&lt;/span&gt;        rm -rf &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_HOMEDIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;trap&lt;/span&gt; clean_up EXIT&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 
-    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Unpacking keys; exiting debug mode to redact...&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;+x&lt;span class=&#34;w&#34;&gt;
+    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Unpacking keys; exiting debug mode to redact...&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; +x
 
-    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-z&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_PUBLIC_KEY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-o&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-z&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_SECRET&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-        &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Missing CI credential env vars for GPG key and secret&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-        &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; -z &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_PUBLIC_KEY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; -o -z &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_SECRET&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Missing CI credential env vars for GPG key and secret&amp;quot;&lt;/span&gt;
+        &lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
 
-    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# unpack public key
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_PUBLIC_KEY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;base64&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--decode&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&amp;gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PUBLIC_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;span class=&#34;c1&#34;&gt;# unpack public key
+&lt;/span&gt;    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_PUBLIC_KEY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 --decode &amp;gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PUBLIC_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
 
-    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# unpack secret key
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_SECRET&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;base64&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--decode&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&amp;gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SECRET_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;span class=&#34;c1&#34;&gt;# unpack secret key
+&lt;/span&gt;    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG_SECRET&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; base64 --decode &amp;gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SECRET_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
 
-    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Secrets unpacked...&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-x&lt;span class=&#34;w&#34;&gt;
+    &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Secrets unpacked...&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;nb&#34;&gt;set&lt;/span&gt; -x
 
-    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# reconstitute and import full key into $GPG_HOMEDIR
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;paperkey&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--pubring&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PUBLIC_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--secrets&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SECRET_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;|&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--import&lt;span class=&#34;w&#34;&gt;
+    &lt;span class=&#34;c1&#34;&gt;# reconstitute and import full key into $GPG_HOMEDIR
+&lt;/span&gt;    paperkey --pubring &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$PUBLIC_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; --secrets &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SECRET_KEY_FILE&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;se&#34;&gt;\
+&lt;/span&gt;        &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$GPG&lt;/span&gt; --import
 
-    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# TODO: vendor Blackbox
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;BLACKBOX_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;mktemp&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-d&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-t&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;blackbox.XXX&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-    &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_DIR&lt;/span&gt;/bin&lt;span class=&#34;w&#34;&gt;
+    &lt;span class=&#34;c1&#34;&gt;# TODO: vendor Blackbox
+&lt;/span&gt;    &lt;span class=&#34;nv&#34;&gt;BLACKBOX_DIR&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;mktemp -d -t blackbox.XXX&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;nv&#34;&gt;BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_DIR&lt;/span&gt;/bin
 
-    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Shallow clone of Blackbox with most-recent commit only
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;git&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;clone&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--depth&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;https://github.com/StackExchange/blackbox.git&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_DIR&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# So that you only have to enter your password once when running interactively
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;eval&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;gpg-agent&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--daemon&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;span class=&#34;c1&#34;&gt;# Shallow clone of Blackbox with most-recent commit only
+&lt;/span&gt;    git clone --depth &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt; https://github.com/StackExchange/blackbox.git &lt;span class=&#34;nv&#34;&gt;$BLACKBOX_DIR&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
+    &lt;span class=&#34;c1&#34;&gt;# So that you only have to enter your password once when running interactively
+&lt;/span&gt;    &lt;span class=&#34;nb&#34;&gt;eval&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;gpg-agent --daemon&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
 
-    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# No custom GPG_HOMEDIR needed
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;gpg&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;span class=&#34;c1&#34;&gt;# No custom GPG_HOMEDIR needed
+&lt;/span&gt;    &lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;gpg&amp;quot;&lt;/span&gt;
 
-    &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;BLACKBOX_POSTDEPLOY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;command&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-v&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;blackbox_postdeploy&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;||&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;ret&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-n&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_POSTDEPLOY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-        &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Use the Blackbox that&#39;s on the path
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dirname&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_POSTDEPLOY&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-        &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Assume Blackbox is checked out in a sibling dir to $SERVICES_DIR
-&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SERVICES_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/..&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;/blackbox/bin&lt;span class=&#34;w&#34;&gt;
-        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;!&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-f&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/blackbox_postdeploy&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-            &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Can&#39;t find Blackbox binaries&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-            &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;span class=&#34;nv&#34;&gt;BLACKBOX_POSTDEPLOY&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;command&lt;/span&gt; -v blackbox_postdeploy&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;||&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;ret&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$?&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; -n &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_POSTDEPLOY&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;# Use the Blackbox that&#39;s on the path
+&lt;/span&gt;        &lt;span class=&#34;nv&#34;&gt;BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;dirname &lt;span class=&#34;nv&#34;&gt;$BLACKBOX_POSTDEPLOY&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
+        &lt;span class=&#34;c1&#34;&gt;# Assume Blackbox is checked out in a sibling dir to $SERVICES_DIR
+&lt;/span&gt;        &lt;span class=&#34;nv&#34;&gt;BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;$(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$SERVICES_DIR&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/..&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;pwd&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;/blackbox/bin
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;[&lt;/span&gt; ! -f &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_BIN&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;/blackbox_postdeploy&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+            &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Can&#39;t find Blackbox binaries&amp;quot;&lt;/span&gt;
+            &lt;span class=&#34;nb&#34;&gt;exit&lt;/span&gt; &lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# decrypt secrets in $SERVICES_DIR using custom GPG_HOMEDIR
-&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$BLACKBOX_BIN&lt;/span&gt;/blackbox_postdeploy&lt;span class=&#34;w&#34;&gt;
+&lt;span class=&#34;c1&#34;&gt;# decrypt secrets in $SERVICES_DIR using custom GPG_HOMEDIR
+&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;GPG&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$GPG&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;$BLACKBOX_BIN&lt;/span&gt;/blackbox_postdeploy
 
-&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# test that decryption worked
-&lt;/span&gt;grep&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&#39;congrats!&#39;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;test_secret.txt
+&lt;span class=&#34;c1&#34;&gt;# test that decryption worked
+&lt;/span&gt;grep &lt;span class=&#34;s1&#34;&gt;&#39;congrats!&#39;&lt;/span&gt; test_secret.txt
 &lt;/pre&gt;
 &lt;p&gt;At the end of the build,
 run &lt;tt class=&#34;docutils literal&#34;&gt;blackbox_shred_all_files&lt;/tt&gt; to destroy any decrypted files.&lt;/p&gt;
@@ -1912,43 +2142,6 @@ The default diff algorithm is &lt;tt class=&#34;docutils literal&#34;&gt;&lt;spa
 </description>
         <pubDate>Tue, 26 Dec 2017 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2017-12-26:/blog/2017/12/26/GitDiffTips.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: Coco</title>
-        <link>https://www.georgevreilly.com/blog/2017/12/25/ReviewCoco.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Coco_(2017_film)&#34;&gt;&lt;img alt=&#34;Coco&#34; class=&#34;right-float&#34; src=&#34;https://upload.wikimedia.org/wikipedia/en/9/98/Coco_%282017_film%29_poster.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: Coco&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Director: Lee Unkrich&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★ ½&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Released: 2017&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: animation&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Country: USA&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Watched: 25 December, 2017&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Coco_(2017_film)&#34;&gt;Coco&lt;/a&gt; is another delightful movie from Pixar:
-It&#39;s a magical tale of a Mexican boy who passionately wants to play music,
-even though his shoemaking family has rejected music ever since
-his great-great-grandfather pursued his own musical ambitions
-and abandoned his wife and child—the eponymous Coco, who is now ancient.
-Miguel discovers that his despised ancestor is none other than Ernesto de la Cruz,
-the most famous musician of his time.
-In order to enter a talent competition on Día de los Muertos,
-he steals Ernesto&#39;s guitar from his mausoleum,
-whereupon he is transported to the Land of the Dead.
-Surrounded by lively skeletons, he must find his way home before the night is out.&lt;/p&gt;
-&lt;p&gt;Coco is visually beautiful, musically satisfying, entertaining, and uplifting.
-While amusing, it manages to avoid the pitfalls of inanity that afflict
-so many animated films targeted at children,
-and it also deals sensitively with topics
-such as death, bereavement, and abandonment,
-as well as the difficulties of being in a family
-and the costs of following one&#39;s dreams.&lt;/p&gt;
-&lt;p&gt;Highly recommended.&lt;/p&gt;
-</description>
-        <pubDate>Mon, 25 Dec 2017 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2017-12-25:/blog/2017/12/25/ReviewCoco.html</guid>
     </item>
         </channel>
 </rss>

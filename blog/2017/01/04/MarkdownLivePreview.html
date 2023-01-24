@@ -60,25 +60,25 @@ without affecting the rendering.
 However, without the blank lines,
 the code block will collapse onto one line in the GitHub <tt class="docutils literal"><span class="caps">README</span>.md</tt>.</p>
 <pre class="code markdown literal-block">
-<span class="k">*</span><span class="w"> </span>The following has been tested with RabbitMQ 3.6.0 on macOS<span class="w">
-</span>  (<span class="sb">`brew install rabbitmq`</span>):<span class="w">
-        </span><span class="k">-</span><span class="w"> </span><span class="sb">`/usr/local/etc/rabbitmq/rabbitmq-env.conf`</span><span class="w">
-</span>          should <span class="ge">*not*</span> have a localhost entry for <span class="sb">`NODE_IP_ADDRESS`</span>;<span class="w">
-</span>          e.g.:<span class="w">
-</span><span class="sb">
+<span class="k">*</span> The following has been tested with RabbitMQ 3.6.0 on macOS
+  (<span class="sb">`brew install rabbitmq`</span>):
+        <span class="k">-</span> <span class="sb">`/usr/local/etc/rabbitmq/rabbitmq-env.conf`</span>
+          should <span class="ge">*not*</span> have a localhost entry for <span class="sb">`NODE_IP_ADDRESS`</span>;
+          e.g.:
+<span class="sb">
                 ```
                 CONFIG_FILE=/usr/local/etc/rabbitmq/rabbitmq
                 #NODE_IP_ADDRESS=127.0.0.1
                 <span class="caps">NODENAME</span>=rabbit&#64;localhost
                 ```
-</span><span class="w">
-        </span><span class="k">-</span><span class="w"> </span><span class="sb">`/usr/local/etc/rabbitmq/rabbitmq.config`</span>:<span class="w">
-</span><span class="sb">
+</span>
+        <span class="k">-</span> <span class="sb">`/usr/local/etc/rabbitmq/rabbitmq.config`</span>:
+<span class="sb">
                 ```
                 [{rabbit, [{loopback_users, []}]}].
                 ```
-</span><span class="w">
-</span>                (Yes, the trailing period is deliberate.)
+</span>
+                (Yes, the trailing period is deliberate.)
 </pre>
 <p>Both Atom and VSCode are built on top of <a class="reference external" href="http://electron.atom.io/">Electron</a>,
 which seems to be an excellent way to built powerful cross-platform desktop apps

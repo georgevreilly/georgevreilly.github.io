@@ -29,6 +29,57 @@
     
         <article>
     <header>
+        <time datetime="2016-08-12">2016-08-12</time>
+        <h1>
+            <a href="/blog/2016/08/12/ReviewFuzzyNation.html" rel="bookmark canonical">Review: Fuzzy Nation</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.amazon.com/dp/0765367033/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: Fuzzy Nation</div>
+<div class="line">Author: John Scalzi</div>
+<div class="line">Rating: ★ ★ ★ ★</div>
+<div class="line">Publisher: Tor</div>
+<div class="line">Copyright: 2011</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0765367033/?tag=georgvreill-20">0765367033</a></div>
+<div class="line">Pages: 368</div>
+<div class="line">Keywords: sf</div>
+<div class="line">Reading period: 20 July–12 August, 2016</div>
+</div>
+<p>Jack Holloway is a prospector on Zara <span class="caps">XXII</span>,
+con&shy;tract&shy;ing for the giant ZaraCorp.
+On one momentous day,
+he is fired,
+discovers a huge seam of sunstones worth trillions,
+and meets the first members of a new species, the fuzzies.
+Since he was fired before he discovered the sunstones,
+he now has an en&shy;force&shy;able claim—and he&#8217;s a disbarred lawyer,
+so you can bet he&#8217;s following through.
+The fuzzies are delightful and they&#8217;re pretty smart—so smart that they might just be sapient.
+And if they are, that&#8217;s a huge problem for ZaraCorp,
+since the fuzzies <span>&#8230;<a href="/blog/2016/08/12/ReviewFuzzyNation.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/12/ReviewFuzzyNation.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/sf/" rel="tag">sf</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-08-09">2016-08-09</time>
         <h1>
             <a href="/blog/2016/08/09/AIDSWalk2016.html" rel="bookmark canonical">AIDS Walk 2016</a>
@@ -379,25 +430,25 @@ In the present day, both Sabine and Olaf grow more <span>&#8230;<a href="/blog/2
     <p>I needed to create a wildcard <span class="caps">SSL</span> cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/"><span class="caps">AWS</span> CloudFront</a>&nbsp;today.</p>
 <p>First, generate a 2048-bit private key. This will prompt you for a&nbsp;passphrase:</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>openssl<span class="w"> </span>genrsa<span class="w"> </span>-des3<span class="w"> </span>-out<span class="w"> </span>example.key<span class="w"> </span><span class="m">2048</span>
+$ openssl genrsa -des3 -out example.key <span class="m">2048</span>
 </pre>
 <p>Check which signature algorithm was used (<span class="caps">SHA</span>-256 is&nbsp;rec&shy;om&shy;mend&shy;ed):</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-in<span class="w"> </span>example.csr<span class="w"> </span>-noout<span class="w"> </span>-text
+$ openssl req -in example.csr -noout -text
 </pre>
 <p>Transform the private key to <span class="caps">PEM</span>&nbsp;format:</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>openssl<span class="w"> </span>rsa<span class="w"> </span>-outform<span class="w"> </span><span class="caps">PEM</span><span class="w"> </span>-in<span class="w"> </span>example.key<span class="w"> </span>-out<span class="w"> </span>example.pem
+$ openssl rsa -outform PEM -in example.key -out example.pem
 </pre>
 <p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server&nbsp;<span class="caps">FQDN</span>:</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>openssl<span class="w"> </span>req<span class="w"> </span>-new<span class="w"> </span>-key<span class="w"> </span>example.key<span class="w"> </span>-out<span class="w"> </span>example.csr<span class="w">
+$ openssl req -new -key example.key -out example.csr
 
-</span>Country<span class="w"> </span>Name<span class="w"> </span><span class="o">(</span><span class="m">2</span><span class="w"> </span>letter<span class="w"> </span>code<span class="o">)</span><span class="w"> </span><span class="o">[</span><span class="caps">AU</span><span class="o">]</span>:<span class="caps">US</span><span class="w">
-</span>State<span class="w"> </span>or<span class="w"> </span>Province<span class="w"> </span>Name<span class="w"> </span><span class="o">(</span>full<span class="w"> </span>name<span class="o">)</span><span class="w"> </span><span class="o">[</span>Some-State<span class="o">]</span>:Washington<span class="w">
-</span>Locality<span class="w"> </span>Name<span class="w"> </span><span class="o">(</span>eg,<span class="w"> </span>city<span class="o">)</span><span class="w"> </span><span class="o">[]</span>:Seattle<span class="w">
-</span>Organization<span class="w"> </span>Name<span class="w"> </span><span class="o">(</span>eg,<span class="w"> </span>company<span class="o">)</span><span class="w"> </span><span class="o">[</span>Internet<span class="w"> </span>Widgits<span class="w"> </span>Pty<span class="w"> </span>Ltd<span class="o">]</span>:Example<span class="w"> </span>GmbH<span class="w">
-</span>Organizational<span class="w"> </span>Unit<span class="w"> </span>Name<span class="w"> </span><span class="o">(</span>eg,<span class="w"> </span></pre><span>&#8230;<a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" class="continue">continue</a>.</span>
+Country Name <span class="o">(</span><span class="m">2</span> letter code<span class="o">)</span> <span class="o">[</span><span class="caps">AU</span><span class="o">]</span>:<span class="caps">US</span>
+State or Province Name <span class="o">(</span>full name<span class="o">)</span> <span class="o">[</span>Some-State<span class="o">]</span>:Washington
+Locality Name <span class="o">(</span>eg, city<span class="o">)</span> <span class="o">[]</span>:Seattle
+Organization Name <span class="o">(</span>eg, company<span class="o">)</span> <span class="o">[</span>Internet Widgits Pty Ltd<span class="o">]</span>:Example GmbH
+Organizational Unit Name <span class="o">(</span>eg, </pre><span>&#8230;<a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" class="continue">continue</a>.</span>
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html#disqus_thread">Comment</a>
@@ -462,50 +513,6 @@ trotting out yet another comedy to amuse the&nbsp;groundlings.</p>
                     and
                     
                 <a href="/tag/shakespeare/" rel="tag">shakespeare</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-30">2016-07-30</time>
-        <h1>
-            <a href="/blog/2016/07/30/ReviewTheHurtLocker.html" rel="bookmark canonical">Review: The Hurt Locker</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/The_Hurt_Locker"></a>
-<div class="line-block">
-<div class="line">Title: The Hurt Locker</div>
-<div class="line">Director: Kathryn Bigelow</div>
-<div class="line">Rating: ★ ★ ★ ★ ½</div>
-<div class="line">Released: 2009</div>
-<div class="line">Keywords: war</div>
-<div class="line">Watched: 30 July, 2016</div>
-</div>
-<p>Three bomb disposal techs in Iraq are the subject of <a class="reference external" href="https://en.wikipedia.org/wiki/The_Hurt_Locker">The Hurt Locker</a>:
-Sgt James (Jeremy Renner), Sgt Sanborn (Anthony Mackie), and Spec Eldridge (Brian Geraghty).
-James has grown addicted to war and he is reckless and cavalier about disarming bombs,
-while Sanborn is in&shy;creas&shy;ing&shy;ly angry at James&#8217; en&shy;dan&shy;ger&shy;ment of them all
-and Eldridge grows ever more terrified and fatalistic.
-<em>The Hurt Locker</em> is a gritty and visceral war film.
-We have no idea what&#8217;s going to happen next
-and anyone could be blown up or shot at any time.
-The bomb makers <span>&#8230;<a href="/blog/2016/07/30/ReviewTheHurtLocker.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/30/ReviewTheHurtLocker.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/movies/" rel="tag">movies</a>
-                    and
-                    
-                <a href="/tag/reviews/" rel="tag">reviews</a>
                 
             </p>
         

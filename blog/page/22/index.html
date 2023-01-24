@@ -29,6 +29,48 @@
     
         <article>
     <header>
+        <time datetime="2016-04-03">2016-04-03</time>
+        <h1>
+            <a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" rel="bookmark canonical">Find remote Git branch with change to a file</a>
+        </h1>
+    </header>
+    <p>I needed to track down a remote branch created a couple of months ago
+on another machine.
+I knew which file had been changed,
+but none of the far-too-many remote branches&#8217; names rang a&nbsp;bell.</p>
+<p>Turns out that using <a class="reference external" href="http://stackoverflow.com/questions/6258440/find-a-git-branch-containing-changes-to-a-given-file">git branch &#8211;contains</a> in the right way
+finds all the relevant&nbsp;branches.</p>
+<pre class="code bash literal-block">
+git log --all --format<span class="o">=</span>%H <span class="caps">FILENAME</span> <span class="se">\
+</span>    <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> f<span class="p">;</span> <span class="k">do</span> git branch --remotes --contains <span class="nv">$f</span><span class="p">;</span> <span class="k">done</span> <span class="se">\
+</span>    <span class="p">|</span> sort -u
+</pre>
+<p>The first line, <tt class="docutils literal">git log <span class="pre">--all</span> <span class="pre">--format=%H</span> <span class="caps">FILENAME</span></tt>,
+lists all the <em>hashes</em> for commits that contained changes to <tt class="docutils literal"><span class="caps">FILENAME</span></tt>.
+The second finds all the branches that contain those hashes
+(I added <tt class="docutils literal"><span class="pre">--remotes</span></tt>).
+The third uniquifies <span>&#8230;<a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/git/" rel="tag">git</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-04-02">2016-04-02</time>
         <h1>
             <a href="/blog/2016/04/02/ReviewTheMercyOfTheNight.html" rel="bookmark canonical">Review: The Mercy of the Night</a>
@@ -380,53 +422,6 @@ Instead of handling 200 <span>&#8230;<a href="/blog/2016/03/25/Profiling.html" c
         
             <p>tagged as
                 <a href="/tag/performance/" rel="tag">performance</a>,
-                <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-03-24">2016-03-24</time>
-        <h1>
-            <a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" rel="bookmark canonical">Raising IOError for 'file not found'</a>
-        </h1>
-    </header>
-    <p>I wanted to raise Python&#8217;s <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.IOError">IOError</a> for a file-not-found condition,
-but it wasn&#8217;t obvious what the parameters to the exception should&nbsp;be.</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">errno</span> <span class="kn">import</span> <span class="n"><span class="caps">ENOENT</span></span><span class="w">
-
-</span><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">source_file</span><span class="p">):</span><span class="w">
-</span>    <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n"><span class="caps">ENOENT</span></span><span class="p">,</span> <span class="s1">'Not a file'</span><span class="p">,</span> <span class="n">source_file</span><span class="p">)</span><span class="w">
-</span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">source_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span><span class="w">
-</span>    <span class="k">return</span> <span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-</pre>
-<p><tt class="docutils literal">IOError</tt> can be in&shy;stan&shy;ti&shy;at&shy;ed with 1, 2, or 3&nbsp;arguments:</p>
-<dl class="docutils">
-<dt><tt class="docutils literal">IOError(errno, strerror, filename)</tt></dt>
-<dd>These arguments are available
-on the <tt class="docutils literal">errno</tt>, <tt class="docutils literal">strerror</tt>, and <tt class="docutils literal">filename</tt> attributes of the exception object,
-re&shy;spec&shy;tive&shy;ly, in both Python 2 and 3.
-The <tt class="docutils literal">args</tt> attribute contains the verbatim con&shy;struc&shy;tor arguments as a&nbsp;tuple.</dd>
-<dt><tt class="docutils literal">IOError(errno, strerror)</tt></dt>
-<dd>These are available on the <tt class="docutils literal">errno</tt> and <tt class="docutils literal">strerror</tt> attributes of the exception,
-re&shy;spec&shy;tive&shy;ly, in both Python 2 and 3,
-while the <tt class="docutils literal">filename</tt> <span>&#8230;<a href="/blog/2016/03/24/RaisingIOErrorForFileNotFound.html" class="continue">continue</a>.</span></dd></dl>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/24/RaisingIOErrorForFileNotFound.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
                     and
                     

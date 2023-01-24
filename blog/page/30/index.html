@@ -29,6 +29,54 @@
     
         <article>
     <header>
+        <time datetime="2016-01-14">2016-01-14</time>
+        <h1>
+            <a href="/blog/2016/01/14/PythonBaseClassOrder.html" rel="bookmark canonical">Python Base Class Order</a>
+        </h1>
+    </header>
+    <p>When I declare a derived class that inherits
+from both a base class and some mixins,
+I am always tempted to&nbsp;write:</p>
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">Mixin1</span><span class="p">,</span> <span class="n">Mixin2</span><span class="p">):</span>
+    <span class="s2">&quot;Some class&quot;</span>
+</pre>
+<p>My reasoning is that <tt class="docutils literal">Derived</tt> is a <tt class="docutils literal">Base</tt>
+with some <tt class="docutils literal">Mixin1</tt> and <tt class="docutils literal">Mixin2</tt> goodness sprinkled on.
+Generally, that&#8217;s fine.
+The exception is when I want one of the mixins to override
+a method or attribute that&#8217;s defined in <tt class="docutils literal">Base</tt>.
+Because the <a class="reference external" href="http://python-history.blogspot.com/2010/06/method-resolution-order.html">Method Resolution Order</a> is left-to-right,
+then <tt class="docutils literal">Base</tt>&#8216;s im&shy;ple&shy;men&shy;ta&shy;tion will always be found&nbsp;first.</p>
+<p>To get the desired behavior of the mixin overriding the base,
+<tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance&nbsp;list.</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="k">class</span> <span class="nc">Useful</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+ </pre><span>&#8230;<a href="/blog/2016/01/14/PythonBaseClassOrder.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/14/PythonBaseClassOrder.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-13">2016-01-13</time>
         <h1>
             <a href="/blog/2016/01/13/ReviewStarDoc.html" rel="bookmark canonical">Review: Star Doc</a>
@@ -89,27 +137,27 @@ which makes it hard to Google when you can&#8217;t quite remember the&nbsp;synta
 <p>Getting a default value using <tt class="docutils literal"><span class="pre">${var:-fallback}</span></tt>:</p>
 <pre class="code bash literal-block">
 <span class="c1"># set $<span class="caps">LOGDIR</span> to $1 if $1 has a value; otherwise set $<span class="caps">LOGDIR</span> to &quot;/var/log&quot;
-</span><span class="nv"><span class="caps">LOGDIR</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/var/log</span><span class="si">}</span><span class="s2">&quot;</span><span class="w">
+</span><span class="nv"><span class="caps">LOGDIR</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/var/log</span><span class="si">}</span><span class="s2">&quot;</span>
 
-</span><span class="c1"># use $<span class="caps">VERSION</span> unless it's empty or unset; fall back to extracting someprog's version num
-</span><span class="nv">build_version</span><span class="o">=</span><span class="si">${</span><span class="nv"><span class="caps">VERSION</span></span><span class="k">:-$(</span>someprog<span class="w"> </span>--version<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">'s/[^0-9.]*\([0-9.]*\).*/\1/'</span><span class="k">)</span><span class="si">}</span>
+<span class="c1"># use $<span class="caps">VERSION</span> unless it's empty or unset; fall back to extracting someprog's version num
+</span><span class="nv">build_version</span><span class="o">=</span><span class="si">${</span><span class="nv"><span class="caps">VERSION</span></span><span class="k">:-$(</span>someprog --version <span class="p">|</span> sed <span class="s1">'s/[^0-9.]*\([0-9.]*\).*/\1/'</span><span class="k">)</span><span class="si">}</span>
 </pre>
 <p>The colon-dash con&shy;struc&shy;tion is known as the
 <a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog&#8217;s bollocks</a>
 in&nbsp;typography.</p>
 <p>Setting a default value, using <tt class="docutils literal"><span class="pre">${var:=fallback}</span></tt>:</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$<span class="caps">HOME</span></span><span class="w">
-</span>/Users/georgevreilly<span class="w">
-</span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span><span class="w">
-</span>/Users/georgevreilly<span class="w">
-</span>$<span class="w"> </span><span class="nb">unset</span><span class="w"> </span><span class="caps">HOME</span><span class="w">
-</span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span><span class="w">
-</span>/tmp<span class="w">
-</span>$<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$<span class="caps">HOME</span></span><span class="w">
-</span>/tmp<span class="w">
-</span>$<span class="w"> </span>cd<span class="p">;</span><span class="w"> </span><span class="nb">pwd</span><span class="w">
-</span>/tmp
+$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
+/Users/georgevreilly
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
+/Users/georgevreilly
+$ <span class="nb">unset</span> <span class="caps">HOME</span>
+$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
+/tmp
+$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
+/tmp
+$ cd<span class="p">;</span> <span class="nb">pwd</span>
+/tmp
 </pre>
 <p>Note: <tt class="docutils literal">:=</tt> uses the new value in two cases.
 First, when the shell <span>&#8230;<a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" class="continue">continue</a>.</span></p>
@@ -454,55 +502,6 @@ Then we postin&shy;cre&shy;ment <span>&#8230;<a href="/blog/2016/01/05/Decrement
                     and
                     
                 <a href="/tag/performance/" rel="tag">performance</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-04">2016-01-04</time>
-        <h1>
-            <a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" rel="bookmark canonical">Obfuscating Passwords in URLs in Python</a>
-        </h1>
-    </header>
-    <p></p>
-<blockquote>
-[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
-<p><a class="reference external" href="https://www.ietf.org/rfc/rfc1738.txt"><span class="caps">RFC</span> 1738</a> allows passwords in URLs,
-in the form <tt class="docutils literal"><span class="pre">&lt;scheme&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;host&gt;:&lt;port&gt;/&lt;url-path&gt;</span></tt>.
-Although passwords are deprecated by <a class="reference external" href="https://www.ietf.org/rfc/rfc3986.txt"><span class="caps">RFC</span> 3986</a> and other newer RFCs,
-it&#8217;s oc&shy;ca&shy;sion&shy;al&shy;ly useful.
-Several important packages in the Python world allow such URLs,
-including <a class="reference external" href="https://www.sqlalchemy.org/">SQLAlchemy</a> (<tt class="docutils literal"><span class="pre">'post&shy;gresql://scott:tiger&#64;localhost:5432/my&shy;data&shy;base'</span></tt>)
-and <a class="reference external" href="https://docs.celeryproject.org/en/stable/">Celery</a> (<tt class="docutils literal"><span class="pre">'amqp://guest:guest&#64;localhost:5672//'</span></tt>).
-It&#8217;s also useful to be able to log such URLs without exposing the&nbsp;password.</p>
-<p>Python 2 has <a class="reference external" href="https://docs.python.org/2/library/urlparse.html#urlparse.urlparse">urlparse.urlparse</a>
-(known as <a class="reference external" href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.urlparse">urllib.parse.urlparse</a> in Python 3
-and <tt class="docutils literal">six.moves.url&shy;lib_&shy;parse.urlparse</tt> in the <a class="reference external" href="https://six.readthedocs.io/">Six</a> com&shy;pat&shy;i&shy;bil&shy;i&shy;ty library)
-to split a <span class="caps">URL</span> into six components,
-<em>scheme</em>, <em>netloc</em>, <em>path</em>, <em>parameters</em>, <em>query</em>, and <em>fragment</em>.
-The <em>netloc</em> cor&shy;re&shy;sponds to <tt class="docutils literal"><span class="pre">&lt;user&gt;:&lt;password&gt;&#64;&lt;host&gt;:&lt;port&gt;</span></tt>.</p>
-<p>Un&shy;for&shy;tu&shy;nate&shy;ly, neither Python 2 nor 3&#8217;s <tt class="docutils literal">urlparse</tt>
-properly handle the <em>userinfo</em>
-(<em>username</em> + optional <em>password</em> in the <em>netloc</em>),
-as they <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/04/PythonObfuscateUrlPassword.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>,
-                <a href="/tag/urls/" rel="tag">urls</a>,
-                <a href="/tag/metabrite/" rel="tag">metabrite</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

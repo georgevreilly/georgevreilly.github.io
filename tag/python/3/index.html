@@ -37,17 +37,17 @@
     <a class="reference external image-reference" href="http://nose.readthedocs.org/"></a>
 <p>I figured out why I saw the following error every time I ran <a class="reference external" href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html">Nose</a>:</p>
 <pre class="code python literal-block">
-<span class="o">======================================================================</span><span class="w">
-</span><span class="n">ERROR</span><span class="p">:</span> <span class="n">Failure</span><span class="p">:</span> <span class="ne">TypeError</span> <span class="p">(</span><span class="nb">type</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">3</span> <span class="n">arguments</span><span class="p">)</span><span class="w">
-</span><span class="o">----------------------------------------------------------------------</span><span class="w">
-</span><span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span><span class="w">
-</span>  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">523</span><span class="p">,</span> <span class="ow">in</span> <span class="n">makeTest</span><span class="w">
-</span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_makeTest</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span><span class="w">
-</span>  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">582</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_makeTest</span><span class="w">
-</span>    <span class="k">return</span> <span class="n">MethodTestCase</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="w">
-</span>  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/case.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">345</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__init__</span><span class="w">
-</span>    <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cls</span><span class="p">()</span><span class="w">
-</span><span class="ne">TypeError</span><span class="p">:</span> <span class="nb">type</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">3</span> <span class="n">arguments</span>
+<span class="o">======================================================================</span>
+<span class="n">ERROR</span><span class="p">:</span> <span class="n">Failure</span><span class="p">:</span> <span class="ne">TypeError</span> <span class="p">(</span><span class="nb">type</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">3</span> <span class="n">arguments</span><span class="p">)</span>
+<span class="o">----------------------------------------------------------------------</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">523</span><span class="p">,</span> <span class="ow">in</span> <span class="n">makeTest</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_makeTest</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/loader.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">582</span><span class="p">,</span> <span class="ow">in</span> <span class="n">_makeTest</span>
+    <span class="k">return</span> <span class="n">MethodTestCase</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s2">&quot;.../lib/python2.7/site-packages/nose-1.3.7-py2.7.egg/nose/case.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">345</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__init__</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">inst</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cls</span><span class="p">()</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="nb">type</span><span class="p">()</span> <span class="n">takes</span> <span class="mi">1</span> <span class="ow">or</span> <span class="mi">3</span> <span class="n">arguments</span>
 </pre>
 <p>It turns out that one module was importing a class called <tt class="docutils literal">TestApi</tt>
 which had a <tt class="docutils literal">class&shy;method</tt> called <tt class="docutils literal">run_in&shy;te&shy;gra&shy;tion_tests</tt>.
@@ -92,12 +92,12 @@ Yet another is to re&shy;cur&shy;sive&shy;ly traverse a tree or a graph,
 yielding an iterable sequence.</p>
 <p>Consider this simple tree of nodes:</p>
 <pre class="code python literal-block">
-<span class="n">node_tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="w">
-</span>    <span class="s1">'a'</span><span class="p">,</span> <span class="p">[</span><span class="w">
-</span>        <span class="n">Node</span><span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="p">[</span><span class="w">
-</span>            <span class="n">Node</span><span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="p">[</span><span class="w">
-</span>                <span class="n">Node</span><span class="p">(</span><span class="s1">'g'</span><span class="p">)</span><span class="w">
-</span> </pre><span>&#8230;<a href="/blog/2016/01/22/PythonRecursiveGenerators.html" class="continue">continue</a>.</span>
+<span class="n">node_tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+    <span class="s1">'a'</span><span class="p">,</span> <span class="p">[</span>
+        <span class="n">Node</span><span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="p">[</span>
+            <span class="n">Node</span><span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="p">[</span>
+                <span class="n">Node</span><span class="p">(</span><span class="s1">'g'</span><span class="p">)</span>
+ </pre><span>&#8230;<a href="/blog/2016/01/22/PythonRecursiveGenerators.html" class="continue">continue</a>.</span>
     <footer>
         
         
@@ -125,11 +125,11 @@ yielding an iterable sequence.</p>
     </header>
     <p>Have you ever attempted a <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">relative import</a> in a Python script?</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>./foo/bar/script.py<span class="w"> </span>some<span class="w"> </span>parameters<span class="w">
-</span>Traceback<span class="w"> </span><span class="o">(</span>most<span class="w"> </span>recent<span class="w"> </span>call<span class="w"> </span>last<span class="o">)</span>:<span class="w">
-  </span>File<span class="w"> </span><span class="s2">&quot;foo/bar/script.py&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">16</span>,<span class="w"> </span><span class="k">in</span><span class="w"> </span>&lt;module&gt;<span class="w">
-    </span>from<span class="w"> </span>.quux<span class="w"> </span>import<span class="w"> </span>find_vcs<span class="w">
-</span>ValueError:<span class="w"> </span>Attempted<span class="w"> </span>relative<span class="w"> </span>import<span class="w"> </span><span class="k">in</span><span class="w"> </span>non-package
+$ ./foo/bar/script.py some parameters
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">&quot;foo/bar/script.py&quot;</span>, line <span class="m">16</span>, <span class="k">in</span> &lt;module&gt;
+    from .quux import find_vcs
+ValueError: Attempted relative import <span class="k">in</span> non-package
 </pre>
 <p>I prefer to use <a class="reference external" href="https://www.python.org/dev/peps/pep-0328/">absolute imports</a> to minimize ambiguity and confusion,
 and most of my Python modules begin with:</p>
@@ -141,7 +141,7 @@ and most of my Python modules begin with:</p>
 and the solution to the above <tt class="docutils literal">ValueError</tt> occurred to me:
 Use <tt class="docutils literal">python <span class="pre">-m</span> package</tt> instead:</p>
 <pre class="code bash literal-block">
-$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>foo.bar.script<span class="w"> </span>some<span class="w"> </span>parameters
+$ python -m foo.bar.script some parameters
 </pre>
 <p>(Assuming that <span>&#8230;<a href="/blog/2016/01/17/RelativeImportsInAPythonScript.html" class="continue">continue</a>.</span></p>
     <footer>
@@ -176,9 +176,9 @@ and work with a recent version of the <a class="reference external" href="http:/
 which makes it straight&shy;for&shy;ward to upgrade to Python 2.7.11
 on supported versions of Ubuntu.</p>
 <pre class="code bash literal-block">
-sudo<span class="w"> </span>apt-add-repository<span class="w"> </span>ppa:fkrull/deadsnakes-python2.7<span class="w">
-</span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w">
-</span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>python2.7<span class="w"> </span>python2.7-dev
+sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
+sudo apt-get update
+sudo apt-get install python2.7 python2.7-dev
 </pre>
 <p>Be sure not to use Felix Krull's <a class="reference external" href="https://launchpad.net/~fkrull/+archive/ubuntu/deadsnakes">other Python PPA</a> by mistake.
 I did that on a col&shy;league's machine yesterday.
@@ -213,8 +213,8 @@ we managed to mess up the <span>&#8230;<a href="/blog/2016/01/16/InstallingPytho
 from both a base class and some mixins,
 I am always tempted to write:</p>
 <pre class="code python literal-block">
-<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">Mixin1</span><span class="p">,</span> <span class="n">Mixin2</span><span class="p">):</span><span class="w">
-</span>    <span class="s2">&quot;Some class&quot;</span>
+<span class="k">class</span> <span class="nc">Derived</span><span class="p">(</span><span class="n">Base</span><span class="p">,</span> <span class="n">Mixin1</span><span class="p">,</span> <span class="n">Mixin2</span><span class="p">):</span>
+    <span class="s2">&quot;Some class&quot;</span>
 </pre>
 <p>My reasoning is that <tt class="docutils literal">Derived</tt> is a <tt class="docutils literal">Base</tt>
 with some <tt class="docutils literal">Mixin1</tt> and <tt class="docutils literal">Mixin2</tt> goodness sprinkled on.
@@ -226,10 +226,10 @@ then <tt class="docutils literal">Base</tt>'s im&shy;ple&shy;men&shy;ta&shy;tion
 <p>To get the desired behavior of the mixin overriding the base,
 <tt class="docutils literal">Base</tt> should always appear <em>last</em> in the in&shy;her&shy;i&shy;tance list.</p>
 <pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="w">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
 
-</span><span class="k">class</span> <span class="nc">Useful</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span><span class="w">
-</span>    </pre><span>&#8230;<a href="/blog/2016/01/14/PythonBaseClassOrder.html" class="continue">continue</a>.</span>
+<span class="k">class</span> <span class="nc">Useful</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    </pre><span>&#8230;<a href="/blog/2016/01/14/PythonBaseClassOrder.html" class="continue">continue</a>.</span>
     <footer>
         
         
@@ -376,13 +376,13 @@ The script may be run more than once during the lifetime of the agent,
 so the second and subsequent calls should not upgrade Docker.</p>
 <p>Basically, I wanted</p>
 <pre class="code bash literal-block">
-<span class="k">if</span><span class="w"> </span><span class="nv">$DOCKER_VERSION</span><span class="w"> </span>&lt;<span class="w"> </span><span class="m">1</span>.9<span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span>upgrade_docker<span class="p">;</span><span class="w"> </span><span class="k">fi</span>
+<span class="k">if</span> <span class="nv">$DOCKER_VERSION</span> &lt; <span class="m">1</span>.9<span class="p">;</span> <span class="k">then</span> upgrade_docker<span class="p">;</span> <span class="k">fi</span>
 </pre>
 <p>Un&shy;for&shy;tu&shy;nate&shy;ly, it's not that easy in Bash.
 Here's what I came up with.</p>
 <pre class="code bash literal-block">
-install_latest_docker<span class="o">()</span><span class="w"> </span><span class="o">{</span><span class="w">
-    </span><span class="k">if</span><span class="w"> </span>docker<span class="w"> </span>--version<span class="w"> </span><span class="p">|</span><span class="w"> </span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;min=[1, 9]; import sys; ↩
+install_latest_docker<span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> docker --version <span class="p">|</span> python -c <span class="s2">&quot;min=[1, 9]; import sys; ↩
 v=[int(x) </span></pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.html" class="continue">continue</a>.</span>
     <footer>
         

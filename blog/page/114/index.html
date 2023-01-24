@@ -29,6 +29,53 @@
     
         <article>
     <header>
+        <time datetime="2006-05-16">2006-05-16</time>
+        <h1>
+            <a href="/blog/2006/05/16/0xFFFF100x1999.html" rel="bookmark canonical">0xFF...FF / 10 == 0x19...99</a>
+        </h1>
+    </header>
+    
+<p>A few weeks ago, I wrote a C++ routine to parse decimal numbers using the
+overflow detection principles of
+<a class="reference external" href="http://msdn.microsoft.com/library/en-us/dncode/html/secure01142004.asp">SafeInt</a>.
+I couldn&#8217;t find anything in the libraries that actually did a good job of checking
+for&nbsp;overflow.</p>
+<p>Briefly, to see if <tt class="docutils literal">unsigned</tt> values <tt class="docutils literal">A+B</tt> overflow, check
+<tt class="docutils literal">if (A &gt; MAX_UINT - B)</tt>. Similarly, <tt class="docutils literal">A*B</tt> will overflow
+<tt class="docutils literal">if (A &gt; MAX_UINT / B)</tt>.</p>
+<pre class="code cpp literal-block">
+<span class="c1">// Convert a string to an unsigned. Returns 'true' iff conversion is legitimate.
+</span><span class="kt">bool</span><span class="w">
+</span><span class="nf">StringToUnsigned</span><span class="p">(</span><span class="w">
+    </span><span class="k">const</span><span class="w"> </span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">str</span><span class="p">,</span><span class="w">
+    </span><span class="kt">unsigned</span><span class="o">&amp;</span><span class="w">     </span><span class="n">rUint</span><span class="p">)</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="n">rUint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+
+    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span><span class="w">
+        </span><span class="k">return</span><span class="w"> </span></pre><span>&#8230;<a href="/blog/2006/05/16/0xFFFF100x1999.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/05/16/0xFFFF100x1999.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/c++/" rel="tag">c++</a>,
+                <a href="/tag/octal/" rel="tag">octal</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-05-15">2006-05-15</time>
         <h1>
             <a href="/blog/2006/05/15/WritingClearly.html" rel="bookmark canonical">Writing Clearly</a>
@@ -94,47 +141,6 @@ sloven&shy;li&shy;ness to a com&shy;bi&shy;na&shy;tion of <span>&#8230;<a href="
                     and
                     
                 <a href="/tag/humor/" rel="tag">humor</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-05-14">2006-05-14</time>
-        <h1>
-            <a href="/blog/2006/05/14/GoogleMapsForIreland.html" rel="bookmark canonical">Google Maps for Ireland</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://maps.google.co.uk"></a>
-<p>I remember about two years ago, before a trip across the Atlantic, trying
-to find websites that had street maps for London and Dublin &#8211; and coming
-up nearly&nbsp;empty.</p>
-<p>Now, a year after it became available, I notice that Google Maps
-covers <a class="reference external" href="http://maps.google.co.uk">Ireland and the <span class="caps">UK</span></a>.
-Un&shy;for&shy;tu&shy;nate&shy;ly, it does a piss-poor job of finding locations:
-try typing anything more specific than <em>Dublin</em> into the search&nbsp;box.</p>
-<p>Google Maps now provides a basic ability to get directions
-<a class="reference external" href="http://www.spatialireland.com/archives/20060425-google-maps-adds-basic-directions-for-the-republic/">between cities</a>.</p>
-<p>Some other map&nbsp;links:</p>
-<ul class="simple">
-<li><a class="reference external" href="http://maps.frommars.org/ireland/">Irish&nbsp;sight&shy;see&shy;ing</a></li>
-<li><a class="reference external" href="http://en.wikipedia.org/wiki/Maps_of_the_UK_and_Ireland">Maps of Ireland and the&nbsp;<span class="caps">UK</span></a></li>
-<li><a class="reference external" href="http://www.viamichelin.com/viamichelin/gbr/tpl/hme/MaHomePage.htm">Via Michelin</a>:
-driving&nbsp;directions</li>
-</ul>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/05/14/GoogleMapsForIreland.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/tech/" rel="tag">tech</a>
                 
             </p>
         
@@ -232,6 +238,47 @@ the case for war was&nbsp;lacking.</p>
     
         <article>
     <header>
+        <time datetime="2006-05-14">2006-05-14</time>
+        <h1>
+            <a href="/blog/2006/05/14/GoogleMapsForIreland.html" rel="bookmark canonical">Google Maps for Ireland</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://maps.google.co.uk"></a>
+<p>I remember about two years ago, before a trip across the Atlantic, trying
+to find websites that had street maps for London and Dublin &#8211; and coming
+up nearly&nbsp;empty.</p>
+<p>Now, a year after it became available, I notice that Google Maps
+covers <a class="reference external" href="http://maps.google.co.uk">Ireland and the <span class="caps">UK</span></a>.
+Un&shy;for&shy;tu&shy;nate&shy;ly, it does a piss-poor job of finding locations:
+try typing anything more specific than <em>Dublin</em> into the search&nbsp;box.</p>
+<p>Google Maps now provides a basic ability to get directions
+<a class="reference external" href="http://www.spatialireland.com/archives/20060425-google-maps-adds-basic-directions-for-the-republic/">between cities</a>.</p>
+<p>Some other map&nbsp;links:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://maps.frommars.org/ireland/">Irish&nbsp;sight&shy;see&shy;ing</a></li>
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Maps_of_the_UK_and_Ireland">Maps of Ireland and the&nbsp;<span class="caps">UK</span></a></li>
+<li><a class="reference external" href="http://www.viamichelin.com/viamichelin/gbr/tpl/hme/MaHomePage.htm">Via Michelin</a>:
+driving&nbsp;directions</li>
+</ul>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/05/14/GoogleMapsForIreland.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-05-13">2006-05-13</time>
         <h1>
             <a href="/blog/2006/05/13/HeWillSurvive.html" rel="bookmark canonical">He Will Survive</a>
@@ -251,52 +298,6 @@ Gaynor&#8217;s <em>I Will Survive</em>.</p>
                     and
                     
                 <a href="/tag/lgbt/" rel="tag">lgbt</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-05-11">2006-05-11</time>
-        <h1>
-            <a href="/blog/2006/05/11/Parkour.html" rel="bookmark canonical">Parkour</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.ifilm.com/ifilmdetail/2684760?htv=12"></a>
-
-
-
-
-
-
-<p>I saw a video clip of so-called
-<a class="reference external" href="http://www.ifilm.com/ifilmdetail/2684760?htv=12">Russian Climbing</a>
-at work today. It turns out that it&#8217;s an extreme sport of French origin
-called <a class="reference external" href="http://parkour.net/index.php?sel_lang=english">Parkour</a> or
-<a class="reference external" href="http://www.urbanfreeflow.com/fundamentals/fundamentals.htm">Free Running</a>.</p>
-<p>Parkour is &quot;the art of forward motion in spite of obstacles&quot;. Its
-prac&shy;ti&shy;tion&shy;ers (traceurs) run around urban landscapes,
-performing Jacky Chan-like leaps, rolls, stunts, jumps, and&nbsp;flips.</p>
-<p>The excellent <a class="reference external" href="http://www.howstuffworks.com/">How&shy;Stuff&shy;Works.com</a>
-has a good <a class="reference external" href="http://entertainment.howstuffworks.com/parkour.htm">in&shy;tro&shy;duc&shy;to&shy;ry piece on Parkour</a>.</p>
-<p>There is a local group of traceurs, who are written up in a
-<a class="reference external" href="http://seattlepi.nwsource.com/local/252602_parkour19.html">P-I article</a>.
-Their website is <a class="reference external" href="http://washingtonparkour.com/">Washington Parkour</a>.
-It seems there&#8217;s a &quot;jam&quot; every Sunday at noon at Seattle&#8217;s Freeway Park.
-It sounds like a photo-op to&nbsp;me.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/05/11/Parkour.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/parkour/" rel="tag">parkour</a>
                 
             </p>
         
@@ -355,6 +356,52 @@ Bram invited me to merge my changes into Vim-4.0, which was then <span>&#8230;<a
     
         <article>
     <header>
+        <time datetime="2006-05-11">2006-05-11</time>
+        <h1>
+            <a href="/blog/2006/05/11/Parkour.html" rel="bookmark canonical">Parkour</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.ifilm.com/ifilmdetail/2684760?htv=12"></a>
+
+
+
+
+
+
+<p>I saw a video clip of so-called
+<a class="reference external" href="http://www.ifilm.com/ifilmdetail/2684760?htv=12">Russian Climbing</a>
+at work today. It turns out that it&#8217;s an extreme sport of French origin
+called <a class="reference external" href="http://parkour.net/index.php?sel_lang=english">Parkour</a> or
+<a class="reference external" href="http://www.urbanfreeflow.com/fundamentals/fundamentals.htm">Free Running</a>.</p>
+<p>Parkour is &quot;the art of forward motion in spite of obstacles&quot;. Its
+prac&shy;ti&shy;tion&shy;ers (traceurs) run around urban landscapes,
+performing Jacky Chan-like leaps, rolls, stunts, jumps, and&nbsp;flips.</p>
+<p>The excellent <a class="reference external" href="http://www.howstuffworks.com/">How&shy;Stuff&shy;Works.com</a>
+has a good <a class="reference external" href="http://entertainment.howstuffworks.com/parkour.htm">in&shy;tro&shy;duc&shy;to&shy;ry piece on Parkour</a>.</p>
+<p>There is a local group of traceurs, who are written up in a
+<a class="reference external" href="http://seattlepi.nwsource.com/local/252602_parkour19.html">P-I article</a>.
+Their website is <a class="reference external" href="http://washingtonparkour.com/">Washington Parkour</a>.
+It seems there&#8217;s a &quot;jam&quot; every Sunday at noon at Seattle&#8217;s Freeway Park.
+It sounds like a photo-op to&nbsp;me.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/05/11/Parkour.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/parkour/" rel="tag">parkour</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-05-10">2006-05-10</time>
         <h1>
             <a href="/blog/2006/05/10/Varekai.html" rel="bookmark canonical">Varekai</a>
@@ -384,45 +431,6 @@ clown <span>&#8230;<a href="/blog/2006/05/10/Varekai.html" class="continue">cont
                     and
                     
                 <a href="/tag/circus/" rel="tag">circus</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-05-09">2006-05-09</time>
-        <h1>
-            <a href="/blog/2006/05/09/AntiWarMusicAndVideos.html" rel="bookmark canonical">Anti-War Music and Videos</a>
-        </h1>
-    </header>
-    <p>A lot of anti-war music and videos are appearing of late,
-and about time&nbsp;too.</p>
-<p>Via <a class="reference external" href="http://www.americablog.com/">Amer&shy;i&shy;ca&shy;Blog</a>, I learn today of
-Jackson Browne&#8217;s new anti-war video, <a class="reference external" href="http://videos.digett.net/jacksonbrowne/lives/lives_in_the_balance.wmv">Lives in the Balance</a>.</p>
-<a class="reference external image-reference" href="http://videos.digett.net/jacksonbrowne/lives/lives_in_the_balance.wmv"></a>
-<p>There&#8217;s also Pink&#8217;s song
-<a class="reference external" href="http://www.youtube.com/watch?v=9eDJ3cuXKV4">Dear Mr. President</a>.</p>
-<a class="reference external image-reference" href="http://www.youtube.com/watch?v=9eDJ3cuXKV4"></a>
-<p>Not to mention <a class="reference external" href="http://www.neilyoung.com/">Neil Young&#8217;s</a>
-new album, <a class="reference external" href="http://livingwithwar.blogspot.com/">Living with War</a>. You can listen to the
-<a class="reference external" href="http://www.hyfntrak.com/neilyoung2/AFF23130/">entire album</a>&nbsp;online.</p>
-<a class="reference external image-reference" href="http://www.hyfntrak.com/neilyoung2/AFF23130/"></a>
-<p>And the <a class="reference external" href="http://www.dixiechicks.com/">Dixie Chicks&#8217;</a> forth&shy;com&shy;ing album,
-<a class="reference external" href="http://www.dixiechicks.com/06_longway.asp">Taking the Long Way</a>.</p>
-<a class="reference external image-reference" href="http://www.dixiechicks.com/"></a>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/05/09/AntiWarMusicAndVideos.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/politics/" rel="tag">politics</a>
                 
             </p>
         
