@@ -74,6 +74,6 @@ TAG_CLOUD_MAX_ITEMS = 300
 GH_PAGES_BRANCH = "master" # User & Organization Pages use 'master', not 'gh-pages'
 
 DEPLOYMENT = {
-    "default": "ghp-import -b {branch} output && git push origin {branch}".format(branch=GH_PAGES_BRANCH)
+    "default": "rm -rf output/__drafts; ghp-import -b {branch} output && git push origin {branch}".format(branch=GH_PAGES_BRANCH)
 }
 DISQUS_SHORTNAME = 'georgevreilly'
