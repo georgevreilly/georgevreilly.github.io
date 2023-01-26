@@ -29,6 +29,45 @@
     
         <article>
     <header>
+        <time datetime="2023-01-24">2023-01-24</time>
+        <h1>
+            <a href="/blog/2023/01/24/TreeInRust2PrintingTrees.html" rel="bookmark canonical">Implementing the Tree command in Rust, part 2: Printing Trees</a>
+        </h1>
+    </header>
+    <p>In <a class="reference external" href="/blog/2023/01/23/TreeInRust1WalkDirectories.html">Part 1</a>, we saw how to walk directory trees,
+re&shy;cur&shy;sive&shy;ly using <tt class="docutils literal"><span class="pre">fs::read_dir</span></tt>
+to construct an in-memory tree of <tt class="docutils literal">FileNode</tt>s.
+In Part 2, we'll implement the rest of the core of the <a class="reference external" href="https://en.wikipedia.org/wiki/Tree_(command)">tree command</a>:
+printing the directory tree with <a class="reference external" href="https://www.compart.com/en/unicode/block/U+2500">Box Drawing</a> characters.</p>
+<p>Let's take a look at some output from <tt class="docutils literal">tree</tt>:</p>
+<pre class="literal-block">
+.
+├── alloc.rs
+├── ascii.rs
+├── os
+│&nbsp;&nbsp; ├── wasi
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── ffi.rs
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── mod.rs          ➊
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── net             ➋
+│&nbsp;&nbsp; │&nbsp;&nbsp;     └── mod.rs
+│&nbsp;&nbsp; └── windows
+│&nbsp;&nbsp;     ├── ffi.rs   </pre><span>&#8230;<a href="/blog/2023/01/24/TreeInRust2PrintingTrees.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/rust/" rel="tag">rust</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2023-01-23">2023-01-23</time>
         <h1>
             <a href="/blog/2023/01/23/TreeInRust1WalkDirectories.html" rel="bookmark canonical">Implementing the Tree command in Rust, part 1: Walking Directories</a>
@@ -36,7 +75,7 @@
     </header>
     
 <p>I've been learning Rust lately.
-At first, I read several books,
+I started by reading several books,
 including <a class="reference external" href="https://www.manning.com/books/rust-in-action">Rust in Action</a>,
 <a class="reference external" href="https://www.manning.com/books/code-like-a-pro-in-rust">Code Like a Pro in Rust</a>,
 and most of <a class="reference external" href="https://learning.oreilly.com/library/view/programming-rust-2nd/9781492052586/">Pro&shy;gram&shy;ming Rust</a>.

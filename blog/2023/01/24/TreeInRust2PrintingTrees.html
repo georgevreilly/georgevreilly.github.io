@@ -36,11 +36,11 @@
             <a href="/blog/2023/01/24/TreeInRust2PrintingTrees.html" rel="bookmark canonical">Implementing the Tree command in Rust, part 2: Printing Trees</a>
         </h1>
     </header>
-    <p>In <a class="reference external" href="/blog/...">Part 1</a>, we saw how to walk directory trees,
+    <p>In <a class="reference external" href="/blog/2023/01/23/TreeInRust1WalkDirectories.html">Part 1</a>, we saw how to walk directory trees,
 re&shy;cur&shy;sive&shy;ly using <tt class="docutils literal"><span class="pre">fs::read_dir</span></tt>
 to construct an in-memory tree of <tt class="docutils literal">FileNode</tt>s.
 In Part 2, we&#8217;ll implement the rest of the core of the <a class="reference external" href="https://en.wikipedia.org/wiki/Tree_(command)">tree command</a>:
-printing the tree with <a class="reference external" href="https://www.compart.com/en/unicode/block/U+2500">Box Drawing</a>&nbsp;characters.</p>
+printing the directory tree with <a class="reference external" href="https://www.compart.com/en/unicode/block/U+2500">Box Drawing</a>&nbsp;characters.</p>
 <p>Let&#8217;s take a look at some output from <tt class="docutils literal">tree</tt>:</p>
 <pre class="literal-block">
 .
@@ -89,7 +89,7 @@ get the pipe&nbsp;prefix.</p>
 the last entry at a particular level gets special&nbsp;treatment.</p>
 <div class="section" id="the-print-tree-function">
 <h2>The <tt class="docutils literal">print_tree</tt> function</h2>
-<p>A classic pattern with recursion is to create a pair of functions:
+<p>A classic technique with recursion is to create a pair of functions:
 an outer public function that calls a private helper function
 with the initial set of parameters to visit&nbsp;re&shy;cur&shy;sive&shy;ly.</p>
 <p>Our <tt class="docutils literal">print_tree</tt> function uses an inner <tt class="docutils literal">visit</tt> function
@@ -147,7 +147,7 @@ simply prints the name of the root node on a line by itself;
 calls the inner <tt class="docutils literal">visit</tt> function with the <tt class="docutils literal">dir</tt> node and an empty prefix;
 and finally prints the number of di&shy;rec&shy;to&shy;ries and files visited.
 This is for com&shy;pat&shy;i&shy;bil&shy;i&shy;ty with the output of <tt class="docutils literal">tree</tt>.</li>
-<li>The inner <tt class="docutils literal">visit</tt> takes two parameters:
+<li>The inner <tt class="docutils literal">visit</tt> function takes two parameters:
 <tt class="docutils literal">node</tt>, a <tt class="docutils literal">Directory</tt>, and
 <tt class="docutils literal">prefix</tt>, a string which is initially&nbsp;empty.</li>
 <li>Keep track of the number of <tt class="docutils literal">dirs</tt> and <tt class="docutils literal">files</tt> seen at this level
@@ -200,11 +200,11 @@ no difference
 <li>The simplest possible way to get a single, optional command-line argument.
 If omitted, we default to <tt class="docutils literal">.</tt>, the current directory.
 For more so&shy;phis&shy;ti&shy;cat&shy;ed argument parsing, we could use <a class="reference external" href="https://docs.rs/clap/latest/clap/">Clap</a>.</li>
-<li>Use <tt class="docutils literal">dir_walk</tt> from <a class="reference external" href="/blog/...">Part 1</a> to re&shy;cur&shy;sive&shy;ly build
+<li>Use <tt class="docutils literal">dir_walk</tt> from <a class="reference external" href="/blog/2023/01/23/TreeInRust1WalkDirectories.html">Part 1</a> to re&shy;cur&shy;sive&shy;ly build
 a directory of <tt class="docutils literal">FileTree</tt> nodes.</li>
 <li>Create a <tt class="docutils literal">PathBuf</tt> from <tt class="docutils literal">root</tt>, a string;
 <tt class="docutils literal">clone</tt> is needed because <tt class="docutils literal"><span class="pre">PathBuf::from</span></tt> takes ownership of the string buffer.
-Use the <tt class="docutils literal">is_not_hid&shy;den</tt> filter and the <tt class="docutils literal">sort_by_&shy;name</tt> comparator from <a class="reference external" href="/blog/...">Part 1</a>.</li>
+Use the <tt class="docutils literal">is_not_hid&shy;den</tt> filter and the <tt class="docutils literal">sort_by_&shy;name</tt> comparator from <a class="reference external" href="/blog/2023/01/23/TreeInRust1WalkDirectories.html">Part 1</a>.</li>
 <li>The <a class="reference external" href="https://doc.rust-lang.org/reference/expressions/operator-expr.html#the-question-mark-operator">postfix question mark operator</a>, <tt class="docutils literal">?</tt>, is used to propagate&nbsp;errors.</li>
 <li>Let <tt class="docutils literal">print_tree</tt> draw the&nbsp;diagram.</li>
 <li>Return the <tt class="docutils literal">Ok</tt> <a class="reference external" href="https://doc.rust-lang.org/std/primitive.unit.html">unit</a> result to indicate&nbsp;success.</li>
@@ -237,11 +237,39 @@ Use <span class="caps">CSS</span> to draw links in nested, unordered&nbsp;lists.
             </p>
         
     </footer>
-    <div class="comments"></div>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "https://www.georgevreilly.com/blog/2023/01/24/TreeInRust2PrintingTrees.html";
+            var disqus_url = "https://www.georgevreilly.com/blog/2023/01/24/TreeInRust2PrintingTrees.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="https://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
 </article>
 
 
     
+    
+        <a href="/blog/2023/01/23/TreeInRust1WalkDirectories.html" class="page floatright">
+        Implementing the Tree command in Rust, part 1: Walking Directories &raquo;
+        </a>
     
     
 <footer>

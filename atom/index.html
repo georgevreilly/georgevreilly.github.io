@@ -11,8 +11,214 @@
     <link rel="self" type="application/atom+xml" href="https://www.georgevreilly.com/atom/" />
     <icon>https://www.georgevreilly.com/favicon.ico</icon>
     <logo>https://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2023-01-23T08:00:00Z</updated>
+    <updated>2023-01-24T08:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.8.dev0">acrylamid</generator>
+        <entry>
+        <title>Implementing the Tree command in Rust, part 2: Printing Trees</title>
+        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/01/24/TreeInRust2PrintingTrees.html" />
+        <id>tag:www.georgevreilly.com,2023-01-24:/blog/2023/01/24/TreeInRust2PrintingTrees.html</id>
+        <updated>2023-01-24T08:00:00Z</updated>
+        <category term="rust" />
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>https://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;In &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2023/01/23/TreeInRust1WalkDirectories.html&#34;&gt;Part 1&lt;/a&gt;, we saw how to walk directory trees,
+recursively using &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;fs::read_dir&lt;/span&gt;&lt;/tt&gt;
+to construct an in-memory tree of &lt;tt class=&#34;docutils literal&#34;&gt;FileNode&lt;/tt&gt;s.
+In Part 2, we&#39;ll implement the rest of the core of the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Tree_(command)&#34;&gt;tree command&lt;/a&gt;:
+printing the directory tree with &lt;a class=&#34;reference external&#34; href=&#34;https://www.compart.com/en/unicode/block/U+2500&#34;&gt;Box Drawing&lt;/a&gt; characters.&lt;/p&gt;
+&lt;p&gt;Let&#39;s take a look at some output from &lt;tt class=&#34;docutils literal&#34;&gt;tree&lt;/tt&gt;:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+.
+├── alloc.rs
+├── ascii.rs
+├── os
+│&amp;nbsp;&amp;nbsp; ├── wasi
+│&amp;nbsp;&amp;nbsp; │&amp;nbsp;&amp;nbsp; ├── ffi.rs
+│&amp;nbsp;&amp;nbsp; │&amp;nbsp;&amp;nbsp; ├── mod.rs          ➊
+│&amp;nbsp;&amp;nbsp; │&amp;nbsp;&amp;nbsp; └── net             ➋
+│&amp;nbsp;&amp;nbsp; │&amp;nbsp;&amp;nbsp;     └── mod.rs
+│&amp;nbsp;&amp;nbsp; └── windows
+│&amp;nbsp;&amp;nbsp;     ├── ffi.rs          ➌
+│&amp;nbsp;&amp;nbsp;     ├── fs.rs
+│&amp;nbsp;&amp;nbsp;     ├── io
+│&amp;nbsp;&amp;nbsp;     │&amp;nbsp;&amp;nbsp; └── tests.rs
+│&amp;nbsp;&amp;nbsp;     ├── mod.rs
+│&amp;nbsp;&amp;nbsp;     └── thread.rs
+├── personality
+│&amp;nbsp;&amp;nbsp; ├── dwarf
+│&amp;nbsp;&amp;nbsp; │&amp;nbsp;&amp;nbsp; ├── eh.rs
+│&amp;nbsp;&amp;nbsp; │&amp;nbsp;&amp;nbsp; ├── mod.rs
+│&amp;nbsp;&amp;nbsp; │&amp;nbsp;&amp;nbsp; └── tests.rs
+│&amp;nbsp;&amp;nbsp; ├── emcc.rs
+│&amp;nbsp;&amp;nbsp; └── gcc.rs
+└── personality.rs
+&lt;/pre&gt;
+&lt;p&gt;The first thing that we notice is that
+most entries at any level, such as ➊,
+are preceded by &lt;tt class=&#34;docutils literal&#34;&gt;├──&lt;/tt&gt;,
+while the last entry, ➋, is preceded by &lt;tt class=&#34;docutils literal&#34;&gt;└──&lt;/tt&gt;.
+This &lt;a class=&#34;reference external&#34; href=&#34;https://realpython.com/directory-tree-generator-python/&#34;&gt;article&lt;/a&gt; about building a directory tree generator
+in Python calls them the &lt;em&gt;tee&lt;/em&gt; and &lt;em&gt;elbow&lt;/em&gt; connectors,
+and I&#39;m going to use that terminology.&lt;/p&gt;
+&lt;p&gt;The second thing we notice is that there are
+multiple &lt;em&gt;prefixes&lt;/em&gt; before the connectors,
+either &lt;tt class=&#34;docutils literal&#34;&gt;│&amp;nbsp;&amp;nbsp;&lt;/tt&gt;&amp;nbsp;(&lt;em&gt;pipe&lt;/em&gt;) or
+&lt;tt class=&#34;docutils literal&#34;&gt;&amp;nbsp;&amp;nbsp; &lt;/tt&gt;&amp;nbsp;(&lt;em&gt;space&lt;/em&gt;),
+one prefix for each level.
+The rule is that children of a last entry,
+such as &lt;tt class=&#34;docutils literal&#34;&gt;os/windows&lt;/tt&gt; ➌, get the space prefix,
+while children of other entries,
+such as &lt;tt class=&#34;docutils literal&#34;&gt;os/wasi&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;personality&lt;/tt&gt;,
+get the pipe prefix.&lt;/p&gt;
+&lt;p&gt;For both connectors and prefixes,
+the last entry at a particular level gets special treatment.&lt;/p&gt;
+&lt;div class=&#34;section&#34; id=&#34;the-print-tree-function&#34;&gt;
+&lt;h3&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;print_tree&lt;/tt&gt; function&lt;/h3&gt;
+&lt;p&gt;A classic technique with recursion is to create a pair of functions:
+an outer public function that calls a private helper function
+with the initial set of parameters to visit recursively.&lt;/p&gt;
+&lt;p&gt;Our &lt;tt class=&#34;docutils literal&#34;&gt;print_tree&lt;/tt&gt; function uses an inner &lt;tt class=&#34;docutils literal&#34;&gt;visit&lt;/tt&gt; function
+to recursively do almost all of the work.&lt;/p&gt;
+&lt;pre class=&#34;code rust literal-block&#34;&gt;
+&lt;span class=&#34;k&#34;&gt;pub&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;print_tree&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dir&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;Directory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OTHER_CHILD&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;str&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;│   &amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// prefix: pipe
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OTHER_ENTRY&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;str&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;├── &amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// connector: tee
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FINAL_CHILD&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;str&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;    &amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// prefix: no more siblings
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FINAL_ENTRY&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;str&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;└── &amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// connector: elbow
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;println!&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;{}&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                           &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➊&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;visit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dir&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;println!&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\n&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;{} directories, {} files&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+
+    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;visit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;nc&#34;&gt;Directory&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;prefix&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;str&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-&amp;gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;usize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;usize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➋&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;mut&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dirs&lt;/span&gt;: &lt;span class=&#34;kt&#34;&gt;usize&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// counting this directory         ➌
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;mut&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;files&lt;/span&gt;: &lt;span class=&#34;kt&#34;&gt;usize&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;mut&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entries&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;();&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                         &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➍&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entry&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;in&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entries&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+            &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+            &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;connector&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FINAL_ENTRY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OTHER_ENTRY&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➎&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+            &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;match&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;entry&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FileTree&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;DirNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sub_dir&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                     &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➏&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                    &lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;println!&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;{}{}{}&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;prefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;connector&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sub_dir&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new_prefix&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;format!&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                       &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➐&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                        &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;{}{}&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;prefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                        &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;count&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;==&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FINAL_CHILD&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OTHER_CHILD&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;visit&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sub_dir&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;new_prefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➑&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dirs&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;files&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FileTree&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;LinkNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;symlink&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                    &lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;println!&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                        &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;{}{}{} -&amp;gt; {}&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;prefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;connector&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;symlink&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;symlink&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;target&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;files&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;FileTree&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;FileNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;file&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                    &lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;println!&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;{}{}{}&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;prefix&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;connector&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;file&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;files&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;+=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+                &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+            &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dirs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;files&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                               &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➒&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;ol class=&#34;arabic simple&#34;&gt;
+&lt;li&gt;The outer function, &lt;tt class=&#34;docutils literal&#34;&gt;print_tree&lt;/tt&gt;,
+simply prints the name of the root node on a line by itself;
+calls the inner &lt;tt class=&#34;docutils literal&#34;&gt;visit&lt;/tt&gt; function with the &lt;tt class=&#34;docutils literal&#34;&gt;dir&lt;/tt&gt; node and an empty prefix;
+and finally prints the number of directories and files visited.
+This is for compatibility with the output of &lt;tt class=&#34;docutils literal&#34;&gt;tree&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;The inner &lt;tt class=&#34;docutils literal&#34;&gt;visit&lt;/tt&gt; function takes two parameters:
+&lt;tt class=&#34;docutils literal&#34;&gt;node&lt;/tt&gt;, a &lt;tt class=&#34;docutils literal&#34;&gt;Directory&lt;/tt&gt;, and
+&lt;tt class=&#34;docutils literal&#34;&gt;prefix&lt;/tt&gt;, a string which is initially empty.&lt;/li&gt;
+&lt;li&gt;Keep track of the number of &lt;tt class=&#34;docutils literal&#34;&gt;dirs&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;files&lt;/tt&gt; seen at this level
+and in sub-directories.&lt;/li&gt;
+&lt;li&gt;We count downwards from the number of entries in this directory to zero.
+When &lt;tt class=&#34;docutils literal&#34;&gt;count&lt;/tt&gt; is zero, we are on the last entry, which gets special treatment.&lt;/li&gt;
+&lt;li&gt;Compute the connector,
+&lt;tt class=&#34;docutils literal&#34;&gt;└──&lt;/tt&gt; (&lt;em&gt;elbow&lt;/em&gt;) for the last entry;
+&lt;tt class=&#34;docutils literal&#34;&gt;├──&lt;/tt&gt; (&lt;em&gt;tee&lt;/em&gt;) otherwise.&lt;/li&gt;
+&lt;li&gt;Match the &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;FileTree::DirNode&lt;/span&gt;&lt;/tt&gt; variant
+and &lt;a class=&#34;reference external&#34; href=&#34;https://doc.rust-lang.org/reference/patterns.html#destructuring&#34;&gt;destructure&lt;/a&gt; the value into &lt;tt class=&#34;docutils literal&#34;&gt;sub_dir&lt;/tt&gt;, a &lt;tt class=&#34;docutils literal&#34;&gt;&amp;amp;Directory&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;Before recursively visiting a sub-directory,
+we compute a new prefix,
+by appending the appropriate sub-prefix to the current prefix.
+If there are further entries (&lt;tt class=&#34;docutils literal&#34;&gt;count &amp;gt; 0&lt;/tt&gt;),
+the sub-prefix for the current level is &lt;tt class=&#34;docutils literal&#34;&gt;│&amp;nbsp;&amp;nbsp;&lt;/tt&gt;&amp;nbsp;(&lt;em&gt;pipe&lt;/em&gt;);
+otherwise, it&#39;s &lt;tt class=&#34;docutils literal&#34;&gt;&amp;nbsp;&amp;nbsp; &lt;/tt&gt;&amp;nbsp;(&lt;em&gt;spaces&lt;/em&gt;).&lt;/li&gt;
+&lt;li&gt;Call &lt;tt class=&#34;docutils literal&#34;&gt;visit&lt;/tt&gt; recursively, then add to the
+running totals of &lt;tt class=&#34;docutils literal&#34;&gt;dirs&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;files&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;visit&lt;/tt&gt; returns a tuple of the counts of directories and files
+that were recursively visited.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;One subtlety that is not obvious from the above is that
+&lt;tt class=&#34;docutils literal&#34;&gt;OTHER_CHILD&lt;/tt&gt; actually contains two &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Non-breaking_space&#34;&gt;non-breaking spaces&lt;/a&gt;:&lt;/p&gt;
+&lt;pre class=&#34;code rust literal-block&#34;&gt;
+&lt;span class=&#34;k&#34;&gt;const&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;OTHER_CHILD&lt;/span&gt;: &lt;span class=&#34;kp&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;str&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;│&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\u{00A0}\u{00A0}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt; &amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// prefix: pipe&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;This is for compatibility with the output of &lt;tt class=&#34;docutils literal&#34;&gt;tree&lt;/tt&gt;:&lt;/p&gt;
+&lt;pre class=&#34;code bash literal-block&#34;&gt;
+$ diff &amp;lt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;cargo run -q -- ./tests&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &amp;lt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;tree ./tests&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;echo&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;no difference&amp;quot;&lt;/span&gt;
+no difference
+&lt;/pre&gt;
+&lt;p&gt;Using &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2022/01/31/DiffFileFragment.html&#34;&gt;process substitution&lt;/a&gt; to generate two different inputs for &lt;tt class=&#34;docutils literal&#34;&gt;diff&lt;/tt&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;the-main-function&#34;&gt;
+&lt;h3&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;main&lt;/tt&gt; function&lt;/h3&gt;
+&lt;p&gt;Let&#39;s tie it all together.&lt;/p&gt;
+&lt;pre class=&#34;code rust literal-block&#34;&gt;
+&lt;span class=&#34;k&#34;&gt;fn&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;main&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-&amp;gt; &lt;span class=&#34;nc&#34;&gt;io&lt;/span&gt;::&lt;span class=&#34;nb&#34;&gt;Result&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;env&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;args&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;().&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nth&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;).&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;unwrap_or&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;.&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;to_string&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;());&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;   &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➊&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;let&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dir&lt;/span&gt;: &lt;span class=&#34;nc&#34;&gt;Directory&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dir_walk&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                              &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➋&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PathBuf&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;from&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;clone&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                           &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➌&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;is_not_hidden&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sort_by_name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;?&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                         &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➍&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;print_tree&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;root&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;dir&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                    &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➎&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;Ok&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(())&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;                                                      &lt;/span&gt;&lt;span class=&#34;err&#34;&gt;➏&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/pre&gt;
+&lt;ol class=&#34;arabic simple&#34;&gt;
+&lt;li&gt;The simplest possible way to get a single, optional command-line argument.
+If omitted, we default to &lt;tt class=&#34;docutils literal&#34;&gt;.&lt;/tt&gt;, the current directory.
+For more sophisticated argument parsing, we could use &lt;a class=&#34;reference external&#34; href=&#34;https://docs.rs/clap/latest/clap/&#34;&gt;Clap&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Use &lt;tt class=&#34;docutils literal&#34;&gt;dir_walk&lt;/tt&gt; from &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2023/01/23/TreeInRust1WalkDirectories.html&#34;&gt;Part 1&lt;/a&gt; to recursively build
+a directory of &lt;tt class=&#34;docutils literal&#34;&gt;FileTree&lt;/tt&gt; nodes.&lt;/li&gt;
+&lt;li&gt;Create a &lt;tt class=&#34;docutils literal&#34;&gt;PathBuf&lt;/tt&gt; from &lt;tt class=&#34;docutils literal&#34;&gt;root&lt;/tt&gt;, a string;
+&lt;tt class=&#34;docutils literal&#34;&gt;clone&lt;/tt&gt; is needed because &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;PathBuf::from&lt;/span&gt;&lt;/tt&gt; takes ownership of the string buffer.
+Use the &lt;tt class=&#34;docutils literal&#34;&gt;is_not_hidden&lt;/tt&gt; filter and the &lt;tt class=&#34;docutils literal&#34;&gt;sort_by_name&lt;/tt&gt; comparator from &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2023/01/23/TreeInRust1WalkDirectories.html&#34;&gt;Part 1&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;The &lt;a class=&#34;reference external&#34; href=&#34;https://doc.rust-lang.org/reference/expressions/operator-expr.html#the-question-mark-operator&#34;&gt;postfix question mark operator&lt;/a&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;?&lt;/tt&gt;, is used to propagate errors.&lt;/li&gt;
+&lt;li&gt;Let &lt;tt class=&#34;docutils literal&#34;&gt;print_tree&lt;/tt&gt; draw the diagram.&lt;/li&gt;
+&lt;li&gt;Return the &lt;tt class=&#34;docutils literal&#34;&gt;Ok&lt;/tt&gt; &lt;a class=&#34;reference external&#34; href=&#34;https://doc.rust-lang.org/std/primitive.unit.html&#34;&gt;unit&lt;/a&gt; result to indicate success.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;baum&#34;&gt;
+&lt;h3&gt;Baum&lt;/h3&gt;
+&lt;p&gt;You can find the &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/georgevreilly/baum&#34;&gt;Baum&lt;/a&gt; source code on GitHub.&lt;/p&gt;
+&lt;p&gt;In Part 3, we&#39;ll discuss testing.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;resources&#34;&gt;
+&lt;h3&gt;Resources&lt;/h3&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://github.com/Old-Man-Programmer/tree/&#34;&gt;Official tree source&lt;/a&gt;:
+The actual source for &lt;tt class=&#34;docutils literal&#34;&gt;tree&lt;/tt&gt;, written in old-school C.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://two-wrongs.com/draw-a-tree-structure-with-only-css.html&#34;&gt;Draw a Tree Structure With Only CSS&lt;/a&gt;:
+Use CSS to draw links in nested, unordered lists.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://realpython.com/directory-tree-generator-python/&#34;&gt;Build a Python Directory Tree Generator for the Command Line&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Kevin Newton has implemented &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/kddnewton/tree&#34;&gt;Tree in Multiple Languages&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://github.com/dduan/tre&#34;&gt;Tre&lt;/a&gt; is a modern alternative to &lt;tt class=&#34;docutils literal&#34;&gt;tree&lt;/tt&gt; in Rust.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Implementing the Tree command in Rust, part 1: Walking Directories</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/01/23/TreeInRust1WalkDirectories.html" />
@@ -27,7 +233,7 @@
         </author>
         <content type="html">&lt;img alt=&#34;tree tree core/src/num for Rust&#34; class=&#34;right-float&#34; src=&#34;https://www.georgevreilly.com/content/binary/rust-core-src-num-tree.png&#34; style=&#34;width: 160px;&#34;/&gt;
 &lt;p&gt;I&#39;ve been learning Rust lately.
-At first, I read several books,
+I started by reading several books,
 including &lt;a class=&#34;reference external&#34; href=&#34;https://www.manning.com/books/rust-in-action&#34;&gt;Rust in Action&lt;/a&gt;,
 &lt;a class=&#34;reference external&#34; href=&#34;https://www.manning.com/books/code-like-a-pro-in-rust&#34;&gt;Code Like a Pro in Rust&lt;/a&gt;,
 and most of &lt;a class=&#34;reference external&#34; href=&#34;https://learning.oreilly.com/library/view/programming-rust-2nd/9781492052586/&#34;&gt;Programming Rust&lt;/a&gt;.
@@ -241,7 +447,7 @@ by using &lt;a class=&#34;reference external&#34; href=&#34;https://doc.rust-lan
 &lt;li&gt;If &lt;tt class=&#34;docutils literal&#34;&gt;root&lt;/tt&gt; was &lt;tt class=&#34;docutils literal&#34;&gt;&amp;quot;.&amp;quot;&lt;/tt&gt;, the &lt;tt class=&#34;docutils literal&#34;&gt;file_name()&lt;/tt&gt; will be &lt;tt class=&#34;docutils literal&#34;&gt;None&lt;/tt&gt;.&lt;/li&gt;
 &lt;li&gt;Return a &lt;tt class=&#34;docutils literal&#34;&gt;Directory&lt;/tt&gt; for this directory, wrapped in an &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;io::Result&lt;/span&gt;&lt;/tt&gt;.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;In &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/...&#34;&gt;Part 2&lt;/a&gt;, we&#39;ll print the directory tree.&lt;/p&gt;
+&lt;p&gt;In &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2023/01/24/TreeInRust2PrintingTrees.html&#34;&gt;Part 2&lt;/a&gt;, we&#39;ll print the directory tree.&lt;/p&gt;
 &lt;/div&gt;
 </content>
     </entry>
@@ -2322,34 +2528,6 @@ especially online.&lt;/p&gt;
 &lt;li&gt;Know when to walk away&lt;/li&gt;
 &lt;li&gt;Be mindful of the onlookers&lt;/li&gt;
 &lt;/ol&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Git Diff Tips</title>
-        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/12/26/GitDiffTips.html" />
-        <id>tag:www.georgevreilly.com,2017-12-26:/blog/2017/12/26/GitDiffTips.html</id>
-        <updated>2017-12-26T08:00:00Z</updated>
-        <category term="git" />
-        <category term="til" />
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>https://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;The &lt;a class=&#34;reference external&#34; href=&#34;https://git-scm.com/docs/git-diff&#34;&gt;Git Diff&lt;/a&gt; utility is much more functional than the standard command-line &lt;tt class=&#34;docutils literal&#34;&gt;diff&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;To see changes relative to the staging area (aka the index),
-use &lt;tt class=&#34;docutils literal&#34;&gt;git diff&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;To see &lt;em&gt;staged&lt;/em&gt; changes, use &lt;tt class=&#34;docutils literal&#34;&gt;git diff &lt;span class=&#34;pre&#34;&gt;--staged&lt;/span&gt;&lt;/tt&gt; (or &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--cached&lt;/span&gt;&lt;/tt&gt;).&lt;/p&gt;
-&lt;p&gt;To see changes side by side on a line (where it makes sense),
-use the &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--color-word&lt;/span&gt;&lt;/tt&gt; option.&lt;/p&gt;
-&lt;p&gt;To compare two arbitrary files in the file system,
-use &lt;tt class=&#34;docutils literal&#34;&gt;git diff &lt;span class=&#34;pre&#34;&gt;--no-index&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;To try some other &lt;a class=&#34;reference external&#34; href=&#34;https://stackoverflow.com/questions/4045017/what-is-git-diff-patience-for&#34;&gt;diff algorithms&lt;/a&gt;,
-use the &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--patience&lt;/span&gt;&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--histogram&lt;/span&gt;&lt;/tt&gt;, or &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--minimal&lt;/span&gt;&lt;/tt&gt; options.
-The default diff algorithm is &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--myers&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;Lots more at the &lt;a class=&#34;reference external&#34; href=&#34;https://git-scm.com/docs/git-diff&#34;&gt;docs&lt;/a&gt;.&lt;/p&gt;
 </content>
     </entry>
     </feed>
