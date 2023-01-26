@@ -12,7 +12,7 @@ tags: [rust]
     :class: right-float
 
 I've been learning Rust lately.
-At first, I read several books,
+I started by reading several books,
 including `Rust in Action`_,
 `Code Like a Pro in Rust`_,
 and most of `Programming Rust`_.
@@ -306,7 +306,4 @@ In `Part 2`_, we'll print the directory tree.
 __ https://doc.rust-lang.org/book/ch18-03-pattern-syntax.html#extra-conditionals-with-match-guards
 
 .. _Part 2:
-    /blog/...
-
-.. _permalink:
-    /blog/2023/01/10/TreeInRust1WalkDirectories.html
+    /blog/2023/01/24/TreeInRust2PrintingTrees.html

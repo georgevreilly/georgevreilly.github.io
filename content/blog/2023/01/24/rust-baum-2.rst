@@ -3,17 +3,16 @@ title: "Implementing the Tree command in Rust, part 2: Printing Trees"
 date: "2023-01-24"
 permalink: "/blog/2023/01/24/TreeInRust2PrintingTrees.html"
 tags: [rust]
-draft: true
 ---
 
 In `Part 1`_, we saw how to walk directory trees,
 recursively using ``fs::read_dir``
 to construct an in-memory tree of ``FileNode``\ s.
 In Part 2, we'll implement the rest of the core of the `tree command`_:
-printing the tree with `Box Drawing`_ characters.
+printing the directory tree with `Box Drawing`_ characters.
 
 .. _Part 1:
-    /blog/...
+    /blog/2023/01/23/TreeInRust1WalkDirectories.html
 .. _tree command:
     https://en.wikipedia.org/wiki/Tree_(command)
 .. _Box Drawing:
@@ -74,7 +73,7 @@ __ https://realpython.com/directory-tree-generator-python/
 The ``print_tree`` function
 ===========================
 
-A classic pattern with recursion is to create a pair of functions:
+A classic technique with recursion is to create a pair of functions:
 an outer public function that calls a private helper function
 with the initial set of parameters to visit recursively.
 
@@ -134,7 +133,7 @@ to recursively do almost all of the work.
    calls the inner ``visit`` function with the ``dir`` node and an empty prefix;
    and finally prints the number of directories and files visited.
    This is for compatibility with the output of ``tree``.
-2. The inner ``visit`` takes two parameters:
+2. The inner ``visit`` function takes two parameters:
    ``node``, a ``Directory``, and
    ``prefix``, a string which is initially empty.
 3. Keep track of the number of ``dirs`` and ``files`` seen at this level
