@@ -56,7 +56,7 @@ Here's `What's New in Python 3.6`_.
 .. _PyFormat:
     https://pyformat.info/
 .. _Python String Format Cookbook:
-    https://mkaz.github.io/2012/10/10/python-string-format/
+    https://mkaz.blog/code/python-string-format-cookbook/
 .. _What's New in Python 3.6:
     https://docs.python.org/3.6/whatsnew/3.6.html
 
