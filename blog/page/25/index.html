@@ -29,6 +29,49 @@
     
         <article>
     <header>
+        <time datetime="2016-03-06">2016-03-06</time>
+        <h1>
+            <a href="/blog/2016/03/06/psutil-kill.html" rel="bookmark canonical">psutil kill</a>
+        </h1>
+    </header>
+    <p>From Python, I needed to find a process
+that was performing <span class="caps">SSH</span> tunneling on port 8080
+and kill&nbsp;it.</p>
+<p>The following works in&nbsp;Bash:</p>
+<pre class="code bash literal-block">
+ps aux <span class="p">|</span> grep <span class="o">[</span>s<span class="o">]</span>sh.*:8080 <span class="p">|</span> awk <span class="s1">'{print $2}'</span> <span class="p">|</span> xargs <span class="nb">kill</span> -9
+</pre>
+<p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
+won&#8217;t make it through to <tt class="docutils literal">awk</tt>.</p>
+<p>Here&#8217;s what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
+<pre class="code python literal-block">
+<span class="k">def</span> <span class="nf">kill_port_forwarding</span><span class="p">(</span><span class="n">host_port</span><span class="p">):</span>
+    <span class="n">ssh_args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;-L&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">:localhost:</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host_port</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">process_iter</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'ssh'</span><span class="p">):</span>
+         </pre><span>&#8230;<a href="/blog/2016/03/06/psutil-kill.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/06/psutil-kill.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-03-05">2016-03-05</time>
         <h1>
             <a href="/blog/2016/03/05/ReviewDeadpool.html" rel="bookmark canonical">Review: Deadpool</a>
@@ -402,46 +445,6 @@ and <span>&#8230;<a href="/blog/2016/02/26/ReviewRunFatboyRun.html" class="conti
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2016/02/26/ReviewRunFatboyRun.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/movies/" rel="tag">movies</a>
-                    and
-                    
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-02-25">2016-02-25</time>
-        <h1>
-            <a href="/blog/2016/02/25/ReviewHailCaesar.html" rel="bookmark canonical">Review: Hail, Caesar!</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://en.wikipedia.org/wiki/Hail,_Caesar!"></a>
-<p>The Coen Brothers&#8217; latest movie, <a class="reference external" href="https://en.wikipedia.org/wiki/Hail,_Caesar!">Hail, Caesar!</a>, is a lot of fun.
-I&#8217;ve been looking forward to it since the trailers showed up a few months ago.
-It&#8217;s a homage to the Golden Age of Hollywood,
-an age where quirky talents like the Coens
-could not have made Coen Brothers&#8217; movies.
-We see song and dance numbers, syn&shy;chro&shy;nized swimming,
-singing cowboys, and ballroom dramas.
-Most of all, we see a big-budget swords-and-sandals epic,
-whose star, Baird Whitlock, has been kidnapped by The Future,
-a group of Communist screen&shy;writ&shy;ers,
-and is being held for $100,000 ransom.
-Eddie Mannix is the studio fixer who has to wrangle
-the studio&#8217;s stars and keep them out <span>&#8230;<a href="/blog/2016/02/25/ReviewHailCaesar.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/02/25/ReviewHailCaesar.html#disqus_thread">Comment</a>
         
         
             <p>tagged as

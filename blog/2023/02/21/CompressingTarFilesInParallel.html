@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Compressing Tar Files in Parallel</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content="TL;DR: use ``tar -I pigz`` or ``tar -I lbzip2``
+to..." />
+    <meta name="keywords" content="linux" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2023-02-21">2023-02-21</time>
+        <h1>
+            <a href="/blog/2023/02/21/CompressingTarFilesInParallel.html" rel="bookmark canonical">Compressing Tar Files in Parallel</a>
+        </h1>
+    </header>
+    <p><span class="caps">TL</span>;<span class="caps">DR</span>: use <tt class="docutils literal">tar <span class="pre">-I</span> pigz</tt> or <tt class="docutils literal">tar <span class="pre">-I</span> lbzip2</tt>
+to compress large tar files much more&nbsp;quickly.</p>
+<p>I in&shy;ves&shy;ti&shy;gat&shy;ed various ways of com&shy;press&shy;ing a 7GiB tar&nbsp;file.</p>
+<p>The built-in <tt class="docutils literal"><span class="pre">--gzip</span></tt> and <tt class="docutils literal"><span class="pre">--bzip2</span></tt> com&shy;pres&shy;sion methods in <span class="caps">GNU</span> <tt class="docutils literal">tar</tt>
+are single-threaded.
+If you invoke an external compressor with <tt class="docutils literal"><span class="pre">--use-compress-program</span></tt>,
+you can get some huge reductions in com&shy;pres&shy;sion time,
+with slightly worse com&shy;pres&shy;sion&nbsp;ratios.</p>
+<p>You can use <a class="reference external" href="https://zlib.net/pigz/">pigz</a> as a parallel re&shy;place&shy;ment for <tt class="docutils literal">gzip</tt>
+and <a class="reference external" href="https://linux.die.net/man/1/lbzip2">lbzip2</a> as a parallel version of <tt class="docutils literal">bzip2</tt>.
+Both of them will make heavy use of all the cores in your system,
+greatly reducing the <em>real</em> time relative to the <em>user</em>&nbsp;time.</p>
+<p>Single-threaded com&shy;pres&shy;sion timing:
+<tt class="docutils literal">gzip</tt> is a lot faster than <tt class="docutils literal">bzip2</tt>:</p>
+<pre class="literal-block">
+$ time tar --bzip2 -cf huge-bzip2.tar.bz2 hugedir
+
+real    13m15.352s
+user    12m53.972s
+sys     0m16.029s
+
+$ time tar --gzip -cf huge-gzip.tar.gz hugedir
+
+real    5m56.489s
+user    5m30.271s
+sys     0m14.633s
+</pre>
+<p><tt class="docutils literal">fast</tt> parallel com&shy;pres&shy;sion timing:
+<tt class="docutils literal">pigz</tt> is the clear&nbsp;winner:</p>
+<pre class="literal-block">
+$ time tar --use-compress-program='lbzip2 --fast' \
+    -cf huge-lbzip2-fast.tar.bz2 hugedir
+
+real    2m35.967s
+user    11m38.865s
+sys     0m26.981s
+
+$ time tar --use-compress-program='pigz --fast' \
+    -cf huge-pigz-fast.tar.gz hugedir
+
+real    0m58.222s
+user    3m22.134s
+sys     0m17.357s
+</pre>
+<p><tt class="docutils literal">best</tt> parallel com&shy;pres&shy;sion timing:
+<tt class="docutils literal">lbzip2</tt> is much quicker than <tt class="docutils literal">pigz</tt>:</p>
+<pre class="literal-block">
+$ time tar --use-compress-program='lbzip2 --best' \
+    -cf huge-lbzip2-best.tar.bz2 hugedir
+
+real    1m44.365s
+user    11m38.277s
+sys     0m13.551s
+
+$ time tar --use-compress-program='pigz --best' \
+    -cf huge-pigz-best.tar.gz hugedir
+
+real    2m27.694s
+user    16m20.441s
+sys     0m16.092s
+</pre>
+<p>Compressed file sizes:
+<tt class="docutils literal">bzip2</tt> family compresses better than <tt class="docutils literal">gzip</tt> family;
+<tt class="docutils literal">best</tt> is smaller than default com&shy;pres&shy;sion level which is smaller than <tt class="docutils literal">fast</tt>:</p>
+<pre class="literal-block">
+$ ls -lSr
+-rw-r--r-- 1 user group 2460438578 Feb 22 03:03 huge-lbzip2-best.tar.bz2
+-rw-r--r-- 1 user group 2461172874 Feb 22 03:19 huge-bzip2.tar.bz2
+-rw-r--r-- 1 user group 2689784220 Feb 22 03:00 huge-lbzip2-fast.tar.bz2
+-rw-r--r-- 1 user group 2691286852 Feb 22 03:06 huge-pigz-best.tar.gz
+-rw-r--r-- 1 user group 2704591997 Feb 22 03:25 huge-gzip.tar.gz
+-rw-r--r-- 1 user group 2950547862 Feb 22 03:01 huge-pigz-fast.tar.gz
+-rw-r--r-- 1 user group 7365222400 Feb 22 03:00 huge.tar
+</pre>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "https://www.georgevreilly.com/blog/2023/02/21/CompressingTarFilesInParallel.html";
+            var disqus_url = "https://www.georgevreilly.com/blog/2023/02/21/CompressingTarFilesInParallel.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="https://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+
+
+    
+    
+        <a href="/blog/2023/01/24/TreeInRust2PrintingTrees.html" class="page floatright">
+        Implementing the Tree command in Rust, part 2: Printing Trees &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

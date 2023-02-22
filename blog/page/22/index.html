@@ -29,6 +29,63 @@
     
         <article>
     <header>
+        <time datetime="2016-04-05">2016-04-05</time>
+        <h1>
+            <a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" rel="bookmark canonical">Doctests, Unicode Literals, and Python 2/3 Compatibility</a>
+        </h1>
+    </header>
+    <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses&nbsp;them.</p>
+<p>Although I still mostly write Python 2,
+I usually import several features of Python&nbsp;3:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+</pre>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni&shy;code_lit&shy;er&shy;als</a> doesn&#8217;t play well with&nbsp;doctests.</p>
+<p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
+but not with <tt class="docutils literal">python3</tt>:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+
+<span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;
+    Convert `s` to upper case.
+
+    &gt;&gt;&gt; upper('Hello!')
+    u'<span class="caps">HELLO</span>!'
+    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+</pre>
+<p>Python 3&nbsp;complains:</p>
+<pre class="literal-block">
+Failed example:
+    upper('Hello!')
+Expected:
+    u'HELLO!'
+Got:
+    'HELLO!'
+</pre>
+<p>The problem is that Python <span>&#8230;<a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-04-04">2016-04-04</time>
         <h1>
             <a href="/blog/2016/04/04/LuggingCRTMonitorsToMontreal.html" rel="bookmark canonical">Lugging CRT Monitors to Montréal</a>
@@ -389,44 +446,6 @@ he <span>&#8230;<a href="/blog/2016/03/27/PreparingBloomsdayScripts.html" class=
         
             <p>tagged as
                 <a href="/tag/jamesjoyce/" rel="tag">jamesjoyce</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-03-26">2016-03-26</time>
-        <h1>
-            <a href="/blog/2016/03/26/Caucus2016.html" rel="bookmark canonical">Caucus 2016</a>
-        </h1>
-    </header>
-    
-<p>The Washington state Democratic Caucus was held today.
-The final totals aren&#8217;t in yet but Bernie Sanders beat Hillary Clinton
-by a nearly 3:1 margin around the state.
-Our own precinct, <span class="caps">SEA</span> 11-1945, had Sanders 41, Clinton 26, Undecided 2.
-That translates to 4 Sanders delegates and 2 Clinton delegates
-in the next level of&nbsp;caucusing.</p>
-<p>Emma and I both voted for Sanders.
-We believe that Sanders represents much-needed change
-in the party and in the nation.
-Clinton is un&shy;doubt&shy;ed&shy;ly one of the most qualified candidates ever,
-with an ex&shy;tra&shy;or&shy;di&shy;nary résumé and a high degree of competence.
-She&#8217;s also too tied to the status quo for my&nbsp;liking.</p>
-<p>However, unlike some Sanders partisans,
-we&#8217;ll readily <span>&#8230;<a href="/blog/2016/03/26/Caucus2016.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/26/Caucus2016.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/politics/" rel="tag">politics</a>
                 
             </p>
         

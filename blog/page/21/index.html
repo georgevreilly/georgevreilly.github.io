@@ -29,6 +29,56 @@
     
         <article>
     <header>
+        <time datetime="2016-04-15">2016-04-15</time>
+        <h1>
+            <a href="/blog/2016/04/15/ReviewTheLockedRoom.html" rel="bookmark canonical">Review: The Locked Room</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.amazon.com/dp/0394742745/?tag=georgvreill-20"></a>
+<div class="line-block">
+<div class="line">Title: The Locked Room</div>
+<div class="line">Author: Maj Sjöwall <span class="amp">&amp;</span> Per Wahlöö</div>
+<div class="line">Rating: ★ ★ ★ ½</div>
+<div class="line">Publisher: Vintage</div>
+<div class="line">Copyright: 1973</div>
+<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0394742745/?tag=georgvreill-20">0394742745</a></div>
+<div class="line">Pages: 279</div>
+<div class="line">Keywords: mystery</div>
+<div class="line">Reading period: 8–12 April, 2016</div>
+</div>
+<p>In <a class="reference external" href="https://en.wikipedia.org/wiki/The_Locked_Room">The Locked Room</a>,
+Martin Beck, recovering from being shot,
+in&shy;ves&shy;ti&shy;gates the death of a man,
+who has been found shot in a locked room with no gun.
+Meanwhile, some of his former colleagues,
+now serving on a special task force,
+are trying to deal with an epidemic of bank robberies.
+The latter is a comedy of errors, with the police con&shy;sis&shy;tent&shy;ly messing&nbsp;up.</p>
+<p>The authors are severely critical of the growth of Swedish police powers
+in the decade before this book was written.
+They also write harshly of the <span>&#8230;<a href="/blog/2016/04/15/ReviewTheLockedRoom.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/15/ReviewTheLockedRoom.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/books/" rel="tag">books</a>,
+                <a href="/tag/reviews/" rel="tag">reviews</a>
+                    and
+                    
+                <a href="/tag/mystery/" rel="tag">mystery</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-04-14">2016-04-14</time>
         <h1>
             <a href="/blog/2016/04/14/ReviewAStoneOfTheHeart.html" rel="bookmark canonical">Review: A Stone of the Heart</a>
@@ -413,63 +463,6 @@ and joins the Nazi party early, rising <span>&#8230;<a href="/blog/2016/04/06/Re
                     and
                     
                 <a href="/tag/thriller/" rel="tag">thriller</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-04-05">2016-04-05</time>
-        <h1>
-            <a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" rel="bookmark canonical">Doctests, Unicode Literals, and Python 2/3 Compatibility</a>
-        </h1>
-    </header>
-    <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses&nbsp;them.</p>
-<p>Although I still mostly write Python 2,
-I usually import several features of Python&nbsp;3:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
-</pre>
-<p>Un&shy;for&shy;tu&shy;nate&shy;ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni&shy;code_lit&shy;er&shy;als</a> doesn&#8217;t play well with&nbsp;doctests.</p>
-<p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
-but not with <tt class="docutils literal">python3</tt>:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
-
-<span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;
-    Convert `s` to upper case.
-
-    &gt;&gt;&gt; upper('Hello!')
-    u'<span class="caps">HELLO</span>!'
-    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-</pre>
-<p>Python 3&nbsp;complains:</p>
-<pre class="literal-block">
-Failed example:
-    upper('Hello!')
-Expected:
-    u'HELLO!'
-Got:
-    'HELLO!'
-</pre>
-<p>The problem is that Python <span>&#8230;<a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

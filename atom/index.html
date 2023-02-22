@@ -11,8 +11,97 @@
     <link rel="self" type="application/atom+xml" href="https://www.georgevreilly.com/atom/" />
     <icon>https://www.georgevreilly.com/favicon.ico</icon>
     <logo>https://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2023-01-24T08:00:00Z</updated>
+    <updated>2023-02-21T08:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.8.dev0">acrylamid</generator>
+        <entry>
+        <title>Compressing Tar Files in Parallel</title>
+        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/02/21/CompressingTarFilesInParallel.html" />
+        <id>tag:www.georgevreilly.com,2023-02-21:/blog/2023/02/21/CompressingTarFilesInParallel.html</id>
+        <updated>2023-02-21T08:00:00Z</updated>
+        <category term="linux" />
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>https://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;TL;DR: use &lt;tt class=&#34;docutils literal&#34;&gt;tar &lt;span class=&#34;pre&#34;&gt;-I&lt;/span&gt; pigz&lt;/tt&gt; or &lt;tt class=&#34;docutils literal&#34;&gt;tar &lt;span class=&#34;pre&#34;&gt;-I&lt;/span&gt; lbzip2&lt;/tt&gt;
+to compress large tar files much more quickly.&lt;/p&gt;
+&lt;p&gt;I investigated various ways of compressing a 7GiB tar file.&lt;/p&gt;
+&lt;p&gt;The built-in &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--gzip&lt;/span&gt;&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--bzip2&lt;/span&gt;&lt;/tt&gt; compression methods in GNU &lt;tt class=&#34;docutils literal&#34;&gt;tar&lt;/tt&gt;
+are single-threaded.
+If you invoke an external compressor with &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;--use-compress-program&lt;/span&gt;&lt;/tt&gt;,
+you can get some huge reductions in compression time,
+with slightly worse compression ratios.&lt;/p&gt;
+&lt;p&gt;You can use &lt;a class=&#34;reference external&#34; href=&#34;https://zlib.net/pigz/&#34;&gt;pigz&lt;/a&gt; as a parallel replacement for &lt;tt class=&#34;docutils literal&#34;&gt;gzip&lt;/tt&gt;
+and &lt;a class=&#34;reference external&#34; href=&#34;https://linux.die.net/man/1/lbzip2&#34;&gt;lbzip2&lt;/a&gt; as a parallel version of &lt;tt class=&#34;docutils literal&#34;&gt;bzip2&lt;/tt&gt;.
+Both of them will make heavy use of all the cores in your system,
+greatly reducing the &lt;em&gt;real&lt;/em&gt; time relative to the &lt;em&gt;user&lt;/em&gt; time.&lt;/p&gt;
+&lt;p&gt;Single-threaded compression timing:
+&lt;tt class=&#34;docutils literal&#34;&gt;gzip&lt;/tt&gt; is a lot faster than &lt;tt class=&#34;docutils literal&#34;&gt;bzip2&lt;/tt&gt;:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+$ time tar --bzip2 -cf huge-bzip2.tar.bz2 hugedir
+
+real    13m15.352s
+user    12m53.972s
+sys     0m16.029s
+
+$ time tar --gzip -cf huge-gzip.tar.gz hugedir
+
+real    5m56.489s
+user    5m30.271s
+sys     0m14.633s
+&lt;/pre&gt;
+&lt;p&gt;&lt;tt class=&#34;docutils literal&#34;&gt;fast&lt;/tt&gt; parallel compression timing:
+&lt;tt class=&#34;docutils literal&#34;&gt;pigz&lt;/tt&gt; is the clear winner:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+$ time tar --use-compress-program=&#39;lbzip2 --fast&#39; \
+    -cf huge-lbzip2-fast.tar.bz2 hugedir
+
+real    2m35.967s
+user    11m38.865s
+sys     0m26.981s
+
+$ time tar --use-compress-program=&#39;pigz --fast&#39; \
+    -cf huge-pigz-fast.tar.gz hugedir
+
+real    0m58.222s
+user    3m22.134s
+sys     0m17.357s
+&lt;/pre&gt;
+&lt;p&gt;&lt;tt class=&#34;docutils literal&#34;&gt;best&lt;/tt&gt; parallel compression timing:
+&lt;tt class=&#34;docutils literal&#34;&gt;lbzip2&lt;/tt&gt; is much quicker than &lt;tt class=&#34;docutils literal&#34;&gt;pigz&lt;/tt&gt;:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+$ time tar --use-compress-program=&#39;lbzip2 --best&#39; \
+    -cf huge-lbzip2-best.tar.bz2 hugedir
+
+real    1m44.365s
+user    11m38.277s
+sys     0m13.551s
+
+$ time tar --use-compress-program=&#39;pigz --best&#39; \
+    -cf huge-pigz-best.tar.gz hugedir
+
+real    2m27.694s
+user    16m20.441s
+sys     0m16.092s
+&lt;/pre&gt;
+&lt;p&gt;Compressed file sizes:
+&lt;tt class=&#34;docutils literal&#34;&gt;bzip2&lt;/tt&gt; family compresses better than &lt;tt class=&#34;docutils literal&#34;&gt;gzip&lt;/tt&gt; family;
+&lt;tt class=&#34;docutils literal&#34;&gt;best&lt;/tt&gt; is smaller than default compression level which is smaller than &lt;tt class=&#34;docutils literal&#34;&gt;fast&lt;/tt&gt;:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+$ ls -lSr
+-rw-r--r-- 1 user group 2460438578 Feb 22 03:03 huge-lbzip2-best.tar.bz2
+-rw-r--r-- 1 user group 2461172874 Feb 22 03:19 huge-bzip2.tar.bz2
+-rw-r--r-- 1 user group 2689784220 Feb 22 03:00 huge-lbzip2-fast.tar.bz2
+-rw-r--r-- 1 user group 2691286852 Feb 22 03:06 huge-pigz-best.tar.gz
+-rw-r--r-- 1 user group 2704591997 Feb 22 03:25 huge-gzip.tar.gz
+-rw-r--r-- 1 user group 2950547862 Feb 22 03:01 huge-pigz-fast.tar.gz
+-rw-r--r-- 1 user group 7365222400 Feb 22 03:00 huge.tar
+&lt;/pre&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Implementing the Tree command in Rust, part 2: Printing Trees</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/01/24/TreeInRust2PrintingTrees.html" />
@@ -2496,38 +2585,6 @@ applied to software engineers.&lt;/p&gt;
 You might call them unempathic and sociopathic, respectively.
 The former, if they develop some emotional intelligence, are worth saving.
 The latter are simply toxic and probably need to be fired.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>How to talk to people you disagree with</title>
-        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2017/12/27/HowToTalkToPeopleYouDisagreeWith.html" />
-        <id>tag:www.georgevreilly.com,2017-12-27:/blog/2017/12/27/HowToTalkToPeopleYouDisagreeWith.html</id>
-        <updated>2017-12-27T08:00:00Z</updated>
-        <category term="politics" />
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>https://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;I came across an interesting post on Medium earlier tonight,
-&lt;a class=&#34;reference external&#34; href=&#34;https://medium.com/@jeremycaney/how-to-talk-to-people-you-disagree-with-420e12f695bc&#34;&gt;How to talk to people you disagree with&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;It can be hard to have a fruitful conversation with people you&#39;re at odds with,
-especially online.&lt;/p&gt;
-&lt;p&gt;Jeremy Caney has 10 suggestions:&lt;/p&gt;
-&lt;ol class=&#34;arabic simple&#34;&gt;
-&lt;li&gt;Leave the insults at the door&lt;/li&gt;
-&lt;li&gt;Understand what’s driving their views&lt;/li&gt;
-&lt;li&gt;Speak to their values&lt;/li&gt;
-&lt;li&gt;Know what you’re talking about&lt;/li&gt;
-&lt;li&gt;Acknowledge when you’re wrong&lt;/li&gt;
-&lt;li&gt;Stay focused on the issue at hand&lt;/li&gt;
-&lt;li&gt;Be prepared to take heat from your team&lt;/li&gt;
-&lt;li&gt;Don’t expect capitulation&lt;/li&gt;
-&lt;li&gt;Know when to walk away&lt;/li&gt;
-&lt;li&gt;Be mindful of the onlookers&lt;/li&gt;
-&lt;/ol&gt;
 </content>
     </entry>
     </feed>

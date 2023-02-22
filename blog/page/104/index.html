@@ -29,6 +29,48 @@
     
         <article>
     <header>
+        <time datetime="2007-03-07">2007-03-07</time>
+        <h1>
+            <a href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html" rel="bookmark canonical">NVelocity templates and absolute paths</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.castleproject.org/others/nvelocity/index.html"></a>
+<p>We&#8217;ve started using the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/index.html">NVelocity</a> template formatting engine.
+We were absolutely stymied for an hour, trying to figure
+out how to get it working with an absolute path to the template file,
+instead of the relative path shown in the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/usingit.html">doc&shy;u&shy;men&shy;ta&shy;tion</a>.</p>
+<p>The trick is to set <tt class="docutils literal">file.resource.loader.path</tt>.
+Here&#8217;s how to load <tt class="docutils literal"><span class="pre">C:\foo\bar\&shy;some&shy;file.vm</span></tt>:</p>
+<pre class="code csharp literal-block">
+<span class="n">ExtendedProperties</span><span class="w"> </span><span class="n">props</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExtendedProperties</span><span class="p">();</span><span class="w">
+</span><span class="n">props</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;file.resource.loader.path&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ArrayList</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="kt">string</span><span class="p">[]{</span><span class="s">&quot;.&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;C:\\&quot;</span><span class="p">}));</span><span class="w">
+</span><span class="n">velocity</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">props</span><span class="p">);</span><span class="w">
+
+</span><span class="n">template</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">velocity</span><span class="p">.</span><span class="n">GetTemplate</span><span class="p">(</span><span class="s">&quot;foo\\bar\\somefile.vm&quot;</span><span class="p">);</span>
+</pre>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/net/" rel="tag">.NET</a>,
+                <a href="/tag/c-sharp/" rel="tag">c-sharp</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2007-03-01">2007-03-01</time>
         <h1>
             <a href="/blog/2007/03/01/ReviewAMeetingAtCorvallis.html" rel="bookmark canonical">Review: A Meeting at Corvallis</a>
@@ -441,56 +483,6 @@ An alchemist claims to have discovered the <span>&#8230;<a href="/blog/2007/02/2
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2007/02/20/ReviewDarkFire.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/mystery/" rel="tag">mystery</a>
-                    and
-                    
-                <a href="/tag/history/" rel="tag">history</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2007-02-12">2007-02-12</time>
-        <h1>
-            <a href="/blog/2007/02/12/ReviewTheDanteClub.html" rel="bookmark canonical">Review: The Dante Club</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0812971043"></a>
-<div class="line-block">
-<div class="line">Title: The Dante Club</div>
-<div class="line">Author: Matthew Pearl</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Random House</div>
-<div class="line">Copyright: 2003</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0812971043">0812971043</a></div>
-<div class="line">Pages: 372</div>
-<div class="line">Keywords: historical mystery</div>
-<div class="line">Reading period: 10-12 February, 2007</div>
-</div>
-<p>This book is blurbed by Dan Brown on the front cover;
-happily, <em>The Dante Club</em> is a much better book than
-<em>The Da Vinci Code</em> and Pearl is a much better writer than&nbsp;Brown.</p>
-<p>The poets Henry Wadsworth Longfellow, James Russell Lowell,
-and Dr. Oliver Wendell Holmes, their publisher, <span class="caps">J.T.</span> Fields,
-and the historian George Washington Greene
-are completing the first trans&shy;la&shy;tion of Dante Alighieri&#8217;s
-<em>The Divine Comedy</em> ever to be published in America.
-It is Boston in 1865, just after the Civil War.
-Two prominent Brahmins are murdered in <span>&#8230;<a href="/blog/2007/02/12/ReviewTheDanteClub.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2007/02/12/ReviewTheDanteClub.html#disqus_thread">Comment</a>
         
         
             <p>tagged as

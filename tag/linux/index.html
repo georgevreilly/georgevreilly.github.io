@@ -29,6 +29,43 @@
     
         <article>
     <header>
+        <time datetime="2023-02-21">2023-02-21</time>
+        <h1>
+            <a href="/blog/2023/02/21/CompressingTarFilesInParallel.html" rel="bookmark canonical">Compressing Tar Files in Parallel</a>
+        </h1>
+    </header>
+    <p>TL;DR: use <tt class="docutils literal">tar <span class="pre">-I</span> pigz</tt> or <tt class="docutils literal">tar <span class="pre">-I</span> lbzip2</tt>
+to compress large tar files much more quickly.</p>
+<p>I in&shy;ves&shy;ti&shy;gat&shy;ed various ways of com&shy;press&shy;ing a 7GiB tar file.</p>
+<p>The built-in <tt class="docutils literal"><span class="pre">--gzip</span></tt> and <tt class="docutils literal"><span class="pre">--bzip2</span></tt> com&shy;pres&shy;sion methods in GNU <tt class="docutils literal">tar</tt>
+are single-threaded.
+If you invoke an external compressor with <tt class="docutils literal"><span class="pre">--use-compress-program</span></tt>,
+you can get some huge reductions in com&shy;pres&shy;sion time,
+with slightly worse com&shy;pres&shy;sion ratios.</p>
+<p>You can use <a class="reference external" href="https://zlib.net/pigz/">pigz</a> as a parallel re&shy;place&shy;ment for <tt class="docutils literal">gzip</tt>
+and <a class="reference external" href="https://linux.die.net/man/1/lbzip2">lbzip2</a> as a parallel version of <tt class="docutils literal">bzip2</tt>.
+Both of them will make heavy use of all the cores in your system,
+greatly reducing the <em>real</em> time relative to the <em>user</em> time.</p>
+<p>Single-threaded com&shy;pres&shy;sion timing:
+<tt class="docutils literal">gzip</tt> is a lot faster than <tt class="docutils literal">bzip2</tt>:</p>
+<pre class="literal-block">
+$ </pre><span>&#8230;<a href="/blog/2023/02/21/CompressingTarFilesInParallel.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-04-29">2016-04-29</time>
         <h1>
             <a href="/blog/2016/04/29/UnixFileCommand.html" rel="bookmark canonical">The Unix file Command</a>
@@ -374,42 +411,10 @@ among others.</p>
 
 
     
-        <article>
-    <header>
-        <time datetime="2006-10-27">2006-10-27</time>
-        <h1>
-            <a href="/blog/2006/10/27/NoSecurityUpdatesToday.html" rel="bookmark canonical">No security updates today</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://lwn.net/Articles/206045/"></a>
-<p>Windows deservedly gets a lot of bad press about the unending stream of
-security updates. But Linux, despite all of the propaganda about it being
-more secure than Windows, has its own security problems.</p>
-<p>Take this post from <a class="reference external" href="http://lwn.net/">LWN.net</a> yesterday:</p>
-<blockquote>
-<div class="line-block">
-<div class="line"><a class="reference external" href="http://lwn.net/Articles/206045/">No security updates today</a></div>
-<div class="line">[Posted October 25, 2006 by corbet]</div>
-</div>
-<p>It is sad that this is worthy of note, but it is: on this day, Wednesday,
-October 25, we have not received a single security update for any Linux dis&shy;tri&shy;b&shy;u&shy;tion.</p>
-</blockquote>
-<p>(This post was composed on a laptop running Kubuntu 6.06.)</p>
-
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/linux/" rel="tag">linux</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
     
+        <a href="/tag/linux/2/" class="page floatright">
+        Previous &raquo;
+        </a>
     
     
 <footer>
