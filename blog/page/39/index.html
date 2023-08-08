@@ -29,6 +29,42 @@
     
         <article>
     <header>
+        <time datetime="2015-03-02">2015-03-02</time>
+        <h1>
+            <a href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html" rel="bookmark canonical">Nosetests won't discover tests in executable files</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://nose.readthedocs.org/"></a>
+<p>We use <a class="reference external" href="http://nose.readthedocs.org/">Nose</a> to run unit tests.
+I noticed that we had some tests that weren&#8217;t being run,
+and it took me some time to work out why.
+Eventually, I found this <a class="reference external" href="https://www.hyperink.com/blog/?p=22">checklist</a>,
+which told me to &quot;make sure the files in your tests directory are not&nbsp;executable&quot;.</p>
+<p>A quick <tt class="docutils literal">chmod <span class="pre">-x</span> *.py</tt> later and <tt class="docutils literal">nosetests project/tests</tt> suddenly found all the&nbsp;tests.</p>
+<p>Now that I know what to look for, I found this in the Nose&nbsp;docs:</p>
+<blockquote>
+<p>It is important to note that the default behavior of nose
+is to not include tests from files which are&nbsp;executable.</p>
+<p><tt class="docutils literal"><span class="pre">--exe</span></tt>: Look for tests in python modules that are executable.
+Normal behavior is to exclude executable <span>&#8230;<a href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-03-01">2015-03-01</time>
         <h1>
             <a href="/blog/2015/03/01/ReviewCryFather.html" rel="bookmark canonical">Review: Cry Father</a>
@@ -408,48 +444,6 @@ One friend dubbed it&nbsp;“sumter”.</p>
                     and
                     
                 <a href="/tag/seattle/" rel="tag">seattle</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-01-25">2015-01-25</time>
-        <h1>
-            <a href="/blog/2015/01/25/PyCharmYosemite.html" rel="bookmark canonical">Running PyCharm on Yosemite</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.jetbrains.com/pycharm/"></a>
-<p>I did a <a class="reference external" href="/blog/2015/01/17/YosemiteCleanInstall.html">clean install of <span class="caps">OS</span> X 10.10</a> on my home laptop a week ago.
-I tried to launch <a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a> 4.0.4 on it today.
-It im&shy;me&shy;di&shy;ate&shy;ly failed. Every&nbsp;time.</p>
-<p>When I looked in the System Console, I&nbsp;saw:</p>
-<pre class="literal-block">
-1/25/15 7:46:00.557 PM pycharm[1160]: No matching VM found.
-1/25/15 7:46:00.711 PM com.apple.xpc.launchd[1]: (com.jetbrains.pycharm.58252[1160]) Service exited with abnormal code: 1
-</pre>
-<p>The JetBrains website wasn&#8217;t very helpful when I looked there.
-In time, I found a <a class="reference external" href="http://stackoverflow.com/questions/26438628/crash-jetbrains-ide-with-yosemite-mac-osx-webstorm-intellij">Stack&shy;Over&shy;flow answer</a> that put me on the right track
-(and reminded me that I had previously solved this problem about a year ago, at work).
-PyCharm and some of the other JetBrains IDEs require <span class="caps">JDK</span> 1.6,
-as there are <span>&#8230;<a href="/blog/2015/01/25/PyCharmYosemite.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/01/25/PyCharmYosemite.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>,
-                <a href="/tag/mac/" rel="tag">mac</a>,
-                <a href="/tag/vim/" rel="tag">vim</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

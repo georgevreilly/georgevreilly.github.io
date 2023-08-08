@@ -29,6 +29,47 @@
     
         <article>
     <header>
+        <time datetime="2016-01-08">2016-01-08</time>
+        <h1>
+            <a href="/blog/2016/01/08/HappyBirthdayRoyBatty.html" rel="bookmark canonical">Happy Birthday, Roy Batty</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://anjinanhut.deviantart.com/art/time-to-die-roy-batty-108197743"></a>
+
+<blockquote>
+<p>I&#8217;ve seen things you people wouldn&#8217;t believe.
+Attack ships on fire off the shoulder of Orion.
+I watched C-beams glitter in the dark near the Tannhäuser Gate.
+All those moments will be lost in time, like tears…in…rain.
+Time to&nbsp;die.</p>
+<p class="attribution">&mdash;Roy Batty, the <a class="reference external" href="https://en.wikipedia.org/wiki/Tears_in_rain_monologue">Tears in Rain</a>&nbsp;monologue</p>
+</blockquote>
+<p>According to <a class="reference external" href="https://en.wikipedia.org/wiki/Blade_Runner">Blade Runner</a>,
+the replicant Roy Batty&#8217;s incept date is January 8th, 2016.
+The <a class="reference external" href="http://www.smh.com.au/entertainment/movies/blade-runner-fans-its-roy-battys-birthday-20160107-gm19z8.html">Sydney Morning Herald</a> has an&nbsp;article.</p>
+<p>In honor of which, we watched Blade Runner&nbsp;tonight.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/08/HappyBirthdayRoyBatty.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/movies/" rel="tag">movies</a>
+                    and
+                    
+                <a href="/tag/sf/" rel="tag">sf</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-07">2016-01-07</time>
         <h1>
             <a href="/blog/2016/01/07/DicewareAndLastpass.html" rel="bookmark canonical">LastPass and Diceware</a>
@@ -406,49 +447,6 @@ rising to the daunting challenges
                     and
                     
                 <a href="/tag/fantasy/" rel="tag">fantasy</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-30">2015-12-30</time>
-        <h1>
-            <a href="/blog/2015/12/30/UseForPythonNestedListComprehensions.html" rel="bookmark canonical">Python: a use for nested list comprehensions</a>
-        </h1>
-    </header>
-    <p>I wanted to turn a list like
-<tt class="docutils literal"><span class="pre">['*.zip',</span> <span class="pre">'*.pyc',</span> <span class="pre">'*.log']</span></tt> into
-<tt class="docutils literal"><span class="pre">['--exclude',</span> <span class="pre">'*.zip',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.pyc',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.log']</span></tt>.</p>
-<p>A simple list com&shy;pre&shy;hen&shy;sion doesn&#8217;t work as&nbsp;desired:</p>
-<pre class="code pycon literal-block">
-<span class="go">In [1]: excludes = ['*.zip', '*.pyc', '*.log']
-
-In [2]: [('--exclude', e) for e in excludes]
-Out[2]: [('--exclude', '*.zip'), ('--exclude', '*.pyc'), ('--exclude', '*.log')]</span>
-</pre>
-<p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com&shy;pre&shy;hen&shy;sion</a>:</p>
-<pre class="code pycon literal-block">
-<span class="go">In [5]: [arg for pattern in excludes
-             for arg in ['--exclude', pattern]]
-Out[5]: ['--exclude', '*.zip', '--exclude', '*.pyc', '--exclude', '*.log']</span>
-</pre>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/30/UseForPythonNestedListComprehensions.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

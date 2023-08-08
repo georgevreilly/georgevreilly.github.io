@@ -29,6 +29,50 @@
     
         <article>
     <header>
+        <time datetime="2019-09-02">2019-09-02</time>
+        <h1>
+            <a href="/blog/2019/09/02/gpg-blackbox-paperkey.html" rel="bookmark canonical">Decrypting Blackbox secrets at build time with Paperkey</a>
+        </h1>
+    </header>
+    <blockquote>
+“Security is 1% technology plus 99% following the procedures correctly” — Tom Limoncelli</blockquote>
+<p>Having dealt with <span class="caps">GPG</span> last week at work,
+I remembered that I had intended to write a blog post
+about how we used <a class="reference external" href="https://gnupg.org/"><span class="caps">GPG</span></a>, <a class="reference external" href="https://github.com/StackExchange/blackbox">Blackbox</a>, and <a class="reference external" href="http://www.jabberwocky.com/software/paperkey/">Paperkey</a> to store secrets in Git
+at my <a class="reference external" href="/blog/2018/12/31/2018-review.html">previous job</a>.</p>
+<p>We used Blackbox to manage secrets that were needed
+during de&shy;vel&shy;op&shy;ment, build, deployment, and runtime.
+These secrets included <span class="caps">AWS</span> cre&shy;den&shy;tials, Docker registry cre&shy;den&shy;tials,
+our private PyPI cre&shy;den&shy;tials, database cre&shy;den&shy;tials, and cer&shy;tifi&shy;cates.
+We wanted these secrets to be under version control,
+but also to be&nbsp;secure.</p>
+<p>For example, we had a <tt class="docutils literal">cre&shy;den&shy;tials.sh</tt> that exported en&shy;vi&shy;ron&shy;ment variables,
+which was managed by&nbsp;Blackbox:</p>
+<pre class="code bash literal-block">
+<span class="c1"># Save current value of xtrace </span></pre><span>&#8230;<a href="/blog/2019/09/02/gpg-blackbox-paperkey.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2019/09/02/gpg-blackbox-paperkey.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/gpg/" rel="tag">gpg</a>,
+                <a href="/tag/blackbox/" rel="tag">blackbox</a>,
+                <a href="/tag/jenkins/" rel="tag">jenkins</a>
+                    and
+                    
+                <a href="/tag/bash/" rel="tag">bash</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2019-01-03">2019-01-03</time>
         <h1>
             <a href="/blog/2019/01/03/ReviewFireAndBlood.html" rel="bookmark canonical">Review: Fire and Blood</a>
@@ -409,44 +453,6 @@ whereupon he is trans&shy;port&shy;ed to <span>&#8230;<a href="/blog/2017/12/25/
                     and
                     
                 <a href="/tag/reviews/" rel="tag">reviews</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2017-02-27">2017-02-27</time>
-        <h1>
-            <a href="/blog/2017/02/27/SeattleOverturnedTruck.html" rel="bookmark canonical">Seattle: Overturned Truck</a>
-        </h1>
-    </header>
-    <p>Seattle traffic ground to an eight-hour standstill today
-after a propane truck <a class="reference external" href="http://www.seattletimes.com/seattle-news/transportation/semi-rollover-on-i-5-near-west-seattle-bridge-blocking-lanes/">overturned</a> on southbound I-5.
-Both directions of I-5 were closed until the truck had been emptied enough
-so that it could be righted.
-The wet winter weather didn&#8217;t help,
-as snow fell&nbsp;in&shy;ter&shy;mit&shy;tent&shy;ly.</p>
-<p>Given the danger of a massive explosion,
-this was the right thing to do.
-Had the truck gone up, the outcome would have been much, much&nbsp;worse.</p>
-<p>Still, it drives home (heh) the fragility of our in&shy;fra&shy;struc&shy;ture.
-The closure&#8217;s effect rippled throughout the region&#8217;s roads,
-causing a systemic failure of the road network.
-Snarled traffic and chaos everywhere for&nbsp;miles.</p>
-<p>We&#8217;ve had two similar incidents in recent years,
-both involving spillages of <span>&#8230;<a href="/blog/2017/02/27/SeattleOverturnedTruck.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/27/SeattleOverturnedTruck.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/seattle/" rel="tag">seattle</a>
                 
             </p>
         

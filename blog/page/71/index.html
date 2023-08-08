@@ -29,6 +29,47 @@
     
         <article>
     <header>
+        <time datetime="2009-03-12">2009-03-12</time>
+        <h1>
+            <a href="/blog/2009/03/12/Looting.html" rel="bookmark canonical">Looting</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.cjr.org/the_audit/leonhardt_on_the_looters.php"></a>
+<p>In today&#8217;s New York Times, <a class="reference external" href="http://www.nytimes.com/2009/03/11/business/economy/11leonhardt.html">David Leonhardt writes</a>,
+of a sixteen-year-old economics&nbsp;paper:</p>
+<blockquote>
+<p>In the paper, they argued that several financial crises in the 1980s,
+like the Texas real estate bust, had been the result of
+private investors taking advantage of the government.
+The investors had borrowed huge amounts of money,
+made big profits when times were good and
+then left the government holding the bag for their eventual
+(and pre&shy;dictable)&nbsp;losses.</p>
+<p>In a word, the investors looted.
+Someone trying to make an honest profit,
+Professors Akerlof and Romer said, would have
+operated in a completely different manner.
+The investors displayed a
+“total disregard for even the most basic principles of lending,”
+failing to verify standard in&shy;for&shy;ma&shy;tion <span>&#8230;<a href="/blog/2009/03/12/Looting.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/12/Looting.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/politics/" rel="tag">politics</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2009-03-11">2009-03-11</time>
         <h1>
             <a href="/blog/2009/03/11/ReviewPerditionHouse.html" rel="bookmark canonical">Review: Perdition House</a>
@@ -380,52 +421,6 @@ It&#8217;s less true in books, where throwaway characters are easy to&nbsp;intro
         
             <p>tagged as
                 <a href="/tag/movies/" rel="tag">movies</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-02">2009-03-02</time>
-        <h1>
-            <a href="/blog/2009/03/02/HashTableAttacks.html" rel="bookmark canonical">Hash Table Attacks</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf"></a>
-<p>At lunch today, I told Eric about <a class="reference external" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf">Hash Attacks</a>:
-for many hash functions,
-it&#8217;s possible to construct a large set of keys that collide.
-This can be used to cause a Denial of Service
-as hashtable operations can be induced
-to take <em>O(n)</em> time instead of <em>O(1)</em>.</p>
-<p>Crosby and Wallach suc&shy;cess&shy;ful&shy;ly <a class="reference external" href="https://www.usenix.org/legacy/event/sec03/tech/full_papers/crosby/crosby.pdf">demon&shy;strat&shy;ed</a> this
-against a number of&nbsp;ap&shy;pli&shy;ca&shy;tions.</p>
-<p>Andrew has a good writeup of <a class="reference external" href="http://web.archive.org/web/20120318203841/http://www.team5150.com/~andrew/blog/2007/03/hash_algorithm_attacks.html">Hash Algorithm Attacks</a>.</p>
-<p>There are various mit&shy;i&shy;ga&shy;tions suggested.
-The one that I used when I first became aware of this problem
-is to use a <em>salt</em> to the hash&nbsp;function.</p>
-<p>In other words,&nbsp;change:</p>
-<pre class="code C literal-block">
-<span class="kt">unsigned</span><span class="w"> </span><span class="nf">hash</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">)</span><span class="w">
-</span><span class="p">{</span><span class="w">
-    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
-    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="w">
-   </span></pre><span>&#8230;<a href="/blog/2009/03/02/HashTableAttacks.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/02/HashTableAttacks.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/programming/" rel="tag">programming</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
