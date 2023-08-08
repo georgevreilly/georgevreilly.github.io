@@ -6,7 +6,6 @@ tags: [vim]
 ---
 
 
-
 `vi`_.
 Vee-eye. My text editor of choice for 20 years. Half my life.
 
@@ -34,8 +33,7 @@ Like `Tom Christiansen
 <http://www.oreilly.com/news/zenclavier_1299.html>`_,
 I can become at one with the machine.
 
-People who've used 
-`vi <http://en.wikipedia.org/wiki/Vi>`_
+People who've used `vi`_
 fall into a bimodal distribution.
 They love it or they hate it.
 Usually, it's because of vi's
@@ -97,12 +95,16 @@ for occasional contributions.
 In 1992, I moved to Seattle and worked for Microsoft for the first time.
 I kept my Emacs+Viper habit.
 
+Vim
+===
+
 By 1995, I was working for MicroCrafts and had discovered
-`Vim <http://www.vim.org/>`_. Version\-3.x ran on DOS as a 16-bit
+`Vim <https://www.vim.org/>`_. Version\-3.x ran on DOS as a 16-bit
 command-line app. I used it occasionally on NT. Then I discovered that
 Roger Knobbe had ported Vim to NT, but that it was pretty buggy.
-I fixed the bugs and submitted my fixes to 
-`Bram Moolenaar <http://www.moolenaar.net/>`_, Vim's author.
+I `fixed the bugs <https://groups.google.com/g/comp.editors/c/o_rZRV16I88/m/cVecdHH7-CUJ>`_
+and submitted my fixes to 
+`Bram Moolenaar <https://www.moolenaar.net/>`_, Vim's author.
 
 One thing led to another, and I became the Win32 guy for Vim\-4.x.
 Console-mode Vim became rock solid on NT 4, but I never got it to the same
@@ -111,7 +113,8 @@ I also put together a proof-of-concept implementation of gvim\-5.0 for Windows.
 At that point, I gave up active involvement in the development of Vim:
 I had moved back to Microsoft, I was starting to date Emma,
 and I was working on the 
-`Beginning ATL COM Programming book <http://george.reilly.org/BegAtlCom.html>`_.
+`Beginning ATL COM Programming book
+<https://web.archive.org/web/20060815204548/http://george.reilly.org/BegAtlCom.html>`_.
 Something had to give.
 
 I continued using Viper for much of the time that I was developing Vim,
@@ -128,7 +131,7 @@ as I've started doing a lot of .NET development.
 But more on that some other time. This post is already too long.
 
 .. _vi:
-    http://en.wikipedia.org/wiki/Vi
+    https://en.wikipedia.org/wiki/Vi
 
 .. _permalink:
     /blog/2005/12/30/20YearsOfVi.html
