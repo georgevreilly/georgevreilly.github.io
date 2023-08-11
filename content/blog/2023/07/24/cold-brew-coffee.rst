@@ -1,6 +1,6 @@
 ---
 title: "Cold Brew Coffee Recipe"
-# date: "2023-07-24"
+date: "2023-07-24"
 permalink: "/2023/07/24/ColdBrewCoffeeRecipe.html"
 tags: [recipe, coffee]
 ---
