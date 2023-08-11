@@ -1,6 +1,6 @@
 ---
 title: "Patching a Python Wheel"
-# date: "2023-08-10"
+date: "2023-08-10"
 permalink: "/blog/2023/08/10/PatchingAPythonWheel.html"
 tags: [python]
 ---
