@@ -5,9 +5,159 @@
         <link>https://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Mon, 07 Aug 2023 07:00:00 GMT</pubDate>
+        <pubDate>Fri, 11 Aug 2023 05:43:27 GMT</pubDate>
         <docs>https://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.8.dev0</generator>
+        
+            <item>
+        <title>Patching a Python Wheel</title>
+        <link>https://www.georgevreilly.com/blog/2023/08/10/PatchingAPythonWheel.html</link>
+        <description>&lt;p&gt;Recently, I had to create a new &lt;a class=&#34;reference external&#34; href=&#34;https://realpython.com/python-wheels/&#34;&gt;Python wheel&lt;/a&gt; for &lt;a class=&#34;reference external&#34; href=&#34;https://pytorch.org/&#34;&gt;PyTorch&lt;/a&gt;.
+There is a &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/pytorch/pytorch/issues/99622&#34;&gt;cyclic dependency&lt;/a&gt; between PyTorch 2.0.1 and Triton 2.0.0.
+&lt;a class=&#34;reference external&#34; href=&#34;https://pip.pypa.io/en/latest/&#34;&gt;Pip&lt;/a&gt; is okay with a cyclic dependency.
+&lt;a class=&#34;reference external&#34; href=&#34;https://bazel.build/&#34;&gt;Bazel&lt;/a&gt;, however, &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/bazelbuild/rules_python/issues/1076&#34;&gt;does not handle&lt;/a&gt; cyclic dependencies between packages.&lt;/p&gt;
+&lt;p&gt;I spent a few days trying to build the PyTorch wheel from source.
+It was a &lt;em&gt;nightmare!&lt;/em&gt;
+I ran out of disk space on the root partition on my EC2 devbox
+trying to install system packages,
+so I had to bring up a custom instance.
+Then I ran out of space on the main partition,
+trying to compile,
+so I had to bring up another custom instance.
+Then I realized I had installed CUDA 12.1
+and couldn&#39;t install CUDA 11.8 over it,
+so yet another instance.
+Then a long list of other problems.
+I was eventually able to get &lt;tt class=&#34;docutils literal&#34;&gt;python setup.py develop&lt;/tt&gt; to execute,
+but it took three hours!
+And I had little confidence that I was building the same thing
+that was in the official wheels.&lt;/p&gt;
+&lt;p&gt;Then I had a brainwave:
+what if I &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Patch_(computing)&#34;&gt;patch&lt;/a&gt; the official wheel and simply remove the requirement on Triton?
+All the officially built code will remain untouched.
+That worked!&lt;/p&gt;
+&lt;p&gt;This post is adapted from my &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/pytorch/pytorch/issues/99622#issuecomment-1604812054&#34;&gt;writeup on the issue&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;section&#34; id=&#34;what-is-a-wheel&#34;&gt;
+&lt;h3&gt;What is a Wheel?&lt;/h3&gt;
+&lt;p&gt;A Python &lt;a class=&#34;reference external&#34; href=&#34;https://packaging.python.org/en/latest/specifications/binary-distribution-format/&#34;&gt;wheel&lt;/a&gt; is a ready-to-install Python package
+that requires no compilation at installation time.
+Unlike older formats such as source distributions or eggs,
+&lt;tt class=&#34;docutils literal&#34;&gt;setup.py&lt;/tt&gt; is not run during installation from a wheel.
+The older formats conflated build and install
+and required arbitrary code to run.&lt;/p&gt;
+&lt;p&gt;A wheel is a &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/ZIP_(file_format)&#34;&gt;Zip archive&lt;/a&gt; with a specially formatted filename
+and a &lt;tt class=&#34;docutils literal&#34;&gt;.whl&lt;/tt&gt; extension.
+The wheel contains a &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;dist-info&lt;/span&gt;&lt;/tt&gt; metadata directory
+and the installable payload.
+A wheel is either pure Python,
+which can install on any platform,
+or a platform (binary) wheel,
+which usually contains compiled Python extension code.&lt;/p&gt;
+&lt;p&gt;Java JARs, Android APKs, Mozilla XPIs, and many other file types
+are also structured Zip archives.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;manual-patching&#34;&gt;
+&lt;h3&gt;Manual Patching&lt;/h3&gt;
+&lt;p&gt;The wheel file&#39;s &lt;a class=&#34;reference external&#34; href=&#34;https://packaging.python.org/en/latest/specifications/binary-distribution-format/#file-contents&#34;&gt;contents&lt;/a&gt; include the
+&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;{distribution}-{version}.dist-info/&lt;/span&gt;&lt;/tt&gt; directory,
+which contains metadata about the wheel.&lt;/p&gt;
+&lt;p&gt;In the case of PyTorch 2.0.1,
+I had &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;torch-2.0.1-cp38-cp38-manylinux1_x86_64.whl&lt;/span&gt;&lt;/tt&gt;,
+a Linux &lt;tt class=&#34;docutils literal&#34;&gt;x86_64&lt;/tt&gt; wheel for Python 3.8.&lt;/p&gt;
+&lt;p&gt;I used &lt;tt class=&#34;docutils literal&#34;&gt;unzip&lt;/tt&gt; to extract the wheel&#39;s contents into a directory, &lt;tt class=&#34;docutils literal&#34;&gt;torch201.2&lt;/tt&gt;.
+(The &lt;tt class=&#34;docutils literal&#34;&gt;.2&lt;/tt&gt; denoted my second attempt.)
+In the &lt;tt class=&#34;docutils literal&#34;&gt;torch201.2&lt;/tt&gt; directory was the entire content of the wheel,
+including the &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;torch-2.0.1.dist-info/&lt;/span&gt;&lt;/tt&gt; subdirectory.&lt;/p&gt;
+&lt;pre class=&#34;code bash literal-block&#34;&gt;
+unzip -d torch201.2 torch-2.0.1-cp38-cp38-manylinux1_x86_64.whl
+&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; torch201.2
+
+&lt;span class=&#34;c1&#34;&gt;# Rename the `dist-info` directory to include &#39;+stripe.2&#39; as a suffix for `2.0.1`
+&lt;/span&gt;mv torch-2.0.1&lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;,+stripe.2&lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;.dist-info/
+&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; torch-2.0.1+stripe.2.dist-info/
+&lt;/pre&gt;
+&lt;p&gt;Normally, when we build wheels for forked version of Python packages at Stripe,
+we append &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;+stripe.{major}.{commits}.{revision}&lt;/span&gt;&lt;/tt&gt; to the version number.
+Both &lt;tt class=&#34;docutils literal&#34;&gt;commits&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;revision&lt;/tt&gt; come from
+the output of &lt;tt class=&#34;docutils literal&#34;&gt;git describe &lt;span class=&#34;pre&#34;&gt;--tags&lt;/span&gt; HEAD&lt;/tt&gt;,
+which &lt;a class=&#34;reference external&#34; href=&#34;https://git-scm.com/docs/git-describe#_examples&#34;&gt;looks like&lt;/a&gt; &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;{tag}-{commits}-g{revision}&lt;/span&gt;&lt;/tt&gt;;
+&lt;tt class=&#34;docutils literal&#34;&gt;major&lt;/tt&gt; is currently hardcoded to &lt;tt class=&#34;docutils literal&#34;&gt;1&lt;/tt&gt;.
+This suffix helps distinguish a forked wheel&#39;s version
+from the upstream version number.&lt;/p&gt;
+&lt;p&gt;Since I wasn&#39;t forking, I used a simplified scheme,
+&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;+stripe.{attempt}&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Then I updated some &lt;a class=&#34;reference external&#34; href=&#34;https://packaging.python.org/en/latest/specifications/core-metadata/&#34;&gt;fields&lt;/a&gt; in &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;torch-2.0.1+stripe.2.dist-info/METADATA&lt;/span&gt;&lt;/tt&gt;:&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;Updated &lt;tt class=&#34;docutils literal&#34;&gt;Version&lt;/tt&gt; to include &lt;tt class=&#34;docutils literal&#34;&gt;+stripe.2&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Removed the &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;Requires-Dist&lt;/span&gt;&lt;/tt&gt; line for &lt;tt class=&#34;docutils literal&#34;&gt;triton&lt;/tt&gt;.
+This is the crucial step to fix the cyclic dependency problem.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now I had to update &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;torch-2.0.1+stripe.2.dist-info/RECORD&lt;/span&gt;&lt;/tt&gt;,
+which contains signatures for all the files in the wheel,
+in the form &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;{filename},sha256={safe_hash},{filesize}&lt;/span&gt;&lt;/tt&gt;.
+Of course, &lt;tt class=&#34;docutils literal&#34;&gt;RECORD&lt;/tt&gt; does not have an entry for itself.&lt;/p&gt;
+&lt;p&gt;The paths to all the &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;dist-info&lt;/span&gt;&lt;/tt&gt; files needed to be updated in &lt;tt class=&#34;docutils literal&#34;&gt;RECORD&lt;/tt&gt;
+to include the &lt;tt class=&#34;docutils literal&#34;&gt;+stripe.2&lt;/tt&gt; suffix.&lt;/p&gt;
+&lt;p&gt;In Vim terms:&lt;/p&gt;
+&lt;pre class=&#34;code vim literal-block&#34;&gt;
+&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;%s&lt;span class=&#34;sr&#34;&gt;/^\(torch-2.0.1\)\(\.dist-info\)/&lt;/span&gt;\&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;+&lt;/span&gt;stripe.&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;\&lt;span class=&#34;m&#34;&gt;2&lt;/span&gt;/
+&lt;/pre&gt;
+&lt;p&gt;You can use this &lt;tt class=&#34;docutils literal&#34;&gt;record_hash.py&lt;/tt&gt; script to compute the entry for a file:&lt;/p&gt;
+&lt;pre class=&#34;code python literal-block&#34;&gt;
+&lt;span class=&#34;ch&#34;&gt;#!/usr/bin/env python3&lt;/span&gt;
+
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;base64&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;hashlib&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;os&lt;/span&gt;
+&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;sys&lt;/span&gt;
+
+&lt;span class=&#34;n&#34;&gt;filename&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sys&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;argv&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+
+&lt;span class=&#34;k&#34;&gt;with&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;open&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;filename&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;rb&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;digest&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;hashlib&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sha256&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;read&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;safe_hash&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;base64&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;urlsafe_b64encode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;digest&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;digest&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;())&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;decode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;us-ascii&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;rstrip&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;=&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;filename&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;,sha256=&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;safe_hash&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;os&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;getsize&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;filename&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;The output will look like this:&lt;/p&gt;
+&lt;pre class=&#34;code bash literal-block&#34;&gt;
+$ ../record_hash.py torch-2.0.1+stripe.2.dist-info/METADATA
+torch-2.0.1+stripe.2.dist-info/METADATA,sha256&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;StmZkVzCWlHIxaIGVJocXv7JsDnlrSaNXwtuIlE_PKc,24703
+&lt;/pre&gt;
+&lt;p&gt;Replace the &lt;tt class=&#34;docutils literal&#34;&gt;METADATA&lt;/tt&gt; entry in &lt;tt class=&#34;docutils literal&#34;&gt;RECORD&lt;/tt&gt; with the output from &lt;tt class=&#34;docutils literal&#34;&gt;record_hash.py&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Finally, you can &lt;tt class=&#34;docutils literal&#34;&gt;zip&lt;/tt&gt; up everything into a new wheel.
+Note the &lt;tt class=&#34;docutils literal&#34;&gt;+stripe.2&lt;/tt&gt; in the new wheel&#39;s filename:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+zip ../torch-2.0.1+stripe.2-cp38-cp38-manylinux1_x86_64.whl -r .
+&lt;/pre&gt;
+&lt;p&gt;At this point, you can upload the wheel to a private repository.&lt;/p&gt;
+&lt;p&gt;To install the wheel:&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+pip install torch==2.0.1+stripe.2
+&lt;/pre&gt;
+&lt;p&gt;You will not see &lt;tt class=&#34;docutils literal&#34;&gt;triton&lt;/tt&gt; being installed, unlike before.
+However, if you do install &lt;tt class=&#34;docutils literal&#34;&gt;triton&lt;/tt&gt;,
+it will be satisfied by this patched version of &lt;tt class=&#34;docutils literal&#34;&gt;torch&lt;/tt&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;summary&#34;&gt;
+&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;p&gt;If you have to manually patch a Python wheel:&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;Decide upon a suffix, such as &lt;tt class=&#34;docutils literal&#34;&gt;+stripe.2&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;Unzip the wheel.&lt;/li&gt;
+&lt;li&gt;Rename the &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;dist-info&lt;/span&gt;&lt;/tt&gt; directory to include the suffix.&lt;/li&gt;
+&lt;li&gt;Update &lt;tt class=&#34;docutils literal&#34;&gt;Version&lt;/tt&gt; in &lt;tt class=&#34;docutils literal&#34;&gt;METADATA&lt;/tt&gt; to include the suffix.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Make other modifications.&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Append the suffix to the &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;dist-info&lt;/span&gt;&lt;/tt&gt; entries in &lt;tt class=&#34;docutils literal&#34;&gt;RECORD&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;Use &lt;tt class=&#34;docutils literal&#34;&gt;record_hash.py&lt;/tt&gt; to compute new entries for all modified files.
+Update &lt;tt class=&#34;docutils literal&#34;&gt;RECORD&lt;/tt&gt; accordingly.&lt;/li&gt;
+&lt;li&gt;Zip up the new wheel. Include the suffix in the filename.&lt;/li&gt;
+&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;pip install&lt;/tt&gt; the new wheel.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Fri, 11 Aug 2023 05:43:27 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2023-08-10:/blog/2023/08/10/PatchingAPythonWheel.html</guid>
+    </item>
         
             <item>
         <title>Bram Moolenaar RIP</title>
@@ -2344,117 +2494,6 @@ which takes office later this week.&lt;/p&gt;
 </description>
         <pubDate>Mon, 31 Dec 2018 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2018-12-31:/blog/2018/12/31/2018-review.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: The Heart&#39;s Invisible Furies</title>
-        <link>https://www.georgevreilly.com/blog/2018/12/01/ReviewHeartsInvisibleFuries.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://www.amazon.com/dp/152476079X/?tag=georgvreill-20&#34;&gt;&lt;img alt=&#34;The Heart&amp;#x27;s Invisible Furies&#34; class=&#34;right-float&#34; src=&#34;https://images-na.ssl-images-amazon.com/images/P/152476079X.01.MZZZZZZZ.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: The Heart&#39;s Invisible Furies&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Author: John Boyne&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★ ½&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Publisher: Hogarth&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Copyright: 2017&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;ISBN: &lt;a class=&#34;reference external&#34; href=&#34;https://www.amazon.com/dp/152476079X/?tag=georgvreill-20&#34;&gt;152476079X&lt;/a&gt;&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Pages: 592&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: fiction, gay, irish&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Reading period: 30 October, 2018&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;Before I begin to describe &lt;em&gt;The Heart&#39;s Invisible Furies&lt;/em&gt;
-with abundant spoilers, let me say two things.
-Despite what I describe below, the book is very funny,
-as Cyril recounts his frequent fuckups.
-You would never know,
-from reading the back cover or the excerpted reviews inside,
-that Cyril is gay.
-Yet Cyril&#39;s sexuality is the central theme of the book.
-I can only assume that this is a marketing decision,
-with which I strongly disagree.&lt;/p&gt;
-&lt;p&gt;16-year-old Catherine is forced out of her Cork village by the parish priest,
-when her pregnancy is discovered.
-It&#39;s impossible to be a single, unwed mother in Ireland in 1945,
-so she puts her son up for adoption.
-Cyril Avery grows up in an odd, well-off household in Dublin,
-always being told by his adoptive father that he&#39;s not a &lt;em&gt;real&lt;/em&gt; Avery.
-At seven, he develops a fascination with Julian,
-the son of his father&#39;s lawyer, whom he meets one fateful day.
-They meet again at fourteen, sharing a room in boarding school,
-and Cyril develops a full-blown but entirely secret obsession
-with the golden boy, Julian.&lt;/p&gt;
-&lt;p&gt;Cyril begins to realize that he is that most despised creature,
-a homosexual in 1950s Catholic Ireland.
-By twenty-one, he is frequently meeting other men
-for furtive, anonymous sex.
-There is no outlet for romance or love,
-just hurried encounters.
-Homosexual acts are illegal in Ireland
-and discovery would mean social and professional ruin,
-perhaps even prosecution.
-He&#39;s still secretly in love with Julian,
-now a heterosexual hedonist in the swinging Sixties.
-At twenty-eight, deeply conflicted, he marries Julian&#39;s sister Alice,
-and abandons her hours after the wedding.
-Of all the stupid things that Cyril does,
-this is the worst.
-By thirty-five (1980), he&#39;s ended up in Amsterdam,
-where gay people can live openly,
-and he&#39;s in a relationship with Bastiaan, a Dutch doctor.
-In 1987, Bastiaan and Cyril are in New York,
-working with dying AIDS patients.
-Fear of AIDS is rampant and
-many of them have been rejected by their families.
-One of these patients is Julian,
-who is determined that no-one in Ireland should know
-that he&#39;s dying of such a shameful disease.
-From Julian, Cyril belatedly learns that Alice has a teenaged son, Liam.
-Julian insists that Cyril should have told him long ago,
-that he would have understood.
-Cyril knows better.
-Cyril couldn&#39;t be honest with the world for a long time,
-because the world—and Ireland—wouldn&#39;t let him be honest about himself.
-The episode ends with Bastiaan being killed by fagbashers
-who leave Cyril in a coma.&lt;/p&gt;
-&lt;p&gt;After that, Cyril returns to Dublin,
-where he lives openly if quietly as a gay man.
-In time, he is reunited with his mother Catherine
-and makes peace with Alice and Liam.
-The final episode takes place in 2015,
-months after Ireland voted to &lt;a class=&#34;reference external&#34; href=&#34;https://www.theguardian.com/world/2015/may/23/gay-marriage-ireland-yes-vote&#34;&gt;legalize same-sex marriage&lt;/a&gt;.
-Cyril, now seventy, wonders at the New Ireland
-and he marvels at his own 17-year-old grandson
-openly expressing affection for his boyfriend.
-It&#39;s a bittersweet moment for Cyril.
-He thinks about Senator David Norris,
-Ireland&#39;s most famous gay rights campaigner for forty years,
-saying, when asked if he would take advantage of the new law,
-“It’s a little bit late for me ...
-I’ve spent so much time pushing the boat out
-that I forgot to jump on
-and now it’s out beyond the harbour on the high seas,
-but it’s very nice to look at.”&lt;/p&gt;
-&lt;p&gt;In a &lt;a class=&#34;reference external&#34; href=&#34;https://www.powells.com/post/original-essays/the-most-truthful-paragraph-ive-written&#34;&gt;somewhat bitter afterword&lt;/a&gt;,
-the author John Boyne describes writing the book.
-He knew from a young age that he was gay,
-long before he knew what “gay” meant.
-Boyne drew upon his own early experiences in creating Cyril
-and regrets the potential that is lost to our generation.
-Boyne was born in Dublin in 1971, six years after me.
-I realized in my mid-teens that I am bisexual,
-something that I kept entirely buried for a decade.
-I found Ireland no more accepting than John Boyne did in the 1980s.
-If I were thirteen years old now in Dublin,
-instead of being thirteen in 1978,
-I wonder how things would be turning out for me.
-Would coming out as a bisexual teen be a near non-event,
-instead of the long-deferred
-and fearful-but-exhilarating landmark of my twenties?
-My mother gave me this book,
-after reading it herself,
-so I think it would be easier this time around.&lt;/p&gt;
-</description>
-        <pubDate>Sat, 01 Dec 2018 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2018-12-01:/blog/2018/12/01/ReviewHeartsInvisibleFuries.html</guid>
     </item>
         </channel>
 </rss>

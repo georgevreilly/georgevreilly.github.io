@@ -29,6 +29,43 @@
     
         <article>
     <header>
+        <time datetime="2023-08-10">2023-08-10</time>
+        <h1>
+            <a href="/blog/2023/08/10/PatchingAPythonWheel.html" rel="bookmark canonical">Patching a Python Wheel</a>
+        </h1>
+    </header>
+    <p>Recently, I had to create a new <a class="reference external" href="https://realpython.com/python-wheels/">Python wheel</a> for <a class="reference external" href="https://pytorch.org/">PyTorch</a>.
+There is a <a class="reference external" href="https://github.com/pytorch/pytorch/issues/99622">cyclic dependency</a> between PyTorch 2.0.1 and Triton 2.0.0.
+<a class="reference external" href="https://pip.pypa.io/en/latest/">Pip</a> is okay with a cyclic dependency.
+<a class="reference external" href="https://bazel.build/">Bazel</a>, however, <a class="reference external" href="https://github.com/bazelbuild/rules_python/issues/1076">does not handle</a> cyclic de&shy;pen&shy;den&shy;cies between&nbsp;packages.</p>
+<p>I spent a few days trying to build the PyTorch wheel from source.
+It was a <em>nightmare!</em>
+I ran out of disk space on the root partition on my <span class="caps">EC2</span> devbox
+trying to install system packages,
+so I had to bring up a custom instance.
+Then I ran out of space on the main partition,
+trying to compile,
+so I had to bring up another custom instance.
+Then I realized I had installed <span class="caps">CUDA</span> 12.1
+and <span>&#8230;<a href="/blog/2023/08/10/PatchingAPythonWheel.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2023/08/10/PatchingAPythonWheel.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2023-08-07">2023-08-07</time>
         <h1>
             <a href="/blog/2023/08/07/BramMoolenaarRIP.html" rel="bookmark canonical">Bram Moolenaar RIP</a>
@@ -400,47 +437,6 @@ becomes the first <em>input</em> of the <tt class="docutils literal">diff</tt> c
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2022-01-31">2022-01-31</time>
-        <h1>
-            <a href="/blog/2022/01/31/40YearsOfProgramming.html" rel="bookmark canonical">40 Years of Programming</a>
-        </h1>
-    </header>
-    <p>40 years ago this month,
-I sat down at a computer and wrote a program.
-(Or &quot;programme&quot;, as I spelled it then.)
-It was the first time I had ever used a computer.
-Very few people had used computers in 1982,
-in Ireland or&nbsp;elsewhere.</p>
-<p>What was the program?
-No idea.
-Just a few lines of AppleSoft Basic.
-But it was enough to get me hooked and change my&nbsp;life.</p>
-<p>I still get a hit when a little bit of code unlocks in my brain.
-It&#8217;s quite addictive.
-There&#8217;s always more to learn and to&nbsp;see.</p>
-<p>I wrote more about this in 2012: <a class="reference external" href="/blog/2012/01/26/30YearsOfProgramming.html">30 Years of Pro&shy;gram&shy;ming</a>.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2022/01/31/40YearsOfProgramming.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/personal/" rel="tag">personal</a>
-                    and
-                    
-                <a href="/tag/programming/" rel="tag">programming</a>
                 
             </p>
         

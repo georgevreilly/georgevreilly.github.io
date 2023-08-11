@@ -29,6 +29,67 @@
     
         <article>
     <header>
+        <time datetime="2015-12-21">2015-12-21</time>
+        <h1>
+            <a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" rel="bookmark canonical">Including Data Files in Python Packages</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://www.metabrite.com/devblog/posts/including-data-files-in-python-packages/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>I spent some time today struggling with <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/">setuptools</a>,
+trying to make a Python source package
+not only include a data file,
+but also <em>install</em> that file.</p>
+<div class="section" id="building-the-installer">
+<h2>Building the installer</h2>
+<p>Consider the following source tree layout:</p>
+<pre class="literal-block">
+├── MANIFEST.in
+├── README.md
+├── my_stuff/
+│&nbsp;&nbsp; ├── bar.py
+│&nbsp;&nbsp; ├── foo.py
+│&nbsp;&nbsp; ├── __init__.py
+│&nbsp;&nbsp; └── quux.py
+├── models/
+│   └── long_ugly_name_20151221.json
+└── setup.py*
+</pre>
+<p>I wanted to create a Python source dis&shy;tri&shy;b&shy;u&shy;tion, <tt class="docutils literal"><span class="pre">some_&shy;pack&shy;age-N.N.N.tar.gz</span></tt>,
+which contains the code in the <tt class="docutils literal">my_stuff</tt> directory,
+as well as <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>,
+using <tt class="docutils literal">python setup.py sdist</tt>.</p>
+<p>It's not that hard to get <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>
+included in the tarball.
+Add an entry in <tt class="docutils literal">MANIFEST.in</tt>:</p>
+<pre class="literal-block">
+include models/*.json
+</pre>
+<p>Then be sure to set <tt class="docutils literal">in&shy;clude_&shy;pack&shy;age_&shy;da&shy;ta=True</tt>
+in the call to <tt class="docutils literal">setup()</tt>:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">setuptools</span> </pre><span>&#8230;<a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" class="continue">continue</a>.</span></div>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-12-15">2015-12-15</time>
         <h1>
             <a href="/blog/2015/12/15/PythonFStrings.html" rel="bookmark canonical">Python f-strings</a>
@@ -397,32 +458,6 @@ which brought <span>&#8230;<a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYou
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2010-04-04">2010-04-04</time>
-        <h1>
-            <a href="/blog/2010/04/04/SQLAlchemySharding.html" rel="bookmark canonical">SQLAlchemy Sharding</a>
-        </h1>
-    </header>
-    
-<p>I wrote up some lessons that I learned about
-<a class="reference external" href="http://blogs.cozi.com/tech/2010/04/sqlalchemy-sharding.html">SQLAlchemy Sharding</a>
-at the Cozi Tech Blog.</p>
-
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
                 
             </p>
         

@@ -29,6 +29,46 @@
     
         <article>
     <header>
+        <time datetime="2016-02-16">2016-02-16</time>
+        <h1>
+            <a href="/blog/2016/02/16/SortingPythonDictionariesByValue.html" rel="bookmark canonical">Sorting Python Dictionaries by Value</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>I needed to sort a Python dictionary by <em>value</em> today, rather than by <em>key</em>.
+I found it confusing, so I'll share what I learned.</p>
+<p>Assume the following dictionary, where each value is a tuple of (ID, score).
+How do we sort by score; i.e., the second item in the value tuple?
+(For the purposes of this discussion, ignore the meaning of the dic&shy;tio&shy;nary's key.)</p>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="n">some_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">),</span> <span class="n">b</span><span class="o">=</span><span class="p">(</span><span class="mi">372</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">e</span><span class="o">=</span><span class="p">(</span><span class="mi">456</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">),</span> <span class="n">d</span><span class="o">=</span><span class="p">(</span><span class="mi">148</span><span class="p">,</span> <span class="mf">0.23</span><span class="p">),</span> <span class="n">c</span><span class="o">=</span><span class="p">(</span><span class="mi">502</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">some_dict</span>
+<span class="go">{'a': (123, 0.7), 'c': (502, 0.1), 'b': (372, 0.2), 'e': (456, 0.85), 'd': (148, 0.23)}</span>
+</pre>
+<p>Python dic&shy;tio&shy;nar&shy;ies are inherently unsorted,
+unless you <span>&#8230;<a href="/blog/2016/02/16/SortingPythonDictionariesByValue.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-24">2016-01-24</time>
         <h1>
             <a href="/blog/2016/01/24/NoseTestDiscovery.html" rel="bookmark canonical">Nose Test Discovery</a>
@@ -390,67 +430,6 @@ v=[int(x) </span></pre><span>&#8230;<a href="/blog/2015/12/23/ParseMinVerBash.ht
             <p>tagged as
                 <a href="/tag/bash/" rel="tag">bash</a>,
                 <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-21">2015-12-21</time>
-        <h1>
-            <a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" rel="bookmark canonical">Including Data Files in Python Packages</a>
-        </h1>
-    </header>
-    <p></p>
-<blockquote>
-[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://www.metabrite.com/devblog/posts/including-data-files-in-python-packages/">MetaBrite Dev Blog</a>.]</blockquote>
-<p>I spent some time today struggling with <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/">setuptools</a>,
-trying to make a Python source package
-not only include a data file,
-but also <em>install</em> that file.</p>
-<div class="section" id="building-the-installer">
-<h2>Building the installer</h2>
-<p>Consider the following source tree layout:</p>
-<pre class="literal-block">
-├── MANIFEST.in
-├── README.md
-├── my_stuff/
-│&nbsp;&nbsp; ├── bar.py
-│&nbsp;&nbsp; ├── foo.py
-│&nbsp;&nbsp; ├── __init__.py
-│&nbsp;&nbsp; └── quux.py
-├── models/
-│   └── long_ugly_name_20151221.json
-└── setup.py*
-</pre>
-<p>I wanted to create a Python source dis&shy;tri&shy;b&shy;u&shy;tion, <tt class="docutils literal"><span class="pre">some_&shy;pack&shy;age-N.N.N.tar.gz</span></tt>,
-which contains the code in the <tt class="docutils literal">my_stuff</tt> directory,
-as well as <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>,
-using <tt class="docutils literal">python setup.py sdist</tt>.</p>
-<p>It's not that hard to get <tt class="docutils literal">models/long_ug&shy;ly_&shy;name_20151221.json</tt>
-included in the tarball.
-Add an entry in <tt class="docutils literal">MANIFEST.in</tt>:</p>
-<pre class="literal-block">
-include models/*.json
-</pre>
-<p>Then be sure to set <tt class="docutils literal">in&shy;clude_&shy;pack&shy;age_&shy;da&shy;ta=True</tt>
-in the call to <tt class="docutils literal">setup()</tt>:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">setuptools</span> </pre><span>&#8230;<a href="/blog/2015/12/21/IncludingDataFilesInPythonPackages.html" class="continue">continue</a>.</span></div>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>,
-                <a href="/tag/metabrite/" rel="tag">metabrite</a>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>

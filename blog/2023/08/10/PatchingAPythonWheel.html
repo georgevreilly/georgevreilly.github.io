@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Patching a Python Wheel</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content="Recently, I had to create a new `Python wheel`_ fo..." />
+    <meta name="keywords" content="python" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2023-08-10">2023-08-10</time>
+        <h1>
+            <a href="/blog/2023/08/10/PatchingAPythonWheel.html" rel="bookmark canonical">Patching a Python Wheel</a>
+        </h1>
+    </header>
+    <p>Recently, I had to create a new <a class="reference external" href="https://realpython.com/python-wheels/">Python wheel</a> for <a class="reference external" href="https://pytorch.org/">PyTorch</a>.
+There is a <a class="reference external" href="https://github.com/pytorch/pytorch/issues/99622">cyclic dependency</a> between PyTorch 2.0.1 and Triton 2.0.0.
+<a class="reference external" href="https://pip.pypa.io/en/latest/">Pip</a> is okay with a cyclic dependency.
+<a class="reference external" href="https://bazel.build/">Bazel</a>, however, <a class="reference external" href="https://github.com/bazelbuild/rules_python/issues/1076">does not handle</a> cyclic de&shy;pen&shy;den&shy;cies between&nbsp;packages.</p>
+<p>I spent a few days trying to build the PyTorch wheel from source.
+It was a <em>nightmare!</em>
+I ran out of disk space on the root partition on my <span class="caps">EC2</span> devbox
+trying to install system packages,
+so I had to bring up a custom instance.
+Then I ran out of space on the main partition,
+trying to compile,
+so I had to bring up another custom instance.
+Then I realized I had installed <span class="caps">CUDA</span> 12.1
+and couldn&#8217;t install <span class="caps">CUDA</span> 11.8 over it,
+so yet another instance.
+Then a long list of other problems.
+I was eventually able to get <tt class="docutils literal">python setup.py develop</tt> to execute,
+but it took three hours!
+And I had little confidence that I was building the same thing
+that was in the official&nbsp;wheels.</p>
+<p>Then I had a brainwave:
+what if I <a class="reference external" href="https://en.wikipedia.org/wiki/Patch_(computing)">patch</a> the official wheel and simply remove the re&shy;quire&shy;ment on Triton?
+All the officially built code will remain untouched.
+That&nbsp;worked!</p>
+<p>This post is adapted from my <a class="reference external" href="https://github.com/pytorch/pytorch/issues/99622#issuecomment-1604812054">writeup on the issue</a>.</p>
+<div class="section" id="what-is-a-wheel">
+<h2>What is a&nbsp;Wheel?</h2>
+<p>A Python <a class="reference external" href="https://packaging.python.org/en/latest/specifications/binary-distribution-format/">wheel</a> is a ready-to-install Python package
+that requires no com&shy;pi&shy;la&shy;tion at in&shy;stal&shy;la&shy;tion time.
+Unlike older formats such as source dis&shy;tri&shy;b&shy;u&shy;tions or eggs,
+<tt class="docutils literal">setup.py</tt> is not run during in&shy;stal&shy;la&shy;tion from a wheel.
+The older formats conflated build and install
+and required arbitrary code to&nbsp;run.</p>
+<p>A wheel is a <a class="reference external" href="https://en.wikipedia.org/wiki/ZIP_(file_format)">Zip archive</a> with a specially formatted filename
+and a <tt class="docutils literal">.whl</tt> extension.
+The wheel contains a <tt class="docutils literal"><span class="pre">dist-info</span></tt> metadata directory
+and the in&shy;stal&shy;lable payload.
+A wheel is either pure Python,
+which can install on any platform,
+or a platform (binary) wheel,
+which usually contains compiled Python extension&nbsp;code.</p>
+<p>Java JARs, Android APKs, Mozilla XPIs, and many other file types
+are also structured Zip&nbsp;archives.</p>
+</div>
+<div class="section" id="manual-patching">
+<h2>Manual&nbsp;Patching</h2>
+<p>The wheel file&#8217;s <a class="reference external" href="https://packaging.python.org/en/latest/specifications/binary-distribution-format/#file-contents">contents</a> include the
+<tt class="docutils literal"><span class="pre">{dis&shy;tri&shy;b&shy;u&shy;tion}-{version}.dist-info/</span></tt> directory,
+which contains metadata about the&nbsp;wheel.</p>
+<p>In the case of PyTorch 2.0.1,
+I had <tt class="docutils literal"><span class="pre">torch-2.0.1-cp38-cp38-manylin&shy;ux1_x86_64.whl</span></tt>,
+a Linux <tt class="docutils literal">x86_64</tt> wheel for Python&nbsp;3.8.</p>
+<p>I used <tt class="docutils literal">unzip</tt> to extract the wheel&#8217;s contents into a directory, <tt class="docutils literal">torch201.2</tt>.
+(The <tt class="docutils literal">.2</tt> denoted my second attempt.)
+In the <tt class="docutils literal">torch201.2</tt> directory was the entire content of the wheel,
+including the <tt class="docutils literal"><span class="pre">torch-2.0.1.dist-info/</span></tt> sub&shy;di&shy;rec&shy;to&shy;ry.</p>
+<pre class="code bash literal-block">
+unzip -d torch201.2 torch-2.0.1-cp38-cp38-manylinux1_x86_64.whl
+<span class="nb">cd</span> torch201.2
+
+<span class="c1"># Rename the `dist-info` directory to include '+stripe.2' as a suffix for `2.0.1`
+</span>mv torch-2.0.1<span class="o">{</span>,+stripe.2<span class="o">}</span>.dist-info/
+<span class="nb">cd</span> torch-2.0.1+stripe.2.dist-info/
+</pre>
+<p>Normally, when we build wheels for forked version of Python packages at Stripe,
+we append <tt class="docutils literal"><span class="pre">+stripe.{major}.{commits}.{revision}</span></tt> to the version number.
+Both <tt class="docutils literal">commits</tt> and <tt class="docutils literal">revision</tt> come from
+the output of <tt class="docutils literal">git describe <span class="pre">--tags</span> <span class="caps">HEAD</span></tt>,
+which <a class="reference external" href="https://git-scm.com/docs/git-describe#_examples">looks like</a> <tt class="docutils literal"><span class="pre">{tag}-{commits}-g{re&shy;vi&shy;sion}</span></tt>;
+<tt class="docutils literal">major</tt> is currently hardcoded to <tt class="docutils literal">1</tt>.
+This suffix helps dis&shy;tin&shy;guish a forked wheel&#8217;s version
+from the upstream version&nbsp;number.</p>
+<p>Since I wasn&#8217;t forking, I used a simplified scheme,
+<tt class="docutils literal"><span class="pre">+stripe.{attempt}</span></tt>.</p>
+<p>Then I updated some <a class="reference external" href="https://packaging.python.org/en/latest/specifications/core-metadata/">fields</a> in <tt class="docutils literal"><span class="pre">torch-2.0.1+stripe.2.dist-info/<span class="caps">METADATA</span></span></tt>:</p>
+<ul class="simple">
+<li>Updated <tt class="docutils literal">Version</tt> to include <tt class="docutils literal">+stripe.2</tt></li>
+<li>Removed the <tt class="docutils literal"><span class="pre">Requires-Dist</span></tt> line for <tt class="docutils literal">triton</tt>.
+This is the crucial step to fix the cyclic dependency&nbsp;problem.</li>
+</ul>
+<p>Now I had to update <tt class="docutils literal"><span class="pre">torch-2.0.1+stripe.2.dist-info/<span class="caps">RECORD</span></span></tt>,
+which contains signatures for all the files in the wheel,
+in the form <tt class="docutils literal"><span class="pre">{filename},sha256={safe_hash},{filesize}</span></tt>.
+Of course, <tt class="docutils literal"><span class="caps">RECORD</span></tt> does not have an entry for&nbsp;itself.</p>
+<p>The paths to all the <tt class="docutils literal"><span class="pre">dist-info</span></tt> files needed to be updated in <tt class="docutils literal"><span class="caps">RECORD</span></tt>
+to include the <tt class="docutils literal">+stripe.2</tt> suffix.</p>
+<p>In Vim&nbsp;terms:</p>
+<pre class="code vim literal-block">
+<span class="p">:</span>%s<span class="sr">/^\(torch-2.0.1\)\(\.dist-info\)/</span>\<span class="m">1</span><span class="p">+</span>stripe.<span class="m">2</span>\<span class="m">2</span>/
+</pre>
+<p>You can use this <tt class="docutils literal">record_hash.py</tt> script to compute the entry for a&nbsp;file:</p>
+<pre class="code python literal-block">
+<span class="ch">#!/usr/bin/env python3</span>
+
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">filename</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">digest</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="n">safe_hash</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">urlsafe_b64encode</span><span class="p">(</span><span class="n">digest</span><span class="o">.</span><span class="n">digest</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;us-ascii&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">,sha256=</span><span class="si">{</span><span class="n">safe_hash</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre>
+<p>The output will look like&nbsp;this:</p>
+<pre class="code bash literal-block">
+$ ../record_hash.py torch-2.0.1+stripe.2.dist-info/METADATA
+torch-2.0.1+stripe.2.dist-info/METADATA,sha256<span class="o">=</span>StmZkVzCWlHIxaIGVJocXv7JsDnlrSaNXwtuIlE_PKc,24703
+</pre>
+<p>Replace the <tt class="docutils literal"><span class="caps">METADATA</span></tt> entry in <tt class="docutils literal"><span class="caps">RECORD</span></tt> with the output from <tt class="docutils literal">record_hash.py</tt>.</p>
+<p>Finally, you can <tt class="docutils literal">zip</tt> up everything into a new wheel.
+Note the <tt class="docutils literal">+stripe.2</tt> in the new wheel&#8217;s&nbsp;filename:</p>
+<pre class="literal-block">
+zip ../torch-2.0.1+stripe.2-cp38-cp38-manylinux1_x86_64.whl -r .
+</pre>
+<p>At this point, you can upload the wheel to a private&nbsp;repository.</p>
+<p>To install the&nbsp;wheel:</p>
+<pre class="literal-block">
+pip install torch==2.0.1+stripe.2
+</pre>
+<p>You will not see <tt class="docutils literal">triton</tt> being installed, unlike before.
+However, if you do install <tt class="docutils literal">triton</tt>,
+it will be satisfied by this patched version of <tt class="docutils literal">torch</tt>.</p>
+</div>
+<div class="section" id="summary">
+<h2>Summary</h2>
+<p>If you have to manually patch a Python&nbsp;wheel:</p>
+<ul class="simple">
+<li>Decide upon a suffix, such as <tt class="docutils literal">+stripe.2</tt>.</li>
+<li>Unzip the&nbsp;wheel.</li>
+<li>Rename the <tt class="docutils literal"><span class="pre">dist-info</span></tt> directory to include the&nbsp;suffix.</li>
+<li>Update <tt class="docutils literal">Version</tt> in <tt class="docutils literal"><span class="caps">METADATA</span></tt> to include the&nbsp;suffix.</li>
+<li><strong>Make other&nbsp;mod&shy;i&shy;fi&shy;ca&shy;tions.</strong></li>
+<li>Append the suffix to the <tt class="docutils literal"><span class="pre">dist-info</span></tt> entries in <tt class="docutils literal"><span class="caps">RECORD</span></tt>.</li>
+<li>Use <tt class="docutils literal">record_hash.py</tt> to compute new entries for all modified files.
+Update <tt class="docutils literal"><span class="caps">RECORD</span></tt> ac&shy;cord&shy;ing&shy;ly.</li>
+<li>Zip up the new wheel. Include the suffix in the&nbsp;filename.</li>
+<li><tt class="docutils literal">pip install</tt> the new&nbsp;wheel.</li>
+</ul>
+</div>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "https://www.georgevreilly.com/blog/2023/08/10/PatchingAPythonWheel.html";
+            var disqus_url = "https://www.georgevreilly.com/blog/2023/08/10/PatchingAPythonWheel.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="https://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+
+
+    
+    
+        <a href="/blog/2023/08/07/BramMoolenaarRIP.html" class="page floatright">
+        Bram Moolenaar RIP &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

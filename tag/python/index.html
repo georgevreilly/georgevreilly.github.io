@@ -29,6 +29,40 @@
     
         <article>
     <header>
+        <time datetime="2023-08-10">2023-08-10</time>
+        <h1>
+            <a href="/blog/2023/08/10/PatchingAPythonWheel.html" rel="bookmark canonical">Patching a Python Wheel</a>
+        </h1>
+    </header>
+    <p>Recently, I had to create a new <a class="reference external" href="https://realpython.com/python-wheels/">Python wheel</a> for <a class="reference external" href="https://pytorch.org/">PyTorch</a>.
+There is a <a class="reference external" href="https://github.com/pytorch/pytorch/issues/99622">cyclic dependency</a> between PyTorch 2.0.1 and Triton 2.0.0.
+<a class="reference external" href="https://pip.pypa.io/en/latest/">Pip</a> is okay with a cyclic dependency.
+<a class="reference external" href="https://bazel.build/">Bazel</a>, however, <a class="reference external" href="https://github.com/bazelbuild/rules_python/issues/1076">does not handle</a> cyclic de&shy;pen&shy;den&shy;cies between packages.</p>
+<p>I spent a few days trying to build the PyTorch wheel from source.
+It was a <em>nightmare!</em>
+I ran out of disk space on the root partition on my EC2 devbox
+trying to install system packages,
+so I had to bring up a custom instance.
+Then I ran out of space on the main partition,
+trying to compile,
+so I had to bring up another custom instance.
+Then I realized I had installed CUDA <span>&#8230;<a href="/blog/2023/08/10/PatchingAPythonWheel.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2022-12-19">2022-12-19</time>
         <h1>
             <a href="/blog/2022/12/19/BackwardsRangesInPython.html" rel="bookmark canonical">Backwards Ranges in Python</a>
@@ -435,36 +469,6 @@ I'll learn on Monday if I won the speed challenge.</p>
         
         
             <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-05-29">2016-05-29</time>
-        <h1>
-            <a href="/blog/2016/05/29/FlyingCloudDocumentationUpdates.html" rel="bookmark canonical">FlyingCloud Documentation Updates</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://flyingcloud.readthedocs.io/"></a>
-<p>I made a number of updates to the <a class="reference external" href="http://flyingcloud.readthedocs.io/">Fly&shy;ing&shy;Cloud Doc&shy;u&shy;men&shy;ta&shy;tion</a> tonight.
-I hope to give a lightning talk about Fly&shy;ing&shy;Cloud
-at PyCon on Monday evening or Tuesday morning,
-and I put together some slides for that too.</p>
-
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/docker/" rel="tag">docker</a>
-                    and
-                    
                 <a href="/tag/python/" rel="tag">python</a>
                 
             </p>
