@@ -11,13 +11,13 @@
     <link rel="self" type="application/atom+xml" href="https://www.georgevreilly.com/atom/" />
     <icon>https://www.georgevreilly.com/favicon.ico</icon>
     <logo>https://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2023-08-11T05:43:27Z</updated>
+    <updated>2023-08-10T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.8.dev0">acrylamid</generator>
         <entry>
         <title>Patching a Python Wheel</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/08/10/PatchingAPythonWheel.html" />
         <id>tag:www.georgevreilly.com,2023-08-10:/blog/2023/08/10/PatchingAPythonWheel.html</id>
-        <updated>2023-08-11T05:43:27Z</updated>
+        <updated>2023-08-10T07:00:00Z</updated>
         <category term="python" />
         
         <author>
@@ -26,9 +26,12 @@
             <email>george@reilly.org</email>
         </author>
         <content type="html">&lt;p&gt;Recently, I had to create a new &lt;a class=&#34;reference external&#34; href=&#34;https://realpython.com/python-wheels/&#34;&gt;Python wheel&lt;/a&gt; for &lt;a class=&#34;reference external&#34; href=&#34;https://pytorch.org/&#34;&gt;PyTorch&lt;/a&gt;.
-There is a &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/pytorch/pytorch/issues/99622&#34;&gt;cyclic dependency&lt;/a&gt; between PyTorch 2.0.1 and Triton 2.0.0.
-&lt;a class=&#34;reference external&#34; href=&#34;https://pip.pypa.io/en/latest/&#34;&gt;Pip&lt;/a&gt; is okay with a cyclic dependency.
-&lt;a class=&#34;reference external&#34; href=&#34;https://bazel.build/&#34;&gt;Bazel&lt;/a&gt;, however, &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/bazelbuild/rules_python/issues/1076&#34;&gt;does not handle&lt;/a&gt; cyclic dependencies between packages.&lt;/p&gt;
+There is a &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/pytorch/pytorch/issues/99622&#34;&gt;cyclic dependency&lt;/a&gt; between PyTorch 2.0.1 and Triton 2.0.0:
+Torch depends upon Triton, but Triton also depends on Torch.
+&lt;a class=&#34;reference external&#34; href=&#34;https://pip.pypa.io/en/latest/&#34;&gt;Pip&lt;/a&gt; is okay with installing packages where there&#39;s a cyclic dependency.
+&lt;a class=&#34;reference external&#34; href=&#34;https://bazel.build/&#34;&gt;Bazel&lt;/a&gt;, however, &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/bazelbuild/rules_python/issues/1076&#34;&gt;does not handle&lt;/a&gt; cyclic dependencies between packages.
+We use Bazel extensively at Stripe
+and this cyclic dependency prevented us from using the latest version of Torch.&lt;/p&gt;
 &lt;p&gt;I spent a few days trying to build the PyTorch wheel from source.
 It was a &lt;em&gt;nightmare!&lt;/em&gt;
 I ran out of disk space on the root partition on my EC2 devbox
@@ -46,8 +49,8 @@ but it took three hours!
 And I had little confidence that I was building the same thing
 that was in the official wheels.&lt;/p&gt;
 &lt;p&gt;Then I had a brainwave:
-what if I &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Patch_(computing)&#34;&gt;patch&lt;/a&gt; the official wheel and simply remove the requirement on Triton?
-All the officially built code will remain untouched.
+what if I &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Patch_(computing)&#34;&gt;patch&lt;/a&gt; the official Torch wheel and simply remove the requirement on Triton?
+All the officially built code would remain untouched.
 That worked!&lt;/p&gt;
 &lt;p&gt;This post is adapted from my &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/pytorch/pytorch/issues/99622#issuecomment-1604812054&#34;&gt;writeup on the issue&lt;/a&gt;.&lt;/p&gt;
 &lt;div class=&#34;section&#34; id=&#34;what-is-a-wheel&#34;&gt;

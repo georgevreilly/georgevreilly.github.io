@@ -37,9 +37,12 @@
         </h1>
     </header>
     <p>Recently, I had to create a new <a class="reference external" href="https://realpython.com/python-wheels/">Python wheel</a> for <a class="reference external" href="https://pytorch.org/">PyTorch</a>.
-There is a <a class="reference external" href="https://github.com/pytorch/pytorch/issues/99622">cyclic dependency</a> between PyTorch 2.0.1 and Triton 2.0.0.
-<a class="reference external" href="https://pip.pypa.io/en/latest/">Pip</a> is okay with a cyclic dependency.
-<a class="reference external" href="https://bazel.build/">Bazel</a>, however, <a class="reference external" href="https://github.com/bazelbuild/rules_python/issues/1076">does not handle</a> cyclic de&shy;pen&shy;den&shy;cies between&nbsp;packages.</p>
+There is a <a class="reference external" href="https://github.com/pytorch/pytorch/issues/99622">cyclic dependency</a> between PyTorch 2.0.1 and Triton 2.0.0:
+Torch depends upon Triton, but Triton also depends on Torch.
+<a class="reference external" href="https://pip.pypa.io/en/latest/">Pip</a> is okay with installing packages where there&#8217;s a cyclic dependency.
+<a class="reference external" href="https://bazel.build/">Bazel</a>, however, <a class="reference external" href="https://github.com/bazelbuild/rules_python/issues/1076">does not handle</a> cyclic de&shy;pen&shy;den&shy;cies between packages.
+We use Bazel ex&shy;ten&shy;sive&shy;ly at Stripe
+and this cyclic dependency prevented us from using the latest version of&nbsp;Torch.</p>
 <p>I spent a few days trying to build the PyTorch wheel from source.
 It was a <em>nightmare!</em>
 I ran out of disk space on the root partition on my <span class="caps">EC2</span> devbox
@@ -57,8 +60,8 @@ but it took three hours!
 And I had little confidence that I was building the same thing
 that was in the official&nbsp;wheels.</p>
 <p>Then I had a brainwave:
-what if I <a class="reference external" href="https://en.wikipedia.org/wiki/Patch_(computing)">patch</a> the official wheel and simply remove the re&shy;quire&shy;ment on Triton?
-All the officially built code will remain untouched.
+what if I <a class="reference external" href="https://en.wikipedia.org/wiki/Patch_(computing)">patch</a> the official Torch wheel and simply remove the re&shy;quire&shy;ment on Triton?
+All the officially built code would remain untouched.
 That&nbsp;worked!</p>
 <p>This post is adapted from my <a class="reference external" href="https://github.com/pytorch/pytorch/issues/99622#issuecomment-1604812054">writeup on the issue</a>.</p>
 <div class="section" id="what-is-a-wheel">

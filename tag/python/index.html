@@ -35,18 +35,17 @@
         </h1>
     </header>
     <p>Recently, I had to create a new <a class="reference external" href="https://realpython.com/python-wheels/">Python wheel</a> for <a class="reference external" href="https://pytorch.org/">PyTorch</a>.
-There is a <a class="reference external" href="https://github.com/pytorch/pytorch/issues/99622">cyclic dependency</a> between PyTorch 2.0.1 and Triton 2.0.0.
-<a class="reference external" href="https://pip.pypa.io/en/latest/">Pip</a> is okay with a cyclic dependency.
-<a class="reference external" href="https://bazel.build/">Bazel</a>, however, <a class="reference external" href="https://github.com/bazelbuild/rules_python/issues/1076">does not handle</a> cyclic de&shy;pen&shy;den&shy;cies between packages.</p>
+There is a <a class="reference external" href="https://github.com/pytorch/pytorch/issues/99622">cyclic dependency</a> between PyTorch 2.0.1 and Triton 2.0.0:
+Torch depends upon Triton, but Triton also depends on Torch.
+<a class="reference external" href="https://pip.pypa.io/en/latest/">Pip</a> is okay with installing packages where there's a cyclic dependency.
+<a class="reference external" href="https://bazel.build/">Bazel</a>, however, <a class="reference external" href="https://github.com/bazelbuild/rules_python/issues/1076">does not handle</a> cyclic de&shy;pen&shy;den&shy;cies between packages.
+We use Bazel ex&shy;ten&shy;sive&shy;ly at Stripe
+and this cyclic dependency prevented us from using the latest version of Torch.</p>
 <p>I spent a few days trying to build the PyTorch wheel from source.
 It was a <em>nightmare!</em>
 I ran out of disk space on the root partition on my EC2 devbox
 trying to install system packages,
-so I had to bring up a custom instance.
-Then I ran out of space on the main partition,
-trying to compile,
-so I had to bring up another custom instance.
-Then I realized I had installed CUDA <span>&#8230;<a href="/blog/2023/08/10/PatchingAPythonWheel.html" class="continue">continue</a>.</span></p>
+so I had to <span>&#8230;<a href="/blog/2023/08/10/PatchingAPythonWheel.html" class="continue">continue</a>.</span></p>
     <footer>
         
         
