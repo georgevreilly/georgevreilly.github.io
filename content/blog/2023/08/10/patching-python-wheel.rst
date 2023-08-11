@@ -6,9 +6,12 @@ tags: [python]
 ---
 
 Recently, I had to create a new `Python wheel`_ for PyTorch_.
-There is a `cyclic dependency`_ between PyTorch 2.0.1 and Triton 2.0.0.
-Pip_ is okay with a cyclic dependency.
+There is a `cyclic dependency`_ between PyTorch 2.0.1 and Triton 2.0.0:
+Torch depends upon Triton, but Triton also depends on Torch.
+Pip_ is okay with installing packages where there's a cyclic dependency.
 Bazel_, however, `does not handle`_ cyclic dependencies between packages.
+We use Bazel extensively at Stripe
+and this cyclic dependency prevented us from using the latest version of Torch.
 
 I spent a few days trying to build the PyTorch wheel from source.
 It was a *nightmare!*
@@ -28,8 +31,8 @@ And I had little confidence that I was building the same thing
 that was in the official wheels.
 
 Then I had a brainwave:
-what if I patch_ the official wheel and simply remove the requirement on Triton?
-All the officially built code will remain untouched.
+what if I patch_ the official Torch wheel and simply remove the requirement on Triton?
+All the officially built code would remain untouched.
 That worked!
 
 This post is adapted from my `writeup on the issue`_.
