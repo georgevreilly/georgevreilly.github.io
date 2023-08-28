@@ -117,16 +117,17 @@ These constraints narrow the possible choices from the word list.
 Prototyping with Pipes
 ----------------------
 
-Let's prototype the above with a Unix pipeline tailored to this example:
+Let's prototype the above with a series of ``grep``\ s
+in a Unix pipeline tailored to this example:
 
 .. code-block:: bash
 
     grep '^.....$' /usr/share/dict/words    `# Five-letter words`       \
         | tr '[a-z]' '[A-Z]'                `# Translate to uppercase`  \
         | grep '.AR.Y'                      `# Match CORRECT positions` \
-        | grep '[ARY]'                      `# Match VALID set`         \
+        | grep 'A' | grep 'R' | grep 'Y'    `# Match VALID set`         \
         | grep -v '[ISKCZWEM]'              `# Exclude INVALID set`     \
-        | grep '[^R][^R][^A][^R].'          `# Exclude PRESENT chars`   \
+        | grep '[^R][^R][^A][^R][A-Z]'      `# Exclude PRESENT chars`   \
         | rs                                `# BSD reshape lines to columns`
 
 gives (on macOS 13.4)::
@@ -134,14 +135,18 @@ gives (on macOS 13.4)::
     BARDY  DARBY  HARDY  LARDY  PARTY  VARDY  YARLY
     BARNY  GARDY  HARPY  PARLY  TARDY  YARAY
 
-On Ubuntu, I had to install the `rs`_ and `wamerican`_ system packages first.
+I used ``rs`` to make the output more compact, but it can be omitted.
+I got some annoying ``command not found`` warnings from Zsh
+about the back-ticked comments.
+On Ubuntu, I had to install the
+`rs`_ and `wamerican`_ (for ``/usr/share/dict/words``) packages first.
 
 .. _rs:
     https://packages.ubuntu.com/focal/rs
 .. _wamerican:
     https://packages.ubuntu.com/focal/wamerican
 
-This is promising.
+This is promising, but not maintainable.
 
 .. Sticking the stylesheet at the end out of the way
 .. raw:: html
