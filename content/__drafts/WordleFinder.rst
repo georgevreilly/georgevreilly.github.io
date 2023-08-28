@@ -49,16 +49,16 @@ The ``GUESS=SCORE`` notation is intended to be clear
 and easier to write than Greens and Yellows.
 Example: For ``CRAZY=.ra.Y``:
 
-* the ``Y`` is in the correct position (i.e., green 🟩),
-* the ``r`` and ``a`` are present somewhere in the answer,
-  but they are in the wrong positions (yellow 🟨),
-* and ``C`` and ``Z`` are absent from the answer (black ⬛ / white ⬜).
-
 .. raw:: html
 
     <table class='wordle'>
       <tr><td class="absent" >C</td> <td class="present">R</td> <td class="present">A</td> <td class="absent" >Z</td> <td class="correct">Y</td></tr>
     </table>
+
+* the ``Y`` is in the correct position (i.e., green 🟩),
+* the ``r`` and ``a`` are present somewhere in the answer,
+  but they are in the wrong positions (yellow 🟨),
+* and ``C`` and ``Z`` are absent from the answer (black ⬛ / white ⬜).
 
 
 Deductions
@@ -67,15 +67,16 @@ Deductions
 What can we deduce from the first four rows of guesses,
 ``RISKY=r...Y CRAZY=.ra.Y WEARY=..arY MARRY=.AR.Y``?
 
-There is a set of *valid* letters that are
-either *present* (yellow) or *correct* (green):
-``Y``, ``A``, and ``R``.
+There is a set of *valid* letters,
+``Y``, ``A``, and ``R``,
+that are either *present* (yellow 🟨) or *correct* (green 🟩):
 The ``Y`` is correct from the first time it appears.
-The ``A``, and ``R`` are initially present,
+The ``A`` and ``R`` are initially present,
 but later find their correct position.
 
-There is a set of *invalid* letters that are known to be *absent* (black):
-``I``, ``S``, ``K``, ``C``, ``Z``, ``W``, ``E``, or ``M``.
+There is a set of *invalid* letters that are
+known to be *absent* from the answer (black ⬛):
+``I``, ``S``, ``K``, ``C``, ``Z``, ``W``, ``E``, and ``M``.
 
 The remaining letters of the alphabet are currently *unknown*.
 If they are played, they will turn into *valid* or *invalid* letters.
@@ -88,10 +89,10 @@ while the *present* letters are in the wrong positions.
 
 A candidate word *must*:
 
-- *include all* of the *valid letters*
-- *exclude all* of the *invalid letters*
-- *match all *of the *correct positions*
-- *not match any* of the *present positions*
+1. include all valid letters
+2. exclude all invalid letters
+3. match all correct positions
+4. not match any ‘present’ positions
 
 These constraints narrow the possible choices from the word list.
 
