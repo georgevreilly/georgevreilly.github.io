@@ -124,25 +124,35 @@ in a Unix pipeline tailored to this example:
 
     grep '^.....$' /usr/share/dict/words    `# Five-letter words`       \
         | tr '[a-z]' '[A-Z]'                `# Translate to uppercase`  \
-        | grep '.AR.Y'                      `# Match CORRECT positions` \
-        | grep 'A' | grep 'R' | grep 'Y'    `# Match VALID set`         \
+        | grep '^.AR.Y$'                    `# Match CORRECT positions` \
+        | awk '/A/ && /R/ && /Y/'           `# Match ALL of VALID set`  \
         | grep -v '[ISKCZWEM]'              `# Exclude INVALID set`     \
-        | grep '[^R][^R][^A][^R][A-Z]'      `# Exclude PRESENT chars`   \
-        | rs                                `# BSD reshape lines to columns`
+        | grep '^[^R][^R][^A][^R].$'        `# Exclude PRESENT chars`
 
 gives (on macOS 13.4)::
 
-    BARDY  DARBY  HARDY  LARDY  PARTY  VARDY  YARLY
-    BARNY  GARDY  HARPY  PARLY  TARDY  YARAY
+    BARDY
+    BARNY
+    DARBY
+    GARDY
+    HARDY
+    HARPY
+    LARDY
+    PARLY
+    PARTY
+    TARDY
+    VARDY
+    YARAY
+    YARLY
 
-I used ``rs`` to make the output more compact, but it can be omitted.
 I got some annoying ``command not found`` warnings from Zsh
-about the back-ticked comments.
-On Ubuntu, I had to install the
-`rs`_ and `wamerican`_ (for ``/usr/share/dict/words``) packages first.
+about the `back-ticked comments`_,
+but it's silent with Bash.
+On an Ubuntu instance, I had to install the
+`wamerican`_ package first to get ``/usr/share/dict/words``.
 
-.. _rs:
-    https://packages.ubuntu.com/focal/rs
+.. _back-ticked comments:
+    https://stackoverflow.com/a/12797512/6364
 .. _wamerican:
     https://packages.ubuntu.com/focal/wamerican
 
