@@ -12,14 +12,26 @@ the online word game that has become wildly popular since late 2021.
 You've almost certainly seen people posting their Wordle games
 as little green, yellow, and black (or white) emojis.
 
-**show emojis**
-
 .. _Wordle:
     https://en.wikipedia.org/wiki/Wordle
 
+|   *Wordle 775 5/6*
+|
+|   🟨⬛⬛⬛🟩
+|   ⬛🟨🟨⬛🟩
+|   ⬛⬛🟨🟨🟩
+|   ⬛🟩🟩⬛🟩
+|   🟩🟩🟩🟩🟩
+
+
+The problem that I want to address in this post is:
+
+    Given a set of ``GUESS=SCORE`` pairs for Wordle and a word list,
+    find all the words from the list that are candidate answers.
+
 Take this five-round game:
 
-.. ./render_game.py RISKY=r...Y CRAZY=.ra.Y WEARY=..arY MARRY=.AR.Y PARTY=PARTY
+.. RISKY=r...Y CRAZY=.ra.Y WEARY=..arY MARRY=.AR.Y PARTY=PARTY
 
 .. raw:: html
 
@@ -34,29 +46,24 @@ Take this five-round game:
 The letters of each guess are colored Green, Yellow, or Black (dark-gray).
 
 * A Green letter 🟩 means that the letter is *correct*:
-  the final letter of the answer is ``Y``.
+  ``Y`` is the final letter of the answer.
 * A Yellow letter 🟨 means that the letter is *present* elsewhere in the answer.
   There is an ``R`` in the answer;
-  it's not at positions 1, 2, or 4, but it is at position 3.
+  it's not at positions 1, 2, or 4, but it is correct at position 3.
   Likewise, an ``A`` is present in the answer,
   not at position 3, but at position 2.
+  (The ``A`` should not have been played twice at position 3.)
 * A Black letter ⬛ is *absent* from the answer:
   there is no ``I``, ``S``, ``K``, ``C``, ``Z``, ``W``, ``E``, or ``M``
   anywhere in ``PARTY``.
 
-The problem that I want to address in this post is:
-
-    Given a set of ``GUESS=SCORE`` pairs and a word list,
-    find all the words from the list that are candidate answers.
-
 Other words that could satisfy
 ``RISKY=r...Y CRAZY=.ra.Y WEARY=..arY MARRY=.AR.Y``
 include but are not limited to
-``HARDY HARPY TARDY TARTY``.
+``HARDY``, ``HARPY``, ``TARDY``, and ``TARTY``.
 
 The ``GUESS=SCORE`` notation is intended to be clear to read
 and easier to write than Greens and Yellows.
-
 For example, ``CRAZY=.ra.Y``:
 
 .. raw:: html
