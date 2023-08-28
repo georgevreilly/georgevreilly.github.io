@@ -17,19 +17,19 @@ as little green, yellow, and black (or white) emojis.
 
 |   *Wordle 775 5/6*
 |
-|   🟨⬛⬛⬛🟩
-|   ⬛🟨🟨⬛🟩
-|   ⬛⬛🟨🟨🟩
-|   ⬛🟩🟩⬛🟩
-|   🟩🟩🟩🟩🟩
+|   🟨 ⬛ ⬛ ⬛ 🟩
+|   ⬛ 🟨 🟨 ⬛ 🟩
+|   ⬛ ⬛ 🟨 🟨 🟩
+|   ⬛ 🟩 🟩 ⬛ 🟩
+|   🟩 🟩 🟩 🟩 🟩
 
 
 The problem that I want to address in this post is:
 
-    Given a set of ``GUESS=SCORE`` pairs for Wordle and a word list,
+    Given some ``GUESS=SCORE`` pairs for Wordle and a word list,
     find all the words from the list that are candidate answers.
 
-Take this five-round game:
+Let's look at this five-round game for Wordle 775:
 
 .. RISKY=r...Y CRAZY=.ra.Y WEARY=..arY MARRY=.AR.Y PARTY=PARTY
 
@@ -50,8 +50,8 @@ The letters of each guess are colored Green, Yellow, or Black (dark-gray).
 * A Yellow letter 🟨 means that the letter is *present* elsewhere in the answer.
   There is an ``R`` in the answer;
   it's not at positions 1, 2, or 4, but it is correct at position 3.
-  Likewise, an ``A`` is present in the answer,
-  not at position 3, but at position 2.
+  Likewise, an ``A`` is present in the answer;
+  it's not at position 3, but it's correct at position 2.
   (The ``A`` should not have been played twice at position 3.)
 * A Black letter ⬛ is *absent* from the answer:
   there is no ``I``, ``S``, ``K``, ``C``, ``Z``, ``W``, ``E``, or ``M``
@@ -108,11 +108,35 @@ A candidate word *must*:
 
 1. include all valid letters —          ``Y``, ``A``, and ``R``
 2. exclude all invalid letters —        ``I``, ``S``, ``K``, ``C``, ``Z``, ``W``, ``E``, and ``M``
-3. match all correct positions —        ``A=2``, ``R=3``, and ``Y=5``
-4. not match any ‘present’ positions —  ``R=1``, ``R=2``, ``R=4``, or ``A=3``
+3. match all correct positions —        ``2:A``, ``3:R``, and ``5:Y``
+4. not match any ‘present’ positions —  ``1:R``, ``2:R``, ``3:A``, or ``4:R``
 
 These constraints narrow the possible choices from the word list.
 
+
+Prototyping with Pipes
+----------------------
+
+Let's prototype the above with a Unix pipeline tailored to this example:
+
+.. code-block:: bash
+
+    grep '^.....$' /usr/share/dict/words    `# Five-letter words`       \
+        | tr '[a-z]' '[A-Z]'                `# Translate to uppercase`  \
+        | grep '.AR.Y'                      `# Match CORRECT positions` \
+        | grep '[ARY]'                      `# Match VALID set`         \
+        | grep -v '[ISKCZWEM]'              `# Exclude INVALID set`     \
+        | grep '[^R][^R][^A][^R].'          `# Exclude PRESENT chars`   \
+        | rs                                `# FreeBSD reshape lines to columns`
+
+gives (on macOS 13.4)::
+
+    BARDY  DARBY  HARDY  LARDY  PARTY  VARDY  YARLY
+    BARNY  GARDY  HARPY  PARLY  TARDY  YARAY
+
+This is promising.
+
+.. Sticking the stylesheet at the end out of the way
 .. raw:: html
 
     <style>
