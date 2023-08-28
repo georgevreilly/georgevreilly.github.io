@@ -127,12 +127,19 @@ Let's prototype the above with a Unix pipeline tailored to this example:
         | grep '[ARY]'                      `# Match VALID set`         \
         | grep -v '[ISKCZWEM]'              `# Exclude INVALID set`     \
         | grep '[^R][^R][^A][^R].'          `# Exclude PRESENT chars`   \
-        | rs                                `# FreeBSD reshape lines to columns`
+        | rs                                `# BSD reshape lines to columns`
 
 gives (on macOS 13.4)::
 
     BARDY  DARBY  HARDY  LARDY  PARTY  VARDY  YARLY
     BARNY  GARDY  HARPY  PARLY  TARDY  YARAY
+
+On Ubuntu, I had to install the `rs`_ and `wamerican`_ system packages first.
+
+.. _rs:
+    https://packages.ubuntu.com/focal/rs
+.. _wamerican:
+    https://packages.ubuntu.com/focal/wamerican
 
 This is promising.
 
