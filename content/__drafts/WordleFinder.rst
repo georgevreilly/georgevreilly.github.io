@@ -8,10 +8,16 @@ draft: true
 ---
 
 Unless YOUVE LIVED UNDER ROCKS, you've heard of Wordle_,
-the wildly popular web-based word game.
+the online word game that has become wildly popular since late 2021.
+You've almost certainly seen people posting their Wordle games
+as little green, yellow, and black (or white) emojis.
+
+**show emojis**
 
 .. _Wordle:
     https://en.wikipedia.org/wiki/Wordle
+
+Take this five-round game:
 
 .. ./render_game.py RISKY=r...Y CRAZY=.ra.Y WEARY=..arY MARRY=.AR.Y PARTY=PARTY
 
@@ -28,10 +34,12 @@ the wildly popular web-based word game.
 The letters of each guess are colored Green, Yellow, or Black (dark-gray).
 
 * A Green letter 🟩 means that the letter is *correct*:
-  the final letter is ``Y``.
-* A Yellow letter 🟨 means that the letter is *present* elsewhere in the word:
-  there is an ``R`` in the word;
-  it's not at positions 1, 2, or 4 but at position 3.
+  the final letter of the answer is ``Y``.
+* A Yellow letter 🟨 means that the letter is *present* elsewhere in the answer.
+  There is an ``R`` in the answer;
+  it's not at positions 1, 2, or 4, but it is at position 3.
+  Likewise, an ``A`` is present in the answer,
+  not at position 3, but at position 2.
 * A Black letter ⬛ is *absent* from the answer:
   there is no ``I``, ``S``, ``K``, ``C``, ``Z``, ``W``, ``E``, or ``M``
   anywhere in ``PARTY``.
@@ -42,12 +50,14 @@ The problem that I want to address in this post is:
     find all the words from the list that are candidate answers.
 
 Other words that could satisfy
-``RISKY=r...Y CRAZY=.ra.Y WEARY=..arY MARRY=.AR.Y`` include
+``RISKY=r...Y CRAZY=.ra.Y WEARY=..arY MARRY=.AR.Y``
+include but are not limited to
 ``HARDY HARPY TARDY TARTY``.
 
-The ``GUESS=SCORE`` notation is intended to be clear
+The ``GUESS=SCORE`` notation is intended to be clear to read
 and easier to write than Greens and Yellows.
-Example: For ``CRAZY=.ra.Y``:
+
+For example, ``CRAZY=.ra.Y``:
 
 .. raw:: html
 
@@ -58,7 +68,7 @@ Example: For ``CRAZY=.ra.Y``:
 * the ``Y`` is in the correct position (i.e., green 🟩),
 * the ``r`` and ``a`` are present somewhere in the answer,
   but they are in the wrong positions (yellow 🟨),
-* and ``C`` and ``Z`` are absent from the answer (black ⬛ / white ⬜).
+* and ``C`` and ``Z`` are absent from the answer (black ⬛).
 
 
 Deductions
@@ -79,7 +89,7 @@ known to be *absent* from the answer (black ⬛):
 ``I``, ``S``, ``K``, ``C``, ``Z``, ``W``, ``E``, and ``M``.
 
 The remaining letters of the alphabet are currently *unknown*.
-If they are played, they will turn into *valid* or *invalid* letters.
+When they are played, they will turn into *valid* or *invalid* letters.
 Unless we already have five correct letters,
 we will draw candidate letters from the unknown pool.
 
@@ -89,10 +99,10 @@ while the *present* letters are in the wrong positions.
 
 A candidate word *must*:
 
-1. include all valid letters
-2. exclude all invalid letters
-3. match all correct positions
-4. not match any ‘present’ positions
+1. include all valid letters —          ``Y``, ``A``, and ``R``
+2. exclude all invalid letters —        ``I``, ``S``, ``K``, ``C``, ``Z``, ``W``, ``E``, and ``M``
+3. match all correct positions —        ``A=2``, ``R=3``, and ``Y=5``
+4. not match any ‘present’ positions —  ``R=1``, ``R=2``, ``R=4``, or ``A=3``
 
 These constraints narrow the possible choices from the word list.
 
