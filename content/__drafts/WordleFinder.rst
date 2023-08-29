@@ -67,13 +67,14 @@ For example:
 
 .. raw:: html
 
+    <div style="text-align: center; font-family: 'Source Code Pro', monospace; font-size: 48px;">
+        <div><i>GUESS=SCORE</i></div>
+        <div>CHEST=c.E..</div>
+    </div>
+
     <table class='wordle'>
       <tr><td class="present">C</td> <td class="absent" >H</td> <td class="correct">E</td> <td class="absent" >S</td> <td class="absent" >T</td></tr>
     </table>
-
-    <div style="text-align: center; font-family: 'Source Code Pro', monospace; font-size: 48px;">
-        CHEST=c.E..
-    </div>
 
 * the uppercase ``E`` at position 3 in the score denotes that
   ``E`` is in the correct position (i.e., green 🟩);
@@ -130,6 +131,7 @@ in a Unix pipeline tailored to this ``OCEAN`` example:
 .. code-block:: bash
 
     # TODO why is alignment messed up?
+
     # JUDGE=....e CHEST=c.E.. WRECK=..Ec.
 
     grep '^.....$' /usr/share/dict/words |  # Five-letter words
@@ -146,7 +148,36 @@ gives (in Bash, on macOS 13.4)::
     OCEAN
     OLEIC
 
-Let's try it for Wordle 787 (``INDEX``):
+We can accomplish this with only the simplest features of regular expressions,
+the `dot metacharacter`_ (``.``),
+`character classes`_ (``[JUD...]``) and negated character classes (``[^E]``),
+and the ``^`` and ``$`` `anchors`_.
+
+Most regular expression engines make it easy to
+match alternations_ (or disjunctions) with ``|``,
+but few have any provisions for conjunctions_,
+and the syntax is often horrible.
+Awk makes it easy to match ``/pat1/ && /pat2/``.
+This could also have been expressed as a series of pipes:
+``... | grep C | grep E | ...``.
+
+The `longest regex`_ that I ever encountered was an enormous alternation,
+a true horror.
+
+.. _dot metacharacter:
+    https://www.regular-expressions.info/dot.html
+.. _character classes:
+    https://www.regular-expressions.info/charclass.html
+.. _anchors:
+    https://www.regular-expressions.info/anchors.html
+.. _alternations:
+    https://www.regular-expressions.info/alternation.html
+.. _conjunctions:
+    https://unix.stackexchange.com/a/55391/4060
+.. _longest regex:
+    /blog/2020/04/23/regex-32-problems.html
+
+Let's try our pipeline for Wordle 787 (``INDEX``):
 
 .. code-block:: bash
 

@@ -66,7 +66,7 @@ I've elided the intermediate values but they were spelled out in the original.
 Some of the simpler subexpressions were repeated several times,
 nested inside others.
 
-This all screamed *grammar* and *real parser* to me,
+This all screamed that a *grammar* and a *real parser* were needed,
 but the test suite also screamed *here be dragons!*
 
 I resisted the temptation
