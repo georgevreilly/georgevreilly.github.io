@@ -71,16 +71,16 @@ For example:
       <tr><td class="present">C</td> <td class="absent" >H</td> <td class="correct">E</td> <td class="absent" >S</td> <td class="absent" >T</td></tr>
     </table>
 
-    <div style="margin-left: auto; margin-right: auto; text-align: center; font-family: 'Source Code Pro', monospace; font-size: 48px;">
-        <span>CHEST=c.E..</span>
+    <div style="text-align: center; font-family: 'Source Code Pro', monospace; font-size: 48px;">
+        CHEST=c.E..
     </div>
 
-* the uppercase ``E`` in the score denotes that
+* the uppercase ``E`` at position 3 in the score denotes that
   ``E`` is in the correct position (i.e., green 🟩);
-* the lowercase ``c`` in the score denotes that
+* the lowercase ``c`` at position 1 in the score denotes that
   ``C`` is  present somewhere in the answer,
   but it is in the wrong position (yellow 🟨);
-* the ``.``\ s in the score denote that
+* the ``.``\ s in the score at positions 2, 4, and 5 denote that
   the corresponding letters in the guess (``H``, ``S``, and ``T``)
   are absent from the answer (black ⬛).
 
