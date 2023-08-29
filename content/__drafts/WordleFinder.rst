@@ -75,11 +75,13 @@ For example:
         <span>CHEST=c.E..</span>
     </div>
 
-* the ``E`` is in the correct position (i.e., green 🟩);
-* the ``c`` is  present somewhere in the answer,
+* the uppercase ``E`` in the score denotes that
+  ``E`` is in the correct position (i.e., green 🟩);
+* the lowercase ``c`` in the score denotes that
+  ``C`` is  present somewhere in the answer,
   but it is in the wrong position (yellow 🟨);
-* the ``.``\ s in the score denote that the corresponding letters in the guess
-  (``H``, ``S``, and ``T``)
+* the ``.``\ s in the score denote that
+  the corresponding letters in the guess (``H``, ``S``, and ``T``)
   are absent from the answer (black ⬛).
 
 
