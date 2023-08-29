@@ -15,12 +15,11 @@ as little green, yellow, and black (or white) emojis.
 .. _Wordle:
     https://en.wikipedia.org/wiki/Wordle
 
-|   *Wordle 775 5/6*
+|   Wordle 797 4/6
 |
-|   🟨 ⬛ ⬛ ⬛ 🟩
-|   ⬛ 🟨 🟨 ⬛ 🟩
-|   ⬛ ⬛ 🟨 🟨 🟩
-|   ⬛ 🟩 🟩 ⬛ 🟩
+|   ⬛ ⬛ ⬛ ⬛ 🟨
+|   🟨 ⬛ 🟩 ⬛ ⬛
+|   ⬛ ⬛ 🟩 🟨 ⬛
 |   🟩 🟩 🟩 🟩 🟩
 
 
@@ -29,75 +28,81 @@ The problem that I want to address in this post is:
     Given some ``GUESS=SCORE`` pairs for Wordle and a word list,
     find all the words from the list that are candidate answers.
 
-Let's look at this five-round game for Wordle 775:
+Let's look at this four-round game for Wordle 797:
 
-.. RISKY=r...Y CRAZY=.ra.Y WEARY=..arY MARRY=.AR.Y PARTY=PARTY
+.. JUDGE=....e CHEST=c.E.. WRECK=..Ec. OCEAN=OCEAN
 
 .. raw:: html
 
     <table class='wordle'>
-      <tr><td class="present">R</td> <td class="absent" >I</td> <td class="absent" >S</td> <td class="absent" >K</td> <td class="correct">Y</td></tr>
-      <tr><td class="absent" >C</td> <td class="present">R</td> <td class="present">A</td> <td class="absent" >Z</td> <td class="correct">Y</td></tr>
-      <tr><td class="absent" >W</td> <td class="absent" >E</td> <td class="present">A</td> <td class="present">R</td> <td class="correct">Y</td></tr>
-      <tr><td class="absent" >M</td> <td class="correct">A</td> <td class="correct">R</td> <td class="absent" >R</td> <td class="correct">Y</td></tr>
-      <tr><td class="correct">P</td> <td class="correct">A</td> <td class="correct">R</td> <td class="correct">T</td> <td class="correct">Y</td></tr>
+      <tr><td class="absent" >J</td> <td class="absent" >U</td> <td class="absent" >D</td> <td class="absent" >G</td> <td class="present">E</td></tr>
+      <tr><td class="present">C</td> <td class="absent" >H</td> <td class="correct">E</td> <td class="absent" >S</td> <td class="absent" >T</td></tr>
+      <tr><td class="absent" >W</td> <td class="absent" >R</td> <td class="correct">E</td> <td class="present">C</td> <td class="absent" >K</td></tr>
+      <tr><td class="correct">O</td> <td class="correct">C</td> <td class="correct">E</td> <td class="correct">A</td> <td class="correct">N</td></tr>
     </table>
 
 The letters of each guess are colored Green, Yellow, or Black (dark-gray).
 
 * A Green letter 🟩 means that the letter is *correct*:
-  ``Y`` is the final letter of the answer.
+  ``N`` is the final letter of the answer.
 * A Yellow letter 🟨 means that the letter is *present* elsewhere in the answer.
-  There is an ``R`` in the answer;
-  it's not at positions 1, 2, or 4, but it is correct at position 3.
-  Likewise, an ``A`` is present in the answer;
-  it's not at position 3, but it's correct at position 2.
-  (The ``A`` should not have been played twice at position 3.)
+  There is a ``C`` in the answer;
+  it's not at positions 1 or 4, but it is correct at position 2.
+  Likewise, an ``E`` is present in the answer;
+  it's not at position 5, but it's correct at position 3.
 * A Black letter ⬛ is *absent* from the answer:
-  there is no ``I``, ``S``, ``K``, ``C``, ``Z``, ``W``, ``E``, or ``M``
-  anywhere in ``PARTY``.
+  there is no ``J``, ``U``, ``D``, ``G``,
+  ``H``, ``S``, ``T``,
+  ``W``, ``R``, or ``K``
+  anywhere in ``OCEAN``.
 
 Other words that could satisfy
-``RISKY=r...Y CRAZY=.ra.Y WEARY=..arY MARRY=.AR.Y``
-include but are not limited to
-``HARDY``, ``HARPY``, ``TARDY``, and ``TARTY``.
+``JUDGE=....e CHEST=c.E.. WRECK=..Ec.``
+are ``ICENI``, ``ILEAC``, and ``OLEIC``—\
+none of which is plausible as a Wordle answer.
 
 The ``GUESS=SCORE`` notation is intended to be clear to read
 and easier to write than Greens and Yellows.
-For example, ``CRAZY=.ra.Y``:
+For example:
 
 .. raw:: html
 
     <table class='wordle'>
-      <tr><td class="absent" >C</td> <td class="present">R</td> <td class="present">A</td> <td class="absent" >Z</td> <td class="correct">Y</td></tr>
+      <tr><td class="present">C</td> <td class="absent" >H</td> <td class="correct">E</td> <td class="absent" >S</td> <td class="absent" >T</td></tr>
     </table>
 
-* the ``Y`` is in the correct position (i.e., green 🟩),
-* the ``r`` and ``a`` are present somewhere in the answer,
-  but they are in the wrong positions (yellow 🟨),
-* and ``C`` and ``Z`` are absent from the answer (black ⬛).
+    <div style="margin-left: auto; margin-right: auto; text-align: center; font-family: 'Source Code Pro', monospace; font-size: 48px;">
+        <span>CHEST=c.E..</span>
+    </div>
+
+* the ``E`` is in the correct position (i.e., green 🟩);
+* the ``c`` is  present somewhere in the answer,
+  but it is in the wrong position (yellow 🟨);
+* the ``.``\ s in the score denote that the corresponding letters in the guess
+  (``H``, ``S``, and ``T``)
+  are absent from the answer (black ⬛).
 
 
 Deductions
 ----------
 
-What can we deduce from the first four rows of guesses,
-``RISKY=r...Y CRAZY=.ra.Y WEARY=..arY MARRY=.AR.Y``?
+What can we deduce from the first three rows of guesses,
+``JUDGE=....e CHEST=c.E.. WRECK=..Ec.``?
 
 There is a set of *valid* letters,
-``Y``, ``A``, and ``R``,
-that are either *present* (yellow 🟨) or *correct* (green 🟩):
-The ``Y`` is correct from the first time it appears.
-The ``A`` and ``R`` are initially present,
-but later find their correct position.
+``C`` and ``E``,
+that are either *present* (yellow 🟨) or *correct* (green 🟩).
+Both ``E`` and ``C`` are initially present,
+but ``E`` later finds its correct position,
+while ``C`` does not.
 
 There is a set of *invalid* letters that are
 known to be *absent* from the answer (black ⬛):
-``I``, ``S``, ``K``, ``C``, ``Z``, ``W``, ``E``, and ``M``.
+``J``, ``U``, ``D``, ``G``, ``H``, ``S``, ``T``, ``W``, ``R``, and ``K``.
 
 The remaining letters of the alphabet are currently *unknown*.
 When they are played, they will turn into *valid* or *invalid* letters.
-Unless we already have five correct letters,
+Unless we already have all five correct letters,
 we will draw candidate letters from the unknown pool.
 
 Furthermore, we know something about *letter positions*.
@@ -106,10 +111,11 @@ while the *present* letters are in the wrong positions.
 
 A candidate word *must*:
 
-1. include all valid letters —          ``Y``, ``A``, and ``R``
-2. exclude all invalid letters —        ``I``, ``S``, ``K``, ``C``, ``Z``, ``W``, ``E``, and ``M``
-3. match all correct positions —        ``2:A``, ``3:R``, and ``5:Y``
-4. not match any ‘present’ positions —  ``1:R``, ``2:R``, ``3:A``, or ``4:R``
+1. include all valid letters —          ``C`` and ``E``
+2. exclude all invalid letters —        ``J``, ``U``, ``D``, ``G``, ``H``, ``S``, ``T``,
+   ``W``, ``R``, and ``K``
+3. match all correct positions —        ``3:E``
+4. not match any ‘present’ positions —  ``1:C``, ``4:C``, or ``5:E``
 
 These constraints narrow the possible choices from the word list.
 
@@ -117,46 +123,49 @@ These constraints narrow the possible choices from the word list.
 Prototyping with Pipes
 ----------------------
 
-Let's prototype the above with a series of ``grep``\ s
-in a Unix pipeline tailored to this example:
+Let's prototype the above constraints with a series of ``grep``\ s
+in a Unix pipeline tailored to this ``OCEAN`` example:
 
 .. code-block:: bash
 
-    grep '^.....$' /usr/share/dict/words    `# Five-letter words`       \
-        | tr '[a-z]' '[A-Z]'                `# Translate to uppercase`  \
-        | grep '^.AR.Y$'                    `# Match CORRECT positions` \
-        | awk '/A/ && /R/ && /Y/'           `# Match ALL of VALID set`  \
-        | grep -v '[ISKCZWEM]'              `# Exclude INVALID set`     \
-        | grep '^[^R][^R][^A][^R].$'        `# Exclude PRESENT chars`
+    # JUDGE=....e CHEST=c.E.. WRECK=..Ec.
 
-gives (on macOS 13.4)::
+    grep '^.....$' /usr/share/dict/words |  # Five-letter words
+        tr 'a-z' 'A-Z' |                    # Translate to uppercase
+        grep '^..E..$' |                    # Match CORRECT positions
+        awk '/C/ && /E/' |                  # Match ALL of VALID set, CORRECT|PRESENT
+        grep -v '[JUDGHSTWRK]' |            # Exclude INVALID set
+        grep '^[^C]..[^C][^E]$'             # Exclude PRESENT positions
 
-    BARDY
-    BARNY
-    DARBY
-    GARDY
-    HARDY
-    HARPY
-    LARDY
-    PARLY
-    PARTY
-    TARDY
-    VARDY
-    YARAY
-    YARLY
+gives (in Bash, on macOS 13.4)::
 
-I got some annoying ``command not found`` warnings from Zsh
-about the `back-ticked comments`_,
-but it's silent with Bash.
-On an Ubuntu instance, I had to install the
-`wamerican`_ package first to get ``/usr/share/dict/words``.
+    ICENI
+    ILEAC
+    OCEAN
+    OLEIC
 
-.. _back-ticked comments:
-    https://stackoverflow.com/a/12797512/6364
-.. _wamerican:
-    https://packages.ubuntu.com/focal/wamerican
+Let's try it for Wordle 787 (``INDEX``):
 
-This is promising, but not maintainable.
+.. code-block:: bash
+
+    # VOUCH=..... GRIPE=..i.e DENIM=deni. WIDEN=.iDEn
+
+    grep '^.....$' /usr/share/dict/words |
+        tr 'a-z' 'A-Z' |
+        grep '^..DE.$' |                    # CORRECT pos
+        awk '/D/ && /E/ && /I/ && /N/' |    # VALID set
+        grep -v '[VOUCHGRPMW]' |            # INVALID set
+        grep '^[^D][^EI][^I][^I][^EN]$'     # PRESENT pos
+
+yields::
+
+    INDEX
+
+This approach is promising, but not maintainable.
+
+
+
+
 
 .. Sticking the stylesheet at the end out of the way
 .. raw:: html
