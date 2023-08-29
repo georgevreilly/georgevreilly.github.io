@@ -114,8 +114,7 @@ while the *present* letters are in the wrong positions.
 A candidate word *must*:
 
 1. include all valid letters —          ``C`` and ``E``
-2. exclude all invalid letters —        ``J``, ``U``, ``D``, ``G``, ``H``, ``S``, ``T``,
-   ``W``, ``R``, and ``K``
+2. exclude all invalid letters —        ``JUDGHSTWRK``
 3. match all correct positions —        ``3:E``
 4. not match any ‘present’ positions —  ``1:C``, ``4:C``, or ``5:E``
 
@@ -130,6 +129,7 @@ in a Unix pipeline tailored to this ``OCEAN`` example:
 
 .. code-block:: bash
 
+    # TODO why is alignment messed up?
     # JUDGE=....e CHEST=c.E.. WRECK=..Ec.
 
     grep '^.....$' /usr/share/dict/words |  # Five-letter words
@@ -167,9 +167,13 @@ This approach is promising, but not maintainable.
 
 
 
+.. _Knuth pipeline:
+    https://www.spinellis.gr/blog/20200225/
 
 
+.. -------------------------------------------------------------_
 .. Sticking the stylesheet at the end out of the way
+
 .. raw:: html
 
     <style>
