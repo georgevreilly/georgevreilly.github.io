@@ -160,9 +160,7 @@ and the syntax is often horrible.
 Awk makes it easy to match ``/pat1/ && /pat2/``.
 This could also have been expressed as a series of pipes:
 ``... | grep C | grep E | ...``.
-
-The `longest regex`_ that I ever encountered was an enormous alternation,
-a true horror.
+Mjjkk
 
 .. _dot metacharacter:
     https://www.regular-expressions.info/dot.html
@@ -197,6 +195,143 @@ yields::
 This approach is promising, but not maintainable.
 
 
+Initial Python Solution
+-----------------------
+
+Let's attempt to solve this in Python.
+The first piece is to parse a list of ``GUESS=SCORE`` pairs.
+
+.. code-block:: python
+
+    WORDLE_LEN = 5
+
+    def parse_guesses(guess_scores):
+        invalid = set()  # Black/Absent
+        valid = set()  # Green or Yellow
+        mask = [None] * WORDLE_LEN  # Exact match for position (Green/Correct)
+        wrong_spot = [set() for _ in range(WORDLE_LEN)]  # Wrong spot (Yellow/Present)
+        for guess in guess_scores:
+            word, result = guess.split("=")
+            assert len(word) == WORDLE_LEN
+            assert len(result) == WORDLE_LEN
+            for i, (w, r) in enumerate(zip(word, result)):
+                assert "A" <= w <= "Z", "WORD should be uppercase"
+                if "A" <= r <= "Z":
+                    valid.add(w)
+                    mask[i] = w
+                elif "a" <= r <= "z":
+                    valid.add(w)
+                    wrong_spot[i].add(w)
+                elif r == ".":
+                    invalid.add(w)
+                else:
+                    raise ValueError(f"Unexpected {r} for {w}")
+        return (invalid, valid, mask, wrong_spot)
+
+Here's how we use the parsed data:
+
+.. code-block:: python
+
+    def is_eligible(word, invalid, valid, mask, wrong_spot):
+        letters = {c for c in word}
+        if letters & valid != valid:
+            # Missing some 'valid' letters
+            trace(f"!Valid: {word}")
+            return False
+        elif letters & invalid:
+            trace(f"Invalid: {word}")
+            return False
+        elif any(m is not None and c != m for c, m in zip(word, mask)):
+            # Some of the Green/Correct letters are missing
+            trace(f"!Mask: {word}")
+            return False
+        elif any(c in ws for c, ws in zip(word, wrong_spot)):
+            # We have Yellow letters
+            trace(f"WrongSpot: {word}")
+            return False
+        else:
+            trace(f"Got: {word}")
+            return True
+
+And how we call ``is_eligible``:
+
+.. code-block:: python
+
+    def main():
+        namespace = parse_args()
+        with open(namespace.word_file) as f:
+            WORDS = [w.upper().strip() for w in f
+                     if len(w.strip()) == WORDLE_LEN]
+        invalid, valid, mask, wrong_spot = parse_guesses(namespace.guess_scores)
+        choices = [w for w in WORDS if is_eligible(w, invalid, valid, mask, wrong_spot)]
+        print("\n".join(choices))
+
+For the sake of completeness, here's the rest:
+
+.. code-block:: python
+
+    _VERBOSITY = 0
+
+    def debug(s):
+        if _VERBOSITY: print(s)
+
+    def trace(s):
+        if _VERBOSITY >= 2: print(s)
+
+    def parse_args():
+        parser = argparse.ArgumentParser(description="Wordle Finder")
+        parser.set_defaults(
+            word_file="/usr/share/dict/words",
+            verbose=0,
+        )
+        parser.add_argument(
+            "--verbose", "-v", action="count", help="Show all the steps")
+        parser.add_argument(
+            "--word-file", "-w", help="Word file. Default: %(default)s")
+        parser.add_argument(
+            "guess_scores",
+            nargs="+",
+            metavar="GUESS=score",
+            help="Examples: 'ARISE=.r.se' 'ROUTE=R.u.e' 'RULES=Ru.eS'",
+        )
+        namespace = parser.parse_args()
+        global _VERBOSITY
+        _VERBOSITY = namespace.verbose
+        return namespace
+
+Let's try it!::
+
+    $ ./wordle.py HARES=.ar.. GUILT=..... CROAK=.Roa. BRAVO=bRa.o
+    ARBOR
+
+    $ ./wordle1.py CHAIR=Cha.. CLASH=C.a.h CATCH=CA.ch
+    CACHE
+    CAHOW
+
+    $ ./wordle1.py LEAKS=..... MIGHT=.i..t BLITZ=..it. OPTIC=o.tIC TONIC=TO.IC
+    TORIC
+    TOXIC
+
+This looks right
+but there are a couple of subtle bugs here.
+We'll come back to those.
+
+Class
+-----
+
+Bugs
+----
+
+``FIFTY: HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY``
+can be fixed by inserting ``if w not in valid``
+between ``elif r == "."`` and ``invalid.add(w)``.
+But this returns too many results.
+
+We need the per-position ``invalid`` for these:
+
+* ``QUICK: MORAL=..... TWINE=..I.. CHICK=..ICK`` doesn't find ``QUICK``
+* ``STYLE: `GROAN=..... WHILE=...LE BELLE=...LE TUPLE=t..LE STELE=ST.LE``
+  finds both ``STYLE`` and ``STELE`` (which is known to be wrong)
 
 .. _Knuth pipeline:
     https://www.spinellis.gr/blog/20200225/
