@@ -22,7 +22,7 @@ Generally, that's fine.
 The exception is when I want one of the mixins to override
 a method or attribute that's defined in ``Base``.
 Because the `Method Resolution Order`_ is left-to-right,
-then ``Base``'s implementation will always be found first.
+then ``Base``’s implementation will always be found first.
 
 To get the desired behavior of the mixin overriding the base,
 ``Base`` should always appear *last* in the inheritance list.
