@@ -29,6 +29,44 @@
     
         <article>
     <header>
+        <time datetime="2013-11-11">2013-11-11</time>
+        <h1>
+            <a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" rel="bookmark canonical">Turn off Windows Defender on your builds</a>
+        </h1>
+    </header>
+    <p>I've spent some time this evening profiling a Python ap&shy;pli&shy;ca&shy;tion on Windows,
+trying to find out why it was so much slower than on Mac or Linux.
+The ap&shy;pli&shy;ca&shy;tion is an in-house build tool which reads a number of config files,
+then writes some output files.</p>
+<p>Using the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run&shy;SnakeRun</a> Python profile viewer on Windows,
+two things im&shy;me&shy;di&shy;ate&shy;ly leapt out at me:
+we were running <tt class="docutils literal">os.stat</tt> a lot
+and <tt class="docutils literal">file.close</tt> was really expensive.</p>
+<p>A quick test convinced me that we were <a class="reference external" href="http://docs.python.org/2/library/stat.html">stat-ing</a> the same files over and over.
+It was a com&shy;bi&shy;na&shy;tion of explicit checks and implicit code,
+like <tt class="docutils literal">os.walk</tt> calling <tt class="docutils literal">os.path.isdir</tt>.
+I wrote a little cache that memoizes the results,
+which brought <span>&#8230;<a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/windows/" rel="tag">windows</a>,
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2009-10-15">2009-10-15</time>
         <h1>
             <a href="/blog/2009/10/15/GittingAlong.html" rel="bookmark canonical">Gitting Along</a>
@@ -365,52 +403,6 @@ His code didn't work for me, so I hacked on it until it did:</p>
                 <a href="/tag/vim/" rel="tag">vim</a>,
                 <a href="/tag/javascript/" rel="tag">javascript</a>,
                 <a href="/tag/regex/" rel="tag">regex</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-20">2009-03-20</time>
-        <h1>
-            <a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" rel="bookmark canonical">Flattening List Comprehensions in Python</a>
-        </h1>
-    </header>
-    
-<p>Python has <a class="reference external" href="http://docs.python.org/tutorial/datastructures.html#list-comprehensions">list com&shy;pre&shy;hen&shy;sions</a>,
-syntactic sugar for building lists from an expression.</p>
-<pre class="code pycon literal-block">
-<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
-<span class="go">[4, 6, 10, 14, 22]</span>
-</pre>
-<p>This doesn't work so well when the com&shy;pre&shy;hen&shy;sion expression
-is itself a list: you end up with a list of lists.</p>
-<pre class="code pycon literal-block">
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">gen</span><span class="p">():</span>
-<span class="gp">... </span>    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="p">[[</span><span class="s1">'a'</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'c'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'d'</span><span class="p">,</span> <span class="s1">'e'</span><span class="p">,</span> <span class="s1">'f'</span><span class="p">]]:</span>
-<span class="gp">... </span>        <span class="k">yield</span> <span class="n">l</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">gen</span><span class="p">()]</span>
-<span class="go">[['a', 'b'], ['c'], ['d', 'e', 'f']]</span>
-</pre>
-<p>This is ugly. Here's one way to build a flattened list,
-but it's less elegant than the com&shy;pre&shy;hen&shy;sion.</p>
-<pre class="code pycon literal-block">
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> </pre><span>&#8230;<a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" class="continue">continue</a>.</span>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>

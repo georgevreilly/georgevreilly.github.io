@@ -29,6 +29,53 @@
     
         <article>
     <header>
+        <time datetime="2016-01-04">2016-01-04</time>
+        <h1>
+            <a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" rel="bookmark canonical">Obfuscating Passwords in URLs in Python</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p><a class="reference external" href="https://www.ietf.org/rfc/rfc1738.txt">RFC 1738</a> allows passwords in URLs,
+in the form <tt class="docutils literal"><span class="pre">&lt;scheme&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;host&gt;:&lt;port&gt;/&lt;url-path&gt;</span></tt>.
+Although passwords are deprecated by <a class="reference external" href="https://www.ietf.org/rfc/rfc3986.txt">RFC 3986</a> and other newer RFCs,
+it's oc&shy;ca&shy;sion&shy;al&shy;ly useful.
+Several important packages in the Python world allow such URLs,
+including <a class="reference external" href="https://www.sqlalchemy.org/">SQLAlchemy</a> (<tt class="docutils literal"><span class="pre">'post&shy;gresql://scott:tiger&#64;localhost:5432/my&shy;data&shy;base'</span></tt>)
+and <a class="reference external" href="https://docs.celeryproject.org/en/stable/">Celery</a> (<tt class="docutils literal"><span class="pre">'amqp://guest:guest&#64;localhost:5672//'</span></tt>).
+It's also useful to be able to log such URLs without exposing the password.</p>
+<p>Python 2 has <a class="reference external" href="https://docs.python.org/2/library/urlparse.html#urlparse.urlparse">urlparse.urlparse</a>
+(known as <a class="reference external" href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.urlparse">urllib.parse.urlparse</a> in Python 3
+and <tt class="docutils literal">six.moves.url&shy;lib_&shy;parse.urlparse</tt> in the <a class="reference external" href="https://six.readthedocs.io/">Six</a> com&shy;pat&shy;i&shy;bil&shy;i&shy;ty library)
+to split a URL into six components,
+<em>scheme</em>, <em>netloc</em>, <em>path</em>, <em>parameters</em>, <em>query</em>, and <em>fragment</em>.
+The <em>netloc</em> cor&shy;re&shy;sponds to <tt class="docutils literal"><span class="pre">&lt;user&gt;:&lt;password&gt;&#64;&lt;host&gt;:&lt;port&gt;</span></tt>.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, neither Python 2 nor 3's <tt class="docutils literal">urlparse</tt>
+properly handle the <em>userinfo</em>
+(<em>username</em> + optional <em>password</em> in the <em>netloc</em>),
+as <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/urls/" rel="tag">urls</a>,
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-12-30">2015-12-30</time>
         <h1>
             <a href="/blog/2015/12/30/UseForPythonNestedListComprehensions.html" rel="bookmark canonical">Python: a use for nested list comprehensions</a>
@@ -430,44 +477,6 @@ as <span>&#8230;<a href="/blog/2015/01/25/PyCharmYosemite.html" class="continue"
                 <a href="/tag/python/" rel="tag">python</a>,
                 <a href="/tag/mac/" rel="tag">mac</a>,
                 <a href="/tag/vim/" rel="tag">vim</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2013-11-11">2013-11-11</time>
-        <h1>
-            <a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" rel="bookmark canonical">Turn off Windows Defender on your builds</a>
-        </h1>
-    </header>
-    <p>I've spent some time this evening profiling a Python ap&shy;pli&shy;ca&shy;tion on Windows,
-trying to find out why it was so much slower than on Mac or Linux.
-The ap&shy;pli&shy;ca&shy;tion is an in-house build tool which reads a number of config files,
-then writes some output files.</p>
-<p>Using the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run&shy;SnakeRun</a> Python profile viewer on Windows,
-two things im&shy;me&shy;di&shy;ate&shy;ly leapt out at me:
-we were running <tt class="docutils literal">os.stat</tt> a lot
-and <tt class="docutils literal">file.close</tt> was really expensive.</p>
-<p>A quick test convinced me that we were <a class="reference external" href="http://docs.python.org/2/library/stat.html">stat-ing</a> the same files over and over.
-It was a com&shy;bi&shy;na&shy;tion of explicit checks and implicit code,
-like <tt class="docutils literal">os.walk</tt> calling <tt class="docutils literal">os.path.isdir</tt>.
-I wrote a little cache that memoizes the results,
-which brought <span>&#8230;<a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/windows/" rel="tag">windows</a>,
-                <a href="/tag/python/" rel="tag">python</a>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>

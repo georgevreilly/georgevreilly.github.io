@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Python Enums with Attributes</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content="Python enumerations_ are useful for grouping relat..." />
+    <meta name="keywords" content="python, til" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2023-09-02">2023-09-02</time>
+        <h1>
+            <a href="/blog/2023/09/02/PythonEnumsWithAttributes.html" rel="bookmark canonical">Python Enums with Attributes</a>
+        </h1>
+    </header>
+    <p>Python <a class="reference external" href="https://realpython.com/python-enum/">enu&shy;mer&shy;a&shy;tions</a> are useful for grouping related constants in a namespace.
+You can add additional behaviors to an enum class,
+but there isn&#8217;t an easy and obvious way
+to add attributes to enum&nbsp;members.</p>
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">TileState</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n"><span class="caps">CORRECT</span></span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n"><span class="caps">PRESENT</span></span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n"><span class="caps">ABSENT</span></span>  <span class="o">=</span> <span class="mi">3</span>
+
+    <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n"><span class="caps">CORRECT</span></span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;Green&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n"><span class="caps">PRESENT</span></span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;Yellow&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n"><span class="caps">ABSENT</span></span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;Black&quot;</span>
+
+    <span class="k">def</span> <span class="nf">emoji</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n"><span class="caps">CORRECT</span></span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\<span class="caps">U0001F7E9</span></span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n"><span class="caps">PRESENT</span></span><span class="p">:</span> <span class="s2">&quot;</span><span class="se">\<span class="caps">U0001F7E8</span></span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n"><span class="caps">ABSENT</span></span><span class="p">:</span>  <span class="s2">&quot;</span><span class="se">\<span class="caps">U00002B1B</span></span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">}[</span><span class="bp">self</span><span class="p">]</span>
+</pre>
+<p>Accessing the members and the&nbsp;methods:</p>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">TileState</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">name</span><span class="si">:</span><span class="s2">&lt;7</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">color</span><span class="p">()</span><span class="si">:</span><span class="s2">&lt;6</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">emoji</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go"><span class="caps">CORRECT</span>: 1 Green  🟩
+<span class="caps">PRESENT</span>: 2 Yellow 🟨
+<span class="caps">ABSENT</span> : 3 Black  ⬛</span>
+</pre>
+<p>You can add methods like <tt class="docutils literal">color()</tt> and <tt class="docutils literal">emoji()</tt> above—you can even decorate them with <tt class="docutils literal">&#64;property</tt> so that you don&#8217;t need paren&shy;the&shy;ses—but you have to remember to update <em>each</em> method
+when you add or remove members from the&nbsp;enu&shy;mer&shy;a&shy;tion.</p>
+<div class="section" id="namedtuples-to-the-rescue">
+<h2>Named&shy;tu&shy;ples to the&nbsp;rescue</h2>
+<p>It <a class="reference external" href="https://stackoverflow.com/a/62601113/6364">turns out</a> that you can build a <a class="reference external" href="/blog/2016/01/14/PythonBaseClassOrder.html">mixin</a> enu&shy;mer&shy;a&shy;tion
+from <a class="reference external" href="https://realpython.com/python-namedtuple/">namedtuple</a> and <tt class="docutils literal">Enum</tt> that gives terse con&shy;struc&shy;tion&nbsp;syntax:</p>
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">TileState</span><span class="p">(</span><span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;TileState&quot;</span><span class="p">,</span> <span class="s2">&quot;value emoji color css_color&quot;</span><span class="p">),</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n"><span class="caps">CORRECT</span></span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\<span class="caps">U0001F7E9</span></span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;Green&quot;</span><span class="p">,</span>  <span class="s2">&quot;#6aaa64&quot;</span>
+    <span class="n"><span class="caps">PRESENT</span></span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\<span class="caps">U0001F7E8</span></span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;Yellow&quot;</span><span class="p">,</span> <span class="s2">&quot;#c9b458&quot;</span>
+    <span class="n"><span class="caps">ABSENT</span></span>  <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\<span class="caps">U00002B1B</span></span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;Black&quot;</span><span class="p">,</span>  <span class="s2">&quot;#838184&quot;</span>
+</pre>
+<p>Each member now has multiple read-only attributes,
+like <tt class="docutils literal">emoji</tt> and <tt class="docutils literal">css_color</tt>:</p>
+<pre class="code pycon literal-block">
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">TileState</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">name</span><span class="si">:</span><span class="s2">&lt;7</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">emoji</span><span class="si">}</span><span class="s2"> U+</span><span class="si">{</span><span class="nb">ord</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">emoji</span><span class="p">)</span><span class="si">:</span><span class="s2">05x</span><span class="si">}</span><span class="s2"> &quot;</span>
+<span class="gp">... </span>          <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">color</span><span class="si">:</span><span class="s2">&lt;6</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">ts</span><span class="o">.</span><span class="n">css_color</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go"><span class="caps">CORRECT</span>: 1 🟩 U+1f7e9 Green  #6aaa64
+<span class="caps">PRESENT</span>: 2 🟨 U+1f7e8 Yellow #c9b458
+<span class="caps">ABSENT</span> : 3 ⬛ U+02b1b Black  #838184</span>
+</pre>
+</div>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "https://www.georgevreilly.com/blog/2023/09/02/PythonEnumsWithAttributes.html";
+            var disqus_url = "https://www.georgevreilly.com/blog/2023/09/02/PythonEnumsWithAttributes.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="https://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+
+
+    
+    
+        <a href="/blog/2023/08/10/PatchingAPythonWheel.html" class="page floatright">
+        Patching a Python Wheel &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

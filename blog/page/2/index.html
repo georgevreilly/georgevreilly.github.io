@@ -31,6 +31,51 @@
     <header>
         <time datetime="2022-01-31">2022-01-31</time>
         <h1>
+            <a href="/blog/2022/01/31/DiffFileFragment.html" rel="bookmark canonical">Diffing a fragment of a file</a>
+        </h1>
+    </header>
+    <p>A while back, I had extracted some code out of a large file
+into a separate file and made some mod&shy;i&shy;fi&shy;ca&shy;tions.
+I wanted to check that the dif&shy;fer&shy;ences were minimal.
+Let&#8217;s say that the extracted code had been between
+lines 123 and 456 of <tt class="docutils literal">large_old_&shy;file</tt>.</p>
+<pre class="code bash literal-block">
+diff -u &lt;<span class="o">(</span>sed -n <span class="s1">'123,456p;457q'</span> large_old_file<span class="o">)</span> new_file
+</pre>
+<p>What&#8217;s happening&nbsp;here?</p>
+<ul class="simple">
+<li><tt class="docutils literal">sed <span class="pre">-n</span> '123,456p'</tt> is printing lines 123–456 of <tt class="docutils literal">large_old_&shy;file</tt>.</li>
+<li>The <tt class="docutils literal">457q</tt> tells sed to abandon the file at line 457.
+Otherwise, it will keep reading all the way to the&nbsp;end.</li>
+<li>The <tt class="docutils literal">&lt;(sed <span class="pre">...)</span></tt> is an example of <a class="reference external" href="https://tldp.org/LDP/abs/html/process-sub.html">process sub&shy;sti&shy;tu&shy;tion</a>.
+The <em>output</em> of the <tt class="docutils literal">sed</tt> invocation
+becomes the first <em>input</em> of the <tt class="docutils literal">diff</tt> command.</li>
+</ul>
+<p>A similar example: <a class="reference external" href="/blog/2017/01/11/DiffTransformedFile.html">Diff a Trans&shy;formed </a><span>&#8230;<a href="/blog/2022/01/31/DiffFileFragment.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2022/01/31/DiffFileFragment.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>,
+                <a href="/tag/bash/" rel="tag">bash</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2022-01-31">2022-01-31</time>
+        <h1>
             <a href="/blog/2022/01/31/40YearsOfProgramming.html" rel="bookmark canonical">40 Years of Programming</a>
         </h1>
     </header>
@@ -417,39 +462,6 @@ It seemed prudent to minimize my <span>&#8230;<a href="/blog/2020/03/15/Weirdest
                 <a href="/tag/personal/" rel="tag">personal</a>
                 
             </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2019-11-22">2019-11-22</time>
-        <h1>
-            <a href="/blog/2019/11/22/Dublin2020.html" rel="bookmark canonical">Dublin for 2020</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.irishcalendars.ie/products/dublin-calendar"></a>
-<p>I left in the Eighties; I&#8217;m going back in the&nbsp;Twenties.</p>
-<p>I am trans&shy;fer&shy;ring to a Dublin-based team at <a class="reference external" href="https://stripe.com/">Stripe</a> for a one-year rotation.
-Emma and I will be moving to Dublin just before Christmas.
-Emma has never lived in Ireland
-and I haven&#8217;t lived there since January 1989.
-After 30 years in the <span class="caps">US</span>, I&#8217;m about to spend a year in my&nbsp;hometown.</p>
-<p>I grew up in Dublin,
-earned a Bachelor&#8217;s degree in Computer Science at Trinity College Dublin in 1987,
-and moved to the <span class="caps">US</span> in 1989
-to get a Master&#8217;s degree in Comp Sci at Brown University in Providence, <span class="caps">RI</span>.
-Microsoft moved me to Seattle, <span class="caps">WA</span> in 1992,
-where I&#8217;ve <span>&#8230;<a href="/blog/2019/11/22/Dublin2020.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2019/11/22/Dublin2020.html#disqus_thread">Comment</a>
-        
-        
-            <p>untagged</p>
         
     </footer>
     <div class="comments"></div>

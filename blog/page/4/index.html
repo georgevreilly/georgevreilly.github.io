@@ -29,6 +29,45 @@
     
         <article>
     <header>
+        <time datetime="2017-12-26">2017-12-26</time>
+        <h1>
+            <a href="/blog/2017/12/26/GitDiffTips.html" rel="bookmark canonical">Git Diff Tips</a>
+        </h1>
+    </header>
+    <p>The <a class="reference external" href="https://git-scm.com/docs/git-diff">Git Diff</a> utility is much more functional than the standard command-line <tt class="docutils literal">diff</tt>.</p>
+<p>To see changes relative to the staging area (aka the index),
+use <tt class="docutils literal">git diff</tt>.</p>
+<p>To see <em>staged</em> changes, use <tt class="docutils literal">git diff <span class="pre">--staged</span></tt> (or <tt class="docutils literal"><span class="pre">--cached</span></tt>).</p>
+<p>To see changes side by side on a line (where it makes sense),
+use the <tt class="docutils literal"><span class="pre">--color-word</span></tt> option.</p>
+<p>To compare two arbitrary files in the file system,
+use <tt class="docutils literal">git diff <span class="pre">--no-index</span></tt>.</p>
+<p>To try some other <a class="reference external" href="https://stackoverflow.com/questions/4045017/what-is-git-diff-patience-for">diff algorithms</a>,
+use the <tt class="docutils literal"><span class="pre">--patience</span></tt>, <tt class="docutils literal"><span class="pre">--histogram</span></tt>, or <tt class="docutils literal"><span class="pre">--minimal</span></tt> options.
+The default diff algorithm is <tt class="docutils literal"><span class="pre">--myers</span></tt>.</p>
+<p>Lots more at the <a class="reference external" href="https://git-scm.com/docs/git-diff">docs</a>.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/12/26/GitDiffTips.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/git/" rel="tag">git</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2017-12-25">2017-12-25</time>
         <h1>
             <a href="/blog/2017/12/25/ReviewCoco.html" rel="bookmark canonical">Review: Coco</a>
@@ -401,58 +440,6 @@ or the Coen Brother&#8217;s quirky&nbsp;killers.</p>
                     and
                     
                 <a href="/tag/reviews/" rel="tag">reviews</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2017-02-09">2017-02-09</time>
-        <h1>
-            <a href="/blog/2017/02/09/Jenkins06-Miscellenea.html" rel="bookmark canonical">Jenkins #6: Miscellenea</a>
-        </h1>
-    </header>
-    <p></p>
-<blockquote>
-[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
-<p>A collection of mis&shy;cel&shy;la&shy;neous tips on using Pipelines in Jenkins&nbsp;2.0.</p>
-<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#6 in a series on Jenkins&nbsp;Pipelines</a></p>
-<div class="section" id="environment-variables">
-<h2>En&shy;vi&shy;ron&shy;ment&nbsp;Variables</h2>
-<p>Use the <tt class="docutils literal">withEnv</tt> step to set en&shy;vi&shy;ron&shy;ment variables.
-Don&#8217;t manipulate the <tt class="docutils literal">env</tt> global&nbsp;variable.</p>
-<p>The confusing example that you see in the documents,
-<tt class="docutils literal"><span class="pre"><span class="caps">PATH</span>+<span class="caps">WHATEVER</span>=/something</span></tt>,
-simply means to <em>prepend</em> <tt class="docutils literal">/something</tt> to <tt class="docutils literal">$<span class="caps">PATH</span></tt>.
-The <tt class="docutils literal">+<span class="caps">WHATEVER</span></tt> has no other&nbsp;effect.</p>
-</div>
-<div class="section" id="credentials">
-<h2>Cre&shy;den&shy;tials</h2>
-<p>The <tt class="docutils literal">withEnv</tt> step should not be used to introduce secrets into the build en&shy;vi&shy;ron&shy;ment.
-Use the <a class="reference external" href="https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin">with&shy;Cre&shy;den&shy;tials</a> plugin&nbsp;instead.</p>
-<pre class="code groovy literal-block">
-<span class="n">withCredentials</span><span class="o">([</span><span class="w">
-    </span><span class="o">[</span><span class="n">$class</span><span class="o">:</span><span class="w"> </span><span class="s1">'StringBinding'</span><span class="o">,</span><span class="w"> </span><span class="nl">credentialsId:</span><span class="w"> </span><span class="s1">'GPG_SECRET'</span><span class="o">,</span><span class="w"> </span><span class="nl">variable:</span><span class="w"> </span><span class="s1">'GPG_SECRET'</span><span class="o">],</span><span class="w">
-    </span><span class="o">[</span><span class="n">$class</span><span class="o">:</span><span class="w"> </span><span class="s1">'AmazonWebServicesCredentialsBinding'</span><span class="o">,</span><span class="w">
-     </span><span class="nl">credentialsId:</span><span class="w"> </span><span class="s1">'0defaced-cafe-f00d-badd-0000000ff1ce'</span><span class="o">,</span><span class="w">
-     </span><span class="nl">accessKeyVariable:</span><span class="w"> </span><span class="s1">'AWS_ACCESS_KEY_ID'</span><span class="o">,</span><span class="w">
-     </span><span class="nl">secretKeyVariable:</span><span class="w"> </span><span class="s1">'AWS_SECRET_ACCESS_KEY'</span><span class="o">]</span><span class="w">
-</span><span class="o">])</span><span class="w"> </span></pre><span>&#8230;<a href="/blog/2017/02/09/Jenkins06-Miscellenea.html" class="continue">continue</a>.</span></div>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/09/Jenkins06-Miscellenea.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/jenkins/" rel="tag">jenkins</a>
-                    and
-                    
-                <a href="/tag/metabrite/" rel="tag">metabrite</a>
                 
             </p>
         

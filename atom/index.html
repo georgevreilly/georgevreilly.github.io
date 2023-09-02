@@ -11,8 +11,82 @@
     <link rel="self" type="application/atom+xml" href="https://www.georgevreilly.com/atom/" />
     <icon>https://www.georgevreilly.com/favicon.ico</icon>
     <logo>https://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2023-08-10T07:00:00Z</updated>
+    <updated>2023-09-02T07:00:00Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.8.dev0">acrylamid</generator>
+        <entry>
+        <title>Python Enums with Attributes</title>
+        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/09/02/PythonEnumsWithAttributes.html" />
+        <id>tag:www.georgevreilly.com,2023-09-02:/blog/2023/09/02/PythonEnumsWithAttributes.html</id>
+        <updated>2023-09-02T07:00:00Z</updated>
+        <category term="python" />
+        <category term="til" />
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>https://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;p&gt;Python &lt;a class=&#34;reference external&#34; href=&#34;https://realpython.com/python-enum/&#34;&gt;enumerations&lt;/a&gt; are useful for grouping related constants in a namespace.
+You can add additional behaviors to an enum class,
+but there isn&#39;t an easy and obvious way
+to add attributes to enum members.&lt;/p&gt;
+&lt;pre class=&#34;code python literal-block&#34;&gt;
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;TileState&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Enum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;CORRECT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;PRESENT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;ABSENT&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CORRECT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Green&amp;quot;&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;elif&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PRESENT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Yellow&amp;quot;&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;elif&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;is&lt;/span&gt; &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ABSENT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Black&amp;quot;&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;emoji&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CORRECT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\U0001F7E9&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;PRESENT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\U0001F7E8&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ABSENT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\U00002B1B&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;}[&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Accessing the members and the methods:&lt;/p&gt;
+&lt;pre class=&#34;code pycon literal-block&#34;&gt;
+&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TileState&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;... &lt;/span&gt;    &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;lt;7&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;: &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;lt;6&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;emoji&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;CORRECT: 1 Green  🟩
+PRESENT: 2 Yellow 🟨
+ABSENT : 3 Black  ⬛&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;You can add methods like &lt;tt class=&#34;docutils literal&#34;&gt;color()&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;emoji()&lt;/tt&gt; above—you can even decorate them with &lt;tt class=&#34;docutils literal&#34;&gt;&amp;#64;property&lt;/tt&gt; so that you don&#39;t need parentheses—but you have to remember to update &lt;em&gt;each&lt;/em&gt; method
+when you add or remove members from the enumeration.&lt;/p&gt;
+&lt;div class=&#34;section&#34; id=&#34;namedtuples-to-the-rescue&#34;&gt;
+&lt;h3&gt;Namedtuples to the rescue&lt;/h3&gt;
+&lt;p&gt;It &lt;a class=&#34;reference external&#34; href=&#34;https://stackoverflow.com/a/62601113/6364&#34;&gt;turns out&lt;/a&gt; that you can build a &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2016/01/14/PythonBaseClassOrder.html&#34;&gt;mixin&lt;/a&gt; enumeration
+from &lt;a class=&#34;reference external&#34; href=&#34;https://realpython.com/python-namedtuple/&#34;&gt;namedtuple&lt;/a&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;Enum&lt;/tt&gt; that gives terse construction syntax:&lt;/p&gt;
+&lt;pre class=&#34;code python literal-block&#34;&gt;
+&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;TileState&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;namedtuple&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;TileState&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;value emoji color css_color&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Enum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;CORRECT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\U0001F7E9&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Green&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;quot;#6aaa64&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;PRESENT&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\U0001F7E8&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Yellow&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;#c9b458&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;n&#34;&gt;ABSENT&lt;/span&gt;  &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;se&#34;&gt;\U00002B1B&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Black&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  &lt;span class=&#34;s2&#34;&gt;&amp;quot;#838184&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;Each member now has multiple read-only attributes,
+like &lt;tt class=&#34;docutils literal&#34;&gt;emoji&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;css_color&lt;/tt&gt;:&lt;/p&gt;
+&lt;pre class=&#34;code pycon literal-block&#34;&gt;
+&lt;span class=&#34;gp&#34;&gt;&amp;gt;&amp;gt;&amp;gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;TileState&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;... &lt;/span&gt;    &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;lt;7&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;: &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;value&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;emoji&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; U+&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;ord&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;emoji&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;05x&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; &amp;quot;&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;... &lt;/span&gt;          &lt;span class=&#34;sa&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;lt;6&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt; &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ts&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;css_color&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;span class=&#34;gp&#34;&gt;...&lt;/span&gt;
+&lt;span class=&#34;go&#34;&gt;CORRECT: 1 🟩 U+1f7e9 Green  #6aaa64
+PRESENT: 2 🟨 U+1f7e8 Yellow #c9b458
+ABSENT : 3 ⬛ U+02b1b Black  #838184&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Patching a Python Wheel</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/08/10/PatchingAPythonWheel.html" />
@@ -1715,7 +1789,7 @@ These would get translated into (possibly recurring) &lt;a class=&#34;reference 
 &lt;p&gt;I&#39;ve elided the intermediate values but they were spelled out in the original.
 Some of the simpler subexpressions were repeated several times,
 nested inside others.&lt;/p&gt;
-&lt;p&gt;This all screamed &lt;em&gt;grammar&lt;/em&gt; and &lt;em&gt;real parser&lt;/em&gt; to me,
+&lt;p&gt;This all screamed that a &lt;em&gt;grammar&lt;/em&gt; and a &lt;em&gt;real parser&lt;/em&gt; were needed,
 but the test suite also screamed &lt;em&gt;here be dragons!&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;I resisted the temptation
 to rewrite the appointment parser from scratch with a proper grammar,
@@ -2639,68 +2713,6 @@ One shortcoming is that
 although the voices are generally distinct,
 many of the rabbits look alike,
 and it&#39;s hard to tell one gray-brown rabbit from another.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>2018 ends</title>
-        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2018/12/31/2018-review.html" />
-        <id>tag:www.georgevreilly.com,2018-12-31:/blog/2018/12/31/2018-review.html</id>
-        <updated>2018-12-31T07:00:00Z</updated>
-        <category term="personal" />
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>https://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;2018 was a mixed year for Emma and me.&lt;/p&gt;
-&lt;p&gt;At the start of the year,
-I was the principal engineer at MetaBrite.
-The year started out well initially,
-as we had moved to much larger offices at the end of 2017.
-In late January, a number of people were laid off,
-when it became apparent
-that the old business plan would no longer work.
-In late March, the company died abruptly
-when we lost our principal source of funding.
-I spent April looking for a job and received several offers.&lt;/p&gt;
-&lt;p&gt;I joined &lt;a class=&#34;reference external&#34; href=&#34;https://www.stripe.com/&#34;&gt;Stripe&lt;/a&gt;&#39;s Seattle office in June,
-where I work on the Edge team,
-which is &amp;quot;ensuring Stripe’s continued existence on the Internet&amp;quot;.
-It&#39;s been a bit of adjustment going from being a big fish in a small pond
-to at best a medium-sized fish in a much larger pond.
-Stripe is growing rapidly in Seattle and we just moved to a new space.&lt;/p&gt;
-&lt;p&gt;I&#39;ve been active in Toastmasters, continuing as an officer at my home club,
-&lt;a class=&#34;reference external&#34; href=&#34;http://freelyspeaking.org/&#34;&gt;Freely Speaking Toastmasters&lt;/a&gt;.
-We&#39;ve struggled with finding new members.
-After a couple of years in South Lake Union,
-we have moved back to Capitol Hill.
-In July, I became an Area Director,
-responsible for several clubs in downtown Seattle.&lt;/p&gt;
-&lt;p&gt;In June, the &lt;a class=&#34;reference external&#34; href=&#34;https://www.wildgeeseseattle.org/&#34;&gt;Wild Geese Players of Seattle&lt;/a&gt;
-put on our annual Bloomsday reading at the Seattle Central Library.
-In October, we arranged a 20th Anniversary Celebration of Irish Writing.&lt;/p&gt;
-&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://www.goodreads.com/user/show/3723742-george-reilly&#34;&gt;GoodReads&lt;/a&gt;
-says I read 113 books in 2018.
-Most of those books were on Kindle.
-I didn&#39;t bother to add most of the paperbacks and hardbacks that I read,
-so the total is probably closer to 140 books for the year.&lt;/p&gt;
-&lt;p&gt;In the year leading up to my
-&lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2017/01/17/KneeWalker.html&#34;&gt;heel surgery&lt;/a&gt;
-at the beginning of 2017,
-I lost the habit of cycling to work,
-which I had developed over the preceding decade.
-I have not yet rebuilt the habit.
-I&#39;m going to work on it in 2019.&lt;/p&gt;
-&lt;p&gt;Emma&#39;s health has not been good and she&#39;s had a rough year.
-She has a lot of abdominal problems,
-which are not well understood.&lt;/p&gt;
-&lt;p&gt;It&#39;s been a poor year for the United States,
-with Trump in the Oval Office.
-I look forward to the new Democratic Congress
-which takes office later this week.&lt;/p&gt;
-&lt;p&gt;Here&#39;s to 2019!&lt;/p&gt;
 </content>
     </entry>
     </feed>

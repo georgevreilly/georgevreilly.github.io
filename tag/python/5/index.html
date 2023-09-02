@@ -29,6 +29,44 @@
     
         <article>
     <header>
+        <time datetime="2013-11-11">2013-11-11</time>
+        <h1>
+            <a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" rel="bookmark canonical">Turn off Windows Defender on your builds</a>
+        </h1>
+    </header>
+    <p>I've spent some time this evening profiling a Python ap&shy;pli&shy;ca&shy;tion on Windows,
+trying to find out why it was so much slower than on Mac or Linux.
+The ap&shy;pli&shy;ca&shy;tion is an in-house build tool which reads a number of config files,
+then writes some output files.</p>
+<p>Using the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run&shy;SnakeRun</a> Python profile viewer on Windows,
+two things im&shy;me&shy;di&shy;ate&shy;ly leapt out at me:
+we were running <tt class="docutils literal">os.stat</tt> a lot
+and <tt class="docutils literal">file.close</tt> was really expensive.</p>
+<p>A quick test convinced me that we were <a class="reference external" href="http://docs.python.org/2/library/stat.html">stat-ing</a> the same files over and over.
+It was a com&shy;bi&shy;na&shy;tion of explicit checks and implicit code,
+like <tt class="docutils literal">os.walk</tt> calling <tt class="docutils literal">os.path.isdir</tt>.
+I wrote a little cache that memoizes the results,
+which brought <span>&#8230;<a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/windows/" rel="tag">windows</a>,
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2010-04-04">2010-04-04</time>
         <h1>
             <a href="/blog/2010/04/04/SQLAlchemySharding.html" rel="bookmark canonical">SQLAlchemy Sharding</a>

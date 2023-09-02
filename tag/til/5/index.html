@@ -29,6 +29,61 @@
     
         <article>
     <header>
+        <time datetime="2016-04-05">2016-04-05</time>
+        <h1>
+            <a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" rel="bookmark canonical">Doctests, Unicode Literals, and Python 2/3 Compatibility</a>
+        </h1>
+    </header>
+    <p>I rarely use <a class="reference external" href="https://pymotw.com/2/doctest/">doctests</a>, but I do have <a class="reference external" href="https://code.activestate.com/recipes/578031-sorting-a-dicts-items-and-keys/">some code</a> that uses them.</p>
+<p>Although I still mostly write Python 2,
+I usually import several features of Python 3:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+</pre>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly <a class="reference external" href="http://python-future.org/unicode_literals.html">uni&shy;code_lit&shy;er&shy;als</a> doesn't play well with doctests.</p>
+<p>The following code will pass with <tt class="docutils literal">python2 <span class="pre">-m</span> doctest demo.py</tt>,
+but not with <tt class="docutils literal">python3</tt>:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">absolute_import</span>
+
+<span class="k">def</span> <span class="nf">upper</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;
+    Convert `s` to upper case.
+
+    &gt;&gt;&gt; upper('Hello!')
+    u'HELLO!'
+    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+</pre>
+<p>Python 3 complains:</p>
+<pre class="literal-block">
+Failed example:
+    upper('Hello!')
+Expected:
+    u'HELLO!'
+Got:
+    'HELLO!'
+</pre>
+<p>The <span>&#8230;<a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-04-03">2016-04-03</time>
         <h1>
             <a href="/blog/2016/04/03/FindRemoteGitBranchWithChangeToAFile.html" rel="bookmark canonical">Find remote Git branch with change to a file</a>
@@ -394,41 +449,6 @@ K: ꓘ u+A4D8  Lisu Letter Kha
 L: ꓶ u+A4F6  Lisu Letter Uh
 R: ꓤ u+A4E4  Lisu Letter Za
 T: ꓕ u+A4D5  Lisu </pre><span>&#8230;<a href="/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html" class="continue">continue</a>.</span>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/font/" rel="tag">font</a>,
-                <a href="/tag/unicode/" rel="tag">unicode</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-02-11">2016-02-11</time>
-        <h1>
-            <a href="/blog/2016/02/11/UnicodeUpsideDownMapping.html" rel="bookmark canonical">Unicode Upside-Down Mapping</a>
-        </h1>
-    </header>
-    <p>Unicode is so versatile that you can (more or less) invert the Latin alphabet:</p>
-<pre class="literal-block">
-ɐqɔpǝɟƃɥıɾʞʃɯuodbɹsʇnʌʍxʎz ∀𐐒Ↄ◖ƎℲ⅁HIſ⋊⅂WᴎOԀΌᴚS⊥∩ᴧMX⅄Z 012Ɛᔭ59Ɫ86
-abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789
-68Ɫ95ᔭƐ210 Z⅄XMᴧ∩⊥SᴚΌԀOᴎW⅂⋊ſIH⅁ℲƎ◖Ↄ𐐒∀ zʎxʍʌnʇsɹbdouɯʃʞɾıɥƃɟǝpɔqɐ
-</pre>
-<p>Obtained via the <a class="reference external" href="http://www.fileformat.info/convert/text/upside-down.htm">ɹǝʇɹǝʌuoↃ uʍo◖-ǝpısd∩ ǝpoɔıu∩</a>.
-More at <a class="reference external" href="http://www.fileformat.info/convert/text/upside-down-map.htm">Unicode Upside-Down Mapping</a>.</p>
-<p><strong>Update</strong>: more <a class="reference external" href="/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html">tomorrow</a>.</p>
-
     <footer>
         
         

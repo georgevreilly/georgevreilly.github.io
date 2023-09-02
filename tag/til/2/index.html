@@ -29,6 +29,45 @@
     
         <article>
     <header>
+        <time datetime="2017-01-30">2017-01-30</time>
+        <h1>
+            <a href="/blog/2017/01/30/JsonDataFromDockerImages.html" rel="bookmark canonical">JSON data from Docker Images</a>
+        </h1>
+    </header>
+    <p>I was trying to get some structured in&shy;for&shy;ma&shy;tion from <tt class="docutils literal">docker images</tt>,
+hoping to replace some ugly Sed and AWK trickery.
+I could have used the <a class="reference external" href="https://docker-py.readthedocs.io/en/stable/">docker-py</a> library.
+Instead I chose to use the poorly documented <tt class="docutils literal"><span class="pre">--format</span></tt> option to <tt class="docutils literal">docker images</tt>
+(and some other Docker CLI commands).
+Adrian Mouat gives some useful starting points at <a class="reference external" href="http://container-solutions.com/docker-inspect-template-magic/">Docker Inspect Template Magic</a>
+and notes that formatting is built around <a class="reference external" href="https://golang.org/pkg/text/template/">Go templates</a>.</p>
+<p>I quickly figured out that this format would meet my immediate need.</p>
+<pre class="code bash literal-block">
+sudo docker images --format <span class="s1">'{{.Repository}}:{{.Tag}}'</span> <span class="se">\
+</span>    <span class="p">|</span> grep <span class="nv">$IMAGE_NAME</span> <span class="se">\
+</span>    <span class="p">|</span> grep -v latest <span class="se">\
+</span>    <span class="p">|</span> head -1
+</pre>
+<p>That's fine, but <span>&#8230;<a href="/blog/2017/01/30/JsonDataFromDockerImages.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/docker/" rel="tag">docker</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2017-01-19">2017-01-19</time>
         <h1>
             <a href="/blog/2017/01/19/BashEchoSuccessOfPreviousCommand.html" rel="bookmark canonical">Bash: echo success of previous command</a>
@@ -376,45 +415,6 @@ Then there's <a class="reference external" href="https://en.wikipedia.org/wiki/X
             <p>tagged as
                 <a href="/tag/tech/" rel="tag">tech</a>,
                 <a href="/tag/compression/" rel="tag">compression</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-08-30">2016-08-30</time>
-        <h1>
-            <a href="/blog/2016/08/30/USBChargeOnlyCablesAndCondoms.html" rel="bookmark canonical">USB Charge-Only Cables and Condoms</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.amazon.com/dp/B00T0DW3F8/?tag=georgvreill-20"></a>
-<p>Thanks to <a class="reference external" href="http://everythingsysadmin.com/2016/08/usb-charge-only-cables.html">Tom Limoncelli</a>, I became acutely aware of USB charge-only cables and condoms.
-If you plug your phone into an unknown computer to charge the battery,
-you run the risk of having your phone hijacked by <a class="reference external" href="https://securelist.com/blog/mobile/74804/wired-mobile-charging-is-it-safe/">malware</a>.
-USB transfers data as well as elec&shy;tric&shy;i&shy;ty
-and you're es&shy;sen&shy;tial&shy;ly giving the computer un&shy;re&shy;strict&shy;ed access to your phone.</p>
-<p>Certain USB cables are charge-only and will not pass data.
-There are also “USB condoms”,
-which are inserted between the cable and the computer.
-They not only block data, but they can po&shy;ten&shy;tial&shy;ly charge the battery faster,
-as they can switch the device into a fast-charging mode.
-I've ordered a <a class="reference external" href="https://www.amazon.com/dp/B00T0DW3F8/georgevreill-20">pair</a> from Amazon,
-as we're <span>&#8230;<a href="/blog/2016/08/30/USBChargeOnlyCablesAndCondoms.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/tech/" rel="tag">tech</a>,
-                <a href="/tag/usb/" rel="tag">usb</a>,
-                <a href="/tag/security/" rel="tag">security</a>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>

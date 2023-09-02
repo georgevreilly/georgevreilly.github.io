@@ -29,6 +29,41 @@
     
         <article>
     <header>
+        <time datetime="2016-06-01">2016-06-01</time>
+        <h1>
+            <a href="/blog/2016/06/01/HouseCanaryPyCon2016ProgammingChallenge.html" rel="bookmark canonical">HouseCanary PyCon2016 Progamming Challenge</a>
+        </h1>
+    </header>
+    <p>Yesterday, while at PyCon,
+I whipped up a quick, brute-force answer
+to the <a class="reference external" href="https://github.com/housecanary/PyCon2016">House&shy;Ca&shy;nary PyCon2016 Progamming Challenge</a>
+in a few minutes.
+That was sufficient to pass the first two test cases
+and win me a very pretty House&shy;Ca&shy;nary t-shirt.</p>
+<p>The answer ran in <em>O(n⁴)</em> time, so it failed miserably on the larger problem sets
+in the third and fourth cases.
+I mulled it over and came up with an <em>O(n²)</em> solution that runs in reasonable time
+on the larger problem sets.
+On the second test case, <tt class="docutils literal">input1.txt</tt>, runtime drops from 5.2s to 0.2s.</p>
+<p>I submitted my new answer.
+I'll learn on Monday if I won the speed challenge.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-05-29">2016-05-29</time>
         <h1>
             <a href="/blog/2016/05/29/FlyingCloudDocumentationUpdates.html" rel="bookmark canonical">FlyingCloud Documentation Updates</a>
@@ -367,51 +402,6 @@ won't make it through to <tt class="docutils literal">awk</tt>.</p>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'ssh'</span><span class="p">):</span>
        </pre><span>&#8230;<a href="/blog/2016/03/06/psutil-kill.html" class="continue">continue</a>.</span>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-03-02">2016-03-02</time>
-        <h1>
-            <a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" rel="bookmark canonical">Python: Import subclass from dynamic path</a>
-        </h1>
-    </header>
-    <p>I needed to import some plugin code written in Python
-from a directory whose path isn't known until runtime.
-Further, I needed a class object that was a subclass of the plugin base class.</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">somewhere</span> <span class="kn">import</span> <span class="n">PluginBase</span>
-
-<span class="k">class</span> <span class="nc">SomePlugin</span><span class="p">(</span><span class="n">PluginBase</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
-    <span class="k">def</span> <span class="nf">f2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="o">...</span>
-</pre>
-<p>You can use the <a class="reference external" href="https://pymotw.com/2/imp/">imp</a> module to actually load the module from <tt class="docutils literal">impl_dir</tt>.
-Note that <tt class="docutils literal">impl_dir</tt> needs to be tem&shy;porar&shy;i&shy;ly prepended to <tt class="docutils literal">sys.path</tt>.
-Then you can find the plugin subclass using <a class="reference external" href="https://docs.python.org/2/library/functions.html#dir">dir</a> and <a class="reference external" href="https://docs.python.org/2/library/functions.html#issubclass">issubclass</a>.</p>
-<pre class="code python literal-block">
-<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">imp</span>
-
-<span class="k">def</span> <span class="nf">import_class</span><span class="p">(</span><span class="n">implementation_filename</span><span class="p">,</span> <span class="n">base_class</span><span class="p">):</span>
-    <span class="n">impl_dir</span><span class="p">,</span> <span class="n">impl_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">implementation_filename</span><span class="p">)</span>
-    <span class="n">module_name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">impl_filename</span><span class="p">)</span>
-
-    </pre><span>&#8230;<a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" class="continue">continue</a>.</span>
     <footer>
         
         

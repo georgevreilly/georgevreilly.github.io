@@ -29,6 +29,45 @@
     
         <article>
     <header>
+        <time datetime="2023-09-02">2023-09-02</time>
+        <h1>
+            <a href="/blog/2023/09/02/PythonEnumsWithAttributes.html" rel="bookmark canonical">Python Enums with Attributes</a>
+        </h1>
+    </header>
+    <p>Python <a class="reference external" href="https://realpython.com/python-enum/">enu&shy;mer&shy;a&shy;tions</a> are useful for grouping related constants in a namespace.
+You can add additional behaviors to an enum class,
+but there isn't an easy and obvious way
+to add attributes to enum members.</p>
+<pre class="code python literal-block">
+<span class="k">class</span> <span class="nc">TileState</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+    <span class="n">CORRECT</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">PRESENT</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">ABSENT</span>  <span class="o">=</span> <span class="mi">3</span>
+
+    <span class="k">def</span> <span class="nf">color</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">CORRECT</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&quot;Green&quot;</span>
+        <span class="k">elif</span> <span class="bp">self</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">PRESENT</span><span class="p">:</span>
+          </pre><span>&#8230;<a href="/blog/2023/09/02/PythonEnumsWithAttributes.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2023-08-10">2023-08-10</time>
         <h1>
             <a href="/blog/2023/08/10/PatchingAPythonWheel.html" rel="bookmark canonical">Patching a Python Wheel</a>
@@ -434,41 +473,6 @@ This is so that errors which occur while handling logging <span>&#8230;<a href="
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-06-01">2016-06-01</time>
-        <h1>
-            <a href="/blog/2016/06/01/HouseCanaryPyCon2016ProgammingChallenge.html" rel="bookmark canonical">HouseCanary PyCon2016 Progamming Challenge</a>
-        </h1>
-    </header>
-    <p>Yesterday, while at PyCon,
-I whipped up a quick, brute-force answer
-to the <a class="reference external" href="https://github.com/housecanary/PyCon2016">House&shy;Ca&shy;nary PyCon2016 Progamming Challenge</a>
-in a few minutes.
-That was sufficient to pass the first two test cases
-and win me a very pretty House&shy;Ca&shy;nary t-shirt.</p>
-<p>The answer ran in <em>O(n⁴)</em> time, so it failed miserably on the larger problem sets
-in the third and fourth cases.
-I mulled it over and came up with an <em>O(n²)</em> solution that runs in reasonable time
-on the larger problem sets.
-On the second test case, <tt class="docutils literal">input1.txt</tt>, runtime drops from 5.2s to 0.2s.</p>
-<p>I submitted my new answer.
-I'll learn on Monday if I won the speed challenge.</p>
-
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
                 
             </p>
         

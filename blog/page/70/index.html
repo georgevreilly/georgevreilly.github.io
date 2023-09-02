@@ -31,6 +31,57 @@
     <header>
         <time datetime="2009-03-23">2009-03-23</time>
         <h1>
+            <a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" rel="bookmark canonical">Exuberant Ctags and JavaScript</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://ctags.sourceforge.net/"></a>
+<p><a class="reference external" href="http://ctags.sourceforge.net/">Exuberant Ctags</a> is an essential complement to Vim:
+it generates an index of symbol names (tags) for a set of source files.
+In Vim, just place the cursor on a function name
+and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its&nbsp;definition.</p>
+<p>Ctags works well for most of the languages that I deal with,
+but falls down badly on modern JavaScript.
+Its built-in parser simply doesn&#8217;t handle de&shy;c&shy;la&shy;ra&shy;tions like&nbsp;these:</p>
+<pre class="code javascript literal-block">
+<span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// ...</span><span class="w">
+</span><span class="nx">ajaxSetup</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="w"> </span><span class="nx">settings</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</pre>
+<p>I came across <a class="reference external" href="http://www.unbad.net/blog/ctags-and-relevant-support-for-javascript">Unbad</a>&#8216;s workaround earlier tonight.
+His code didn&#8217;t work for me, so I hacked on it until it&nbsp;did:</p>
+<pre class="literal-block">
+--langdef=js
+--langmap=js:.js
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
+--regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
+--regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\(([^)])\)/\1/,function/
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
+--regex-js=/([^= ]+)[ \t]*=[ \t]*[^&quot;]'[^']*/\1/,string/
+--regex-js=/([^= ]+)[ </pre><span>&#8230;<a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/23/ExuberantCtagsAndJavaScript.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>,
+                <a href="/tag/javascript/" rel="tag">javascript</a>,
+                <a href="/tag/regex/" rel="tag">regex</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2009-03-23">2009-03-23</time>
+        <h1>
             <a href="/blog/2009/03/23/ReviewNoCountryForOldMen.html" rel="bookmark canonical">Review: No Country for Old Men</a>
         </h1>
     </header>
@@ -399,43 +450,6 @@ We&#8217;ll have <span>&#8230;<a href="/blog/2009/03/15/Vancouver.html" class="c
         
             <p>tagged as
                 <a href="/tag/canada/" rel="tag">canada</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-14">2009-03-14</time>
-        <h1>
-            <a href="/blog/2009/03/14/ClutchingThePearls.html" rel="bookmark canonical">Clutching the Pearls</a>
-        </h1>
-    </header>
-    
-<p>Ow! Ow! Ow!
-It&#8217;s Friday the 13th and
-I ransomed my car this evening from the shop for over two grand—more than half of it labor.
-I think I&#8217;m in the wrong line of business.
-Maybe I should be a grease&shy;mon&shy;key&nbsp;instead.</p>
-<p>The clutch was worn out and the flywheel needed replacing,
-which required taking out the&nbsp;trans&shy;mis&shy;sion.</p>
-<p>We&#8217;ve only had one other comparable bill with this car
-and it has over 90,000 miles.
-We&#8217;re not doing too badly overall,
-except that the other bill was late last&nbsp;year.</p>
-<p>Feh.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/03/14/ClutchingThePearls.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/personal/" rel="tag">personal</a>
                 
             </p>
         
