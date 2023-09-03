@@ -152,15 +152,7 @@ We can accomplish this with only the simplest features of regular expressions,
 the `dot metacharacter`_ (``.``),
 `character classes`_ (``[JUD...]``) and negated character classes (``[^E]``),
 and the ``^`` and ``$`` `anchors`_.
-
-Most regular expression engines make it easy to
-match alternations_ (or disjunctions) with ``|``,
-but few have any provisions for conjunctions_,
-and the syntax is often horrible.
-Awk makes it easy to match ``/pat1/ && /pat2/``.
-This could also have been expressed as a series of pipes:
-``... | grep C | grep E | ...``.
-Mjjkk
+Awk gives us `regex conjunctions`_.
 
 .. _dot metacharacter:
     https://www.regular-expressions.info/dot.html
@@ -168,12 +160,8 @@ Mjjkk
     https://www.regular-expressions.info/charclass.html
 .. _anchors:
     https://www.regular-expressions.info/anchors.html
-.. _alternations:
-    https://www.regular-expressions.info/alternation.html
-.. _conjunctions:
-    https://unix.stackexchange.com/a/55391/4060
-.. _longest regex:
-    /blog/2020/04/23/regex-32-problems.html
+.. _regex conjunctions:
+    /blog/2023/09/03/RegexConjunctions.html
 
 Let's try our pipeline for Wordle 787 (``INDEX``):
 
@@ -252,6 +240,30 @@ Here's how we use the parsed data:
         else:
             trace(f"Got: {word}")
             return True
+
+Classes
+-------
+
+Returning four parallel collections from a function is a code smell.
+Let's refactor this into a class.
+
+First, we'll need some helper classes:
+``TileState``, a `multi-attribute enumeration`_, and ``GuessScore``.
+
+.. _multi-attribute enumeration:
+    /blog/2023/09/02/PythonEnumsWithAttributes.html
+
+.. code-block:: python
+
+    class TileState(namedtuple("TileState", "value emoji color css_color"), Enum):
+        CORRECT = 1, "\U0001F7E9", "Green",  "#6aaa64"
+        PRESENT = 2, "\U0001F7E8", "Yellow", "#c9b458"
+        ABSENT  = 3, "\U00002B1B", "Black",  "#838184"
+
+
+
+Old
+===
 
 And how we call ``is_eligible``:
 

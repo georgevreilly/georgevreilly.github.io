@@ -45,7 +45,7 @@ Accessing the members and the methods:
 
 You can add methods like ``color()`` and ``emoji()`` above\
 —you can even decorate them with ``@property`` so that you don't need parentheses—\
-but you have to remember to update *each* method
+but you have to remember to update *every* method
 when you add or remove members from the enumeration.
 
 Namedtuples to the rescue
