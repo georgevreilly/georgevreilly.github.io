@@ -1,9 +1,8 @@
 ---
 title: "Regex Conjunctions"
-# date: "2023-mm-dd"
-permalink: "/__drafts/2023/09/03/RegexConjunctions.html"
+date: "2023-09-05"
+permalink: "/blog/2023/09/05/RegexConjunctions.html"
 tags: [regex, til]
-draft: true
 ---
 
 
@@ -32,7 +31,8 @@ the conjunction could also be expressed as a series of pipes:
 ``... | grep pat1 | grep pat2 | grep pat3 | ...``.
 
 The `longest regex`_ that I ever encountered
-was an enormous alternation—a true horror.
+was an enormous alternation—\
+a true horror that shouldn't have been a regex at all.
 
 .. _alternations:
     https://www.regular-expressions.info/alternation.html
