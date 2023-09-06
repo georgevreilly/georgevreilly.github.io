@@ -5,9 +5,39 @@
         <link>https://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Sat, 02 Sep 2023 07:00:00 GMT</pubDate>
+        <pubDate>Tue, 05 Sep 2023 07:00:00 GMT</pubDate>
         <docs>https://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.8.dev0</generator>
+        
+            <item>
+        <title>Regex Conjunctions</title>
+        <link>https://www.georgevreilly.com/blog/2023/09/05/RegexConjunctions.html</link>
+        <description>&lt;p&gt;Most regular expression engines make it easy to
+match &lt;a class=&#34;reference external&#34; href=&#34;https://www.regular-expressions.info/alternation.html&#34;&gt;alternations&lt;/a&gt; (or disjunctions) with the &lt;tt class=&#34;docutils literal&#34;&gt;|&lt;/tt&gt; operator:
+to match &lt;em&gt;either&lt;/em&gt; &lt;tt class=&#34;docutils literal&#34;&gt;foo&lt;/tt&gt; &lt;em&gt;or&lt;/em&gt; &lt;tt class=&#34;docutils literal&#34;&gt;bar&lt;/tt&gt;,
+use &lt;tt class=&#34;docutils literal&#34;&gt;foo|bar&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Few regex engines have any provisions for &lt;a class=&#34;reference external&#34; href=&#34;https://unix.stackexchange.com/a/55391/4060&#34;&gt;conjunctions&lt;/a&gt;,
+and the syntax is often horrible.
+Awk makes it easy to match &lt;tt class=&#34;docutils literal&#34;&gt;/pat1/ &amp;amp;&amp;amp; /pat2/ &amp;amp;&amp;amp; /pat3/&lt;/tt&gt;.&lt;/p&gt;
+&lt;pre class=&#34;code bash literal-block&#34;&gt;
+$ cat &lt;span class=&#34;s&#34;&gt;&amp;lt;&amp;lt;EOF | awk &#39;/bar/ &amp;amp;&amp;amp; /foo/&#39;
+&amp;gt; foo bar
+&amp;gt; bar
+&amp;gt; barfy food
+&amp;gt; barfly
+&amp;gt; EOF&lt;/span&gt;
+foo bar
+barfy food
+&lt;/pre&gt;
+&lt;p&gt;In the case of a Unix pipeline,
+the conjunction could also be expressed as a series of pipes:
+&lt;tt class=&#34;docutils literal&#34;&gt;... | grep pat1 | grep pat2 | grep pat3 | ...&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2020/04/23/regex-32-problems.html&#34;&gt;longest regex&lt;/a&gt; that I ever encountered
+was an enormous alternation—a true horror that shouldn&#39;t have been a regex at all.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 05 Sep 2023 07:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2023-09-05:/blog/2023/09/05/RegexConjunctions.html</guid>
+    </item>
         
             <item>
         <title>Python Enums with Attributes</title>
@@ -46,7 +76,7 @@ to add attributes to enum members.&lt;/p&gt;
 PRESENT: 2 Yellow 🟨
 ABSENT : 3 Black  ⬛&lt;/span&gt;
 &lt;/pre&gt;
-&lt;p&gt;You can add methods like &lt;tt class=&#34;docutils literal&#34;&gt;color()&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;emoji()&lt;/tt&gt; above—you can even decorate them with &lt;tt class=&#34;docutils literal&#34;&gt;&amp;#64;property&lt;/tt&gt; so that you don&#39;t need parentheses—but you have to remember to update &lt;em&gt;each&lt;/em&gt; method
+&lt;p&gt;You can add methods like &lt;tt class=&#34;docutils literal&#34;&gt;color()&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;emoji()&lt;/tt&gt; above—you can even decorate them with &lt;tt class=&#34;docutils literal&#34;&gt;&amp;#64;property&lt;/tt&gt; so that you don&#39;t need parentheses—but you have to remember to update &lt;em&gt;every&lt;/em&gt; method
 when you add or remove members from the enumeration.&lt;/p&gt;
 &lt;div class=&#34;section&#34; id=&#34;namedtuples-to-the-rescue&#34;&gt;
 &lt;h3&gt;Namedtuples to the rescue&lt;/h3&gt;
@@ -2473,41 +2503,6 @@ I would recommend it mainly to completists.&lt;/p&gt;
 </description>
         <pubDate>Thu, 03 Jan 2019 07:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2019-01-03:/blog/2019/01/03/ReviewFireAndBlood.html</guid>
-    </item>
-        
-            <item>
-        <title>Review: Watership Down (miniseries)</title>
-        <link>https://www.georgevreilly.com/blog/2019/01/02/ReviewWatershipDownMiniseries.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://en.wikipedia.org/wiki/Watership_Down_(miniseries)&#34;&gt;&lt;img alt=&#34;Watership Down&#34; src=&#34;https://occ-0-1782-1007.1.nflxso.net/art/ec6ad/8da2469ea8d6ed01ce41c61a0dae6a7c26fec6ad.jpg&#34;/&gt;&lt;/a&gt;
-&lt;div class=&#34;line-block&#34;&gt;
-&lt;div class=&#34;line&#34;&gt;Title: Watership Down (miniseries)&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Director: Noam Murro&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Rating: ★ ★ ★ ★&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Released: 2018&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Keywords: animation&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Country: UK&lt;/div&gt;
-&lt;div class=&#34;line&#34;&gt;Watched: 30 December, 2018–1 January, 2019&lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;Two years ago, just after the death of Richard Adams,
-I reread the &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2017/01/01/ReviewWatershipDown.html&#34;&gt;book&lt;/a&gt; of &lt;em&gt;Watership Down&lt;/em&gt;
-for the first time in many years,
-having originally discovered it when it was new
-in the mid-1970s.
-There&#39;s a beautiful new adaptation,
-an animated &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Watership_Down_(miniseries)&#34;&gt;miniseries&lt;/a&gt; made by the BBC and Netflix.&lt;/p&gt;
-&lt;p&gt;This adaptation is largely faithful to the original book:
-The brave young rabbits striking out on their own
-before their home warren is destroyed;
-creating a new warren on Watership Down;
-the war with the totalitarian warren of Efrafa;
-the peaceful aftermath.
-One shortcoming is that
-although the voices are generally distinct,
-many of the rabbits look alike,
-and it&#39;s hard to tell one gray-brown rabbit from another.&lt;/p&gt;
-</description>
-        <pubDate>Wed, 02 Jan 2019 07:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2019-01-02:/blog/2019/01/02/ReviewWatershipDownMiniseries.html</guid>
     </item>
         </channel>
 </rss>

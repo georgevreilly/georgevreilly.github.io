@@ -29,6 +29,44 @@
     
         <article>
     <header>
+        <time datetime="2006-03-02">2006-03-02</time>
+        <h1>
+            <a href="/blog/2006/03/02/ThrowingFromXSLT.html" rel="bookmark canonical">Throwing from XSLT</a>
+        </h1>
+    </header>
+    <p>I needed to add some de&shy;clar&shy;a&shy;tive error checking to some XSLT templates
+recently. Specif&shy;i&shy;cal&shy;ly, I wanted to throw an error if my selects yielded an
+empty string, indicating that the input XML was wrong.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, there seems to be no easy way of doing this in XSLT, nor in
+<tt class="docutils literal">XslTrans&shy;form</tt>. The approved way is to validate against an XSD schema,
+but for various reasons, I didn't want to go to the hassle of creating one.</p>
+<p>I found a partial solution using <tt class="docutils literal">xsl:message</tt> with the
+<tt class="docutils literal"><span class="pre">terminate=&quot;yes&quot;</span></tt> attribute. Under <tt class="docutils literal">XslTrans&shy;form.Transform()</tt> the
+following code throws an exception if the XPath expression is empty.</p>
+<pre class="code xslt literal-block">
+<span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span>
+    <span class="k">&lt;xsl:message</span> <span class="na">terminate=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>Missing expression<span class="k">&lt;/xsl:message&gt;</span>
+<span class="k">&lt;/xsl:if&gt;</span>
+<span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;/some/xpath/expression&quot;</span> </pre><span>&#8230;<a href="/blog/2006/03/02/ThrowingFromXSLT.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-02-09">2006-02-09</time>
         <h1>
             <a href="/blog/2006/02/09/FavIconCreation.html" rel="bookmark canonical">FavIcon Creation</a>

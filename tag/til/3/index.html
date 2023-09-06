@@ -29,6 +29,43 @@
     
         <article>
     <header>
+        <time datetime="2016-08-31">2016-08-31</time>
+        <h1>
+            <a href="/blog/2016/08/31/NewCompressionFormats.html" rel="bookmark canonical">New Compression Formats</a>
+        </h1>
+    </header>
+    <p>You might think that data com&shy;pres&shy;sion is a solved problem, lossless or lossy.
+But, no.
+Gzip and related formats like zlib, Zip, and PNG that use the <a class="reference external" href="https://en.wikipedia.org/wiki/DEFLATE">DEFLATE</a> algorithm
+were great 25 years ago, still do a decent job, and are completely ubiquitous and in&shy;dis&shy;pens&shy;able,
+but there are better, smarter algorithms now.</p>
+<p>Google has announced two new com&shy;pres&shy;sion formats in the last couple of years,
+Zopfli and Brotli.
+<a class="reference external" href="https://en.wikipedia.org/wiki/Zopfli">Zopfli</a> does a better job of generating Deflate-compatible data,
+although it's very slow.
+<a class="reference external" href="https://en.wikipedia.org/wiki/Brotli">Brotli</a> gives ~20% better com&shy;pres&shy;sion than Deflate, but at about the same speed.
+Then there's <a class="reference external" href="https://en.wikipedia.org/wiki/Xz">xz</a>, which grew out of 7-zip, and also works well.</p>
+<p><a class="reference external" href="https://code.facebook.com/posts/1658392934479273/smaller-and-faster-data-compression-with-zstandard/">Zstandard</a> has just been announced <span>&#8230;<a href="/blog/2016/08/31/NewCompressionFormats.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/compression/" rel="tag">compression</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-08-30">2016-08-30</time>
         <h1>
             <a href="/blog/2016/08/30/USBChargeOnlyCablesAndCondoms.html" rel="bookmark canonical">USB Charge-Only Cables and Condoms</a>
@@ -415,62 +452,6 @@ to notify you that someone posted something.</p>
         
             <p>tagged as
                 <a href="/tag/android/" rel="tag">android</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-12">2016-07-12</time>
-        <h1>
-            <a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" rel="bookmark canonical">Python: Joining URLs with posixpath.join</a>
-        </h1>
-    </header>
-    <p>On Mac/Linux, <a class="reference external" href="https://docs.python.org/2/library/os.path.html#os.path.join">os.path.join</a> is an alias for <tt class="docutils literal">posixpath.join</tt>,
-which always joins path segments with <tt class="docutils literal">/</tt>.
-On Windows, <tt class="docutils literal">os.path.join</tt> is an alias for <tt class="docutils literal">ntpath.join</tt>,
-which always uses <tt class="docutils literal">\</tt>.
-When dealing with URLs, we always want forward slashes,
-regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build URL paths.</p>
-<p>Running:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
-
-<span class="kn">from</span> <span class="nn">six.moves.urllib_parse</span> <span class="kn">import</span> <span class="n">urljoin</span> <span class="k">as</span> <span class="n">abs_urljoin</span>
-<span class="kn">from</span> <span class="nn">posixpath</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">path_urljoin</span>
-
-<span class="k">def</span> <span class="nf">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">abs_urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">test_join</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;'</span><span class="si">{0}</span><span class="s2">' + '</span><span class="si">{1}</span><span class="s2">'</span><span class="se">\n\t</span><span class="s2">-&gt; '</span><span class="si">{2}</span><span class="s2">'&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">result</span>
-
-<span class="n">local_path</span> <span class="o">=</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="s1">'2016'</span><span class="p">,</span> <span class="s1">'07'</span><span class="p">,</span> <span class="s1">'12'</span><span class="p">,</span> <span class="s1">'release'</span><span class="p">,</span> <span class="s1">'index.html'</span><span class="p">)</span>
-
-<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="s1">'foo/bar/quux.js'</span><span class="p">)</span>
-<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
-<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
-<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/prefix'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
-</pre>
-<p>Yields:</p>
-<pre class="literal-block">
-'https://www.example.com' + 'foo/bar/quux.js'
-  </pre><span>&#8230;<a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" class="continue">continue</a>.</span>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>

@@ -29,6 +29,54 @@
     
         <article>
     <header>
+        <time datetime="2009-03-23">2009-03-23</time>
+        <h1>
+            <a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" rel="bookmark canonical">Exuberant Ctags and JavaScript</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://ctags.sourceforge.net/"></a>
+<p><a class="reference external" href="http://ctags.sourceforge.net/">Exuberant Ctags</a> is an essential complement to Vim:
+it generates an index of symbol names (tags) for a set of source files.
+In Vim, just place the cursor on a function name
+and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its definition.</p>
+<p>Ctags works well for most of the languages that I deal with,
+but falls down badly on modern JavaScript.
+Its built-in parser simply doesn't handle de&shy;c&shy;la&shy;ra&shy;tions like these:</p>
+<pre class="code javascript literal-block">
+<span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// ...</span><span class="w">
+</span><span class="nx">ajaxSetup</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="w"> </span><span class="nx">settings</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</pre>
+<p>I came across <a class="reference external" href="http://www.unbad.net/blog/ctags-and-relevant-support-for-javascript">Unbad</a>'s workaround earlier tonight.
+His code didn't work for me, so I hacked on it until it did:</p>
+<pre class="literal-block">
+--langdef=js
+--langmap=js:.js
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
+--regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
+--regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\(([^)])\)/\1/,function/
+--regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
+--regex-js=/([^= ]+)[ </pre><span>&#8230;<a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>,
+                <a href="/tag/javascript/" rel="tag">javascript</a>,
+                <a href="/tag/regex/" rel="tag">regex</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2009-03-20">2009-03-20</time>
         <h1>
             <a href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html" rel="bookmark canonical">Flattening List Comprehensions in Python</a>
@@ -402,48 +450,6 @@ It took less time to get working than it did to write this blog post.</p>
             <p>tagged as
                 <a href="/tag/net/" rel="tag">.NET</a>,
                 <a href="/tag/c++/" rel="tag">C++</a>,
-                <a href="/tag/c-sharp/" rel="tag">c-sharp</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2007-03-14">2007-03-14</time>
-        <h1>
-            <a href="/blog/2007/03/14/NVelocityLoadingTemplatesFromEmbeddedResources.html" rel="bookmark canonical">NVelocity: loading templates from embedded resources</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.castleproject.org/others/nvelocity/index.html"></a>
-<p>In last week's tip on
-using the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/index.html">NVelocity</a> template formatting engine,
-I described what to set to load a template from
-an <a class="reference external" href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html">absolute path</a>.</p>
-<p>Here's the magic necessary to get NVelocity to load a template from an
-embedded resource:</p>
-<pre class="code csharp literal-block">
-<span class="n">VelocityEngine</span><span class="w"> </span><span class="n">engine</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">VelocityEngine</span><span class="p">();</span><span class="w">
-</span><span class="n">ExtendedProperties</span><span class="w"> </span><span class="n">properties</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExtendedProperties</span><span class="p">();</span><span class="w">
-</span><span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;resource.loader&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;assembly&quot;</span><span class="p">);</span><span class="w">
-</span><span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;assembly.resource.loader.class&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="s">&quot;NVelocity.Runtime.Resource.Loader.AssemblyResourceLoader, NVelocity&quot;</span><span class="p">);</span><span class="w">
-</span><span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;assembly.resource.loader.assembly&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;StencilFormatter&quot;</span><span class="p">);</span><span class="w">
-</span><span class="n">engine</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">properties</span><span class="p">);</span>
-</pre>
-
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/net/" rel="tag">.NET</a>,
                 <a href="/tag/c-sharp/" rel="tag">c-sharp</a>
                     and
                     

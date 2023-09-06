@@ -29,6 +29,54 @@
     
         <article>
     <header>
+        <time datetime="2023-09-05">2023-09-05</time>
+        <h1>
+            <a href="/blog/2023/09/05/RegexConjunctions.html" rel="bookmark canonical">Regex Conjunctions</a>
+        </h1>
+    </header>
+    <p>Most regular expression engines make it easy to
+match <a class="reference external" href="https://www.regular-expressions.info/alternation.html">al&shy;ter&shy;na&shy;tions</a> (or dis&shy;junc&shy;tions) with the <tt class="docutils literal">|</tt> operator:
+to match <em>either</em> <tt class="docutils literal">foo</tt> <em>or</em> <tt class="docutils literal">bar</tt>,
+use <tt class="docutils literal">foo|bar</tt>.</p>
+<p>Few regex engines have any provisions for <a class="reference external" href="https://unix.stackexchange.com/a/55391/4060">con&shy;junc&shy;tions</a>,
+and the syntax is often horrible.
+Awk makes it easy to match <tt class="docutils literal">/pat1/ &amp;&amp; /pat2/ &amp;&amp; /pat3/</tt>.</p>
+<pre class="code bash literal-block">
+$ cat <span class="s">&lt;&lt;<span class="caps">EOF</span> | awk '/bar/ &amp;&amp; /foo/'
+&gt; foo bar
+&gt; bar
+&gt; barfy food
+&gt; barfly
+&gt; <span class="caps">EOF</span></span>
+foo bar
+barfy food
+</pre>
+<p>In the case of a Unix pipeline,
+the con&shy;junc&shy;tion could also be expressed as a series of pipes:
+<tt class="docutils literal">... | grep pat1 | grep pat2 | grep pat3 | ...</tt>.</p>
+<p>The <a class="reference external" href="/blog/2020/04/23/regex-32-problems.html">longest regex</a> that I ever en&shy;coun&shy;tered
+was an enormous al&shy;ter&shy;na&shy;tion—a true horror that shouldn&#8217;t have <span>&#8230;<a href="/blog/2023/09/05/RegexConjunctions.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2023/09/05/RegexConjunctions.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/regex/" rel="tag">regex</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2023-09-02">2023-09-02</time>
         <h1>
             <a href="/blog/2023/09/02/PythonEnumsWithAttributes.html" rel="bookmark canonical">Python Enums with Attributes</a>
@@ -394,43 +442,6 @@ This generates <code>a, a+s, a+2*s, ..., b-s</code>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2022-02-02">2022-02-02</time>
-        <h1>
-            <a href="/blog/2022/02/02/UlyssesAt100.html" rel="bookmark canonical">Ulysses at 100</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.irishtimes.com/news/ireland/irish-news/an-post-launches-new-stamps-to-celebrate-centenary-of-ulysses-1.4787040"></a>
-<p>On 2nd February 1882, in the Dublin suburb of Rathgar,
-a son was given unto John and May Joyce.
-James Joyce celebrated his 40th birthday in Paris on 2nd February 1922
-by receiving the first printed copy of his novel <em>Ulysses</em>.
-Parts of it had already been published in literary magazines and
-the book was eagerly received by the cognoscen&shy;ti.
-It took more than a decade for <em>Ulysses</em> to be published
-in Britain and the United States.
-Censors had considered the book obscene,
-but the courts es&shy;tab&shy;lished that it had legitimate literary&nbsp;merit.</p>
-<p>For decades, <em>Ulysses</em> was poorly received in Ireland.
-The book was considered <a class="reference external" href="https://www.irishtimes.com/news/ireland/irish-news/the-year-of-ulysses-2022-marks-centenary-of-joyce-s-experimental-masterpiece-1.4766055">blas&shy;phe&shy;mous</a> and obscene by many.
-Worse, Joyce had <span>&#8230;<a href="/blog/2022/02/02/UlyssesAt100.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2022/02/02/UlyssesAt100.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/jamesjoyce/" rel="tag">jamesjoyce</a>
                 
             </p>
         

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Regex Conjunctions</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content="Most regular expression engines make it easy to
+ma..." />
+    <meta name="keywords" content="regex, til" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2023-09-05">2023-09-05</time>
+        <h1>
+            <a href="/blog/2023/09/05/RegexConjunctions.html" rel="bookmark canonical">Regex Conjunctions</a>
+        </h1>
+    </header>
+    <p>Most regular expression engines make it easy to
+match <a class="reference external" href="https://www.regular-expressions.info/alternation.html">al&shy;ter&shy;na&shy;tions</a> (or dis&shy;junc&shy;tions) with the <tt class="docutils literal">|</tt> operator:
+to match <em>either</em> <tt class="docutils literal">foo</tt> <em>or</em> <tt class="docutils literal">bar</tt>,
+use <tt class="docutils literal">foo|bar</tt>.</p>
+<p>Few regex engines have any provisions for <a class="reference external" href="https://unix.stackexchange.com/a/55391/4060">con&shy;junc&shy;tions</a>,
+and the syntax is often horrible.
+Awk makes it easy to match <tt class="docutils literal">/pat1/ &amp;&amp; /pat2/ &amp;&amp; /pat3/</tt>.</p>
+<pre class="code bash literal-block">
+$ cat <span class="s">&lt;&lt;<span class="caps">EOF</span> | awk '/bar/ &amp;&amp; /foo/'
+&gt; foo bar
+&gt; bar
+&gt; barfy food
+&gt; barfly
+&gt; <span class="caps">EOF</span></span>
+foo bar
+barfy food
+</pre>
+<p>In the case of a Unix pipeline,
+the con&shy;junc&shy;tion could also be expressed as a series of pipes:
+<tt class="docutils literal">... | grep pat1 | grep pat2 | grep pat3 | ...</tt>.</p>
+<p>The <a class="reference external" href="/blog/2020/04/23/regex-32-problems.html">longest regex</a> that I ever en&shy;coun&shy;tered
+was an enormous al&shy;ter&shy;na&shy;tion—a true horror that shouldn&#8217;t have been a regex at&nbsp;all.</p>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/regex/" rel="tag">regex</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "https://www.georgevreilly.com/blog/2023/09/05/RegexConjunctions.html";
+            var disqus_url = "https://www.georgevreilly.com/blog/2023/09/05/RegexConjunctions.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="https://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+
+
+    
+    
+        <a href="/blog/2023/09/02/PythonEnumsWithAttributes.html" class="page floatright">
+        Python Enums with Attributes &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

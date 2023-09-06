@@ -29,6 +29,48 @@
     
         <article>
     <header>
+        <time datetime="2007-03-14">2007-03-14</time>
+        <h1>
+            <a href="/blog/2007/03/14/NVelocityLoadingTemplatesFromEmbeddedResources.html" rel="bookmark canonical">NVelocity: loading templates from embedded resources</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://www.castleproject.org/others/nvelocity/index.html"></a>
+<p>In last week's tip on
+using the <a class="reference external" href="http://www.castleproject.org/others/nvelocity/index.html">NVelocity</a> template formatting engine,
+I described what to set to load a template from
+an <a class="reference external" href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html">absolute path</a>.</p>
+<p>Here's the magic necessary to get NVelocity to load a template from an
+embedded resource:</p>
+<pre class="code csharp literal-block">
+<span class="n">VelocityEngine</span><span class="w"> </span><span class="n">engine</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">VelocityEngine</span><span class="p">();</span><span class="w">
+</span><span class="n">ExtendedProperties</span><span class="w"> </span><span class="n">properties</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ExtendedProperties</span><span class="p">();</span><span class="w">
+</span><span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;resource.loader&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;assembly&quot;</span><span class="p">);</span><span class="w">
+</span><span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;assembly.resource.loader.class&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="s">&quot;NVelocity.Runtime.Resource.Loader.AssemblyResourceLoader, NVelocity&quot;</span><span class="p">);</span><span class="w">
+</span><span class="n">properties</span><span class="p">.</span><span class="n">AddProperty</span><span class="p">(</span><span class="s">&quot;assembly.resource.loader.assembly&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;StencilFormatter&quot;</span><span class="p">);</span><span class="w">
+</span><span class="n">engine</span><span class="p">.</span><span class="n">Init</span><span class="p">(</span><span class="n">properties</span><span class="p">);</span>
+</pre>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/net/" rel="tag">.NET</a>,
+                <a href="/tag/c-sharp/" rel="tag">c-sharp</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2007-03-07">2007-03-07</time>
         <h1>
             <a href="/blog/2007/03/07/NVelocityTemplatesAndAbsolutePaths.html" rel="bookmark canonical">NVelocity templates and absolute paths</a>
@@ -383,44 +425,6 @@ ought to <span>&#8230;<a href="/blog/2006/05/04/VimSyntaxHighlightingForFlexWiki
         
             <p>tagged as
                 <a href="/tag/vim/" rel="tag">vim</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-03-02">2006-03-02</time>
-        <h1>
-            <a href="/blog/2006/03/02/ThrowingFromXSLT.html" rel="bookmark canonical">Throwing from XSLT</a>
-        </h1>
-    </header>
-    <p>I needed to add some de&shy;clar&shy;a&shy;tive error checking to some XSLT templates
-recently. Specif&shy;i&shy;cal&shy;ly, I wanted to throw an error if my selects yielded an
-empty string, indicating that the input XML was wrong.</p>
-<p>Un&shy;for&shy;tu&shy;nate&shy;ly, there seems to be no easy way of doing this in XSLT, nor in
-<tt class="docutils literal">XslTrans&shy;form</tt>. The approved way is to validate against an XSD schema,
-but for various reasons, I didn't want to go to the hassle of creating one.</p>
-<p>I found a partial solution using <tt class="docutils literal">xsl:message</tt> with the
-<tt class="docutils literal"><span class="pre">terminate=&quot;yes&quot;</span></tt> attribute. Under <tt class="docutils literal">XslTrans&shy;form.Transform()</tt> the
-following code throws an exception if the XPath expression is empty.</p>
-<pre class="code xslt literal-block">
-<span class="k">&lt;xsl:if</span> <span class="na">test=</span><span class="s">&quot;not(/some/xpath/expression)&quot;</span><span class="nt">&gt;</span>
-    <span class="k">&lt;xsl:message</span> <span class="na">terminate=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>Missing expression<span class="k">&lt;/xsl:message&gt;</span>
-<span class="k">&lt;/xsl:if&gt;</span>
-<span class="k">&lt;xsl:value-of</span> <span class="na">select=</span><span class="s">&quot;/some/xpath/expression&quot;</span> </pre><span>&#8230;<a href="/blog/2006/03/02/ThrowingFromXSLT.html" class="continue">continue</a>.</span>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/programming/" rel="tag">programming</a>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>

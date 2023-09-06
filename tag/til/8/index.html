@@ -29,6 +29,46 @@
     
         <article>
     <header>
+        <time datetime="2015-01-25">2015-01-25</time>
+        <h1>
+            <a href="/blog/2015/01/25/PyCharmYosemite.html" rel="bookmark canonical">Running PyCharm on Yosemite</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.jetbrains.com/pycharm/"></a>
+<p>I did a <a class="reference external" href="/blog/2015/01/17/YosemiteCleanInstall.html">clean install of OS X 10.10</a> on my home laptop a week ago.
+I tried to launch <a class="reference external" href="https://www.jetbrains.com/pycharm/">PyCharm</a> 4.0.4 on it today.
+It im&shy;me&shy;di&shy;ate&shy;ly failed. Every time.</p>
+<p>When I looked in the System Console, I saw:</p>
+<pre class="literal-block">
+1/25/15 7:46:00.557 PM pycharm[1160]: No matching VM found.
+1/25/15 7:46:00.711 PM com.apple.xpc.launchd[1]: (com.jetbrains.pycharm.58252[1160]) Service exited with abnormal code: 1
+</pre>
+<p>The JetBrains website wasn't very helpful when I looked there.
+In time, I found a <a class="reference external" href="http://stackoverflow.com/questions/26438628/crash-jetbrains-ide-with-yosemite-mac-osx-webstorm-intellij">Stack&shy;Over&shy;flow answer</a> that put me on the right track
+(and reminded me that I had previously solved this problem about a year ago, at work).
+PyCharm and some of the other JetBrains IDEs require JDK 1.6,
+as <span>&#8230;<a href="/blog/2015/01/25/PyCharmYosemite.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/mac/" rel="tag">mac</a>,
+                <a href="/tag/vim/" rel="tag">vim</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2013-11-11">2013-11-11</time>
         <h1>
             <a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" rel="bookmark canonical">Turn off Windows Defender on your builds</a>
@@ -354,54 +394,6 @@ This does not count the time that I spent trying <span>&#8230;<a href="/blog/200
         
             <p>tagged as
                 <a href="/tag/tech/" rel="tag">tech</a>,
-                <a href="/tag/regex/" rel="tag">regex</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-03-23">2009-03-23</time>
-        <h1>
-            <a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" rel="bookmark canonical">Exuberant Ctags and JavaScript</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://ctags.sourceforge.net/"></a>
-<p><a class="reference external" href="http://ctags.sourceforge.net/">Exuberant Ctags</a> is an essential complement to Vim:
-it generates an index of symbol names (tags) for a set of source files.
-In Vim, just place the cursor on a function name
-and type <tt class="docutils literal"><span class="pre">C-]</span></tt> to go to its definition.</p>
-<p>Ctags works well for most of the languages that I deal with,
-but falls down badly on modern JavaScript.
-Its built-in parser simply doesn't handle de&shy;c&shy;la&shy;ra&shy;tions like these:</p>
-<pre class="code javascript literal-block">
-<span class="nx">Sizzle</span><span class="p">.</span><span class="nx">selectors</span><span class="p">.</span><span class="nx">filters</span><span class="p">.</span><span class="nx">animated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// ...</span><span class="w">
-</span><span class="nx">ajaxSetup</span><span class="o">:</span><span class="w"> </span><span class="kd">function</span><span class="p">(</span><span class="w"> </span><span class="nx">settings</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</pre>
-<p>I came across <a class="reference external" href="http://www.unbad.net/blog/ctags-and-relevant-support-for-javascript">Unbad</a>'s workaround earlier tonight.
-His code didn't work for me, so I hacked on it until it did:</p>
-<pre class="literal-block">
---langdef=js
---langmap=js:.js
---regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/,object/
---regex-js=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/,function/
---regex-js=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\(([^)])\)/\1/,function/
---regex-js=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/,array/
---regex-js=/([^= ]+)[ </pre><span>&#8230;<a href="/blog/2009/03/23/ExuberantCtagsAndJavaScript.html" class="continue">continue</a>.</span>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/vim/" rel="tag">vim</a>,
-                <a href="/tag/javascript/" rel="tag">javascript</a>,
                 <a href="/tag/regex/" rel="tag">regex</a>
                     and
                     

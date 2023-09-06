@@ -29,6 +29,52 @@
     
         <article>
     <header>
+        <time datetime="2023-09-05">2023-09-05</time>
+        <h1>
+            <a href="/blog/2023/09/05/RegexConjunctions.html" rel="bookmark canonical">Regex Conjunctions</a>
+        </h1>
+    </header>
+    <p>Most regular expression engines make it easy to
+match <a class="reference external" href="https://www.regular-expressions.info/alternation.html">al&shy;ter&shy;na&shy;tions</a> (or dis&shy;junc&shy;tions) with the <tt class="docutils literal">|</tt> operator:
+to match <em>either</em> <tt class="docutils literal">foo</tt> <em>or</em> <tt class="docutils literal">bar</tt>,
+use <tt class="docutils literal">foo|bar</tt>.</p>
+<p>Few regex engines have any provisions for <a class="reference external" href="https://unix.stackexchange.com/a/55391/4060">con&shy;junc&shy;tions</a>,
+and the syntax is often horrible.
+Awk makes it easy to match <tt class="docutils literal">/pat1/ &amp;&amp; /pat2/ &amp;&amp; /pat3/</tt>.</p>
+<pre class="code bash literal-block">
+$ cat <span class="s">&lt;&lt;EOF | awk '/bar/ &amp;&amp; /foo/'
+&gt; foo bar
+&gt; bar
+&gt; barfy food
+&gt; barfly
+&gt; EOF</span>
+foo bar
+barfy food
+</pre>
+<p>In the case of a Unix pipeline,
+the con&shy;junc&shy;tion could also be expressed as a series of pipes:
+<tt class="docutils literal">... | grep pat1 | grep pat2 | grep pat3 | ...</tt>.</p>
+<p>The <a class="reference external" href="/blog/2020/04/23/regex-32-problems.html">longest regex</a> that I ever en&shy;coun&shy;tered
+was an enormous al&shy;ter&shy;na&shy;tion—a true horror that shouldn't have <span>&#8230;<a href="/blog/2023/09/05/RegexConjunctions.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/regex/" rel="tag">regex</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2020-04-23">2020-04-23</time>
         <h1>
             <a href="/blog/2020/04/23/regex-32-problems.html" rel="bookmark canonical">Now You Have 32 Problems</a>

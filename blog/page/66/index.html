@@ -29,6 +29,44 @@
     
         <article>
     <header>
+        <time datetime="2009-05-04">2009-05-04</time>
+        <h1>
+            <a href="/blog/2009/05/04/MaxAudioExtractor.html" rel="bookmark canonical">Max audio extractor</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://sbooth.org/Max/"></a>
+<p>I blogged before that I had used <a class="reference external" href="/blog/2008/11/18/HardwareLazarus.html">Exact Audio Copy</a>
+to rip most of my <span class="caps">CD</span> collection to the lossless <a class="reference external" href="http://en.wikipedia.org/wiki/Free_Lossless_Audio_Codec"><span class="caps">FLAC</span></a> format.
+I haven&#8217;t ripped any more CDs since then,
+as the old Windows laptop that I was using had severe&nbsp;problems.</p>
+<p>We went to the <a class="reference external" href="http://www.columbiacitybeatwalk.org/">Columbia City Beatwalk</a> on Friday night.
+I liked the <a class="reference external" href="http://www.correoaereo.com/">Correo Aereo</a> duo so much that I bought their&nbsp;<span class="caps">CD</span>.</p>
+<p>It was time to figure out how to rip a <span class="caps">CD</span> to <span class="caps">FLAC</span> on the Mac.
+I found some hints that it was possible to run Exact Audio Copy
+in a virtual machine or under Wine,
+but neither choice appealed to&nbsp;me.</p>
+<p>One <a class="reference external" href="http://puddletowndesign.com/FLAC/macRipping">guide</a> rec&shy;om&shy;mend&shy;ed <a class="reference external" href="http://sourceforge.net/projects/xact">xACT</a> over <a class="reference external" href="http://sbooth.org/Max/">Max</a> <span>&#8230;<a href="/blog/2009/05/04/MaxAudioExtractor.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/05/04/MaxAudioExtractor.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/music/" rel="tag">music</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2009-05-03">2009-05-03</time>
         <h1>
             <a href="/blog/2009/05/03/ReviewTheBigSleep.html" rel="bookmark canonical">Review: The Big Sleep</a>
@@ -386,53 +424,6 @@ WiFi worked, the webcam worked, sound playback <span>&#8230;<a href="/blog/2009/
         
             <p>tagged as
                 <a href="/tag/linux/" rel="tag">linux</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2009-04-23">2009-04-23</time>
-        <h1>
-            <a href="/blog/2009/04/23/PythonStringFormatting.html" rel="bookmark canonical">Python String Formatting</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://docs.python.org/library/string.html#format-string-syntax"></a>
-<p>Python has long had a string in&shy;ter&shy;po&shy;la&shy;tion operator, <tt class="docutils literal">%</tt>.</p>
-<p>Python 2.6 and 3.0 introduced a new, richer set of <a class="reference external" href="http://docs.python.org/library/string.html#format-string-syntax">string formatting operations</a>.
-See <a class="reference external" href="http://www.python.org/dev/peps/pep-3101/"><span class="caps">PEP</span> 3101</a> for the&nbsp;rationale.</p>
-<p>One trick that I liked with the old way of formatting was
-to put the <a class="reference external" href="http://docs.python.org/library/functions.html#locals">locals()</a> dictionary or <tt class="docutils literal">self.__dict__</tt>
-on the right-hand&nbsp;side</p>
-<pre class="code pycon literal-block">
-<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">stuff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="gp">... </span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">-</span><span class="n">b</span>
-<span class="gp">... </span> <span class="k">return</span> <span class="s2">&quot;</span><span class="si">%(a)s</span><span class="s2">, </span><span class="si">%(b)s</span><span class="s2">, </span><span class="si">%(c)s</span><span class="s2">, </span><span class="si">%(d)s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="nb">locals</span><span class="p">()</span>
-<span class="gp">...</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">stuff</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span>
-<span class="go">'3, 17, 20, -14'</span>
-</pre>
-<p>It took me a few minutes to figure out how to do the equivalent with <tt class="docutils literal">string.format</tt>:
-use the <tt class="docutils literal">**</tt> syntax to unpack the dict into <tt class="docutils literal">kwargs</tt>.</p>
-<pre class="code pycon literal-block">
-<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-<span class="gp">... </span> <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
-<span class="gp">... </span>  </pre><span>&#8230;<a href="/blog/2009/04/23/PythonStringFormatting.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2009/04/23/PythonStringFormatting.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

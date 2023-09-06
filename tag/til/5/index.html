@@ -29,6 +29,48 @@
     
         <article>
     <header>
+        <time datetime="2016-04-13">2016-04-13</time>
+        <h1>
+            <a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" rel="bookmark canonical">io.StringIO and UnicodeCSV DictWriter</a>
+        </h1>
+    </header>
+    <p>I like to use <a class="reference external" href="https://docs.python.org/2/library/io.html#io.StringIO">io.StringIO</a> rather than the older <a class="reference external" href="https://docs.python.org/2/library/stringio.html#cStringIO.StringIO">cStringIO.StringIO</a>,
+as it's Python 3–ready
+<tt class="docutils literal">io.StringIO</tt> is also a <a class="reference external" href="https://docs.python.org/2/reference/datamodel.html#context-managers">context manager</a>:
+if you use it in a <tt class="docutils literal">with</tt> statement,
+the string buffer is au&shy;to&shy;mat&shy;i&shy;cal&shy;ly <tt class="docutils literal">close</tt>d as you go out of scope.</p>
+<p>I tried using <tt class="docutils literal">io.StringIO</tt> with <a class="reference external" href="https://github.com/jdunck/python-unicodecsv">unicodecsv</a>,
+as I wanted to capture the CSV output into a string buffer
+for use with unit tests.
+<tt class="docutils literal">unicodecsv</tt> is a drop-in re&shy;place&shy;ment for Python's built-in <tt class="docutils literal">csv</tt> module,
+which supports Unicode strings.</p>
+<pre class="code python literal-block">
+<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
+    <span class="n">write_csv_rows</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">csv_file</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\r\n</span><span class="s1">'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lines</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># drop empty line after trailing \r\n</span>
+</pre>
+<p>It failed horribly with
+<tt class="docutils literal">TypeError: unicode argument expected, <span>&#8230;<a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" class="continue">continue</a>.</span></tt></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-04-05">2016-04-05</time>
         <h1>
             <a href="/blog/2016/04/05/DoctestsUnicodeLiteralsPython2_3Compat.html" rel="bookmark canonical">Doctests, Unicode Literals, and Python 2/3 Compatibility</a>
@@ -414,47 +456,6 @@ unless you <span>&#8230;<a href="/blog/2016/02/16/SortingPythonDictionariesByVal
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>,
                 <a href="/tag/metabrite/" rel="tag">metabrite</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-02-12">2016-02-12</time>
-        <h1>
-            <a href="/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html" rel="bookmark canonical">Unicode Upside-Down Mapping, Part 2</a>
-        </h1>
-    </header>
-    <p><a class="reference external" href="/blog/2016/02/11/UnicodeUpsideDownMapping.html">Yesterday</a> I showed File&shy;For&shy;mat's <a class="reference external" href="http://www.fileformat.info/convert/text/upside-down.htm">ɹǝʇɹǝʌuoↃ uʍo◖-ǝpısd∩ ǝpoɔıu∩</a>.
-Although the lowercase letters generally looked good,
-several of the uppercase letters and numerals were un&shy;sat&shy;is&shy;fac&shy;to&shy;ry.
-Looking through the <a class="reference external" href="http://unicode-table.com/en/">Unicode Table</a> site,
-I came across the <a class="reference external" href="http://unicode-table.com/en/blocks/lisu/">Fraser Lisu alphabet</a>,
-which is un&shy;for&shy;tu&shy;nate&shy;ly not well supported in most fonts.
-The following renders in <a class="reference external" href="http://sourcefoundry.org/hack/">Hack</a> and <a class="reference external" href="https://en.wikipedia.org/wiki/Source_Code_Pro">Source Code Pro</a> in MacVim,
-but not in the <a class="reference external" href="https://www.google.com/fonts/specimen/Source+Code+Pro">Source Code Pro webfont</a> from Google Fonts:</p>
-<pre class="literal-block">
-B: ꓭ u+A4ED  Lisu Letter Gha
-D: ꓷ u+A4F7  Lisu Letter Oe
-J: ꓩ u+A4E9  Lisu Letter Fa
-K: ꓘ u+A4D8  Lisu Letter Kha
-L: ꓶ u+A4F6  Lisu Letter Uh
-R: ꓤ u+A4E4  Lisu Letter Za
-T: ꓕ u+A4D5  Lisu </pre><span>&#8230;<a href="/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html" class="continue">continue</a>.</span>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/font/" rel="tag">font</a>,
-                <a href="/tag/unicode/" rel="tag">unicode</a>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>

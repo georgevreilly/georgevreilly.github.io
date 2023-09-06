@@ -29,6 +29,62 @@
     
         <article>
     <header>
+        <time datetime="2016-07-12">2016-07-12</time>
+        <h1>
+            <a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" rel="bookmark canonical">Python: Joining URLs with posixpath.join</a>
+        </h1>
+    </header>
+    <p>On Mac/Linux, <a class="reference external" href="https://docs.python.org/2/library/os.path.html#os.path.join">os.path.join</a> is an alias for <tt class="docutils literal">posixpath.join</tt>,
+which always joins path segments with <tt class="docutils literal">/</tt>.
+On Windows, <tt class="docutils literal">os.path.join</tt> is an alias for <tt class="docutils literal">ntpath.join</tt>,
+which always uses <tt class="docutils literal">\</tt>.
+When dealing with URLs, we always want forward slashes,
+regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build URL paths.</p>
+<p>Running:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">from</span> <span class="nn">six.moves.urllib_parse</span> <span class="kn">import</span> <span class="n">urljoin</span> <span class="k">as</span> <span class="n">abs_urljoin</span>
+<span class="kn">from</span> <span class="nn">posixpath</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">path_urljoin</span>
+
+<span class="k">def</span> <span class="nf">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">abs_urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_join</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;'</span><span class="si">{0}</span><span class="s2">' + '</span><span class="si">{1}</span><span class="s2">'</span><span class="se">\n\t</span><span class="s2">-&gt; '</span><span class="si">{2}</span><span class="s2">'&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="n">local_path</span> <span class="o">=</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="s1">'2016'</span><span class="p">,</span> <span class="s1">'07'</span><span class="p">,</span> <span class="s1">'12'</span><span class="p">,</span> <span class="s1">'release'</span><span class="p">,</span> <span class="s1">'index.html'</span><span class="p">)</span>
+
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="s1">'foo/bar/quux.js'</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/prefix'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+</pre>
+<p>Yields:</p>
+<pre class="literal-block">
+'https://www.example.com' + 'foo/bar/quux.js'
+  </pre><span>&#8230;<a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-07-11">2016-07-11</time>
         <h1>
             <a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" rel="bookmark canonical">Logging in Python: Don't use new-fangled format</a>
@@ -374,48 +430,6 @@ and it will do a decent job of iden&shy;ti&shy;fy&shy;ing the type of data.</p>
         
             <p>tagged as
                 <a href="/tag/linux/" rel="tag">linux</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-04-13">2016-04-13</time>
-        <h1>
-            <a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" rel="bookmark canonical">io.StringIO and UnicodeCSV DictWriter</a>
-        </h1>
-    </header>
-    <p>I like to use <a class="reference external" href="https://docs.python.org/2/library/io.html#io.StringIO">io.StringIO</a> rather than the older <a class="reference external" href="https://docs.python.org/2/library/stringio.html#cStringIO.StringIO">cStringIO.StringIO</a>,
-as it's Python 3–ready
-<tt class="docutils literal">io.StringIO</tt> is also a <a class="reference external" href="https://docs.python.org/2/reference/datamodel.html#context-managers">context manager</a>:
-if you use it in a <tt class="docutils literal">with</tt> statement,
-the string buffer is au&shy;to&shy;mat&shy;i&shy;cal&shy;ly <tt class="docutils literal">close</tt>d as you go out of scope.</p>
-<p>I tried using <tt class="docutils literal">io.StringIO</tt> with <a class="reference external" href="https://github.com/jdunck/python-unicodecsv">unicodecsv</a>,
-as I wanted to capture the CSV output into a string buffer
-for use with unit tests.
-<tt class="docutils literal">unicodecsv</tt> is a drop-in re&shy;place&shy;ment for Python's built-in <tt class="docutils literal">csv</tt> module,
-which supports Unicode strings.</p>
-<pre class="code python literal-block">
-<span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span> <span class="k">as</span> <span class="n">csv_file</span><span class="p">:</span>
-    <span class="n">write_csv_rows</span><span class="p">(</span><span class="n">csv_file</span><span class="p">)</span>
-    <span class="n">lines</span> <span class="o">=</span> <span class="n">csv_file</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\r\n</span><span class="s1">'</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">lines</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># drop empty line after trailing \r\n</span>
-</pre>
-<p>It failed horribly with
-<tt class="docutils literal">TypeError: unicode argument expected, <span>&#8230;<a href="/blog/2016/04/13/io.StringIOAndUnicodeCSV_DictWriter.html" class="continue">continue</a>.</span></tt></p>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>

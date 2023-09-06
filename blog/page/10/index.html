@@ -29,6 +29,51 @@
     
         <article>
     <header>
+        <time datetime="2016-08-23">2016-08-23</time>
+        <h1>
+            <a href="/blog/2016/08/23/FlameGraphsAndFlameCharts.html" rel="bookmark canonical">Flame Graphs and Flame Charts</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://queue.acm.org/detail.cfm?id=2927301"></a>
+<p>I was in&shy;ves&shy;ti&shy;gat&shy;ing the per&shy;for&shy;mance of a web app today,
+and I spent some time looking at the <a class="reference external" href="https://addyosmani.com/blog/devtools-flame-charts/">Flame Chart</a> vi&shy;su&shy;al&shy;iza&shy;tion
+in Chrome&#8217;s profiling tools, which helped identify some&nbsp;problems.</p>
+<p>Flame Charts are like Brendan Gregg&#8217;s <a class="reference external" href="http://www.brendangregg.com/flamegraphs.html">Flame Graphs</a>,
+except that the charts are sorted by time,
+while the graphs are sorted&nbsp;al&shy;pha&shy;bet&shy;i&shy;cal&shy;ly.</p>
+<p>Quoting from Gregg&#8217;s recent <a class="reference external" href="http://queue.acm.org/detail.cfm?id=2927301"><span class="caps">ACM</span> Queue article</a>:</p>
+<blockquote>
+<p>A flame graph has the following&nbsp;char&shy;ac&shy;ter&shy;is&shy;tics:</p>
+<ul class="simple">
+<li>A stack trace is rep&shy;re&shy;sent&shy;ed as a column of boxes,
+where each box represents a function (a stack&nbsp;frame).</li>
+<li>The y-axis shows the stack depth,
+ordered from root at the bottom to leaf at the top.
+The top box shows the function
+that was on-<span class="caps">CPU</span> when the stack trace was collected,
+and <span>&#8230;<a href="/blog/2016/08/23/FlameGraphsAndFlameCharts.html" class="continue">continue</a>.</span></li></ul></blockquote>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/23/FlameGraphsAndFlameCharts.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/performance/" rel="tag">performance</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-08-21">2016-08-21</time>
         <h1>
             <a href="/blog/2016/08/21/ReviewFlashmanAtTheCharge.html" rel="bookmark canonical">Review: Flashman At The Charge</a>
@@ -424,93 +469,6 @@ and he&#8217;s <span>&#8230;<a href="/blog/2016/08/07/ReviewFlashForFreedom.html
                     and
                     
                 <a href="/tag/humor/" rel="tag">humor</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-08-06">2016-08-06</time>
-        <h1>
-            <a href="/blog/2016/08/06/Rounding.html" rel="bookmark canonical">Rounding</a>
-        </h1>
-    </header>
-    <p>I recently learned from a <a class="reference external" href="http://stackoverflow.com/questions/10825926/python-3-x-rounding-behavior">Stack&shy;Over&shy;flow question</a>
-that the rounding behavior in Python 3.x is different from Python&nbsp;2.x:</p>
-<blockquote>
-The round() function rounding strategy and return type have changed.
-Exact halfway cases are now rounded to the nearest even result
-instead of away from zero.
-(For example, round(2.5) now returns 2 rather than 3.)</blockquote>
-<p>The “away from zero” rounding strategy is the one that most of us learned at school.
-The “nearest even” strategy is also known as “banker’s&nbsp;rounding”.</p>
-<p>There are actually <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_floating_point#Rounding_rules">five rounding strategies defined in <span class="caps">IEEE</span> 754</a>:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="58%"/>
-<col width="11%"/>
-<col width="11%"/>
-<col width="11%"/>
-<col width="11%"/>
-</colgroup>
-<thead valign="bottom">
-<tr><th class="head">Mode / Example Value</th>
-<th class="head">+11.5</th>
-<th class="head">+12.5</th>
-<th class="head">−11.5</th>
-<th class="head">−12.5</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr><td>to nearest, ties to even</td>
-<td>+12.0</td>
-<td>+12.0</td>
-<td>−12.0</td>
-<td>−12.0</td>
-</tr>
-<tr><td>to nearest, ties away from zero</td>
-<td>+12.0</td>
-<td>+13.0</td>
-<td>−12.0</td>
-<td>−13.0</td>
-</tr>
-<tr><td>toward 0 (truncation)</td>
-<td>+11.0</td>
-<td>+12.0</td>
-<td>−11.0</td>
-<td>−12.0</td>
-</tr>
-<tr><td>toward +∞ (ceiling)</td>
-<td>+12.0</td>
-<td>+13.0</td>
-<td>−11.0</td>
-<td>−12.0</td>
-</tr>
-<tr><td>toward −∞ (floor)</td>
-<td>+11.0</td>
-<td>+12.0</td>
-<td>−12.0</td>
-<td>−13.0</td>
-</tr>
-</tbody>
-</table>
-<p>Further reading on <span>&#8230;<a href="/blog/2016/08/06/Rounding.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/06/Rounding.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>,
-                <a href="/tag/math/" rel="tag">math</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
