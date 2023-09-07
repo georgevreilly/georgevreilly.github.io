@@ -1,7 +1,7 @@
 ---
 title: "George's reStructuredText cheat sheet"
 # date: "2023-mm-dd"
-permalink: "/__drafts/2023/mm/dd/GeorgesReStructuredTextCheatSheet.html"
+permalink: "/__drafts/GeorgesReStructuredTextCheatSheet.html"
 tags: [reStructuredText]
 draft: true
 ---
@@ -26,67 +26,69 @@ draft: true
 __ http://www.ibm.com/developerworks/linux/library/l-vim-script-1/index.html
 
 
-*Five-column table*
-
-    ======  ==  ========================    ===========  ===============
-    Hex     Ch  Name                        HTML         Vim Digraph
-    ======  ==  ========================    ===========  ===============
-      x60   \`  grave accent                &#96;        :literal:`\``
-      xB4   \´  acute accent                &#180;       ``''``
-      xA0   \   non-breaking space          &nbsp;       ``NS``
-      xBC   ¼   one quarter                 &frac14;     ``14``
-      xBD   ½   one half                    &frac12;     ``12``
-      xBE   ¾   three quarters              &frac34;     ``34``
-      xB9   ¹   superscript one             &sup1;       ``1S``
-      xB2   ²   superscript two             &sup2;       ``2S``
-    u2080   ₁   subscript one               &#x2081;     ``1s``
-    u2081   ₂   subscript two               &#x2082;     ``2s``
-      x2D   -   minus                       -            ``-``
-    u2013   –   en dash                     &ndash;      ``-N``
-    u2014   —   em dash                     &mdash;      ``-M``
-      x27   '   apostrophe                  &#39;        ``'``
-    u2018   ‘   left single quote           &lsquo;      ``'6``
-    u2019   ’   right single quote          &rsquo;      ``'9``
-    u201A   ‚   single low-9 quote          &sbquo;      ``.9``
-      x22   "   double quote                &#34;        ``"``
-    u201C   “   left double quote           &ldquo;      ``"6``
-    u201D   ”   right double quote          &rdquo;      ``"9``
-    u201E   „   double low-9 quote          &bdquo;      ``:9``
-      xAB   «   double guillemet left       &laquo;      ``<<``
-      xBB   »   double guillemet right      &raquo;      ``>>``
-    u2039   ‹   single guillemet left       &lsaquo;     ``<1``
-    u203A   ›   single guillemet right      &rsaquo;     ``>1``
-    u2026   …   horizontal ellipsis         &hellip;     ``,.``
-    u21A9   ↩   left arrow with hook        &#x21a9;     <none>
-    u278A   ➊   neg circled digit 1         &#x278a;     <none>
-    u2793   ➓   neg circled digit 10        &#x2793;     <none>
-      xB0   °   degree                      &deg;        ``DG``
-    u2318   ⌘   clover                      &#8984;      <none>
-    u2325   ⌥   option                      &#8997;      <none>
-    u21e7   ⇧   shift                       &#8679;      <none>
-    u2303   ⌃   control                     &#8963;      <none>
-    ======  ==  ========================    ===========  ===============
-
-
-Letters
-
-::
+Letters::
 
       !"#$%&'()*+,-./0123456789:;<=>?
      @ABCDEFGHIJKLMNOPQRSTUVWXYZ[/]^_
      'abcdefghijklmnopqrstuvwxyz{|}~
 
-    =============================   ====================    =======================
-    ``Regular ASCII``               *Italics*               **Bold**
-    =============================   ====================    =======================
-    :literal:`\ !"#$%&'()*+,-./`      * !"#$%&'()*+,-./*      ** !"#$%&'()*+,-./**
-    :literal:`0123456789:;<=>?`     *0123456789:;<=>?*      **0123456789:;<=>?**
-    :literal:`@ABCDEFGHIJKLMNO`     *@ABCDEFGHIJKLMNO*      **@ABCDEFGHIJKLMNO**
-    :literal:`PQRSTUVWXYZ[\\]^_`    *PQRSTUVWXYZ[\\]^_*     **PQRSTUVWXYZ[\\]^_**
-    :literal:`\`abcdefghijklmno`    *\`abcdefghijklmno*     **\`abcdefghijklmno**
-    :literal:`pqrstuvwxyz{|}~`      *pqrstuvwxyz{|}~*       **pqrstuvwxyz{|}~**
-    =============================   ====================    =======================
+=============================   ====================    =======================
+``Regular ASCII``               *Italics*               **Bold**
+=============================   ====================    =======================
+:literal:`\ !"#$%&'()*+,-./`    *\ !"#$%&'()*+,-./*     **\ !"#$%&'()*+,-./**
+:literal:`0123456789:;<=>?`     *0123456789:;<=>?*      **0123456789:;<=>?**
+:literal:`@ABCDEFGHIJKLMNO`     *@ABCDEFGHIJKLMNO*      **@ABCDEFGHIJKLMNO**
+:literal:`PQRSTUVWXYZ[\\]^_`    *PQRSTUVWXYZ[\\]^_*     **PQRSTUVWXYZ[\\]^_**
+:literal:`\`abcdefghijklmno`    *\`abcdefghijklmno*     **\`abcdefghijklmno**
+:literal:`pqrstuvwxyz{|}~`      *pqrstuvwxyz{|}~*       **pqrstuvwxyz{|}~**
+=============================   ====================    =======================
 
+*****************
+Five-column table
+*****************
+
+======  ==  ========================    ===========  ===============
+Hex     Ch  Name                        HTML         Vim Digraph
+======  ==  ========================    ===========  ===============
+  x60   \`  grave accent                &#96;        :literal:`\``
+  xB4   \´  acute accent                &#180;       ``''``
+  xA0   \   non-breaking space          &nbsp;       ``NS``
+  xBC   ¼   one quarter                 &frac14;     ``14``
+  xBD   ½   one half                    &frac12;     ``12``
+  xBE   ¾   three quarters              &frac34;     ``34``
+  xB9   ¹   superscript one             &sup1;       ``1S``
+  xB2   ²   superscript two             &sup2;       ``2S``
+u2080   ₁   subscript one               &#x2081;     ``1s``
+u2081   ₂   subscript two               &#x2082;     ``2s``
+  x2D   -   minus                       -            ``-``
+u2013   –   en dash                     &ndash;      ``-N``
+u2014   —   em dash                     &mdash;      ``-M``
+  x27   '   apostrophe                  &#39;        ``'``
+u2018   ‘   left single quote           &lsquo;      ``'6``
+u2019   ’   right single quote          &rsquo;      ``'9``
+u201A   ‚   single low-9 quote          &sbquo;      ``.9``
+  x22   "   double quote                &#34;        ``"``
+u201C   “   left double quote           &ldquo;      ``"6``
+u201D   ”   right double quote          &rdquo;      ``"9``
+u201E   „   double low-9 quote          &bdquo;      ``:9``
+  xAB   «   double guillemet left       &laquo;      ``<<``
+  xBB   »   double guillemet right      &raquo;      ``>>``
+u2039   ‹   single guillemet left       &lsaquo;     ``<1``
+u203A   ›   single guillemet right      &rsaquo;     ``>1``
+u2026   …   horizontal ellipsis         &hellip;     ``,.``
+u21A9   ↩   left arrow with hook        &#x21a9;     <none>
+u278A   ➊   neg circled digit 1         &#x278a;     <none>
+u2793   ➓   neg circled digit 10        &#x2793;     <none>
+  xB0   °   degree                      &deg;        ``DG``
+u2318   ⌘   clover                      &#8984;      <none>
+u2325   ⌥   option                      &#8997;      <none>
+u21e7   ⇧   shift                       &#8679;      <none>
+u2303   ⌃   control                     &#8963;      <none>
+======  ==  ========================    ===========  ===============
+
+
+Dingbats
+========
 
 | negative circled sans serif:  ➊ ➋ ➌ ➍ ➎ ➏ ➐ ➑ ➒ ➓   dingbat negative circled sans-serif digit
 |          circled sans serif:  ➀ ➁ ➂ ➃ ➄ ➅ ➆ ➇ ➈ ➉   dingbat circled sans-serif digit
@@ -113,6 +115,8 @@ Image substitution: The |biohazard| symbol must be used on containers
 used to dispose of medical waste.
 
 .. |biohazard| image:: https://docutils.sourceforge.net/docs/user/rst/images/biohazard.png
+
+If you've set up |~/.pgpass|_, you can specify ``--no-password`` instead.
 
 .. |~/.pgpass| replace:: ``~/.pgpass``
 .. _~/.pgpass:
