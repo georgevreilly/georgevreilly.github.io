@@ -161,7 +161,7 @@ Awk gives us `regex conjunctions`_.
 .. _anchors:
     https://www.regular-expressions.info/anchors.html
 .. _regex conjunctions:
-    /blog/2023/09/03/RegexConjunctions.html
+    /blog/2023/09/05/RegexConjunctions.html
 
 Let's try our pipeline for Wordle 787 (``INDEX``):
 
@@ -191,17 +191,13 @@ The first piece is to parse a list of ``GUESS=SCORE`` pairs.
 
 .. code-block:: python
 
-    WORDLE_LEN = 5
-
     def parse_guesses(guess_scores):
         invalid = set()  # Black/Absent
         valid = set()  # Green or Yellow
-        mask = [None] * WORDLE_LEN  # Exact match for position (Green/Correct)
-        wrong_spot = [set() for _ in range(WORDLE_LEN)]  # Wrong spot (Yellow/Present)
+        mask = [None] * 5  # Exact match for position (Green/Correct)
+        wrong_spot = [set() for _ in range(5)]  # Wrong spot (Yellow/Present)
         for guess in guess_scores:
             word, result = guess.split("=")
-            assert len(word) == WORDLE_LEN
-            assert len(result) == WORDLE_LEN
             for i, (w, r) in enumerate(zip(word, result)):
                 assert "A" <= w <= "Z", "WORD should be uppercase"
                 if "A" <= r <= "Z":
@@ -244,12 +240,14 @@ Here's how we use the parsed data:
 Classes
 -------
 
-Returning four parallel collections from a function is a code smell.
+Returning four parallel collections from a function is a `code smell`_.
 Let's refactor this into a class.
 
 First, we'll need some helper classes:
 ``TileState``, a `multi-attribute enumeration`_, and ``GuessScore``.
 
+.. _code smell:
+    https://pragmaticways.com/31-code-smells-you-must-know/
 .. _multi-attribute enumeration:
     /blog/2023/09/02/PythonEnumsWithAttributes.html
 
