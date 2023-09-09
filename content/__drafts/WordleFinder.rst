@@ -343,8 +343,10 @@ We need the per-position ``invalid`` for these:
 * ``STYLE: `GROAN=..... WHILE=...LE BELLE=...LE TUPLE=t..LE STELE=ST.LE``
   finds both ``STYLE`` and ``STELE`` (which is known to be wrong)
 
-* ``./wordle.py -vv THIEF=...e. BLADE=....E GROVE=.ro.E -w ROMEX -w PROSE -w AMORE -w MURAL -w ROUSE``
-  demonstrates all four filters
+Demonstrate all four filters:
+
+* ``./wordle.py -vv THIEF=...e. BLADE=....E GROVE=.ro.E --words ROMEO PROSE STORE MURAL ROUSE``
+* ``./wordle.py -vv CLAIM=c..i. TRICE=.riC. --words INCUR TAXIS ACRID PRICY BIRCH``
 
 .. _Knuth pipeline:
     https://www.spinellis.gr/blog/20200225/
