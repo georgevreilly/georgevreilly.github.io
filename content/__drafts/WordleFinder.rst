@@ -43,14 +43,14 @@ Let's look at this four-round game for Wordle 797:
 
 The letters of each guess are colored Green, Yellow, or Black (dark-gray).
 
-* A Green letter 🟩 means that the letter is *correct*:
+* A Green letter 🟩 means that the letter is **correct**:
   ``N`` is the final letter of the answer.
-* A Yellow letter 🟨 means that the letter is *present* elsewhere in the answer.
+* A Yellow letter 🟨 means that the letter is **present** *elsewhere* in the answer.
   There is a ``C`` in the answer;
-  it's not at positions 1 or 4, but it is correct at position 2.
+  it's not in columns 1 or 4, but it is correct in column 2.
   Likewise, an ``E`` is present in the answer;
-  it's not at position 5, but it's correct at position 3.
-* A Black letter ⬛ is *absent* from the answer:
+  it's not in column 5, but it's correct in column 3.
+* A Black letter ⬛ is **absent** from the answer:
   there is no ``J``, ``U``, ``D``, ``G``,
   ``H``, ``S``, ``T``,
   ``W``, ``R``, or ``K``
@@ -82,7 +82,8 @@ For example:
   ``C`` is  present somewhere in the answer,
   but it is in the wrong position (yellow 🟨);
 * the ``.``\ s in the score at positions 2, 4, and 5 denote that
-  the corresponding letters in the guess (``H``, ``S``, and ``T``)
+  the corresponding letters in the guess
+  (``H``, ``S``, and ``T``, respectively)
   are absent from the answer (black ⬛).
 
 
@@ -192,18 +193,20 @@ The first piece is to parse a list of ``GUESS=SCORE`` pairs.
 .. code-block:: python
 
     def parse_guesses(guess_scores):
-        invalid = set()  # Black/Absent
-        valid = set()  # Green or Yellow
-        mask = [None] * 5  # Exact match for position (Green/Correct)
+        invalid = set()                         # Black/Absent
+        valid = set()                           # Green/Correct or Yellow/Present
+        mask = [None] * 5                       # Exact match for pos (Green/Correct)
         wrong_spot = [set() for _ in range(5)]  # Wrong spot (Yellow/Present)
         for guess in guess_scores:
             word, result = guess.split("=")
             for i, (w, r) in enumerate(zip(word, result)):
                 assert "A" <= w <= "Z", "WORD should be uppercase"
                 if "A" <= r <= "Z":
+                    assert g == s
                     valid.add(w)
                     mask[i] = w
                 elif "a" <= r <= "z":
+                    assert g == s.upper()
                     valid.add(w)
                     wrong_spot[i].add(w)
                 elif r == ".":
@@ -212,7 +215,29 @@ The first piece is to parse a list of ``GUESS=SCORE`` pairs.
                     raise ValueError(f"Unexpected {r} for {w}")
         return (invalid, valid, mask, wrong_spot)
 
-Here's how we use the parsed data:
+Let's try it for ``OCEAN``:
+
+.. code-block:: pycon
+
+    >>> invalid, valid, mask, wrong_spot = parse_guesses(
+    ...     ["JUDGE=....e", "CHEST=c.E..", "WRECK=..Ec."])
+
+    >>> print(f"{invalid=}\n{valid=}\n{mask=}\n{wrong_spot=}")
+    invalid={'H', 'R', 'S', 'W', 'U', 'J', 'K', 'T', 'D', 'G'}
+    valid={'E', 'C'}
+    mask=[None, None, 'E', None, None]
+    wrong_spot=[{'C'}, set(), set(), {'C'}, {'E'}]
+
+    >>> for w in vocab:
+    ...     if is_eligible(w, invalid, valid, mask, wrong_spot):
+    ...         print(w)
+    ...
+    ICENI
+    ILEAC
+    OCEAN
+    OLEIC
+
+Here's the ``is_eligible`` function:
 
 .. code-block:: python
 
@@ -220,94 +245,177 @@ Here's how we use the parsed data:
         letters = {c for c in word}
         if letters & valid != valid:
             # Missing some 'valid' letters
-            trace(f"!Valid: {word}")
+            logging.debug(f"!Valid: {word}")
             return False
         elif letters & invalid:
-            trace(f"Invalid: {word}")
+            logging.debug(f"Invalid: {word}")
             return False
         elif any(m is not None and c != m for c, m in zip(word, mask)):
             # Some of the Green/Correct letters are missing
-            trace(f"!Mask: {word}")
+            logging.debug(f"!Mask: {word}")
             return False
         elif any(c in ws for c, ws in zip(word, wrong_spot)):
             # We have Yellow letters
-            trace(f"WrongSpot: {word}")
+            logging.debug(f"WrongSpot: {word}")
             return False
         else:
-            trace(f"Got: {word}")
+            logging.debug(f"Got: {word}")
             return True
 
-Classes
--------
+
+Python Classes
+--------------
 
 Returning four parallel collections from a function is a `code smell`_.
-Let's refactor this into a class.
+Let's refactor this code into a ``WordleGuesses`` class.
 
 First, we'll need some helper classes:
-``TileState``, a `multi-attribute enumeration`_, and ``GuessScore``.
+``WordleError`` (an exception class),
+``TileState`` (a `multi-attribute enumeration`_),
+and ``GuessScore`` (a `dataclass`_ that manages a guess–score pair).
+We'll also use `type annotations`_ because it's 2023.
 
 .. _code smell:
     https://pragmaticways.com/31-code-smells-you-must-know/
 .. _multi-attribute enumeration:
     /blog/2023/09/02/PythonEnumsWithAttributes.html
+.. _dataclass:
+    https://realpython.com/python-data-classes/
+.. _type annotations:
+    https://bernat.tech/posts/the-state-of-type-hints-in-python/
 
 .. code-block:: python
+
+    WORDLE_LEN = 5
+
+    class WordleError(Exception):
+       """Base exception class"""
 
     class TileState(namedtuple("TileState", "value emoji color css_color"), Enum):
         CORRECT = 1, "\U0001F7E9", "Green",  "#6aaa64"
         PRESENT = 2, "\U0001F7E8", "Yellow", "#c9b458"
         ABSENT  = 3, "\U00002B1B", "Black",  "#838184"
 
+    @dataclass
+    class GuessScore:
+        guess: str
+        score: str
+        tiles: list[TileState]
 
+        @classmethod
+        def make(cls, guess_score: str) -> "GuessScore":
+            if guess_score.count("=") != 1:
+                raise WordleError(f"Expected one '=' in {guess_score!r}")
+            guess, score = guess_score.split("=")
+            if len(guess) != WORDLE_LEN:
+                raise WordleError(f"Guess {guess!r} is not {WORDLE_LEN} characters")
+            if len(score) != WORDLE_LEN:
+                raise WordleError(f"Score {score!r} is not {WORDLE_LEN} characters")
+            tiles = []
+            for i in range(WORDLE_LEN):
+                if not "A" <= guess[i] <= "Z":
+                    raise WordleError("Guess {guess!r} should be uppercase")
+                state = cls.tile_state(score[i])
+                if state is TileState.CORRECT:
+                    if guess[i] != score[i]:
+                        raise WordleError(f"Mismatch at {i+1}: {guess}!={score}")
+                elif state is TileState.PRESENT:
+                    if guess[i] != score[i].upper():
+                        raise WordleError(f"Mismatch at {i+1}: {guess}!={score}")
+                tiles.append(state)
+            return cls(guess, score, tiles)
 
-Old
-===
+        @classmethod
+        def tile_state(cls, score_tile: str) -> TileState:
+            if "A" <= score_tile <= "Z":
+                return TileState.CORRECT
+            elif "a" <= score_tile <= "z":
+                return TileState.PRESENT
+            elif score_tile == ".":
+                return TileState.ABSENT
+            else:
+                raise WordleError(f"Invalid score: {score_tile}")
 
-And how we call ``is_eligible``:
+        def __str__(self):
+            return f"{self.guess}={self.score}"
+
+Whew! There's a lot of validation code in ``GuessScore.make``.
+It simplifies to:
 
 .. code-block:: python
 
-    def main():
-        namespace = parse_args()
-        with open(namespace.word_file) as f:
-            WORDS = [w.upper().strip() for w in f
-                     if len(w.strip()) == WORDLE_LEN]
-        invalid, valid, mask, wrong_spot = parse_guesses(namespace.guess_scores)
-        choices = [w for w in WORDS if is_eligible(w, invalid, valid, mask, wrong_spot)]
-        print("\n".join(choices))
+        def make(cls, guess_score: str) -> "GuessScore":
+            guess, score = guess_score.split("=")
+            tiles = [cls.tile_state(s) for s in score]
+            return cls(guess, score, tiles)
 
-For the sake of completeness, here's the rest:
+However, the validation code ensures that no typos in the score slip through.
+
+Let's add the main class, ``WordleGuesses``:
 
 .. code-block:: python
 
-    _VERBOSITY = 0
+    @dataclass
+    class WordleGuesses:
+        mask: list[Optional[str]]   # Exact match for position (Green/Correct)
+        valid: set[str]             # Green/Correct or Yellow/Present
+        invalid: set[str]           # Black/Absent
+        wrong_spot: list[set[str]]  # Wrong spot (Yellow/Present)
+        guess_scores: list[GuessScore]
 
-    def debug(s):
-        if _VERBOSITY: print(s)
+        @classmethod
+        def parse(cls, guess_scores: list[GuessScore]) -> "WordleGuesses":
+            mask: list[Optional[str]] = [None] * WORDLE_LEN
+            valid: set[str] = set()
+            invalid: set[str] = set()
+            wrong_spot: list[set[str]] = [set() for _ in range(WORDLE_LEN)]
 
-    def trace(s):
-        if _VERBOSITY >= 2: print(s)
+            for gs in guess_scores:
+                for i in range(WORDLE_LEN):
+                    if gs.tiles[i] is TileState.CORRECT:
+                        mask[i] = gs.guess[i]
+                        valid.add(gs.guess[i])
+                    elif gs.tiles[i] is TileState.PRESENT:
+                        wrong_spot[i].add(gs.guess[i])
+                        valid.add(gs.guess[i])
+                    elif gs.tiles[i] is TileState.ABSENT:
+                        invalid.add(gs.guess[i])
 
-    def parse_args():
-        parser = argparse.ArgumentParser(description="Wordle Finder")
-        parser.set_defaults(
-            word_file="/usr/share/dict/words",
-            verbose=0,
-        )
-        parser.add_argument(
-            "--verbose", "-v", action="count", help="Show all the steps")
-        parser.add_argument(
-            "--word-file", "-w", help="Word file. Default: %(default)s")
-        parser.add_argument(
-            "guess_scores",
-            nargs="+",
-            metavar="GUESS=score",
-            help="Examples: 'ARISE=.r.se' 'ROUTE=R.u.e' 'RULES=Ru.eS'",
-        )
-        namespace = parser.parse_args()
-        global _VERBOSITY
-        _VERBOSITY = namespace.verbose
-        return namespace
+            return cls(mask, valid, invalid, wrong_spot, guess_scores)
+
+        def is_eligible(self, word: str) -> bool:
+            letters = {c for c in word}
+            if letters & self.valid != self.valid:
+                # Did not have the full set of green+yellow letters known to be valid
+                logging.debug(f"!Valid: {word}")
+                return False
+            elif letters & self.invalid:
+                # Invalid (black) letters are in the word
+                logging.debug(f"Invalid: {word}")
+                return False
+            elif any(m is not None and c != m for c, m in zip(word, self.mask)):
+                # Couldn't find all the green/correct letters
+                logging.debug(f"!Mask: {word}")
+                return False
+            elif any(c in ws for c, ws in zip(word, self.wrong_spot)):
+                # Found some yellow letters: valid letters in wrong position
+                logging.debug(f"WrongSpot: {word}")
+                return False
+            else:
+                # Potentially valid
+                logging.info(f"Got: {word}")
+                return True
+
+        def find_eligible(self, vocabulary: list[str]) -> list[str]:
+            return [w for w in vocabulary if self.is_eligible(w)]
+
+``WordleGuesses.parse`` is a bit shorter and clearer than ``parse_guesses``.
+It uses ``TileState`` at each position to build up state.
+Since ``GuessScore.make`` has validated the input,
+it doesn't need to do any further validation.
+
+Tests
+=====
 
 Let's try it!::
 
