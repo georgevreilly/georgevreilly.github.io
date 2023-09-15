@@ -44,7 +44,7 @@ Let's look at this four-round game for Wordle 797:
 The letters of each guess are colored Green, Yellow, or Black (dark-gray).
 
 * A Green letter 🟩 means that the letter is **correct**:
-  ``N`` is the final letter of the answer.
+  ``E`` is the third letter of the answer.
 * A Yellow letter 🟨 means that the letter is **present** *elsewhere* in the answer.
   There is a ``C`` in the answer;
   it's not in columns 1 or 4, but it is correct in column 2.
@@ -59,7 +59,7 @@ The letters of each guess are colored Green, Yellow, or Black (dark-gray).
 Other words that could satisfy
 ``JUDGE=....e CHEST=c.E.. WRECK=..Ec.``
 are ``ICENI``, ``ILEAC``, and ``OLEIC``—\
-none of which is plausible as a Wordle answer.
+all of which are far too obscure to be Wordle answers.
 
 The ``GUESS=SCORE`` notation is intended to be clear to read
 and easier to write than Greens and Yellows.
@@ -76,15 +76,15 @@ For example:
       <tr><td class="present">C</td> <td class="absent" >H</td> <td class="correct">E</td> <td class="absent" >S</td> <td class="absent" >T</td></tr>
     </table>
 
-* the uppercase ``E`` at position 3 in the score denotes that
-  ``E`` is in the correct position (i.e., green 🟩);
-* the lowercase ``c`` at position 1 in the score denotes that
-  ``C`` is  present somewhere in the answer,
+* the *uppercase* ``E`` at position 3 in the score denotes that
+  ``E`` is in the **correct** position (i.e., green 🟩);
+* the *lowercase* ``c`` at position 1 in the score denotes that
+  ``C`` is **present** somewhere in the answer,
   but it is in the wrong position (yellow 🟨);
 * the ``.``\ s in the score at positions 2, 4, and 5 denote that
   the corresponding letters in the guess
   (``H``, ``S``, and ``T``, respectively)
-  are absent from the answer (black ⬛).
+  are **absent** from the answer (black ⬛).
 
 
 Deductions
@@ -127,16 +127,18 @@ Prototyping with Pipes
 ----------------------
 
 Let's prototype the above constraints with a series of ``grep``\ s
-in a Unix pipeline tailored to this ``OCEAN`` example:
+in a `Unix pipeline`__ tailored to this ``OCEAN`` example:
+
+__ https://en.wikipedia.org/wiki/Pipeline_(Unix)
 
 .. code-block:: bash
 
-    # TODO why is alignment messed up?
+    # TODO why is alignment of comments messed up? typography package?
 
     # JUDGE=....e CHEST=c.E.. WRECK=..Ec.
 
     grep '^.....$' /usr/share/dict/words |  # Five-letter words
-        tr 'a-z' 'A-Z' |                    # Translate to uppercase
+        tr 'a-z' 'A-Z' |                    # Translate each word to uppercase
         grep '^..E..$' |                    # Match CORRECT positions
         awk '/C/ && /E/' |                  # Match ALL of VALID set, CORRECT|PRESENT
         grep -v '[JUDGHSTWRK]' |            # Exclude INVALID set
@@ -151,9 +153,10 @@ gives (in Bash, on macOS 13.4)::
 
 We can accomplish this with only the simplest features of regular expressions,
 the `dot metacharacter`_ (``.``),
-`character classes`_ (``[JUD...]``) and negated character classes (``[^E]``),
+`character classes`_ (``[JUD...]``)
+and negated character classes (``[^E]``),
 and the ``^`` and ``$`` `anchors`_.
-Awk gives us `regex conjunctions`_.
+Awk gives us `regex conjunctions`_, allowing us to match *all* of the chars.
 
 .. _dot metacharacter:
     https://www.regular-expressions.info/dot.html
@@ -164,7 +167,14 @@ Awk gives us `regex conjunctions`_.
 .. _regex conjunctions:
     /blog/2023/09/05/RegexConjunctions.html
 
-Let's try our pipeline for Wordle 787 (``INDEX``):
+The above regular expressions are
+a simple mechanical transformation of the guess–score pairs.
+They could be simplified.
+For example, after ``grep '^..E..$'``,
+the ``E`` in ``awk '/C/ && /E/'`` is redundant.
+We're not going to attempt to optimize the regexes, however.
+
+Let's make a pipeline for Wordle 787 (``INDEX``):
 
 .. code-block:: bash
 
@@ -244,18 +254,20 @@ Here's the ``is_eligible`` function:
     def is_eligible(word, invalid, valid, mask, wrong_spot):
         letters = {c for c in word}
         if letters & valid != valid:
-            # Missing some 'valid' letters
+            # Missing some 'valid' letters from the word;
+            # all Green/Correct and Yellow/Present letters are required
             logging.debug(f"!Valid: {word}")
             return False
         elif letters & invalid:
+            # Some invalid (Black/Absent) letters are in the word
             logging.debug(f"Invalid: {word}")
             return False
         elif any(m is not None and c != m for c, m in zip(word, mask)):
-            # Some of the Green/Correct letters are missing
+            # Some of the Green/Correct letters are not at their positions
             logging.debug(f"!Mask: {word}")
             return False
         elif any(c in ws for c, ws in zip(word, wrong_spot)):
-            # We have Yellow letters
+            # We have valid letters in the wrong position (Yellow/Present)
             logging.debug(f"WrongSpot: {word}")
             return False
         else:
@@ -357,7 +369,7 @@ Let's add the main class, ``WordleGuesses``:
 
     @dataclass
     class WordleGuesses:
-        mask: list[Optional[str]]   # Exact match for position (Green/Correct)
+        mask: list[str | None]      # Exact match for position (Green/Correct)
         valid: set[str]             # Green/Correct or Yellow/Present
         invalid: set[str]           # Black/Absent
         wrong_spot: list[set[str]]  # Wrong spot (Yellow/Present)
@@ -365,7 +377,7 @@ Let's add the main class, ``WordleGuesses``:
 
         @classmethod
         def parse(cls, guess_scores: list[GuessScore]) -> "WordleGuesses":
-            mask: list[Optional[str]] = [None] * WORDLE_LEN
+            mask: list[str | None] = [None] * WORDLE_LEN
             valid: set[str] = set()
             invalid: set[str] = set()
             wrong_spot: list[set[str]] = [set() for _ in range(WORDLE_LEN)]
