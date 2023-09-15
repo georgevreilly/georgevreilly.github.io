@@ -434,17 +434,98 @@ Let's try it!::
     $ ./wordle.py HARES=.ar.. GUILT=..... CROAK=.Roa. BRAVO=bRa.o
     ARBOR
 
-    $ ./wordle1.py CHAIR=Cha.. CLASH=C.a.h CATCH=CA.ch
+    # CACHE
+    $ ./wordle.py CHAIR=Cha.. CLASH=C.a.h CATCH=CA.ch
     CACHE
     CAHOW
 
-    $ ./wordle1.py LEAKS=..... MIGHT=.i..t BLITZ=..it. OPTIC=o.tIC TONIC=TO.IC
+    # TOXIC
+    $ ./wordle.py LEAKS=..... MIGHT=.i..t BLITZ=..it. OPTIC=o.tIC TONIC=TO.IC
     TORIC
     TOXIC
 
 This looks right
-but there are a couple of subtle bugs here.
-We'll come back to those.
+but there are a couple of subtle bugs in the code.
+
+Here we expect to find ``FIFTY``, but there are no matching words::
+
+    $ ./wordle.py HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY
+
+Let's take a look at the ``WordleGuesses`` instance:
+
+.. code-block:: pycon
+
+    >>> guess_scores = [GuessScore.make(gs) for gs in
+            "HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY".split()]
+
+    >>> wg = WordleGuesses.parse(guess_scores)
+    >>> wg
+    WordleGuesses(mask=[None, 'I', None, 'T', 'Y'], valid={'T', 'I', 'Y'}, invalid={
+    'A', 'E', 'D', 'M', 'U', 'H', 'I', 'B', 'L', 'T', 'P', 'O', 'R', 'W', 'N', 'S'},
+    wrong_spot=[{'T'}, set(), {'I'}, set(), {'T'}], guess_scores=[GuessScore(guess='HARES',
+    score='.....', tiles=[<TileState.ABSENT: TileState(value=3, emoji='⬛', color='Black',
+    css_color='#838184')>, <TileState.ABSENT: TileState(value=3, emoji='⬛', color='Black',
+    css_color='#838184')>,
+        ... snip ...
+
+That's hard to read.
+
+
+String Representation
+---------------------
+
+Let's write a few helpers to get a better string representation.
+
+.. code-block:: python
+
+    def letter_set(s: set[str]) -> str:
+        return "".join(sorted(s))
+
+    def letter_sets(ls: list[set[str]]) -> str:
+        return "[" + ",".join(letter_set(e) or "-" for e in ls) + "]"
+
+    def dash_mask(mask: list[str | None]):
+        return "".join(m or "-" for m in mask)
+
+    class GuessScore:
+        def emojis(self, separator=""):
+            return separator.join(t.emoji for t in self.tiles)
+
+    class GuessScore:
+        def __str__(self) -> str:
+            mask = dash_mask(self.mask)
+            valid = letter_set(self.valid)
+            invalid = letter_set(self.invalid)
+            wrong_spot = letter_sets(self.wrong_spot)
+            unused = letter_set(
+                set(string.ascii_uppercase) - self.valid - self.invalid)
+            _guess_scores = [", ".join(f"{gs}|{gs.emojis()}"
+                for gs in self.guess_scores)]
+            return (
+                f"WordleGuesses({mask=}, {valid=}, {invalid=}, "
+                f"{wrong_spot=}, {unused=})"
+            )
+
+Let's run it again, printing out the instance::
+
+    $ ./wordle.py HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY
+    WordleGuesses(mask='-I-TY', valid='ITY', invalid='ABDEHILMNOPRSTUW',
+        wrong_spot='[T,-,I,-,T]', unused='CFGJKQVXZ')
+    guess_scores: ['HARES=.....|⬛⬛⬛⬛⬛, BUILT=..i.t|⬛⬛🟨⬛🟨,
+        TIMID=tI...|🟨🟩⬛⬛⬛, PINTO=.I.T.|⬛🟩⬛🟩⬛, WITTY=.I.TY|⬛🟩⬛🟩🟩']
+
+That's a huge improvement in legibility
+over the default string representation!
+
+There's a ``T`` in both ``valid`` and ``invalid``—\
+two sets that should be mutually exclusive.
+Clearly the “present” ``T`` in ``BUILT`` and ``TIMID``
+has poisoned the later “correct” ``T`` in ``PINTO`` and ``WITTY``.
+
+
+
+
+
 
 Class
 -----
