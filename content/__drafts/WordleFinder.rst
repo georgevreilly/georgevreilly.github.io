@@ -56,11 +56,6 @@ The letters of each guess are colored Green, Yellow, or Black (dark-gray).
   ``W``, ``R``, and ``K``
   do not appear anywhere in ``OCEAN``.
 
-Other words that could satisfy
-``JUDGE=....e CHEST=c.E.. WRECK=..Ec.``
-are ``ICENI``, ``ILEAC``, and ``OLEIC``—\
-all of which are far too obscure to be Wordle answers.
-
 The ``GUESS=SCORE`` notation is intended to be clear to read
 and also easier to write than Greens and Yellows.
 For example:
@@ -173,6 +168,15 @@ They could be simplified.
 For example, after ``grep '^..E..$'``,
 the ``E`` in ``awk '/C/ && /E/'`` is redundant.
 We're not going to attempt to optimize the regexes, however.
+
+Three of the four answers–``ICENI``, ``ILEAC``, and ``OLEIC``—\
+are far too obscure to be Wordle answers.
+Actual Wordle answers also exclude simple plurals (``BALLS``)
+and simple past tense (``LIKED``),
+but allow more complex plurals (``BOXES``)
+and irregular past tense (``DWELT``, ``BROKE``).
+We make no attempt to judge if an eligible word is *likely* as a Wordle answer;
+merely that it fits.
 
 Let's make a pipeline for Wordle 787 (``INDEX``):
 
@@ -451,7 +455,7 @@ Let's try it!::
     TOXIC
 
 This looks right
-but there are a couple of subtle bugs in the code.
+but there are some subtle bugs in the code.
 
 First Bug
 ---------
@@ -477,7 +481,7 @@ Let's take a look at the state of the ``WordleGuesses`` instance:
     score='.....', tiles=[<TileState.ABSENT: TileState(value=3, emoji='⬛', color='Black',
     css_color='#838184')>, <TileState.ABSENT: TileState(value=3, emoji='⬛', color='Black',
     css_color='#838184')>,
-        ... snip ...
+        ... much snipped ...
 
 That's hard to read.
 
@@ -582,8 +586,9 @@ Does it work? Yes! ::
 
 Now we have ``FIFTY``.
 But we also have ``JITTY``, ``KITTY``, and ``ZITTY``,
-which should not have matched since ``WITTY`` didn't.
-We'll come back to this.
+which should not been considered eligible
+since ``WITTY`` was eliminated for the ``T`` at position 3.
+We'll come back to this later.
 
 Here's an example that fails with the previous ``parse``::
 
@@ -618,7 +623,8 @@ This should find ``QUICK`` but doesn't::
 The problem here is that the first ``C`` in ``CHICK`` is invalid,
 and nothing updates ``valid`` for the second ``C`` at position 4.
 
-The ``valid`` and ``invalid`` sets above are not disjoint.
+There's a ``C`` in both ``valid`` and ``invalid`` above,
+so they are not disjoint sets.
 Let's revert the ``if gs.guess[i] not in valid``
 introduced in our previous attempt.
 Instead, at the end of the function,
@@ -661,7 +667,11 @@ Repeated Letters
 ----------------
 
 There's still a problem that we haven't grappled with properly yet:
-repeated letters in a guess or in an answer::
+*repeated letters* in a guess or in an answer.
+We've made an implicit assumption that there are five distinct letters
+in each guess and in the answer.
+
+Consider the results here::
 
     # answer: STYLE
     $ ./wordle.py -v GROAN=..... WHILE=...LE BELLE=...LE TUPLE=t..LE STELE=ST.LE
@@ -684,7 +694,7 @@ A second example::
     URITE
     WRITE
 
-Similarly, ``TRITE`` was an incorrect guess,
+``TRITE`` was an incorrect guess,
 so it should not have been considered eligible.
 ``T`` is valid in position 4, but invalid in position 1.
 
@@ -694,16 +704,17 @@ Per-Tile Invalid Sets
 The real fix is that instead of a single unified ``invalid`` set,
 there needs to be a *per-tile* ``invalid`` set,
 just as ``mask`` and ``wrong_spot`` are per-tile.
-Only ``valid`` can be a unified set.
+Only ``valid`` can be a single, unified set.
 
-Let's change ``invalid`` from ``list[str]``
+Let's change ``invalid`` from ``set[str]``
 to a five-element ``list[set[str]]``.
 
 We'll also change the algorithm in ``parse`` to make two passes
 for each guess-score pair:
 
 1. Handle ``CORRECT`` and ``PRESENT`` tiles
-2. Handle ``ABSENT`` tiles
+2. Handle ``ABSENT`` tiles by
+   invalidating all tiles that don't have a ``CORRECT`` letter.
 
 .. wordle6
 .. code-block:: python
@@ -766,14 +777,16 @@ Let's try the ``WRITE`` and ``STYLE`` examples again::
 
     # answer: WRITE
     $ ./wordle.py -v SABER=...er REFIT=re.it TRITE=.RITE
-    WordleGuesses(mask='-RITE', valid='EIRT', invalid='[ABFST,-,-,-,-]',
+    WordleGuesses(mask='-RITE', valid='EIRT',
+        invalid='[ABFST,-,-,-,-]',
         wrong_spot='[R,E,-,EI,RT]', unused='CDGHJKLMNOPQUVWXYZ')
     URITE
     WRITE
 
     # answer: STYLE
     $ ./wordle.py -v GROAN=..... WHILE=...LE BELLE=...LE TUPLE=t..LE STELE=ST.LE
-    WordleGuesses(mask='ST-LE', valid='ELST', invalid='[-,-,ABEGHILNOPRUW,-,-]',
+    WordleGuesses(mask='ST-LE', valid='ELST',
+        invalid='[-,-,ABEGHILNOPRUW,-,-]',
         wrong_spot='[T,-,-,-,-]', unused='CDFJKMQVXYZ')
     STYLE
 
@@ -781,24 +794,67 @@ Great! Rejected words are no longer offered as eligible words.
 
 What about some of our earlier examples?
 
-``QUICK`` now has ``C`` as invalid in position 1, but not in position 4::
+``QUICK`` now has ``C`` as invalid in position 1 (and 2), but not in position 4::
 
     # answer: QUICK
     $ ./wordle.py -v MORAL=..... TWINE=..I.. CHICK=..ICK
-    WordleGuesses(mask='--ICK', valid='CIK', invalid='[ACEHLMNORTW,ACEHLMNORTW,-,-,-]',
+    WordleGuesses(mask='--ICK', valid='CIK',
+        invalid='[ACEHLMNORTW,ACEHLMNORTW,-,-,-]',
         wrong_spot='[-,-,-,-,-]', unused='BDFGJPQSUVXYZ')
     QUICK
     SPICK
 
-And ``FIFTY`` has ``T`` as invalid in position 3, but not in position 4::
+``FIFTY`` has ``T`` as invalid in position 3 (and 1), but not in position 4::
 
     # answer: FIFTY
     $ ./wordle.py -v HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY
-    WordleGuesses(mask='-I-TY', valid='ITY', invalid='[ABDEHILMNOPRSTUW,-,ABDEHILMNOPRSTUW,-,-]',
+    WordleGuesses(mask='-I-TY', valid='ITY',
+        invalid='[ABDEHILMNOPRSTUW,-,ABDEHILMNOPRSTUW,-,-]',
         wrong_spot='[T,-,I,-,T]', unused='CFGJKQVXZ')
     FIFTY
 
+And ``EMPTY`` has ``E`` as invalid in positions 2, 4, and 5, but not in position 1::
 
+    # answer: EMPTY
+    $ ./wordle.py -v LODGE=....e WIPER=..Pe. TEPEE=teP.. EXPAT=E.P.t
+    WordleGuesses(mask='E-P--', valid='EPT',
+        invalid='[-,ADEGILORWX,-,ADEGILORWX,ADEGILORWX]',
+        wrong_spot='[T,E,-,E,ET]', unused='BCFHJKMNQSUVYZ')
+    EMPTS
+    EMPTY
+
+Using this per-tile invalid set approach,
+here's the updated Unix pipeline for ``INDEX``::
+
+    # VOUCH=..... GRIPE=..i.e DENIM=deni. WIDEN=.iDEn
+
+    grep '^.....$' /usr/share/dict/words |
+        tr 'a-z' 'A-Z' |
+        grep '^..DE.$' |                                        # CORRECT pos
+        awk '/D/ && /E/ && /I/ && /N/' |                        # VALID set
+        grep '^[^VOUCHGRPMW][^VOUCHGRPMW]..[^VOUCHGRPMW]$' |    # INVALID set
+        grep '^[^D][^EI][^IN][^I][^EN]$'                        # PRESENT pos
+
+Previous, the ``INVALID`` check was the simpler ``grep -v '[VOUCHGRPMW]'``.
+
+There's still a little room for improvement::
+
+    # answer: TENTH
+    $ ./wordle.py -v PLANK=...n. TENOR=TEN.. TENET=TEN.t
+    WordleGuesses(mask='TEN--', valid='ENT',
+        invalid='[-,-,-,AEKLOPR,AEKLOPR]',
+        wrong_spot='[-,-,-,N,T]', unused='BCDFGHIJMQSUVWXYZ')
+    TENCH
+    TENDS
+    TENDU
+    TENTH
+    TENTS
+    TENTY
+
+A smart human getting ``TENET=TEN.t``
+would realize that the fourth tile *must* be ``T``.
+We could update ``mask`` to be ``TENT-``.
+But we're not going to bother.
 
 Why Not?
 --------
