@@ -87,8 +87,8 @@ For example:
   are **absent** from the answer (black ⬛).
 
 
-Deductions
-----------
+Deducing Constraints
+--------------------
 
 What can we deduce from the first three rows of guesses,
 ``JUDGE=....e CHEST=c.E.. WRECK=..Ec.``?
@@ -185,7 +185,7 @@ Let's make a pipeline for Wordle 787 (``INDEX``):
         grep '^..DE.$' |                    # CORRECT pos
         awk '/D/ && /E/ && /I/ && /N/' |    # VALID set
         grep -v '[VOUCHGRPMW]' |            # INVALID set
-        grep '^[^D][^EI][^I][^I][^EN]$'     # PRESENT pos
+        grep '^[^D][^EI][^IN][^I][^EN]$'    # PRESENT pos
 
 yields::
 
@@ -200,6 +200,7 @@ Initial Python Solution
 Let's attempt to solve this in Python.
 The first piece is to parse a list of ``GUESS=SCORE`` pairs.
 
+.. wordle1
 .. code-block:: python
 
     def parse_guesses(guess_scores):
@@ -249,6 +250,7 @@ Let's try it for ``OCEAN``:
 
 Here's the ``is_eligible`` function:
 
+.. wordle1
 .. code-block:: python
 
     def is_eligible(word, invalid, valid, mask, wrong_spot):
@@ -296,6 +298,7 @@ We'll also use `type annotations`_ because it's 2023.
 .. _type annotations:
     https://bernat.tech/posts/the-state-of-type-hints-in-python/
 
+.. wordle2
 .. code-block:: python
 
     WORDLE_LEN = 5
@@ -365,6 +368,7 @@ However, the validation code ensures that no typos in the score slip through.
 
 Let's add the main class, ``WordleGuesses``:
 
+.. wordle2
 .. code-block:: python
 
     @dataclass
@@ -454,7 +458,9 @@ First Bug
 
 Here we expect to find ``FIFTY``, but no words match::
 
+    # answer: FIFTY
     $ ./wordle.py HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY
+    --None--
 
 Let's take a look at the state of the ``WordleGuesses`` instance:
 
@@ -481,6 +487,7 @@ String Representation
 
 Let's write a few helpers to get a better string representation.
 
+.. wordle3
 .. code-block:: python
 
     def letter_set(s: set[str]) -> str:
@@ -507,17 +514,19 @@ Let's write a few helpers to get a better string representation.
             _guess_scores = [", ".join(f"{gs}|{gs.emojis()}"
                 for gs in self.guess_scores)]
             return (
-                f"WordleGuesses({mask=}, {valid=}, {invalid=}, "
-                f"{wrong_spot=}, {unused=})"
+                f"WordleGuesses({mask=}, {valid=}, {invalid=},\n"
+                f"    {wrong_spot=}, {unused=})"
             )
 
 Let's run it again, printing out the instance::
 
+    # answer: FIFTY
     $ ./wordle.py HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY
     WordleGuesses(mask='-I-TY', valid='ITY', invalid='ABDEHILMNOPRSTUW',
         wrong_spot='[T,-,I,-,T]', unused='CFGJKQVXZ')
     guess_scores: ['HARES=.....|⬛⬛⬛⬛⬛, BUILT=..i.t|⬛⬛🟨⬛🟨,
         TIMID=tI...|🟨🟩⬛⬛⬛, PINTO=.I.T.|⬛🟩⬛🟩⬛, WITTY=.I.TY|⬛🟩⬛🟩🟩']
+    --None--
 
 That's a huge improvement in legibility
 over the default string representation!
@@ -528,17 +537,268 @@ Clearly the “present” ``T`` in ``BUILT`` and ``TIMID``
 has poisoned the later “correct” ``T`` in ``PINTO`` and ``WITTY``.
 
 
-Bugs
-----
+First Attempt at Fixing the Bug
+-------------------------------
 
-``FIFTY: HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY``
-can be fixed by inserting ``if w not in valid``
-between ``elif r == "."`` and ``invalid.add(w)``.
-But this returns too many results.
+Let's modify ``WordleGuesses.parse`` slightly to address that.
+When we get an ``ABSENT`` tile,
+we should only add that letter to ``invalid``
+if it's not already in ``valid``.
 
-We need the per-position ``invalid`` for these:
+.. wordle4
+.. code-block:: python
 
-Examples from invalid_notes.md
+    @classmethod
+    def parse(cls, guess_scores: list[GuessScore]) -> "WordleGuesses":
+        mask: list[str | None] = [None] * WORDLE_LEN
+        valid: set[str] = set()
+        invalid: set[str] = set()
+        wrong_spot: list[set[str]] = [set() for _ in range(WORDLE_LEN)]
+
+        for gs in guess_scores:
+            for i in range(WORDLE_LEN):
+                if gs.tiles[i] is TileState.CORRECT:
+                    mask[i] = gs.guess[i]
+                    valid.add(gs.guess[i])
+                elif gs.tiles[i] is TileState.PRESENT:
+                    wrong_spot[i].add(gs.guess[i])
+                    valid.add(gs.guess[i])
+                elif gs.tiles[i] is TileState.ABSENT:
+                    if gs.guess[i] not in valid:  # <<< new
+                        invalid.add(gs.guess[i])
+
+        return cls(mask, valid, invalid, wrong_spot, guess_scores)
+
+Does it work? Yes! ::
+
+    # answer: FIFTY
+    $ ./wordle.py -v HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY
+    WordleGuesses(mask='-I-TY', valid='ITY', invalid='ABDEHLMNOPRSUW',
+        wrong_spot='[T,-,I,-,T]', unused='CFGJKQVXZ')
+    FIFTY
+    JITTY
+    KITTY
+    ZITTY
+
+Now we have ``FIFTY``.
+But we also have ``JITTY``, ``KITTY``, and ``ZITTY``,
+which should not have matched since ``WITTY`` didn't.
+We'll come back to this.
+
+Here's an example that fails with the previous ``parse``::
+
+    # answer: EMPTY
+    ./wordle.py -v LODGE=....e WIPER=..Pe. TEPEE=teP.. EXPAT=E.P.t
+    WordleGuesses(mask='E-P--', valid='EPT', invalid='ADEGILORWX',
+        wrong_spot='[T,E,-,E,ET]', unused='BCFHJKMNQSUVYZ')
+    --None--
+
+but works with the current::
+
+    # answer: EMPTY
+    $ ./wordle.py -v LODGE=....e WIPER=..Pe. TEPEE=teP.. EXPAT=E.P.t
+    WordleGuesses(mask='E-P--', valid='EPT', invalid='ADGILORWX',
+        wrong_spot='[T,E,-,E,ET]', unused='BCFHJKMNQSUVYZ')
+    EMPTS
+    EMPTY
+
+Note that ``invalid`` has no ``E`` in the current version.
+
+Another Bug
+-----------
+
+This should find ``QUICK`` but doesn't::
+
+    # answer: QUICK
+    $ ./wordle.py -v MORAL=..... TWINE=..I.. CHICK=..ICK
+    WordleGuesses(mask='--ICK', valid='CIK', invalid='ACEHLMNORTW',
+        wrong_spot='[-,-,-,-,-]', unused='BDFGJPQSUVXYZ')
+    --None--
+
+The problem here is that the first ``C`` in ``CHICK`` is invalid,
+and nothing updates ``valid`` for the second ``C`` at position 4.
+
+The ``valid`` and ``invalid`` sets above are not disjoint.
+Let's revert the ``if gs.guess[i] not in valid``
+introduced in our previous attempt.
+Instead, at the end of the function,
+we'll remove any ``valid`` letters from ``invalid``.
+
+.. wordle5
+.. code-block:: python
+
+    @classmethod
+    def parse(cls, guess_scores: list[GuessScore]) -> "WordleGuesses":
+        mask: list[str | None] = [None] * WORDLE_LEN
+        valid: set[str] = set()
+        invalid: set[str] = set()
+        wrong_spot: list[set[str]] = [set() for _ in range(WORDLE_LEN)]
+
+        for gs in guess_scores:
+            for i in range(WORDLE_LEN):
+                if gs.tiles[i] is TileState.CORRECT:
+                    mask[i] = gs.guess[i]
+                    valid.add(gs.guess[i])
+                elif gs.tiles[i] is TileState.PRESENT:
+                    wrong_spot[i].add(gs.guess[i])
+                    valid.add(gs.guess[i])
+                elif gs.tiles[i] is TileState.ABSENT:
+                    invalid.add(gs.guess[i])
+
+        invalid -= valid  # <<< new
+        return cls(mask, valid, invalid, wrong_spot, guess_scores)
+
+And this works now::
+
+    # answer: QUICK
+    $ ./wordle.py -v MORAL=..... TWINE=..I.. CHICK=..ICK
+    WordleGuesses(mask='--ICK', valid='CIK', invalid='AEHLMNORTW',
+        wrong_spot='[-,-,-,-,-]', unused='BDFGJPQSUVXYZ')
+    QUICK
+    SPICK
+
+Repeated Letters
+----------------
+
+There's still a problem that we haven't grappled with properly yet:
+repeated letters in a guess or in an answer::
+
+    # answer: STYLE
+    $ ./wordle.py -v GROAN=..... WHILE=...LE BELLE=...LE TUPLE=t..LE STELE=ST.LE
+    WordleGuesses(mask='ST-LE', valid='ELST', invalid='ABGHINOPRUW',
+        wrong_spot='[T,-,-,-,-]', unused='CDFJKMQVXYZ')
+    STELE
+    STYLE
+
+``STELE`` was an incorrect guess,
+so it should not have been considered eligible.
+``E`` is valid in position 5, but invalid in position 3.
+
+A second example::
+
+    # answer: WRITE
+    ❯ ./wordle.py -v SABER=...er REFIT=re.it TRITE=.RITE
+    WordleGuesses(mask='-RITE', valid='EIRT', invalid='ABFS',
+        wrong_spot='[R,E,-,EI,RT]', unused='CDGHJKLMNOPQUVWXYZ')
+    TRITE
+    URITE
+    WRITE
+
+Similarly, ``TRITE`` was an incorrect guess,
+so it should not have been considered eligible.
+``T`` is valid in position 4, but invalid in position 1.
+
+Per-Tile Invalid Sets
+---------------------
+
+The real fix is that instead of a single unified ``invalid`` set,
+there needs to be a *per-tile* ``invalid`` set,
+just as ``mask`` and ``wrong_spot`` are per-tile.
+Only ``valid`` can be a unified set.
+
+Let's change ``invalid`` from ``list[str]``
+to a five-element ``list[set[str]]``.
+
+We'll also change the algorithm in ``parse`` to make two passes
+for each guess-score pair:
+
+1. Handle ``CORRECT`` and ``PRESENT`` tiles
+2. Handle ``ABSENT`` tiles
+
+.. wordle6
+.. code-block:: python
+
+    @dataclass
+    class WordleGuesses:
+        mask: list[str | None]  # Exact match for position (Green/Correct)
+        valid: set[str]  # Green/Correct or Yellow/Present
+        invalid: list[set[str]]  # Black/Absent
+        wrong_spot: list[set[str]]  # Wrong spot (Yellow/Present)
+        guess_scores: list[GuessScore]
+
+        @classmethod
+        def parse(cls, guess_scores: list[GuessScore]) -> "WordleGuesses":
+            mask: list[str | None] = [None] * WORDLE_LEN
+            valid: set[str] = set()
+            invalid: list[set[str]] = [set() for _ in range(WORDLE_LEN)]
+            wrong_spot: list[set[str]] = [set() for _ in range(WORDLE_LEN)]
+
+            for gs in guess_scores:
+                # First pass for correct and present
+                for i, (g, t) in enumerate(zip(gs.guess, gs.tiles)):
+                    if t is TileState.CORRECT:
+                        mask[i] = g
+                        valid.add(g)
+                        invalid[i] = set()  # reset
+                    elif t is TileState.PRESENT:
+                        valid.add(g)
+                        wrong_spot[i].add(g)
+
+                # Second pass for absent letters
+                for i, (g, t) in enumerate(zip(gs.guess, gs.tiles)):
+                    if t is TileState.ABSENT:
+                        for j in range(WORDLE_LEN):
+                            # If we don't have a correct letter for this other position,
+                            # treat `g` as invalid. This handles repeated letters.
+                            if mask[j] is None:
+                                invalid[j].add(g)
+
+            return cls(mask, valid, invalid, wrong_spot, guess_scores)
+
+        def is_eligible(self, word: str) -> bool:
+            ...
+            elif any(c in inv for c, inv in zip(word, self.invalid)):
+                # Invalid (black) letters are in the word
+                logging.debug(f"Invalid: {word}")
+                return False
+            ...
+
+        def __str__(self) -> str:
+            ...
+            invalid = letter_sets(self.invalid)
+            unused = letter_set(
+                set(string.ascii_uppercase)
+                - self.valid
+                - cast(set[str], set.union(*self.invalid))
+            )
+
+Let's try the ``WRITE`` and ``STYLE`` examples again::
+
+    # answer: WRITE
+    $ ./wordle.py -v SABER=...er REFIT=re.it TRITE=.RITE
+    WordleGuesses(mask='-RITE', valid='EIRT', invalid='[ABFST,-,-,-,-]',
+        wrong_spot='[R,E,-,EI,RT]', unused='CDGHJKLMNOPQUVWXYZ')
+    URITE
+    WRITE
+
+    # answer: STYLE
+    $ ./wordle.py -v GROAN=..... WHILE=...LE BELLE=...LE TUPLE=t..LE STELE=ST.LE
+    WordleGuesses(mask='ST-LE', valid='ELST', invalid='[-,-,ABEGHILNOPRUW,-,-]',
+        wrong_spot='[T,-,-,-,-]', unused='CDFJKMQVXYZ')
+    STYLE
+
+Great! Rejected words are no longer offered as eligible words.
+
+What about some of our earlier examples?
+
+``QUICK`` now has ``C`` as invalid in position 1, but not in position 4::
+
+    # answer: QUICK
+    $ ./wordle.py -v MORAL=..... TWINE=..I.. CHICK=..ICK
+    WordleGuesses(mask='--ICK', valid='CIK', invalid='[ACEHLMNORTW,ACEHLMNORTW,-,-,-]',
+        wrong_spot='[-,-,-,-,-]', unused='BDFGJPQSUVXYZ')
+    QUICK
+    SPICK
+
+And ``FIFTY`` has ``T`` as invalid in position 3, but not in position 4::
+
+    # answer: FIFTY
+    $ ./wordle.py -v HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY
+    WordleGuesses(mask='-I-TY', valid='ITY', invalid='[ABDEHILMNOPRSTUW,-,ABDEHILMNOPRSTUW,-,-]',
+        wrong_spot='[T,-,I,-,T]', unused='CFGJKQVXZ')
+    FIFTY
+
+
 
 Why Not?
 --------
