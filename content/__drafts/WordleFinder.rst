@@ -43,18 +43,18 @@ Let's look at this four-round game for Wordle 797:
 
 The letters of each guess are colored Green, Yellow, or Black (dark-gray).
 
-* A Green letter 🟩 means that the letter is **correct**:
+* A Green tile 🟩 means that the letter is **correct**:
   ``E`` is the third letter of the answer.
-* A Yellow letter 🟨 means that the letter is **present** *elsewhere* in the answer.
+* A Yellow tile 🟨 means that the letter is **present** *elsewhere* in the answer.
   There is a ``C`` in the answer;
   it's not in columns 1 or 4, but it is correct in column 2.
   Likewise, an ``E`` is present in the answer;
   it's not in column 5, but it's correct in column 3.
-* A Black letter ⬛ is **absent** from the answer:
-  there is no ``J``, ``U``, ``D``, ``G``,
+* A Black tile ⬛ is **absent** from the answer:
+  ``J``, ``U``, ``D``, ``G``,
   ``H``, ``S``, ``T``,
-  ``W``, ``R``, or ``K``
-  anywhere in ``OCEAN``.
+  ``W``, ``R``, and ``K``
+  do not appear anywhere in ``OCEAN``.
 
 Other words that could satisfy
 ``JUDGE=....e CHEST=c.E.. WRECK=..Ec.``
@@ -62,7 +62,7 @@ are ``ICENI``, ``ILEAC``, and ``OLEIC``—\
 all of which are far too obscure to be Wordle answers.
 
 The ``GUESS=SCORE`` notation is intended to be clear to read
-and easier to write than Greens and Yellows.
+and also easier to write than Greens and Yellows.
 For example:
 
 .. raw:: html
@@ -117,8 +117,8 @@ A candidate word *must*:
 
 1. include all valid letters —          ``C`` and ``E``
 2. exclude all invalid letters —        ``JUDGHSTWRK``
-3. match all correct positions —        ``3:E``
-4. not match any ‘present’ positions —  ``1:C``, ``4:C``, or ``5:E``
+3. match all “correct” positions —      ``3:E``
+4. not match any “present” positions —  ``1:C``, ``4:C``, or ``5:E``
 
 These constraints narrow the possible choices from the word list.
 
@@ -137,7 +137,7 @@ __ https://en.wikipedia.org/wiki/Pipeline_(Unix)
 
     # JUDGE=....e CHEST=c.E.. WRECK=..Ec.
 
-    grep '^.....$' /usr/share/dict/words |  # Five-letter words
+    grep '^.....$' /usr/share/dict/words |  # Extract five-letter words
         tr 'a-z' 'A-Z' |                    # Translate each word to uppercase
         grep '^..E..$' |                    # Match CORRECT positions
         awk '/C/ && /E/' |                  # Match ALL of VALID set, CORRECT|PRESENT
@@ -422,7 +422,8 @@ Let's add the main class, ``WordleGuesses``:
             return [w for w in vocabulary if self.is_eligible(w)]
 
 ``WordleGuesses.parse`` is a bit shorter and clearer than ``parse_guesses``.
-It uses ``TileState`` at each position to build up state.
+It uses ``TileState`` at each position
+to classify the current tile and build up state.
 Since ``GuessScore.make`` has validated the input,
 it doesn't need to do any further validation.
 
@@ -431,15 +432,16 @@ Tests
 
 Let's try it!::
 
+    # answer: ARBOR
     $ ./wordle.py HARES=.ar.. GUILT=..... CROAK=.Roa. BRAVO=bRa.o
     ARBOR
 
-    # CACHE
+    # answer: CACHE
     $ ./wordle.py CHAIR=Cha.. CLASH=C.a.h CATCH=CA.ch
     CACHE
     CAHOW
 
-    # TOXIC
+    # answer: TOXIC
     $ ./wordle.py LEAKS=..... MIGHT=.i..t BLITZ=..it. OPTIC=o.tIC TONIC=TO.IC
     TORIC
     TOXIC
@@ -447,11 +449,14 @@ Let's try it!::
 This looks right
 but there are a couple of subtle bugs in the code.
 
-Here we expect to find ``FIFTY``, but there are no matching words::
+First Bug
+---------
+
+Here we expect to find ``FIFTY``, but no words match::
 
     $ ./wordle.py HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY
 
-Let's take a look at the ``WordleGuesses`` instance:
+Let's take a look at the state of the ``WordleGuesses`` instance:
 
 .. code-block:: pycon
 
@@ -491,7 +496,7 @@ Let's write a few helpers to get a better string representation.
         def emojis(self, separator=""):
             return separator.join(t.emoji for t in self.tiles)
 
-    class GuessScore:
+    class WordleGuesses:
         def __str__(self) -> str:
             mask = dash_mask(self.mask)
             valid = letter_set(self.valid)
@@ -523,13 +528,6 @@ Clearly the “present” ``T`` in ``BUILT`` and ``TIMID``
 has poisoned the later “correct” ``T`` in ``PINTO`` and ``WITTY``.
 
 
-
-
-
-
-Class
------
-
 Bugs
 ----
 
@@ -540,9 +538,10 @@ But this returns too many results.
 
 We need the per-position ``invalid`` for these:
 
-* ``QUICK: MORAL=..... TWINE=..I.. CHICK=..ICK`` doesn't find ``QUICK``
-* ``STYLE: `GROAN=..... WHILE=...LE BELLE=...LE TUPLE=t..LE STELE=ST.LE``
-  finds both ``STYLE`` and ``STELE`` (which is known to be wrong)
+Examples from invalid_notes.md
+
+Why Not?
+--------
 
 Demonstrate all four filters:
 
