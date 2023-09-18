@@ -835,7 +835,16 @@ here's the updated Unix pipeline for ``INDEX``::
         grep '^[^VOUCHGRPMW][^VOUCHGRPMW]..[^VOUCHGRPMW]$' |    # INVALID set
         grep '^[^D][^EI][^IN][^I][^EN]$'                        # PRESENT pos
 
-Previous, the ``INVALID`` check was the simpler ``grep -v '[VOUCHGRPMW]'``.
+Previously, the ``INVALID`` check was the simpler ``grep -v '[VOUCHGRPMW]'``.
+
+Note that all the non-empty ``invalid`` sets are identical,
+while the empty sets correspond to “correct” tiles.
+
+*This means that we should use invalid as a single set,
+coupled with the position information in ``mask``!*
+
+Further Optimization of the Mask
+--------------------------------
 
 There's still a little room for improvement::
 
@@ -851,7 +860,7 @@ There's still a little room for improvement::
     TENTS
     TENTY
 
-A smart human getting ``TENET=TEN.t``
+A human player getting ``TENET=TEN.t``
 would realize that the fourth tile *must* be ``T``.
 We could update ``mask`` to be ``TENT-``.
 But we're not going to bother.
