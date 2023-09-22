@@ -26,15 +26,19 @@ as little green, yellow, and black (or white) emojis.
 The problem that I want to address in this post is:
 
     Given some ``GUESS=SCORE`` pairs for Wordle and a word list,
-    find all the words from the list that are candidate answers.
+    find all the words from the list that are eligible as answers.
 
 Let's look at this four-round game for Wordle 797:
 
-.. JUDGE=....e CHEST=c.E.. WRECK=..Ec. OCEAN=OCEAN
 
 .. raw:: html
 
-    <table class='wordle'>
+    <div style="text-align: center; font-family: 'Source Code Pro', monospace;">
+        Fix ... typography below<br/>
+        JUDGE=....e CHEST=c.E.. WRECK=..Ec. OCEAN=OCEAN<br/>
+    </div>
+
+    <table class="wordle">
       <tr><td class="absent" >J</td> <td class="absent" >U</td> <td class="absent" >D</td> <td class="absent" >G</td> <td class="present">E</td></tr>
       <tr><td class="present">C</td> <td class="absent" >H</td> <td class="correct">E</td> <td class="absent" >S</td> <td class="absent" >T</td></tr>
       <tr><td class="absent" >W</td> <td class="absent" >R</td> <td class="correct">E</td> <td class="present">C</td> <td class="absent" >K</td></tr>
@@ -171,7 +175,7 @@ We're not going to attempt to optimize the regexes, however.
 
 Three of the four answers–``ICENI``, ``ILEAC``, and ``OLEIC``—\
 are far too obscure to be Wordle answers.
-Actual Wordle answers also exclude simple plurals (``BALLS``)
+Actual Wordle answers also exclude simple plurals (``YARDS``)
 and simple past tense (``LIKED``),
 but allow more complex plurals (``BOXES``)
 and irregular past tense (``DWELT``, ``BROKE``).
@@ -262,22 +266,22 @@ Here's the ``is_eligible`` function:
         if letters & valid != valid:
             # Missing some 'valid' letters from the word;
             # all Green/Correct and Yellow/Present letters are required
-            logging.debug(f"!Valid: {word}")
+            logging.debug("!Valid: %s", word)
             return False
         elif letters & invalid:
             # Some invalid (Black/Absent) letters are in the word
-            logging.debug(f"Invalid: {word}")
+            logging.debug("Invalid: %s", word)
             return False
         elif any(m is not None and c != m for c, m in zip(word, mask)):
             # Some of the Green/Correct letters are not at their positions
-            logging.debug(f"!Mask: {word}")
+            logging.debug("!Mask: %s", word)
             return False
         elif any(c in ws for c, ws in zip(word, wrong_spot)):
             # We have valid letters in the wrong position (Yellow/Present)
-            logging.debug(f"WrongSpot: {word}")
+            logging.debug("WrongSpot: %s", word)
             return False
         else:
-            logging.debug(f"Got: {word}")
+            logging.debug("Got: %s", word)
             return True
 
 
@@ -285,12 +289,13 @@ Python Classes
 --------------
 
 Returning four parallel collections from a function is a `code smell`_.
-Let's refactor this code into a ``WordleGuesses`` class.
+Let's refactor these functions into a ``WordleGuesses`` class.
 
 First, we'll need some helper classes:
 ``WordleError`` (an exception class),
 ``TileState`` (a `multi-attribute enumeration`_),
-and ``GuessScore`` (a `dataclass`_ that manages a guess–score pair).
+and ``GuessScore`` (a `dataclass`_ that manages a guess–score pair
+and the associated ``TileState``\ s).
 We'll also use `type annotations`_ because it's 2023.
 
 .. _code smell:
@@ -358,6 +363,9 @@ We'll also use `type annotations`_ because it's 2023.
         def __str__(self):
             return f"{self.guess}={self.score}"
 
+        def emojis(self, separator=""):
+            return separator.join(t.emoji for t in self.tiles)
+
 Whew! There's a lot of validation code in ``GuessScore.make``.
 It simplifies to:
 
@@ -407,23 +415,23 @@ Let's add the main class, ``WordleGuesses``:
             letters = {c for c in word}
             if letters & self.valid != self.valid:
                 # Did not have the full set of green+yellow letters known to be valid
-                logging.debug(f"!Valid: {word}")
+                logging.debug("!Valid: %s", word)
                 return False
             elif letters & self.invalid:
                 # Invalid (black) letters are in the word
-                logging.debug(f"Invalid: {word}")
+                logging.debug("Invalid: %s", word)
                 return False
             elif any(m is not None and c != m for c, m in zip(word, self.mask)):
                 # Couldn't find all the green/correct letters
-                logging.debug(f"!Mask: {word}")
+                logging.debug("!Mask: %s", word)
                 return False
             elif any(c in ws for c, ws in zip(word, self.wrong_spot)):
                 # Found some yellow letters: valid letters in wrong position
-                logging.debug(f"WrongSpot: {word}")
+                logging.debug("WrongSpot: %s", word)
                 return False
             else:
                 # Potentially valid
-                logging.info(f"Got: {word}")
+                logging.info("Got: %s", word)
                 return True
 
         def find_eligible(self, vocabulary: list[str]) -> list[str]:
@@ -433,7 +441,7 @@ Let's add the main class, ``WordleGuesses``:
 It uses ``TileState`` at each position
 to classify the current tile and build up state.
 Since ``GuessScore.make`` has validated the input,
-it doesn't need to do any further validation.
+``parse`` doesn't need to do any further validation.
 
 Tests
 =====
@@ -502,10 +510,6 @@ Let's write a few helpers to get a better string representation.
 
     def dash_mask(mask: list[str | None]):
         return "".join(m or "-" for m in mask)
-
-    class GuessScore:
-        def emojis(self, separator=""):
-            return separator.join(t.emoji for t in self.tiles)
 
     class WordleGuesses:
         def __str__(self) -> str:
