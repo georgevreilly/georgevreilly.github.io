@@ -543,8 +543,13 @@ over the default string representation!
 
 There's a ``T`` in both ``valid`` and ``invalid``—\
 two sets that should be mutually exclusive.
-Clearly the “present” ``T`` in ``BUILT`` and ``TIMID``
-has poisoned the later “correct” ``T`` in ``PINTO`` and ``WITTY``.
+The first “absent” ``T`` at position 3 in ``WITTY``
+has poisoned the second  ``T`` at position 4, which is “correct”.
+The ``T`` at position 1 in ``TIMID`` and
+the ``T`` at position 5 in ``BUILT`` are “present”
+because they are the only ``T`` in those guesses.
+When there's a superfluous ``T``, as in ``WITTY``,
+it's classified as “absent”.
 
 
 First Attempt at Fixing the Bug
