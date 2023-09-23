@@ -611,6 +611,15 @@ which should not been considered eligible
 since ``WITTY`` was eliminated for the ``T`` at position 3.
 We'll come back to this later.
 
+
+Repeated Letters
+----------------
+
+There's a problem that we haven't grappled with properly yet:
+*repeated letters* in a guess or in an answer.
+We've made an implicit assumption that there are five distinct letters
+in each guess and in the answer.
+
 Here's an example that fails with the previous ``parse``:
 
 .. code-block:: bash
@@ -635,18 +644,19 @@ but works with the current:
 Note in ``TEPEE=teP..`` that the ``E`` in position 2 is considered “present”,
 while the two ``E``\ s in positions 4 and 5 are marked “absent”,
 telling us that there is only one ``E`` in the answer.
-From the subsequent ``EXPAT=E.P.t``,
-where the initial ``E`` is marked “correct”,
-we learn that it must be at position 1.
+Since ``P`` is correct in position 3 of ``TEPEE``,
+the ``E`` has to be in position 1.
+This is confirmed by the subsequent ``EXPAT=E.P.t``,
+where the initial ``E`` is marked “correct”.
 
+Our previous understanding of “absent” was too simple.
+An “absent” tile can mean one of two things:
 
-Repeated Letters
-----------------
-
-There's still a problem that we haven't grappled with properly yet:
-*repeated letters* in a guess or in an answer.
-We've made an implicit assumption that there are five distinct letters
-in each guess and in the answer.
+1. This letter is not in the word at all—the usual case.
+2. If another copy of this letter
+   is “correct” or “present” elsewhere in the same guess (i.e., *valid*),
+   the letter is superfluous at this position.
+   The guess has more instances of this letter than the answer does.
 
 Consider the results here:
 
@@ -660,10 +670,10 @@ Consider the results here:
     STYLE
 
 ``STELE`` was an incorrect guess,
-so it should not have been considered eligible.
-``E`` is valid in position 5, but invalid in position 3.
+so it should not have been offered as an eligible word.
+``E`` is valid in position 5, but invalid in position 3.
 
-A second example:
+Another example:
 
 .. code-block:: bash
 
@@ -676,8 +686,15 @@ A second example:
     WRITE
 
 ``TRITE`` was an incorrect guess,
-so it should not have been considered eligible.
-``T`` is valid in position 4, but invalid in position 1.
+so it should not have been offered.
+``4:T`` is valid, ``1:T`` is invalid.
+
+Fixing
+------
+
+*revisit invalid*?????
+
+*construct an example of present + absent (no correct)*
 
 Let's fix this properly.
 First, revert the ``if g not in valid``
@@ -742,12 +759,6 @@ Let's try the ``WRITE`` and ``STYLE`` examples again:
     Got: STYLE
     STYLE
 
-``E`` is in the mask at position 5, so a trailing ``E`` is required.
-The “absent” ``E`` at position 3 in the ``STELE`` guess
-added ``E`` to the invalid set.
-The third character in the mask is unknown,
-so all words with ``E`` in the middle are ineligible.
-
 What about some other examples?
 
 With our previous ``if g not in valid`` attempt at fixing the bug,
@@ -763,7 +774,7 @@ because of the two ``C``\ s in ``CHICK``.
     QUICK
     SPICK
 
-We only find one answer for ``FIFTY`` now.
+We find only one answer for ``FIFTY`` now.
 ``KITTY`` et al are no longer offered.
 
 .. code-block:: bash
