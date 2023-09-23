@@ -571,26 +571,27 @@ only if it's not already in ``valid``.
 .. wordle4
 .. code-block:: python
 
-    @classmethod
-    def parse(cls, guess_scores: list[GuessScore]) -> "WordleGuesses":
-        mask: list[str | None] = [None] * WORDLE_LEN
-        valid: set[str] = set()
-        invalid: set[str] = set()
-        wrong_spot: list[set[str]] = [set() for _ in range(WORDLE_LEN)]
+    class WordleGuesses:
+        @classmethod
+        def parse(cls, guess_scores: list[GuessScore]) -> "WordleGuesses":
+            mask: list[str | None] = [None] * WORDLE_LEN
+            valid: set[str] = set()
+            invalid: set[str] = set()
+            wrong_spot: list[set[str]] = [set() for _ in range(WORDLE_LEN)]
 
-        for gs in guess_scores:
-            for i, (t, g) in enumerate(zip(gs.tiles, gs.guess)):
-                if t is TileState.CORRECT:
-                    mask[i] = g
-                    valid.add(g)
-                elif t is TileState.PRESENT:
-                    wrong_spot[i].add(g)
-                    valid.add(g)
-                elif t is TileState.ABSENT:
-                    if g not in valid:  # <<< new
-                        invalid.add(g)
+            for gs in guess_scores:
+                for i, (t, g) in enumerate(zip(gs.tiles, gs.guess)):
+                    if t is TileState.CORRECT:
+                        mask[i] = g
+                        valid.add(g)
+                    elif t is TileState.PRESENT:
+                        wrong_spot[i].add(g)
+                        valid.add(g)
+                    elif t is TileState.ABSENT:
+                        if g not in valid:  # <<< new
+                            invalid.add(g)
 
-        return cls(mask, valid, invalid, wrong_spot, guess_scores)
+            return cls(mask, valid, invalid, wrong_spot, guess_scores)
 
 Does it work? Yes!
 Now we have ``FIFTY``.
@@ -705,34 +706,34 @@ where the “absent” ``T`` precedes the “correct” ``T``.
 .. code-block:: python
 
     class WordleGuesses:
-    @classmethod
-    def parse(cls, guess_scores: list[GuessScore]) -> "WordleGuesses":
-        mask: list[str | None] = [None for _ in range(WORDLE_LEN)]
-        valid: set[str] = set()
-        invalid: set[str] = set()
-        wrong_spot: list[set[str]] = [set() for _ in range(WORDLE_LEN)]
+        @classmethod
+        def parse(cls, guess_scores: list[GuessScore]) -> "WordleGuesses":
+            mask: list[str | None] = [None for _ in range(WORDLE_LEN)]
+            valid: set[str] = set()
+            invalid: set[str] = set()
+            wrong_spot: list[set[str]] = [set() for _ in range(WORDLE_LEN)]
 
-        for gs in guess_scores:
-            # First pass for correct and present
-            for i, (t, g) in enumerate(zip(gs.tiles, gs.guess)):
-                if t is TileState.CORRECT:
-                    mask[i] = g
-                    valid.add(g)
-                elif t is TileState.PRESENT:
-                    wrong_spot[i].add(g)
-                    valid.add(g)
-
-            # Second pass for absent letters
-            for i, (t, g) in enumerate(zip(gs.tiles, gs.guess)):
-                if t is TileState.ABSENT:
-                    if g in valid:
-                        # There are more instances of `g` in `gs.guess`
-                        # than in the answer
+            for gs in guess_scores:
+                # First pass for correct and present
+                for i, (t, g) in enumerate(zip(gs.tiles, gs.guess)):
+                    if t is TileState.CORRECT:
+                        mask[i] = g
+                        valid.add(g)
+                    elif t is TileState.PRESENT:
                         wrong_spot[i].add(g)
-                    else:
-                        invalid.add(g)
+                        valid.add(g)
 
-        return cls(mask, valid, invalid, wrong_spot, guess_scores)
+                # Second pass for absent letters
+                for i, (t, g) in enumerate(zip(gs.tiles, gs.guess)):
+                    if t is TileState.ABSENT:
+                        if g in valid:
+                            # There are more instances of `g` in `gs.guess`
+                            # than in the answer
+                            wrong_spot[i].add(g)
+                        else:
+                            invalid.add(g)
+
+            return cls(mask, valid, invalid, wrong_spot, guess_scores)
 
 We do not need to change ``is_eligible``.
 
