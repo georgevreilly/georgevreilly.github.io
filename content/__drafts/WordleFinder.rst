@@ -696,10 +696,10 @@ The way to fix this is to make two passes through the tiles
 for each guess–score pair.
 
 1. Handle “correct” and “present” tiles as before.
-2. Add “absent” tiles to either ``invalid`` or ``wrong_spot``
+2. Add “absent” tiles to either ``invalid`` or ``wrong_spot``.
 
 We need two passes to handle a case like ``WITTY=.I.TY``,
-where the “absent” ``T`` occurs before the “correct” ``T``.
+where the “absent” ``T`` precedes the “correct” ``T``.
 
 .. wordle4
 .. code-block:: python
@@ -723,7 +723,7 @@ where the “absent” ``T`` occurs before the “correct” ``T``.
                     valid.add(g)
 
             # Second pass for absent letters
-            for i, (g, t) in enumerate(zip(gs.guess, gs.tiles)):
+            for i, (t, g) in enumerate(zip(gs.tiles, gs.guess)):
                 if t is TileState.ABSENT:
                     if g in valid:
                         # There are more instances of `g` in `gs.guess`
