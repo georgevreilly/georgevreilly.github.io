@@ -236,7 +236,7 @@ Let's try it for the ``OCEAN`` guesses:
     ...     ["JUDGE=....e", "CHEST=c.E..", "WRECK=..Ec."])
 
     >>> print(f"{invalid=}\n{valid=}\n{mask=}\n{wrong_spot=}")
-    invalid={'H', 'R', 'S', 'W', 'U', 'J', 'K', 'T', 'D', 'G'}
+    invalid={'H', 'K', 'D', 'G', 'T', 'R', 'U', 'W', 'J', 'S'}
     valid={'E', 'C'}
     mask=[None, None, 'E', None, None]
     wrong_spot=[{'C'}, set(), set(), {'C'}, {'E'}]
@@ -262,13 +262,13 @@ Here's the ``is_eligible`` function:
             # all Green/Correct and Yellow/Present letters are required
             logging.debug("!Valid: %s", word)
             return False
-        elif letters & invalid:
-            # Some invalid (Black/Absent) letters are in the word
-            logging.debug("Invalid: %s", word)
-            return False
         elif any(m is not None and c != m for c, m in zip(word, mask)):
             # Some of the Green/Correct letters are not at their positions
             logging.debug("!Mask: %s", word)
+            return False
+        elif letters & invalid:
+            # Some invalid (Black/Absent) letters are in the word
+            logging.debug("Invalid: %s", word)
             return False
         elif any(c in ws for c, ws in zip(word, wrong_spot)):
             # We have valid letters in the wrong position (Yellow/Present)
@@ -337,14 +337,14 @@ We'll also use `type annotations`_ because it's 2023.
             else:
                 raise WordleError(f"Invalid score: {score_tile}")
 
-        def __str__(self):
+        def __repr__(self):
             return f"{self.guess}={self.score}"
 
         def emojis(self, separator=""):
             return separator.join(t.emoji for t in self.tiles)
 
 For brevity, I presented a minimal version of ``GuessScore.make`` above.
-Here's the version with robust validation.
+Here's a version with robust validation.
 More verbose, but it ensures that no typos in the score slip through:
 
 .. code-block:: python
@@ -424,13 +424,13 @@ The ``is_eligible`` method is essentially the same as its predecessor:
                 # Did not have the full set of green+yellow letters known to be valid
                 logging.debug("!Valid: %s", word)
                 return False
-            elif letters & self.invalid:
-                # Invalid (black) letters are in the word
-                logging.debug("Invalid: %s", word)
-                return False
             elif any(m is not None and c != m for c, m in zip(word, self.mask)):
                 # Couldn't find all the green/correct letters
                 logging.debug("!Mask: %s", word)
+                return False
+            elif letters & self.invalid:
+                # Invalid (black) letters are in the word
+                logging.debug("Invalid: %s", word)
                 return False
             elif any(c in ws for c, ws in zip(word, self.wrong_spot)):
                 # Found some yellow letters: valid letters in wrong position
@@ -469,8 +469,8 @@ Let's try it!:
 This looks right
 but there are some subtle bugs in the code.
 
-First Bug
----------
+Fifty is the new Witty
+----------------------
 
 Here we expect to find ``FIFTY``, but no words match:
 
@@ -500,10 +500,10 @@ Let's take a look at the state of the ``WordleGuesses`` instance:
 That's ugly.
 
 
-String Representation
----------------------
+Better String Representation
+----------------------------
 
-Let's write a few helper functions to improve the string representation.
+Let's write a few helper functions to improve the ``__repr__``:
 
 .. wordle3
 .. code-block:: python
@@ -518,7 +518,7 @@ Let's write a few helper functions to improve the string representation.
         return "".join(m or "-" for m in mask)
 
     class WordleGuesses:
-        def __str__(self) -> str:
+        def __repr__(self) -> str:
             mask = dash_mask(self.mask)
             valid = letter_set(self.valid)
             invalid = letter_set(self.invalid)
@@ -537,7 +537,7 @@ Let's run it again, printing out the instance:
 .. code-block:: bash
 
     # answer: FIFTY
-    $ ./wordle.py HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY
+    $ ./wordle.py -v HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY
     WordleGuesses(mask='-I-TY', valid='ITY', invalid='ABDEHILMNOPRSTUW',
         wrong_spot='[T,-,I,-,T]', unused='CFGJKQVXZ')
     guess_scores: ['HARES=.....|⬛⬛⬛⬛⬛, BUILT=..i.t|⬛⬛🟨⬛🟨,
@@ -593,6 +593,7 @@ only if it's not already in ``valid``.
         return cls(mask, valid, invalid, wrong_spot, guess_scores)
 
 Does it work? Yes!
+Now we have ``FIFTY``.
 
 .. code-block:: bash
 
@@ -605,11 +606,10 @@ Does it work? Yes!
     KITTY
     ZITTY
 
-Now we have ``FIFTY``.
 But we also have ``JITTY``, ``KITTY``, and ``ZITTY``,
 which should not been considered eligible
 since ``WITTY`` was eliminated for the ``T`` at position 3.
-We'll come back to this later.
+We'll come back to this soon.
 
 
 Repeated Letters
@@ -642,10 +642,10 @@ but works with the current:
     EMPTY
 
 Note in ``TEPEE=teP..`` that the ``E`` in position 2 is considered “present”,
-while the two ``E``\ s in positions 4 and 5 are marked “absent”,
-telling us that there is only one ``E`` in the answer.
+while the two ``E``\ s in positions 4 and 5 are marked “absent”.
+This tells us that there is only one ``E`` in the answer.
 Since ``P`` is correct in position 3 of ``TEPEE``,
-the ``E`` has to be in position 1.
+the ``E`` must be in position 1.
 This is confirmed by the subsequent ``EXPAT=E.P.t``,
 where the initial ``E`` is marked “correct”.
 
@@ -689,55 +689,52 @@ Another example:
 so it should not have been offered.
 ``4:T`` is valid, ``1:T`` is invalid.
 
-Fixing
-------
+Fixing Repeated Absent Letters
+------------------------------
 
-*revisit invalid*?????
+The way to fix this is to make two passes through the tiles
+for each guess–score pair.
 
-*construct an example of present + absent (no correct)*
+1. Handle “correct” and “present” tiles as before.
+2. Add “absent” tiles to either ``invalid`` or ``wrong_spot``
 
-Let's fix this properly.
-First, revert the ``if g not in valid``
-introduced in our previous attempt
-and go back to our original ``WordleGuesses.parse`` implementation.
-
-We're going to change the handling of ``invalid`` in ``is_eligible``.
-The approach of checking all the letters together is insufficient.
+We need two passes to handle a case like ``WITTY=.I.TY``,
+where the “absent” ``T`` occurs before the “correct” ``T``.
 
 .. wordle4
 .. code-block:: python
 
     class WordleGuesses:
-        def is_eligible(self, word: str) -> bool:
-            letters = {c for c in word}
-            ...
-            elif letters & self.invalid:  << # insufficient
-                # Invalid (black) letters are in the word
-                logging.debug("Invalid: %s", word)
-                return False
+    @classmethod
+    def parse(cls, guess_scores: list[GuessScore]) -> "WordleGuesses":
+        mask: list[str | None] = [None for _ in range(WORDLE_LEN)]
+        valid: set[str] = set()
+        invalid: set[str] = set()
+        wrong_spot: list[set[str]] = [set() for _ in range(WORDLE_LEN)]
 
-We need to treat each tile separately.
-If we know the ``CORRECT`` letter for a tile,
-then ``mask[i]`` has a letter instead of ``None``
-and we'll check if ``word[i]`` also has that letter.
+        for gs in guess_scores:
+            # First pass for correct and present
+            for i, (t, g) in enumerate(zip(gs.tiles, gs.guess)):
+                if t is TileState.CORRECT:
+                    mask[i] = g
+                    valid.add(g)
+                elif t is TileState.PRESENT:
+                    wrong_spot[i].add(g)
+                    valid.add(g)
 
-Otherwise, for tiles where ``mask[i]`` is ``None``,
-we check to see if ``word[i]`` is in the ``invalid`` set.
+            # Second pass for absent letters
+            for i, (g, t) in enumerate(zip(gs.guess, gs.tiles)):
+                if t is TileState.ABSENT:
+                    if g in valid:
+                        # There are more instances of `g` in `gs.guess`
+                        # than in the answer
+                        wrong_spot[i].add(g)
+                    else:
+                        invalid.add(g)
 
-.. wordle8
-.. code-block:: python
+        return cls(mask, valid, invalid, wrong_spot, guess_scores)
 
-    class WordleGuesses:
-        def is_eligible(self, word: str) -> bool:
-            ...
-            elif any(m is not None and c != m for c, m in zip(word, self.mask)):
-                # Couldn't find all the green/correct letters
-                logging.debug("!Mask: %s", word)
-                return False
-            elif any(m is None and c in self.invalid for c, m in zip(word, self.mask)):
-                # Invalid (black) letters are in the word
-                logging.debug("Invalid: %s", word)
-                return False
+We do not need to change ``is_eligible``.
 
 Let's try the ``WRITE`` and ``STYLE`` examples again:
 
@@ -761,7 +758,7 @@ Let's try the ``WRITE`` and ``STYLE`` examples again:
 
 What about some other examples?
 
-With our previous ``if g not in valid`` attempt at fixing the bug,
+In our previous attempt at fixing the bug,
 neither ``QUICK`` nor ``SPICK`` were found
 because of the two ``C``\ s in ``CHICK``.
 
@@ -785,7 +782,7 @@ We find only one answer for ``FIFTY`` now.
         wrong_spot='[T,-,I,-,T]', unused='CFGJKQVXZ')
     FIFTY
 
-Using this per-tile invalid set approach,
+Using this per-tile “absent” approach,
 here's the updated Unix pipeline for ``INDEX``:
 
 .. code-block:: bash
@@ -855,22 +852,22 @@ Demand an Explanation
     ROMEO   Mask: needs ----E; WrongSpot: has ---E-
     PROSE   WrongSpot: has -RO--
     STORE   Invalid: has -T---; WrongSpot: has --O--
-    MURAL   Valid: missing EO; Invalid: has ---A-; Mask: needs ----E
-    ROUSE   eligible
+    MURAL   Valid: missing EO; Mask: needs ----E; Invalid: has ---AL
+    ROUSE   Eligible
 
 .. code-block:: bash
 
     $ ./wordle.py CLAIM=c..i. TRICE=.riC. \
-        --words INCUR TAXIS ACRID PRICY BIRCH --explain
+        --words INCUR TAXIS PRICY ERICA BIRCH --explain
 
     WordleGuesses(mask=---C-, valid=CIR, invalid=AELMT,
         wrong_spot=[C,R,I,I,-], unused=BDFGHJKNOPQSUVWXYZ)
         guess_scores: ['CLAIM=c..i.|🟨⬛⬛🟨⬛, TRICE=.riC.|⬛🟨🟨🟩⬛']
     INCUR   Mask: needs ---C-
-    TAXIS   Valid: missing CR; Invalid: has TA---; Mask: needs ---C-; WrongSpot: has ---I-
-    ACRID   Invalid: has A----; Mask: needs ---C-; WrongSpot: has ---I-
+    TAXIS   Valid: missing CR; Mask: needs ---C-; Invalid: has TA---; WrongSpot: has ---I-
     PRICY   WrongSpot: has -RI--
-    birch   eligible
+    ERICA   Invalid: has E---A; WrongSpot: has -RI--
+    BIRCH   Eligible
 
 
 .. _Knuth pipeline:
