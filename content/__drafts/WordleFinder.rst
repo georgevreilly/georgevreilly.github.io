@@ -742,8 +742,8 @@ Let's try the ``WRITE`` and ``STYLE`` examples again:
 
     # answer: WRITE
     $ ./wordle.py -v SABER=...er REFIT=re.it TRITE=.RITE
-    WordleGuesses(mask='-RITE', valid='EIRT', invalid='ABFST',
-        wrong_spot='[R,E,-,EI,RT]', unused='CDGHJKLMNOPQUVWXYZ')
+    WordleGuesses(mask='-RITE', valid='EIRT', invalid='ABFS',
+        wrong_spot='[RT,E,-,EI,RT]', unused='CDGHJKLMNOPQUVWXYZ')
     URITE
     WRITE
 
@@ -751,9 +751,8 @@ Let's try the ``WRITE`` and ``STYLE`` examples again:
 
     # answer: STYLE
     $ ./wordle.py -v GROAN=..... WHILE=...LE BELLE=...LE TUPLE=t..LE STELE=ST.LE
-    WordleGuesses(mask='ST-LE', valid='ELST', invalid='ABEGHILNOPRUW',
-        wrong_spot='[T,-,-,-,-]', unused='CDFJKMQVXYZ')
-    Got: STYLE
+    WordleGuesses(mask='ST-LE', valid='ELST', invalid='ABGHINOPRUW',
+        wrong_spot='[T,E,EL,-,-]', unused='CDFJKMQVXYZ')
     STYLE
 
 What about some other examples?
@@ -766,8 +765,8 @@ because of the two ``C``\ s in ``CHICK``.
 
     # answer: QUICK
     $ ./wordle.py -v MORAL=..... TWINE=..I.. CHICK=..ICK
-    WordleGuesses(mask='--ICK', valid='CIK', invalid='ACEHLMNORTW',
-        wrong_spot='[-,-,-,-,-]', unused='BDFGJPQSUVXYZ')
+    WordleGuesses(mask='--ICK', valid='CIK', invalid='AEHLMNORTW',
+        wrong_spot='[C,-,-,-,-]', unused='BDFGJPQSUVXYZ')
     QUICK
     SPICK
 
@@ -778,8 +777,8 @@ We find only one answer for ``FIFTY`` now.
 
     # answer: FIFTY
     $ ./wordle.py -v HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY
-    WordleGuesses(mask='-I-TY', valid='ITY', invalid='ABDEHILMNOPRSTUW',
-        wrong_spot='[T,-,I,-,T]', unused='CFGJKQVXZ')
+    WordleGuesses(mask='-I-TY', valid='ITY', invalid='ABDEHLMNOPRSUW',
+        wrong_spot='[T,-,IT,I,T]', unused='CFGJKQVXZ')
     FIFTY
 
 Using this per-tile “absent” approach,
