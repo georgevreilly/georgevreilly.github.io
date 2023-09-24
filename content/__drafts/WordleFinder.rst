@@ -286,11 +286,12 @@ Returning four parallel collections from a function is a `code smell`_.
 Let's refactor these functions into a ``WordleGuesses`` class.
 
 First, we'll need some helper classes:
-``WordleError`` (an exception class),
-``TileState`` (a `multi-attribute enumeration`_),
-and ``GuessScore`` (a `dataclass`_ that manages a guess–score pair
-and the associated ``TileState``\ s).
-We'll also use `type annotations`_ because it's 2023.
+
+* ``WordleError``: an exception class;
+* ``TileState``: a `multi-attribute enumeration`_;
+* ``GuessScore``: a `dataclass`_ that manages a guess–score pair
+  and the associated ``TileState``\ s.
+* We'll also use `type annotations`_ because it's 2023.
 
 .. _code smell:
     https://pragmaticways.com/31-code-smells-you-must-know/
@@ -540,8 +541,8 @@ Let's run it again, printing out the instance:
     $ ./wordle.py -v HARES=..... BUILT=..i.t TIMID=tI... PINTO=.I.T. WITTY=.I.TY
     WordleGuesses(mask='-I-TY', valid='ITY', invalid='ABDEHILMNOPRSTUW',
         wrong_spot='[T,-,I,-,T]', unused='CFGJKQVXZ')
-    guess_scores: ['HARES=.....|⬛⬛⬛⬛⬛, BUILT=..i.t|⬛⬛🟨⬛🟨,
-        TIMID=tI...|🟨🟩⬛⬛⬛, PINTO=.I.T.|⬛🟩⬛🟩⬛, WITTY=.I.TY|⬛🟩⬛🟩🟩']
+        guess_scores= ['HARES=.....|⬛⬛⬛⬛⬛, BUILT=..i.t|⬛⬛🟨⬛🟨,
+            TIMID=tI...|🟨🟩⬛⬛⬛, PINTO=.I.T.|⬛🟩⬛🟩⬛, WITTY=.I.TY|⬛🟩⬛🟩🟩']
     --None--
 
 That's a huge improvement in legibility
@@ -626,7 +627,7 @@ Here's an example that fails with the previous ``parse``:
 .. code-block:: bash
 
     # answer: EMPTY
-    ./wordle.py -v LODGE=....e WIPER=..Pe. TEPEE=teP.. EXPAT=E.P.t
+    $ ./wordle.py -v LODGE=....e WIPER=..Pe. TEPEE=teP.. EXPAT=E.P.t
     WordleGuesses(mask='E-P--', valid='EPT', invalid='ADEGILORWX',
         wrong_spot='[T,E,-,E,ET]', unused='BCFHJKMNQSUVYZ')
     --None--
@@ -653,7 +654,7 @@ where the initial ``E`` is marked “correct”.
 Our previous understanding of “absent” was too simple.
 An “absent” tile can mean one of two things:
 
-1. This letter is not in the word at all—the usual case.
+1. This letter is not in the answer at all—the usual case.
 2. If another copy of this letter
    is “correct” or “present” elsewhere in the same guess (i.e., *valid*),
    the letter is superfluous at this position.
@@ -672,14 +673,14 @@ Consider the results here:
 
 ``STELE`` was an incorrect guess,
 so it should not have been offered as an eligible word.
-``E`` is valid in position 5, but invalid in position 3.
+``E`` is valid in position 5, but wrong in position 3.
 
 Another example:
 
 .. code-block:: bash
 
     # answer: WRITE
-    ❯ ./wordle.py -v SABER=...er REFIT=re.it TRITE=.RITE
+    $ ./wordle.py -v SABER=...er REFIT=re.it TRITE=.RITE
     WordleGuesses(mask='-RITE', valid='EIRT', invalid='ABFS',
         wrong_spot='[R,E,-,EI,RT]', unused='CDGHJKLMNOPQUVWXYZ')
     TRITE
@@ -688,21 +689,23 @@ Another example:
 
 ``TRITE`` was an incorrect guess,
 so it should not have been offered.
-``4:T`` is valid, ``1:T`` is invalid.
+``4:T`` is valid, ``1:T`` is wrong.
+
 
 Fixing Repeated Absent Letters
 ------------------------------
 
-The way to fix this is to make two passes through the tiles
+We can fix this by making two passes through the tiles
 for each guess–score pair.
 
 1. Handle “correct” and “present” tiles as before.
 2. Add “absent” tiles to either ``invalid`` or ``wrong_spot``.
 
-We need two passes to handle a case like ``WITTY=.I.TY``,
-where the “absent” ``T`` precedes the “correct” ``T``.
+We need the second pass to handle a case like ``WITTY=.I.TY``,
+where the “absent” ``T`` precedes the “correct” ``T``:
+the ``valid`` set must be fully updated before we process “absent” tiles.
 
-.. wordle4
+.. wordle5
 .. code-block:: python
 
     class WordleGuesses:
@@ -748,6 +751,8 @@ Let's try the ``WRITE`` and ``STYLE`` examples again:
     URITE
     WRITE
 
+There is now a ``T`` in the first ``wrong_spot`` entry.
+
 .. code-block:: bash
 
     # answer: STYLE
@@ -756,11 +761,16 @@ Let's try the ``WRITE`` and ``STYLE`` examples again:
         wrong_spot='[T,E,EL,-,-]', unused='CDFJKMQVXYZ')
     STYLE
 
+Both the second and third ``wrong_spot``\ s now have an ``E``.
+
 What about some other examples?
 
 In our previous attempt at fixing the bug,
 neither ``QUICK`` nor ``SPICK`` were found
-because of the two ``C``\ s in ``CHICK``.
+because the first, “absent” ``C`` in ``CHICK`` was marked invalid.
+Now, the ``valid`` and ``invalid`` sets are disjoint,
+there's a ``C`` in the first element of ``wrong_spot``,
+and both words are found:
 
 .. code-block:: bash
 
@@ -771,8 +781,7 @@ because of the two ``C``\ s in ``CHICK``.
     QUICK
     SPICK
 
-We find only one answer for ``FIFTY`` now.
-``KITTY`` et al are no longer offered.
+Now, we find only one answer for ``FIFTY``.
 
 .. code-block:: bash
 
@@ -782,34 +791,8 @@ We find only one answer for ``FIFTY`` now.
         wrong_spot='[T,-,IT,I,T]', unused='CFGJKQVXZ')
     FIFTY
 
-Using this per-tile “absent” approach,
-here's the updated Unix pipeline for ``INDEX``:
-
-.. code-block:: bash
-
-    # VOUCH=..... GRIPE=..i.e DENIM=deni. WIDEN=.iDEn
-
-    grep '^.....$' /usr/share/dict/words |
-        tr 'a-z' 'A-Z' |
-        grep '^..DE.$' |                                        # CORRECT pos
-        awk '/D/ && /E/ && /I/ && /N/' |                        # VALID set
-        grep '^[^VOUCHGRPMW][^VOUCHGRPMW]..[^VOUCHGRPMW]$' |    # INVALID set
-        grep '^[^D][^EI][^IN][^I][^EN]$'                        # PRESENT pos
-
-Previously, the ``INVALID`` check was the simpler ``grep -v '[VOUCHGRPMW]'``.
-
-Because the ``CORRECT`` and ``INVALID`` regexes are mutually exclusive,
-they can be combined into a single ``grep``:
-
-.. code-block:: bash
-
-    # VOUCH=..... GRIPE=..i.e DENIM=deni. WIDEN=.iDEn
-
-    grep '^.....$' /usr/share/dict/words |
-        tr 'a-z' 'A-Z' |
-        awk '/D/ && /E/ && /I/ && /N/' |                        # VALID set
-        grep '^[^VOUCHGRPMW][^VOUCHGRPMW]DE[^VOUCHGRPMW]$' |    # CORRECT + INVALID
-        grep '^[^D][^EI][^IN][^I][^EN]$'                        # PRESENT pos
+The new ``T`` in the third element of ``wrong_spot``
+blocks the rhymes for ``WITTY``.
 
 
 Further Optimization of the Mask
