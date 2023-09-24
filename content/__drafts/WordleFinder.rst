@@ -738,9 +738,10 @@ the ``valid`` set must be fully updated before we process “absent” tiles.
 
             return cls(mask, valid, invalid, wrong_spot, guess_scores)
 
+We can see that ``valid`` and ``invalid`` must be disjoint.
 We do not need to change ``is_eligible``.
 
-Let's try the ``WRITE`` and ``STYLE`` examples again:
+Let's try the ``WRITE`` example again:
 
 .. code-block:: bash
 
@@ -752,6 +753,8 @@ Let's try the ``WRITE`` and ``STYLE`` examples again:
     WRITE
 
 There is now a ``T`` in the first ``wrong_spot`` entry.
+
+And ``STYLE``?
 
 .. code-block:: bash
 
@@ -781,7 +784,7 @@ and both words are found:
     QUICK
     SPICK
 
-Now, we find only one answer for ``FIFTY``.
+As expected, we find only one answer for ``FIFTY`` now:
 
 .. code-block:: bash
 
@@ -817,6 +820,8 @@ A human player getting ``TENET=TEN.t``
 would realize that the fourth tile *must* be ``T``.
 
 *Explain ``optimize``*.
+
+*Show the ``score`` algorithm?*
 
 
 Demand an Explanation
