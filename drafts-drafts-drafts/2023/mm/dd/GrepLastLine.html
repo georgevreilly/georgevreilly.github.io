@@ -33,18 +33,18 @@
     
         <article>
     <header>
-        <time datetime="2023-01-23">2023-01-23</time>
+        <time datetime="2023-09-24">2023-09-24</time>
         <h1>
-            <a href="/__drafts/2023/mm/dd/GrepLastLine.html" rel="bookmark canonical">Grep Last Line</a>
+            <a href="/drafts-drafts-drafts/2023/mm/dd/GrepLastLine.html" rel="bookmark canonical">Grep Last Line</a>
         </h1>
     </header>
     <!-- vim:set ft=rst spell: -->
 <p>I needed to find all the files whose <em>last</em> line matched <tt class="docutils literal"><span class="caps">PATTERN</span></tt>,
 then feed them into&nbsp;Vim:</p>
 <pre class="code bash literal-block">
-find . -name <span class="s2">&quot;*.txt&quot;</span> -o -name <span class="s2">&quot;*.rst&quot;</span> <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> f<span class="p">;</span> <span class="k">do</span>
-    <span class="nb">printf</span> <span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">:</span><span class="k">$(</span>tail -1 <span class="nv">$f</span><span class="k">)</span><span class="s2">\n&quot;</span><span class="p">;</span>
-<span class="k">done</span> <span class="p">|</span> grep <span class="caps">PATTERN</span> <span class="p">|</span> sed <span class="s1">'s/:.*$//'</span> <span class="p">|</span> xargs -o vim
+find<span class="w"> </span>.<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.txt&quot;</span><span class="w"> </span>-o<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.rst&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>f<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w">
+    </span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">:</span><span class="k">$(</span>tail<span class="w"> </span>-1<span class="w"> </span><span class="nv">$f</span><span class="k">)</span><span class="s2">\n&quot;</span><span class="p">;</span><span class="w">
+</span><span class="k">done</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="caps">PATTERN</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">'s/:.*$//'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>xargs<span class="w"> </span>-o<span class="w"> </span>vim
 </pre>
 <ul class="simple">
 <li>Find <tt class="docutils literal">*.txt</tt> and <tt class="docutils literal">*.rst</tt></li>
@@ -59,8 +59,8 @@ The <tt class="docutils literal"><span class="pre">-o</span></tt> argument to <t
 </ul>
 <p>Also, find missing symlink&nbsp;targets:</p>
 <pre class="code bash literal-block">
-ls -l ./public3 <span class="p">|</span> grep ^l <span class="p">|</span> awk <span class="s1">'{print $11}'</span> <span class="p">|</span> <span class="se">\
-</span>    <span class="k">while</span> <span class="nb">read</span> f<span class="p">;</span> <span class="k">do</span> ls -l ./public3/<span class="nv">$f</span><span class="p">;</span> <span class="k">done</span> <span class="p">|</span> grep <span class="s2">&quot;No such&quot;</span>
+ls<span class="w"> </span>-l<span class="w"> </span>./public3<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>^l<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">'{print $11}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\
+</span><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>f<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>ls<span class="w"> </span>-l<span class="w"> </span>./public3/<span class="nv">$f</span><span class="p">;</span><span class="w"> </span><span class="k">done</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">&quot;No such&quot;</span>
 </pre>
 
     <footer>

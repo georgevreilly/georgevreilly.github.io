@@ -31,9 +31,9 @@
     
         <article>
     <header>
-        <time datetime="2023-09-24">2023-09-24</time>
+        <time datetime="2023-09-25">2023-09-25</time>
         <h1>
-            <a href="/__drafts/WordleFinder.html" rel="bookmark canonical">Wordle Finder</a>
+            <a href="/drafts-drafts-drafts/WordleFinder.html" rel="bookmark canonical">Wordle Finder</a>
         </h1>
     </header>
     <p>Unless YOUVE LIVED UNDER ROCKS, you've heard of <a class="reference external" href="https://en.wikipedia.org/wiki/Wordle">Wordle</a>,
@@ -138,14 +138,17 @@ in a <a class="reference external" href="https://en.wikipedia.org/wiki/Pipeline_
 </span><span class="w">    </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">'[JUDGHSTWRK]'</span><span class="w"> </span><span class="p">|</span><span class="w">            </span><span class="c1"># Exclude INVALID set
 </span><span class="w">    </span>grep<span class="w"> </span><span class="s1">'^[^C]..[^C][^E]$'</span><span class="w">             </span><span class="c1"># Exclude PRESENT positions</span>
 </pre>
-<p>gives (in Bash, on macOS 13.4):</p>
+<p>gives:</p>
 <pre class="literal-block">
 ICENI
 ILEAC
 OCEAN
 OLEIC
 </pre>
-<p>We can accomplish this with only the simplest features of regular ex&shy;pres&shy;sions,
+<p>(This was in Bash, on macOS 13.6.
+Zsh doesn't like the comments, so you may have to omit them.
+Other operating systems will have different versions of <tt class="docutils literal">/usr/share/dict/words</tt>.)</p>
+<p>We can accomplish this with only the simplest features of regular ex&shy;pres&shy;sions:
 the <a class="reference external" href="https://www.regular-expressions.info/dot.html">dot metachar&shy;ac&shy;ter</a> (<tt class="docutils literal">.</tt>),
 <a class="reference external" href="https://www.regular-expressions.info/charclass.html">character classes</a> (<tt class="docutils literal"><span class="pre">[JUD...]</span></tt>)
 and negated character classes (<tt class="docutils literal">[^E]</tt>),
@@ -156,7 +159,7 @@ a simple mechanical trans&shy;for&shy;ma&shy;tion of the guess–s&shy;core pair
 They could be simplified.
 For example, after <tt class="docutils literal">grep <span class="pre">'^..E..$'</span></tt>,
 the <tt class="docutils literal">E</tt> in <tt class="docutils literal">awk '/C/ &amp;&amp; /E/'</tt> is redundant.
-We're not going to attempt to optimize the regexes, however.</p>
+We're not going to optimize the regexes, however.</p>
 <p>Three of the four answers–<tt class="docutils literal">ICENI</tt>, <tt class="docutils literal">ILEAC</tt>, and <tt class="docutils literal">OLEIC</tt>—are far too obscure to be Wordle answers.
 Actual Wordle answers also exclude simple plurals (<tt class="docutils literal">YARDS</tt>)
 and simple past tense (<tt class="docutils literal">LIKED</tt>),
@@ -193,22 +196,22 @@ The first piece is to parse a list of <tt class="docutils literal">GUESS=SCORE</
 </span>    <span class="n">valid</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>                           <span class="c1"># Green/Correct or Yellow/Present</span><span class="w">
 </span>    <span class="n">mask</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="mi">5</span>                       <span class="c1"># Exact match for pos (Green/Correct)</span><span class="w">
 </span>    <span class="n">wrong_spot</span> <span class="o">=</span> <span class="p">[</span><span class="nb">set</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>  <span class="c1"># Wrong spot (Yellow/Present)</span><span class="w">
-</span>    <span class="k">for</span> <span class="n">guess</span> <span class="ow">in</span> <span class="n">guess_scores</span><span class="p">:</span><span class="w">
-</span>        <span class="n">word</span><span class="p">,</span> <span class="n">result</span> <span class="o">=</span> <span class="n">guess</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span><span class="w">
-</span>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">result</span><span class="p">)):</span><span class="w">
-</span>            <span class="k">assert</span> <span class="s2">&quot;A&quot;</span> <span class="o">&lt;=</span> <span class="n">w</span> <span class="o">&lt;=</span> <span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="s2">&quot;WORD should be uppercase&quot;</span><span class="w">
-</span>            <span class="k">if</span> <span class="s2">&quot;A&quot;</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="s2">&quot;Z&quot;</span><span class="p">:</span><span class="w">
+</span>    <span class="k">for</span> <span class="n">gs</span> <span class="ow">in</span> <span class="n">guess_scores</span><span class="p">:</span><span class="w">
+</span>        <span class="n">guess</span><span class="p">,</span> <span class="n">score</span> <span class="o">=</span> <span class="n">gs</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;=&quot;</span><span class="p">)</span><span class="w">
+</span>        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">guess</span><span class="p">,</span> <span class="n">score</span><span class="p">)):</span><span class="w">
+</span>            <span class="k">assert</span> <span class="s2">&quot;A&quot;</span> <span class="o">&lt;=</span> <span class="n">g</span> <span class="o">&lt;=</span> <span class="s2">&quot;Z&quot;</span><span class="p">,</span> <span class="s2">&quot;GUESS should be uppercase&quot;</span><span class="w">
+</span>            <span class="k">if</span> <span class="s2">&quot;A&quot;</span> <span class="o">&lt;=</span> <span class="n">s</span> <span class="o">&lt;=</span> <span class="s2">&quot;Z&quot;</span><span class="p">:</span><span class="w">
 </span>                <span class="k">assert</span> <span class="n">g</span> <span class="o">==</span> <span class="n">s</span><span class="w">
-</span>                <span class="n">valid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="w">
-</span>                <span class="n">mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span><span class="w">
-</span>            <span class="k">elif</span> <span class="s2">&quot;a&quot;</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="o">&lt;=</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span><span class="w">
+</span>                <span class="n">valid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">g</span><span class="p">)</span><span class="w">
+</span>                <span class="n">mask</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">g</span><span class="w">
+</span>            <span class="k">elif</span> <span class="s2">&quot;a&quot;</span> <span class="o">&lt;=</span> <span class="n">s</span> <span class="o">&lt;=</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span><span class="w">
 </span>                <span class="k">assert</span> <span class="n">g</span> <span class="o">==</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="w">
-</span>                <span class="n">valid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="w">
-</span>                <span class="n">wrong_spot</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="w">
-</span>            <span class="k">elif</span> <span class="n">r</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span><span class="p">:</span><span class="w">
-</span>                <span class="n">invalid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="w">
+</span>                <span class="n">valid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">g</span><span class="p">)</span><span class="w">
+</span>                <span class="n">wrong_spot</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">g</span><span class="p">)</span><span class="w">
+</span>            <span class="k">elif</span> <span class="n">s</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span><span class="p">:</span><span class="w">
+</span>                <span class="n">invalid</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">g</span><span class="p">)</span><span class="w">
 </span>            <span class="k">else</span><span class="p">:</span><span class="w">
-</span>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected </span><span class="si">{</span><span class="n">r</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">w</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
+</span>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unexpected </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2"> for </span><span class="si">{</span><span class="n">g</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="w">
 </span>    <span class="k">return</span> <span class="p">(</span><span class="n">invalid</span><span class="p">,</span> <span class="n">valid</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">wrong_spot</span><span class="p">)</span>
 </pre>
 <p>Let's try it for the <tt class="docutils literal">OCEAN</tt> guesses:</p>
@@ -231,7 +234,9 @@ ILEAC
 OCEAN
 OLEIC</span>
 </pre>
-<p>Here's the <tt class="docutils literal">is_el&shy;i&shy;gi&shy;ble</tt> function:</p>
+<p>Here's the <tt class="docutils literal">is_el&shy;i&shy;gi&shy;ble</tt> function.
+We <a class="reference external" href="https://www.geeksforgeeks.org/short-circuiting-techniques-python/#">short-circuit the evaluation</a> and
+return as soon as any condition is <tt class="docutils literal">False</tt>.</p>
 <!-- wordle1 -->
 <pre class="code python literal-block">
 <span class="k">def</span> <span class="nf">is_eligible</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">invalid</span><span class="p">,</span> <span class="n">valid</span><span class="p">,</span> <span class="n">mask</span><span class="p">,</span> <span class="n">wrong_spot</span><span class="p">):</span><span class="w">
@@ -346,7 +351,8 @@ The version in my <a class="reference external" href="https://github.com/georgev
 </pre>
 <p><tt class="docutils literal">WordleGuess&shy;es.parse</tt> is a bit shorter and clearer than <tt class="docutils literal">parse_guess&shy;es</tt>.
 It uses <tt class="docutils literal">TileState</tt> at each position
-to classify the current tile and build up state in the four member col&shy;lec&shy;tions.
+to classify the current tile and
+accumulate state in the four member col&shy;lec&shy;tions.
 Since <tt class="docutils literal">GuessScore.make</tt> has validated the input,
 <tt class="docutils literal">parse</tt> doesn't need to do any further validation.</p>
 <p>The <tt class="docutils literal">is_el&shy;i&shy;gi&shy;ble</tt> method is es&shy;sen&shy;tial&shy;ly the same as its pre&shy;de&shy;ces&shy;sor:</p>
@@ -379,8 +385,8 @@ Since <tt class="docutils literal">GuessScore.make</tt> has validated the input,
 </span>    <span class="k">def</span> <span class="nf">find_eligible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocabulary</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span><span class="w">
 </span>        <span class="k">return</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">vocabulary</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_eligible</span><span class="p">(</span><span class="n">w</span><span class="p">)]</span>
 </pre>
-<p>There's a <a class="reference external" href="famousstory:">famous story</a> where Donald Knuth
-was asked by Jon Bentley to demon&shy;strate literate pro&shy;gram&shy;ming
+<p>There's a <a class="reference external" href="https://www.spinellis.gr/blog/20200225/">famous story</a> where Donald Knuth
+was asked by Jon Bentley to demon&shy;strate <a class="reference external" href="http://www.literateprogramming.com/">literate pro&shy;gram&shy;ming</a>
 by finding the <em>K</em> most common words from a text file.
 Knuth turned in an eight-page gem of WEB, which was reviewed by Doug McIlroy,
 who demon&shy;strat&shy;ed that the task could also be ac&shy;com&shy;plished in a six-line pipeline.</p>
@@ -551,7 +557,7 @@ in each guess and in the answer.</p>
     </span><span class="nv">wrong_spot</span><span class="o">=</span><span class="s1">'[T,E,-,E,ET]'</span>,<span class="w"> </span><span class="nv">unused</span><span class="o">=</span><span class="s1">'BCFHJKMNQSUVYZ'</span><span class="o">)</span><span class="w">
 </span>--None--
 </pre>
-<p>but works with the current:</p>
+<p>but works with the current <tt class="docutils literal">parse</tt>:</p>
 <pre class="code bash literal-block">
 <span class="c1"># answer: EMPTY
 </span>$<span class="w"> </span>./wordle.py<span class="w"> </span>-v<span class="w"> </span><span class="nv">LODGE</span><span class="o">=</span>....e<span class="w"> </span><span class="nv">WIPER</span><span class="o">=</span>..Pe.<span class="w"> </span><span class="nv">TEPEE</span><span class="o">=</span>teP..<span class="w"> </span><span class="nv">EXPAT</span><span class="o">=</span>E.P.t<span class="w">
@@ -560,7 +566,8 @@ in each guess and in the answer.</p>
 </span>EMPTS<span class="w">
 </span>EMPTY
 </pre>
-<p>Note in <tt class="docutils literal">TEPEE=teP..</tt> that the <tt class="docutils literal">E</tt> in position 2 is considered “present”,
+<p>Note that there is no longer an <tt class="docutils literal">E</tt> in <tt class="docutils literal">invalid</tt>.
+In <tt class="docutils literal">TEPEE=teP..</tt>, the <tt class="docutils literal">E</tt> in position 2 is considered “present”,
 while the two <tt class="docutils literal">E</tt>s in positions 4 and 5 are marked “absent”.
 This tells us that there is only one <tt class="docutils literal">E</tt> in the answer.
 Since <tt class="docutils literal">P</tt> is correct in position 3 of <tt class="docutils literal">TEPEE</tt>,
@@ -706,19 +713,19 @@ while <tt class="docutils literal">CHORE=C.OrE</tt> must have <tt class="docutil
 <p>A more complex example:</p>
 <pre class="code bash literal-block">
 <span class="c1"># answer: BURLY
-</span>$<span class="w"> </span>./wordle5.py<span class="w"> </span>-v<span class="w"> </span><span class="nv">LOWER</span><span class="o">=</span>l...r<span class="w"> </span><span class="nv">FRAIL</span><span class="o">=</span>.r..l<span class="w"> </span><span class="nv">BLURT</span><span class="o">=</span>Blur.<span class="w">
+</span>$<span class="w"> </span>./wordle.py<span class="w"> </span>-v<span class="w"> </span><span class="nv">LOWER</span><span class="o">=</span>l...r<span class="w"> </span><span class="nv">FRAIL</span><span class="o">=</span>.r..l<span class="w"> </span><span class="nv">BLURT</span><span class="o">=</span>Blur.<span class="w">
 </span>WordleGuesses<span class="o">(</span><span class="nv">mask</span><span class="o">=</span><span class="s1">'B----'</span>,<span class="w"> </span><span class="nv">valid</span><span class="o">=</span><span class="s1">'BLRU'</span>,<span class="w"> </span><span class="nv">invalid</span><span class="o">=</span><span class="s1">'AEFIOTW'</span>,<span class="w">
     </span><span class="nv">wrong_spot</span><span class="o">=</span><span class="s1">'[L,LR,U,R,LR]'</span>,<span class="w"> </span><span class="nv">unused</span><span class="o">=</span><span class="s1">'CDGHJKMNPQSVXYZ'</span><span class="o">)</span>
 </pre>
 <p>The <tt class="docutils literal">R</tt> is in the wrong spot
 in positions 5 (<tt class="docutils literal"><span class="pre">l...r</span></tt>), 2 (<tt class="docutils literal"><span class="pre">.r..l</span></tt>), and 4 (<tt class="docutils literal">Blur.</tt>).
-The <tt class="docutils literal">B</tt> is correct in position 1, so <tt class="docutils literal">R</tt> must be in position 3.
-The <tt class="docutils literal">L</tt> is in the wrong spot in positions 1, 5, and 2.
-<tt class="docutils literal">B</tt> is in 1, <tt class="docutils literal">R</tt> is now in 3, so that leaves only position 4.
-There are two pos&shy;si&shy;bil&shy;i&shy;ties for <tt class="docutils literal">U</tt>—positions 2 and 5—so we need more in&shy;for&shy;ma&shy;tion
+The <tt class="docutils literal">B</tt> is correct in position 1, so <tt class="docutils literal">R</tt> must be in position 3.</p>
+<p>The <tt class="docutils literal">L</tt> is in the wrong spot in positions 1, 5, and 2.
+<tt class="docutils literal">B</tt> is in 1, <tt class="docutils literal">R</tt> is now in 3, so that leaves only position 4.</p>
+<p>There remain two pos&shy;si&shy;bil&shy;i&shy;ties for <tt class="docutils literal">U</tt>—positions 2 and 5—so we need more in&shy;for&shy;ma&shy;tion
 than is contained in <tt class="docutils literal">mask</tt> and <tt class="docutils literal">wrong_spot</tt>
-to determine where to place it.
-The original mask, <tt class="docutils literal"><span class="pre">B----</span></tt>, was due to having only one “correct” letter.
+to determine where to place it.</p>
+<p>The original mask, <tt class="docutils literal"><span class="pre">B----</span></tt>, was due to having only one “correct” letter.
 Using the cumulative in&shy;for&shy;ma&shy;tion in the guesses and scores,
 we can infer a mask of <tt class="docutils literal"><span class="pre">B-RL-</span></tt>.</p>
 <p>In all of these cases,
@@ -738,7 +745,8 @@ such as the two <tt class="docutils literal">T</tt>s in <tt class="docutils lite
 we use Python's <tt class="docutils literal">col&shy;lec&shy;tions.Counter</tt> as a <a class="reference external" href="https://dbader.org/blog/sets-and-multiset-in-python">multiset</a>.</p>
 <p>We loop over <tt class="docutils literal">present</tt>, trying for each letter
 to find a single position where it can be placed.
-If there is such a position, we update <tt class="docutils literal">mask2</tt>.
+If there is such a position,
+we update <tt class="docutils literal">mask2</tt> and break out of the inner loop.
 If there isn't (as in the two pos&shy;si&shy;bil&shy;i&shy;ties for <tt class="docutils literal">U</tt> in <tt class="docutils literal">BURLY</tt>),
 then we use the little-known <a class="reference external" href="https://python-notes.curiousefficiency.org/en/latest/python_concepts/break_else.html">break-else</a> construct
 to exit from the outer loop.</p>
@@ -914,17 +922,18 @@ the time drops to about 500 mil&shy;lisec&shy;onds (further 4x im&shy;prove&shy;
 <p>I thought I knew a lot about solving Wordle pro&shy;gram&shy;mat&shy;i&shy;cal&shy;ly
 when I started this long post a month ago.
 Along the way,
-I realized that I could use a few (horrible) greps
+I realized that I could use a few ugly greps
 to accomplish the same thing;
 wrote a tool to render games as HTML and emojis;
-wrote a couple of spinoff blog posts on
+spun off a couple of blog posts on
 <a class="reference external" href="/blog/2023/09/02/PythonEnumsWithAttributes.html">multi-attribute enu&shy;mer&shy;a&shy;tion</a> and <a class="reference external" href="/blog/2023/09/05/RegexConjunctions.html">regex con&shy;junc&shy;tions</a>;
 found and fixed several bugs with repeated letters,
 greatly refining my un&shy;der&shy;stand&shy;ing of the nuances;
-and realized that I could optimize the mask.</p>
+added a means to explain in&shy;el&shy;i&shy;gi&shy;bil&shy;i&shy;ty;
+and realized that I could optimize the mask pro&shy;gram&shy;mat&shy;i&shy;cal&shy;ly.</p>
 <p>The full code can be found in my <a class="reference external" href="https://github.com/georgevreilly/wordle">wordle repository</a>.</p>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -_ -->
-<!-- Sticking the stylesheet at the end out of the way -->
+<!-- Sticking the Wordle stylesheet at the end out of the way -->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@700&dis&shy;play=swap');
 table.wordle {

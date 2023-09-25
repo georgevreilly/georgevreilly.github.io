@@ -31,9 +31,9 @@
     
         <article>
     <header>
-        <time datetime="2023-09-06">2023-09-06</time>
+        <time datetime="2023-09-24">2023-09-24</time>
         <h1>
-            <a href="/__drafts/GeorgesReStructuredTextCheatSheet.html" rel="bookmark canonical">George's reStructuredText cheat sheet</a>
+            <a href="/drafts-drafts-drafts/GeorgesReStructuredTextCheatSheet.html" rel="bookmark canonical">George's reStructuredText cheat sheet</a>
         </h1>
     </header>
     <a class="reference external image-reference" href="http://www.backuptrauma.com/video/default2.aspx"><img alt="How to eat a Slug" class="right-float" src="/content/binary/How-to-eat-a-Slug.jpg"/></a>
@@ -400,17 +400,17 @@ scr.type = 'text/javascript';
 </pre>
 <p>The <tt class="docutils literal"><span class="pre">code-block</span></tt> directive for&nbsp;Vim:</p>
 <pre class="code vim literal-block">
-<span class="k">syn</span> <span class="k">match</span> rstEnumeratedList <span class="sr">/^\s*[0-9#]\{1,3}\.\s\&#64;=/</span>
-<span class="k">syn</span> <span class="k">match</span> rstBulletedList <span class="sr">/^\s*[+*-]\s\&#64;=/</span>
-<span class="k">syn</span> <span class="k">match</span> rstNbsp <span class="sr">/[\xA0]/</span>
-<span class="k">syn</span> <span class="k">match</span> rstEmDash <span class="sr">/[\u2014]/</span>
-<span class="k">syn</span> <span class="k">match</span> rstUnicode <span class="sr">/[\u2013\u2018\u2019\u201C\u201D]/</span> <span class="c">&quot; – ‘ ’ “ ”</span>
+<span class="k">syn</span> <span class="k">match</span> rstEnumeratedList <span class="sr">/^\s*[0-9#]\{1,3}\.\s\&#64;=/</span><span class="w">
+</span><span class="k">syn</span> <span class="k">match</span> rstBulletedList <span class="sr">/^\s*[+*-]\s\&#64;=/</span><span class="w">
+</span><span class="k">syn</span> <span class="k">match</span> rstNbsp <span class="sr">/[\xA0]/</span><span class="w">
+</span><span class="k">syn</span> <span class="k">match</span> rstEmDash <span class="sr">/[\u2014]/</span><span class="w">
+</span><span class="k">syn</span> <span class="k">match</span> rstUnicode <span class="sr">/[\u2013\u2018\u2019\u201C\u201D]/</span> <span class="c">&quot; – ‘ ’ “ ”</span><span class="w">
 
-exec <span class="s1">'hi def rstBold    term=bold cterm=bold gui=bold guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'PreProc'</span><span class="p">)</span>
-exec <span class="s1">'hi def rstItalic  term=italic cterm=italic gui=italic guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Statement'</span><span class="p">)</span>
-exec <span class="s1">'hi def rstNbsp    gui=underline guibg='</span> . s:SynBgColor<span class="p">(</span><span class="s1">'ErrorMsg'</span><span class="p">)</span>
-exec <span class="s1">'hi def rstEmDash  gui=bold guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Title'</span><span class="p">)</span> . <span class="s1">' guibg='</span>. s:SynBgColor<span class="p">(</span><span class="s1">'Folded'</span><span class="p">)</span>
-exec <span class="s1">'hi def rstUnicode guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Number'</span><span class="p">)</span>
+</span>exec <span class="s1">'hi def rstBold    term=bold cterm=bold gui=bold guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'PreProc'</span><span class="p">)</span><span class="w">
+</span>exec <span class="s1">'hi def rstItalic  term=italic cterm=italic gui=italic guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Statement'</span><span class="p">)</span><span class="w">
+</span>exec <span class="s1">'hi def rstNbsp    gui=underline guibg='</span> . s:SynBgColor<span class="p">(</span><span class="s1">'ErrorMsg'</span><span class="p">)</span><span class="w">
+</span>exec <span class="s1">'hi def rstEmDash  gui=bold guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Title'</span><span class="p">)</span> . <span class="s1">' guibg='</span>. s:SynBgColor<span class="p">(</span><span class="s1">'Folded'</span><span class="p">)</span><span class="w">
+</span>exec <span class="s1">'hi def rstUnicode guifg='</span> . s:SynFgColor<span class="p">(</span><span class="s1">'Number'</span><span class="p">)</span>
 </pre>
 <p>And this is <tt class="docutils literal">raw:: html</tt>:</p>
 <div align="center">
