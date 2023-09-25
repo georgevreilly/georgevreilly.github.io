@@ -138,14 +138,18 @@ __ https://en.wikipedia.org/wiki/Pipeline_(Unix)
         grep -v '[JUDGHSTWRK]' |            # Exclude INVALID set
         grep '^[^C]..[^C][^E]$'             # Exclude PRESENT positions
 
-gives (in Bash, on macOS 13.4)::
+gives::
 
     ICENI
     ILEAC
     OCEAN
     OLEIC
 
-We can accomplish this with only the simplest features of regular expressions,
+(This was in Bash, on macOS 13.6.
+Zsh doesn't like the comments, so you may have to omit them.
+Other operating systems will have different versions of ``/usr/share/dict/words``.)
+
+We can accomplish this with only the simplest features of regular expressions:
 the `dot metacharacter`_ (``.``),
 `character classes`_ (``[JUD...]``)
 and negated character classes (``[^E]``),
@@ -166,7 +170,7 @@ a simple mechanical transformation of the guess–score pairs.
 They could be simplified.
 For example, after ``grep '^..E..$'``,
 the ``E`` in ``awk '/C/ && /E/'`` is redundant.
-We're not going to attempt to optimize the regexes, however.
+We're not going to optimize the regexes, however.
 
 Three of the four answers–``ICENI``, ``ILEAC``, and ``OLEIC``—\
 are far too obscure to be Wordle answers.
@@ -212,22 +216,22 @@ The first piece is to parse a list of ``GUESS=SCORE`` pairs.
         valid = set()                           # Green/Correct or Yellow/Present
         mask = [None] * 5                       # Exact match for pos (Green/Correct)
         wrong_spot = [set() for _ in range(5)]  # Wrong spot (Yellow/Present)
-        for guess in guess_scores:
-            word, result = guess.split("=")
-            for i, (w, r) in enumerate(zip(word, result)):
-                assert "A" <= w <= "Z", "WORD should be uppercase"
-                if "A" <= r <= "Z":
+        for gs in guess_scores:
+            guess, score = gs.split("=")
+            for i, (g, s) in enumerate(zip(guess, score)):
+                assert "A" <= g <= "Z", "GUESS should be uppercase"
+                if "A" <= s <= "Z":
                     assert g == s
-                    valid.add(w)
-                    mask[i] = w
-                elif "a" <= r <= "z":
+                    valid.add(g)
+                    mask[i] = g
+                elif "a" <= s <= "z":
                     assert g == s.upper()
-                    valid.add(w)
-                    wrong_spot[i].add(w)
-                elif r == ".":
-                    invalid.add(w)
+                    valid.add(g)
+                    wrong_spot[i].add(g)
+                elif s == ".":
+                    invalid.add(g)
                 else:
-                    raise ValueError(f"Unexpected {r} for {w}")
+                    raise ValueError(f"Unexpected {s} for {g}")
         return (invalid, valid, mask, wrong_spot)
 
 Let's try it for the ``OCEAN`` guesses:
@@ -252,7 +256,11 @@ Let's try it for the ``OCEAN`` guesses:
     OCEAN
     OLEIC
 
-Here's the ``is_eligible`` function:
+Here's the ``is_eligible`` function.
+We `short-circuit the evaluation`__ and
+return as soon as any condition is ``False``.
+
+__ https://www.geeksforgeeks.org/short-circuiting-techniques-python/#
 
 .. wordle1
 .. code-block:: python
@@ -387,7 +395,8 @@ Let's add the main class, ``WordleGuesses``:
 
 ``WordleGuesses.parse`` is a bit shorter and clearer than ``parse_guesses``.
 It uses ``TileState`` at each position
-to classify the current tile and build up state in the four member collections.
+to classify the current tile and
+accumulate state in the four member collections.
 Since ``GuessScore.make`` has validated the input,
 ``parse`` doesn't need to do any further validation.
 
@@ -424,7 +433,7 @@ The ``is_eligible`` method is essentially the same as its predecessor:
             return [w for w in vocabulary if self.is_eligible(w)]
 
 There's a `famous story`__ where Donald Knuth
-was asked by Jon Bentley to demonstrate literate programming
+was asked by Jon Bentley to demonstrate `literate programming`__
 by finding the *K* most common words from a text file.
 Knuth turned in an eight-page gem of WEB, which was reviewed by Doug McIlroy,
 who demonstrated that the task could also be accomplished in a six-line pipeline.
@@ -440,6 +449,7 @@ As we'll see below, they are a solid foundation
 that can be built upon in many ways.
 
 __ https://www.spinellis.gr/blog/20200225/
+__ http://www.literateprogramming.com/
 
 Does it Work?
 -------------
@@ -626,7 +636,7 @@ Here's an example that fails with the original ``parse``:
         wrong_spot='[T,E,-,E,ET]', unused='BCFHJKMNQSUVYZ')
     --None--
 
-but works with the current:
+but works with the current ``parse``:
 
 .. code-block:: bash
 
@@ -637,7 +647,8 @@ but works with the current:
     EMPTS
     EMPTY
 
-Note in ``TEPEE=teP..`` that the ``E`` in position 2 is considered “present”,
+Note that there is no longer an ``E`` in ``invalid``.
+In ``TEPEE=teP..``, the ``E`` in position 2 is considered “present”,
 while the two ``E``\ s in positions 4 and 5 are marked “absent”.
 This tells us that there is only one ``E`` in the answer.
 Since ``P`` is correct in position 3 of ``TEPEE``,
@@ -811,20 +822,23 @@ A more complex example:
 .. code-block:: bash
 
     # answer: BURLY
-    $ ./wordle5.py -v LOWER=l...r FRAIL=.r..l BLURT=Blur.
+    $ ./wordle.py -v LOWER=l...r FRAIL=.r..l BLURT=Blur.
     WordleGuesses(mask='B----', valid='BLRU', invalid='AEFIOTW',
         wrong_spot='[L,LR,U,R,LR]', unused='CDGHJKMNPQSVXYZ')
 
 The ``R`` is in the wrong spot
 in positions 5 (``l...r``), 2 (``.r..l``), and 4 (``Blur.``).
 The ``B`` is correct in position 1, so ``R`` must be in position 3.
+
 The ``L`` is in the wrong spot in positions 1, 5, and 2.
 ``B`` is in 1, ``R`` is now in 3, so that leaves only position 4.
-There are two possibilities for ``U``\
+
+There remain two possibilities for ``U``\
 —positions 2 and 5—\
 so we need more information
 than is contained in ``mask`` and ``wrong_spot``
 to determine where to place it.
+
 The original mask, ``B----``, was due to having only one “correct” letter.
 Using the cumulative information in the guesses and scores,
 we can infer a mask of ``B-RL-``.
@@ -849,7 +863,8 @@ we use Python's ``collections.Counter`` as a multiset_.
 
 We loop over ``present``, trying for each letter
 to find a single position where it can be placed.
-If there is such a position, we update ``mask2``.
+If there is such a position,
+we update ``mask2`` and break out of the inner loop.
 If there isn't (as in the two possibilities for ``U`` in ``BURLY``),
 then we use the little-known `break-else`_ construct
 to exit from the outer loop.
@@ -1046,15 +1061,15 @@ Finally
 I thought I knew a lot about solving Wordle programmatically
 when I started this long post a month ago.
 Along the way,
-I realized that I could use a few (horrible) greps
+I realized that I could use a few ugly greps
 to accomplish the same thing;
 wrote a tool to render games as HTML and emojis;
-wrote a couple of spinoff blog posts on
+spun off a couple of blog posts on
 `multi-attribute enumeration`_ and `regex conjunctions`_;
 found and fixed several bugs with repeated letters,
 greatly refining my understanding of the nuances;
 added a means to explain ineligibility;
-and realized that I could optimize the mask.
+and realized that I could optimize the mask programmatically.
 
 The full code can be found in my `wordle repository`_.
 
