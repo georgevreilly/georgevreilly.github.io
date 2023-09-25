@@ -10,8 +10,8 @@ draft: true
 
 Unless YOUVE LIVED UNDER ROCKS, you've heard of Wordle_,
 the online word game that has become wildly popular since late 2021.
-You've almost certainly seen people posting their Wordle games
-as little green, yellow, and black (or white) emojis.
+You've probably seen people posting their Wordle games
+as grids of little green, yellow, and black (or white) emojis on social media.
 
 .. _Wordle:
     https://en.wikipedia.org/wiki/Wordle
@@ -27,7 +27,8 @@ as little green, yellow, and black (or white) emojis.
 The problem that I want to address in this post is:
 
     Given some ``GUESS=SCORE`` pairs for Wordle and a word list,
-    find all the words from the list that are eligible as answers.
+    programmatically find all the words from the list
+    that are eligible as answers.
 
 Let's look at this four-round game for Wordle 797:
 
@@ -193,7 +194,8 @@ yields::
 
     INDEX
 
-This approach is promising, but not maintainable.
+This approach is promising,
+but constructing those regexes by hand is not maintainable.
 
 
 Initial Python Solution
@@ -345,34 +347,10 @@ First, we'll need some helper classes:
             return separator.join(t.emoji for t in self.tiles)
 
 For brevity, I presented a minimal version of ``GuessScore.make`` above.
-Here's a version with robust validation.
-More verbose, but it ensures that no typos in the score slip through:
+The version in my `wordle repository`_ has robust validation.
 
-.. code-block:: python
-
-    class GuessScore:
-        @classmethod
-        def make(cls, guess_score: str) -> "GuessScore":
-            if guess_score.count("=") != 1:
-                raise WordleError(f"Expected one '=' in {guess_score!r}")
-            guess, score = guess_score.split("=")
-            if len(guess) != WORDLE_LEN:
-                raise WordleError(f"Guess {guess!r} is not {WORDLE_LEN} characters")
-            if len(score) != WORDLE_LEN:
-                raise WordleError(f"Score {score!r} is not {WORDLE_LEN} characters")
-            tiles = []
-            for i in range(WORDLE_LEN):
-                if not "A" <= guess[i] <= "Z":
-                    raise WordleError("Guess {guess!r} should be uppercase")
-                state = cls.tile_state(score[i])
-                if state is TileState.CORRECT:
-                    if guess[i] != score[i]:
-                        raise WordleError(f"Mismatch at {i+1}: {guess}!={score}")
-                elif state is TileState.PRESENT:
-                    if guess[i] != score[i].upper():
-                        raise WordleError(f"Mismatch at {i+1}: {guess}!={score}")
-                tiles.append(state)
-            return cls(guess, score, tiles)
+.. _wordle repository:
+   https://github.com/georgevreilly/wordle
 
 Let's add the main class, ``WordleGuesses``:
 
@@ -409,7 +387,7 @@ Let's add the main class, ``WordleGuesses``:
 
 ``WordleGuesses.parse`` is a bit shorter and clearer than ``parse_guesses``.
 It uses ``TileState`` at each position
-to classify the current tile and build up state.
+to classify the current tile and build up state in the four member collections.
 Since ``GuessScore.make`` has validated the input,
 ``parse`` doesn't need to do any further validation.
 
@@ -445,9 +423,28 @@ The ``is_eligible`` method is essentially the same as its predecessor:
         def find_eligible(self, vocabulary: list[str]) -> list[str]:
             return [w for w in vocabulary if self.is_eligible(w)]
 
+There's a `famous story`__ where Donald Knuth
+was asked by Jon Bentley to demonstrate literate programming
+by finding the *K* most common words from a text file.
+Knuth turned in an eight-page gem of WEB, which was reviewed by Doug McIlroy,
+who demonstrated that the task could also be accomplished in a six-line pipeline.
 
-Tests
-=====
+Wordle can also be solved with a six-line pipeline,
+but it's quite difficult to type correctly
+and the regexes have to be carefully constructed by hand
+for each set of guess–score pairs.
+There is no one general six-line pipeline.
+
+I know that I'd much rather work with these Python classes.
+As we'll see below, they are a solid foundation
+that can be built upon in many ways.
+
+__ famous story:
+.. _Knuth pipeline:
+    https://www.spinellis.gr/blog/20200225/
+
+Does it Work?
+-------------
 
 Let's try it!:
 
@@ -614,15 +611,14 @@ since ``WITTY`` was eliminated for the ``T`` at position 3.
 We'll come back to this soon.
 
 
-Repeated Letters
-----------------
-
+The Problem of Repeated Letters
+-------------------------------
 There's a problem that we haven't grappled with properly yet:
 *repeated letters* in a guess or in an answer.
 We've made an implicit assumption that there are five distinct letters
 in each guess and in the answer.
 
-Here's an example that fails with the previous ``parse``:
+Here's an example that fails with the original ``parse``:
 
 .. code-block:: bash
 
@@ -770,7 +766,8 @@ What about some other examples?
 
 In our previous attempt at fixing the bug,
 neither ``QUICK`` nor ``SPICK`` were found
-because the first, “absent” ``C`` in ``CHICK`` was marked invalid.
+because the first ``C`` in ``CHICK`` was “absent”
+and thus marked invalid.
 Now, the ``valid`` and ``invalid`` sets are disjoint,
 there's a ``C`` in the first element of ``wrong_spot``,
 and both words are found:
@@ -801,35 +798,165 @@ blocks the rhymes for ``WITTY``.
 Further Optimization of the Mask
 --------------------------------
 
-There's still a little room for improvement:
+There's still room for improvement.
+If you guess ``ANGLE=ANGle``,
+it's immediately obvious (to a human player) that
+you should swap the ``L`` and ``E``
+to guess ``ANGEL`` on your next turn.
+Or swap the ``P`` and ``T`` in ``SPRAT=SpRAt`` to guess ``STRAP``.
+
+Similarly, ``TENET=TEN.t`` tells you that the fourth letter must be ``T``,
+while ``CHORE=C.OrE`` must have ``2:R``.
+
+A more complex example:
 
 .. code-block:: bash
 
-    # answer: TENTH
-    $ ./wordle.py -v PLANK=...n. TENOR=TEN.. TENET=TEN.t
-    WordleGuesses(mask='TEN--', valid='ENT', invalid='AEKLOPR',
-        wrong_spot='[-,-,-,N,T]', unused='BCDFGHIJMQSUVWXYZ')
-    TENCH
-    TENDS
-    TENDU
-    TENTH
-    TENTS
-    TENTY
+    # answer: BURLY
+    $ ./wordle5.py -v LOWER=l...r FRAIL=.r..l BLURT=Blur.
+    WordleGuesses(mask='B----', valid='BLRU', invalid='AEFIOTW',
+        wrong_spot='[L,LR,U,R,LR]', unused='CDGHJKMNPQSVXYZ')
 
-A human player getting ``TENET=TEN.t``
-would realize that the fourth tile *must* be ``T``.
+The ``R`` is in the wrong spot
+in positions 5 (``l...r``), 2 (``.r..l``), and 4 (``Blur.``).
+The ``B`` is correct in position 1, so ``R`` must be in position 3.
+The ``L`` is in the wrong spot in positions 1, 5, and 2.
+``B`` is in 1, ``R`` is now in 3, so that leaves only position 4.
+There are two possibilities for ``U``\
+—positions 2 and 5—\
+so we need more information
+than is contained in ``mask`` and ``wrong_spot``
+to determine where to place it.
+The original mask, ``B----``, was due to having only one “correct” letter.
+Using the cumulative information in the guesses and scores,
+we can infer a mask of ``B-RL-``.
 
-*Explain ``optimize``*.
+In all of these cases,
+we can find exactly one remaining position
+where a “present” letter can be placed.
+In the ``BURLY`` example, it takes two passes:
+we couldn't uniquely determine a place for ``L``
+until we had already placed ``R``.
 
-*Show the ``score`` algorithm?*
+Up to now, we've been treating each tile in almost complete isolation.
+Let's optimize the mask programmatically.
+
+First, we loop through all the guess–score pairs,
+building a ``valid`` multiset of the “correct” and “present” letters.
+Then we subtract a multiset of the “correct” letters,
+leaving us with a multiset of the “present” letters.
+To account for repeated letters,
+such as the two ``T``\ s in ``TENET=TEN.t``,
+we use Python's ``collections.Counter`` as a multiset_.
+
+We loop over ``present``, trying for each letter
+to find a single position where it can be placed.
+If there is such a position, we update ``mask2``.
+If there isn't (as in the two possibilities for ``U`` in ``BURLY``),
+then we use the little-known `break-else`_ construct
+to exit from the outer loop.
+
+Finally, we merge ``mask2`` into ``self.mask``.
+This ``optimize`` method is called
+from the end of ``WordleGuesses.parse``.
+
+.. _multiset:
+    https://dbader.org/blog/sets-and-multiset-in-python
+.. _break-else:
+    https://python-notes.curiousefficiency.org/en/latest/python_concepts/break_else.html
+
+.. wordle
+.. code-block:: python
+
+    class WordleGuesses:
+        def optimize(self) -> list[str | None]:
+            """Use PRESENT tiles to improve `mask`."""
+            mask1: list[str | None] = self.mask
+            mask2: list[str | None] = [None] * WORDLE_LEN
+            # Compute `valid`, a multiset of the correct and present letters in all guesses
+            valid: Counter[str] = Counter()
+            for gs in self.guess_scores:
+                valid |= Counter(
+                    g for g, t in zip(gs.guess, gs.tiles) if t is not TileState.ABSENT
+                )
+            correct = Counter(c for c in mask1 if c is not None)
+            # Compute `present`, a multiset of the valid letters
+            # whose correct position is not yet known; i.e., PRESENT in any row.
+            present = valid - correct
+            logging.debug(f"{valid=} {correct=} {present=}")
+
+            def available(c, i):
+                "Can `c` be placed in slot `i` of `mask2`?"
+                return mask1[i] is None and mask2[i] is None and c not in self.wrong_spot[i]
+
+            while present:
+                for c in present:
+                    positions = [i for i in range(WORDLE_LEN) if available(c, i)]
+                    # Is there only one position where `c` can be placed?
+                    if len(positions) == 1:
+                        i = positions[0]
+                        mask2[i] = c
+                        present -= Counter(c)
+                        logging.debug(f"{i+1} -> {c}")
+                        break
+                else:
+                    # We reach this for-else only if there was no `break` in the for-loop;
+                    # i.e., no one-element `positions` was found in `present`.
+                    # We must abandon the outer loop, even though `present` is not empty.
+                    break
+
+            logging.debug(f"{present=} {mask2=}")
+
+            self.mask = [m1 or m2 for m1, m2 in zip(mask1, mask2)]
+            logging.info(
+                f"\toptimize: {dash_mask(mask1)} | {dash_mask(mask2)}"
+                f" => {dash_mask(self.mask)}"
+            )
+            return mask2
+
+Here are some examples of it in action.
+Going from ``---ET`` to ``-ESET``:
+
+.. code-block:: bash
+
+    # answer: BESET
+    $ ./wordle.py -vv CIVET=...ET EGRET=e..ET SLEET=s.eET
+    WordleGuesses(mask=---ET, valid=EST, invalid=CGILRV,
+        wrong_spot=[ES,-,E,-,-], unused=ABDFHJKMNOPQUWXYZ)
+    valid=Counter({'E': 2, 'T': 1, 'S': 1}) correct=Counter({'E': 1, 'T': 1})
+        present=Counter({'E': 1, 'S': 1})
+    2 -> E
+    3 -> S
+    present=Counter() mask2=[None, 'E', 'S', None, None]
+        optimize: ---ET | -ES-- => -ESET
+
+And from ``C----`` to ``CLER-``:
+
+.. code-block:: bash
+
+    # answer: CLERK
+    $ ./wordle.py -vv SINCE=...ce CEDAR=Ce..r CRUEL=Cr.el
+    WordleGuesses(mask=C----, valid=CELR, invalid=ADINSU,
+        wrong_spot=[-,ER,-,CE,ELR], unused=BFGHJKMOPQTVWXYZ)
+    valid=Counter({'C': 1, 'E': 1, 'R': 1, 'L': 1}) correct=Counter({'C': 1})
+        present=Counter({'E': 1, 'R': 1, 'L': 1})
+    3 -> E
+    4 -> R
+    2 -> L
+    present=Counter() mask2=[None, 'L', 'E', 'R', None]
+        optimize: C---- | -LER- => CLER-
 
 
-Demand an Explanation
----------------------
+Demanding an Explanation
+------------------------
+
+Would you like to know *why* a guess is ineligible?
+We can do that too.
 
 
 .. code-block:: bash
 
+    # answer: ROUSE
     $ ./wordle.py THIEF=...e. BLADE=....E GROVE=.ro.E \
         --words ROMEO PROSE STORE MURAL ROUSE --explain
 
@@ -845,6 +972,7 @@ Demand an Explanation
 
 .. code-block:: bash
 
+    # answer: BIRCH
     $ ./wordle.py CLAIM=c..i. TRICE=.riC. \
         --words INCUR TAXIS PRICY ERICA BIRCH --explain
 
@@ -857,11 +985,81 @@ Demand an Explanation
     ERICA   Invalid: has E---A; WrongSpot: has -RI--
     BIRCH   Eligible
 
+Here's how those explanations were computed,
+using a variation on ``is_eligible``:
 
-.. _Knuth pipeline:
-    https://www.spinellis.gr/blog/20200225/
-.. _break-else:
-    https://python-notes.curiousefficiency.org/en/latest/python_concepts/break_else.html
+.. wordle
+.. code-block:: python
+
+    class WordleGuesses:
+        def is_ineligible(self, word: str) -> dict[str, str]:
+            reasons = {}
+            letters = {c for c in word}
+            if missing := self.valid - (letters & self.valid):
+                # Did not have the full set of green+yellow letters known to be valid
+                reasons["Valid"] = f"missing {letter_set(missing)}"
+
+            mask = [(m if c != m else None) for c, m in zip(word, self.mask)]
+            if any(mask):
+                # Couldn't find all the green/correct letters
+                reasons["Mask"] = f"needs {dash_mask(mask)}"
+
+            invalid = [(c if c in self.invalid else None) for c in word]
+            if any(invalid):
+                # Invalid (black) letters present at specific positions
+                reasons["Invalid"] = f"has {dash_mask(invalid)}"
+
+            wrong = [(c if c in ws else None) for c, ws in zip(word, self.wrong_spot)]
+            if any(wrong):
+                # Found some yellow letters: valid letters in wrong position
+                reasons["WrongSpot"] = f"has {dash_mask(wrong)}"
+
+            return reasons
+
+        def find_explanations(self, vocabulary: list[str]) -> list[tuple[str, str | None]]:
+            explanations = []
+            for w in vocabulary:
+                reasons = self.is_ineligible(w)
+                why = None
+                if reasons:
+                    why = "; ".join(f"{k}: {v}" for k, v in self.is_ineligible(w).items())
+                explanations.append((w, why))
+            return explanations
+
+This approach is slower than ``is_eligible``,
+though it's not noticeable
+when running ``wordle.py`` for one set of guess–scores.
+I have a test tool (``score.py``)
+that runs through the 200+ games that I've recorded.
+Using ``find_explanations``, it took about 10 seconds to run.
+Switching to ``find_eligible``, it dropped to 2 seconds (5x improvement).
+By prefiltering the word list with a regex made from the mask,
+the time drops to about 500 milliseconds (further 4x improvement).
+
+.. code-block:: python
+
+    pattern = re.compile("".join(m or "." for m in parsed_guesses.mask))
+    word_list = [w for w in vocabulary if pattern.fullmatch(w)]
+    eligible = parsed_guesses.find_eligible(word_list)
+
+Finally
+-------
+
+I thought I knew a lot about solving Wordle programmatically
+when I started this long post a month ago.
+Along the way,
+I realized that I could use a few (horrible) greps
+to accomplish the same thing;
+wrote a tool to render games as HTML and emojis;
+wrote a couple of spinoff blog posts on
+`multi-attribute enumeration`_ and `regex conjunctions`_;
+found and fixed several bugs with repeated letters,
+greatly refining my understanding of the nuances;
+and realized that I could optimize the mask.
+
+
+The full code can be found in my `wordle repository`_.
+
 
 .. -------------------------------------------------------------_
 .. Sticking the stylesheet at the end out of the way
