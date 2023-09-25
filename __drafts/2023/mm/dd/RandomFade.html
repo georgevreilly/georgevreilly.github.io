@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Random Fade</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content="**Summary**: An efficient technique for *randomly..." />
+    <meta name="keywords" content="programming" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2023-01-23">2023-01-23</time>
+        <h1>
+            <a href="/__drafts/2023/mm/dd/RandomFade.html" rel="bookmark canonical">Random Fade</a>
+        </h1>
+    </header>
+    <p><strong>Summary</strong>: An efficient technique for <em>randomly fading in</em>
+a picture using Linear Con&shy;gru&shy;en&shy;tial&nbsp;Generators.</p>
+<h3>Inadequate Approaches to Random&nbsp;Fades</h3>
+<p>How would you <em>fade in</em> a picture <em>randomly</em>?</p>
+<p>Here&#8217;s a naive and deeply flawed <span class="caps">HTML</span>/TypeScript approach
+to making a picture gradually and randomly&nbsp;appear.</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Terrible approach</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">randomFade</span><span class="p">(</span><span class="nx">canvasId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">image</span><span class="o">:</span><span class="w"> </span><span class="kt">HTMLImageElement</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">canvas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">canvasId</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">finished</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">());</span><span class="w"></span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">());</span><span class="w"></span>
+<span class="w">        </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">image</span><span class="p">,</span><span class="w"> </span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// one pixel</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>You can make this a bit faster
+by copying more than one pixel at a time, say, 4x4,
+but that would complicate the simple algorithm&nbsp;above.</p>
+<p>Several questions&nbsp;arise:</p>
+<ul>
+<li>What&#8217;s to prevent you from visiting some pixels
+  over and over again?&nbsp;(In&shy;ef&shy;fi&shy;cien&shy;cy.)</li>
+<li>How do you know if you ever visit a particular&nbsp;pixel?</li>
+<li>How do you know when you are finished? That all pixels have been&nbsp;visited?</li>
+</ul>
+<p>One way to make the loop terminate is
+to keep an auxiliary data structure, one bit per pixel.
+Whenever a pixel has been copied,
+the cor&shy;re&shy;spond&shy;ing bit is set
+and a counter is decre&shy;ment&shy;ed.
+If you&#8217;ve passed a certain time threshold,
+you can walk through the bitmap
+to copy all the remaining pixels.
+This is obviously&nbsp;horrible.</p>
+<p>A better approach would be to
+<em>shuffle</em> the co&shy;or&shy;di&shy;nates of the pixels,
+using something like <a href="https://bost.ocks.org/mike/shuffle/">Fisher-Yates</a>:</p>
+<div class="codehilite"><pre><span></span><span class="c1">// Somewhat better approach</span><span class="w"></span>
+<span class="kd">function</span><span class="w"> </span><span class="nx">randomFade</span><span class="p">(</span><span class="nx">canvasId</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">image</span><span class="o">:</span><span class="w"> </span><span class="kt">HTMLImageElement</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">canvas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">canvasId</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">offsets</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">height</span><span class="p">;</span><span class="w"> </span><span class="nx">y</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0</span><span class="p">;</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span><span class="w"> </span><span class="nx">x</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">const</span><span class="w"> </span><span class="nx">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">x</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="nx">offsets</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">offset</span><span class="p">);</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="nx">offsets</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">shuffle</span><span class="p">(</span><span class="nx">offsets</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kd">let</span><span class="w"> </span><span class="nx">offset</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">offsets</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">offset</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="kd">const</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">offset</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">x</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">canvas</span><span class="p">.</span><span class="nx">width</span><span class="p">;</span><span class="w"> </span><span class="c1">// integer</span><span class="w"></span>
+<span class="w">      </span><span class="nx">ctx</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">image</span><span class="p">,</span><span class="w"> </span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="nx">y</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// one pixel</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>This should work.
+Its big drawback is <em>memory usage</em>:
+the length of the <code>offsets</code> array
+is equal to the area of the image in pixels.
+I computed a single number, <code>offset</code>,
+rather than an <code>[x, y]</code> pair to halve the amount of memory used,
+but it&#8217;s still sig&shy;nif&shy;i&shy;cant for a multi-megapixel image.
+It can be reduced somewhat by copying larger regions,
+say 2x2 or&nbsp;4x4.</p>
+<p>When I first tackled this problem, almost thirty years ago,
+the memory usage of the <code>shuffle</code> approach was&nbsp;un&shy;ac&shy;cept&shy;able.</p>
+<h3>Random Fades in&nbsp;1994</h3>
+<p>I spent several months in 1994
+working on a team developing an <span class="caps">IBM</span> 3270 terminal emulator
+that targeted Windows 3.1,
+a 16-bit operating system.
+Most of our users would have had a 386 or a 486,
+probably with at most <span class="caps">4MB</span> of <span class="caps">RAM</span>,
+one-thousandth the memory of a modern computer.
+<span class="caps">MS</span>-<span class="caps">DOS</span> was still very common,
+but we didn&#8217;t have to worry about that.
+Pentiums were rare and expensive.
+Windows 95, the first consumer 32-bit Windows,
+was a year in the future.
+We were developing on Windows <span class="caps">NT</span> 3.1, another 32-bit Windows,
+but very few of our users were using&nbsp;<span class="caps">NT</span>.</p>
+<p>I mostly worked on the installer.
+To make the in&shy;stal&shy;la&shy;tion more visually in&shy;ter&shy;est&shy;ing,
+we wanted the initial <a href="https://en.wikipedia.org/wiki/Splash_screen">splash screen</a> image to <em>fade in</em>.
+It was easy enough to make the image appear
+in a de&shy;ter&shy;min&shy;is&shy;tic fashion,
+one row or one column at a&nbsp;time.</p>
+<p>I wanted to make the image appear in random order,
+but the approaches that initially occurred to me
+didn&#8217;t work well in those memory-con&shy;strained systems.
+I don&#8217;t remember the dimension of the splash screen image,
+but it was probably&nbsp;640x480.</p>
+<p>I was at a loss at how to do it ef&shy;fi&shy;cient&shy;ly
+until a dim memory of reading about
+<a href="https://en.wikipedia.org/wiki/Linear_congruential_generator">linear con&shy;gru&shy;en&shy;tial generator</a>s
+in Knuth&#8217;s <em>Semi&shy;nu&shy;mer&shy;i&shy;cal Algorithms</em>&nbsp;surfaced.</p>
+<h3>Linear Con&shy;gru&shy;en&shy;tial&nbsp;Generator</h3>
+<p><span class="caps">LCG</span>:</p>
+<p><em>X</em><sub><em>n</em>+1</sub> = (<em>aX</em><sub><em>n</em></sub> + <em>c</em>) mod <em>m</em></p>
+<p>Stuff</p>
+<iframe height="360" style="width: 100%;" scrolling="no" title="LCG animation" src="https://codepen.io/georgevreilly/embed/NWvmwwv?default-tab=result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/georgevreilly/pen/NWvmwwv">
+  <span class="caps">LCG</span> animation</a> by George V. Reilly (<a href="https://codepen.io/georgevreilly">@ge&shy;orgevreil&shy;ly</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+<h2>More&nbsp;stuff</h2>
+<iframe height="480" style="width: 100%;" scrolling="no" title="Random FadeCell Diagram" src="https://codepen.io/georgevreilly/embed/eYGOgbW?default-tab=result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/georgevreilly/pen/eYGOgbW">
+  Random FadeCell Diagram</a> by George V. Reilly (<a href="https://codepen.io/georgevreilly">@ge&shy;orgevreil&shy;ly</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+<p>paragraph&nbsp;1</p>
+<iframe height="520" style="width: 100%;" scrolling="no" title="Random Fade" src="https://codepen.io/georgevreilly/embed/PoKrPor?default-tab=result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/georgevreilly/pen/PoKrPor">
+  Random Fade</a> by George V. Reilly (<a href="https://codepen.io/georgevreilly">@ge&shy;orgevreil&shy;ly</a>)
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
+
+<p>paragraph&nbsp;2</p>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

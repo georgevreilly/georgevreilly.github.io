@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Delete all Docker Images by Tags</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content=".. code-block:: bash
+
+    sudo docker images \..." />
+    <meta name="keywords" content="docker, programming, bash" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2023-01-23">2023-01-23</time>
+        <h1>
+            <a href="/__drafts/2023/mm/dd/DeleteAllDockerImagesByTags.html" rel="bookmark canonical">Delete all Docker Images by Tags</a>
+        </h1>
+    </header>
+    <pre class="code bash literal-block">
+sudo docker images <span class="se">\
+</span>    <span class="p">|</span> grep ^quill <span class="se">\
+</span>    <span class="p">|</span> awk <span class="s1">'{printf(&quot;quill:%s\n&quot;, $2) }'</span> <span class="se">\
+</span>    <span class="p">|</span> xargs sudo docker rmi
+</pre>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/docker/" rel="tag">docker</a>,
+                <a href="/tag/programming/" rel="tag">programming</a>
+                    and
+                    
+                <a href="/tag/bash/" rel="tag">bash</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Vim: expressions in substitutions</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content="There were a number of links in the `HTML from my..." />
+    <meta name="keywords" content="vim" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2023-01-23">2023-01-23</time>
+        <h1>
+            <a href="/__drafts/2023/mm/dd/VimExpressionsInSubstitutions.html" rel="bookmark canonical">Vim: expressions in substitutions</a>
+        </h1>
+    </header>
+    <p>There were a number of links in the <a class="reference external" href="/blog/2017/01/08/MoreBlogCleanup.html"><span class="caps">HTML</span> from my original blog</a> that looked like
+<tt class="docutils literal"><span class="pre">http://mydomain/?url=http%3a%2f%2fwww.seat&shy;tle&shy;opera.org%2ftick&shy;et&shy;s%2fring%2f</span></tt>
+(for referral&nbsp;tracking).</p>
+<p>This Vim sub&shy;sti&shy;tu&shy;tion to the&nbsp;rescue:</p>
+<pre class="code vim literal-block">
+<span class="p">:</span>s<span class="sr">/%\([0-9a0f][0-9a-f]\)/</span>\<span class="p">=</span> nr2char<span class="p">(</span>str2nr<span class="p">(</span><span class="s1">'0x'</span>.submatch<span class="p">(</span><span class="m">1</span><span class="p">),</span> <span class="m">16</span><span class="p">))</span>/<span class="k">g</span>
+</pre>
+<ul class="simple">
+<li>Match all fragments that look like <tt class="docutils literal">% <span class="caps">HEX</span> <span class="caps">HEX</span></tt>.</li>
+<li>Capture the two hex digits, <tt class="docutils literal">\1</tt> or <tt class="docutils literal">submatch(1)</tt></li>
+<li>Convert the match into a number, base 16: <tt class="docutils literal"><span class="pre">str2nr('0x'.submatch(1),</span> 16)</tt></li>
+<li>Convert that number into a character: <tt class="docutils literal">nr2char</tt></li>
+<li><tt class="docutils literal">\=</tt> in a substitute string means treat the rest as a <a class="reference external" href="http://vim.wikia.com/wiki/Using_an_expression_in_substitute_command">VimL expression</a>.</li>
+</ul>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/vim/" rel="tag">vim</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>

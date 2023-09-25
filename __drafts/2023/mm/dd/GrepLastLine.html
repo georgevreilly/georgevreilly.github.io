@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Grep Last Line</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content=".. vim:set ft=rst spell:
+
+.. title:: Grep Last Lin..." />
+    <meta name="keywords" content="programming, bash" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2023-01-23">2023-01-23</time>
+        <h1>
+            <a href="/__drafts/2023/mm/dd/GrepLastLine.html" rel="bookmark canonical">Grep Last Line</a>
+        </h1>
+    </header>
+    <!-- vim:set ft=rst spell: -->
+<p>I needed to find all the files whose <em>last</em> line matched <tt class="docutils literal"><span class="caps">PATTERN</span></tt>,
+then feed them into&nbsp;Vim:</p>
+<pre class="code bash literal-block">
+find . -name <span class="s2">&quot;*.txt&quot;</span> -o -name <span class="s2">&quot;*.rst&quot;</span> <span class="p">|</span> <span class="k">while</span> <span class="nb">read</span> f<span class="p">;</span> <span class="k">do</span>
+    <span class="nb">printf</span> <span class="s2">&quot;</span><span class="nv">$f</span><span class="s2">:</span><span class="k">$(</span>tail -1 <span class="nv">$f</span><span class="k">)</span><span class="s2">\n&quot;</span><span class="p">;</span>
+<span class="k">done</span> <span class="p">|</span> grep <span class="caps">PATTERN</span> <span class="p">|</span> sed <span class="s1">'s/:.*$//'</span> <span class="p">|</span> xargs -o vim
+</pre>
+<ul class="simple">
+<li>Find <tt class="docutils literal">*.txt</tt> and <tt class="docutils literal">*.rst</tt></li>
+<li>Loop over those&nbsp;filenames</li>
+<li>Compute <em>filename</em> + <tt class="docutils literal">:</tt> + the last line of that filename: <tt class="docutils literal">$(tail <span class="pre">-1</span> $f)</tt></li>
+<li>Grep the&nbsp;pattern</li>
+<li>Strip off the pattern to yield those filenames which have the&nbsp;pattern.</li>
+<li>Note: This is <em>decorate-sort-undecorate</em>, aka the <a class="reference external" href="https://en.wikipedia.org/wiki/Schwartzian_transform">Schwartz&shy;ian transform</a>.
+(Well, <em>grep</em>, not <em>sort</em>.)</li>
+<li>Feed the filenames into Vim.
+The <tt class="docutils literal"><span class="pre">-o</span></tt> argument to <tt class="docutils literal">xargs</tt> prevents Vim from messing up the terminal when it&nbsp;exits.</li>
+</ul>
+<p>Also, find missing symlink&nbsp;targets:</p>
+<pre class="code bash literal-block">
+ls -l ./public3 <span class="p">|</span> grep ^l <span class="p">|</span> awk <span class="s1">'{print $11}'</span> <span class="p">|</span> <span class="se">\
+</span>    <span class="k">while</span> <span class="nb">read</span> f<span class="p">;</span> <span class="k">do</span> ls -l ./public3/<span class="nv">$f</span><span class="p">;</span> <span class="k">done</span> <span class="p">|</span> grep <span class="s2">&quot;No such&quot;</span>
+</pre>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>
+                    and
+                    
+                <a href="/tag/bash/" rel="tag">bash</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    
+    
+
+  </footer>
+</body>
+</html>
