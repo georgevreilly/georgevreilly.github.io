@@ -1,7 +1,7 @@
 ---
 title: "Review: The Dirty Dust (Cré na Cille)"
 # date: "2023-mm-dd"
-permalink: "/__drafts/2023/mm/dd/TheDirtyDust.html"
+permalink: "/drafts-drafts-drafts/2023/mm/dd/TheDirtyDust.html"
 tags: [books, irish]
 draft: true
 ---

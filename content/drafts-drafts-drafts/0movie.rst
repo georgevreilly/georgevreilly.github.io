@@ -1,7 +1,7 @@
 ---
 title: "Review: MOVIETITLE"
 # date: "2023-mm-dd"
-permalink: "/__drafts/2023/mm/dd/ReviewMOVIETITLE.html"
+permalink: "/drafts-drafts-drafts/2023/mm/dd/ReviewMOVIETITLE.html"
 tags: [movies, reviews]
 draft: true
 ---

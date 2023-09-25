@@ -1,8 +1,8 @@
 ---
 title: "Wordle Finder"
-# date: "2023-mm-dd"
-# permalink: "/__drafts/2023/mm/dd/TheSlugGoesHere.html"
-permalink: "/__drafts/WordleFinder.html"
+# date: "2023-09-dd"
+# permalink: "/2023/09/dd/TheSlugGoesHere.html"
+permalink: "/drafts-drafts-drafts/WordleFinder.html"
 tags: [python, wordle]
 filter: notypography
 draft: true
@@ -439,9 +439,7 @@ I know that I'd much rather work with these Python classes.
 As we'll see below, they are a solid foundation
 that can be built upon in many ways.
 
-__ famous story:
-.. _Knuth pipeline:
-    https://www.spinellis.gr/blog/20200225/
+__ https://www.spinellis.gr/blog/20200225/
 
 Does it Work?
 -------------
@@ -1055,14 +1053,14 @@ wrote a couple of spinoff blog posts on
 `multi-attribute enumeration`_ and `regex conjunctions`_;
 found and fixed several bugs with repeated letters,
 greatly refining my understanding of the nuances;
+added a means to explain ineligibility;
 and realized that I could optimize the mask.
-
 
 The full code can be found in my `wordle repository`_.
 
 
 .. -------------------------------------------------------------_
-.. Sticking the stylesheet at the end out of the way
+.. Sticking the Wordle stylesheet at the end out of the way
 
 .. raw:: html
 

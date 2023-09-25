@@ -1,7 +1,7 @@
 ---
 title: "Back of the Envelope"
 # date: "2023-mm-dd"
-permalink: "/__drafts/2023/mm/dd/BackOfTheEnvelope.html"
+permalink: "/drafts-drafts-drafts/2023/mm/dd/BackOfTheEnvelope.html"
 tags: [movies, reviews]
 draft: true
 ---

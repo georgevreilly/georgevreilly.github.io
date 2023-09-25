@@ -1,7 +1,7 @@
 ---
 title: "Grep Last Line"
 # date: "2023-mm-dd"
-permalink: "/__drafts/2023/mm/dd/GrepLastLine.html"
+permalink: "/drafts-drafts-drafts/2023/mm/dd/GrepLastLine.html"
 tags: [programming, bash]
 draft: true
 ---

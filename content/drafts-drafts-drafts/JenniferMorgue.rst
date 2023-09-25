@@ -1,7 +1,7 @@
 ---
 title: "Review: The Jennifer Morgue"
 # date: "2017-01-28"
-permalink: "/__drafts/2017/01/28/ReviewTheJenniferMorgue.html"
+permalink: "/drafts-drafts-drafts/2017/01/28/ReviewTheJenniferMorgue.html"
 tags: [books, reviews]
 draft: true
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Vim: expressions in substitutions"
 # date: "2023-mm-dd"
-permalink: "/__drafts/2023/mm/dd/VimExpressionsInSubstitutions.html"
+permalink: "/drafts-drafts-drafts/2023/mm/dd/VimExpressionsInSubstitutions.html"
 tags: [vim]
 draft: true
 ---

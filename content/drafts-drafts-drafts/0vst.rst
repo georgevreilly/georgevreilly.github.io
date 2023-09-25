@@ -1,7 +1,7 @@
 ---
 title: "George's reStructuredText cheat sheet"
 # date: "2023-mm-dd"
-permalink: "/__drafts/GeorgesReStructuredTextCheatSheet.html"
+permalink: "/drafts-drafts-drafts/GeorgesReStructuredTextCheatSheet.html"
 tags: [reStructuredText]
 draft: true
 ---

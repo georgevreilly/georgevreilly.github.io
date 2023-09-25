@@ -1,7 +1,7 @@
 ---
 title: "Quicksort"
 # date: "2023-mm-dd"
-permalink: "/__drafts/2023/mm/dd/Quicksort.html"
+permalink: "/drafts-drafts-drafts/2023/mm/dd/Quicksort.html"
 tags: [movies, reviews]
 draft: true
 ---

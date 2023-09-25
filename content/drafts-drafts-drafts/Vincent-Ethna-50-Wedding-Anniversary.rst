@@ -1,7 +1,7 @@
 ---
 title: "A Few Words on the Occasion of Vincent & Ethna's 50th Wedding Anniversary"
 # date: "2014-03-30"
-permalink: "/__drafts/2014/03/30/VincentEthna50thAnniversary.html"
+permalink: "/drafts-drafts-drafts/2014/03/30/VincentEthna50thAnniversary.html"
 tags: [personal]
 draft: true
 ---

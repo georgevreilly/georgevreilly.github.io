@@ -1,7 +1,7 @@
 ---
 title: "Programmer Fonts"
 # date: "2023-mm-dd"
-permalink: "/__drafts/2023/mm/dd/ProgrammerFonts.html"
+permalink: "/drafts-drafts-drafts/2023/mm/dd/ProgrammerFonts.html"
 tags: [fonts, programming]
 draft: true
 ---

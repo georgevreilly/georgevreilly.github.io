@@ -1,7 +1,7 @@
 ---
 title: "Developer Interviews and Pair Programming"
 # date: "2007-02-02"
-permalink: "/__drafts/2007/02/02/DeveloperInterviewsAndPairProgramming.html"
+permalink: "/drafts-drafts-drafts/2007/02/02/DeveloperInterviewsAndPairProgramming.html"
 tags: [interviews]
 draft: true
 ---

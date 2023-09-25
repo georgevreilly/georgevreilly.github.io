@@ -1,7 +1,7 @@
 ---
 title: "Review: BOOKTITLE"
 # date: "2023-mm-dd"
-permalink: "/__drafts/2023/mm/dd/ReviewBOOKTITLE.html"
+permalink: "/drafts-drafts-drafts/2023/mm/dd/ReviewBOOKTITLE.html"
 tags: [books, reviews]
 draft: true
 ---

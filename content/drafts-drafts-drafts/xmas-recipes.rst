@@ -1,7 +1,7 @@
 ---
 title: "Xmas Recipes"
 # date: "2023-mm-dd"
-permalink: "/__drafts/2023/mm/dd/XmasRecipes.html"
+permalink: "/drafts-drafts-drafts/2023/mm/dd/XmasRecipes.html"
 tags: [recipe]
 draft: true
 ---

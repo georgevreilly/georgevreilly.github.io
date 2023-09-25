@@ -1,7 +1,7 @@
 ---
 title: "exFAT"
 # date: "2023-mm-dd"
-permalink: "/__drafts/2023/mm/dd/exFAT.html"
+permalink: "/drafts-drafts-drafts/2023/mm/dd/exFAT.html"
 tags: [programming]
 draft: true
 ---

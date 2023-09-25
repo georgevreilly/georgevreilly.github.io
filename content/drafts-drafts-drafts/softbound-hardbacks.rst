@@ -1,7 +1,7 @@
 ---
 title: "Softbound Hardbacks"
 # date: "2023-mm-dd"
-permalink: "/__drafts/2023/mm/dd/SoftboundHardbacks.html"
+permalink: "/drafts-drafts-drafts/2023/mm/dd/SoftboundHardbacks.html"
 tags: [books]
 draft: true
 ---

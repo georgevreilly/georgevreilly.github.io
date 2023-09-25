@@ -1,7 +1,7 @@
 ---
 title: "Keyboard Symbols"
 # date: "2023-mm-dd"
-permalink: "/__drafts/2023/mm/dd/KeyboardSymbols.html"
+permalink: "/drafts-drafts-drafts/2023/mm/dd/KeyboardSymbols.html"
 tags: [programming]
 draft: true
 ---

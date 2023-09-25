@@ -1,7 +1,7 @@
 ---
 title: "Unix Command-Line Tricks"
 # date: "2023-mm-dd"
-permalink: "/__drafts/2023/mm/dd/UnixCommandLineTricks.html"
+permalink: "/drafts-drafts-drafts/2023/mm/dd/UnixCommandLineTricks.html"
 tags: [bash]
 draft: true
 ---

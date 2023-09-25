@@ -2,7 +2,7 @@
 title: "Random Fade"
 # date: 2021-11-27 22:52
 tags: [programming]
-permalink: "/__drafts/2023/mm/dd/RandomFade.html"
+permalink: "/drafts-drafts-drafts/2023/mm/dd/RandomFade.html"
 filter: markdown+fenced_code+codehilite
 draft: true
 ---
