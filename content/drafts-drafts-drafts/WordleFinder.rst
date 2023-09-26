@@ -164,8 +164,10 @@ gives::
     OLEIC
 
 (This was in Bash, on macOS 13.6.
-Zsh doesn't like the comments, so you may have to omit them.
-Other operating systems will have different versions of ``/usr/share/dict/words``.)
+Zsh doesn't like the comments in the middle of the multi-line pipeline,
+so you may have to omit them.
+Other operating systems will have different versions of ``/usr/share/dict/words``
+that may not have all of these obscure words.)
 
 We can accomplish this with only the simplest features of regular expressions:
 the `dot metacharacter`_ (``.``),
