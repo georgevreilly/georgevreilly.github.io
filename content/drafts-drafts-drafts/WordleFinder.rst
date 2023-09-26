@@ -375,9 +375,9 @@ First, we'll need some helper classes:
             return separator.join(t.emoji for t in self.tiles)
 
 For brevity, I presented a minimal version of ``GuessScore.make`` above.
-The version in my `wordle repository`_ has robust validation.
+The version in my `Wordle repository`_ has robust validation.
 
-.. _wordle repository:
+.. _Wordle repository:
    https://github.com/georgevreilly/wordle
 
 Let's add the main class, ``WordleGuesses``:
@@ -878,18 +878,22 @@ until we had already placed ``R``.
 Up to now, we've been treating each tile in almost complete isolation.
 Let's optimize the mask programmatically.
 
-First, we loop through all the guess–score pairs,
-building a ``valid`` multiset of the “correct” and “present” letters.
-Then we subtract a multiset of the “correct” letters,
-yielding a multiset of the “present” letters.
 To account for repeated letters,
 such as the two ``T``\ s in ``TENET=TEN.t``,
 we use Python's ``collections.Counter`` as a multiset_.
+``Counter``'s union operation, ``|=``,
+computes the maximum of corresponding counts.
+
+First, we loop through *all* the guess–score pairs,
+building a ``valid`` multiset of the “correct” and “present” letters.
+Then we subtract a multiset of the “correct” letters,
+yielding a multiset of the “present” letters.
 
 We loop over ``present``, trying for each letter
 to find a single empty position where it can be placed in the mask.
 If there is such a position,
-we update ``mask2`` and break out of the inner loop.
+we update ``mask2``, remove the letter from ``present``,
+and break out of the inner loop.
 If there isn't (as in the two possibilities for ``U`` in ``BURLY``),
 then we use the little-known `break-else`_ construct
 to exit from the outer loop.
@@ -1054,7 +1058,9 @@ using a variation on ``is_eligible``:
 
             return reasons
 
-        def find_explanations(self, vocabulary: list[str]) -> list[tuple[str, str | None]]:
+        def find_explanations_(
+            self, vocabulary: list[str]
+        ) -> list[tuple[str, str | None]]:
             explanations = []
             for word in vocabulary:
                 reasons = self.is_ineligible(word)
@@ -1073,7 +1079,7 @@ that runs through the 200+ games that I've recorded.
 Using ``find_explanations``, it took about 10 seconds to run.
 Switching to ``find_eligible``, it dropped to 2 seconds (5x improvement).
 By prefiltering the word list with a regex made from the mask,
-the time drops to about 500 milliseconds (further 4x improvement).
+the time drops to half a second (further 4x improvement).
 
 .. code-block:: python
 
@@ -1087,9 +1093,9 @@ Finally
 
 I thought I knew a lot about solving Wordle programmatically
 when I started this long post a month ago.
-Along the way,
+As I wrote this,
 I realized that I could use a few ugly greps
-to accomplish the same thing;
+to accomplish the same thing as my Python code;
 wrote a tool to render games as HTML and emojis;
 spun off a couple of blog posts on
 `multi-attribute enumeration`_ and `regex conjunctions`_;
@@ -1098,7 +1104,7 @@ greatly refining my understanding of the nuances;
 added a means to explain ineligibility;
 and realized that I could optimize the mask programmatically.
 
-The full code can be found in my `wordle repository`_.
+The full code can be found in my `Wordle repository`_.
 
 
 .. -------------------------------------------------------------_
