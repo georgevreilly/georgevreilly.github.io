@@ -126,9 +126,9 @@ is to codify the constraints provided by previous guess–score pairs
 and run through the entire list of words
 to find eligible words.
 But no human solves Wordle by methodically examining thousands of words.
-Instead it's racking your brain for
+Instead, you rack your brain for
 “what ends in ``SE`` and has an ``M``?” or
-“I've tried ``A``, ``E``, and ``I``; let's try ``O`` or ``U``,” or
+“I've tried ``A``, ``E``, and ``I``; will ``O`` or ``U`` work?” or
 “What are the most likely letters left on the keyboard at the bottom?”
 
 This article will show you how to solve Wordle programmatically.
@@ -139,9 +139,10 @@ though you may understand more about the game when you're finished reading.
 Prototyping with Pipes
 ----------------------
 
-Let's prototype the above constraints with a series of ``grep``\ s
+Let's prototype the above constraints with a series of `grep's`__
 in a `Unix pipeline`__ tailored to this ``OCEAN`` example:
 
+__ https://www.cyberciti.biz/faq/howto-use-grep-command-in-linux-unix/
 __ https://en.wikipedia.org/wiki/Pipeline_(Unix)
 
 .. code-block:: bash
@@ -189,7 +190,7 @@ For example, after ``grep '^..E..$'``,
 the ``E`` in ``awk '/C/ && /E/'`` is redundant.
 We're not going to optimize the regexes, however.
 
-Three of the four answers–``ICENI``, ``ILEAC``, and ``OLEIC``—\
+Three of the four answers—``ICENI``, ``ILEAC``, and ``OLEIC``—\
 are far too obscure to be Wordle answers.
 Actual Wordle answers also exclude simple plurals (``YARDS``)
 and simple past tense (``LIKED``),
@@ -457,7 +458,7 @@ who demonstrated that the task could also be accomplished in a six-line pipeline
 
 Wordle can also be solved with a six-line pipeline,
 but it's quite difficult to type correctly
-and the regexes have to be carefully constructed by hand
+and the regexes have to be carefully tailored by hand
 for each set of guess–score pairs.
 There is no one general six-line pipeline.
 
@@ -467,6 +468,7 @@ that can be built upon in many ways.
 
 __ https://www.spinellis.gr/blog/20200225/
 __ http://www.literateprogramming.com/
+
 
 Does it Work?
 -------------
@@ -491,6 +493,7 @@ Let's try it!:
 
 This looks right
 but there are some subtle bugs in the code.
+
 
 Fifty is the new Witty
 ----------------------
@@ -579,7 +582,7 @@ the ``T`` at position 5 in ``BUILT`` are “present”
 because they are the only ``T`` in those guesses.
 
 When there are two ``T``\ s in a guess, but only one ``T`` in the answer,
-one of the ``T``\ s will either be “correct” or “present”. 
+one of the ``T``\ s will either be “correct” or “present”.
 The second, superfluous ``T`` will be “absent”.
 
 
@@ -638,6 +641,7 @@ We'll come back to this soon.
 
 The Problem of Repeated Letters
 -------------------------------
+
 There's a problem that we haven't grappled with properly yet:
 *repeated letters* in a guess or in an answer.
 We've made an implicit assumption that there are five distinct letters
@@ -1071,6 +1075,7 @@ the time drops to about 500 milliseconds (further 4x improvement).
     pattern = re.compile("".join(m or "." for m in parsed_guesses.mask))
     word_list = [w for w in vocabulary if pattern.fullmatch(w)]
     eligible = parsed_guesses.find_eligible(word_list)
+
 
 Finally
 -------
