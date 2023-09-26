@@ -459,8 +459,8 @@ Knuth turned in an eight-page gem of WEB, which was reviewed by Doug McIlroy,
 who demonstrated that the task could also be accomplished in a six-line pipeline.
 
 Wordle can also be solved with a six-line pipeline,
-but it's quite difficult to type correctly
-and the regexes have to be carefully tailored by hand
+but the regexes are quite difficult to type correctly
+and they have to be carefully hand tailored
 for each set of guess–score pairs.
 There is no one general six-line pipeline.
 
@@ -730,7 +730,7 @@ for each guess–score pair.
 2. Add “absent” tiles to either ``invalid`` or ``wrong_spot``.
 
 We need the second pass to handle a case like ``WITTY=.I.TY``,
-where the “absent” ``T`` precedes the “correct” ``T``:
+where the “absent” ``3:T`` precedes the “correct” ``4:T``:
 the ``valid`` set must be fully updated before we process “absent” tiles.
 
 .. wordle5
@@ -766,8 +766,8 @@ the ``valid`` set must be fully updated before we process “absent” tiles.
 
             return cls(mask, valid, invalid, wrong_spot, guess_scores)
 
-We can see that ``valid`` and ``invalid`` must be disjoint.
-We do not need to change ``is_eligible``.
+We can see that ``valid`` and ``invalid`` are disjoint.
+The ``is_eligible`` method needs no changes.
 
 Let's try the ``WRITE`` example again:
 
@@ -793,6 +793,7 @@ And ``STYLE``?
     STYLE
 
 Both the second and third ``wrong_spot``\ s now have an ``E``.
+The “absent” ``3:L`` from ``BELLE`` is also in the third ``wrong_spot``.
 
 What about some other examples?
 
@@ -837,7 +838,8 @@ you should swap the ``L`` and ``E``
 to guess ``ANGEL`` on your next turn.
 Or swap the ``P`` and ``T`` in ``SPRAT=SpRAt`` to guess ``STRAP``.
 
-Similarly, ``TENET=TEN.t`` tells you that the fourth letter must be ``T``,
+Similarly, ``TENET=TEN.t`` tells you that
+the fourth letter of the answer must be ``T``,
 while ``CHORE=C.OrE`` must have ``2:R``.
 
 A more complex example:
@@ -854,7 +856,7 @@ in positions 5 (``l...r``), 2 (``.r..l``), and 4 (``Blur.``).
 The ``B`` is correct in position 1, so ``R`` must be in position 3.
 
 The ``L`` is in the wrong spot in positions 1, 5, and 2.
-``B`` is in 1, ``R`` is now in 3, so that leaves only position 4.
+``B`` is in position 1, ``R`` is now in 3, so that leaves only position 4.
 
 There remain two possibilities for ``U``\
 —positions 2 and 5—\
@@ -879,13 +881,13 @@ Let's optimize the mask programmatically.
 First, we loop through all the guess–score pairs,
 building a ``valid`` multiset of the “correct” and “present” letters.
 Then we subtract a multiset of the “correct” letters,
-leaving us with a multiset of the “present” letters.
+yielding a multiset of the “present” letters.
 To account for repeated letters,
 such as the two ``T``\ s in ``TENET=TEN.t``,
 we use Python's ``collections.Counter`` as a multiset_.
 
 We loop over ``present``, trying for each letter
-to find a single position where it can be placed.
+to find a single empty position where it can be placed in the mask.
 If there is such a position,
 we update ``mask2`` and break out of the inner loop.
 If there isn't (as in the two possibilities for ``U`` in ``BURLY``),
@@ -1054,12 +1056,13 @@ using a variation on ``is_eligible``:
 
         def find_explanations(self, vocabulary: list[str]) -> list[tuple[str, str | None]]:
             explanations = []
-            for w in vocabulary:
-                reasons = self.is_ineligible(w)
+            for word in vocabulary:
+                reasons = self.is_ineligible(word)
                 why = None
                 if reasons:
-                    why = "; ".join(f"{k}: {v}" for k, v in self.is_ineligible(w).items())
-                explanations.append((w, why))
+                    why = "; ".join(
+                        f"{k}: {v}" for k, v in self.is_ineligible(word).items())
+                explanations.append((word, why))
             return explanations
 
 This approach is slower than ``is_eligible``,
