@@ -407,8 +407,8 @@ by finding the <em>K</em> most common words from a text file.
 Knuth turned in an eight-page gem of WEB, which was reviewed by Doug McIlroy,
 who demon&shy;strat&shy;ed that the task could also be ac&shy;com&shy;plished in a six-line pipeline.</p>
 <p>Wordle can also be solved with a six-line pipeline,
-but it's quite difficult to type correctly
-and the regexes have to be carefully tailored by hand
+but the regexes are quite difficult to type correctly
+and they have to be carefully hand tailored
 for each set of guess–s&shy;core pairs.
 There is no one general six-line pipeline.</p>
 <p>I know that I'd much rather work with these Python classes.
@@ -634,7 +634,7 @@ for each guess–s&shy;core pair.</p>
 <li>Add “absent” tiles to either <tt class="docutils literal">invalid</tt> or <tt class="docutils literal">wrong_spot</tt>.</li>
 </ol>
 <p>We need the second pass to handle a case like <tt class="docutils literal"><span class="pre">WITTY=.I.TY</span></tt>,
-where the “absent” <tt class="docutils literal">T</tt> precedes the “correct” <tt class="docutils literal">T</tt>:
+where the “absent” <tt class="docutils literal">3:T</tt> precedes the “correct” <tt class="docutils literal">4:T</tt>:
 the <tt class="docutils literal">valid</tt> set must be fully updated before we process “absent” tiles.</p>
 <!-- wordle5 -->
 <pre class="code python literal-block">
@@ -668,8 +668,8 @@ the <tt class="docutils literal">valid</tt> set must be fully updated before we 
 
 </span>        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">valid</span><span class="p">,</span> <span class="n">invalid</span><span class="p">,</span> <span class="n">wrong_spot</span><span class="p">,</span> <span class="n">guess_scores</span><span class="p">)</span>
 </pre>
-<p>We can see that <tt class="docutils literal">valid</tt> and <tt class="docutils literal">invalid</tt> must be disjoint.
-We do not need to change <tt class="docutils literal">is_el&shy;i&shy;gi&shy;ble</tt>.</p>
+<p>We can see that <tt class="docutils literal">valid</tt> and <tt class="docutils literal">invalid</tt> are disjoint.
+The <tt class="docutils literal">is_el&shy;i&shy;gi&shy;ble</tt> method needs no changes.</p>
 <p>Let's try the <tt class="docutils literal">WRITE</tt> example again:</p>
 <pre class="code bash literal-block">
 <span class="c1"># answer: WRITE
@@ -688,7 +688,8 @@ We do not need to change <tt class="docutils literal">is_el&shy;i&shy;gi&shy;ble
     </span><span class="nv">wrong_spot</span><span class="o">=</span><span class="s1">'[T,E,EL,-,-]'</span>,<span class="w"> </span><span class="nv">unused</span><span class="o">=</span><span class="s1">'CDFJKMQVXYZ'</span><span class="o">)</span><span class="w">
 </span>STYLE
 </pre>
-<p>Both the second and third <tt class="docutils literal">wrong_spot</tt>s now have an <tt class="docutils literal">E</tt>.</p>
+<p>Both the second and third <tt class="docutils literal">wrong_spot</tt>s now have an <tt class="docutils literal">E</tt>.
+The “absent” <tt class="docutils literal">3:L</tt> from <tt class="docutils literal">BELLE</tt> is also in the third <tt class="docutils literal">wrong_spot</tt>.</p>
 <p>What about some other examples?</p>
 <p>In our previous attempt at fixing the bug,
 neither <tt class="docutils literal">QUICK</tt> nor <tt class="docutils literal">SPICK</tt> were found
@@ -724,7 +725,8 @@ it's im&shy;me&shy;di&shy;ate&shy;ly obvious (to a human player) that
 you should swap the <tt class="docutils literal">L</tt> and <tt class="docutils literal">E</tt>
 to guess <tt class="docutils literal">ANGEL</tt> on your next turn.
 Or swap the <tt class="docutils literal">P</tt> and <tt class="docutils literal">T</tt> in <tt class="docutils literal">SPRAT=SpRAt</tt> to guess <tt class="docutils literal">STRAP</tt>.</p>
-<p>Similarly, <tt class="docutils literal">TENET=TEN.t</tt> tells you that the fourth letter must be <tt class="docutils literal">T</tt>,
+<p>Similarly, <tt class="docutils literal">TENET=TEN.t</tt> tells you that
+the fourth letter of the answer must be <tt class="docutils literal">T</tt>,
 while <tt class="docutils literal">CHORE=C.OrE</tt> must have <tt class="docutils literal">2:R</tt>.</p>
 <p>A more complex example:</p>
 <pre class="code bash literal-block">
@@ -737,7 +739,7 @@ while <tt class="docutils literal">CHORE=C.OrE</tt> must have <tt class="docutil
 in positions 5 (<tt class="docutils literal"><span class="pre">l...r</span></tt>), 2 (<tt class="docutils literal"><span class="pre">.r..l</span></tt>), and 4 (<tt class="docutils literal">Blur.</tt>).
 The <tt class="docutils literal">B</tt> is correct in position 1, so <tt class="docutils literal">R</tt> must be in position 3.</p>
 <p>The <tt class="docutils literal">L</tt> is in the wrong spot in positions 1, 5, and 2.
-<tt class="docutils literal">B</tt> is in 1, <tt class="docutils literal">R</tt> is now in 3, so that leaves only position 4.</p>
+<tt class="docutils literal">B</tt> is in position 1, <tt class="docutils literal">R</tt> is now in 3, so that leaves only position 4.</p>
 <p>There remain two pos&shy;si&shy;bil&shy;i&shy;ties for <tt class="docutils literal">U</tt>—positions 2 and 5—so we need more in&shy;for&shy;ma&shy;tion
 than is contained in <tt class="docutils literal">mask</tt> and <tt class="docutils literal">wrong_spot</tt>
 to determine where to place it.</p>
@@ -755,12 +757,12 @@ Let's optimize the mask pro&shy;gram&shy;mat&shy;i&shy;cal&shy;ly.</p>
 <p>First, we loop through all the guess–s&shy;core pairs,
 building a <tt class="docutils literal">valid</tt> multiset of the “correct” and “present” letters.
 Then we subtract a multiset of the “correct” letters,
-leaving us with a multiset of the “present” letters.
+yielding a multiset of the “present” letters.
 To account for repeated letters,
 such as the two <tt class="docutils literal">T</tt>s in <tt class="docutils literal">TENET=TEN.t</tt>,
 we use Python's <tt class="docutils literal">col&shy;lec&shy;tions.Counter</tt> as a <a class="reference external" href="https://dbader.org/blog/sets-and-multiset-in-python">multiset</a>.</p>
 <p>We loop over <tt class="docutils literal">present</tt>, trying for each letter
-to find a single position where it can be placed.
+to find a single empty position where it can be placed in the mask.
 If there is such a position,
 we update <tt class="docutils literal">mask2</tt> and break out of the inner loop.
 If there isn't (as in the two pos&shy;si&shy;bil&shy;i&shy;ties for <tt class="docutils literal">U</tt> in <tt class="docutils literal">BURLY</tt>),
@@ -910,12 +912,13 @@ using a variation on <tt class="docutils literal">is_el&shy;i&shy;gi&shy;ble</tt
 
 </span>    <span class="k">def</span> <span class="nf">find_explanations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocabulary</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]]:</span><span class="w">
 </span>        <span class="n">explanations</span> <span class="o">=</span> <span class="p">[]</span><span class="w">
-</span>        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">vocabulary</span><span class="p">:</span><span class="w">
-</span>            <span class="n">reasons</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_ineligible</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="w">
+</span>        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">vocabulary</span><span class="p">:</span><span class="w">
+</span>            <span class="n">reasons</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_ineligible</span><span class="p">(</span><span class="n">word</span><span class="p">)</span><span class="w">
 </span>            <span class="n">why</span> <span class="o">=</span> <span class="kc">None</span><span class="w">
 </span>            <span class="k">if</span> <span class="n">reasons</span><span class="p">:</span><span class="w">
-</span>                <span class="n">why</span> <span class="o">=</span> <span class="s2">&quot;; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_ineligible</span><span class="p">(</span><span class="n">w</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">())</span><span class="w">
-</span>            <span class="n">explanations</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">w</span><span class="p">,</span> <span class="n">why</span><span class="p">))</span><span class="w">
+</span>                <span class="n">why</span> <span class="o">=</span> <span class="s2">&quot;; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="w">
+</span>                    <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_ineligible</span><span class="p">(</span><span class="n">word</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">())</span><span class="w">
+</span>            <span class="n">explanations</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">word</span><span class="p">,</span> <span class="n">why</span><span class="p">))</span><span class="w">
 </span>        <span class="k">return</span> <span class="n">explanations</span>
 </pre>
 <p>This approach is slower than <tt class="docutils literal">is_el&shy;i&shy;gi&shy;ble</tt>,
