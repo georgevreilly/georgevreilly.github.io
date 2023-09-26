@@ -74,6 +74,8 @@ it's not in column 5, but it's correct in column 3.</li>
 <tt class="docutils literal">W</tt>, <tt class="docutils literal">R</tt>, and <tt class="docutils literal">K</tt>
 do not appear anywhere in <tt class="docutils literal">OCEAN</tt>.</li>
 </ul>
+<p>(This definition of “absent” turns out to be inadequate,
+as you will discover later.)</p>
 <p>The <tt class="docutils literal">GUESS=SCORE</tt> notation is intended to be clear to read
 and also easier to write than Greens and Yellows.
 For example:</p>
@@ -102,7 +104,7 @@ are <strong>absent</strong> from the answer (black ⬛).</li>
 <p>There is a set of <em>valid</em> letters,
 <tt class="docutils literal">C</tt> and <tt class="docutils literal">E</tt>,
 that are either <em>present</em> (yellow 🟨) or <em>correct</em> (green 🟩).
-Both <tt class="docutils literal">E</tt> and <tt class="docutils literal">C</tt> are initially present,
+Both <tt class="docutils literal">E</tt> and <tt class="docutils literal">C</tt> start out as present,
 but <tt class="docutils literal">E</tt> later finds its correct position,
 while <tt class="docutils literal">C</tt> does not.</p>
 <p>There is a set of <em>invalid</em> letters that are
@@ -123,6 +125,18 @@ while the <em>present</em> letters are in the wrong positions.</p>
 <li>not match any “present” positions —  <tt class="docutils literal">1:C</tt>, <tt class="docutils literal">4:C</tt>, or <tt class="docutils literal">5:E</tt></li>
 </ol>
 <p>These con&shy;straints narrow the possible choices from the word list.</p>
+<p>The obvious way to solve this with a computer
+is to codify the con&shy;straints provided by previous guess–s&shy;core pairs
+and run through the entire list of words
+to find eligible words.
+But no human solves Wordle by me&shy;thod&shy;i&shy;cal&shy;ly examining thousands of words.
+Instead it's racking your brain for
+“what ends in <tt class="docutils literal">SE</tt> and has an <tt class="docutils literal">M</tt>?” or
+“I've tried <tt class="docutils literal">A</tt>, <tt class="docutils literal">E</tt>, and <tt class="docutils literal">I</tt>; let's try <tt class="docutils literal">O</tt> or <tt class="docutils literal">U</tt>,” or
+“What are the most likely letters left on the keyboard at the bottom?”</p>
+<p>This article will show you how to solve Wordle pro&shy;gram&shy;mat&shy;i&shy;cal&shy;ly.
+It won't help you much in playing Wordle by hand,
+though you may understand more about the game when you're finished reading.</p>
 </div>
 <div class="section" id="prototyping-with-pipes">
 <h2>Pro&shy;to&shy;typ&shy;ing with Pipes</h2>
@@ -944,23 +958,23 @@ table.wordle {
     margin-left: auto;
     margin-right: auto;
 }
-table tr td {
+table.wordle tr td {
     color: white;
     background-color: white;
     height: 62px;
     width: 62px;
     text-align: center;
 }
-table tr td.correct {
+table.wordle tr td.correct {
     background-color: #6aaa64;
 }
-table tr td.present {
+table.wordle tr td.present {
     background-color: #c9b458;
 }
-table tr td.absent {
+table.wordle tr td.absent {
     background-color: #838184;
 }
-table tr td.gs {
+table.wordle tr td.gs {
     font-family: 'Source Code Pro', monospace;
     color: black;
     font-weight: 400;
