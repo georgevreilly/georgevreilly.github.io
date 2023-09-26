@@ -856,13 +856,13 @@ in positions 5 (``l...r``), 2 (``.r..l``), and 4 (``Blur.``).
 The ``B`` is correct in position 1, so ``R`` must be in position 3.
 
 The ``L`` is in the wrong spot in positions 1, 5, and 2.
-``B`` is in position 1, ``R`` is now in 3, so that leaves only position 4.
+``B`` is in position 1, ``R`` is now in 3,
+so that leaves only position 4 for ``L``.
 
 There remain two possibilities for ``U``\
-—positions 2 and 5—\
-so we need more information
-than is contained in ``mask`` and ``wrong_spot``
-to determine where to place it.
+—positions 2 and 5;
+the information contained in ``mask`` and ``wrong_spot``
+is not enough to determine where ``U`` should go.
 
 The original mask, ``B----``, was due to having only one “correct” letter.
 Using the cumulative information in the guesses and scores,
@@ -889,7 +889,7 @@ building a ``valid`` multiset of the “correct” and “present” letters.
 Then we subtract a multiset of the “correct” letters,
 yielding a multiset of the “present” letters.
 
-We loop over ``present``, trying for each letter
+Second, we loop over ``present``, trying for each letter
 to find a single empty position where it can be placed in the mask.
 If there is such a position,
 we update ``mask2``, remove the letter from ``present``,
@@ -1101,8 +1101,9 @@ spun off a couple of blog posts on
 `multi-attribute enumeration`_ and `regex conjunctions`_;
 found and fixed several bugs with repeated letters,
 greatly refining my understanding of the nuances;
+rewrote the sections on repeated letters repeatedly;
 added a means to explain ineligibility;
-and realized that I could optimize the mask programmatically.
+and discovered that I could optimize the mask programmatically.
 
 The full code can be found in my `Wordle repository`_.
 
