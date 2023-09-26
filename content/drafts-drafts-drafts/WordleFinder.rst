@@ -57,6 +57,9 @@ The letters of each guess are colored Green, Yellow, or Black (dark-gray).
   ``W``, ``R``, and ``K``
   do not appear anywhere in ``OCEAN``.
 
+(This definition of “absent” turns out to be inadequate,
+as you will discover later.)
+
 The ``GUESS=SCORE`` notation is intended to be clear to read
 and also easier to write than Greens and Yellows.
 For example:
@@ -92,7 +95,7 @@ What can we deduce from the first three rows of guesses,
 There is a set of *valid* letters,
 ``C`` and ``E``,
 that are either *present* (yellow 🟨) or *correct* (green 🟩).
-Both ``E`` and ``C`` are initially present,
+Both ``E`` and ``C`` start out as present,
 but ``E`` later finds its correct position,
 while ``C`` does not.
 
@@ -117,6 +120,20 @@ A candidate word *must*:
 4. not match any “present” positions —  ``1:C``, ``4:C``, or ``5:E``
 
 These constraints narrow the possible choices from the word list.
+
+The obvious way to solve this with a computer
+is to codify the constraints provided by previous guess–score pairs
+and run through the entire list of words
+to find eligible words.
+But no human solves Wordle by methodically examining thousands of words.
+Instead it's racking your brain for
+“what ends in ``SE`` and has an ``M``?” or
+“I've tried ``A``, ``E``, and ``I``; let's try ``O`` or ``U``,” or
+“What are the most likely letters left on the keyboard at the bottom?”
+
+This article will show you how to solve Wordle programmatically.
+It won't help you much in playing Wordle by hand,
+though you may understand more about the game when you're finished reading.
 
 
 Prototyping with Pipes
@@ -1089,23 +1106,23 @@ The full code can be found in my `wordle repository`_.
         margin-left: auto;
         margin-right: auto;
     }
-    table tr td {
+    table.wordle tr td {
         color: white;
         background-color: white;
         height: 62px;
         width: 62px;
         text-align: center;
     }
-    table tr td.correct {
+    table.wordle tr td.correct {
         background-color: #6aaa64;
     }
-    table tr td.present {
+    table.wordle tr td.present {
         background-color: #c9b458;
     }
-    table tr td.absent {
+    table.wordle tr td.absent {
         background-color: #838184;
     }
-    table tr td.gs {
+    table.wordle tr td.gs {
         font-family: 'Source Code Pro', monospace;
         color: black;
         font-weight: 400;
