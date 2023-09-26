@@ -333,7 +333,7 @@ and the associated <tt class="docutils literal">TileState</tt>s.</li>
 </span>        <span class="k">return</span> <span class="n">separator</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">emoji</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">tiles</span><span class="p">)</span>
 </pre>
 <p>For brevity, I presented a minimal version of <tt class="docutils literal">GuessScore.make</tt> above.
-The version in my <a class="reference external" href="https://github.com/georgevreilly/wordle">wordle repository</a> has robust validation.</p>
+The version in my <a class="reference external" href="https://github.com/georgevreilly/wordle">Wordle repository</a> has robust validation.</p>
 <p>Let's add the main class, <tt class="docutils literal">WordleGuess&shy;es</tt>:</p>
 <!-- wordle2 -->
 <pre class="code python literal-block">
@@ -754,17 +754,20 @@ we couldn't uniquely determine a place for <tt class="docutils literal">L</tt>
 until we had already placed <tt class="docutils literal">R</tt>.</p>
 <p>Up to now, we've been treating each tile in almost complete isolation.
 Let's optimize the mask pro&shy;gram&shy;mat&shy;i&shy;cal&shy;ly.</p>
-<p>First, we loop through all the guess–s&shy;core pairs,
+<p>To account for repeated letters,
+such as the two <tt class="docutils literal">T</tt>s in <tt class="docutils literal">TENET=TEN.t</tt>,
+we use Python's <tt class="docutils literal">col&shy;lec&shy;tions.Counter</tt> as a <a class="reference external" href="https://dbader.org/blog/sets-and-multiset-in-python">multiset</a>.
+<tt class="docutils literal">Counter</tt>'s union operation, <tt class="docutils literal">|=</tt>,
+computes the maximum of cor&shy;re&shy;spond&shy;ing counts.</p>
+<p>First, we loop through <em>all</em> the guess–s&shy;core pairs,
 building a <tt class="docutils literal">valid</tt> multiset of the “correct” and “present” letters.
 Then we subtract a multiset of the “correct” letters,
-yielding a multiset of the “present” letters.
-To account for repeated letters,
-such as the two <tt class="docutils literal">T</tt>s in <tt class="docutils literal">TENET=TEN.t</tt>,
-we use Python's <tt class="docutils literal">col&shy;lec&shy;tions.Counter</tt> as a <a class="reference external" href="https://dbader.org/blog/sets-and-multiset-in-python">multiset</a>.</p>
+yielding a multiset of the “present” letters.</p>
 <p>We loop over <tt class="docutils literal">present</tt>, trying for each letter
 to find a single empty position where it can be placed in the mask.
 If there is such a position,
-we update <tt class="docutils literal">mask2</tt> and break out of the inner loop.
+we update <tt class="docutils literal">mask2</tt>, remove the letter from <tt class="docutils literal">present</tt>,
+and break out of the inner loop.
 If there isn't (as in the two pos&shy;si&shy;bil&shy;i&shy;ties for <tt class="docutils literal">U</tt> in <tt class="docutils literal">BURLY</tt>),
 then we use the little-known <a class="reference external" href="https://python-notes.curiousefficiency.org/en/latest/python_concepts/break_else.html">break-else</a> construct
 to exit from the outer loop.</p>
@@ -910,7 +913,9 @@ using a variation on <tt class="docutils literal">is_el&shy;i&shy;gi&shy;ble</tt
 
 </span>        <span class="k">return</span> <span class="n">reasons</span><span class="w">
 
-</span>    <span class="k">def</span> <span class="nf">find_explanations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocabulary</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]]:</span><span class="w">
+</span>    <span class="k">def</span> <span class="nf">find_explanations_</span><span class="p">(</span><span class="w">
+</span>        <span class="bp">self</span><span class="p">,</span> <span class="n">vocabulary</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="w">
+</span>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]]:</span><span class="w">
 </span>        <span class="n">explanations</span> <span class="o">=</span> <span class="p">[]</span><span class="w">
 </span>        <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">vocabulary</span><span class="p">:</span><span class="w">
 </span>            <span class="n">reasons</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_ineligible</span><span class="p">(</span><span class="n">word</span><span class="p">)</span><span class="w">
@@ -929,7 +934,7 @@ that runs through the 200+ games that I've recorded.
 Using <tt class="docutils literal">find&shy;_&shy;ex&shy;pla&shy;na&shy;tions</tt>, it took about 10 seconds to run.
 Switching to <tt class="docutils literal">find&shy;_el&shy;i&shy;gi&shy;ble</tt>, it dropped to 2 seconds (5x im&shy;prove&shy;ment).
 By pre&shy;filter&shy;ing the word list with a regex made from the mask,
-the time drops to about 500 mil&shy;lisec&shy;onds (further 4x im&shy;prove&shy;ment).</p>
+the time drops to half a second (further 4x im&shy;prove&shy;ment).</p>
 <pre class="code python literal-block">
 <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">m</span> <span class="ow">or</span> <span class="s2">&quot;.&quot;</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">parsed_guesses</span><span class="o">.</span><span class="n">mask</span><span class="p">))</span><span class="w">
 </span><span class="n">word_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">vocabulary</span> <span class="k">if</span> <span class="n">pattern</span><span class="o">.</span><span class="n">fullmatch</span><span class="p">(</span><span class="n">w</span><span class="p">)]</span><span class="w">
@@ -940,9 +945,9 @@ the time drops to about 500 mil&shy;lisec&shy;onds (further 4x im&shy;prove&shy;
 <h2>Finally</h2>
 <p>I thought I knew a lot about solving Wordle pro&shy;gram&shy;mat&shy;i&shy;cal&shy;ly
 when I started this long post a month ago.
-Along the way,
+As I wrote this,
 I realized that I could use a few ugly greps
-to accomplish the same thing;
+to accomplish the same thing as my Python code;
 wrote a tool to render games as HTML and emojis;
 spun off a couple of blog posts on
 <a class="reference external" href="/blog/2023/09/02/PythonEnumsWithAttributes.html">multi-attribute enu&shy;mer&shy;a&shy;tion</a> and <a class="reference external" href="/blog/2023/09/05/RegexConjunctions.html">regex con&shy;junc&shy;tions</a>;
@@ -950,7 +955,7 @@ found and fixed several bugs with repeated letters,
 greatly refining my un&shy;der&shy;stand&shy;ing of the nuances;
 added a means to explain in&shy;el&shy;i&shy;gi&shy;bil&shy;i&shy;ty;
 and realized that I could optimize the mask pro&shy;gram&shy;mat&shy;i&shy;cal&shy;ly.</p>
-<p>The full code can be found in my <a class="reference external" href="https://github.com/georgevreilly/wordle">wordle repository</a>.</p>
+<p>The full code can be found in my <a class="reference external" href="https://github.com/georgevreilly/wordle">Wordle repository</a>.</p>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -_ -->
 <!-- Sticking the Wordle stylesheet at the end out of the way -->
 <style>
