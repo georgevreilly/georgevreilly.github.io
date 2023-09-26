@@ -130,9 +130,9 @@ is to codify the con&shy;straints provided by previous guess–s&shy;core pairs
 and run through the entire list of words
 to find eligible words.
 But no human solves Wordle by me&shy;thod&shy;i&shy;cal&shy;ly examining thousands of words.
-Instead it's racking your brain for
+Instead, you rack your brain for
 “what ends in <tt class="docutils literal">SE</tt> and has an <tt class="docutils literal">M</tt>?” or
-“I've tried <tt class="docutils literal">A</tt>, <tt class="docutils literal">E</tt>, and <tt class="docutils literal">I</tt>; let's try <tt class="docutils literal">O</tt> or <tt class="docutils literal">U</tt>,” or
+“I've tried <tt class="docutils literal">A</tt>, <tt class="docutils literal">E</tt>, and <tt class="docutils literal">I</tt>; will <tt class="docutils literal">O</tt> or <tt class="docutils literal">U</tt> work?” or
 “What are the most likely letters left on the keyboard at the bottom?”</p>
 <p>This article will show you how to solve Wordle pro&shy;gram&shy;mat&shy;i&shy;cal&shy;ly.
 It won't help you much in playing Wordle by hand,
@@ -140,7 +140,7 @@ though you may understand more about the game when you're finished reading.</p>
 </div>
 <div class="section" id="prototyping-with-pipes">
 <h2>Pro&shy;to&shy;typ&shy;ing with Pipes</h2>
-<p>Let's prototype the above con&shy;straints with a series of <tt class="docutils literal">grep</tt>s
+<p>Let's prototype the above con&shy;straints with a series of <a class="reference external" href="https://www.cyberciti.biz/faq/howto-use-grep-command-in-linux-unix/">grep's</a>
 in a <a class="reference external" href="https://en.wikipedia.org/wiki/Pipeline_(Unix)">Unix pipeline</a> tailored to this <tt class="docutils literal">OCEAN</tt> example:</p>
 <pre class="code bash literal-block">
 <span class="c1"># JUDGE=....e CHEST=c.E.. WRECK=..Ec.
@@ -174,7 +174,7 @@ They could be simplified.
 For example, after <tt class="docutils literal">grep <span class="pre">'^..E..$'</span></tt>,
 the <tt class="docutils literal">E</tt> in <tt class="docutils literal">awk '/C/ &amp;&amp; /E/'</tt> is redundant.
 We're not going to optimize the regexes, however.</p>
-<p>Three of the four answers–<tt class="docutils literal">ICENI</tt>, <tt class="docutils literal">ILEAC</tt>, and <tt class="docutils literal">OLEIC</tt>—are far too obscure to be Wordle answers.
+<p>Three of the four answers—<tt class="docutils literal">ICENI</tt>, <tt class="docutils literal">ILEAC</tt>, and <tt class="docutils literal">OLEIC</tt>—are far too obscure to be Wordle answers.
 Actual Wordle answers also exclude simple plurals (<tt class="docutils literal">YARDS</tt>)
 and simple past tense (<tt class="docutils literal">LIKED</tt>),
 but allow more complex plurals (<tt class="docutils literal">BOXES</tt>)
@@ -406,7 +406,7 @@ Knuth turned in an eight-page gem of WEB, which was reviewed by Doug McIlroy,
 who demon&shy;strat&shy;ed that the task could also be ac&shy;com&shy;plished in a six-line pipeline.</p>
 <p>Wordle can also be solved with a six-line pipeline,
 but it's quite difficult to type correctly
-and the regexes have to be carefully con&shy;struct&shy;ed by hand
+and the regexes have to be carefully tailored by hand
 for each set of guess–s&shy;core pairs.
 There is no one general six-line pipeline.</p>
 <p>I know that I'd much rather work with these Python classes.
