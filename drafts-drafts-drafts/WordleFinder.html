@@ -31,7 +31,7 @@
     
         <article>
     <header>
-        <time datetime="2023-09-25">2023-09-25</time>
+        <time datetime="2023-09-26">2023-09-26</time>
         <h1>
             <a href="/drafts-drafts-drafts/WordleFinder.html" rel="bookmark canonical">Wordle Finder</a>
         </h1>
@@ -739,10 +739,11 @@ while <tt class="docutils literal">CHORE=C.OrE</tt> must have <tt class="docutil
 in positions 5 (<tt class="docutils literal"><span class="pre">l...r</span></tt>), 2 (<tt class="docutils literal"><span class="pre">.r..l</span></tt>), and 4 (<tt class="docutils literal">Blur.</tt>).
 The <tt class="docutils literal">B</tt> is correct in position 1, so <tt class="docutils literal">R</tt> must be in position 3.</p>
 <p>The <tt class="docutils literal">L</tt> is in the wrong spot in positions 1, 5, and 2.
-<tt class="docutils literal">B</tt> is in position 1, <tt class="docutils literal">R</tt> is now in 3, so that leaves only position 4.</p>
-<p>There remain two pos&shy;si&shy;bil&shy;i&shy;ties for <tt class="docutils literal">U</tt>—positions 2 and 5—so we need more in&shy;for&shy;ma&shy;tion
-than is contained in <tt class="docutils literal">mask</tt> and <tt class="docutils literal">wrong_spot</tt>
-to determine where to place it.</p>
+<tt class="docutils literal">B</tt> is in position 1, <tt class="docutils literal">R</tt> is now in 3,
+so that leaves only position 4 for <tt class="docutils literal">L</tt>.</p>
+<p>There remain two pos&shy;si&shy;bil&shy;i&shy;ties for <tt class="docutils literal">U</tt>—positions 2 and 5;
+the in&shy;for&shy;ma&shy;tion contained in <tt class="docutils literal">mask</tt> and <tt class="docutils literal">wrong_spot</tt>
+is not enough to determine where <tt class="docutils literal">U</tt> should go.</p>
 <p>The original mask, <tt class="docutils literal"><span class="pre">B----</span></tt>, was due to having only one “correct” letter.
 Using the cumulative in&shy;for&shy;ma&shy;tion in the guesses and scores,
 we can infer a mask of <tt class="docutils literal"><span class="pre">B-RL-</span></tt>.</p>
@@ -763,7 +764,7 @@ computes the maximum of cor&shy;re&shy;spond&shy;ing counts.</p>
 building a <tt class="docutils literal">valid</tt> multiset of the “correct” and “present” letters.
 Then we subtract a multiset of the “correct” letters,
 yielding a multiset of the “present” letters.</p>
-<p>We loop over <tt class="docutils literal">present</tt>, trying for each letter
+<p>Second, we loop over <tt class="docutils literal">present</tt>, trying for each letter
 to find a single empty position where it can be placed in the mask.
 If there is such a position,
 we update <tt class="docutils literal">mask2</tt>, remove the letter from <tt class="docutils literal">present</tt>,
@@ -953,8 +954,9 @@ spun off a couple of blog posts on
 <a class="reference external" href="/blog/2023/09/02/PythonEnumsWithAttributes.html">multi-attribute enu&shy;mer&shy;a&shy;tion</a> and <a class="reference external" href="/blog/2023/09/05/RegexConjunctions.html">regex con&shy;junc&shy;tions</a>;
 found and fixed several bugs with repeated letters,
 greatly refining my un&shy;der&shy;stand&shy;ing of the nuances;
+rewrote the sections on repeated letters re&shy;peat&shy;ed&shy;ly;
 added a means to explain in&shy;el&shy;i&shy;gi&shy;bil&shy;i&shy;ty;
-and realized that I could optimize the mask pro&shy;gram&shy;mat&shy;i&shy;cal&shy;ly.</p>
+and discovered that I could optimize the mask pro&shy;gram&shy;mat&shy;i&shy;cal&shy;ly.</p>
 <p>The full code can be found in my <a class="reference external" href="https://github.com/georgevreilly/wordle">Wordle repository</a>.</p>
 <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -_ -->
 <!-- Sticking the Wordle stylesheet at the end out of the way -->
