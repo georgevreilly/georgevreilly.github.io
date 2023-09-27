@@ -220,6 +220,27 @@ This approach is promising,
 but constructing those regexes by hand is not maintainable.
 
 
+Word Lists
+----------
+
+There are several sources of five-letter words.
+
+* Filtering ``/usr/share/dict/words`` or similar lists.
+* `wordle.txt`_: The nearly 15,000 words that Wordle accepts as entries.
+  Many of these words are obscure.
+* `answers.txt`_: The 2,309 words that Wordle uses as answers.
+  These words are fairly recognizable.
+  They are a subset of the other list.
+
+The latter two lists were extracted from the source code of the game.
+In the various examples below, I use the larger 15,000-word list.
+
+.. _wordle.txt:
+    https://github.com/georgevreilly/wordle/blob/main/wordle.txt
+.. _answers.txt:
+    https://github.com/georgevreilly/wordle/blob/main/answers.txt
+
+
 Initial Python Solution
 -----------------------
 
