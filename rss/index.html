@@ -177,6 +177,20 @@ INDEX
 &lt;p&gt;This approach is promising,
 but constructing those regexes by hand is not maintainable.&lt;/p&gt;
 &lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;word-lists&#34;&gt;
+&lt;h3&gt;Word Lists&lt;/h3&gt;
+&lt;p&gt;There are several sources of five-letter words.&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;Filtering &lt;tt class=&#34;docutils literal&#34;&gt;/usr/share/dict/words&lt;/tt&gt; or similar lists.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://github.com/georgevreilly/wordle/blob/main/wordle.txt&#34;&gt;wordle.txt&lt;/a&gt;: The nearly 15,000 words that Wordle accepts as entries.
+Many of these words are obscure.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://github.com/georgevreilly/wordle/blob/main/answers.txt&#34;&gt;answers.txt&lt;/a&gt;: The 2,309 words that Wordle uses as answers.
+These words are fairly recognizable.
+They are a subset of the other list.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The latter two lists were extracted from the source code of the game.
+In the various examples below, I use the larger 15,000-word list.&lt;/p&gt;
+&lt;/div&gt;
 &lt;div class=&#34;section&#34; id=&#34;initial-python-solution&#34;&gt;
 &lt;h3&gt;Initial Python Solution&lt;/h3&gt;
 &lt;p&gt;Let&#39;s attempt to solve this in Python.

@@ -201,6 +201,20 @@ INDEX
 <p>This approach is promising,
 but con&shy;struct&shy;ing those regexes by hand is not main&shy;tain&shy;able.</p>
 </div>
+<div class="section" id="word-lists">
+<h2>Word Lists</h2>
+<p>There are several sources of five-letter words.</p>
+<ul class="simple">
+<li>Filtering <tt class="docutils literal">/usr/share/dict/words</tt> or similar lists.</li>
+<li><a class="reference external" href="https://github.com/georgevreilly/wordle/blob/main/wordle.txt">wordle.txt</a>: The nearly 15,000 words that Wordle accepts as entries.
+Many of these words are obscure.</li>
+<li><a class="reference external" href="https://github.com/georgevreilly/wordle/blob/main/answers.txt">answers.txt</a>: The 2,309 words that Wordle uses as answers.
+These words are fairly rec&shy;og&shy;niz&shy;able.
+They are a subset of the other list.</li>
+</ul>
+<p>The latter two lists were extracted from the source code of the game.
+In the various examples below, I use the larger 15,000-word list.</p>
+</div>
 <div class="section" id="initial-python-solution">
 <h2>Initial Python Solution</h2>
 <p>Let's attempt to solve this in Python.
