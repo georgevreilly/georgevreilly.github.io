@@ -1,11 +1,9 @@
 ---
-title: "Wordle Finder"
-# date: "2023-09-dd"
-# permalink: "/2023/09/dd/TheSlugGoesHere.html"
-permalink: "/drafts-drafts-drafts/WordleFinder.html"
+title: "Exploring Wordle"
+date: "2023-09-26"
+permalink: "/2023/09/26/ExploringWordle.html"
 tags: [python, wordle]
 filter: notypography
-draft: true
 ---
 
 Unless YOUVE LIVED UNDER ROCKS, you've heard of Wordle_,
