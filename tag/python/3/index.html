@@ -29,6 +29,47 @@
     
         <article>
     <header>
+        <time datetime="2016-03-06">2016-03-06</time>
+        <h1>
+            <a href="/blog/2016/03/06/psutil-kill.html" rel="bookmark canonical">psutil kill</a>
+        </h1>
+    </header>
+    <p>From Python, I needed to find a process
+that was performing SSH tunneling on port 8080
+and kill it.</p>
+<p>The following works in Bash:</p>
+<pre class="code bash literal-block">
+ps aux <span class="p">|</span> grep <span class="o">[</span>s<span class="o">]</span>sh.*:8080 <span class="p">|</span> awk <span class="s1">'{print $2}'</span> <span class="p">|</span> xargs <span class="nb">kill</span> -9
+</pre>
+<p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
+won't make it through to <tt class="docutils literal">awk</tt>.</p>
+<p>Here's what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
+<pre class="code python literal-block">
+<span class="k">def</span> <span class="nf">kill_port_forwarding</span><span class="p">(</span><span class="n">host_port</span><span class="p">):</span>
+    <span class="n">ssh_args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;-L&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">:localhost:</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host_port</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">process_iter</span><span class="p">():</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'ssh'</span><span class="p">):</span>
+       </pre><span>&#8230;<a href="/blog/2016/03/06/psutil-kill.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-03-02">2016-03-02</time>
         <h1>
             <a href="/blog/2016/03/02/PythonImportSubclassFromDynamicPath.html" rel="bookmark canonical">Python: Import subclass from dynamic path</a>
@@ -394,47 +435,6 @@ as <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-30">2015-12-30</time>
-        <h1>
-            <a href="/blog/2015/12/30/UseForPythonNestedListComprehensions.html" rel="bookmark canonical">Python: a use for nested list comprehensions</a>
-        </h1>
-    </header>
-    <p>I wanted to turn a list like
-<tt class="docutils literal"><span class="pre">['*.zip',</span> <span class="pre">'*.pyc',</span> <span class="pre">'*.log']</span></tt> into
-<tt class="docutils literal"><span class="pre">['--exclude',</span> <span class="pre">'*.zip',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.pyc',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.log']</span></tt>.</p>
-<p>A simple list com&shy;pre&shy;hen&shy;sion doesn't work as desired:</p>
-<pre class="code pycon literal-block">
-<span class="go">In [1]: excludes = ['*.zip', '*.pyc', '*.log']
-
-In [2]: [('--exclude', e) for e in excludes]
-Out[2]: [('--exclude', '*.zip'), ('--exclude', '*.pyc'), ('--exclude', '*.log')]</span>
-</pre>
-<p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com&shy;pre&shy;hen&shy;sion</a>:</p>
-<pre class="code pycon literal-block">
-<span class="go">In [5]: [arg for pattern in excludes
-             for arg in ['--exclude', pattern]]
-Out[5]: ['--exclude', '*.zip', '--exclude', '*.pyc', '--exclude', '*.log']</span>
-</pre>
-
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

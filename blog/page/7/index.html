@@ -29,6 +29,51 @@
     
         <article>
     <header>
+        <time datetime="2017-01-19">2017-01-19</time>
+        <h1>
+            <a href="/blog/2017/01/19/BashEchoSuccessOfPreviousCommand.html" rel="bookmark canonical">Bash: echo success of previous command</a>
+        </h1>
+    </header>
+    <p>C-like languages have a ternary operator,
+<tt class="docutils literal">cond ? true_re&shy;sult : false_re&shy;sult</tt>.
+Python has <tt class="docutils literal">true_re&shy;sult if cond else false_re&shy;sult</tt>.
+Bash doesn&#8217;t have a ternary operator, but there are <a class="reference external" href="http://stackoverflow.com/a/3953712/6364">various workarounds</a>.</p>
+<p>I wanted to print <tt class="docutils literal">succeeded</tt> or <tt class="docutils literal">failed</tt>
+based on the exit code of the previous command
+in a shell script.
+In Unix, all programs exit with an integer status code.
+Successful programs exit with <tt class="docutils literal">0</tt>;
+all other values, positive or negative, indicate <a class="reference external" href="http://www-numi.fnal.gov/offline_software/srt_public_context/WebDocs/Errors/unix_system_errors.html">failure</a>.
+In Bash, the <a class="reference external" href="http://tldp.org/LDP/abs/html/exit-status.html">status code</a> of the previous program is held in <tt class="docutils literal">$?</tt>.</p>
+<pre class="code bash literal-block">
+some/command or-other fer example
+
+<span class="nv"><span class="caps">STATUS</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$?</span><span class="s2">&quot;</span> <span class="o">==</span> <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nb">echo</span> <span class="s1">'succeeded'</span> <span class="o">||</span> <span class="nb">echo</span> <span class="s1">'failed'</span><span class="k">)</span><span class="s2">&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;Results: </span><span class="nv">$<span class="caps">STATUS</span></span><span class="s2">&quot;</span>
+</pre>
+<p>There are <a class="reference external" href="http://stackoverflow.com/a/3953712/6364">other ways</a> to handle&nbsp;this.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/01/19/BashEchoSuccessOfPreviousCommand.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/bash/" rel="tag">bash</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2017-01-18">2017-01-18</time>
         <h1>
             <a href="/blog/2017/01/18/Movember2016.html" rel="bookmark canonical">Movember 2016</a>
@@ -405,58 +450,6 @@ I put a lot of effort into making <span>&#8230;<a href="/blog/2017/01/10/LKRhash
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2017-01-09">2017-01-09</time>
-        <h1>
-            <a href="/blog/2017/01/09/ReviewWatchYourBack.html" rel="bookmark canonical">Review: Watch Your Back!</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/0446617121/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: Watch Your Back!</div>
-<div class="line">Author: Donald E. Westlake</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Warner</div>
-<div class="line">Copyright: 2005</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0446617121/?tag=georgvreill-20">0446617121</a></div>
-<div class="line">Pages: 345</div>
-<div class="line">Keywords: crime, humor</div>
-<div class="line">Reading period: 9 January, 2017</div>
-</div>
-<p><em>Watch Your Back!</em> is one of the last <a class="reference external" href="/blog/2016/05/31/ReviewJimmyTheKidAudiobook.html">Dortmunder novels</a>,
-Westlake&#8217;s comic series about an <a class="reference external" href="https://en.wikipedia.org/wiki/John_Dortmunder">unlucky crook</a>
-published between 1970 and 2008.
-Dortmunder and his crew have a sweet lead on an unoccupied penthouse apartment,
-but their usual planning space, the <span class="caps">O.J.</span> Bar <span class="amp">&amp;</span> Grill,
-has been turned into a <a class="reference external" href="http://www.zerohedge.com/article/guest-post-busting-out-joint">bust-out joint</a> by the Jersey mob.
-So now they have two jobs to pull:
-rob the obnoxious rich guy&#8217;s art and save the <span class="caps">O.J.
-</span>Of course, com&shy;pli&shy;ca&shy;tions arise
-because nothing ever goes to plan in a Dortmunder&nbsp;book.</p>
-<p>Enjoyable.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/01/09/ReviewWatchYourBack.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>,
-                <a href="/tag/crime/" rel="tag">crime</a>
-                    and
-                    
-                <a href="/tag/humor/" rel="tag">humor</a>
                 
             </p>
         

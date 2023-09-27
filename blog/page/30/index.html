@@ -29,6 +29,54 @@
     
         <article>
     <header>
+        <time datetime="2016-01-22">2016-01-22</time>
+        <h1>
+            <a href="/blog/2016/01/22/PythonRecursiveGenerators.html" rel="bookmark canonical">Recursive Generators in Python 2 and 3</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+<p>Generators decouple iteration from the code
+that uses the results of the&nbsp;iteration.</p>
+<p class="attribution">&mdash;David Beazley, <a class="reference external" href="https://www.dabeaz.com/generators/">Generators</a></p>
+</blockquote>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>Python generators have a <a class="reference external" href="https://www.dabeaz.com/generators/">variety of uses</a>.
+One such is to lazily evaluate sequences.
+Another is for <a class="reference external" href="https://www.dabeaz.com/coroutines/">coroutines</a>.
+Yet another is to re&shy;cur&shy;sive&shy;ly traverse a tree or a graph,
+yielding an iterable&nbsp;sequence.</p>
+<p>Consider this simple tree of&nbsp;nodes:</p>
+<pre class="code python literal-block">
+<span class="n">node_tree</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span>
+    <span class="s1">'a'</span><span class="p">,</span> <span class="p">[</span>
+        <span class="n">Node</span><span class="p">(</span><span class="s1">'b'</span><span class="p">,</span> <span class="p">[</span>
+            <span class="n">Node</span><span class="p">(</span><span class="s1">'e'</span><span class="p">,</span> <span class="p">[</span>
+                <span class="n">Node</span><span class="p">(</span><span class="s1">'g'</span><span class="p">)</span>
+    </pre><span>&#8230;<a href="/blog/2016/01/22/PythonRecursiveGenerators.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/22/PythonRecursiveGenerators.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-21">2016-01-21</time>
         <h1>
             <a href="/blog/2016/01/21/ReviewTheBlackEyedBlonde.html" rel="bookmark canonical">Review: The Black-Eyed Blonde</a>
@@ -417,62 +465,6 @@ and I got caught up <span>&#8230;<a href="/blog/2016/01/13/ReviewStarDoc.html" c
                     and
                     
                 <a href="/tag/sf/" rel="tag">sf</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-12">2016-01-12</time>
-        <h1>
-            <a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" rel="bookmark canonical">Bash: Getting and Setting Default Values</a>
-        </h1>
-    </header>
-    <p>Bash has some handy syntax for getting and setting default values.
-Un&shy;for&shy;tu&shy;nate&shy;ly, it&#8217;s a collection of punc&shy;tu&shy;a&shy;tion characters,
-which makes it hard to Google when you can&#8217;t quite remember the&nbsp;syntax.</p>
-<p>Getting a default value using <tt class="docutils literal"><span class="pre">${var:-fallback}</span></tt>:</p>
-<pre class="code bash literal-block">
-<span class="c1"># set $<span class="caps">LOGDIR</span> to $1 if $1 has a value; otherwise set $<span class="caps">LOGDIR</span> to &quot;/var/log&quot;
-</span><span class="nv"><span class="caps">LOGDIR</span></span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">1</span><span class="k">:-</span><span class="p">/var/log</span><span class="si">}</span><span class="s2">&quot;</span>
-
-<span class="c1"># use $<span class="caps">VERSION</span> unless it's empty or unset; fall back to extracting someprog's version num
-</span><span class="nv">build_version</span><span class="o">=</span><span class="si">${</span><span class="nv"><span class="caps">VERSION</span></span><span class="k">:-$(</span>someprog --version <span class="p">|</span> sed <span class="s1">'s/[^0-9.]*\([0-9.]*\).*/\1/'</span><span class="k">)</span><span class="si">}</span>
-</pre>
-<p>The colon-dash con&shy;struc&shy;tion is known as the
-<a class="reference external" href="https://en.wikipedia.org/wiki/Dog%27s_bollocks_(typography)">dog&#8217;s bollocks</a>
-in&nbsp;typography.</p>
-<p>Setting a default value, using <tt class="docutils literal"><span class="pre">${var:=fallback}</span></tt>:</p>
-<pre class="code bash literal-block">
-$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
-/Users/georgevreilly
-$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
-/Users/georgevreilly
-$ <span class="nb">unset</span> <span class="caps">HOME</span>
-$ <span class="nb">echo</span> <span class="si">${</span><span class="nv"><span class="caps">HOME</span></span><span class="p">:=/tmp</span><span class="si">}</span>
-/tmp
-$ <span class="nb">echo</span> <span class="nv">$<span class="caps">HOME</span></span>
-/tmp
-$ cd<span class="p">;</span> <span class="nb">pwd</span>
-/tmp
-</pre>
-<p>Note: <tt class="docutils literal">:=</tt> uses the new value in two cases.
-First, when the shell <span>&#8230;<a href="/blog/2016/01/12/BashGettingAndSettingDefaultValues.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/12/BashGettingAndSettingDefaultValues.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/bash/" rel="tag">bash</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

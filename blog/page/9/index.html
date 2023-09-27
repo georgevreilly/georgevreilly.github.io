@@ -29,6 +29,46 @@
     
         <article>
     <header>
+        <time datetime="2016-09-06">2016-09-06</time>
+        <h1>
+            <a href="/blog/2016/09/06/AlembicDataMigrations.html" rel="bookmark canonical">Alembic: Data Migrations</a>
+        </h1>
+    </header>
+    <p>We use <a class="reference external" href="http://alembic.zzzcomputing.com/en/latest/">Alembic</a> to perform schema migrations
+whenever we add (or drop) tables or columns
+from our databases.
+It&#8217;s less well known that Alembic can also perform data migrations,
+updating existing data in&nbsp;tables.</p>
+<p>Here&#8217;s an example adapted from a migration I put together this afternoon.
+I added a non-<span class="caps">NULL</span> Boolean <tt class="docutils literal">stooge</tt> column to the <tt class="docutils literal">old_timers</tt> table,
+with a default value of <tt class="docutils literal"><span class="caps">FALSE</span></tt>.
+I wanted to update certain rows to have <tt class="docutils literal">stooge=<span class="caps">TRUE</span></tt> as part of the migration.
+The following works with&nbsp;PostgreSQL.</p>
+<p>Note the <tt class="docutils literal">server_de&shy;fault=sa.false()</tt> in the de&shy;c&shy;la&shy;ra&shy;tion of the <tt class="docutils literal">stooge</tt> column,
+which is needed to initially set all instances of <tt class="docutils literal">stooge=<span class="caps">FALSE</span></tt>.
+I then declare a <tt class="docutils literal">table</tt> which has only the two columns needed <span>&#8230;<a href="/blog/2016/09/06/AlembicDataMigrations.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/09/06/AlembicDataMigrations.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/sql/" rel="tag">sql</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-09-05">2016-09-05</time>
         <h1>
             <a href="/blog/2016/09/05/ReviewFlashmanAndTheAngelOfTheLord.html" rel="bookmark canonical">Review: Flashman and the Angel of the Lord</a>
@@ -395,52 +435,6 @@ and imprisoned at Gwalior before being almost <span>&#8230;<a href="/blog/2016/0
                     and
                     
                 <a href="/tag/humor/" rel="tag">humor</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-08-26">2016-08-26</time>
-        <h1>
-            <a href="/blog/2016/08/26/HomographAttacks.html" rel="bookmark canonical">Homograph Attacks</a>
-        </h1>
-    </header>
-    <p>During an internal training exercise today,
-as a sort of one-man <a class="reference external" href="https://github.com/Netflix/SimianArmy/wiki/Chaos-Monkey">Chaos Monkey</a>,
-I de&shy;lib&shy;er&shy;ate&shy;ly broke a test system by changing a config setting to&nbsp;read:</p>
-<pre class="literal-block">
-itemfinder.url = http://test-іtemfinder.example.com/
-</pre>
-<p>The correct value should have&nbsp;been:</p>
-<pre class="literal-block">
-itemfinder.url = http://test-itemfinder.example.com/
-</pre>
-<p>What&#8217;s that, you say? There&#8217;s no difference, you&nbsp;say?</p>
-<p>There <em>is</em> a difference, but it&#8217;s subtle.
-The first <tt class="docutils literal">i</tt> in the <span class="caps">URL</span> is
-<a class="reference external" href="http://www.fileformat.info/info/unicode/char/0456/index.htm">&#8216;<span class="caps">CYRILLIC</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> <span class="caps">BYELORUSS&shy;IAN</span>-<span class="caps">UKRAINIAN</span> I&#8217; (U+0456)</a>,
-not <a class="reference external" href="http://www.fileformat.info/info/unicode/char/0069/index.htm">&#8216;<span class="caps">LATIN</span> <span class="caps">SMALL</span> <span class="caps">LETTER</span> I&#8217; (U+0069)</a>.
-Depending upon the font, the two <tt class="docutils literal">i</tt>s may be visually in&shy;dis&shy;tin&shy;guish&shy;able,
-very similar looking, or the Cyrillic <tt class="docutils literal">i</tt> may not&nbsp;render.</p>
-<p>This is an example of an <a class="reference external" href="https://en.wikipedia.org/wiki/IDN_homograph_attack">In&shy;ter&shy;na&shy;tion&shy;al Domain Name Homograph Attack</a>.
-There are Greek letters and Cyrillic letters that look very similar to Latin <span>&#8230;<a href="/blog/2016/08/26/HomographAttacks.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/08/26/HomographAttacks.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/security/" rel="tag">security</a>,
-                <a href="/tag/unicode/" rel="tag">unicode</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

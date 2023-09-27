@@ -29,6 +29,47 @@
     
         <article>
     <header>
+        <time datetime="2015-12-30">2015-12-30</time>
+        <h1>
+            <a href="/blog/2015/12/30/UseForPythonNestedListComprehensions.html" rel="bookmark canonical">Python: a use for nested list comprehensions</a>
+        </h1>
+    </header>
+    <p>I wanted to turn a list like
+<tt class="docutils literal"><span class="pre">['*.zip',</span> <span class="pre">'*.pyc',</span> <span class="pre">'*.log']</span></tt> into
+<tt class="docutils literal"><span class="pre">['--exclude',</span> <span class="pre">'*.zip',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.pyc',</span> <span class="pre">'--exclude',</span> <span class="pre">'*.log']</span></tt>.</p>
+<p>A simple list com&shy;pre&shy;hen&shy;sion doesn't work as desired:</p>
+<pre class="code pycon literal-block">
+<span class="go">In [1]: excludes = ['*.zip', '*.pyc', '*.log']
+
+In [2]: [('--exclude', e) for e in excludes]
+Out[2]: [('--exclude', '*.zip'), ('--exclude', '*.pyc'), ('--exclude', '*.log')]</span>
+</pre>
+<p>The trick is to use a <a class="reference external" href="/blog/2009/03/20/FlatteningListComprehensionsInPython.html">nested com&shy;pre&shy;hen&shy;sion</a>:</p>
+<pre class="code pycon literal-block">
+<span class="go">In [5]: [arg for pattern in excludes
+             for arg in ['--exclude', pattern]]
+Out[5]: ['--exclude', '*.zip', '--exclude', '*.pyc', '--exclude', '*.log']</span>
+</pre>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-12-23">2015-12-23</time>
         <h1>
             <a href="/blog/2015/12/23/ParseMinVerBash.html" rel="bookmark canonical">Checking minimum version numbers in Bash</a>
@@ -426,43 +467,6 @@ as <span>&#8230;<a href="/blog/2015/01/25/PyCharmYosemite.html" class="continue"
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2014-12-30">2014-12-30</time>
-        <h1>
-            <a href="/blog/2014/12/30/Blog2014.html" rel="bookmark canonical">Blog 2014</a>
-        </h1>
-    </header>
-    <p>My DasBlog-based blog at <a class="reference external" href="http://www.georgevreilly.com/blog/">http://www.georgevreil&shy;ly.com/blog/</a>
-has been out of commission for months.
-I've been meaning to replace it for a long time,
-but I only just got around to making a serious effort,
-as I realized that otherwise I would have no posts at all for 2014.
-I received only a handful of complaints about its absence;
-if there had been more, I would have fixed it sooner.</p>
-<p><a class="reference external" href="http://dasblog.codeplex.com/">DasBlog</a> is a fairly light&shy;weight blogging engine that runs on ASP.NET.
-It doesn't require a database,
-but it does require the ability to write XML blogpost entries to the local filesystem.
-That's a non-standard con&shy;fig&shy;u&shy;ra&shy;tion for ASP.NET and IIS websites,
-which inevitably causes <span>&#8230;<a href="/blog/2014/12/30/Blog2014.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/blogging/" rel="tag">blogging</a>,
-                <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/restructuredtext/" rel="tag">reStructuredText</a>
                 
             </p>
         

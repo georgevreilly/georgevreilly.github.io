@@ -29,6 +29,52 @@
     
         <article>
     <header>
+        <time datetime="2023-09-26">2023-09-26</time>
+        <h1>
+            <a href="/2023/09/26/ExploringWordle.html" rel="bookmark canonical">Exploring Wordle</a>
+        </h1>
+    </header>
+    <p>Unless YOUVE LIVED UNDER ROCKS, you've heard of <a class="reference external" href="https://en.wikipedia.org/wiki/Wordle">Wordle</a>,
+the online word game that has become wildly popular since late 2021.
+You've probably seen people posting their Wordle games
+as grids of little green, yellow, and black (or white) emojis on social media.</p>
+<div class="line-block">
+<div class="line">Wordle 797 4/6</div>
+<div class="line"><br /></div>
+<div class="line">⬛ ⬛ ⬛ ⬛ 🟨</div>
+<div class="line">🟨 ⬛ 🟩 ⬛ ⬛</div>
+<div class="line">⬛ ⬛ 🟩 🟨 ⬛</div>
+<div class="line">🟩 🟩 🟩 🟩 🟩</div>
+</div>
+<p>The problem that I want to address in this post is:</p>
+<blockquote>
+Given some <tt class="docutils literal">GUESS=SCORE</tt> pairs for Wordle and a word list,
+pro&shy;gram&shy;mat&shy;i&shy;cal&shy;ly find all the words from the list
+that are eligible as answers.</blockquote>
+<p>Let's look at this four-round game for Wordle 797:</p>
+<table class="wordle">
+  <tr><td class="absent">J</td> <td class="absent">U</td> <td class="absent">D</td> <span>&#8230;<a href="/2023/09/26/ExploringWordle.html" class="continue">continue</a>.</span></tr></table>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/2023/09/26/ExploringWordle.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/wordle/" rel="tag">wordle</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2023-09-05">2023-09-05</time>
         <h1>
             <a href="/blog/2023/09/05/RegexConjunctions.html" rel="bookmark canonical">Regex Conjunctions</a>
@@ -391,54 +437,6 @@ than just <a href="/blog/2016/02/12/UnicodeUpsideDownMappingPart2.html">upside-d
             <p>tagged as
                 <a href="/tag/font/" rel="tag">font</a>,
                 <a href="/tag/unicode/" rel="tag">unicode</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2022-12-19">2022-12-19</time>
-        <h1>
-            <a href="/blog/2022/12/19/BackwardsRangesInPython.html" rel="bookmark canonical">Backwards Ranges in Python</a>
-        </h1>
-    </header>
-    <p>In Python, if you want to specify a sequence of numbers
-from <code>a</code> up to (but excluding) <code>b</code>,
-you can write <code>range(a, b)</code>.
-This generates the sequence <code>a, a+1, a+2, ..., b-1</code>.
-You start at <code>a</code> and keep going until the next number would be <code>b</code>.</p>
-<p>In Python 3, <code>range</code> is <em>lazy</em>
-and the values in the sequence do not ma&shy;te&shy;ri&shy;al&shy;ize
-until you consume the&nbsp;range.</p>
-<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">)</span>
-<span class="go">range(3, 12)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
-<span class="go">[3, 4, 5, 6, 7, 8, 9, 10, 11]</span>
-</pre></div>
-
-
-<p>Trey Hunner makes the point that
-<a href="https://treyhunner.com/2018/02/python-range-is-not-an-iterator/">range is a lazy iterable</a>
-rather than an&nbsp;iterator.</p>
-<p>You can also <em>step</em> by an increment other than one:
-<code>range(a, b, s)</code>.
-This generates <code>a, a+s, a+2*s, ..., b-s</code>
-(assuming that <code>(b - </code><span>&#8230;<a href="/blog/2022/12/19/BackwardsRangesInPython.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2022/12/19/BackwardsRangesInPython.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>

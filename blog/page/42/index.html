@@ -29,6 +29,47 @@
     
         <article>
     <header>
+        <time datetime="2015-01-06">2015-01-06</time>
+        <h1>
+            <a href="/blog/2015/01/06/MattTaibbiAtTownHallSeattle.html" rel="bookmark canonical">Matt Taibbi at Town Hall Seattle</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.flickr.com/photos/george_v_reilly/16034447237"></a>
+<p>We went to hear <a class="reference external" href="http://en.wikipedia.org/wiki/Matt_Taibbi">Matt Taibbi</a>
+speak at <a class="reference external" href="http://townhallseattle.org/">Town Hall Seattle</a> tonight.
+He spoke about the topic of his new book,
+<a class="reference external" href="http://en.wikipedia.org/wiki/The_Divide:_American_Injustice_in_the_Age_of_the_Wealth_Gap">The Divide</a>,
+which covers inequality in the United States.
+After several years of covering white-collar crime in Wall Street
+after the financial collapse of 2008,
+and not seeing <em>any</em> pros&shy;e&shy;cu&shy;tions,
+he got curious about what the criminal justice system is like for the poor.
+<a class="reference external" href="http://www.rollingstone.com/politics/news/the-nypds-work-stoppage-is-surreal-20141231">Community policing</a>
+is harsh in many poor com&shy;mu&shy;ni&shy;ties,
+like Ferguson and Staten Island,
+where the police regularly issue tickets for minor in&shy;frac&shy;tions.
+Those being summonsed can ill-afford the fines,
+often leading to worse con&shy;se&shy;quences.
+The <span class="caps">U.S.</span> prison population is now twice as high as it was in 1991
+and four times <span>&#8230;<a href="/blog/2015/01/06/MattTaibbiAtTownHallSeattle.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/01/06/MattTaibbiAtTownHallSeattle.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/politics/" rel="tag">politics</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-01-05">2015-01-05</time>
         <h1>
             <a href="/blog/2015/01/05/ReviewTollCall.html" rel="bookmark canonical">Review: Toll Call</a>
@@ -409,46 +450,6 @@ but I was a slow writer and I was caught <span>&#8230;<a href="/blog/2013/12/12/
                     and
                     
                 <a href="/tag/writing/" rel="tag">writing</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2013-11-11">2013-11-11</time>
-        <h1>
-            <a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" rel="bookmark canonical">Turn off Windows Defender on your builds</a>
-        </h1>
-    </header>
-    <p>I&#8217;ve spent some time this evening profiling a Python ap&shy;pli&shy;ca&shy;tion on Windows,
-trying to find out why it was so much slower than on Mac or Linux.
-The ap&shy;pli&shy;ca&shy;tion is an in-house build tool which reads a number of config files,
-then writes some output&nbsp;files.</p>
-<p>Using the <a class="reference external" href="http://www.vrplumber.com/programming/runsnakerun/">Run&shy;SnakeRun</a> Python profile viewer on Windows,
-two things im&shy;me&shy;di&shy;ate&shy;ly leapt out at me:
-we were running <tt class="docutils literal">os.stat</tt> a lot
-and <tt class="docutils literal">file.close</tt> was really&nbsp;expensive.</p>
-<p>A quick test convinced me that we were <a class="reference external" href="http://docs.python.org/2/library/stat.html">stat-ing</a> the same files over and over.
-It was a com&shy;bi&shy;na&shy;tion of explicit checks and implicit code,
-like <tt class="docutils literal">os.walk</tt> calling <tt class="docutils literal">os.path.isdir</tt>.
-I wrote a little cache that memoizes the results,
-which brought the cost <span>&#8230;<a href="/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2013/11/11/TurnOffWindowsDefenderOnYourBuilds.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/windows/" rel="tag">windows</a>,
-                <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

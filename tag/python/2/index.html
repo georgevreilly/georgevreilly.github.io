@@ -29,6 +29,44 @@
     
         <article>
     <header>
+        <time datetime="2016-07-11">2016-07-11</time>
+        <h1>
+            <a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" rel="bookmark canonical">Logging in Python: Don't use new-fangled format</a>
+        </h1>
+    </header>
+    <p>Python 2.6 introduced the <a class="reference external" href="https://pyformat.info/">format method</a> to strings.
+In general, <tt class="docutils literal">format</tt> is now the preferred way to build strings
+instead of the old <tt class="docutils literal">%</tt> formatting operator.</p>
+<p>One exception is with the <tt class="docutils literal">logging</tt> module,
+where the best practice is to use <tt class="docutils literal">%s</tt> and <tt class="docutils literal">%d</tt>.
+Why?
+First, <tt class="docutils literal">%s</tt> is the idiomatic way to use <tt class="docutils literal">logging</tt>,
+which was built years before <tt class="docutils literal">format</tt> was introduced.
+Second, if there's a literal <tt class="docutils literal">%</tt> in the in&shy;ter&shy;po&shy;lat&shy;ed values,
+<tt class="docutils literal">logging</tt> will be unhappy,
+since there won't be cor&shy;re&shy;spond&shy;ing arguments in the call.
+It won't fall over, since
+“The logging package is designed to swallow exceptions which occur while logging in production.
+This is so that errors which occur while handling logging <span>&#8230;<a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-06-01">2016-06-01</time>
         <h1>
             <a href="/blog/2016/06/01/HouseCanaryPyCon2016ProgammingChallenge.html" rel="bookmark canonical">HouseCanary PyCon2016 Progamming Challenge</a>
@@ -369,47 +407,6 @@ For now, let's just say it's a tool that we use to build
                     and
                     
                 <a href="/tag/python/" rel="tag">python</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-03-06">2016-03-06</time>
-        <h1>
-            <a href="/blog/2016/03/06/psutil-kill.html" rel="bookmark canonical">psutil kill</a>
-        </h1>
-    </header>
-    <p>From Python, I needed to find a process
-that was performing SSH tunneling on port 8080
-and kill it.</p>
-<p>The following works in Bash:</p>
-<pre class="code bash literal-block">
-ps aux <span class="p">|</span> grep <span class="o">[</span>s<span class="o">]</span>sh.*:8080 <span class="p">|</span> awk <span class="s1">'{print $2}'</span> <span class="p">|</span> xargs <span class="nb">kill</span> -9
-</pre>
-<p>The <tt class="docutils literal">grep [s]sh</tt> trick ensures that the <tt class="docutils literal">grep</tt> command itself
-won't make it through to <tt class="docutils literal">awk</tt>.</p>
-<p>Here's what I came up with in Python using <a class="reference external" href="http://pythonhosted.org/psutil/">psutil</a>:</p>
-<pre class="code python literal-block">
-<span class="k">def</span> <span class="nf">kill_port_forwarding</span><span class="p">(</span><span class="n">host_port</span><span class="p">):</span>
-    <span class="n">ssh_args</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;-f&quot;</span><span class="p">,</span> <span class="s2">&quot;-N&quot;</span><span class="p">,</span> <span class="s2">&quot;-L&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">:localhost:</span><span class="si">{0}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">host_port</span><span class="p">)]</span>
-    <span class="k">for</span> <span class="n">process</span> <span class="ow">in</span> <span class="n">psutil</span><span class="o">.</span><span class="n">process_iter</span><span class="p">():</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'ssh'</span><span class="p">):</span>
-       </pre><span>&#8230;<a href="/blog/2016/03/06/psutil-kill.html" class="continue">continue</a>.</span>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
