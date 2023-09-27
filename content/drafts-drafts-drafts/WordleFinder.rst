@@ -1103,9 +1103,35 @@ found and fixed several bugs with repeated letters,
 greatly refining my understanding of the nuances;
 rewrote the sections on repeated letters repeatedly;
 added a means to explain ineligibility;
-and discovered that I could optimize the mask programmatically.
+and had a minor epiphany about optimizing the mask programmatically.
 
 The full code can be found in my `Wordle repository`_.
+
+
+Other Work
+----------
+
+I found these articles after I completed the final draft of this post.
+
+* Bertsimas and Paskov used `Exact Dynamic Programming`_
+  to find `An Exact and Interpretable Solution to Wordle`_.
+* `Yann Landry's Solver`_ is a little JavaScript and HTML tool
+  that tries to pick the best next word using a scoring system.
+* `Solving with Basic Python`_ makes suggestions for each round
+  based on word commonality.
+* Some `Tips and Tricks`_ for playing the game.
+
+
+.. _Exact Dynamic Programming:
+    https://mitsloan.mit.edu/ideas-made-to-matter/how-algorithm-solves-wordle
+.. _An Exact and Interpretable Solution to Wordle:
+    http://wordle-page.s3-website-us-east-1.amazonaws.com/assets/Wordle_Paper_Final.pdf
+.. _Yann Landry's Solver:
+    https://yannlandry.photography/blog/wordle-intelligent-solver
+.. _Solving with Basic Python:
+    https://www.inspiredpython.com/article/solving-wordle-puzzles-with-basic-python
+.. _Tips and Tricks:
+    https://mashable.com/article/wordle-tips-tricks
 
 
 .. -------------------------------------------------------------_
