@@ -5,6 +5,10 @@ permalink: "/blog/2024/10/19/ColdBrewCoffeeFrenchPressRecipe.html"
 tags: [recipe, coffee]
 ---
 
+.. image:: /content/binary/french-press.jpg
+    :alt: French Press
+    :class: right-float
+
 Last year, I posted a recipe for `cold brew coffee`_
 using an `Oxo Cold Brew Coffee Maker`_.
 Recently, it occurred to me that I could use a French Press instead of the Oxo.
@@ -29,13 +33,13 @@ Instructions
 * Grind the coffee beans coarsely.
 * Place the ground coffee in the French Press.
 * Pour water into the grounds, distributing it as best you can.
-* Swirl gently to ensure that all coffee grounds are wet.
-* Cover the French Press with cling film or similar.
-* Place in the fridge, for anywhere between 6 and 24 hours.
-* Remove the cling film, add the plunger, and plunge.
-* Pour the brew into a jar.
-* The plunger will hold back all but the finest grounds.
-* I recommend pouring the brew through a coffee filter.
+* Stir gently to ensure that all coffee grounds are wet.
+* Cover the French Press with plastic wrap—\
+  this prevents absorption of odors in the fridge.
+* Store it in the fridge, for anywhere between 6 and 24 hours.
+* Remove the plastic wrap, insert the plunger, and plunge.
+* Pour the brew through a coffee filter
+  to strain any fine grounds that get past the plunger.
 * Refrigerate the cold brew.
 
 .. _cold brew coffee:
