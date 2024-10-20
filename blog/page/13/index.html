@@ -29,6 +29,43 @@
     
         <article>
     <header>
+        <time datetime="2016-07-14">2016-07-14</time>
+        <h1>
+            <a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" rel="bookmark canonical">SQLAlchemy got me Killed</a>
+        </h1>
+    </header>
+    <p>I ran a script this afternoon that died mys&shy;te&shy;ri&shy;ous&shy;ly without any output.
+It was using <a class="reference external" href="http://www.sqlalchemy.org/">SQLAlchemy</a> to query all the rows from a large table
+so that they could be trans&shy;formed into <a class="reference external" href="http://jsonlines.org/"><span class="caps">JSON</span> Lines</a> to be loaded into Elas&shy;tic&shy;search.
+When I reran my script,
+I noticed this time that something had printed <tt class="docutils literal">Killed</tt> at the very&nbsp;end.</p>
+<p>A little research convinced me that the <a class="reference external" href="http://stackoverflow.com/questions/726690/who-killed-my-process-and-why"><span class="caps">OOM</span> Killer</a> was the likely assassin.
+I looked in <tt class="docutils literal">/var/log/kern.log</tt>
+and I found that my process had used up almost all of the <span class="caps">8GB</span> on this system
+before being&nbsp;killed.</p>
+<p>The query had to be the problem.
+A little more research led me to augment my query with <span>&#8230;<a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/14/SQLAlchemyGotMeKilled.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-07-13">2016-07-13</time>
         <h1>
             <a href="/blog/2016/07/13/DisablingVibratingNotificationsInFacebookAndroidApp.html" rel="bookmark canonical">Disabling Vibrating Notifications in the Facebook Android App</a>
@@ -420,41 +457,6 @@ Haslam&#8217;s feelings for <span>&#8230;<a href="/blog/2016/07/05/ReviewFlashma
                     and
                     
                 <a href="/tag/humor/" rel="tag">humor</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-04">2016-07-04</time>
-        <h1>
-            <a href="/blog/2016/07/04/IndependenceDay.html" rel="bookmark canonical">Independence Day</a>
-        </h1>
-    </header>
-    
-<p>I have an ambivalent relation to the notion of patriotism
-because all too often those who most loudly proclaim themselves to be patriots
-are the worst sort of jingoistic, know-nothing, blowhard&shy;s—be they Trump supporters, Brexiters, or Irish&nbsp;na&shy;tion&shy;al&shy;ists.</p>
-<p>And yet, for all the flaws and failures of the American Experiment,
-there are still things to celebrate.
-America&#8217;s optimism and can-do spirit,
-although much abraded in recent years, is still exemplary.
-Millions continue to flock here, drawn to the land of op&shy;por&shy;tu&shy;ni&shy;ty.
-The Founding Fathers created a great and lasting democracy,
-albeit with a franchise and a set of rights that had to be widened several times.
-The world can&#8217;t get enough <span>&#8230;<a href="/blog/2016/07/04/IndependenceDay.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/07/04/IndependenceDay.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/usa/" rel="tag">usa</a>
                 
             </p>
         

@@ -29,6 +29,53 @@
     
         <article>
     <header>
+        <time datetime="2007-10-25">2007-10-25</time>
+        <h1>
+            <a href="/blog/2007/10/25/ErEr.html" rel="bookmark canonical">Er, er</a>
+        </h1>
+    </header>
+    
+<p>I&#8217;ve grown fond of the JavaScript <tt class="docutils literal">||</tt> idiom:</p>
+<pre class="literal-block">
+function FrobImage(img) {
+    var width  = img.width  || 400;
+    var height = img.height || 300;
+    // ...
+}
+
+FrobImage({height: 100, name: &quot;example.png&quot;});
+</pre>
+<p>If <tt class="docutils literal">img.width</tt> exists and it&#8217;s <a class="reference external" href="http://mattsnider.com/wp-content/uploads/2007/04/FalseTest.html">truthy</a>,
+then <tt class="docutils literal">width = img.width</tt>; otherwise, <tt class="docutils literal">width = 400</tt>.
+Here, it will be <tt class="docutils literal">400</tt> since the <tt class="docutils literal">img</tt> hash
+has no <tt class="docutils literal">width</tt> property.
+More than two al&shy;ter&shy;na&shy;tives may be used:
+<tt class="docutils literal">x = a || b || c || ... || q;</tt></p>
+<p>A few weeks ago, while cleaning up the error handling in some batch files,
+I came across a <a class="reference external" href="http://www.ss64.com/ntsyntax/conditional.html">similar idiom</a>:</p>
+<pre class="literal-block">
+foo.exe bar 123 &quot;some stuff&quot;  </pre><span>&#8230;<a href="/blog/2007/10/25/ErEr.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2007/10/25/ErEr.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/programming/" rel="tag">programming</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2007-10-24">2007-10-24</time>
         <h1>
             <a href="/blog/2007/10/24/Virtualization.html" rel="bookmark canonical">Virtualization</a>
@@ -398,56 +445,6 @@ Their list of <a class="reference external" href="http://www.mydd.com/story/2006
         
             <p>tagged as
                 <a href="/tag/politics/" rel="tag">politics</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2007-09-24">2007-09-24</time>
-        <h1>
-            <a href="/blog/2007/09/24/ReviewWaxwings.html" rel="bookmark canonical">Review: Waxwings</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0375410082"></a>
-<div class="line-block">
-<div class="line">Title: Waxwings</div>
-<div class="line">Author: Jonathan Raban</div>
-<div class="line">Rating: ★ ★ ★ ★</div>
-<div class="line">Publisher: Pantheon</div>
-<div class="line">Copyright: 2003</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="http://www.elliottbaybook.com/product/info.jsp?isbn=0375410082">0375410082</a></div>
-<div class="line">Pages: 282</div>
-<div class="line">Keywords: fiction</div>
-<div class="line">Reading period: 17-23 September, 2007</div>
-</div>
-<p>Tom Janeway lives in Seattle with his wife Beth and their four-year-old son, Finn.
-Tom is a middle-aged Englishman who teaches writing at the University of Wash&shy;ing&shy;ton;
-Beth, somewhat younger, is an editor at GetAShack.com.
-It&#8217;s 1999 and the DotCom boom is raging.
-Chick is an illegal immigrant from China, with a raging en&shy;tre&shy;pre&shy;neur&shy;ial streak,
-who ends up wandering in and out of Tom&#8217;s&nbsp;life.</p>
-<p>Tom is perceptive enough to be an occasional com&shy;men&shy;ta&shy;tor
-on <span class="caps">NPR</span>&#8217;s <em>All Things Considered</em>,
-yet oblivious to the problems in his marriage,
-and he&#8217;s flab&shy;ber&shy;gast&shy;ed when Beth leaves him.
-Worse <span>&#8230;<a href="/blog/2007/09/24/ReviewWaxwings.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2007/09/24/ReviewWaxwings.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/fiction/" rel="tag">fiction</a>
                 
             </p>
         
