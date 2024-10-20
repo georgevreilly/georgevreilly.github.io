@@ -1,7 +1,7 @@
 ---
 title: "Exploring Wordle"
 date: "2023-09-26"
-permalink: "/2023/09/26/ExploringWordle.html"
+permalink: "/blog/2023/09/26/ExploringWordle.html"
 tags: [python, wordle]
 filter: notypography
 ---

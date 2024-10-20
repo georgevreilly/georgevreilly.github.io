@@ -1,7 +1,7 @@
 ---
 title: "Cold Brew Coffee Recipe"
 date: "2023-07-24"
-permalink: "/2023/07/24/ColdBrewCoffeeRecipe.html"
+permalink: "/blog/2023/07/24/ColdBrewCoffeeRecipe.html"
 tags: [recipe, coffee]
 ---
 
@@ -26,6 +26,8 @@ but cold brew takes hours.
 
 I have used this recipe for a number of years.
 It makes a smooth, less acidic coffee.
+
+ETA: See also `Cold Brew Coffee Recipe for French Press`_.
 
 Ingredients
 -----------
@@ -86,6 +88,8 @@ or an Oxo maker.
     https://www.homegrounds.co/oxo-cold-brew-coffee-maker-review/
 .. _Wirecutter:
     https://www.nytimes.com/wirecutter/reviews/best-cold-brew-coffee-maker/
+.. _Cold Brew Coffee Recipe for French Press:
+    /blog/2024/10/19/ColdBrewCoffeeFrenchPressRecipe.html
 .. _turn hydrangeas blue:
     https://www.southernliving.com/garden/coffee-grounds-for-hydrangeas
 .. _exfoliate your skin:
