@@ -1,7 +1,7 @@
 ---
 title: "Review: MOVIETITLE"
-# date: "2023-mm-dd"
-permalink: "/drafts-drafts-drafts/2023/mm/dd/ReviewMOVIETITLE.html"
+# date: "2024-mm-dd"
+permalink: "/drafts-drafts-drafts/2024/mm/dd/ReviewMOVIETITLE.html"
 tags: [movies, reviews]
 draft: true
 ---
@@ -18,7 +18,7 @@ draft: true
 | Released: YEAR
 | Keywords: KEYWORDs
 | Country: USA
-| Watched: DD MONTH, 2023
+| Watched: DD MONTH, 2024
 
 .. _TITLE:
     https://en.wikipedia.org/wiki/TITLE
