@@ -29,6 +29,47 @@
     
         <article>
     <header>
+        <time datetime="2023-01-24">2023-01-24</time>
+        <h1>
+            <a href="/blog/2023/01/24/TreeInRust2PrintingTrees.html" rel="bookmark canonical">Implementing the Tree command in Rust, part 2: Printing Trees</a>
+        </h1>
+    </header>
+    <p>In <a class="reference external" href="/blog/2023/01/23/TreeInRust1WalkDirectories.html">Part 1</a>, we saw how to walk directory trees,
+re&shy;cur&shy;sive&shy;ly using <tt class="docutils literal"><span class="pre">fs::read_dir</span></tt>
+to construct an in-memory tree of <tt class="docutils literal">FileNode</tt>s.
+In Part 2, we&#8217;ll implement the rest of the core of the <a class="reference external" href="https://en.wikipedia.org/wiki/Tree_(command)">tree command</a>:
+printing the directory tree with <a class="reference external" href="https://www.compart.com/en/unicode/block/U+2500">Box Drawing</a>&nbsp;characters.</p>
+<p>Let&#8217;s take a look at some output from <tt class="docutils literal">tree</tt>:</p>
+<pre class="literal-block">
+.
+├── alloc.rs
+├── ascii.rs
+├── os
+│&nbsp;&nbsp; ├── wasi
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── ffi.rs
+│&nbsp;&nbsp; │&nbsp;&nbsp; ├── mod.rs          ➊
+│&nbsp;&nbsp; │&nbsp;&nbsp; └── net             ➋
+│&nbsp;&nbsp; │&nbsp;&nbsp;     └── mod.rs
+│&nbsp;&nbsp; └── windows
+│&nbsp;&nbsp;     ├── ffi.rs    </pre><span>&#8230;<a href="/blog/2023/01/24/TreeInRust2PrintingTrees.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2023/01/24/TreeInRust2PrintingTrees.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/rust/" rel="tag">rust</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2023-01-23">2023-01-23</time>
         <h1>
             <a href="/blog/2023/01/23/TreeInRust1WalkDirectories.html" rel="bookmark canonical">Implementing the Tree command in Rust, part 1: Walking Directories</a>
@@ -422,49 +463,6 @@ The essence is that you make a request <span>&#8230;<a href="/blog/2021/10/05/Pa
                     and
                     
                 <a href="/tag/unicode/" rel="tag">unicode</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2021-10-04">2021-10-04</time>
-        <h1>
-            <a href="/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html" rel="bookmark canonical">Accidentally Quadratic: Python List Membership</a>
-        </h1>
-    </header>
-    <p>We had a per&shy;for&shy;mance regression in a test suite recently
-when the median test time jumped by two&nbsp;minutes.</p>
-<a class="reference external image-reference" href="https://www.bigocheatsheet.com/"></a>
-<p>We tracked it down to this (simplified) code&nbsp;fragment:</p>
-<pre class="code python literal-block">
-<span class="n">task_inclusions</span> <span class="o">=</span> <span class="p">[</span> <span class="n">some_collection_of_tasks</span><span class="p">()</span> <span class="p">]</span>
-<span class="n">invalid_tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">airflow_tasks</span>
-                 <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">task_id</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">task_inclusions</span><span class="p">]</span>
-</pre>
-<p>This looks fairly in&shy;nocu&shy;ous—and it was—until the size of the result returned from <tt class="docutils literal">some_&shy;col&shy;lec&shy;tion_of_&shy;tasks()</tt>
-jumped from a few hundred to a few&nbsp;thousand.</p>
-<p>The <a class="reference external" href="https://docs.python.org/3/reference/expressions.html#membership-test-operations">in comparison operator</a> con&shy;ve&shy;nient&shy;ly works
-with all of Python&#8217;s standard sequences and col&shy;lec&shy;tions,
-but its efficiency varies.
-For a <tt class="docutils literal">list</tt> and other sequences,
-<tt class="docutils literal">in</tt> must search linearly through all <span>&#8230;<a href="/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>,
-                <a href="/tag/performance/" rel="tag">performance</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

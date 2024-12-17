@@ -5,13 +5,79 @@
         <link>https://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Sun, 01 Dec 2024 08:00:00 GMT</pubDate>
+        <pubDate>Mon, 16 Dec 2024 08:00:00 GMT</pubDate>
         <docs>https://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.8.dev0</generator>
         
             <item>
+        <title>Patching and Splitting Python Wheels</title>
+        <link>https://www.georgevreilly.com/blog/2024/12/16/PatchingAndSplittingPythonWheels.html</link>
+        <description>&lt;img alt=&#34;Patching a bicycle tube&#34; src=&#34;https://www.georgevreilly.com/content/binary/patching-bike-tube.jpg&#34; style=&#34;width: 700px;&#34;/&gt;
+&lt;p&gt;I gave lightning talks at &lt;a class=&#34;reference external&#34; href=&#34;https://www.meetup.com/pythonireland/events/300802991/&#34;&gt;Python Ireland&lt;/a&gt; in May 2024 and
+&lt;a class=&#34;reference external&#34; href=&#34;https://www.meetup.com/psppython/events/302211630/&#34;&gt;Puget Sound Programming Python (PuPPy)&lt;/a&gt; in August 2024
+about patching and splitting wheels: &lt;a class=&#34;reference external&#34; href=&#34;https://docs.google.com/presentation/d/1YXfI7U1oVgHLSgX8uYieIGdooQK-jTqXWMhpkUrAo4U/edit?usp=sharing&#34;&gt;slides&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;section&#34; id=&#34;patching-wheels&#34;&gt;
+&lt;h3&gt;Patching Wheels&lt;/h3&gt;
+&lt;p&gt;Last year, I wrote about manually &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2023/08/10/PatchingAPythonWheel.html&#34;&gt;Patching a Python Wheel&lt;/a&gt;.
+There was a cyclic dependency
+between the Torch 2.0.1 wheel and the Triton 2.0.0 wheel.
+While &lt;tt class=&#34;docutils literal&#34;&gt;pip&lt;/tt&gt; had no problem with this,
+&lt;a class=&#34;reference external&#34; href=&#34;https://bazel.build/&#34;&gt;Bazel&lt;/a&gt; certainly did.
+My &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2023/08/10/PatchingAPythonWheel.html&#34;&gt;workaround&lt;/a&gt; was to unzip the Torch wheel,
+edit the metadata to remove the dependency on Triton,
+and zip the wheel up again with a modified name.&lt;/p&gt;
+&lt;p&gt;At the beginning of this year,
+I had to patch Torch 2.1 for &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/georgevreilly/torch21&#34;&gt;different reasons&lt;/a&gt;.
+Again, I needed to patch the Torch wheel because of Bazel problems.
+Due to the way that Bazel installs each package in a different location,
+instead of one common &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;site-packages&lt;/span&gt;&lt;/tt&gt;,
+I had to &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/georgevreilly/torch21&#34;&gt;ensure&lt;/a&gt; that Torch preloaded a series of &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;lib*.so&lt;/span&gt;&lt;/tt&gt; extensions
+in &lt;em&gt;topologically sorted&lt;/em&gt; order.
+This time, I wrote a &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/georgevreilly/torch21/blob/main/scripts/patcher&#34;&gt;patcher script&lt;/a&gt; to apply patches to a wheel.&lt;/p&gt;
+&lt;p&gt;The &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/georgevreilly/torch21/blob/main/scripts/patcher&#34;&gt;patcher script&lt;/a&gt; uses the official &lt;a class=&#34;reference external&#34; href=&#34;https://wheel.readthedocs.io/en/stable/&#34;&gt;wheel&lt;/a&gt; package
+to do most of the work
+of extracting the contents and packing the new wheel.
+My &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/georgevreilly/torch21&#34;&gt;torch21 repo&lt;/a&gt; gives two examples of how to use &lt;tt class=&#34;docutils literal&#34;&gt;patcher&lt;/tt&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;splitting-wheels&#34;&gt;
+&lt;h3&gt;Splitting Wheels&lt;/h3&gt;
+&lt;p&gt;There are multiple variants of the Torch wheel.
+The Torch 2.1 wheel with CUDA 11.8, &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;torch==2.1.2+cu118&lt;/span&gt;&lt;/tt&gt;, is 2.5GB,
+and expands to 4GB!
+Almost all of that is in shared object libraries (&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;lib/lib*.so&lt;/span&gt;&lt;/tt&gt;),
+some 3.9GB.&lt;/p&gt;
+&lt;pre class=&#34;literal-block&#34;&gt;
+-rwxr-xr-x 1 georgevreilly stripe  125M Dec 12 18:05 libcudnn_adv_infer.so.8
+-rwxr-xr-x 1 georgevreilly stripe  241M Dec 12 18:05 libtorch_cuda_linalg.so
+-rwxr-xr-x 1 georgevreilly stripe  451M Dec 12 18:05 libtorch_cpu.so
+-rwxr-xr-x 1 georgevreilly stripe  548M Dec 12 18:04 libcublasLt.so.11
+-rwxr-xr-x 1 georgevreilly stripe  621M Dec 12 18:05 libcudnn_cnn_infer.so.8
+-rwxr-xr-x 1 georgevreilly stripe 1355M Dec 12 18:05 libtorch_cuda.so
+&lt;/pre&gt;
+&lt;img alt=&#34;Library interdependencies&#34; src=&#34;https://www.georgevreilly.com/content/binary/torch-topo-deps.png&#34; style=&#34;width: 700px;&#34;/&gt;
+&lt;p&gt;An internal system that we use for remotely building Bazel actions
+has a hard limit of 3GB.
+This is an internal policy, not an inherent Bazel limitation,
+but it led to difficulties with building apps
+that wanted to use the wheel.&lt;/p&gt;
+&lt;p&gt;My solution was to split the wheel into two wheels,
+a &lt;tt class=&#34;docutils literal&#34;&gt;cudatorch&lt;/tt&gt; wheel, which contained the two largest libraries,
+&lt;tt class=&#34;docutils literal&#34;&gt;libtorch_cuda.so&lt;/tt&gt; (1355MB) and &lt;tt class=&#34;docutils literal&#34;&gt;libtorch_cuda_linalg.so&lt;/tt&gt; (241MB),
+and a modified version of the &lt;tt class=&#34;docutils literal&#34;&gt;torch&lt;/tt&gt; wheel, which contained everything else.&lt;/p&gt;
+&lt;p&gt;I had to use &lt;a class=&#34;reference external&#34; href=&#34;https://manpages.ubuntu.com/manpages/noble/en/man1/patchelf.1.html&#34;&gt;patchelf&lt;/a&gt; to modify the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wikipedia.org/wiki/Rpath&#34;&gt;rpath&lt;/a&gt; of the two libs
+in the &lt;tt class=&#34;docutils literal&#34;&gt;cudatorch&lt;/tt&gt; wheel to something like
+&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;$ORIGIN:$ORIGIN/../../torch/lib&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;In the &lt;tt class=&#34;docutils literal&#34;&gt;torch&lt;/tt&gt; wheel, I had to patch &lt;tt class=&#34;docutils literal&#34;&gt;torch/__init__.py&lt;/tt&gt;
+to preload the &lt;tt class=&#34;docutils literal&#34;&gt;cudatorch&lt;/tt&gt; libs.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 16 Dec 2024 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2024-12-16:/blog/2024/12/16/PatchingAndSplittingPythonWheels.html</guid>
+    </item>
+        
+            <item>
         <title>Social Media Handles</title>
-        <link>https://www.georgevreilly.com/2024/12/01/SocialMediaHandles.html</link>
+        <link>https://www.georgevreilly.com/blog/2024/12/01/SocialMediaHandles.html</link>
         <description>&lt;p&gt;The migration away from Twitter has really caught fire lately,
 with Bluesky being the obvious winner of new accounts in recent weeks.&lt;/p&gt;
 &lt;p&gt;I&#39;m available on other platforms, if you want to follow me.
@@ -42,7 +108,7 @@ It was either my Twitter or my GitHub handle (which are, of course, identical).&
 &lt;/ul&gt;
 </description>
         <pubDate>Sun, 01 Dec 2024 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2024-12-01:/2024/12/01/SocialMediaHandles.html</guid>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2024-12-01:/blog/2024/12/01/SocialMediaHandles.html</guid>
     </item>
         
             <item>
@@ -2762,76 +2828,6 @@ for a subdued birthday celebration.&lt;/p&gt;
 </description>
         <pubDate>Sun, 15 Mar 2020 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2020-03-15:/blog/2020/03/15/WeirdestBirthdayEver.html</guid>
-    </item>
-        
-            <item>
-        <title>Dublin for 2020</title>
-        <link>https://www.georgevreilly.com/blog/2019/11/22/Dublin2020.html</link>
-        <description>&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://www.irishcalendars.ie/products/dublin-calendar&#34;&gt;&lt;img alt=&#34;Dublin Calendar 2020&#34; src=&#34;https://www.georgevreilly.com/content/binary/dublin-calendar-2020.jpg&#34;/&gt;&lt;/a&gt;
-&lt;p&gt;I left in the Eighties; I&#39;m going back in the Twenties.&lt;/p&gt;
-&lt;p&gt;I am transferring to a Dublin-based team at &lt;a class=&#34;reference external&#34; href=&#34;https://stripe.com/&#34;&gt;Stripe&lt;/a&gt; for a one-year rotation.
-Emma and I will be moving to Dublin just before Christmas.
-Emma has never lived in Ireland
-and I haven&#39;t lived there since January 1989.
-After 30 years in the US, I&#39;m about to spend a year in my hometown.&lt;/p&gt;
-&lt;p&gt;I grew up in Dublin,
-earned a Bachelor&#39;s degree in Computer Science at Trinity College Dublin in 1987,
-and moved to the US in 1989
-to get a Master&#39;s degree in Comp Sci at Brown University in Providence, RI.
-Microsoft moved me to Seattle, WA in 1992,
-where I&#39;ve lived ever since.
-Between 1992 and 2005,
-I worked at Microsoft three times
-for a total of ten years.
-I joined Stripe in Seattle in mid-2018,
-after eleven years at two startups,
-Cozi and Cookbrite/MetaBrite.&lt;/p&gt;
-&lt;p&gt;Emma and I met in 1997,
-and married and bought a house in 2000.
-We are now frantically trying to get that house into shape
-to rent out during our year&#39;s absence.
-We&#39;ve been working all-out for several weeks
-and now there&#39;s only four weeks to go.
-She carried the burden by herself last week,
-as I spent the week in Dublin, meeting my new team.
-I had done so much painting of interior rooms
-before I went to Dublin two weeks ago,
-that the fingerprint readers on my laptop and phones
-were rejecting my fingerprint.
-My fingerprint works again,
-but there&#39;s still a little painting to be done.&lt;/p&gt;
-&lt;p&gt;We&#39;re excited and nervous.
-It&#39;s not easy to pick up and move after spending decades in one city.
-We have plenty of storage in our Seattle house
-and had little impetus—until now—to shed stuff.
-And there&#39;s lots and lots of stuff.
-Thousands upon thousands of books,
-the impedimenta of various hobbies,
-and twenty years of odds and ends.
-We&#39;ve purged a lot but the end is not yet in sight.
-I&#39;ll be spending the second week of December in the San Jose and San Francisco,
-so I&#39;ll need to spend Thanksgiving working on the house.&lt;/p&gt;
-&lt;p&gt;Stripe has been great in providing relocation assistance to us,
-providing services in both Seattle and Dublin.
-I lined up an apartment in Dublin the day before I returned.
-We&#39;ll be living at the top of a Georgian house on Adelaide Road.
-It&#39;s not too small, but it&#39;ll feel cramped compared to our Seattle house.&lt;/p&gt;
-&lt;p&gt;A few weeks ago, I moved from an infrastructure team in the Stripe Seattle office
-to a new security team (Anti-Abuse) in the Stripe Dublin office.
-Not only is the team new, all of the team members are new to Stripe:
-most joined in August and the longest-tenured joined in March.
-They&#39;ve already accomplished quite a bit,
-but they&#39;ve left a few things for me to do.&lt;/p&gt;
-&lt;p&gt;My family are excited too.
-I have two siblings living in Ireland,
-but they&#39;re both over two hours&#39; drive
-from my parents&#39; home in Dublin.
-My sister&#39;s in rural Cork and one of my brothers is in rural Mayo.
-We&#39;re all going down to Cork for a few days at Christmas.&lt;/p&gt;
-&lt;p&gt;Ireland, here we come!&lt;/p&gt;
-</description>
-        <pubDate>Fri, 22 Nov 2019 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2019-11-22:/blog/2019/11/22/Dublin2020.html</guid>
     </item>
         </channel>
 </rss>

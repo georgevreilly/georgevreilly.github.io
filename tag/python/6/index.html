@@ -29,6 +29,52 @@
     
         <article>
     <header>
+        <time datetime="2007-01-13">2007-01-13</time>
+        <h1>
+            <a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" rel="bookmark canonical">Python Batchfile Wrapper, Redux</a>
+        </h1>
+    </header>
+    
+<div class="section" id="batchfile-wrapper">
+<h2>Batchfile Wrapper</h2>
+<p>I've made some sig&shy;nif&shy;i&shy;cant changes to my <a class="reference external" href="/blog/2006/12/29/PythonBatchfileWrapper.html">Python Batchfile Wrapper</a>.
+The main virtue of this wrapper is that it finds python.exe and
+invokes it on the associated Python script,
+ensuring that <a class="reference external" href="http://mail.python.org/pipermail/python-bugs-list/2004-August/024920.html">input redi&shy;rec&shy;tion</a> works.</p>
+<p>I've also adapted <a class="reference external" href="http://mail.python.org/pipermail/python-list/2000-January/019450.html">py2bat</a> to work with my wrapper.
+I'm calling my version <a class="reference external" href="/Python/py2cmd/">py2cmd</a>.</p>
+<p>Here's my latest batch file, which is shorter than its pre&shy;de&shy;ces&shy;sor.</p>
+<p>To use it, place it in the same directory as the Python script
+you want to run and give it the same basename;
+i.e., <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.cmd</tt>
+will run <tt class="docutils literal"><span class="pre">d:\some\path</span> or oth&shy;er\ex&shy;am&shy;ple.py</tt>.</p>
+<pre class="code batch literal-block">
+<span class="p">&#64;</span><span class="k">echo</span> off
+<span class="k">setlocal</span>
+<span class="k">set</span> <span class="nv">PythonExe</span><span class="p">=</span>
+<span class="k">set</span> <span class="nv">PythonExeFlags</span><span class="p">=</span>-u
+
+<span class="k">for</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span>cmd bat exe<span class="p">)</span> <span class="k">do</span> <span class="p">(</span>
+    <span class="k">for</span> <span class="se">%%</span>j <span class="k">in</span> <span class="p">(</span>python.<span class="se">%%</span>i<span class="p">)</span> <span class="k">do</span> </pre><span>&#8230;<a href="/blog/2007/01/13/PythonBatchfileWrapperRedux.html" class="continue">continue</a>.</span></div>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/cmd/" rel="tag">cmd</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-12-29">2006-12-29</time>
         <h1>
             <a href="/blog/2006/12/29/PythonBatchfileWrapper.html" rel="bookmark canonical">Python Batchfile Wrapper</a>

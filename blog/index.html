@@ -29,9 +29,50 @@
     
         <article>
     <header>
+        <time datetime="2024-12-16">2024-12-16</time>
+        <h1>
+            <a href="/blog/2024/12/16/PatchingAndSplittingPythonWheels.html" rel="bookmark canonical">Patching and Splitting Python Wheels</a>
+        </h1>
+    </header>
+    
+<p>I gave lightning talks at <a class="reference external" href="https://www.meetup.com/pythonireland/events/300802991/">Python Ireland</a> in May 2024 and
+<a class="reference external" href="https://www.meetup.com/psppython/events/302211630/">Puget Sound Pro&shy;gram&shy;ming Python (PuPPy)</a> in August 2024
+about patching and splitting wheels: <a class="reference external" href="https://docs.google.com/presentation/d/1YXfI7U1oVgHLSgX8uYieIGdooQK-jTqXWMhpkUrAo4U/edit?usp=sharing">slides</a>.</p>
+<div class="section" id="patching-wheels">
+<h2>Patching&nbsp;Wheels</h2>
+<p>Last year, I wrote about manually <a class="reference external" href="/blog/2023/08/10/PatchingAPythonWheel.html">Patching a Python Wheel</a>.
+There was a cyclic dependency
+between the Torch 2.0.1 wheel and the Triton 2.0.0 wheel.
+While <tt class="docutils literal">pip</tt> had no problem with this,
+<a class="reference external" href="https://bazel.build/">Bazel</a> certainly did.
+My <a class="reference external" href="/blog/2023/08/10/PatchingAPythonWheel.html">workaround</a> was to unzip the Torch wheel,
+edit the metadata to remove the dependency on Triton,
+and zip the wheel up again with a modified&nbsp;name.</p>
+<p>At the beginning of this year,
+I had to patch Torch 2.1 for <a class="reference external" href="https://github.com/georgevreilly/torch21">different reasons</a>.
+Again, I needed to patch the Torch wheel because of Bazel problems.
+Due <span>&#8230;<a href="/blog/2024/12/16/PatchingAndSplittingPythonWheels.html" class="continue">continue</a>.</span></p></div>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2024/12/16/PatchingAndSplittingPythonWheels.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2024-12-01">2024-12-01</time>
         <h1>
-            <a href="/2024/12/01/SocialMediaHandles.html" rel="bookmark canonical">Social Media Handles</a>
+            <a href="/blog/2024/12/01/SocialMediaHandles.html" rel="bookmark canonical">Social Media Handles</a>
         </h1>
     </header>
     <p>The migration away from Twitter has really caught fire lately,
@@ -65,7 +106,7 @@ It was either my Twitter or my GitHub handle (which are, of course,&nbsp;identic
 
     <footer>
         
-            <a class="floatright" href="https://www.georgevreilly.com/2024/12/01/SocialMediaHandles.html#disqus_thread">Comment</a>
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2024/12/01/SocialMediaHandles.html#disqus_thread">Comment</a>
         
         
             <p>tagged as
@@ -407,47 +448,6 @@ $ time tar --bzip2 -cf </pre><span>&#8230;<a href="/blog/2023/02/21/CompressingT
         
             <p>tagged as
                 <a href="/tag/linux/" rel="tag">linux</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2023-01-24">2023-01-24</time>
-        <h1>
-            <a href="/blog/2023/01/24/TreeInRust2PrintingTrees.html" rel="bookmark canonical">Implementing the Tree command in Rust, part 2: Printing Trees</a>
-        </h1>
-    </header>
-    <p>In <a class="reference external" href="/blog/2023/01/23/TreeInRust1WalkDirectories.html">Part 1</a>, we saw how to walk directory trees,
-re&shy;cur&shy;sive&shy;ly using <tt class="docutils literal"><span class="pre">fs::read_dir</span></tt>
-to construct an in-memory tree of <tt class="docutils literal">FileNode</tt>s.
-In Part 2, we&#8217;ll implement the rest of the core of the <a class="reference external" href="https://en.wikipedia.org/wiki/Tree_(command)">tree command</a>:
-printing the directory tree with <a class="reference external" href="https://www.compart.com/en/unicode/block/U+2500">Box Drawing</a>&nbsp;characters.</p>
-<p>Let&#8217;s take a look at some output from <tt class="docutils literal">tree</tt>:</p>
-<pre class="literal-block">
-.
-├── alloc.rs
-├── ascii.rs
-├── os
-│&nbsp;&nbsp; ├── wasi
-│&nbsp;&nbsp; │&nbsp;&nbsp; ├── ffi.rs
-│&nbsp;&nbsp; │&nbsp;&nbsp; ├── mod.rs          ➊
-│&nbsp;&nbsp; │&nbsp;&nbsp; └── net             ➋
-│&nbsp;&nbsp; │&nbsp;&nbsp;     └── mod.rs
-│&nbsp;&nbsp; └── windows
-│&nbsp;&nbsp;     ├── ffi.rs    </pre><span>&#8230;<a href="/blog/2023/01/24/TreeInRust2PrintingTrees.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2023/01/24/TreeInRust2PrintingTrees.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/rust/" rel="tag">rust</a>
                 
             </p>
         

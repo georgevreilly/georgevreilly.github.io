@@ -29,6 +29,62 @@
     
         <article>
     <header>
+        <time datetime="2016-07-12">2016-07-12</time>
+        <h1>
+            <a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" rel="bookmark canonical">Python: Joining URLs with posixpath.join</a>
+        </h1>
+    </header>
+    <p>On Mac/Linux, <a class="reference external" href="https://docs.python.org/2/library/os.path.html#os.path.join">os.path.join</a> is an alias for <tt class="docutils literal">posixpath.join</tt>,
+which always joins path segments with <tt class="docutils literal">/</tt>.
+On Windows, <tt class="docutils literal">os.path.join</tt> is an alias for <tt class="docutils literal">ntpath.join</tt>,
+which always uses <tt class="docutils literal">\</tt>.
+When dealing with URLs, we always want forward slashes,
+regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build URL paths.</p>
+<p>Running:</p>
+<pre class="code python literal-block">
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">from</span> <span class="nn">six.moves.urllib_parse</span> <span class="kn">import</span> <span class="n">urljoin</span> <span class="k">as</span> <span class="n">abs_urljoin</span>
+<span class="kn">from</span> <span class="nn">posixpath</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">path_urljoin</span>
+
+<span class="k">def</span> <span class="nf">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">abs_urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_join</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;'</span><span class="si">{0}</span><span class="s2">' + '</span><span class="si">{1}</span><span class="s2">'</span><span class="se">\n\t</span><span class="s2">-&gt; '</span><span class="si">{2}</span><span class="s2">'&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+<span class="n">local_path</span> <span class="o">=</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="s1">'2016'</span><span class="p">,</span> <span class="s1">'07'</span><span class="p">,</span> <span class="s1">'12'</span><span class="p">,</span> <span class="s1">'release'</span><span class="p">,</span> <span class="s1">'index.html'</span><span class="p">)</span>
+
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="s1">'foo/bar/quux.js'</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/prefix'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
+</pre>
+<p>Yields:</p>
+<pre class="literal-block">
+'https://www.example.com' + 'foo/bar/quux.js'
+  </pre><span>&#8230;<a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-07-11">2016-07-11</time>
         <h1>
             <a href="/blog/2016/07/11/LoggingInPythonDontUseNew-FangledFormat.html" rel="bookmark canonical">Logging in Python: Don't use new-fangled format</a>
@@ -373,37 +429,6 @@ We ran through it together <span>&#8230;<a href="/blog/2016/03/09/FearOfPublicSp
         
             <p>tagged as
                 <a href="/tag/toastmasters/" rel="tag">toastmasters</a>
-                    and
-                    
-                <a href="/tag/python/" rel="tag">python</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-03-07">2016-03-07</time>
-        <h1>
-            <a href="/blog/2016/03/07/FlyingCloud_0_3_0_Released.html" rel="bookmark canonical">FlyingCloud 0.3.0 released</a>
-        </h1>
-    </header>
-    <p>I just <a class="reference external" href="https://groups.google.com/forum/#!topic/flyingcloud-users/eqc9LrNbcXA">announced</a> the release of Fly&shy;ing&shy;Cloud 0.3.0
-on the <tt class="docutils literal"><span class="pre">fly&shy;ing&shy;cloud-users</span></tt> mailing list.
-I'll have more to say about Fly&shy;ing&shy;Cloud in future.
-For now, let's just say it's a tool that we use to build
-<a class="reference external" href="http://docker.com">Docker</a> images using masterless <a class="reference external" href="http://saltstack.com/">SaltStack</a>.</p>
-<p>I'll be speaking about Fly&shy;ing&shy;Cloud at <a class="reference external" href="http://www.meetup.com/PSPPython/events/228878102/">Wednes&shy;day's PuPPy meetup</a>.</p>
-
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/docker/" rel="tag">docker</a>
                     and
                     
                 <a href="/tag/python/" rel="tag">python</a>

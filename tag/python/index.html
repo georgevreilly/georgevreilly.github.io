@@ -29,6 +29,44 @@
     
         <article>
     <header>
+        <time datetime="2024-12-16">2024-12-16</time>
+        <h1>
+            <a href="/blog/2024/12/16/PatchingAndSplittingPythonWheels.html" rel="bookmark canonical">Patching and Splitting Python Wheels</a>
+        </h1>
+    </header>
+    
+<p>I gave lightning talks at <a class="reference external" href="https://www.meetup.com/pythonireland/events/300802991/">Python Ireland</a> in May 2024 and
+<a class="reference external" href="https://www.meetup.com/psppython/events/302211630/">Puget Sound Pro&shy;gram&shy;ming Python (PuPPy)</a> in August 2024
+about patching and splitting wheels: <a class="reference external" href="https://docs.google.com/presentation/d/1YXfI7U1oVgHLSgX8uYieIGdooQK-jTqXWMhpkUrAo4U/edit?usp=sharing">slides</a>.</p>
+<div class="section" id="patching-wheels">
+<h2>Patching Wheels</h2>
+<p>Last year, I wrote about manually <a class="reference external" href="/blog/2023/08/10/PatchingAPythonWheel.html">Patching a Python Wheel</a>.
+There was a cyclic dependency
+between the Torch 2.0.1 wheel and the Triton 2.0.0 wheel.
+While <tt class="docutils literal">pip</tt> had no problem with this,
+<a class="reference external" href="https://bazel.build/">Bazel</a> certainly did.
+My <a class="reference external" href="/blog/2023/08/10/PatchingAPythonWheel.html">workaround</a> was to unzip the Torch wheel,
+edit the metadata to remove the dependency on Triton,
+and zip the wheel up again with a modified name.</p>
+<p>At the beginning of this year,
+I had to patch Torch 2.1 for <a class="reference external" href="https://github.com/georgevreilly/torch21">different reasons</a>.
+Again, I needed to patch the Torch wheel because of <span>&#8230;<a href="/blog/2024/12/16/PatchingAndSplittingPythonWheels.html" class="continue">continue</a>.</span></p></div>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2023-09-26">2023-09-26</time>
         <h1>
             <a href="/blog/2023/09/26/ExploringWordle.html" rel="bookmark canonical">Exploring Wordle</a>
@@ -415,62 +453,6 @@ and I found that my process had used up almost all of the 8GB on this system
 before being killed.</p>
 <p>The query had to be the problem.
 A little more research led me to augment my <span>&#8230;<a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-12">2016-07-12</time>
-        <h1>
-            <a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" rel="bookmark canonical">Python: Joining URLs with posixpath.join</a>
-        </h1>
-    </header>
-    <p>On Mac/Linux, <a class="reference external" href="https://docs.python.org/2/library/os.path.html#os.path.join">os.path.join</a> is an alias for <tt class="docutils literal">posixpath.join</tt>,
-which always joins path segments with <tt class="docutils literal">/</tt>.
-On Windows, <tt class="docutils literal">os.path.join</tt> is an alias for <tt class="docutils literal">ntpath.join</tt>,
-which always uses <tt class="docutils literal">\</tt>.
-When dealing with URLs, we always want forward slashes,
-regardless of platform, so <tt class="docutils literal">posixpath.join</tt> should be used to build URL paths.</p>
-<p>Running:</p>
-<pre class="code python literal-block">
-<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
-
-<span class="kn">from</span> <span class="nn">six.moves.urllib_parse</span> <span class="kn">import</span> <span class="n">urljoin</span> <span class="k">as</span> <span class="n">abs_urljoin</span>
-<span class="kn">from</span> <span class="nn">posixpath</span> <span class="kn">import</span> <span class="n">join</span> <span class="k">as</span> <span class="n">path_urljoin</span>
-
-<span class="k">def</span> <span class="nf">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">abs_urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">test_join</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;'</span><span class="si">{0}</span><span class="s2">' + '</span><span class="si">{1}</span><span class="s2">'</span><span class="se">\n\t</span><span class="s2">-&gt; '</span><span class="si">{2}</span><span class="s2">'&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">site</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">result</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">result</span>
-
-<span class="n">local_path</span> <span class="o">=</span> <span class="n">path_urljoin</span><span class="p">(</span><span class="s1">'2016'</span><span class="p">,</span> <span class="s1">'07'</span><span class="p">,</span> <span class="s1">'12'</span><span class="p">,</span> <span class="s1">'release'</span><span class="p">,</span> <span class="s1">'index.html'</span><span class="p">)</span>
-
-<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="s1">'foo/bar/quux.js'</span><span class="p">)</span>
-<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
-<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
-<span class="n">test_join</span><span class="p">(</span><span class="s1">'https://www.example.com/prefix'</span><span class="p">,</span> <span class="n">local_path</span><span class="p">)</span>
-</pre>
-<p>Yields:</p>
-<pre class="literal-block">
-'https://www.example.com' + 'foo/bar/quux.js'
-  </pre><span>&#8230;<a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" class="continue">continue</a>.</span>
     <footer>
         
         

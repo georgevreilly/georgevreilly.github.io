@@ -29,6 +29,54 @@
     
         <article>
     <header>
+        <time datetime="2016-01-05">2016-01-05</time>
+        <h1>
+            <a href="/blog/2016/01/05/DecrementingLoops.html" rel="bookmark canonical">Decrementing Loops</a>
+        </h1>
+    </header>
+    <p>The canonical <tt class="docutils literal">for</tt>-loop in C and C++ is written thus,
+counting up <tt class="docutils literal">i = 0</tt>, <tt class="docutils literal">i = 1</tt>, &#8230;, <tt class="docutils literal">i = <span class="pre">N-1</span></tt>:</p>
+<pre class="code c++ literal-block">
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c1">// loop body
+</span><span class="p">}</span>
+</pre>
+<p>(In C, you have to declare <tt class="docutils literal">int i</tt> before the <tt class="docutils literal">for</tt>-loop.)</p>
+<p>Let&#8217;s unpack that <tt class="docutils literal">for</tt>-loop into an equivalent <tt class="docutils literal">while</tt>-loop:</p>
+<pre class="code c++ literal-block">
+<span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="c1">// loop body
+</span><span class="w">    </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span>
+</pre>
+<p>In other words, we initialize <tt class="docutils literal">i</tt> to zero.
+Then, before every execution of either loop,
+we check <tt class="docutils literal">i &lt; N</tt>.
+If <tt class="docutils literal">i</tt> is still within bounds,
+we execute the loop body.
+Then we postin&shy;cre&shy;ment <span>&#8230;<a href="/blog/2016/01/05/DecrementingLoops.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/05/DecrementingLoops.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/c++/" rel="tag">c++</a>
+                    and
+                    
+                <a href="/tag/performance/" rel="tag">performance</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-01-04">2016-01-04</time>
         <h1>
             <a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" rel="bookmark canonical">Obfuscating Passwords in URLs in Python</a>
@@ -382,57 +430,6 @@ Lawrence Kasdan (who wrote <em>The Empire Strikes Back</em> and <em>Return of th
                     and
                     
                 <a href="/tag/reviews/" rel="tag">reviews</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-27">2015-12-27</time>
-        <h1>
-            <a href="/blog/2015/12/27/ReviewTheMagicianKing.html" rel="bookmark canonical">Review: The Magician King</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/0670022314/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Magician King</div>
-<div class="line">Author: Lev Grossman</div>
-<div class="line">Rating: ★ ★ ★ ★ ½</div>
-<div class="line">Publisher: Plume</div>
-<div class="line">Copyright: 2011</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0670022314/?tag=georgvreill-20">0670022314</a></div>
-<div class="line">Pages: 400</div>
-<div class="line">Keywords: adult fantasy</div>
-<div class="line">Reading period: 26–27 December, 2015</div>
-</div>
-<p>[Sequel to <a class="reference external" href="/blog/2015/12/26/ReviewTheMagicians.html">The Magicians</a>.]</p>
-<p>There are two storylines in <a class="reference external" href="https://en.wikipedia.org/wiki/The_Magician_King">The Magician King</a>,
-the backstory of Julia&#8217;s training as a hedgewitch
-and Quentin&#8217;s quest for the seven golden&nbsp;keys.</p>
-<p>Quentin, along with his high school crush, Julia,
-and his fellow Brakebills&#8217; alumni, Eliot and Janet,
-have ruled Fillory for a few years.
-Bored with being King, he sets off on a quest, taking Julia with him.
-Un&shy;ex&shy;pect&shy;ed&shy;ly thrust back to Earth,
-they des&shy;per&shy;ate&shy;ly strive to return to Fillory, eventually succeeding.
-Magic is leaching out of the universe as the old gods awaken,
-and <span>&#8230;<a href="/blog/2015/12/27/ReviewTheMagicianKing.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/27/ReviewTheMagicianKing.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/fantasy/" rel="tag">fantasy</a>
                 
             </p>
         

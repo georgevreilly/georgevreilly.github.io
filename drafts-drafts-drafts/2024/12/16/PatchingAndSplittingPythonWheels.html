@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Patching and Splitting Python Wheels</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content=".. image:: /content/binary/patching-bike-tube.jpg..." />
+    <meta name="keywords" content="python" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2024-12-16">2024-12-16</time>
+        <h1>
+            <a href="/drafts-drafts-drafts/2024/12/16/PatchingAndSplittingPythonWheels.html" rel="bookmark canonical">Patching and Splitting Python Wheels</a>
+        </h1>
+    </header>
+    <img alt="Patching a bicycle tube" src="/content/binary/patching-bike-tube.jpg" style="width: 700px;"/>
+<p>I gave lightning talks at <a class="reference external" href="https://www.meetup.com/pythonireland/events/300802991/">Python Ireland</a> in May 2024 and
+<a class="reference external" href="https://www.meetup.com/psppython/events/302211630/">Puget Sound Pro&shy;gram&shy;ming Python (PuPPy)</a> in August 2024
+about patching and splitting wheels: <a class="reference external" href="https://docs.google.com/presentation/d/1YXfI7U1oVgHLSgX8uYieIGdooQK-jTqXWMhpkUrAo4U/edit?usp=sharing">slides</a>.</p>
+<div class="section" id="patching-wheels">
+<h2>Patching&nbsp;Wheels</h2>
+<p>Last year, I wrote about manually <a class="reference external" href="/blog/2023/08/10/PatchingAPythonWheel.html">Patching a Python Wheel</a>.
+There was a cyclic dependency
+between the Torch 2.0.1 wheel and the Triton 2.0.0 wheel.
+While <tt class="docutils literal">pip</tt> had no problem with this,
+<a class="reference external" href="https://bazel.build/">Bazel</a> certainly did.
+My <a class="reference external" href="/blog/2023/08/10/PatchingAPythonWheel.html">workaround</a> was to unzip the Torch wheel,
+edit the metadata to remove the dependency on Triton,
+and zip the wheel up again with a modified&nbsp;name.</p>
+<p>At the beginning of this year,
+I had to patch Torch 2.1 for <a class="reference external" href="https://github.com/georgevreilly/torch21">different reasons</a>.
+Again, I needed to patch the Torch wheel because of Bazel problems.
+Due to the way that Bazel installs each package in a different location,
+instead of one common <tt class="docutils literal"><span class="pre">site-packages</span></tt>,
+I had to <a class="reference external" href="https://github.com/georgevreilly/torch21">ensure</a> that Torch preloaded a series of <tt class="docutils literal"><span class="pre">lib*.so</span></tt> extensions
+in <em>topo&shy;log&shy;i&shy;cal&shy;ly sorted</em> order.
+This time, I wrote a <a class="reference external" href="https://github.com/georgevreilly/torch21/blob/main/scripts/patcher">patcher script</a> to apply patches to a&nbsp;wheel.</p>
+<p>The <a class="reference external" href="https://github.com/georgevreilly/torch21/blob/main/scripts/patcher">patcher script</a> uses the official <a class="reference external" href="https://wheel.readthedocs.io/en/stable/">wheel</a> package
+to do most of the work
+of extracting the contents and packing the new wheel.
+My <a class="reference external" href="https://github.com/georgevreilly/torch21">torch21 repo</a> gives two examples of how to use <tt class="docutils literal">patcher</tt>.</p>
+</div>
+<div class="section" id="splitting-wheels">
+<h2>Splitting&nbsp;Wheels</h2>
+<p>There are multiple variants of the Torch wheel.
+The Torch 2.1 wheel with <span class="caps">CUDA</span> 11.8, <tt class="docutils literal"><span class="pre">torch==2.1.2+cu118</span></tt>, is 2.<span class="caps">5GB</span>,
+and expands to <span class="caps">4GB</span>!
+Almost all of that is in shared object libraries (<tt class="docutils literal"><span class="pre">lib/lib*.so</span></tt>),
+some&nbsp;3.<span class="caps">9GB</span>.</p>
+<pre class="literal-block">
+-rwxr-xr-x 1 georgevreilly stripe  125M Dec 12 18:05 libcudnn_adv_infer.so.8
+-rwxr-xr-x 1 georgevreilly stripe  241M Dec 12 18:05 libtorch_cuda_linalg.so
+-rwxr-xr-x 1 georgevreilly stripe  451M Dec 12 18:05 libtorch_cpu.so
+-rwxr-xr-x 1 georgevreilly stripe  548M Dec 12 18:04 libcublasLt.so.11
+-rwxr-xr-x 1 georgevreilly stripe  621M Dec 12 18:05 libcudnn_cnn_infer.so.8
+-rwxr-xr-x 1 georgevreilly stripe 1355M Dec 12 18:05 libtorch_cuda.so
+</pre>
+<img alt="Library interdependencies" src="/content/binary/torch-topo-deps.png" style="width: 700px;"/>
+<p>An internal system that we use for remotely building Bazel actions
+has a hard limit of <span class="caps">3GB</span>.
+This is an internal policy, not an inherent Bazel limitation,
+but it led to dif&shy;fi&shy;cul&shy;ties with building apps
+that wanted to use the&nbsp;wheel.</p>
+<p>My solution was to split the wheel into two wheels,
+a <tt class="docutils literal">cudatorch</tt> wheel, which contained the two largest libraries,
+<tt class="docutils literal">libtorch_cu&shy;da.so</tt> (<span class="caps">1355MB</span>) and <tt class="docutils literal">libtorch_cu&shy;d&shy;a_li&shy;nalg.so</tt> (<span class="caps">241MB</span>),
+and a modified version of the <tt class="docutils literal">torch</tt> wheel, which contained everything&nbsp;else.</p>
+<p>I had to use <a class="reference external" href="https://manpages.ubuntu.com/manpages/noble/en/man1/patchelf.1.html">patchelf</a> to modify the <a class="reference external" href="https://en.wikipedia.org/wiki/Rpath">rpath</a> of the two libs
+in the <tt class="docutils literal">cudatorch</tt> wheel to something like
+<tt class="docutils literal"><span class="pre">$<span class="caps">ORIGIN</span>:$<span class="caps">ORIGIN</span>/../../torch/lib</span></tt>.</p>
+<p>In the <tt class="docutils literal">torch</tt> wheel, I had to patch <tt class="docutils literal">torch/__init__.py</tt>
+to preload the <tt class="docutils literal">cudatorch</tt> libs.</p>
+</div>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "https://www.georgevreilly.com/drafts-drafts-drafts/2024/12/16/PatchingAndSplittingPythonWheels.html";
+            var disqus_url = "https://www.georgevreilly.com/drafts-drafts-drafts/2024/12/16/PatchingAndSplittingPythonWheels.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="https://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+
+
+    
+    
+        <a href="/2024/12/01/SocialMediaHandles.html" class="page floatright">
+        Social Media Handles &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    <script data-goatcounter="https://georgevreilly.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
+    
+    
+
+  </footer>
+</body>
+</html>
