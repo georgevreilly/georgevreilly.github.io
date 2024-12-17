@@ -1,7 +1,7 @@
 ---
 title: "Social Media Handles"
 date: "2024-12-01"
-permalink: "/2024/12/01/SocialMediaHandles.html"
+permalink: "/blog/2024/12/01/SocialMediaHandles.html"
 tags: [personal]
 ---
 
