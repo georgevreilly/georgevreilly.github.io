@@ -31,6 +31,55 @@
     <header>
         <time datetime="2016-01-04">2016-01-04</time>
         <h1>
+            <a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" rel="bookmark canonical">Obfuscating Passwords in URLs in Python</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p><a class="reference external" href="https://www.ietf.org/rfc/rfc1738.txt"><span class="caps">RFC</span> 1738</a> allows passwords in URLs,
+in the form <tt class="docutils literal"><span class="pre">&lt;scheme&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;host&gt;:&lt;port&gt;/&lt;url-path&gt;</span></tt>.
+Although passwords are deprecated by <a class="reference external" href="https://www.ietf.org/rfc/rfc3986.txt"><span class="caps">RFC</span> 3986</a> and other newer RFCs,
+it&#8217;s oc&shy;ca&shy;sion&shy;al&shy;ly useful.
+Several important packages in the Python world allow such URLs,
+including <a class="reference external" href="https://www.sqlalchemy.org/">SQLAlchemy</a> (<tt class="docutils literal"><span class="pre">'post&shy;gresql://scott:tiger&#64;localhost:5432/my&shy;data&shy;base'</span></tt>)
+and <a class="reference external" href="https://docs.celeryproject.org/en/stable/">Celery</a> (<tt class="docutils literal"><span class="pre">'amqp://guest:guest&#64;localhost:5672//'</span></tt>).
+It&#8217;s also useful to be able to log such URLs without exposing the&nbsp;password.</p>
+<p>Python 2 has <a class="reference external" href="https://docs.python.org/2/library/urlparse.html#urlparse.urlparse">urlparse.urlparse</a>
+(known as <a class="reference external" href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.urlparse">urllib.parse.urlparse</a> in Python 3
+and <tt class="docutils literal">six.moves.url&shy;lib_&shy;parse.urlparse</tt> in the <a class="reference external" href="https://six.readthedocs.io/">Six</a> com&shy;pat&shy;i&shy;bil&shy;i&shy;ty library)
+to split a <span class="caps">URL</span> into six components,
+<em>scheme</em>, <em>netloc</em>, <em>path</em>, <em>parameters</em>, <em>query</em>, and <em>fragment</em>.
+The <em>netloc</em> cor&shy;re&shy;sponds to <tt class="docutils literal"><span class="pre">&lt;user&gt;:&lt;password&gt;&#64;&lt;host&gt;:&lt;port&gt;</span></tt>.</p>
+<p>Un&shy;for&shy;tu&shy;nate&shy;ly, neither Python 2 nor 3&#8217;s <tt class="docutils literal">urlparse</tt>
+properly handle the <em>userinfo</em>
+(<em>username</em> + optional <em>password</em> in the <em>netloc</em>),
+as they <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/01/04/PythonObfuscateUrlPassword.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>,
+                <a href="/tag/urls/" rel="tag">urls</a>,
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
+        <time datetime="2016-01-04">2016-01-04</time>
+        <h1>
             <a href="/blog/2016/01/04/ObfuscatingPasswordsInURLsInPython.html" rel="bookmark canonical">Obfuscating Passwords in URLs in Python</a>
         </h1>
     </header>
@@ -376,57 +425,6 @@ and <span>&#8230;<a href="/blog/2015/12/27/ReviewTheMagicianKing.html" class="co
     <footer>
         
             <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/27/ReviewTheMagicianKing.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/books/" rel="tag">books</a>,
-                <a href="/tag/reviews/" rel="tag">reviews</a>
-                    and
-                    
-                <a href="/tag/fantasy/" rel="tag">fantasy</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2015-12-26">2015-12-26</time>
-        <h1>
-            <a href="/blog/2015/12/26/ReviewTheMagicians.html" rel="bookmark canonical">Review: The Magicians</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.amazon.com/dp/0670020559/?tag=georgvreill-20"></a>
-<div class="line-block">
-<div class="line">Title: The Magicians</div>
-<div class="line">Author: Lev Grossman</div>
-<div class="line">Rating: ★ ★ ★ ★ ½</div>
-<div class="line">Publisher: Plume</div>
-<div class="line">Copyright: 2009</div>
-<div class="line"><span class="caps">ISBN</span>: <a class="reference external" href="https://www.amazon.com/dp/0670020559/?tag=georgvreill-20">0670020559</a></div>
-<div class="line">Pages: 402</div>
-<div class="line">Keywords: adult fantasy</div>
-<div class="line">Reading period: 20–26 December, 2015</div>
-</div>
-<p>Take a heavy dose of <a class="reference external" href="https://en.wikipedia.org/wiki/The_Chronicles_of_Narnia">Narnia</a>,
-add a hefty dollop of <a class="reference external" href="https://en.wikipedia.org/wiki/Harry_Potter">Harry Potter</a>,
-stir in some <a class="reference external" href="https://en.wikipedia.org/wiki/Bret_Easton_Ellis">Bret Easton Ellis</a>
-and a dash of <a class="reference external" href="https://en.wikipedia.org/wiki/The_Catcher_in_the_Rye">The Catcher in the Rye</a>,
-then cook for adults.
-That glib de&shy;scrip&shy;tion short&shy;changes <a class="reference external" href="https://en.wikipedia.org/wiki/The_Magicians_(Grossman_novel)">The Magicians</a>,
-even though Fillory clearly owes a major debt to Narnia
-and the preppy Brakebills College for Magical Pedagogy somewhat resembles&nbsp;Hogwarts.</p>
-<p>Quentin Coldwater is an over&shy;achiev&shy;ing, solitary math nerd from Brooklyn,
-who thinks he&#8217;s attending an entrance interview for Princeton
-but instead gains admittance to Brakebills.
-Magic turns out to be real, but difficult, requiring <span>&#8230;<a href="/blog/2015/12/26/ReviewTheMagicians.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2015/12/26/ReviewTheMagicians.html#disqus_thread">Comment</a>
         
         
             <p>tagged as
