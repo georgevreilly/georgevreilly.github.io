@@ -59,6 +59,7 @@ some 3.9GB.
 
 .. image:: /content/binary/torch-topo-deps.png
     :alt: Library interdependencies
+    :target: https://gist.github.com/georgevreilly/702e9e8783dd5978bd3e4a151fadee1e
     :width: 700
 
 An internal system that we use for remotely building Bazel actions
