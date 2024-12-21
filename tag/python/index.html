@@ -29,6 +29,41 @@
     
         <article>
     <header>
+        <time datetime="2024-12-20">2024-12-20</time>
+        <h1>
+            <a href="/blog/2024/12/20/PatchingAirflowWheels.html" rel="bookmark canonical">Patching Airflow Wheels</a>
+        </h1>
+    </header>
+    <p>In <a class="reference external" href="/blog/2024/12/16/PatchingAndSplittingPythonWheels.html">Patching and Splitting Python Wheels</a>,
+I wrote about some occasions when I had to take a <a class="reference external" href="https://realpython.com/python-wheels/">Python wheel</a>
+and patch it.
+Now I want to tell you about a very different approach
+that I used recently to patch Airflow wheels.</p>
+<p>With the other wheels, we just needed to apply some tactical patches.
+With Airflow, we are making sub&shy;stan&shy;tive changes.</p>
+<a class="reference external image-reference" href="https://airflow.apache.org/"></a>
+<p>We've been using <a class="reference external" href="https://airflow.apache.org/">Airflow</a> for years at work.
+We built up a lot of in&shy;fra&shy;struc&shy;ture around Airflow 1
+and we are gradually migrating to <a class="reference external" href="https://www.astronomer.io/blog/introducing-airflow-2-0/">Airflow 2</a>.</p>
+<p>Several years ago, we forked the <a class="reference external" href="https://pypi.org/project/apache-airflow/">airflow package</a>
+and made a large number of changes to it for internal con&shy;sump&shy;tion.
+Un&shy;for&shy;tu&shy;nate&shy;ly, this made it in&shy;creas&shy;ing&shy;ly hard <span>&#8230;<a href="/blog/2024/12/20/PatchingAirflowWheels.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2024-12-16">2024-12-16</time>
         <h1>
             <a href="/blog/2024/12/16/PatchingAndSplittingPythonWheels.html" rel="bookmark canonical">Patching and Splitting Python Wheels</a>
@@ -423,41 +458,6 @@ The “nearest even” strategy is also known as “banker’s rounding”.</p>
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>,
                 <a href="/tag/math/" rel="tag">math</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-07-14">2016-07-14</time>
-        <h1>
-            <a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" rel="bookmark canonical">SQLAlchemy got me Killed</a>
-        </h1>
-    </header>
-    <p>I ran a script this afternoon that died mys&shy;te&shy;ri&shy;ous&shy;ly without any output.
-It was using <a class="reference external" href="http://www.sqlalchemy.org/">SQLAlchemy</a> to query all the rows from a large table
-so that they could be trans&shy;formed into <a class="reference external" href="http://jsonlines.org/">JSON Lines</a> to be loaded into Elas&shy;tic&shy;search.
-When I reran my script,
-I noticed this time that something had printed <tt class="docutils literal">Killed</tt> at the very end.</p>
-<p>A little research convinced me that the <a class="reference external" href="http://stackoverflow.com/questions/726690/who-killed-my-process-and-why">OOM Killer</a> was the likely assassin.
-I looked in <tt class="docutils literal">/var/log/kern.log</tt>
-and I found that my process had used up almost all of the 8GB on this system
-before being killed.</p>
-<p>The query had to be the problem.
-A little more research led me to augment my <span>&#8230;<a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>

@@ -29,6 +29,45 @@
     
         <article>
     <header>
+        <time datetime="2023-02-21">2023-02-21</time>
+        <h1>
+            <a href="/blog/2023/02/21/CompressingTarFilesInParallel.html" rel="bookmark canonical">Compressing Tar Files in Parallel</a>
+        </h1>
+    </header>
+    <p><span class="caps">TL</span>;<span class="caps">DR</span>: use <tt class="docutils literal">tar <span class="pre">-I</span> pigz</tt> or <tt class="docutils literal">tar <span class="pre">-I</span> lbzip2</tt>
+to compress large tar files much more&nbsp;quickly.</p>
+<p>I in&shy;ves&shy;ti&shy;gat&shy;ed various ways of com&shy;press&shy;ing a 7GiB tar&nbsp;file.</p>
+<p>The built-in <tt class="docutils literal"><span class="pre">--gzip</span></tt> and <tt class="docutils literal"><span class="pre">--bzip2</span></tt> com&shy;pres&shy;sion methods in <span class="caps">GNU</span> <tt class="docutils literal">tar</tt>
+are single-threaded.
+If you invoke an external compressor with <tt class="docutils literal"><span class="pre">--use-compress-program</span></tt>,
+you can get some huge reductions in com&shy;pres&shy;sion time,
+with slightly worse com&shy;pres&shy;sion&nbsp;ratios.</p>
+<p>You can use <a class="reference external" href="https://zlib.net/pigz/">pigz</a> as a parallel re&shy;place&shy;ment for <tt class="docutils literal">gzip</tt>
+and <a class="reference external" href="https://linux.die.net/man/1/lbzip2">lbzip2</a> as a parallel version of <tt class="docutils literal">bzip2</tt>.
+Both of them will make heavy use of all the cores in your system,
+greatly reducing the <em>real</em> time relative to the <em>user</em>&nbsp;time.</p>
+<p>Single-threaded com&shy;pres&shy;sion timing:
+<tt class="docutils literal">gzip</tt> is a lot faster than <tt class="docutils literal">bzip2</tt>:</p>
+<pre class="literal-block">
+$ time tar --bzip2 -cf </pre><span>&#8230;<a href="/blog/2023/02/21/CompressingTarFilesInParallel.html" class="continue">continue</a>.</span>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2023/02/21/CompressingTarFilesInParallel.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/linux/" rel="tag">linux</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2023-01-24">2023-01-24</time>
         <h1>
             <a href="/blog/2023/01/24/TreeInRust2PrintingTrees.html" rel="bookmark canonical">Implementing the Tree command in Rust, part 2: Printing Trees</a>
@@ -415,54 +454,6 @@ functions <span>&#8230;<a href="/blog/2021/12/28/ReviewCraftingInterpreters.html
                     and
                     
                 <a href="/tag/reviews/" rel="tag">reviews</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2021-10-05">2021-10-05</time>
-        <h1>
-            <a href="/blog/2021/10/05/PathTraversalAttacks.html" rel="bookmark canonical">Path Traversal Attacks</a>
-        </h1>
-    </header>
-    <p>I was surprised to read this evening that the Apache Web Server
-just fixed an actively exploited path traversal&nbsp;flaw.</p>
-<blockquote class="twitter-tweet">
-<p lang="en" dir="ltr">
-🚨 Apache has disclosed an *actively exploited* Path traversal flaw
-in the <a href="https://twitter.com/hashtag/opensource?src=hash&amp;ref_src=twsrc%5Etfw">#open&shy;source</a>
-&quot;httpd&quot; server.
-Over 112,000 exposed Apache servers run version 2.4.49,
-and should be upgraded now!<br>
-New fix checks for encoded path traversal characters
-e.g. /../.%2E/<a href="https://t.co/1tLNc3LAul">https://t.co/1tLNc3LAul</a>
-<a href="https://t.co/mDHLEU3k9N">pic.twitter.com/mDHLEU3k9N</a>
-</br>&mdash; Ax Sharma (@Ax_Sharma)
-<a href="https://twitter.com/Ax_Sharma/status/1445391350053183500?ref_src=twsrc%5Etfw">October 5, 2021</a>
-</p>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><p>Apparently, it was <a class="reference external" href="https://github.com/apache/httpd/commit/4c79fd280dfa3eede5a6f3baebc7ef2e55b3eb6a">introduced over a year ago</a>.</p>
-<p>I&#8217;m gobsmacked that Apache didn&#8217;t have a robust suite of tests for&nbsp;this.</p>
-<p>Directory Traversal attacks have been a problem for web servers
-since the beginning.
-<a class="reference external" href="https://owasp.org/www-community/attacks/Path_Traversal"><span class="caps">OWASP</span></a>, <a class="reference external" href="https://portswigger.net/web-security/file-path-traversal">PortSwig&shy;ger</a>, and <a class="reference external" href="https://spanning.com/blog/directory-traversal-web-based-application-security-part-8/">Spanning</a> all have ex&shy;pla&shy;na&shy;tions that you can read.
-The essence is that you make a request <span>&#8230;<a href="/blog/2021/10/05/PathTraversalAttacks.html" class="continue">continue</a>.</span></p></blockquote>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2021/10/05/PathTraversalAttacks.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/iis/" rel="tag">iis</a>,
-                <a href="/tag/security/" rel="tag">security</a>
-                    and
-                    
-                <a href="/tag/unicode/" rel="tag">unicode</a>
                 
             </p>
         

@@ -29,6 +29,41 @@
     
         <article>
     <header>
+        <time datetime="2016-07-14">2016-07-14</time>
+        <h1>
+            <a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" rel="bookmark canonical">SQLAlchemy got me Killed</a>
+        </h1>
+    </header>
+    <p>I ran a script this afternoon that died mys&shy;te&shy;ri&shy;ous&shy;ly without any output.
+It was using <a class="reference external" href="http://www.sqlalchemy.org/">SQLAlchemy</a> to query all the rows from a large table
+so that they could be trans&shy;formed into <a class="reference external" href="http://jsonlines.org/">JSON Lines</a> to be loaded into Elas&shy;tic&shy;search.
+When I reran my script,
+I noticed this time that something had printed <tt class="docutils literal">Killed</tt> at the very end.</p>
+<p>A little research convinced me that the <a class="reference external" href="http://stackoverflow.com/questions/726690/who-killed-my-process-and-why">OOM Killer</a> was the likely assassin.
+I looked in <tt class="docutils literal">/var/log/kern.log</tt>
+and I found that my process had used up almost all of the 8GB on this system
+before being killed.</p>
+<p>The query had to be the problem.
+A little more research led me to augment my <span>&#8230;<a href="/blog/2016/07/14/SQLAlchemyGotMeKilled.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-07-12">2016-07-12</time>
         <h1>
             <a href="/blog/2016/07/12/PythonJoiningUrlsWithPosixpathJoin.html" rel="bookmark canonical">Python: Joining URLs with posixpath.join</a>
@@ -395,43 +430,6 @@ for web services, web apps, machine learning, image processing, and <span>&#8230
                     and
                     
                 <a href="/tag/metabrite/" rel="tag">metabrite</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-03-09">2016-03-09</time>
-        <h1>
-            <a href="/blog/2016/03/09/FearOfPublicSpeaking.html" rel="bookmark canonical">Fear of Public Speaking</a>
-        </h1>
-    </header>
-    
-<p>It is often said that people fear public speaking more than they fear death.
-I certainly used to fear getting up in front of a crowd,
-though not to the point of death.
-Tonight I spoke about <a class="reference external" href="http://flyingcloud.readthedocs.org/">Fly&shy;ing&shy;Cloud</a>
-in front of more than 100 people for half an hour
-at the <a class="reference external" href="http://www.meetup.com/PSPPython/events/228878102/">PuPPy Meetup</a>.
-I wasn't nervous beforehand and I wasn't nervous talking to the crowd.</p>
-<p>I've been an active Toast&shy;mas&shy;ter for nearly 15 years
-and I've spoken at Toast&shy;mas&shy;ters hundreds of times.
-I'm used to a room of 15–25 people but not to a larger audience.
-Adam and I put our slides together late last week.
-We ran through it together <span>&#8230;<a href="/blog/2016/03/09/FearOfPublicSpeaking.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/toastmasters/" rel="tag">toastmasters</a>
-                    and
-                    
-                <a href="/tag/python/" rel="tag">python</a>
                 
             </p>
         

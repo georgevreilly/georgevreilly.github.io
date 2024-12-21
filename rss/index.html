@@ -5,9 +5,148 @@
         <link>https://www.georgevreilly.com/</link>
         <description></description>
         <language>en</language>
-        <pubDate>Mon, 16 Dec 2024 08:00:00 GMT</pubDate>
+        <pubDate>Fri, 20 Dec 2024 08:00:00 GMT</pubDate>
         <docs>https://www.georgevreilly.com/rss/</docs>
         <generator>acrylamid 0.8.dev0</generator>
+        
+            <item>
+        <title>Patching Airflow Wheels</title>
+        <link>https://www.georgevreilly.com/blog/2024/12/20/PatchingAirflowWheels.html</link>
+        <description>&lt;p&gt;In &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2024/12/16/PatchingAndSplittingPythonWheels.html&#34;&gt;Patching and Splitting Python Wheels&lt;/a&gt;,
+I wrote about some occasions when I had to take a &lt;a class=&#34;reference external&#34; href=&#34;https://realpython.com/python-wheels/&#34;&gt;Python wheel&lt;/a&gt;
+and patch it.
+Now I want to tell you about a very different approach
+that I used recently to patch Airflow wheels.&lt;/p&gt;
+&lt;p&gt;With the other wheels, we just needed to apply some tactical patches.
+With Airflow, we are making substantive changes.&lt;/p&gt;
+&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://airflow.apache.org/&#34;&gt;&lt;img alt=&#34;Apache Airflow&#34; src=&#34;https://www.georgevreilly.com/content/binary/ApacheAirflowLogo.png&#34;/&gt;&lt;/a&gt;
+&lt;p&gt;We&#39;ve been using &lt;a class=&#34;reference external&#34; href=&#34;https://airflow.apache.org/&#34;&gt;Airflow&lt;/a&gt; for years at work.
+We built up a lot of infrastructure around Airflow 1
+and we are gradually migrating to &lt;a class=&#34;reference external&#34; href=&#34;https://www.astronomer.io/blog/introducing-airflow-2-0/&#34;&gt;Airflow 2&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Several years ago, we forked the &lt;a class=&#34;reference external&#34; href=&#34;https://pypi.org/project/apache-airflow/&#34;&gt;airflow package&lt;/a&gt;
+and made a large number of changes to it for internal consumption.
+Unfortunately, this made it increasingly hard for us to merge changes
+from the &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/apache/airflow&#34;&gt;upstream repo&lt;/a&gt; into our internal Git repository,
+as the repos continued to diverge.&lt;/p&gt;
+&lt;p&gt;Airflow&#39;s &lt;a class=&#34;reference external&#34; href=&#34;https://github.com/apache/airflow/blob/2.10.2/dev/README_RELEASE_AIRFLOW.md&#34;&gt;current release workflow&lt;/a&gt;:&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;Create a release branch from &lt;tt class=&#34;docutils literal&#34;&gt;main&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;Create release candidates.&lt;/li&gt;
+&lt;li&gt;Fix any problems, including cherry-picking from &lt;tt class=&#34;docutils literal&#34;&gt;main&lt;/tt&gt;.&lt;/li&gt;
+&lt;li&gt;Publish the final release, which is &lt;a class=&#34;reference external&#34; href=&#34;https://git-scm.com/book/en/v2/Git-Basics-Tagging&#34;&gt;tagged&lt;/a&gt;.
+The package is uploaded to PyPI.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Note that this tagged branch is never merged back to &lt;tt class=&#34;docutils literal&#34;&gt;main&lt;/tt&gt;,
+so you cannot checkout an official release from the &lt;tt class=&#34;docutils literal&#34;&gt;main&lt;/tt&gt; branch.
+You must checkout the tag instead.
+(I don&#39;t know if this was also the release workflow for Airflow 1.)&lt;/p&gt;
+&lt;p&gt;Our internal workflow is different.
+Engineers work on feature branches and create pull requests.
+These pull requests get merged into &lt;tt class=&#34;docutils literal&#34;&gt;master&lt;/tt&gt;.
+Production deployments are built from &lt;tt class=&#34;docutils literal&#34;&gt;master&lt;/tt&gt; only.
+We don&#39;t use tagged releases.
+This &lt;tt class=&#34;docutils literal&#34;&gt;master&lt;/tt&gt;-centric assumption is baked deeply
+into our build and continuous integration systems.
+Since the upstream &lt;tt class=&#34;docutils literal&#34;&gt;main&lt;/tt&gt; doesn&#39;t have release code,
+it&#39;s not suitable for merging into our &lt;tt class=&#34;docutils literal&#34;&gt;master&lt;/tt&gt;.&lt;/p&gt;
+&lt;div class=&#34;section&#34; id=&#34;git-clone-workflow&#34;&gt;
+&lt;h3&gt;Git Clone Workflow&lt;/h3&gt;
+&lt;p&gt;To avoid the difficulties that we caused ourselves with Airflow 1,
+we created a fresh repository for Airflow 2,
+which does &lt;em&gt;not&lt;/em&gt; have a copy of the upstream repo&#39;s code.
+We now maintain a set of patches for each upstream release that we care about.
+This new repo has build scripts and patches only.&lt;/p&gt;
+&lt;p&gt;When I first set this up,
+I had the CI build script create a shallow clone of the upstream repo,
+then check out each tag,
+and apply our patches.&lt;/p&gt;
+&lt;pre class=&#34;code bash literal-block&#34;&gt;
+&lt;span class=&#34;c1&#34;&gt;# NOT SHOWN: create a virtualenv with Hatch and other build dependencies
+# from Airflow&#39;s pyproject.toml
+&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;git&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;clone&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--depth&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;https://github.com/apache/airflow.git&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;worktree&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;worktree&lt;span class=&#34;w&#34;&gt;
+
+&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;tag&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;in&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;2.10.2&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;2.10.4&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;git&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;reset&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--hard&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;HEAD&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;rm&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-rf&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;dist&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;git&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;fetch&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--depth&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;m&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;origin&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$tag&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;git&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;checkout&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--quiet&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;FETCH_HEAD&lt;span class=&#34;w&#34;&gt;
+
+    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;p&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;in&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;../patches/&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$tag&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;/*.patch&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;do&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+        &lt;/span&gt;git&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;am&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&amp;lt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;$p&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+
+    &lt;/span&gt;python3&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;-m&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;build&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;--wheel&lt;span class=&#34;w&#34;&gt;
+    &lt;/span&gt;cp&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;dist/*&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;../build&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;done&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;The first patch for each tag changes the version information
+so that our wheel won&#39;t conflict with the official wheel from upstream.
+It updates &lt;tt class=&#34;docutils literal&#34;&gt;tool.hatch.version&lt;/tt&gt; in &lt;tt class=&#34;docutils literal&#34;&gt;pyproject.toml&lt;/tt&gt; to read:&lt;/p&gt;
+&lt;pre class=&#34;code toml literal-block&#34;&gt;
+&lt;span class=&#34;k&#34;&gt;[tool.hatch.version]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;source&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;code&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;expression&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;stripe_airflow_version()&amp;quot;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;path&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;stripe_version.py&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;p&gt;instead of extracting the version information from &lt;tt class=&#34;docutils literal&#34;&gt;airflow/__init__.py&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;tt class=&#34;docutils literal&#34;&gt;stripe_version.py&lt;/tt&gt; script uses &lt;a class=&#34;reference external&#34; href=&#34;https://git-scm.com/docs/git-describe&#34;&gt;git describe&lt;/a&gt;
+to get the number of additional commits in our branch
+and the abbreviated SHA of the most recent commit,
+then prefixes these items with &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;+stripe.${MAJOR}.&lt;/span&gt;&lt;/tt&gt;
+All of this is suffixed to the actual version number from upstream,
+so we build a wheel that is named something like
+&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;apache_airflow-${TAG}+stripe.1.${COUNT}.g${SHA}-py3-none-any.whl&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;While this system produced a working wheel,
+there was one critical omission.
+The official upstream wheel contained an extra 37MB of UI code in &lt;tt class=&#34;docutils literal&#34;&gt;www/static&lt;/tt&gt;,
+which is used by the various Airflow website UIs.&lt;/p&gt;
+&lt;p&gt;I spent quite a bit of effort to make our build generate this extra payload,
+but it turned out to be very difficult.
+&lt;tt class=&#34;docutils literal&#34;&gt;python3 &lt;span class=&#34;pre&#34;&gt;-m&lt;/span&gt; hatch build &lt;span class=&#34;pre&#34;&gt;-t&lt;/span&gt; custom&lt;/tt&gt;
+requires Node.js and does a lot of extra steps
+that didn&#39;t interact well with the locked down egress rules of our CI.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;source-distribution-workflow&#34;&gt;
+&lt;h3&gt;Source Distribution Workflow&lt;/h3&gt;
+&lt;p&gt;I realized that all of the &lt;tt class=&#34;docutils literal&#34;&gt;www/static&lt;/tt&gt; tree could be
+extracted from the official release,
+and that we didn&#39;t have to generate it in CI.&lt;/p&gt;
+&lt;p&gt;Instead of checking out a tag,
+our CI downloads the official &lt;a class=&#34;reference external&#34; href=&#34;https://packaging.python.org/en/latest/specifications/source-distribution-format/&#34;&gt;source distribution&lt;/a&gt; tarball,
+&lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;apache_airflow-${RELEASE}.tar.gz&lt;/span&gt;&lt;/tt&gt;,
+untars the tarball,
+applies our patches,
+and builds a new wheel.&lt;/p&gt;
+&lt;p&gt;It took me a while to figure out why our custom versioning wasn&#39;t working.
+Because the sdist contains a file called &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;PKG-INFO&lt;/span&gt;&lt;/tt&gt; at the root,
+Hatch takes the version from that.
+I had to update the &lt;tt class=&#34;docutils literal&#34;&gt;stripe_version.py&lt;/tt&gt; script to modify
+the &lt;tt class=&#34;docutils literal&#34;&gt;Version:&lt;/tt&gt; line in &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;PKG-INFO&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;section&#34; id=&#34;format-patch-workflow&#34;&gt;
+&lt;h3&gt;Format-Patch Workflow&lt;/h3&gt;
+&lt;p&gt;So far, I&#39;ve covered how the patched wheel is built in CI,
+but not how you would create new patches.&lt;/p&gt;
+&lt;p&gt;For local development, you can check out the upstream tag
+(see &lt;tt class=&#34;docutils literal&#34;&gt;FETCH_HEAD&lt;/tt&gt; above),
+then apply any existing patches that are relevant.
+Make other changes, commit them locally, and build the wheel by hand.
+When you have tested and have something that you&#39;re happy with,
+you can use &lt;a class=&#34;reference external&#34; href=&#34;https://git-scm.com/book/en/v2/Distributed-Git-Maintaining-a-Project&#34;&gt;git format-patch&lt;/a&gt; to create a series of patches.
+These patches can then be committed to the repo that we use to build the wheels.&lt;/p&gt;
+&lt;p&gt;This workflow is less convenient
+than making changes directly in the forked code,
+as we did with Airflow 1.
+But now we only have a moderate amount of friction
+to upgrade to a newer release from upstream,
+instead of ever-increasing difficulty.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Fri, 20 Dec 2024 08:00:00 GMT</pubDate>
+        <guid isPermaLink="false">tag:www.georgevreilly.com,2024-12-20:/blog/2024/12/20/PatchingAirflowWheels.html</guid>
+    </item>
         
             <item>
         <title>Patching and Splitting Python Wheels</title>
@@ -54,7 +193,7 @@ some 3.9GB.&lt;/p&gt;
 -rwxr-xr-x 1 georgevreilly stripe  621M Dec 12 18:05 libcudnn_cnn_infer.so.8
 -rwxr-xr-x 1 georgevreilly stripe 1355M Dec 12 18:05 libtorch_cuda.so
 &lt;/pre&gt;
-&lt;img alt=&#34;Library interdependencies&#34; src=&#34;https://www.georgevreilly.com/content/binary/torch-topo-deps.png&#34; style=&#34;width: 700px;&#34;/&gt;
+&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://gist.github.com/georgevreilly/702e9e8783dd5978bd3e4a151fadee1e&#34;&gt;&lt;img alt=&#34;Library interdependencies&#34; src=&#34;https://www.georgevreilly.com/content/binary/torch-topo-deps.png&#34; style=&#34;width: 700px;&#34;/&gt;&lt;/a&gt;
 &lt;p&gt;An internal system that we use for remotely building Bazel actions
 has a hard limit of 3GB.
 This is an internal policy, not an inherent Bazel limitation,
@@ -2785,49 +2924,6 @@ but do not try to implement a full grammar as a single regular expression.&lt;/p
 </description>
         <pubDate>Thu, 23 Apr 2020 08:00:00 GMT</pubDate>
         <guid isPermaLink="false">tag:www.georgevreilly.com,2020-04-23:/blog/2020/04/23/regex-32-problems.html</guid>
-    </item>
-        
-            <item>
-        <title>Weirdest Birthday Ever</title>
-        <link>https://www.georgevreilly.com/blog/2020/03/15/WeirdestBirthdayEver.html</link>
-        <description>&lt;p&gt;When I said that Emma and I would be spending &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2019/11/22/Dublin2020.html&#34;&gt;2020 in Dublin&lt;/a&gt;,
-I could not possibly have anticipated what would be happening in Seattle
-while we were gone.&lt;/p&gt;
-&lt;p&gt;Today is my 55th birthday and it&#39;s the weirdest birthday ever,
-in what must be the weirdest week that most of us have lived through.
-(So far.)&lt;/p&gt;
-&lt;p&gt;COVID-19 is all that anyone can talk about:
-where it&#39;s spreading, how it&#39;s being handled, what comes next.&lt;/p&gt;
-&lt;p&gt;I started working from home on Tuesday, March 10th.
-Emma&#39;s general health and immune system are not good.
-My parents, who live nearby,
-are now both 80 years old and neither is in great health.
-It seemed prudent to minimize my risk of passing something on to any of them.
-Since then, Stripe has closed most offices,
-as have many other companies.&lt;/p&gt;
-&lt;p&gt;Ireland has closed schools, banned large gatherings,
-and is generally trying not to become like Italy.
-St Patrick&#39;s Day parades are cancelled.
-Most pubs have not yet closed and I wish they would,
-since they are now a public health risk.&lt;/p&gt;
-&lt;p&gt;If Ireland institutes a full lockdown,
-we&#39;ll move in with my parents for the duration—assuming that none of us are showing signs of COVID-19.&lt;/p&gt;
-&lt;p&gt;Seattle has been ground zero for coronavirus in the US.
-All of the initial deaths were there.
-Some hospitals are already overwhelmed,
-and I&#39;m sure others will be as the number of cases
-rises exponentially.
-Governor Inslee and other state and city leaders
-have been doing a good job of managing the crisis.&lt;/p&gt;
-&lt;p&gt;I wish I could say the same about the United States as a whole.
-It was &lt;em&gt;always&lt;/em&gt; obvious that Trump was wholly unfit to be president,
-but it&#39;s never been more clear over the past month.
-I fear for my adopted country.&lt;/p&gt;
-&lt;p&gt;Anyway, we&#39;re heading off to my parents soon,
-for a subdued birthday celebration.&lt;/p&gt;
-</description>
-        <pubDate>Sun, 15 Mar 2020 08:00:00 GMT</pubDate>
-        <guid isPermaLink="false">tag:www.georgevreilly.com,2020-03-15:/blog/2020/03/15/WeirdestBirthdayEver.html</guid>
     </item>
         </channel>
 </rss>

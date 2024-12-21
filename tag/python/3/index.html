@@ -29,6 +29,43 @@
     
         <article>
     <header>
+        <time datetime="2016-03-09">2016-03-09</time>
+        <h1>
+            <a href="/blog/2016/03/09/FearOfPublicSpeaking.html" rel="bookmark canonical">Fear of Public Speaking</a>
+        </h1>
+    </header>
+    
+<p>It is often said that people fear public speaking more than they fear death.
+I certainly used to fear getting up in front of a crowd,
+though not to the point of death.
+Tonight I spoke about <a class="reference external" href="http://flyingcloud.readthedocs.org/">Fly&shy;ing&shy;Cloud</a>
+in front of more than 100 people for half an hour
+at the <a class="reference external" href="http://www.meetup.com/PSPPython/events/228878102/">PuPPy Meetup</a>.
+I wasn't nervous beforehand and I wasn't nervous talking to the crowd.</p>
+<p>I've been an active Toast&shy;mas&shy;ter for nearly 15 years
+and I've spoken at Toast&shy;mas&shy;ters hundreds of times.
+I'm used to a room of 15–25 people but not to a larger audience.
+Adam and I put our slides together late last week.
+We ran through it together <span>&#8230;<a href="/blog/2016/03/09/FearOfPublicSpeaking.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/toastmasters/" rel="tag">toastmasters</a>
+                    and
+                    
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-03-07">2016-03-07</time>
         <h1>
             <a href="/blog/2016/03/07/FlyingCloud_0_3_0_Released.html" rel="bookmark canonical">FlyingCloud 0.3.0 released</a>
@@ -392,53 +429,6 @@ then <tt class="docutils literal">Base</tt>’s im&shy;ple&shy;men&shy;ta&shy;ti
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-01-04">2016-01-04</time>
-        <h1>
-            <a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" rel="bookmark canonical">Obfuscating Passwords in URLs in Python</a>
-        </h1>
-    </header>
-    <p></p>
-<blockquote>
-[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
-<p><a class="reference external" href="https://www.ietf.org/rfc/rfc1738.txt">RFC 1738</a> allows passwords in URLs,
-in the form <tt class="docutils literal"><span class="pre">&lt;scheme&gt;://&lt;username&gt;:&lt;password&gt;&#64;&lt;host&gt;:&lt;port&gt;/&lt;url-path&gt;</span></tt>.
-Although passwords are deprecated by <a class="reference external" href="https://www.ietf.org/rfc/rfc3986.txt">RFC 3986</a> and other newer RFCs,
-it's oc&shy;ca&shy;sion&shy;al&shy;ly useful.
-Several important packages in the Python world allow such URLs,
-including <a class="reference external" href="https://www.sqlalchemy.org/">SQLAlchemy</a> (<tt class="docutils literal"><span class="pre">'post&shy;gresql://scott:tiger&#64;localhost:5432/my&shy;data&shy;base'</span></tt>)
-and <a class="reference external" href="https://docs.celeryproject.org/en/stable/">Celery</a> (<tt class="docutils literal"><span class="pre">'amqp://guest:guest&#64;localhost:5672//'</span></tt>).
-It's also useful to be able to log such URLs without exposing the password.</p>
-<p>Python 2 has <a class="reference external" href="https://docs.python.org/2/library/urlparse.html#urlparse.urlparse">urlparse.urlparse</a>
-(known as <a class="reference external" href="https://docs.python.org/3/library/urllib.parse.html#urllib.parse.urlparse">urllib.parse.urlparse</a> in Python 3
-and <tt class="docutils literal">six.moves.url&shy;lib_&shy;parse.urlparse</tt> in the <a class="reference external" href="https://six.readthedocs.io/">Six</a> com&shy;pat&shy;i&shy;bil&shy;i&shy;ty library)
-to split a URL into six components,
-<em>scheme</em>, <em>netloc</em>, <em>path</em>, <em>parameters</em>, <em>query</em>, and <em>fragment</em>.
-The <em>netloc</em> cor&shy;re&shy;sponds to <tt class="docutils literal"><span class="pre">&lt;user&gt;:&lt;password&gt;&#64;&lt;host&gt;:&lt;port&gt;</span></tt>.</p>
-<p>Un&shy;for&shy;tu&shy;nate&shy;ly, neither Python 2 nor 3's <tt class="docutils literal">urlparse</tt>
-properly handle the <em>userinfo</em>
-(<em>username</em> + optional <em>password</em> in the <em>netloc</em>),
-as <span>&#8230;<a href="/blog/2016/01/04/PythonObfuscateUrlPassword.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>,
-                <a href="/tag/urls/" rel="tag">urls</a>,
-                <a href="/tag/metabrite/" rel="tag">metabrite</a>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>

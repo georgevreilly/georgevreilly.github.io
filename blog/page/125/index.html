@@ -29,6 +29,48 @@
     
         <article>
     <header>
+        <time datetime="2005-08-11">2005-08-11</time>
+        <h1>
+            <a href="/blog/2005/08/11/TIMEStamping.html" rel="bookmark canonical">TIME stamping</a>
+        </h1>
+    </header>
+    <p>I&#8217;m a command-line dinosaur.
+<a class="reference external" href="http://www.vim.org/">Vim</a> (Vi IMproved) is my favorite text editor.
+And I write quite a few little batch&nbsp;files.</p>
+<p>Here are a few useful tricks that work with cmd.exe on Windows&nbsp;<span class="caps">XP</span>.</p>
+<div class="section" id="timestamped-filename">
+<h2>Time&shy;stamped&nbsp;filename</h2>
+<p>Sometimes I want to create a file whose name includes the current date and time.
+By combining the magic <tt class="docutils literal">%<span class="caps">DATE</span>%</tt> and <tt class="docutils literal">%<span class="caps">TIME</span>%</tt> en&shy;vi&shy;ron&shy;ment variables,
+with <tt class="docutils literal">for /f</tt> and a little bit of string sub&shy;sti&shy;tu&shy;tion,
+I can create that&nbsp;filename.</p>
+<pre class="code winbatch literal-block">
+<span class="c1"><span class="caps">REM</span></span>
+<span class="c1"><span class="caps">REM</span> &quot;Tue 06/14/2005&quot; -&gt; &quot;06/14/2005&quot;</span>
+<span class="c1"><span class="caps">REM</span></span>
+<span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;tokens=2&quot;</span>              <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="nv">%<span class="caps">DATE</span>%</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="k">set</span> <span class="nv"><span class="caps">MDY</span></span><span class="p">=</span><span class="se">%%</span>i
+<span class="c1"><span class="caps">REM</span></span>
+<span class="c1"><span class="caps">REM</span> &quot;06/14/2005&quot; -&gt; &quot;2005-06-14&quot;</span>
+<span class="c1"><span class="caps">REM</span></span>
+<span class="k">for</span> <span class="k">/f</span> <span class="s2">&quot;delims=/ tokens=1,2,3&quot;</span> <span class="se">%%</span>i <span class="k">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="nv">%<span class="caps">MDY</span>%</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="k">do</span> <span class="k">set</span> </pre><span>&#8230;<a href="/blog/2005/08/11/TIMEStamping.html" class="continue">continue</a>.</span></div>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2005/08/11/TIMEStamping.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/cmd/" rel="tag">cmd</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2005-07-20">2005-07-20</time>
         <h1>
             <a href="/blog/2005/07/20/SurfaceIsIllusionButSoIsDepth.html" rel="bookmark canonical">Surface is Illusion but so is depth</a>
@@ -353,43 +395,6 @@ Amendment. After <span>&#8230;<a href="/blog/2004/02/11/OpposeTheFederalMarriage
                     and
                     
                 <a href="/tag/lgbt/" rel="tag">lgbt</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2004-02-11">2004-02-11</time>
-        <h1>
-            <a href="/blog/2004/02/11/ThingsYouHaveToBelieveToBeARepublicanToday.html" rel="bookmark canonical">Things you have to believe to be a Republican today</a>
-        </h1>
-    </header>
-    
-<p>(Originally posted to Politics at
-<a class="reference external" href="http://erablog.net/blogs/george_v_reilly/">EraBlog</a> on
-<a class="reference external" href="http://EraBlog.NET/filters/21238.post">Wed, 11 Feb 2004 06:08:52 <span class="caps">GMT</span></a>)</p>
-<p>From my email. Origin&nbsp;obscure.</p>
-<p>Things you have to believe to be a Republican&nbsp;today:</p>
-<blockquote>
-<blockquote>
-<ol class="arabic simple">
-<li>Being a drug addict is a moral failing and a crime, unless you&#8217;re a con&shy;ser&shy;v&shy;a&shy;tive radio host. Then it&#8217;s an illness and you need our prayers for your&nbsp;recovery.</li>
-<li>The United States should get out of the United Nations, and our highest national priority is enforcing <span class="caps">U.N.</span> res&shy;o&shy;lu&shy;tions against&nbsp;Iraq.</li>
-<li>&quot;Standing Tall for America&quot; means firing your workers and moving their jobs to&nbsp;India.</li>
-<li>A woman can&#8217;t be trusted with decisions about her own body, but multi-national cor&shy;po&shy;ra&shy;tions can make decisions affecting all mankind without&nbsp;regulation.</li>
-<li>Jesus <span>&#8230;<a href="/blog/2004/02/11/ThingsYouHaveToBelieveToBeARepublicanToday.html" class="continue">continue</a>.</span></li></ol></blockquote></blockquote>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2004/02/11/ThingsYouHaveToBelieveToBeARepublicanToday.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/politics/" rel="tag">politics</a>
                 
             </p>
         

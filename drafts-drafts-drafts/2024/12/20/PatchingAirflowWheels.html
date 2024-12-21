@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Patching Airflow Wheels</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content="In `Patching and Splitting Python Wheels`_,
+I wrot..." />
+    <meta name="keywords" content="python" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2024-12-20">2024-12-20</time>
+        <h1>
+            <a href="/drafts-drafts-drafts/2024/12/20/PatchingAirflowWheels.html" rel="bookmark canonical">Patching Airflow Wheels</a>
+        </h1>
+    </header>
+    <p>In <a class="reference external" href="/blog/2024/12/16/PatchingAndSplittingPythonWheels.html">Patching and Splitting Python Wheels</a>,
+I wrote about some occasions when I had to take a <a class="reference external" href="https://realpython.com/python-wheels/">Python wheel</a>
+and patch it.
+Now I want to tell you about a very different approach
+that I used recently to patch Airflow&nbsp;wheels.</p>
+<p>With the other wheels, we just needed to apply some tactical patches.
+With Airflow, we are making sub&shy;stan&shy;tive&nbsp;changes.</p>
+<a class="reference external image-reference" href="https://airflow.apache.org/"><img alt="Apache Airflow" src="/content/binary/ApacheAirflowLogo.png"/></a>
+<p>We&#8217;ve been using <a class="reference external" href="https://airflow.apache.org/">Airflow</a> for years at work.
+We built up a lot of in&shy;fra&shy;struc&shy;ture around Airflow 1
+and we are gradually migrating to <a class="reference external" href="https://www.astronomer.io/blog/introducing-airflow-2-0/">Airflow 2</a>.</p>
+<p>Several years ago, we forked the <a class="reference external" href="https://pypi.org/project/apache-airflow/">airflow package</a>
+and made a large number of changes to it for internal con&shy;sump&shy;tion.
+Un&shy;for&shy;tu&shy;nate&shy;ly, this made it in&shy;creas&shy;ing&shy;ly hard for us to merge changes
+from the <a class="reference external" href="https://github.com/apache/airflow">upstream repo</a> into our internal Git repository,
+as the repos continued to&nbsp;diverge.</p>
+<p>Airflow&#8217;s <a class="reference external" href="https://github.com/apache/airflow/blob/2.10.2/dev/README_RELEASE_AIRFLOW.md">current release workflow</a>:</p>
+<ul class="simple">
+<li>Create a release branch from <tt class="docutils literal">main</tt></li>
+<li>Create release&nbsp;candidates</li>
+<li>Cherry-pick any necessary fixes from <tt class="docutils literal">main</tt></li>
+<li>Publish the final release, which is <a class="reference external" href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">tagged</a>.
+The package is uploaded to&nbsp;PyPI.</li>
+</ul>
+<p>Note that this tagged branch is never merged back to <tt class="docutils literal">main</tt>,
+so you cannot checkout an official release from the <tt class="docutils literal">main</tt> branch.
+You must checkout the tag instead.
+(I don&#8217;t know if this was also the release workflow for Airflow&nbsp;1.)</p>
+<p>Our internal workflow is different.
+Engineers work on feature branches and create pull requests.
+These pull requests get merged into <tt class="docutils literal">master</tt>.
+Production de&shy;ploy&shy;ments are built from <tt class="docutils literal">master</tt> only.
+We don&#8217;t use tagged releases.
+This <tt class="docutils literal">master</tt>-centric assumption is baked deeply
+into our build and continuous in&shy;te&shy;gra&shy;tion systems.
+Since the upstream <tt class="docutils literal">main</tt> doesn&#8217;t have release code,
+it&#8217;s not suitable for merging into our <tt class="docutils literal">master</tt>.</p>
+<div class="section" id="git-clone-workflow">
+<h2>Git Clone&nbsp;Workflow</h2>
+<p>To avoid the dif&shy;fi&shy;cul&shy;ties that we caused ourselves with Airflow 1,
+we created a fresh repository for Airflow 2,
+which does <em>not</em> have a copy of the upstream repo&#8217;s code,
+We now maintain a set of patches for each upstream release that we care about.
+This new repo has build scripts and patches&nbsp;only.</p>
+<p>When I first set this up,
+I had the <span class="caps">CI</span> build script create a shallow clone of the upstream repo,
+then check out each tag,
+and apply our&nbsp;patches.</p>
+<pre class="code bash literal-block">
+<span class="c1"># <span class="caps">NOT</span> <span class="caps">SHOWN</span>: create a virtualenv with Hatch and other build dependencies
+# from Airflow's pyproject.toml
+</span><span class="w">
+</span>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="o">=</span><span class="m">1</span><span class="w"> </span>https://github.com/apache/airflow.git<span class="w"> </span>worktree<span class="w">
+</span><span class="nb">cd</span><span class="w"> </span>worktree<span class="w">
+
+</span><span class="k">for</span><span class="w"> </span>tag<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">(</span><span class="s2">&quot;2.10.2&quot;</span><span class="w"> </span><span class="s2">&quot;2.10.4&quot;</span><span class="o">)</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w">
+    </span>git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span><span class="caps">HEAD</span><span class="w">
+    </span>rm<span class="w"> </span>-rf<span class="w"> </span>dist<span class="w">
+    </span>git<span class="w"> </span>fetch<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>origin<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$tag</span><span class="s2">&quot;</span><span class="w">
+    </span>git<span class="w"> </span>checkout<span class="w"> </span>--quiet<span class="w"> </span>FETCH_HEAD<span class="w">
+
+    </span><span class="k">for</span><span class="w"> </span>p<span class="w"> </span><span class="k">in</span><span class="w"> </span>../patches/<span class="s2">&quot;</span><span class="nv">$tag</span><span class="s2">&quot;</span>/*.patch<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w">
+        </span>git<span class="w"> </span>am<span class="w"> </span>&lt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$p</span><span class="s2">&quot;</span><span class="w">
+    </span><span class="k">done</span><span class="w">
+
+    </span>python3<span class="w"> </span>-m<span class="w"> </span>build<span class="w"> </span>--wheel<span class="w">
+    </span>cp<span class="w"> </span>dist/*<span class="w"> </span>../build<span class="w">
+</span><span class="k">done</span>
+</pre>
+<p>The first patch for each tag changes the version in&shy;for&shy;ma&shy;tion
+so that our wheel won&#8217;t conflict with the official wheel from upstream.
+It updates <tt class="docutils literal">tool.hatch.version</tt> in <tt class="docutils literal">pyproject.toml</tt> to&nbsp;read:</p>
+<pre class="code toml literal-block">
+<span class="k">[tool.hatch.version]</span><span class="w">
+</span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;code&quot;</span><span class="w">
+</span><span class="n">expression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;stripe_airflow_version()&quot;</span><span class="w">
+</span><span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;stripe_version.py&quot;</span>
+</pre>
+<p>instead of extracting the version in&shy;for&shy;ma&shy;tion from <tt class="docutils literal">airflow/__init__.py</tt>.</p>
+<p>The <tt class="docutils literal">stripe_ver&shy;sion.py</tt> script uses <a class="reference external" href="https://git-scm.com/docs/git-describe">git describe</a>
+to get the number of additional commits in our branch
+and the ab&shy;bre&shy;vi&shy;at&shy;ed <span class="caps">SHA</span> of the most recent commit,
+then prefixes these items with <tt class="docutils literal"><span class="pre">+stripe.${<span class="caps">MAJOR</span>}.</span></tt>
+All of this is suffixed to the actual version number from upstream,
+so we build a wheel that is named something like
+<tt class="docutils literal"><span class="pre">apache_air&shy;flow-${<span class="caps">TAG</span>}+stripe.1.${<span class="caps">COUNT</span>}.g${<span class="caps">SHA</span>}-py3-none-any.whl</span></tt>.</p>
+<p>While this system produced a working wheel,
+there was one critical omission.
+The official upstream wheel contained an extra <span class="caps">37MB</span> of <span class="caps">UI</span> code in <tt class="docutils literal">www/static</tt>,
+which is used by the various Airflow website&nbsp;UIs.</p>
+<p>I spent quite a bit of effort to make our build generate this extra payload,
+but it turned out to be very difficult.
+<tt class="docutils literal">python3 <span class="pre">-m</span> hatch build <span class="pre">-t</span> custom</tt>
+requires Node.js and does a lot of extra steps
+that didn&#8217;t interact well with the locked down egress rules of our&nbsp;<span class="caps">CI</span>.</p>
+</div>
+<div class="section" id="source-distribution-workflow">
+<h2>Source Dis&shy;tri&shy;b&shy;u&shy;tion&nbsp;Workflow</h2>
+<p>I realized that all of the <tt class="docutils literal">www/static</tt> tree could be
+extracted from the official release,
+and that we didn&#8217;t have to generate it in&nbsp;<span class="caps">CI</span>.</p>
+<p>Instead of checking out a tag,
+our <span class="caps">CI</span> downloads the official <a class="reference external" href="https://packaging.python.org/en/latest/specifications/source-distribution-format/">source dis&shy;tri&shy;b&shy;u&shy;tion</a> tarball,
+<tt class="docutils literal"><span class="pre">apache_air&shy;flow-${<span class="caps">RELEASE</span>}.tar.gz</span></tt>,
+untars the tarball,
+applies our patches,
+and builds a new&nbsp;wheel.</p>
+<p>It took me a while to figure out why our custom versioning wasn&#8217;t working.
+Because the sdist contains a file called <tt class="docutils literal"><span class="pre"><span class="caps">PKG</span>-<span class="caps">INFO</span></span></tt> at the root,
+Hatch takes the version from that.
+I had to update the <tt class="docutils literal">stripe_ver&shy;sion.py</tt> script to modify
+the <tt class="docutils literal">Version:</tt> line in <tt class="docutils literal"><span class="pre"><span class="caps">PKG</span>-<span class="caps">INFO</span></span></tt>.</p>
+</div>
+<div class="section" id="format-patch-workflow">
+<h2>Format-Patch&nbsp;Workflow</h2>
+<p>So far, I&#8217;ve covered how the patched wheel is built in <span class="caps">CI</span>,
+but not how you would create new&nbsp;patches.</p>
+<p>For local de&shy;vel&shy;op&shy;ment, you can check out the upstream tag
+(see <tt class="docutils literal">FETCH_HEAD</tt> above),
+then apply any existing patches that are relevant.
+Make other changes, commit them locally, and build the wheel by hand.
+When you have tested and have something that you&#8217;re happy with,
+you can use <a class="reference external" href="https://git-scm.com/book/en/v2/Distributed-Git-Maintaining-a-Project">git format-patch</a> to create a series of patches.
+These patches can then be committed to the repo that we use to build the&nbsp;wheels.</p>
+<p>This workflow is less convenient
+than making changes directly in the forked code,
+as we did with Airflow 1.
+But now we only have a moderate amount of friction
+to upgrade to a newer release from upstream,
+instead of ever-increasing&nbsp;difficulty.</p>
+</div>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    <script data-goatcounter="https://georgevreilly.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
+    
+    
+
+  </footer>
+</body>
+</html>

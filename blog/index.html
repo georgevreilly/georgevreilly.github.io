@@ -29,6 +29,43 @@
     
         <article>
     <header>
+        <time datetime="2024-12-20">2024-12-20</time>
+        <h1>
+            <a href="/blog/2024/12/20/PatchingAirflowWheels.html" rel="bookmark canonical">Patching Airflow Wheels</a>
+        </h1>
+    </header>
+    <p>In <a class="reference external" href="/blog/2024/12/16/PatchingAndSplittingPythonWheels.html">Patching and Splitting Python Wheels</a>,
+I wrote about some occasions when I had to take a <a class="reference external" href="https://realpython.com/python-wheels/">Python wheel</a>
+and patch it.
+Now I want to tell you about a very different approach
+that I used recently to patch Airflow&nbsp;wheels.</p>
+<p>With the other wheels, we just needed to apply some tactical patches.
+With Airflow, we are making sub&shy;stan&shy;tive&nbsp;changes.</p>
+<a class="reference external image-reference" href="https://airflow.apache.org/"></a>
+<p>We&#8217;ve been using <a class="reference external" href="https://airflow.apache.org/">Airflow</a> for years at work.
+We built up a lot of in&shy;fra&shy;struc&shy;ture around Airflow 1
+and we are gradually migrating to <a class="reference external" href="https://www.astronomer.io/blog/introducing-airflow-2-0/">Airflow 2</a>.</p>
+<p>Several years ago, we forked the <a class="reference external" href="https://pypi.org/project/apache-airflow/">airflow package</a>
+and made a large number of changes to it for internal con&shy;sump&shy;tion.
+Un&shy;for&shy;tu&shy;nate&shy;ly, this made it in&shy;creas&shy;ing&shy;ly hard for us <span>&#8230;<a href="/blog/2024/12/20/PatchingAirflowWheels.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2024/12/20/PatchingAirflowWheels.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2024-12-16">2024-12-16</time>
         <h1>
             <a href="/blog/2024/12/16/PatchingAndSplittingPythonWheels.html" rel="bookmark canonical">Patching and Splitting Python Wheels</a>
@@ -409,45 +446,6 @@ It makes a smooth, less acidic&nbsp;coffee.</p>
                     and
                     
                 <a href="/tag/coffee/" rel="tag">coffee</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2023-02-21">2023-02-21</time>
-        <h1>
-            <a href="/blog/2023/02/21/CompressingTarFilesInParallel.html" rel="bookmark canonical">Compressing Tar Files in Parallel</a>
-        </h1>
-    </header>
-    <p><span class="caps">TL</span>;<span class="caps">DR</span>: use <tt class="docutils literal">tar <span class="pre">-I</span> pigz</tt> or <tt class="docutils literal">tar <span class="pre">-I</span> lbzip2</tt>
-to compress large tar files much more&nbsp;quickly.</p>
-<p>I in&shy;ves&shy;ti&shy;gat&shy;ed various ways of com&shy;press&shy;ing a 7GiB tar&nbsp;file.</p>
-<p>The built-in <tt class="docutils literal"><span class="pre">--gzip</span></tt> and <tt class="docutils literal"><span class="pre">--bzip2</span></tt> com&shy;pres&shy;sion methods in <span class="caps">GNU</span> <tt class="docutils literal">tar</tt>
-are single-threaded.
-If you invoke an external compressor with <tt class="docutils literal"><span class="pre">--use-compress-program</span></tt>,
-you can get some huge reductions in com&shy;pres&shy;sion time,
-with slightly worse com&shy;pres&shy;sion&nbsp;ratios.</p>
-<p>You can use <a class="reference external" href="https://zlib.net/pigz/">pigz</a> as a parallel re&shy;place&shy;ment for <tt class="docutils literal">gzip</tt>
-and <a class="reference external" href="https://linux.die.net/man/1/lbzip2">lbzip2</a> as a parallel version of <tt class="docutils literal">bzip2</tt>.
-Both of them will make heavy use of all the cores in your system,
-greatly reducing the <em>real</em> time relative to the <em>user</em>&nbsp;time.</p>
-<p>Single-threaded com&shy;pres&shy;sion timing:
-<tt class="docutils literal">gzip</tt> is a lot faster than <tt class="docutils literal">bzip2</tt>:</p>
-<pre class="literal-block">
-$ time tar --bzip2 -cf </pre><span>&#8230;<a href="/blog/2023/02/21/CompressingTarFilesInParallel.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2023/02/21/CompressingTarFilesInParallel.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/linux/" rel="tag">linux</a>
                 
             </p>
         
