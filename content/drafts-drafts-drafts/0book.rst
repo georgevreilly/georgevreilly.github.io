@@ -1,7 +1,7 @@
 ---
 title: "Review: BOOKTITLE"
-# date: "2024-mm-dd"
-permalink: "/drafts-drafts-drafts/2024/mm/dd/ReviewBOOKTITLE.html"
+# date: "2025-mm-dd"
+permalink: "/drafts-drafts-drafts/2025/mm/dd/ReviewBOOKTITLE.html"
 tags: [books, reviews]
 draft: true
 ---
@@ -20,4 +20,4 @@ draft: true
 | ISBN: `$ISBN$ <https://www.amazon.com/dp/<ASIN>/?tag=georgvreill-20>`_
 | Pages: NNN
 | Keywords: KEYWORDs
-| Reading period: DD–DD MONTH, 2024
+| Reading period: DD–DD MONTH, 2025
