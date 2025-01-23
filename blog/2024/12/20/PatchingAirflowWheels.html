@@ -141,8 +141,8 @@ and that we didn&#8217;t have to generate it in&nbsp;<span class="caps">CI</span
 <p>Instead of checking out a tag,
 our <span class="caps">CI</span> downloads the official <a class="reference external" href="https://packaging.python.org/en/latest/specifications/source-distribution-format/">source dis&shy;tri&shy;b&shy;u&shy;tion</a> tarball,
 <tt class="docutils literal"><span class="pre">apache_air&shy;flow-${<span class="caps">RELEASE</span>}.tar.gz</span></tt>,
-untars the tarball,
-applies our patches using <cite>patch &#8211;strip=1</cite> instead of <cite>git am</cite>,
+untars the contents,
+applies our patches using <tt class="docutils literal">patch <span class="pre">--strip=1</span></tt> instead of <tt class="docutils literal">git am</tt>,
 and builds a new&nbsp;wheel.</p>
 <p>It took me a while to figure out why our custom versioning wasn&#8217;t working.
 Because the sdist contains a file called <tt class="docutils literal"><span class="pre"><span class="caps">PKG</span>-<span class="caps">INFO</span></span></tt> at the root,
