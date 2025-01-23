@@ -129,8 +129,8 @@ and that we didn't have to generate it in CI.
 Instead of checking out a tag,
 our CI downloads the official `source distribution`_ tarball,
 ``apache_airflow-${RELEASE}.tar.gz``,
-untars the tarball,
-applies our patches using `patch --strip=1` instead of `git am`,
+untars the contents,
+applies our patches using ``patch --strip=1`` instead of ``git am``,
 and builds a new wheel.
 
 It took me a while to figure out why our custom versioning wasn't working.
