@@ -130,7 +130,7 @@ and that we didn&#39;t have to generate it in CI.&lt;/p&gt;
 our CI downloads the official &lt;a class=&#34;reference external&#34; href=&#34;https://packaging.python.org/en/latest/specifications/source-distribution-format/&#34;&gt;source distribution&lt;/a&gt; tarball,
 &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;apache_airflow-${RELEASE}.tar.gz&lt;/span&gt;&lt;/tt&gt;,
 untars the tarball,
-applies our patches,
+applies our patches using &lt;cite&gt;patch --strip=1&lt;/cite&gt; instead of &lt;cite&gt;git am&lt;/cite&gt;,
 and builds a new wheel.&lt;/p&gt;
 &lt;p&gt;It took me a while to figure out why our custom versioning wasn&#39;t working.
 Because the sdist contains a file called &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;PKG-INFO&lt;/span&gt;&lt;/tt&gt; at the root,
