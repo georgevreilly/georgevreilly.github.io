@@ -1,10 +1,38 @@
 @charset "UTF-8";
 
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Source+Serif+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans+Narrow:wght@400;700&display=swap');
+
+@font-face {
+    font-family: "libertinus";
+    src: url("LibertinusSerif-Regular.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "libertinus";
+    src: url("LibertinusSerif-Italic.woff2") format("woff2");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "libertinus";
+    src: url("LibertinusSerif-Bold.woff2") format("woff2");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "libertinus";
+    src: url("LibertinusSerif-BoldItalic.woff2") format("woff2");
+    font-weight: bold;
+    font-style: italic;
+}
 
 html {
     box-sizing: border-box;
-    font-family: "Source Serif Pro", "Cardo", "Baskerville", "Baskerville Old Face", "Hoefler Text", "Garamond", "Times New Roman", serif;
+    font-family: libertinus, "Garamond", "Times New Roman", serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -38,9 +66,8 @@ tt.literal {
     background-color: #e9c8b6;
 }
 
-/* Tufte CSS styles */
 html {
-    font-size: 14px;
+    font-size: 15px;
 }
 p, ol, ul, dl {
     font-size: 1.4rem;
@@ -53,7 +80,7 @@ article, aside, figure, footer, header, hgroup, nav, section {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Source Sans Pro', 'Helvetica', 'Arial';
+    font-family: 'PT Sans Narrow', 'Helvetica', 'Arial';
 }
 body > header {
     padding: 10px;
@@ -99,6 +126,12 @@ body > article > header {
     margin-left: -1.1em;
     margin-bottom: -0.7em;
 }
+body > article > header h1 {
+    color: black;
+	font-size: 3.0rem;
+	padding-top: 1.5em;
+    text-decoration: none;
+}
 body > article > header h1 a {
     color: black;
     font-weight: bold;
@@ -113,6 +146,7 @@ body > article > header h1 a:visited {
 body > article > header time {
     float: right;
 	font-size: 1.2rem;
+    font-weight: bold;
 	margin: 0pt 0pt 0pt 15px;
 }
 body > article h2 {
@@ -361,7 +395,7 @@ a.continue {
   background-color: #b5cbee;
   padding: 0 0.25rem 0 0.5rem;
   font-style: normal;
-  font-family: 'Source Sans Pro';
+  font-family: 'PT Sans Narrow', sans-serif;
   font-weight: bold;
   font-variant: small-caps;
 }
