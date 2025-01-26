@@ -17,6 +17,7 @@ These are sorted from most to least active:
 - Substack: `@georgevreilly <https://substack.com/@georgevreilly>`__
 - LinkedIn: `georgevreilly <https://www.linkedin.com/in/georgevreilly/>`__
 - GitHub: `@georgevreilly <https://github.com/georgevreilly>`__
+- PixelFed: `@georgevreilly@pxlmo.com <https://pxlmo.com/georgevreilly>`__
 - Twitter: `@georgevreilly <https://x.com/georgevreilly>`__ (going dormant soon)
 - Mastodon: `@georgevreilly@tech.lgbt <https://tech.lgbt/@georgevreilly>`__
 - Discord: ``@georgevreilly``

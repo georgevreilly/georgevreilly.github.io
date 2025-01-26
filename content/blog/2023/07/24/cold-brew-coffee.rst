@@ -68,7 +68,7 @@ Instructions
 Adjustments
 -----------
 
-You can vary the ratio of coffee to water and how long you steep the mixture.
+You can vary the ratio of coffee to water, the grind, and how long you steep the mixture.
 
 Drinks
 ------
