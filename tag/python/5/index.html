@@ -29,6 +29,40 @@
     
         <article>
     <header>
+        <time datetime="2015-03-02">2015-03-02</time>
+        <h1>
+            <a href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html" rel="bookmark canonical">Nosetests won't discover tests in executable files</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="http://nose.readthedocs.org/"></a>
+<p>We use <a class="reference external" href="http://nose.readthedocs.org/">Nose</a> to run unit tests.
+I noticed that we had some tests that weren't being run,
+and it took me some time to work out why.
+Eventually, I found this <a class="reference external" href="https://www.hyperink.com/blog/?p=22">checklist</a>,
+which told me to &quot;make sure the files in your tests directory are not executable&quot;.</p>
+<p>A quick <tt class="docutils literal">chmod <span class="pre">-x</span> *.py</tt> later and <tt class="docutils literal">nosetests project/tests</tt> suddenly found all the tests.</p>
+<p>Now that I know what to look for, I found this in the Nose docs:</p>
+<blockquote>
+<p>It is important to note that the default behavior of nose
+is to not include tests from files which are executable.</p>
+<p><tt class="docutils literal"><span class="pre">--exe</span></tt>: Look for tests in python modules that are executable.
+Normal behavior <span>&#8230;<a href="/blog/2015/03/02/NosetestsWontDiscoverExecutableFiles.html" class="continue">continue</a>.</span></p></blockquote>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2015-01-28">2015-01-28</time>
         <h1>
             <a href="/blog/2015/01/28/PythonEggCache.html" rel="bookmark canonical">Python Egg Cache</a>
@@ -360,37 +394,6 @@ how easy it was to configure and extend, compared to <a class="reference externa
         
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2008-09-14">2008-09-14</time>
-        <h1>
-            <a href="/blog/2008/09/14/CheetahTips.html" rel="bookmark canonical">Cheetah Tips</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="http://www.cheetahtemplate.org/"></a>
-<a class="reference external image-reference" href="http://www.cheetahtemplate.org/"></a>
-<p>At <a class="reference external" href="http://www.cozi.com">Cozi</a>,
-we're writing our new web services in Python (a story for another day).
-I wrote up a few hard-won tips on using the <a class="reference external" href="http://www.cheetahtemplate.org/">Cheetah</a> Template library
-<a class="reference external" href="http://blogs.cozi.com/tech/2008/09/cheetah-tips-1.html">at the Cozi Tech Blog</a>.</p>
-
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>
-                    and
-                    
-                <a href="/tag/cozi/" rel="tag">cozi</a>
                 
             </p>
         

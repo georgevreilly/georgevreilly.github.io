@@ -29,6 +29,43 @@
     
         <article>
     <header>
+        <time datetime="2016-03-27">2016-03-27</time>
+        <h1>
+            <a href="/blog/2016/03/27/PreparingBloomsdayScripts.html" rel="bookmark canonical">Preparing Bloomsday Scripts</a>
+        </h1>
+    </header>
+    <p>Bloomsday is less than three months away
+and the <a class="reference external" href="http://www.wildgeeseseattle.org/">Wild Geese Players</a> need to start rehearsing soon.
+I made a start on the script at the end of January,
+but didn&#8217;t pick it up again until&nbsp;today.</p>
+<p>Three years ago, we completed <em>Ulysses</em>, having started in 1998.
+Two years ago, we started over,
+reading chapters 1 and 4 in&shy;ter&shy;leaved.
+In Chapter 1 (Telemachus), Stephen Dedalus arises in the Martello Tower at Sandymount
+and feuds with Buck Mulligan.
+Chapter 4 (Calypso) takes place at the same time as Chapter 1,
+wherein Leopold Bloom breaks his&nbsp;fast.</p>
+<p>Last year, we in&shy;ter&shy;twined chapters 2 and 5.
+Chapter 2 (Nestor) takes place at the school where Stephen teaches;
+he <span>&#8230;<a href="/blog/2016/03/27/PreparingBloomsdayScripts.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/27/PreparingBloomsdayScripts.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/jamesjoyce/" rel="tag">jamesjoyce</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-03-26">2016-03-26</time>
         <h1>
             <a href="/blog/2016/03/26/Caucus2016.html" rel="bookmark canonical">Caucus 2016</a>
@@ -418,62 +455,6 @@ and the body count&nbsp;rises.</p>
                     and
                     
                 <a href="/tag/crime/" rel="tag">crime</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-03-17">2016-03-17</time>
-        <h1>
-            <a href="/blog/2016/03/17/QuotingInBash.html" rel="bookmark canonical">Quoting in Bash</a>
-        </h1>
-    </header>
-    <p>Various Bash guides recommend putting quotes around just about everything.
-I had a script that contained this&nbsp;line:</p>
-<pre class="code bash literal-block">
-sudo apt-get install --yes <span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$<span class="caps">BUILD</span></span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span>
-</pre>
-<p>While refac&shy;tor&shy;ing, I put another set of quotes around the <tt class="docutils literal">$(cat <span class="pre">...)</span></tt>
-out of an abundance of&nbsp;caution:</p>
-<pre class="code bash literal-block">
-sudo apt-get install --yes <span class="s2">&quot;</span><span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$<span class="caps">BUILD</span></span><span class="s2">/install_on_aws_ubuntu.txt&quot;</span><span class="k">)</span><span class="s2">&quot;</span>
-</pre>
-<p>Several other changes later, I couldn&#8217;t figure out why my script had stopped&nbsp;working.</p>
-<p>Here&#8217;s what&nbsp;happened:</p>
-<pre class="code bash literal-block">
-$ cat <span class="nv">$<span class="caps">HOME</span></span>/tmp/demo.txt
-foo
-bar
-quux
-
-$ <span class="nb">echo</span> <span class="k">$(</span>cat <span class="s2">&quot;</span><span class="nv">$<span class="caps">HOME</span></span><span class="s2">/tmp/demo.txt&quot;</span><span class="k">)</span>
-foo bar quux
-
-$ <span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>cat <span class="nv">$<span class="caps">HOME</span></span>/tmp/demo.txt<span class="k">)</span><span class="s2">&quot;</span>
-foo
-bar
-quux
-</pre>
-<p>The new outer quotes retained the newlines;
-the original replaced newlines with&nbsp;spaces.</p>
-<p>The <a class="reference external" href="http://mywiki.wooledge.org/BashFAQ">Bash <span class="caps">FAQ</span></a> has more: specif&shy;i&shy;cal&shy;ly <a class="reference external" href="http://mywiki.wooledge.org/CommandSubstitution">Command Substition</a> and <a class="reference external" href="http://mywiki.wooledge.org/WordSplitting">Word Splitting</a>.</p>
-
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2016/03/17/QuotingInBash.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/bash/" rel="tag">bash</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         

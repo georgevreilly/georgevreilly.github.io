@@ -11,13 +11,100 @@
     <link rel="self" type="application/atom+xml" href="https://www.georgevreilly.com/atom/" />
     <icon>https://www.georgevreilly.com/favicon.ico</icon>
     <logo>https://www.georgevreilly.com/feed-logo.png</logo>
-    <updated>2024-12-20T08:00:00Z</updated>
+    <updated>2025-05-31T02:00:04Z</updated>
     <generator uri="https://github.com/posativ/acrylamid/" version="0.8.dev0">acrylamid</generator>
+        <entry>
+        <title>Wordle on Normal Mode</title>
+        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2025/05/30/WordleOnNormalMode.html" />
+        <id>tag:www.georgevreilly.com,2025-05-30:/blog/2025/05/30/WordleOnNormalMode.html</id>
+        <updated>2025-05-31T02:00:04Z</updated>
+        <category term="python" />
+        <category term="wordle" />
+        
+        <author>
+            <name>George V. Reilly</name>
+            <uri>https://www.georgevreilly.com/</uri>
+            <email>george@reilly.org</email>
+        </author>
+        <content type="html">&lt;blockquote class=&#34;pull-quote&#34;&gt;
+&lt;p&gt;At the &lt;a class=&#34;reference external&#34; href=&#34;https://www.meetup.com/psppython/events/307728743/&#34;&gt;June 2025 PuPPy meetup&lt;/a&gt; (Puget Sound Programming Python),
+I will be giving a talk about &lt;em&gt;Exploring Wordle&lt;/em&gt;.&lt;/p&gt;
+&lt;div class=&#34;line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;June 11: doors open at 5:30pm&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;GitHub Bellevue&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;10900 NE 4th St, Floor 21&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;Bellevue, WA 98004&lt;/div&gt;
+&lt;/div&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;In &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2023/09/26/ExploringWordle.html&#34;&gt;Exploring Wordle&lt;/a&gt;, I wrote a long blog post about solving Wordle programmatically,
+which implicitly solved Wordle in &lt;em&gt;Hard Mode&lt;/em&gt;.
+Today, I want to discuss a strategy that is only possible in Normal Mode.&lt;/p&gt;
+&lt;a class=&#34;reference external image-reference&#34; href=&#34;https://slate.com/culture/2022/02/wordle-game-nyt-original-vs-hard-mode.html&#34;&gt;&lt;img alt=&#34;Hard Mode in Wordle setting&#34; src=&#34;https://www.georgevreilly.com/content/binary/WordleHardMode.png&#34;/&gt;&lt;/a&gt;
+&lt;dl class=&#34;docutils&#34;&gt;
+&lt;dt&gt;Hard Mode&lt;/dt&gt;
+&lt;dd&gt;&lt;p class=&#34;first&#34;&gt;Can be turned on through the Settings menu at the top right of the screen.
+“Any revealed hints must be used in subsequent guesses” it says.
+If you guess a “present” (yellow) letter,
+that letter must be used on all subsequent guesses.
+If you guess a “correct” (green) letter, such as &lt;tt class=&#34;docutils literal&#34;&gt;3:T&lt;/tt&gt;,
+that letter must played in that position on all the remaining guesses.&lt;/p&gt;
+&lt;p&gt;When you post your results,
+the &lt;tt class=&#34;docutils literal&#34;&gt;N/6&lt;/tt&gt; score will be suffixed with a star, &lt;tt class=&#34;docutils literal&#34;&gt;*&lt;/tt&gt;.&lt;/p&gt;
+&lt;div class=&#34;last line-block&#34;&gt;
+&lt;div class=&#34;line&#34;&gt;Wordle 1,317 4/6*&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;⬜⬜⬜🟨⬜&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;🟩⬜🟨⬜⬜&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;🟩🟩⬜⬜🟩&lt;/div&gt;
+&lt;div class=&#34;line&#34;&gt;🟩🟩🟩🟩🟩&lt;/div&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt&gt;Normal Mode&lt;/dt&gt;
+&lt;dd&gt;&lt;p class=&#34;first&#34;&gt;If you&#39;ve never turned on Hard Mode,
+then you&#39;re playing Normal Mode.
+You can play any letter at any time.
+You are not required to play all the present and correct letters
+from previous guesses.&lt;/p&gt;
+&lt;p class=&#34;last&#34;&gt;This post will explore why this might be useful.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;p&gt;Many people play hard mode rules, without realizing it.
+They instinctively apply all the constraints that they&#39;ve learned from earlier guesses.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://slate.com/culture/2022/02/wordle-game-nyt-original-vs-hard-mode.html&#34;&gt;Slate&lt;/a&gt; has a discussion of the merits of Hard Mode and Normal Mode.&lt;/p&gt;
+&lt;div class=&#34;section&#34; id=&#34;an-example-of-normal-mode-being-helpful&#34;&gt;
+&lt;h3&gt;An example of Normal Mode being helpful&lt;/h3&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img alt=&#34;Game 1285: OLIVE=....E FRAME=.rA.E STARE=S.ARE&#34; src=&#34;https://www.georgevreilly.com/content/binary/olive-frame-stare.png&#34; style=&#34;width: 400px;&#34;/&gt;
+&lt;p class=&#34;caption&#34;&gt;&lt;a class=&#34;reference external&#34; href=&#34;https://wordlearchive.com/1285&#34;&gt;Wordle Game 1285&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;tt class=&#34;docutils literal&#34;&gt;S.ARE&lt;/tt&gt; could be &lt;tt class=&#34;docutils literal&#34;&gt;SCARE&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;SHARE&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;SNARE&lt;/tt&gt;, or &lt;tt class=&#34;docutils literal&#34;&gt;SPARE&lt;/tt&gt;.
+In Hard Mode, you would have no choice
+but to try those four choices in some order,
+and hope that you got the right one before running out of guesses.
+Three guesses have already been played and three remain.&lt;/p&gt;
+&lt;p&gt;Each of the following outcomes are possible:&lt;/p&gt;
+&lt;ul class=&#34;simple&#34;&gt;
+&lt;li&gt;getting the correct answer on your fourth guess&lt;/li&gt;
+&lt;li&gt;on your fifth guess&lt;/li&gt;
+&lt;li&gt;on your sixth guess&lt;/li&gt;
+&lt;li&gt;losing the game if the correct word was last in your list.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In Normal Mode however,
+you can guess a word that contains the four differing letters,
+&lt;tt class=&#34;docutils literal&#34;&gt;C&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;H&lt;/tt&gt;, &lt;tt class=&#34;docutils literal&#34;&gt;N&lt;/tt&gt;, and &lt;tt class=&#34;docutils literal&#34;&gt;P&lt;/tt&gt;,
+and pin down the answer.
+&lt;tt class=&#34;docutils literal&#34;&gt;PUNCH&lt;/tt&gt; and &lt;tt class=&#34;docutils literal&#34;&gt;PINCH&lt;/tt&gt; are both suitable words.
+You can&#39;t possibly win with &lt;tt class=&#34;docutils literal&#34;&gt;PUNCH&lt;/tt&gt;, but your next guess is guaranteed to win.
+In this case, I got &lt;tt class=&#34;docutils literal&#34;&gt;&lt;span class=&#34;pre&#34;&gt;PUNCH=....h&lt;/span&gt;&lt;/tt&gt;,
+so I played &lt;tt class=&#34;docutils literal&#34;&gt;SHARE&lt;/tt&gt; as my fifth guess.&lt;/p&gt;
+&lt;link rel=&#34;stylesheet&#34; href=&#34;/wordle.css&#34;&gt;&lt;/div&gt;
+</content>
+    </entry>
+    
         <entry>
         <title>Patching Airflow Wheels</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2024/12/20/PatchingAirflowWheels.html" />
         <id>tag:www.georgevreilly.com,2024-12-20:/blog/2024/12/20/PatchingAirflowWheels.html</id>
-        <updated>2024-12-20T08:00:00Z</updated>
+        <updated>2024-12-20T07:00:00Z</updated>
         <category term="python" />
         
         <author>
@@ -163,7 +250,7 @@ instead of ever-increasing difficulty.&lt;/p&gt;
         <title>Patching and Splitting Python Wheels</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2024/12/16/PatchingAndSplittingPythonWheels.html" />
         <id>tag:www.georgevreilly.com,2024-12-16:/blog/2024/12/16/PatchingAndSplittingPythonWheels.html</id>
-        <updated>2024-12-16T08:00:00Z</updated>
+        <updated>2024-12-16T07:00:00Z</updated>
         <category term="python" />
         
         <author>
@@ -236,7 +323,7 @@ to preload the &lt;tt class=&#34;docutils literal&#34;&gt;cudatorch&lt;/tt&gt; l
         <title>Social Media Handles</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2024/12/01/SocialMediaHandles.html" />
         <id>tag:www.georgevreilly.com,2024-12-01:/blog/2024/12/01/SocialMediaHandles.html</id>
-        <updated>2024-12-01T08:00:00Z</updated>
+        <updated>2024-12-01T07:00:00Z</updated>
         <category term="personal" />
         
         <author>
@@ -280,7 +367,7 @@ It was either my Twitter or my GitHub handle (which are, of course, identical).&
         <title>Cold Brew Coffee Recipe for French Press</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2024/10/19/ColdBrewCoffeeFrenchPressRecipe.html" />
         <id>tag:www.georgevreilly.com,2024-10-19:/blog/2024/10/19/ColdBrewCoffeeFrenchPressRecipe.html</id>
-        <updated>2024-10-19T08:00:00Z</updated>
+        <updated>2024-10-19T07:00:00Z</updated>
         <category term="recipe" />
         <category term="coffee" />
         
@@ -329,7 +416,7 @@ to strain any fine grounds that get past the plunger.&lt;/li&gt;
         <title>Exploring Wordle</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/09/26/ExploringWordle.html" />
         <id>tag:www.georgevreilly.com,2023-09-26:/blog/2023/09/26/ExploringWordle.html</id>
-        <updated>2023-09-26T08:00:00Z</updated>
+        <updated>2023-09-26T07:00:00Z</updated>
         <category term="python" />
         <category term="wordle" />
         
@@ -1297,7 +1384,7 @@ based on word commonality.&lt;/li&gt;
         <title>Regex Conjunctions</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/09/05/RegexConjunctions.html" />
         <id>tag:www.georgevreilly.com,2023-09-05:/blog/2023/09/05/RegexConjunctions.html</id>
-        <updated>2023-09-05T08:00:00Z</updated>
+        <updated>2023-09-05T07:00:00Z</updated>
         <category term="regex" />
         <category term="til" />
         
@@ -1335,7 +1422,7 @@ was an enormous alternation—a true horror that shouldn&#39;t have been a regex
         <title>Python Enums with Attributes</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/09/02/PythonEnumsWithAttributes.html" />
         <id>tag:www.georgevreilly.com,2023-09-02:/blog/2023/09/02/PythonEnumsWithAttributes.html</id>
-        <updated>2023-09-02T08:00:00Z</updated>
+        <updated>2023-09-02T07:00:00Z</updated>
         <category term="python" />
         <category term="til" />
         
@@ -1409,7 +1496,7 @@ ABSENT : 3 ⬛ U+02b1b Black  #838184&lt;/span&gt;
         <title>Patching a Python Wheel</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/08/10/PatchingAPythonWheel.html" />
         <id>tag:www.georgevreilly.com,2023-08-10:/blog/2023/08/10/PatchingAPythonWheel.html</id>
-        <updated>2023-08-10T08:00:00Z</updated>
+        <updated>2023-08-10T07:00:00Z</updated>
         <category term="python" />
         
         <author>
@@ -1569,7 +1656,7 @@ Update &lt;tt class=&#34;docutils literal&#34;&gt;RECORD&lt;/tt&gt; accordingly.
         <title>Bram Moolenaar RIP</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/08/07/BramMoolenaarRIP.html" />
         <id>tag:www.georgevreilly.com,2023-08-07:/blog/2023/08/07/BramMoolenaarRIP.html</id>
-        <updated>2023-08-07T08:00:00Z</updated>
+        <updated>2023-08-07T07:00:00Z</updated>
         <category term="vim" />
         
         <author>
@@ -1647,7 +1734,7 @@ spending many hours showing us around his beloved city.&lt;/p&gt;
         <title>Cold Brew Coffee Recipe</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/07/24/ColdBrewCoffeeRecipe.html" />
         <id>tag:www.georgevreilly.com,2023-07-24:/blog/2023/07/24/ColdBrewCoffeeRecipe.html</id>
-        <updated>2023-07-24T08:00:00Z</updated>
+        <updated>2023-07-24T07:00:00Z</updated>
         <category term="recipe" />
         <category term="coffee" />
         
@@ -1729,7 +1816,7 @@ or an Oxo maker.&lt;/p&gt;
         <title>Compressing Tar Files in Parallel</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/02/21/CompressingTarFilesInParallel.html" />
         <id>tag:www.georgevreilly.com,2023-02-21:/blog/2023/02/21/CompressingTarFilesInParallel.html</id>
-        <updated>2023-02-21T08:00:00Z</updated>
+        <updated>2023-02-21T07:00:00Z</updated>
         <category term="linux" />
         
         <author>
@@ -1818,7 +1905,7 @@ $ ls -lSr
         <title>Implementing the Tree command in Rust, part 2: Printing Trees</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/01/24/TreeInRust2PrintingTrees.html" />
         <id>tag:www.georgevreilly.com,2023-01-24:/blog/2023/01/24/TreeInRust2PrintingTrees.html</id>
-        <updated>2023-01-24T08:00:00Z</updated>
+        <updated>2023-01-24T07:00:00Z</updated>
         <category term="rust" />
         
         <author>
@@ -2024,7 +2111,7 @@ Use CSS to draw links in nested, unordered lists.&lt;/li&gt;
         <title>Implementing the Tree command in Rust, part 1: Walking Directories</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2023/01/23/TreeInRust1WalkDirectories.html" />
         <id>tag:www.georgevreilly.com,2023-01-23:/blog/2023/01/23/TreeInRust1WalkDirectories.html</id>
-        <updated>2023-01-23T08:00:00Z</updated>
+        <updated>2023-01-23T07:00:00Z</updated>
         <category term="rust" />
         
         <author>
@@ -2257,7 +2344,7 @@ by using &lt;a class=&#34;reference external&#34; href=&#34;https://doc.rust-lan
         <title>fsymbols for Unicode weirdness</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2022/12/31/FSymbolsForUnicodeWeirdness.html" />
         <id>tag:www.georgevreilly.com,2022-12-31:/blog/2022/12/31/FSymbolsForUnicodeWeirdness.html</id>
-        <updated>2023-01-01T04:35:00Z</updated>
+        <updated>2023-01-01T03:35:00Z</updated>
         <category term="font" />
         <category term="unicode" />
         <category term="til" />
@@ -2291,7 +2378,7 @@ than just &lt;a href=&#34;https://www.georgevreilly.com/blog/2016/02/12/UnicodeU
         <title>Backwards Ranges in Python</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2022/12/19/BackwardsRangesInPython.html" />
         <id>tag:www.georgevreilly.com,2022-12-19:/blog/2022/12/19/BackwardsRangesInPython.html</id>
-        <updated>2022-12-19T23:20:00Z</updated>
+        <updated>2022-12-19T22:20:00Z</updated>
         <category term="python" />
         <category term="til" />
         
@@ -2353,7 +2440,7 @@ you get &lt;code&gt;b-s, b-2*s, ..., a+s, a&lt;/code&gt;.&lt;/p&gt;
         <title>Ulysses at 100</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2022/02/02/UlyssesAt100.html" />
         <id>tag:www.georgevreilly.com,2022-02-02:/blog/2022/02/02/UlyssesAt100.html</id>
-        <updated>2022-02-02T08:00:00Z</updated>
+        <updated>2022-02-02T07:00:00Z</updated>
         <category term="jamesjoyce" />
         
         <author>
@@ -2423,7 +2510,7 @@ I posted some &lt;a class=&#34;reference external&#34; href=&#34;https://www.wil
         <title>Diffing a fragment of a file</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2022/01/31/DiffFileFragment.html" />
         <id>tag:www.georgevreilly.com,2022-01-31:/blog/2022/01/31/DiffFileFragment.html</id>
-        <updated>2022-01-31T08:00:00Z</updated>
+        <updated>2022-01-31T07:00:00Z</updated>
         <category term="programming" />
         <category term="bash" />
         <category term="til" />
@@ -2460,7 +2547,7 @@ especially with Git.&lt;/p&gt;
         <title>40 Years of Programming</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2022/01/31/40YearsOfProgramming.html" />
         <id>tag:www.georgevreilly.com,2022-01-31:/blog/2022/01/31/40YearsOfProgramming.html</id>
-        <updated>2022-01-31T08:00:00Z</updated>
+        <updated>2022-01-31T07:00:00Z</updated>
         <category term="personal" />
         <category term="programming" />
         
@@ -2490,7 +2577,7 @@ There&#39;s always more to learn and to see.&lt;/p&gt;
         <title>On Circumnavigating the Aubreyiad Again</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/12/30/CircumnavigatingAubreyiad.html" />
         <id>tag:www.georgevreilly.com,2021-12-30:/blog/2021/12/30/CircumnavigatingAubreyiad.html</id>
-        <updated>2021-12-30T08:00:00Z</updated>
+        <updated>2021-12-30T07:00:00Z</updated>
         <category term="books" />
         <category term="reviews" />
         <category term="fiction" />
@@ -2561,7 +2648,7 @@ would be at home in the pages of Jane Austen
         <title>Review: Crafting Interpreters</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/12/28/ReviewCraftingInterpreters.html" />
         <id>tag:www.georgevreilly.com,2021-12-28:/blog/2021/12/28/ReviewCraftingInterpreters.html</id>
-        <updated>2021-12-28T08:00:00Z</updated>
+        <updated>2021-12-28T07:00:00Z</updated>
         <category term="books" />
         <category term="reviews" />
         
@@ -2646,7 +2733,7 @@ I studied the &lt;a class=&#34;reference external&#34; href=&#34;https://en.wiki
         <title>Path Traversal Attacks</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/10/05/PathTraversalAttacks.html" />
         <id>tag:www.georgevreilly.com,2021-10-05:/blog/2021/10/05/PathTraversalAttacks.html</id>
-        <updated>2021-10-05T08:00:00Z</updated>
+        <updated>2021-10-05T07:00:00Z</updated>
         <category term="iis" />
         <category term="security" />
         <category term="unicode" />
@@ -2750,7 +2837,7 @@ but to my knowledge, there were no further vulnerabilities in URL handling.&lt;/
         <title>Accidentally Quadratic: Python List Membership</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html" />
         <id>tag:www.georgevreilly.com,2021-10-04:/blog/2021/10/04/AccidentallyQuadraticPythonListMembership.html</id>
-        <updated>2021-10-04T08:00:00Z</updated>
+        <updated>2021-10-04T07:00:00Z</updated>
         <category term="python" />
         <category term="performance" />
         <category term="til" />
@@ -2817,7 +2904,7 @@ the expected &lt;span class=&#34;formula&#34;&gt;&lt;i&gt;O&lt;/i&gt;(&lt;i&gt;n
         <title>Passphrase Generators</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/05/10/PassphraseGenerators.html" />
         <id>tag:www.georgevreilly.com,2021-05-10:/blog/2021/05/10/PassphraseGenerators.html</id>
-        <updated>2021-05-10T08:00:00Z</updated>
+        <updated>2021-05-10T07:00:00Z</updated>
         <category term="tech" />
         <category term="security" />
         
@@ -2920,7 +3007,7 @@ Don&#39;t answer them.&lt;/p&gt;
         <title>Punctuating James Joyce</title>
         <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2021/05/08/PunctuatingJamesJoyce.html" />
         <id>tag:www.georgevreilly.com,2021-05-08:/blog/2021/05/08/PunctuatingJamesJoyce.html</id>
-        <updated>2021-05-08T08:00:00Z</updated>
+        <updated>2021-05-08T07:00:00Z</updated>
         <category term="jamesjoyce" />
         
         <author>
@@ -3037,95 +3124,6 @@ to counteract Joyce&#39;s Germanic habit of stringing several words into one.&lt
 &lt;p&gt;This seems to help,
 though some of our readers have to fight a tendency to pause too much
 when they encounter a ‘≀’ symbol.&lt;/p&gt;
-</content>
-    </entry>
-    
-        <entry>
-        <title>Now You Have 32 Problems</title>
-        <link rel="alternate" type="text/html" href="https://www.georgevreilly.com/blog/2020/04/23/regex-32-problems.html" />
-        <id>tag:www.georgevreilly.com,2020-04-23:/blog/2020/04/23/regex-32-problems.html</id>
-        <updated>2020-04-23T08:00:00Z</updated>
-        <category term="regex" />
-        <category term="performance" />
-        <category term="til" />
-        
-        <author>
-            <name>George V. Reilly</name>
-            <uri>https://www.georgevreilly.com/</uri>
-            <email>george@reilly.org</email>
-        </author>
-        <content type="html">&lt;p&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Some people, when confronted with a problem, think
-“I know, I&#39;ll use regular expressions.”
-&lt;a class=&#34;reference external&#34; href=&#34;http://regex.info/blog/2006-09-15/247&#34;&gt;Now they have two problems&lt;/a&gt;.&lt;/p&gt;
-&lt;blockquote&gt;
-— Jaime Zawinksi&lt;/blockquote&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;A Twitter thread about &lt;a class=&#34;reference external&#34; href=&#34;https://twitter.com/nbashaw/status/1253186961482715136&#34;&gt;very long regexes&lt;/a&gt;
-reminded me of the &lt;a class=&#34;reference external&#34; href=&#34;https://www.georgevreilly.com/blog/2009/07/11/64bitWindows7.html&#34;&gt;longest regex&lt;/a&gt; that I ever ran afoul of,
-a particularly horrible multilevel mess
-that had worked acceptably on the 32-bit .NET CLR,
-but brought the 64-bit CLR to its knees.&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Whenever I ran our ASP.NET web application [on Win64],
-it would go berserk, eat up all 4GB of my physical RAM,
-push the working set of IIS&#39;s w3wp.exe to &lt;em&gt;12GB&lt;/em&gt;,
-and max out one of my 4&amp;nbsp;cores!
-The only way to maintain any sanity was to run &lt;tt class=&#34;docutils literal&#34;&gt;iisreset&lt;/tt&gt;
-every 20&amp;nbsp;minutes to gently kill the process.&lt;/p&gt;
-&lt;p&gt;WinDbg and Process Explorer showed that the rogue thread was stuck in a loop in
-&lt;tt class=&#34;docutils literal&#34;&gt;mscorjit!LifetimesListInteriorBlocksHelperIterative&amp;lt;GCInfoLiveRecordManipulator&amp;gt;&lt;/tt&gt;.
-I passed a minidump on to my former colleagues in IIS, who sent it to the CLR team.
-They said:&lt;/p&gt;
-&lt;blockquote&gt;
-The only thing I can tell is that it is Regex,
-and some regex expression compiled down to a method with 456KB of IL.
-That is &lt;em&gt;huge&lt;/em&gt;, and yes 12GB of RAM consumed for something like that is expected.&lt;/blockquote&gt;
-&lt;p&gt;With that clue, I was able to track down the problem,
-a particularly foul regex, built from a 10KB string,
-with 32&amp;nbsp;alternating expressions,
-each of which contains dozens of alternated subexpressions.
-The string is built from many smaller strings,
-so it&#39;s not obvious in the source just how ugly it is.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;I never wrote a followup post explaining how I dealt with this beast.&lt;/p&gt;
-&lt;p&gt;The regex was used on the &lt;a class=&#34;reference external&#34; href=&#34;https://www.cozi.com/calendar/&#34;&gt;Cozi calendar&lt;/a&gt;
-to parse appointments in everyday language,
-such as “Ann/John Dinner out Friday at 8pm”
-or “John&#39;s birthday every Dec. 7”.
-These would get translated into (possibly recurring) &lt;a class=&#34;reference external&#34; href=&#34;https://tools.ietf.org/html/rfc5545&#34;&gt;iCalendar&lt;/a&gt; appointments.&lt;/p&gt;
-&lt;p&gt;Some of the subexpressions mentioned above looked like:&lt;/p&gt;
-&lt;ul class=&#34;simple&#34;&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;ordinals = &lt;span class=&#34;pre&#34;&gt;&amp;quot;1st|2nd|...|31st&amp;quot;&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;short_days = &lt;span class=&#34;pre&#34;&gt;&amp;quot;Sun|Mon|...|Sat&amp;quot;&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;full_days = &lt;span class=&#34;pre&#34;&gt;&amp;quot;Sunday|Monday|...|Saturday&amp;quot;&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;short_months = &lt;span class=&#34;pre&#34;&gt;&amp;quot;Jan|Feb|...|Dec&amp;quot;&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;full_months = &lt;span class=&#34;pre&#34;&gt;&amp;quot;January|February|...|December&amp;quot;&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
-&lt;li&gt;&lt;tt class=&#34;docutils literal&#34;&gt;recurrence = &lt;span class=&#34;pre&#34;&gt;&amp;quot;((every|each)?&lt;/span&gt; (first|second|third|fourth|fifth|last)? &amp;quot;
-+ &amp;quot;(&amp;quot; + short_days + &amp;quot;|&amp;quot; + full_days + &amp;quot;)&amp;quot; + ...&lt;/tt&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;I&#39;ve elided the intermediate values but they were spelled out in the original.
-Some of the simpler subexpressions were repeated several times,
-nested inside others.&lt;/p&gt;
-&lt;p&gt;This all screamed that a &lt;em&gt;grammar&lt;/em&gt; and a &lt;em&gt;real parser&lt;/em&gt; were needed,
-but the test suite also screamed &lt;em&gt;here be dragons!&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;I resisted the temptation
-to rewrite the appointment parser from scratch with a proper grammar,
-or to experiment with a real natural language parser,
-though it remained on my personal todo list for the rest of my time at Cozi.
-We were migrating from C# to Python at that point,
-and the legacy appointment parser was one of the few remaining pieces
-that prevented us from shutting down the .NET servers.&lt;/p&gt;
-&lt;p&gt;Instead, I changed the appointment parser code
-so that it didn&#39;t attempt to match the entire 10KB monster in one go.
-I looped through each of the 32 top-level disjunctions,
-manually performing the alternation.
-If any one of those matched, then I had what I needed.
-Reducing the regexes to a few hundred characters each
-tamed the combinatorial explosion of backtracking state.&lt;/p&gt;
-&lt;p&gt;Regexes definitely have a place,
-but do not try to implement a full grammar as a single regular expression.&lt;/p&gt;
 </content>
     </entry>
     </feed>

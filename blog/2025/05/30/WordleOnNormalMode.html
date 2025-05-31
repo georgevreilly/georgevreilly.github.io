@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Wordle on Normal Mode</title>
+  <link media="all" href="/style.css" rel="stylesheet" />
+  <link media="all" href="/pygments.css" rel="stylesheet" />
+  <link href="/favicon.ico" rel="shortcut icon" />
+    <link href="/sitemap.xml" type="application/xml" rel="sitemap" title="Sitemap">
+  <link href="/" rel="home start" />
+  <link href="/atom/" type="application/atom+xml" rel="alternate" title="Atom Feed" />
+  <link href="/rss/" type="application/rss+xml" rel="alternate" title="RSS Feed" />
+    <meta name="description" content=".. pull-quote::
+
+    At the `June 2025 PuPPy meetu..." />
+    <meta name="keywords" content="python, wordle" />
+</head>
+<body>
+  <header>
+    <h1><a href="/" rel="home start" class="blogtitle">George V. Reilly</a></h1>
+    <nav>
+      <ul>
+        <li><a href="/blog/" rel="home start" title="George's full blog">blog</a></li>
+        <li><a href="/til/" rel="home start" title="Today George Learned">TIL</a></li>
+        <li><a href="/about/" rel="home start" title="About George">about</a></li>
+        <li><a href="/atom/" rel="alternate" title="Atom Feed">atom</a></li>
+        <li><a href="/rss/" rel="alternate" title="RSS Feed">rss</a></li>
+        <li><a href="/articles/" rel="contents">articles</a></li>
+        <li><a href="/tags/" rel="contents">tags</a></li>
+      </ul>
+    </nav>
+  </header>
+    
+        <article>
+    <header>
+        <time datetime="2025-05-30">2025-05-30</time>
+        <h1>
+            <a href="/blog/2025/05/30/WordleOnNormalMode.html" rel="bookmark canonical">Wordle on Normal Mode</a>
+        </h1>
+    </header>
+    <blockquote class="pull-quote">
+<p>At the <a class="reference external" href="https://www.meetup.com/psppython/events/307728743/">June 2025 PuPPy meetup</a> (Puget Sound Pro&shy;gram&shy;ming Python),
+I will be giving a talk about <em>Exploring Wordle</em>.</p>
+<div class="line-block">
+<div class="line">June 11: doors open at 5:30pm</div>
+<div class="line">GitHub Bellevue</div>
+<div class="line">10900 <span class="caps">NE</span> 4th St, Floor 21</div>
+<div class="line">Bellevue, <span class="caps">WA</span> 98004</div>
+</div>
+</blockquote>
+<p>In <a class="reference external" href="/blog/2023/09/26/ExploringWordle.html">Exploring Wordle</a>, I wrote a long blog post about solving Wordle pro&shy;gram&shy;mat&shy;i&shy;cal&shy;ly,
+which implicitly solved Wordle in <em>Hard Mode</em>.
+Today, I want to discuss a strategy that is only possible in Normal&nbsp;Mode.</p>
+<a class="reference external image-reference" href="https://slate.com/culture/2022/02/wordle-game-nyt-original-vs-hard-mode.html"><img alt="Hard Mode in Wordle setting" src="/content/binary/WordleHardMode.png"/></a>
+<dl class="docutils">
+<dt>Hard&nbsp;Mode</dt>
+<dd><p class="first">Can be turned on through the Settings menu at the top right of the screen.
+“Any revealed hints must be used in subsequent guesses” it says.
+If you guess a “present” (yellow) letter,
+that letter must be used on all subsequent guesses.
+If you guess a “correct” (green) letter, such as <tt class="docutils literal">3:T</tt>,
+that letter must played in that position on all the remaining&nbsp;guesses.</p>
+<p>When you post your results,
+the <tt class="docutils literal">N/6</tt> score will be suffixed with a star, <tt class="docutils literal">*</tt>.</p>
+<div class="last line-block">
+<div class="line">Wordle 1,317 4/6*</div>
+<div class="line">⬜⬜⬜🟨⬜</div>
+<div class="line">🟩⬜🟨⬜⬜</div>
+<div class="line">🟩🟩⬜⬜🟩</div>
+<div class="line">🟩🟩🟩🟩🟩</div>
+</div>
+</dd>
+<dt>Normal&nbsp;Mode</dt>
+<dd><p class="first">If you&#8217;ve never turned on Hard Mode,
+then you&#8217;re playing Normal Mode.
+You can play any letter at any time.
+You are not required to play all the present and correct letters
+from previous&nbsp;guesses.</p>
+<p class="last">This post will explore why this might be&nbsp;useful.</p>
+</dd>
+</dl>
+<p>Many people play hard mode rules, without realizing it.
+They in&shy;stinc&shy;tive&shy;ly apply all the con&shy;straints that they&#8217;ve learned from earlier&nbsp;guesses.</p>
+<p><a class="reference external" href="https://slate.com/culture/2022/02/wordle-game-nyt-original-vs-hard-mode.html">Slate</a> has a discussion of the merits of Hard Mode and Normal&nbsp;Mode.</p>
+<div class="section" id="an-example-of-normal-mode-being-helpful">
+<h2>An example of Normal Mode being&nbsp;helpful</h2>
+<div class="figure">
+<img alt="Game 1285: OLIVE=....E FRAME=.rA.E STARE=S.ARE" src="/content/binary/olive-frame-stare.png" style="width: 400px;"/>
+<p class="caption"><a class="reference external" href="https://wordlearchive.com/1285">Wordle Game&nbsp;1285</a></p>
+</div>
+<p><tt class="docutils literal">S.<span class="caps">ARE</span></tt> could be <tt class="docutils literal"><span class="caps">SCARE</span></tt>, <tt class="docutils literal"><span class="caps">SHARE</span></tt>, <tt class="docutils literal"><span class="caps">SNARE</span></tt>, or <tt class="docutils literal"><span class="caps">SPARE</span></tt>.
+In Hard Mode, you would have no choice
+but to try those four choices in some order,
+and hope that you got the right one before running out of guesses.
+Three guesses have already been played and three&nbsp;remain.</p>
+<p>Each of the following outcomes are&nbsp;possible:</p>
+<ul class="simple">
+<li>getting the correct answer on your fourth&nbsp;guess</li>
+<li>on your fifth&nbsp;guess</li>
+<li>on your sixth&nbsp;guess</li>
+<li>losing the game if the correct word was last in your&nbsp;list.</li>
+</ul>
+<p>In Normal Mode however,
+you can guess a word that contains the four differing letters,
+<tt class="docutils literal">C</tt>, <tt class="docutils literal">H</tt>, <tt class="docutils literal">N</tt>, and <tt class="docutils literal">P</tt>,
+and pin down the answer.
+<tt class="docutils literal"><span class="caps">PUNCH</span></tt> and <tt class="docutils literal"><span class="caps">PINCH</span></tt> are both suitable words.
+You can&#8217;t possibly win with <tt class="docutils literal"><span class="caps">PUNCH</span></tt>, but your next guess is guaranteed to win.
+In this case, I got <tt class="docutils literal"><span class="pre"><span class="caps">PUNCH</span>=....h</span></tt>,
+so I played <tt class="docutils literal"><span class="caps">SHARE</span></tt> as my fifth&nbsp;guess.</p>
+<link rel="stylesheet" href="/wordle.css"></div>
+
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/wordle/" rel="tag">wordle</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'georgevreilly'; // required: replace example with your forum shortname
+
+            // The following are highly recommended additional parameters. Remove the slashes in front to use.
+            var disqus_identifier = "https://www.georgevreilly.com/blog/2025/05/30/WordleOnNormalMode.html";
+            var disqus_url = "https://www.georgevreilly.com/blog/2025/05/30/WordleOnNormalMode.html";
+
+            if (window.location.hostname != "localhost") {
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        </script>
+        <noscript>
+            <p>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></p>
+        </noscript>
+        <a href="https://disqus.com" class="dsq-brlink">
+            blog comments powered by <span class="logo-disqus">Disqus</span>
+        </a>
+        </div>
+</article>
+
+
+    
+    
+        <a href="/blog/2024/12/20/PatchingAirflowWheels.html" class="page floatright">
+        Patching Airflow Wheels &raquo;
+        </a>
+    
+    
+<footer>
+    
+    
+    <p>written by <a href="mailto:george@reilly.org">George V. Reilly</a></p>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="copyright license">
+        <img src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" alt="by-nc-sa" />
+    </a>
+    <script data-goatcounter="https://georgevreilly.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
+    
+    
+
+  </footer>
+</body>
+</html>

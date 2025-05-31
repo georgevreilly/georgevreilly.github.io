@@ -29,6 +29,50 @@
     
         <article>
     <header>
+        <time datetime="2025-05-30">2025-05-30</time>
+        <h1>
+            <a href="/blog/2025/05/30/WordleOnNormalMode.html" rel="bookmark canonical">Wordle on Normal Mode</a>
+        </h1>
+    </header>
+    <blockquote class="pull-quote">
+<p>At the <a class="reference external" href="https://www.meetup.com/psppython/events/307728743/">June 2025 PuPPy meetup</a> (Puget Sound Pro&shy;gram&shy;ming Python),
+I will be giving a talk about <em>Exploring Wordle</em>.</p>
+<div class="line-block">
+<div class="line">June 11: doors open at 5:30pm</div>
+<div class="line">GitHub Bellevue</div>
+<div class="line">10900 NE 4th St, Floor 21</div>
+<div class="line">Bellevue, WA 98004</div>
+</div>
+</blockquote>
+<p>In <a class="reference external" href="/blog/2023/09/26/ExploringWordle.html">Exploring Wordle</a>, I wrote a long blog post about solving Wordle pro&shy;gram&shy;mat&shy;i&shy;cal&shy;ly,
+which implicitly solved Wordle in <em>Hard Mode</em>.
+Today, I want to discuss a strategy that is only possible in Normal Mode.</p>
+<a class="reference external image-reference" href="https://slate.com/culture/2022/02/wordle-game-nyt-original-vs-hard-mode.html"></a>
+<dl class="docutils">
+<dt>Hard Mode</dt>
+<dd><p class="first">Can be turned on through the Settings menu at the top right of the screen.
+“Any revealed hints must be used in subsequent guesses” it says.
+If you guess a “present” (yellow) letter,
+that letter must be used on all subsequent <span>&#8230;<a href="/blog/2025/05/30/WordleOnNormalMode.html" class="continue">continue</a>.</span></p></dd></dl>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/python/" rel="tag">python</a>
+                    and
+                    
+                <a href="/tag/wordle/" rel="tag">wordle</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2024-12-20">2024-12-20</time>
         <h1>
             <a href="/blog/2024/12/20/PatchingAirflowWheels.html" rel="bookmark canonical">Patching Airflow Wheels</a>
@@ -373,91 +417,6 @@ I then declare a <tt class="docutils literal">table</tt> which has only the two 
             <p>tagged as
                 <a href="/tag/python/" rel="tag">python</a>,
                 <a href="/tag/sql/" rel="tag">sql</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-08-06">2016-08-06</time>
-        <h1>
-            <a href="/blog/2016/08/06/Rounding.html" rel="bookmark canonical">Rounding</a>
-        </h1>
-    </header>
-    <p>I recently learned from a <a class="reference external" href="http://stackoverflow.com/questions/10825926/python-3-x-rounding-behavior">Stack&shy;Over&shy;flow question</a>
-that the rounding behavior in Python 3.x is different from Python 2.x:</p>
-<blockquote>
-The round() function rounding strategy and return type have changed.
-Exact halfway cases are now rounded to the nearest even result
-instead of away from zero.
-(For example, round(2.5) now returns 2 rather than 3.)</blockquote>
-<p>The “away from zero” rounding strategy is the one that most of us learned at school.
-The “nearest even” strategy is also known as “banker’s rounding”.</p>
-<p>There are actually <a class="reference external" href="https://en.wikipedia.org/wiki/IEEE_floating_point#Rounding_rules">five rounding strategies defined in IEEE 754</a>:</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="58%"/>
-<col width="11%"/>
-<col width="11%"/>
-<col width="11%"/>
-<col width="11%"/>
-</colgroup>
-<thead valign="bottom">
-<tr><th class="head">Mode / Example Value</th>
-<th class="head">+11.5</th>
-<th class="head">+12.5</th>
-<th class="head">−11.5</th>
-<th class="head">−12.5</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr><td>to nearest, ties to even</td>
-<td>+12.0</td>
-<td>+12.0</td>
-<td>−12.0</td>
-<td>−12.0</td>
-</tr>
-<tr><td>to nearest, ties away from zero</td>
-<td>+12.0</td>
-<td>+13.0</td>
-<td>−12.0</td>
-<td>−13.0</td>
-</tr>
-<tr><td>toward 0 (truncation)</td>
-<td>+11.0</td>
-<td>+12.0</td>
-<td>−11.0</td>
-<td>−12.0</td>
-</tr>
-<tr><td>toward +∞ (ceiling)</td>
-<td>+12.0</td>
-<td>+13.0</td>
-<td>−11.0</td>
-<td>−12.0</td>
-</tr>
-<tr><td>toward −∞ (floor)</td>
-<td>+11.0</td>
-<td>+12.0</td>
-<td>−12.0</td>
-<td>−13.0</td>
-</tr>
-</tbody>
-</table>
-<p>Further <span>&#8230;<a href="/blog/2016/08/06/Rounding.html" class="continue">continue</a>.</span></p>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/python/" rel="tag">python</a>,
-                <a href="/tag/math/" rel="tag">math</a>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>
