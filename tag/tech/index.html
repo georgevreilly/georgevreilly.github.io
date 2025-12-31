@@ -29,6 +29,53 @@
     
         <article>
     <header>
+        <time datetime="2025-12-31">2025-12-31</time>
+        <h1>
+            <a href="/2025/12/31/InternationalCharger.html" rel="bookmark canonical">International Charger</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://www.power-plugs-sockets.com/"></a>
+<p>Over the last two years,
+I have traveled to multiple countries
+with a single beefy USB charger,
+even though those countries use a variety of <a class="reference external" href="https://www.power-plugs-sockets.com/">electrical plug types</a>.</p>
+<p>How?
+I bought a power cord for each kind of plug:</p>
+<ul class="simple">
+<li>USA + Canada: <a class="reference external" href="https://www.worldstandards.eu/electricity/plugs-and-sockets/ab/">Type A</a></li>
+<li>France, Portugal, Sweden: <a class="reference external" href="https://www.worldstandards.eu/electricity/plugs-and-sockets/c/">Type C</a> (the Euro plug)</li>
+<li>Ireland + United Kingdom: <a class="reference external" href="https://www.worldstandards.eu/electricity/plugs-and-sockets/g/">Type G</a></li>
+<li>New Zealand: <a class="reference external" href="https://www.worldstandards.eu/electricity/plugs-and-sockets/i/">Type I</a></li>
+</ul>
+<p>Each of these power cords has the same <a class="reference external" href="https://www.sfcable.com/blog/all-know-power-cord-connectors">connector</a>:
+the <a class="reference external" href="https://en.wikipedia.org/wiki/IEC_60320#C7/C8_coupler">figure-8 C7</a>,
+since that's what the USB charger accepts.</p>
+<a class="reference external image-reference" href="https://issuu.com/sfcable/docs/iec_c5_power_cords_vs_iec_c7_power_cords_what_s_t/s/24565475"></a>
+<p>Similarly, I bring <a class="reference external" href="https://en.wikipedia.org/wiki/IEC_60320#C5/C6_coupler">clover-leaf C5</a> power cords with different plugs
+for PC laptop chargers.</p>
+<p>Obviously, I could use travel adapter plugs instead,
+but I find it convenient to bring the right power cords.
+And a selection <span>&#8230;<a href="/2025/12/31/InternationalCharger.html" class="continue">continue</a>.</span></p>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/travel/" rel="tag">travel</a>,
+                <a href="/tag/tech/" rel="tag">tech</a>
+                    and
+                    
+                <a href="/tag/usb/" rel="tag">usb</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2021-05-10">2021-05-10</time>
         <h1>
             <a href="/blog/2021/05/10/PassphraseGenerators.html" rel="bookmark canonical">Passphrase Generators</a>
@@ -350,53 +397,6 @@ that was on-CPU when the <span>&#8230;<a href="/blog/2016/08/23/FlameGraphsAndFl
             <p>tagged as
                 <a href="/tag/tech/" rel="tag">tech</a>,
                 <a href="/tag/performance/" rel="tag">performance</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-08-01">2016-08-01</time>
-        <h1>
-            <a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" rel="bookmark canonical">Creating External SSL Certificates for CloudFront</a>
-        </h1>
-    </header>
-    <p>I needed to create a wildcard SSL cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/">AWS CloudFront</a> today.</p>
-<p>First, generate a 2048-bit private key. This will prompt you for a passphrase:</p>
-<pre class="code bash literal-block">
-$ openssl genrsa -des3 -out example.key <span class="m">2048</span>
-</pre>
-<p>Check which signature algorithm was used (SHA-256 is rec&shy;om&shy;mend&shy;ed):</p>
-<pre class="code bash literal-block">
-$ openssl req -in example.csr -noout -text
-</pre>
-<p>Transform the private key to PEM format:</p>
-<pre class="code bash literal-block">
-$ openssl rsa -outform PEM -in example.key -out example.pem
-</pre>
-<p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server FQDN:</p>
-<pre class="code bash literal-block">
-$ openssl req -new -key example.key -out example.csr
-
-Country Name <span class="o">(</span><span class="m">2</span> letter code<span class="o">)</span> <span class="o">[</span>AU<span class="o">]</span>:US
-State or Province Name <span class="o">(</span>full name<span class="o">)</span> <span class="o">[</span>Some-State<span class="o">]</span>:Washington
-Locality Name <span class="o">(</span>eg, city<span class="o">)</span> <span class="o">[]</span>:Seattle
-Organization Name <span class="o">(</span>eg, company<span class="o">)</span> <span class="o">[</span>Internet Widgits Pty </pre><span>&#8230;<a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" class="continue">continue</a>.</span>
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/tech/" rel="tag">tech</a>,
-                <a href="/tag/ssl/" rel="tag">ssl</a>,
-                <a href="/tag/aws/" rel="tag">aws</a>
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>

@@ -29,6 +29,53 @@
     
         <article>
     <header>
+        <time datetime="2016-08-01">2016-08-01</time>
+        <h1>
+            <a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" rel="bookmark canonical">Creating External SSL Certificates for CloudFront</a>
+        </h1>
+    </header>
+    <p>I needed to create a wildcard SSL cer&shy;tifi&shy;cate and upload it to <a class="reference external" href="https://aws.amazon.com/cloudfront/">AWS CloudFront</a> today.</p>
+<p>First, generate a 2048-bit private key. This will prompt you for a passphrase:</p>
+<pre class="code bash literal-block">
+$ openssl genrsa -des3 -out example.key <span class="m">2048</span>
+</pre>
+<p>Check which signature algorithm was used (SHA-256 is rec&shy;om&shy;mend&shy;ed):</p>
+<pre class="code bash literal-block">
+$ openssl req -in example.csr -noout -text
+</pre>
+<p>Transform the private key to PEM format:</p>
+<pre class="code bash literal-block">
+$ openssl rsa -outform PEM -in example.key -out example.pem
+</pre>
+<p>Generate a Cer&shy;tifi&shy;cate Signing Request. Note the <tt class="docutils literal">*</tt> in the server FQDN:</p>
+<pre class="code bash literal-block">
+$ openssl req -new -key example.key -out example.csr
+
+Country Name <span class="o">(</span><span class="m">2</span> letter code<span class="o">)</span> <span class="o">[</span>AU<span class="o">]</span>:US
+State or Province Name <span class="o">(</span>full name<span class="o">)</span> <span class="o">[</span>Some-State<span class="o">]</span>:Washington
+Locality Name <span class="o">(</span>eg, city<span class="o">)</span> <span class="o">[]</span>:Seattle
+Organization Name <span class="o">(</span>eg, company<span class="o">)</span> <span class="o">[</span>Internet Widgits Pty </pre><span>&#8230;<a href="/blog/2016/08/01/CreatingExternalSSLCertificatesForCloudFront.html" class="continue">continue</a>.</span>
+    <footer>
+        
+        
+            <p>tagged as
+                <a href="/tag/tech/" rel="tag">tech</a>,
+                <a href="/tag/ssl/" rel="tag">ssl</a>,
+                <a href="/tag/aws/" rel="tag">aws</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2016-07-19">2016-07-19</time>
         <h1>
             <a href="/blog/2016/07/19/UndeletingNotesInEvernote.html" rel="bookmark canonical">Undeleting Notes in Evernote</a>
@@ -380,39 +427,6 @@ I've proved my <span>&#8230;<a href="/blog/2016/02/27/Keybase.html" class="conti
                     and
                     
                 <a href="/tag/til/" rel="tag">til</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2016-02-05">2016-02-05</time>
-        <h1>
-            <a href="/blog/2016/02/05/Car2goOutOfHomeArea.html" rel="bookmark canonical">Car2go: Out of Home Area</a>
-        </h1>
-    </header>
-    <a class="reference external image-reference" href="https://www.car2go.com/en/seattle/"></a>
-<p>I've driven Car2go a couple of times this week.
-On both occasions, while driving through downtown Seattle,
-the car announced that I was outside its home area.
-Presumably it tem&shy;porar&shy;i&shy;ly lost a signal
-and thereby assumed that it was no longer in the home area.
-Given the car knew my position and direction just moments before,
-and that I was well inside the home area,
-any half-way decent algorithm would have concluded
-that it was physically impossible for me to be now outside the home area,
-and kept its mouth shut.</p>
-
-    <footer>
-        
-        
-            <p>tagged as
-                <a href="/tag/tech/" rel="tag">tech</a>
                 
             </p>
         

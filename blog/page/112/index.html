@@ -29,6 +29,48 @@
     
         <article>
     <header>
+        <time datetime="2006-08-29">2006-08-29</time>
+        <h1>
+            <a href="/blog/2006/08/29/UsingLog4NetFromACOMApplication.html" rel="bookmark canonical">Using Log4Net from a COM+ Application</a>
+        </h1>
+    </header>
+    <a class="reference external image-reference" href="https://logging.apache.org/log4net/"></a>
+<p>I spent far too much time on Friday trying to make <a class="reference external" href="https://logging.apache.org/log4net/">log4net</a> work in a <span class="caps">COM</span>+&nbsp;ap&shy;pli&shy;ca&shy;tion.</p>
+<p>Someone else had done part of the work necessary,
+by creating an <a class="reference external" href="http://blogs.msdn.com/florinlazar/archive/2003/12/04/41369.aspx">ap&shy;pli&shy;ca&shy;tion.config</a> for the <span class="caps">COM</span>+ ap&shy;pli&shy;ca&shy;tion
+and setting a custom Ap&shy;pli&shy;ca&shy;tion Root Directory.
+This was enough to ensure that most of the managed code in the ap&shy;pli&shy;ca&shy;tion
+got their con&shy;fig&shy;u&shy;ra&shy;tion settings;
+log4net being the&nbsp;exception.</p>
+<p>It took some additional work to realize that we needed to add two assembly&nbsp;attributes:</p>
+<pre class="literal-block">
+[assembly: log4net.Config.Repository(&quot;unique-name&quot;)]
+[assembly: log4net.Config.XmlConfigurator(ConfigFile=&quot;application.config&quot;)]
+</pre>
+<p>The repository name just needs to be a unique string.
+We used the name of the&nbsp;assembly.</p>
+
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/08/29/UsingLog4NetFromACOMApplication.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/net/" rel="tag">.NET</a>
+                    and
+                    
+                <a href="/tag/til/" rel="tag">til</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2006-08-18">2006-08-18</time>
         <h1>
             <a href="/blog/2006/08/18/PostingToDasBlogWithWindowsLiveWriter.html" rel="bookmark canonical">Posting to dasBlog with Windows Live Writer</a>
@@ -348,43 +390,6 @@ I generally don&#8217;t care for champagne, but that went down&nbsp;nicely.</p>
         
             <p>tagged as
                 <a href="/tag/personal/" rel="tag">personal</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2006-07-28">2006-07-28</time>
-        <h1>
-            <a href="/blog/2006/07/28/ChainMailHoaxes.html" rel="bookmark canonical">Chain Mail Hoaxes</a>
-        </h1>
-    </header>
-    
-<p>I got an email earlier today from one of my relatives who has ties to South
-Africa, which&nbsp;read:</p>
-<blockquote>
-<p>Last week a 3 year old girl (in South Africa ) was beaten and raped. She is
-still alive. The man re&shy;spon&shy;si&shy;ble was released on bail yesterday. He is
-walking the streets. If you are too busy to read this then just sign your
-name and forward this on. The Government is planning to close the child
-protection unit and this is a petition against it. This is a very important
-petition. It is an essential part of the justice system for children. You
-may have already heard that there&#8217;s <span>&#8230;<a href="/blog/2006/07/28/ChainMailHoaxes.html" class="continue">continue</a>.</span></p></blockquote>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2006/07/28/ChainMailHoaxes.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/tech/" rel="tag">tech</a>
-                    and
-                    
-                <a href="/tag/hoax/" rel="tag">hoax</a>
                 
             </p>
         

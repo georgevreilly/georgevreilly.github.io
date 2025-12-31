@@ -29,6 +29,52 @@
     
         <article>
     <header>
+        <time datetime="2017-02-08">2017-02-08</time>
+        <h1>
+            <a href="/blog/2017/02/08/Jenkins05-Groovy.html" rel="bookmark canonical">Jenkins #5: Groovy</a>
+        </h1>
+    </header>
+    <p></p>
+<blockquote>
+[Pre&shy;vi&shy;ous&shy;ly published at the now defunct <a class="reference external" href="https://web.archive.org/web/20171001220321/http://devblog.metabrite.com/">MetaBrite Dev Blog</a>.]</blockquote>
+<p>Jenkins Pipelines are written in a Groovy <span class="caps">DSL</span>.
+This is a good choice but there are&nbsp;surprises.</p>
+<p><a class="reference external" href="/blog/2017/02/04/Jenkins01-MigratingToPipelines.html">#5 in a series on Jenkins&nbsp;Pipelines</a></p>
+<div class="section" id="groovy-as-a-dsl">
+<h2>Groovy as a&nbsp;<span class="caps">DSL</span></h2>
+<p>Groovy <a class="reference external" href="https://docs.groovy-lang.org/docs/latest/html/documentation/core-domain-specific-languages.html">lends</a> itself to <a class="reference external" href="https://dzone.com/articles/groovy-dsl-simple-example">writing</a> DSLs (<a class="reference external" href="https://en.wikipedia.org/wiki/Domain-specific_language">Domain-Specific Languages</a>)
+with a minimum of syntactic overhead.
+You can frequently omit the paren&shy;the&shy;ses, commas, and semicolons that litter other&nbsp;languages.</p>
+<p>Groovy has <a class="reference external" href="https://groovy-lang.org/syntax.html#_string_interpolation">in&shy;ter&shy;po&shy;lat&shy;ed GStrings</a>, lists, maps, functions, and&nbsp;closures.</p>
+<div class="section" id="closures">
+<h3>Closures</h3>
+<p><a class="reference external" href="https://groovy-lang.org/closures.html">Closures</a> are anonymous functions where state can be captured at de&shy;c&shy;la&shy;ra&shy;tion time
+to be executed later.
+The blocks that follow many Pipeline steps (<tt class="docutils literal">node</tt>, <tt class="docutils literal">stage</tt>, etc) are&nbsp;closures.</p>
+<p>Here&#8217;s an example of a <tt class="docutils literal">Closure</tt> called <tt class="docutils literal">ac&shy;cep&shy;tance_in&shy;te&shy;gra&shy;tion_tests</tt>,
+where the <tt class="docutils literal">re&shy;lease_lev&shy;el</tt> parameter is a <tt class="docutils literal">String</tt>
+which must be either <span>&#8230;<a href="/blog/2017/02/08/Jenkins05-Groovy.html" class="continue">continue</a>.</span></p></div></div>
+    <footer>
+        
+            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/02/08/Jenkins05-Groovy.html#disqus_thread">Comment</a>
+        
+        
+            <p>tagged as
+                <a href="/tag/jenkins/" rel="tag">jenkins</a>
+                    and
+                    
+                <a href="/tag/metabrite/" rel="tag">metabrite</a>
+                
+            </p>
+        
+    </footer>
+    <div class="comments"></div>
+</article>
+
+
+    
+        <article>
+    <header>
         <time datetime="2017-02-07">2017-02-07</time>
         <h1>
             <a href="/blog/2017/02/07/OldPresentations.html" rel="bookmark canonical">Old Presentations</a>
@@ -413,43 +459,6 @@ But there are old vampires who have <span>&#8230;<a href="/blog/2017/02/01/Revie
                     and
                     
                 <a href="/tag/spy/" rel="tag">spy</a>
-                
-            </p>
-        
-    </footer>
-    <div class="comments"></div>
-</article>
-
-
-    
-        <article>
-    <header>
-        <time datetime="2017-01-31">2017-01-31</time>
-        <h1>
-            <a href="/blog/2017/01/31/NegativeCircledDigits.html" rel="bookmark canonical">Negative Circled Digits</a>
-        </h1>
-    </header>
-    <p>I found something very useful in the <a class="reference external" href="http://graphemica.com/blocks/dingbats">dingbats</a> range of Unicode characters:
-the negative circled san-serif digits, ➊ ➋ ➌ ➍ ➎ ➏ ➐ ➑ ➒ ➓&nbsp;.</p>
-<p>I&#8217;ve started using them to label points of interest in code.
-They play well with the <tt class="docutils literal"><span class="pre">code-block</span></tt> directive in&nbsp;re&shy;Struc&shy;tured&shy;Text.</p>
-<pre class="code bash literal-block">
-sudo docker images --format <span class="s1">'{{.Repository}}:{{.Tag}}'</span> <span class="se">\ </span>   ➊
-    <span class="p">|</span> grep <span class="nv">$IMAGE_NAME</span> <span class="se">\ </span>                                   ➋
-    <span class="p">|</span> grep </pre><span>&#8230;<a href="/blog/2017/01/31/NegativeCircledDigits.html" class="continue">continue</a>.</span>
-    <footer>
-        
-            <a class="floatright" href="https://www.georgevreilly.com/blog/2017/01/31/NegativeCircledDigits.html#disqus_thread">Comment</a>
-        
-        
-            <p>tagged as
-                <a href="/tag/writing/" rel="tag">writing</a>,
-                <a href="/tag/tech/" rel="tag">tech</a>,
-                <a href="/tag/font/" rel="tag">font</a>,
-                <a href="/tag/blogging/" rel="tag">blogging</a>
-                    and
-                    
-                <a href="/tag/til/" rel="tag">til</a>
                 
             </p>
         
