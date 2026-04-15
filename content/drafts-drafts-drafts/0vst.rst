@@ -1,6 +1,6 @@
 ---
 title: "George's reStructuredText cheat sheet"
-# date: "2025-mm-dd"
+# date: "2026-mm-dd"
 permalink: "/drafts-drafts-drafts/GeorgesReStructuredTextCheatSheet.html"
 tags: [reStructuredText]
 draft: true
